@@ -1,0 +1,803 @@
+//
+//  CBNewMenuViewController.m
+//  CorpBoard
+//
+//  Created by Justin Moore on 7/2/14.
+//  Copyright (c) 2014 Justin Moore. All rights reserved.
+//
+
+#import "CBNewMenuViewController.h"
+#import <Parse/Parse.h>
+#import "CSSingle.h"
+#import <QuartzCore/QuartzCore.h>
+#import "NSDate+Utilities.h"
+#import "CSShowDetailsViewController.h"
+#import "NSMutableArray+Shuffling.h"
+
+CSSingle *data;
+NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot;
+NSString *lastShowString;
+NSString *nextShowString;
+
+UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
+
+@interface CBNewMenuViewController ()
+
+@property (nonatomic, strong) IBOutlet UIView *viewAppTitle;
+
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollMain;
+@property (nonatomic, strong) IBOutlet UIView *contentMainView;
+
+@property (nonatomic, strong) NSMutableArray *arrayOfLastShows;
+@property (nonatomic, strong) NSMutableArray *arrayOfNextShows;
+@property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
+@property (nonatomic, strong) NSMutableDictionary *dateIndex;
+
+// Recent Shows
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollViewShows;
+@property (nonatomic, strong) IBOutlet UITableView *tableLastShows;
+@property (nonatomic, strong) IBOutlet UITableView *tableNextShows;
+@property (nonatomic, strong) IBOutlet UIView *contentViewShows;
+
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
+@property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
+@property (nonatomic, strong) IBOutlet UIButton *btnSeeAll;
+@property (nonatomic, strong) IBOutlet UIButton *btnSeeAllArrow;
+
+// Current Top 12
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollTopTwelve;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityTopTwelve;
+@property (nonatomic, strong) IBOutlet UITableView *tableTopFour;
+@property (nonatomic, strong) IBOutlet UITableView *tableTopEight;
+@property (nonatomic, strong) IBOutlet UITableView *tableTopTwelve;
+@property (nonatomic, strong) IBOutlet UILabel *lblTopTwelveHeader;
+@property (nonatomic, strong) IBOutlet UIButton *btnSeeAllRankings;
+@property (nonatomic, strong) IBOutlet UIButton *btnSeeAllRankingsArrow;
+@property (nonatomic, strong) IBOutlet UIView *contentViewTopTwelve;
+
+@property (nonatomic, strong) IBOutlet UIView *viewFeedback;
+
+
+//headshots
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollHeadshots;
+
+
+@property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageTopTwelve;
+
+@property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
+
+@property (nonatomic, strong) IBOutlet UIImageView *imgUpsideDownCavalier;
+
+-(IBAction)seeAllShows_clicked:(id)sender;
+-(IBAction)seeAllRankings_clicked:(id)sender;
+-(IBAction)feedback_clicked:(id)sender;
+-(IBAction)finalsContest_clicked:(id)sender;
+-(IBAction)aboutTheCorps_clicked:(id)sender;
+
+@end
+
+@implementation CBNewMenuViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:YES animated:NO];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    data = [CSSingle data];
+    
+    [self initVariables];
+    [self initUI];
+    
+    [self startTimerForShows];
+    [self startTimerForCorps];
+    [self startTimerForHeadshots];
+    
+}
+
+-(void)initVariables {
+    
+    [self initHeadshots];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(admin:)];
+    longPress.minimumPressDuration = 5;
+    [self.imgUpsideDownCavalier addGestureRecognizer:longPress];
+    self.imgUpsideDownCavalier.userInteractionEnabled = YES;
+}
+
+bool trying;
+-(void)admin:(UILongPressGestureRecognizer *)gesture {
+    
+    if (!trying) {
+        
+        trying = YES;
+        
+        if (data.adminMode) {
+            
+            data.adminMode = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Admin mode disabled" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            
+        } else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Admin Mode" message:@"Enter password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+            [alert show];
+        }
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex > 0) {
+        UITextField *txt = [alertView textFieldAtIndex:0];
+        if ([txt.text isEqualToString:@"Ju$tin!1"]) {
+            data.adminMode = YES;
+            NSLog(@"admin mode enabled");
+        } else {
+            data.adminMode = NO;
+            trying = NO;
+            [self admin:nil];
+        }
+    }
+   
+
+    trying = NO;
+}
+
+-(void)initHeadshots {
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard1"]];
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard2"]];
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Blue Devils1"]];
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets1"]];
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets2"]];
+       [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Phantom Regiment1"]];
+
+    [self.arrayOfHeadshots shuffle];
+}
+
+-(void)initUI {
+
+    self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, 568);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    // Main Content
+    self.view.backgroundColor = self.viewAppTitle.backgroundColor;
+    self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height);
+    self.scrollMain.canCancelContentTouches = YES;
+    self.scrollMain.delaysContentTouches = YES;
+    self.scrollMain.userInteractionEnabled = YES;
+    self.scrollMain.exclusiveTouch = YES;
+    
+    // Current Top 12
+    
+    [self.activityTopTwelve startAnimating];
+    
+    self.pageTopTwelve.hidden = YES;
+    
+    self.lblTopTwelveHeader.hidden = YES;
+    self.btnSeeAllRankings.hidden = YES;
+    self.btnSeeAllRankingsArrow.hidden = YES;
+    
+    self.scrollTopTwelve.hidden = YES;
+    self.scrollTopTwelve.canCancelContentTouches = YES;
+    self.scrollTopTwelve.delaysContentTouches = YES;
+    self.scrollTopTwelve.userInteractionEnabled = YES;
+    self.scrollTopTwelve.exclusiveTouch = YES;
+    self.scrollTopTwelve.contentSize = CGSizeMake(self.scrollTopTwelve.frame.size.width * 3, self.scrollTopTwelve.frame.size.height);
+    
+    
+    self.contentViewTopTwelve.userInteractionEnabled = YES;
+    self.contentViewTopTwelve.exclusiveTouch = YES;
+    
+    // Recent Shows
+    
+    [self.showsActivity startAnimating];
+    
+    self.pageShows.hidden = YES;
+    
+    self.lblShowsHeader.hidden = YES;
+    self.btnSeeAll.hidden = YES;
+    self.btnSeeAllArrow.hidden = YES;
+    
+    self.scrollViewShows.hidden = YES;
+    self.scrollViewShows.canCancelContentTouches = YES;
+    self.scrollViewShows.delaysContentTouches = YES;
+    self.scrollViewShows.userInteractionEnabled = YES;
+    self.scrollViewShows.exclusiveTouch = YES;
+    [self.scrollViewShows setContentSize:self.contentViewShows.frame.size];
+    
+    self.contentViewShows.userInteractionEnabled = YES;
+    self.contentViewShows.exclusiveTouch = YES;
+    
+    
+    //headshots
+    pageOneImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 135)];
+    pageTwoImage = [[UIImageView alloc] initWithFrame:CGRectMake(320, 0, 320, 135)];
+    pageThreeImage = [[UIImageView alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
+
+
+    [self loadPageWithId:(int)[self.arrayOfHeadshots count] - 1 onPage:0];
+	[self loadPageWithId:0 onPage:1];
+	[self loadPageWithId:1 onPage:2];
+    
+    [self.scrollHeadshots addSubview:pageOneImage];
+	[self.scrollHeadshots addSubview:pageTwoImage];
+	[self.scrollHeadshots addSubview:pageThreeImage];
+    
+    self.scrollHeadshots.contentSize = CGSizeMake(960, 135);
+	[self.scrollHeadshots scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
+    
+    self.viewAboutTheCorps.layer.cornerRadius = 8;
+    self.viewAboutTheCorps.layer.borderColor = [UIColor blackColor].CGColor;
+    self.viewAboutTheCorps.layer.borderWidth = 1;
+    
+    self.viewFeedback.layer.cornerRadius = 8;
+    self.viewFeedback.layer.borderColor = [UIColor blackColor].CGColor;
+    self.viewFeedback.layer.borderWidth = 1;
+    
+}
+
+- (void)loadPageWithId:(int)index onPage:(int)page {
+	// load data for page
+	switch (page) {
+		case 0:
+			pageOneImage.image = [self.arrayOfHeadshots objectAtIndex:index];
+			break;
+		case 1:
+			pageTwoImage.image = [self.arrayOfHeadshots objectAtIndex:index];
+			break;
+		case 2:
+			pageThreeImage.image = [self.arrayOfHeadshots objectAtIndex:index];
+			break;
+	}
+}
+
+-(void)startTimerForHeadshots {
+    
+    timerHeadshot = [NSTimer scheduledTimerWithTimeInterval:1
+                                                     target:self
+                                                   selector:@selector(scrollToNextHeadshot)
+                                                   userInfo:nil
+                                                    repeats:YES];
+}
+
+-(void)startTimerForCorps {
+   
+    timerCheckForCorps = [NSTimer scheduledTimerWithTimeInterval:.5
+                                                          target:self
+                                                        selector:@selector(checkCorps)
+                                                        userInfo:nil
+                                                         repeats:YES];
+}
+
+-(void)startTimerForShows {
+    
+    timerCheckForShows = [NSTimer scheduledTimerWithTimeInterval:.5
+                                             target:self
+                                           selector:@selector(checkShows)
+                                           userInfo:nil
+                                            repeats:YES];
+}
+
+int counter = 0;
+-(void)scrollToNextHeadshot {
+    counter ++;
+    if (counter == 5) {
+        counter = 0;
+        
+       [self.scrollHeadshots scrollRectToVisible:CGRectMake(640,0,320,416) animated:YES];
+    }
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    
+    // We are moving forward. Load the current doc data on the first page.
+    [self loadPageWithId:currIndex onPage:0];
+    // Add one to the currentIndex or reset to 0 if we have reached the end.
+    currIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
+    [self loadPageWithId:currIndex onPage:1];
+    // Load content on the last page. This is either from the next item in the array
+    // or the first if we have reached the end.
+    nextIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
+    [self loadPageWithId:nextIndex onPage:2];
+    
+    
+    // Reset offset back to middle page
+    [self.scrollHeadshots scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
+    
+    
+}
+
+-(void)openShow:(UIButton *)sender {
+    
+    UIView *parentCell = sender.superview;
+    
+    while (![parentCell isKindOfClass:[UITableViewCell class]]) {   // iOS 7 onwards the table cell hierachy has changed.
+        parentCell = parentCell.superview;
+    }
+    
+    UIView *parentView = parentCell.superview;
+    
+    while (![parentView isKindOfClass:[UITableView class]]) {   // iOS 7 onwards the table cell hierachy has changed.
+        parentView = parentView.superview;
+    }
+    
+    
+    UITableView *tableView = (UITableView *)parentView;
+    NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)parentCell];
+    
+    
+    if (tableView == self.tableLastShows) {
+        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+    } else if (tableView == self.tableNextShows) {
+        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+    }
+    
+    if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
+    
+}
+
+-(void)checkCorps {
+    
+    if (data.updatedCorps) {
+        [timerCheckForCorps invalidate];
+        [self sortScores];
+    }
+}
+
+-(void)sortScores {
+    
+    NSSortDescriptor *sortOfficialScores = [[NSSortDescriptor alloc] initWithKey:@"lastScore" ascending:NO];
+    NSArray *sortOfficialScoresDescriptor = [NSArray arrayWithObject: sortOfficialScores];
+        
+    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
+    
+    
+    [self.activityTopTwelve stopAnimating];
+    self.pageTopTwelve.hidden = NO;
+    self.activityTopTwelve.hidden = YES;
+    self.scrollTopTwelve.hidden = NO;
+    self.lblTopTwelveHeader.hidden = NO;
+    self.btnSeeAllRankingsArrow.hidden = NO;
+    self.btnSeeAllRankings.hidden = NO;
+    [self.tableTopFour reloadData];
+    [self.tableTopEight reloadData];
+    [self.tableTopTwelve reloadData];
+}
+
+-(void)checkShows {
+    
+    if (data.updatedShows) {
+        
+        [timerCheckForShows invalidate];
+        
+        if ([data.arrayOfAllShows count]) {
+            
+            [self prepareShowsForTable];
+            
+            [self.showsActivity stopAnimating];
+            self.pageShows.hidden = NO;
+            self.showsActivity.hidden = YES;
+            self.scrollViewShows.hidden = NO;
+            self.lblShowsHeader.hidden = NO;
+            self.btnSeeAllArrow.hidden = NO;
+            self.btnSeeAll.hidden = NO;
+            
+        }
+    }
+}
+
+NSDate *nearestDate;
+
+-(void)prepareShowsForTable {
+
+    [self getPreviousAndNextShows];
+    
+    [self.tableLastShows reloadData];
+    [self.tableNextShows reloadData];
+}
+
+-(void)getPreviousAndNextShows {
+    
+    
+    // For Previous Shows (either shows Yesterday or 2 days ago)
+    for (PFObject *show in data.arrayOfAllShows) {
+        
+        //for yesterday
+        if ([show[@"showDate"] isYesterday]) {
+            [self.arrayOfLastShows addObject:show];
+        }
+        
+        //for today
+        
+        if ([show[@"showDate"] isToday]) {
+            [self.arrayOfNextShows addObject:show];
+        }
+        
+    }
+    
+    //make sure we have shows for yesterday, if not... go back one more day
+    if (![self.arrayOfLastShows count]) {
+        NSDate *twoDays = [NSDate dateWithDaysBeforeNow:2];
+        for (PFObject *show in data.arrayOfAllShows) {
+            if ([show[@"showDate"] isEqualToDateIgnoringTime:twoDays]) {
+                [self.arrayOfLastShows addObject:show];
+            }
+        }
+    }
+    
+    //set the date string for the last shows table
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEEE M/dd"];
+    PFObject *show = [self.arrayOfLastShows objectAtIndex:0];
+    lastShowString = [formatter stringFromDate:show[@"showDate"]];
+    
+    //make sure we have shows for today, if not... go up one more day
+    
+    if (![self.arrayOfNextShows count]) {
+        NSDate *oneDay = [NSDate dateWithDaysFromNow:1];
+        for (PFObject *show in data.arrayOfAllShows) {
+            if ([show[@"showDate"] isEqualToDateIgnoringTime:oneDay]) {
+                [self.arrayOfNextShows addObject:show];
+            }
+        }
+    }
+    
+    //set the date string for the next shows table
+    //set the date string for the last shows table
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    [formatter2 setDateFormat:@"EEEE M/dd"];
+    PFObject *show2 = [self.arrayOfNextShows objectAtIndex:0];
+    nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+    
+    self.lblShowsHeader.text = lastShowString;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - TableView Delegates
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.tableLastShows) {
+        if ([self.arrayOfLastShows count]) {
+            if ([self.arrayOfLastShows count] > 4) return 4;
+            else return [self.arrayOfLastShows count];
+        } else return 0;
+    } else if (tableView == self.tableNextShows) {
+        if ([self.arrayOfNextShows count]) {
+            if ([self.arrayOfNextShows count] > 4) return 4;
+            else return [self.arrayOfNextShows count];
+        } else return 0;
+    }
+    
+    if (tableView == self.tableTopFour) return 4;
+    if (tableView == self.tableTopEight) return 4;
+    if (tableView == self.tableTopTwelve) return 4;
+    
+    return 0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell;
+    PFObject *show;
+    
+    UILabel *lblShowName;
+    UILabel *lblShowLocation;
+    UIButton *btnScores;
+    
+    if (tableView == self.tableLastShows) {
+    
+        cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"show"];
+       
+        lblShowName = (UILabel *)[cell viewWithTag:1];
+        lblShowLocation = (UILabel *)[cell viewWithTag:2];
+        btnScores = (UIButton *)[cell viewWithTag:3];
+        
+        if ([self.arrayOfLastShows count]) {
+            show = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+            
+            lblShowName.text = show[@"showName"];
+            lblShowLocation.text = show[@"showLocation"];
+            
+            BOOL isOver = [show[@"isShowOver"] boolValue];
+            if (isOver) {
+                btnScores.hidden = NO;
+                
+                btnScores.layer.borderWidth = 1.0f;
+                
+                btnScores.layer.borderColor = [UIColor colorWithRed:19/255.0 green:144/255.0 blue:255/255.0 alpha:1.0].CGColor;
+                
+                btnScores.layer.cornerRadius = 4.0f;
+                btnScores.layer.masksToBounds = YES;
+                btnScores.titleLabel.text = @" Scores ";
+            } else btnScores.hidden = YES;
+        }
+        
+        [btnScores addTarget:self action:@selector(openShow:) forControlEvents:UIControlEventTouchUpInside];
+       
+    } else if (tableView == self.tableNextShows) {
+        
+        cell = [self.tableNextShows dequeueReusableCellWithIdentifier:@"show"];
+        
+        lblShowName = (UILabel *)[cell viewWithTag:1];
+        lblShowLocation = (UILabel *)[cell viewWithTag:2];
+        btnScores = (UIButton *)[cell viewWithTag:3];
+        
+        if ([self.arrayOfLastShows count]) {
+            show = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+            
+            lblShowName.text = show[@"showName"];
+            lblShowLocation.text = show[@"showLocation"];
+            
+            BOOL isOver = [show[@"isShowOver"] boolValue];
+            if (isOver) {
+                btnScores.hidden = NO;
+                
+                btnScores.layer.borderWidth = 1.0f;
+                
+                btnScores.layer.borderColor = [UIColor colorWithRed:19/255.0 green:144/255.0 blue:255/255.0 alpha:1.0].CGColor;
+                
+                btnScores.layer.cornerRadius = 4.0f;
+                btnScores.layer.masksToBounds = YES;
+                btnScores.titleLabel.text = @" Scores ";
+            } else btnScores.hidden = YES;
+        }
+        
+        [btnScores addTarget:self action:@selector(openShow:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    
+    PFObject *corps;
+    UILabel *lblCorpsName;
+    UILabel *lblPosition;
+    UILabel *lblScore;
+    UILabel *lblScoreDate;
+    UIImageView *imgView;
+    
+    if ((tableView == self.tableTopFour) || (tableView == self.tableTopEight) || (tableView == self.tableTopTwelve)) {
+        
+        cell = [self.tableTopFour dequeueReusableCellWithIdentifier:@"rank"];
+        
+        lblPosition = (UILabel *)[cell viewWithTag:4];
+        lblCorpsName = (UILabel *)[cell viewWithTag:1];
+        lblScore = (UILabel *)[cell viewWithTag:2];
+        lblScoreDate = (UILabel *)[cell viewWithTag:3];
+        imgView = (UIImageView *)[cell viewWithTag:5];
+        
+        if ([data.arrayOfWorldClass count]) {
+            
+            int increment = 0;
+            if (tableView == self.tableTopFour) increment = 0;
+            if (tableView == self.tableTopEight) increment = 4;
+            if (tableView == self.tableTopTwelve) increment = 8;
+            
+            corps = [data.arrayOfWorldClass objectAtIndex:indexPath.row + increment];
+            
+            if (corps) {
+                lblPosition.text = [NSString stringWithFormat:@"%d", indexPath.row + 1 + increment];
+                lblCorpsName.text = corps[@"corpsName"];
+                lblScore.text = corps[@"lastScore"];
+                UIImage *img = [UIImage imageNamed:corps[@"corpsName"]];
+                imgView.image = img;
+                
+                if ([corps[@"lastScoreDate"] isToday]) {
+                    lblScoreDate.text = @"Today";
+                } else if ([corps[@"lastScoreDate"] isYesterday]) {
+                    lblScoreDate.text = @"Yesterday";
+                } else {
+                    NSInteger days = [corps[@"lastScoreDate"] daysBeforeDate:[NSDate date]];
+                    if (days > 1)  {
+                        lblScoreDate.text = [NSString stringWithFormat:@"%d days ago", days];
+                    } else if (days <= 0) {
+                        lblScoreDate.text = @"";
+                    } else {
+                        lblScoreDate.text = [NSString stringWithFormat:@"%d day ago", days];
+                    }
+                }
+            }
+        }
+    }
+    
+    return cell;
+}
+
+
+PFObject *showToOpen;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if (tableView == self.tableLastShows) {
+        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+        if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
+        
+    } else if (tableView == self.tableNextShows) {
+        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+        if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
+    }
+    
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"openShow"]) {
+        CSShowDetailsViewController *vc = [segue destinationViewController];
+        vc.show = showToOpen;
+    }
+}
+
+#pragma mark - Scrollview Delegates
+CGFloat lastContentOffset;
+
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+    ScrollDirectionUp,
+    ScrollDirectionDown,
+    ScrollDirectionCrazy,
+} ScrollDirection;
+
+ScrollDirection scrollDirection = ScrollDirectionNone;
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView == self.scrollMain) {
+        if (scrollView.contentOffset.y < -128) {
+            scrollView.contentOffset = CGPointMake(0, -128);
+        }
+    }
+    
+    if (lastContentOffset > scrollView.contentOffset.x)
+        scrollDirection = ScrollDirectionRight;
+    else if (lastContentOffset < scrollView.contentOffset.x)
+        scrollDirection = ScrollDirectionLeft;
+    
+    lastContentOffset = scrollView.contentOffset.x;
+    
+    if (scrollView == self.scrollViewShows) {
+        
+        CGFloat pageWidth = self.scrollViewShows.frame.size.width; // you need to have a **iVar** with getter for scrollView
+        float fractionalPage = self.scrollViewShows.contentOffset.x / pageWidth;
+        NSInteger page = lround(fractionalPage);
+        self.pageShows.currentPage = page;
+        
+        if (scrollDirection == ScrollDirectionRight) {
+            self.lblShowsHeader.text = lastShowString;
+        } else if (scrollDirection == ScrollDirectionLeft) {
+            self.lblShowsHeader.text = nextShowString;
+        }
+    }
+    
+    if (scrollView == self.scrollTopTwelve) {
+        CGFloat pageWidth = self.scrollTopTwelve.frame.size.width; // you need to have a **iVar** with getter for scrollView
+        float fractionalPage = self.scrollTopTwelve.contentOffset.x / pageWidth;
+        NSInteger page = lround(fractionalPage);
+        self.pageTopTwelve.currentPage = page;
+    }
+    
+    if (scrollView == self.scrollHeadshots) {
+        // the user scrolled manually, so reset the counter
+        counter = 0;
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    if (scrollView == self.scrollHeadshots) {
+     
+        // All data for the documents are stored in an array (documentTitles).
+        // We keep track of the index that we are scrolling to so that we
+        // know what data to load for each page.
+        if(scrollView.contentOffset.x > scrollView.frame.size.width) {
+            // We are moving forward. Load the current doc data on the first page.
+            [self loadPageWithId:currIndex onPage:0];
+            // Add one to the currentIndex or reset to 0 if we have reached the end.
+            currIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
+            [self loadPageWithId:currIndex onPage:1];
+            // Load content on the last page. This is either from the next item in the array
+            // or the first if we have reached the end.
+            nextIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
+            [self loadPageWithId:nextIndex onPage:2];
+        }
+        if(scrollView.contentOffset.x < scrollView.frame.size.width) {
+            // We are moving backward. Load the current doc data on the last page.
+            [self loadPageWithId:currIndex onPage:2];
+            // Subtract one from the currentIndex or go to the end if we have reached the beginning.
+            currIndex = (currIndex == 0) ? [self.arrayOfHeadshots count]-1 : currIndex - 1;
+            [self loadPageWithId:currIndex onPage:1];
+            // Load content on the first page. This is either from the prev item in the array
+            // or the last if we have reached the beginning.
+            prevIndex = (currIndex == 0) ? [self.arrayOfHeadshots count]-1 : currIndex - 1;
+            [self loadPageWithId:prevIndex onPage:0];     
+        }     
+        
+        // Reset offset back to middle page     
+        [scrollView scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
+    }
+}
+
+-(IBAction)finalsContest_clicked:(id)sender {
+    [self performSegueWithIdentifier:@"contest" sender:self];
+}
+
+-(void)feedback_clicked:(id)sender {
+    
+    [self performSegueWithIdentifier:@"feedback" sender:self];
+}
+
+-(IBAction)seeAllRankings_clicked:(id)sender {
+    
+    [self performSegueWithIdentifier:@"rankings" sender:self];
+}
+
+- (IBAction)seeAllShows_clicked:(id)sender {
+    
+    [self performSegueWithIdentifier:@"shows" sender:self];
+}
+
+-(IBAction)aboutTheCorps_clicked:(id)sender {
+
+    [self performSegueWithIdentifier:@"corps" sender:self];
+}
+
+-(NSMutableDictionary *)dateIndex {
+    if (!_dateIndex) {
+        _dateIndex = [[NSMutableDictionary alloc] init];
+    }
+    return _dateIndex;
+}
+
+-(NSMutableArray *)datesArray {
+    if (!_datesArray) {
+        _datesArray = [[NSMutableArray alloc] init];
+    }
+    return _datesArray;
+}
+
+-(NSMutableArray *)arrayOfLastShows {
+    if (!_arrayOfLastShows) {
+        _arrayOfLastShows = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfLastShows;
+}
+
+-(NSMutableArray *)arrayOfNextShows {
+    if (!_arrayOfNextShows) {
+        _arrayOfNextShows = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfNextShows;
+}
+
+-(NSMutableArray *)arrayOfHeadshots {
+    if (!_arrayOfHeadshots) {
+        _arrayOfHeadshots = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfHeadshots;
+}
+
+@end
