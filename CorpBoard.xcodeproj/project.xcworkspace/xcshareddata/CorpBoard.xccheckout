@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>15A18538-A6B6-4067-AE10-AA3E4EA1D87F</string>
+	<string>5CFCBF69-37DB-4A0C-90EF-8E3816FEC912</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CorpBoard</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/JustinDMoore/CorpBoard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CorpBoard/CorpBoard.xcodeproj/project.xcworkspace</string>
+	<string>CorpBoard.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>7F5D78F6-3F72-4C06-8FBE-33D7B3312744</key>
-		<string>../../..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/JustinDMoore/CorpBoard.git</string>

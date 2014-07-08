@@ -17,9 +17,7 @@ CSSingle *data;
 int votedScore;
 int votedFavorites;
 
-@interface CSShowDetailsViewController ()
-
-
+@interface CSShowDetailsViewController() <CSJudgeViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
 @property (strong, nonatomic) NSMutableArray *arrayOfOpenClassScores;

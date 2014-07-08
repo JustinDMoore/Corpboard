@@ -120,13 +120,13 @@ typedef enum : int {
     self.WScores = [[NSMutableArray alloc] init];//WithCapacity:[self.arrayOfWorldClassScores count]];
     
     if ([self.arrayOfWorldClassScores count]) {
-        for (id obj in self.arrayOfWorldClassScores) {
+        for (int i = 0; i < [self.arrayOfWorldClassScores count]; i++ ) {
             [self.WScores addObject:@"0"];
         }
     }
-    
+
     if ([self.arrayOfOpenClassScores count]) {
-        for (id obj in self.arrayOfOpenClassScores) {
+        for (int i = 0; i < [self.arrayOfOpenClassScores count]; i++ ) {
             [self.OScores addObject:@"0"];
         }
     }
@@ -243,7 +243,7 @@ bool backspaced;
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
         if (![pred evaluateWithObject:theTextField.text])
         { // Error, input not matching! Remove last added character.
-            int len = theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
+            int len = (int)theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
             theTextField.text = [theTextField.text substringWithRange:NSMakeRange(0, len)];
             // Now checks if the new length, i.e. the length when the last digit has been deleted is 3, which means that the decimal dot is the last character. If so remove 2 instead of only 1 character!
         }
@@ -262,7 +262,7 @@ bool backspaced;
         }
     }
     
-    previouslen = theTextField.text.length;
+    previouslen = (int)theTextField.text.length;
     backspaced = NO;
 }
 

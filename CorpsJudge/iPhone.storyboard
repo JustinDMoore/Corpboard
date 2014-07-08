@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="f8x-lv-76s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="f8x-lv-76s">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -318,11 +318,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Current Rankings" id="mui-LI-cpT">
-                        <barButtonItem key="backBarButtonItem" title="Menu" style="done" systemItem="refresh" id="drH-ni-qUO">
-                            <color key="tintColor" red="0.5041246009" green="0.73376325980000001" blue="0.9466287364" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Current Rankings" id="mui-LI-cpT"/>
                     <connections>
                         <outlet property="activity" destination="83k-kU-nqM" id="gaE-6S-Y34"/>
                         <outlet property="lblActivity2" destination="fO5-g3-7jT" id="RW3-n9-DIW"/>
@@ -1353,7 +1349,7 @@
             </objects>
             <point key="canvasLocation" x="1406" y="777"/>
         </scene>
-        <!--Finals Prediction View Controller - Finals Prediction Contest-->
+        <!--Finals Prediction View Controller-->
         <scene sceneID="56g-11-1vr">
             <objects>
                 <viewController id="JAR-xS-diz" customClass="CSFinalsPredictionViewController" sceneMemberID="viewController">
@@ -1366,7 +1362,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ix8-aS-2k3">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="test" id="Ix8-aS-2k3">
                                         <rect key="frame" x="0.0" y="86" width="800" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ix8-aS-2k3" id="0yV-4S-nkg">
@@ -1379,11 +1375,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Finals Prediction Contest" id="aec-R8-UaN"/>
+                    <navigationItem key="navigationItem" id="aec-R8-UaN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ICd-Jp-joJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3269" y="851"/>
+            <point key="canvasLocation" x="3543" y="973"/>
         </scene>
         <!--Finals Prediction Contest Info View Controller - Finals Prediction Contest-->
         <scene sceneID="Zr4-kg-FJq">

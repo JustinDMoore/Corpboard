@@ -23,6 +23,11 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 @interface CBNewMenuViewController ()
 
+
+@property (nonatomic) int prevIndex;
+@property (nonatomic) int currIndex;
+@property (nonatomic) int nextIndex;
+
 @property (nonatomic, strong) IBOutlet UIView *viewAppTitle;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollMain;
@@ -112,10 +117,10 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 -(void)initVariables {
     
     [self initHeadshots];
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(admin:)];
-    longPress.minimumPressDuration = 5;
-    [self.imgUpsideDownCavalier addGestureRecognizer:longPress];
-    self.imgUpsideDownCavalier.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(admin:)];
+    tap.numberOfTapsRequired = 5;
+    [self.lblShowsHeader addGestureRecognizer:tap];
+    self.lblShowsHeader.userInteractionEnabled = YES;
 }
 
 bool trying;
@@ -307,14 +312,14 @@ int counter = 0;
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     
     // We are moving forward. Load the current doc data on the first page.
-    [self loadPageWithId:currIndex onPage:0];
+    [self loadPageWithId:self.currIndex onPage:0];
     // Add one to the currentIndex or reset to 0 if we have reached the end.
-    currIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
-    [self loadPageWithId:currIndex onPage:1];
+    self.currIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+    [self loadPageWithId:self.currIndex onPage:1];
     // Load content on the last page. This is either from the next item in the array
     // or the first if we have reached the end.
-    nextIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
-    [self loadPageWithId:nextIndex onPage:2];
+    self.nextIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+    [self loadPageWithId:self.nextIndex onPage:2];
     
     
     // Reset offset back to middle page
@@ -598,7 +603,7 @@ NSDate *nearestDate;
             corps = [data.arrayOfWorldClass objectAtIndex:indexPath.row + increment];
             
             if (corps) {
-                lblPosition.text = [NSString stringWithFormat:@"%d", indexPath.row + 1 + increment];
+                lblPosition.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1 + increment];
                 lblCorpsName.text = corps[@"corpsName"];
                 lblScore.text = corps[@"lastScore"];
                 UIImage *img = [UIImage imageNamed:corps[@"corpsName"]];
@@ -611,11 +616,11 @@ NSDate *nearestDate;
                 } else {
                     NSInteger days = [corps[@"lastScoreDate"] daysBeforeDate:[NSDate date]];
                     if (days > 1)  {
-                        lblScoreDate.text = [NSString stringWithFormat:@"%d days ago", days];
+                        lblScoreDate.text = [NSString stringWithFormat:@"%li days ago", (long)days];
                     } else if (days <= 0) {
                         lblScoreDate.text = @"";
                     } else {
-                        lblScoreDate.text = [NSString stringWithFormat:@"%d day ago", days];
+                        lblScoreDate.text = [NSString stringWithFormat:@"%li day ago", (long)days];
                     }
                 }
             }
@@ -715,25 +720,25 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
         // know what data to load for each page.
         if(scrollView.contentOffset.x > scrollView.frame.size.width) {
             // We are moving forward. Load the current doc data on the first page.
-            [self loadPageWithId:currIndex onPage:0];
+            [self loadPageWithId:self.currIndex onPage:0];
             // Add one to the currentIndex or reset to 0 if we have reached the end.
-            currIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
-            [self loadPageWithId:currIndex onPage:1];
+            self.currIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+            [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the last page. This is either from the next item in the array
             // or the first if we have reached the end.
-            nextIndex = (currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : currIndex + 1;
-            [self loadPageWithId:nextIndex onPage:2];
+            self.nextIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+            [self loadPageWithId:self.nextIndex onPage:2];
         }
         if(scrollView.contentOffset.x < scrollView.frame.size.width) {
             // We are moving backward. Load the current doc data on the last page.
-            [self loadPageWithId:currIndex onPage:2];
+            [self loadPageWithId:self.currIndex onPage:2];
             // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-            currIndex = (currIndex == 0) ? [self.arrayOfHeadshots count]-1 : currIndex - 1;
-            [self loadPageWithId:currIndex onPage:1];
+            self.currIndex = (self.currIndex == 0) ? (int)[self.arrayOfHeadshots count]-1 : self.currIndex - 1;
+            [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the first page. This is either from the prev item in the array
             // or the last if we have reached the beginning.
-            prevIndex = (currIndex == 0) ? [self.arrayOfHeadshots count]-1 : currIndex - 1;
-            [self loadPageWithId:prevIndex onPage:0];     
+            self.prevIndex = (self.currIndex == 0) ? (int)[self.arrayOfHeadshots count]-1 : self.currIndex - 1;
+            [self loadPageWithId:self.prevIndex onPage:0];
         }     
         
         // Reset offset back to middle page     

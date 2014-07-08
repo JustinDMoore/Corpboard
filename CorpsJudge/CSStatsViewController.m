@@ -28,7 +28,6 @@ int totalWorldColorguardVotes, totalOpenColorguardVotes;
 int totalWorldLoudestVotes, totalOpenLoudestVotes;
 int totalWorldFavoriteCorpsVotes, totalOpenFavoriteCorpsVotes;
 
-UILabel *label;
 
 typedef enum : int {
     phaseScore = 0,
@@ -124,60 +123,6 @@ typedef enum : int {
     [queryUserHornlineRanks cancel];
 
 }
-//
-//-(void)countWorldHornlineVotes {
-//    
-//    totalWorldHornlineVotes = 0;
-//    PFQuery *countWorld = [PFQuery queryWithClassName:@"favorites"];
-//    [countWorld whereKey:@"category" equalTo:@"Favorite Hornline"];
-//    [countWorld whereKey:@"isWorldClass" equalTo:[NSNumber numberWithBool:YES]];
-//    [countWorld includeKey:@"corps"];
-//    [countWorld findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        totalWorldHornlineVotes = [objects count];
-//        [data.arrayOfWorldHornlineVotes addObjectsFromArray:objects];
-//    }];
-//
-//}
-//
-//-(void)countOpenHornlineVotes {
-//    
-//    totalOpenHornlineVotes = 0;
-//    PFQuery *countOpen = [PFQuery queryWithClassName:@"favorites"];
-//    [countOpen whereKey:@"category" equalTo:@"Favorite Hornline"];
-//    [countOpen whereKey:@"isWorldClass" equalTo:[NSNumber numberWithBool:NO]];
-//    [countOpen includeKey:@"corps"];
-//    [countOpen findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        totalOpenHornlineVotes = [objects count];
-//        [data.arrayOfOpenHornlineVotes addObjectsFromArray:objects];
-//    }];
-//}
-//
-//-(void)countWorldPercussionVotes {
-//    
-//    totalWorldPercussionVotes = 0;
-//    PFQuery *countWorld = [PFQuery queryWithClassName:@"favorites"];
-//    [countWorld whereKey:@"category" equalTo:@"Favorite Drums"];
-//    [countWorld whereKey:@"isWorldClass" equalTo:[NSNumber numberWithBool:YES]];
-//    [countWorld includeKey:@"corps"];
-//    [countWorld findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        totalWorldPercussionVotes = [objects count];
-//        [data.arrayOfWorldPercussionVotes addObjectsFromArray:objects];
-//    }];
-//}
-//
-//-(void)countOpenPercussionVotes {
-//    
-//    totalOpenPercussionVotes = 0;
-//    
-//    PFQuery *countOpen = [PFQuery queryWithClassName:@"favorites"];
-//    [countOpen whereKey:@"category" equalTo:@"Favorite Drums"];
-//    [countOpen whereKey:@"isWorldClass" equalTo:[NSNumber numberWithBool:NO]];
-//    [countOpen includeKey:@"corps"];
-//    [countOpen findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        totalOpenPercussionVotes = [objects count];
-//        [data.arrayOfOpenPercussionVotes addObjectsFromArray:objects];
-//    }];
-//}
 
 -(void)checkForCorps {
     
@@ -209,15 +154,6 @@ typedef enum : int {
 }
 
 -(void)initUI {
-    
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
-    label.textAlignment = UITextAlignmentCenter;
-    [label setFont:[UIFont boldSystemFontOfSize:16.0]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextColor:[UIColor blackColor]];
-    [label setText:@"Official Rankings"];
-    [self.navigationController.navigationBar.topItem setTitleView:label];
-    
     
     [self.activity startAnimating];
     [self.segmentOfficial addTarget:self
@@ -1084,7 +1020,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
                 if (corps) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = corps[@"corpsName"];
                     lblScore.text = corps[@"lastScore"];
                     
@@ -1108,10 +1044,10 @@ bool isDoneSortingFavorites = NO;
                     else if ([showD isYesterday]) lblDay.text = @"Yesterday";
                     else {
                         NSInteger days = [showD daysBeforeDate:[NSDate date]];
-                        if (days > 1) lblDay.text = [NSString stringWithFormat:@"%d days ago", days];
+                        if (days > 1) lblDay.text = [NSString stringWithFormat:@"%li days ago", (long)days];
                         else if (days <= 0) {
                             lblDay.text = @"";
-                        }else lblDay.text = [NSString stringWithFormat:@"%d day ago", days];
+                        }else lblDay.text = [NSString stringWithFormat:@"%li day ago", (long)days];
                     }
                 }
             } else { // USER REVIEWS
@@ -1127,7 +1063,7 @@ bool isDoneSortingFavorites = NO;
                 UserScore *us;
                 if ([array count]) us = [array objectAtIndex:indexPath.row];
                 if (us) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = us.corpsName;
                     lblScore.text = [NSString stringWithFormat:@"%.2f", us.score];
                 }
@@ -1150,7 +1086,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score[@"corpsName"];
                     lblScore.text = score[@"lastBrass"];
                 }
@@ -1168,7 +1104,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score.corpsName;
                     //calculate percentage
                     float result = 0.0;
@@ -1198,7 +1134,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score[@"corpsName"];
                     lblScore.text = score[@"lastPercussion"];
                 }
@@ -1216,7 +1152,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score.corpsName;
                     //calculate percentage
                     float result = 0.0;
@@ -1246,7 +1182,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score[@"corpsName"];
                     lblScore.text = score[@"lastColorguard"];
                 }
@@ -1264,7 +1200,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score.corpsName;
                     //calculate percentage
                     float result = 0.0;
@@ -1294,7 +1230,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score.corpsName;
                     //calculate percentage
                     float result = 0.0;
@@ -1324,7 +1260,7 @@ bool isDoneSortingFavorites = NO;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = score.corpsName;
                     //calculate percentage
                     float result = 0.0;
@@ -1387,7 +1323,6 @@ bool isDoneSortingFavorites = NO;
      
         switch (self.scorePhase) {
             case phaseScore:
-                label.text = @"User Rankingsss";
                 //self.navTitle.title = @"User Rankings";
                 break;
             case phaseFavorite:
