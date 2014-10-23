@@ -1052,7 +1052,15 @@ bool isDoneSortingFavorites = NO;
                     else if ([showD isYesterday]) lblDay.text = @"Yesterday";
                     else {
                         NSInteger days = [showD daysBeforeDate:[NSDate date]];
-                        if (days > 1) lblDay.text = [NSString stringWithFormat:@"%li days ago", (long)days];
+                        if (days > 5) {
+                            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                            [format setDateFormat:@"MMMM d"];
+                            
+                            NSString *dateString = [format stringFromDate:corps[@"lastScoreDate"]];
+                            lblDay.text = [NSString stringWithFormat:@"%@", dateString];
+                        } else if (days > 1) {
+                            lblDay.text = [NSString stringWithFormat:@"%li days ago", (long)days];
+                        }
                         else if (days <= 0) {
                             lblDay.text = @"";
                         }else lblDay.text = [NSString stringWithFormat:@"%li day ago", (long)days];

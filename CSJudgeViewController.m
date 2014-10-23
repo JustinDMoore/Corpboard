@@ -379,6 +379,8 @@ bool backspaced;
     [self voted];
     
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks!" message:@"Your vote has been submitted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (IBAction)voted {
@@ -457,8 +459,6 @@ bool backspaced;
     score[@"user"] = [PFUser currentUser];
     score[@"isWorldClass"] = corpsForScore[@"isWorldClass"];
     score[@"showDate"] = self.show[@"showDate"];
-    
-    // TODO: add user to this
     
     [score saveInBackground];
 
@@ -654,7 +654,11 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
     if (self.scorePhase == phaseScore) {
         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"score"];
         UITextField *text = (UITextField *)[cell viewWithTag:2];
+        UILabel *label = (UILabel *)[cell viewWithTag:1];
         text.delegate = self;
+        [tableView setUserInteractionEnabled:YES];
+        [cell setUserInteractionEnabled:YES];
+        [text setUserInteractionEnabled:YES];
         [text addTarget:self
                       action:@selector(textFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
@@ -667,7 +671,6 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                         text.text = @"";
                     } else text.text = scoreString;
                 }
-                
                 break;
             case 1:
                 scoreString = [self.OScores objectAtIndex:indexPath.row];
@@ -679,7 +682,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                 text.text = @"Error";
                 break;
         }
-        cell.textLabel.text = corps[@"corpsName"];
+        label.text = corps[@"corpsName"];
         
     } else if (self.scorePhase == phaseSummary) {
         
