@@ -11,6 +11,8 @@
 
 @interface CSSingle : NSObject
 
+@property (nonatomic, strong) NSDate *currentDate;
+
 @property (nonatomic) BOOL adminMode;
 
 @property (nonatomic, strong) UIColor *systemColor;

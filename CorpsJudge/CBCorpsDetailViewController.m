@@ -44,12 +44,13 @@
     self.corpsFrom.text = self.corps[@"from"];
     self.corpsShow.text = self.corps[@"repertoire"];
     self.imgCorps.image = [UIImage imageNamed:self.corps[@"corpsName"]];
-    [self.btnLink setTitle:self.corps[@"link"] forState:UIControlStateNormal];
+    [self.btnLink setTitle:self.corps[@"website"] forState:UIControlStateNormal];
     self.corpsShowTitle.text = self.corps[@"showTitle"];
     
     self.title = self.corps[@"corpsName"];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
+    self.navigationItem.title = @"";
     
     self.corpsShow.textColor = [UIColor lightGrayColor];
     self.btnLink.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -58,7 +59,7 @@
     
     if (self.corps[@"champs"]) {
         
-        self.lblChamps.text = [NSString stringWithFormat:@"World Champions %@", self.corps[@"champs"]];
+        self.lblChamps.text = [NSString stringWithFormat:@"%@", self.corps[@"champs"]];
         
         [self.lblChamps sizeToFit];
         

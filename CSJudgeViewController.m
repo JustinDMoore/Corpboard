@@ -470,6 +470,13 @@ bool backspaced;
 
 #pragma mark - TableView
 
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -944,23 +951,23 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestdrums:
-            self.lblInstructions.text = @"Best Percussion";
+            self.lblInstructions.text = @"Who had the best percussion?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBesthornline:
-            self.lblInstructions.text = @"Best Hornline";
+            self.lblInstructions.text = @"Who had the best brass?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestguard:
-            self.lblInstructions.text = @"Best Colorguard";
+            self.lblInstructions.text = @"Who had the best colorguard?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseLoudesthornline:
-            self.lblInstructions.text = @"Loudest Hornline";
+            self.lblInstructions.text = @"Who had the loudest hornline?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseFavorite:
-            self.lblInstructions.text = @"Favorite Show";
+            self.lblInstructions.text = @"What was your favorite show?";
             //self.btnNext.titleLabel.text = @"Submit";
             break;
         case phaseSummary:

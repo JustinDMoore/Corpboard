@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5CFCBF69-37DB-4A0C-90EF-8E3816FEC912</string>
+	<string>62608136-7A13-4AFF-8938-7702CF6F37F0</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CorpBoard</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7F5D78F6-3F72-4C06-8FBE-33D7B3312744</key>
+		<key>B2955F846EA56DFE69F39A41FF649C0513AD37C0</key>
 		<string>https://github.com/JustinDMoore/CorpBoard.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CorpBoard.xcodeproj/project.xcworkspace</string>
+	<string>CorpBoard.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7F5D78F6-3F72-4C06-8FBE-33D7B3312744</key>
+		<key>B2955F846EA56DFE69F39A41FF649C0513AD37C0</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/JustinDMoore/CorpBoard.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7F5D78F6-3F72-4C06-8FBE-33D7B3312744</string>
+	<string>B2955F846EA56DFE69F39A41FF649C0513AD37C0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7F5D78F6-3F72-4C06-8FBE-33D7B3312744</string>
+			<string>B2955F846EA56DFE69F39A41FF649C0513AD37C0</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CorpBoard</string>
 		</dict>

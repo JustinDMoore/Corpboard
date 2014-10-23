@@ -98,6 +98,16 @@ NSTimer *timer;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table View
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 2;

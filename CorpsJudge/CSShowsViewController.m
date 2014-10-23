@@ -52,8 +52,6 @@ BOOL refreshing = NO;
 }
 
 - (void)viewDidLoad {
-    
- 
 
     [super viewDidLoad];
     
@@ -80,7 +78,6 @@ BOOL refreshing = NO;
 -(void)checkForShows {
     
     if (data.updatedShows) {
-        
         [timer invalidate];
         
         if ([data.arrayOfAllShows count]) {
@@ -97,7 +94,7 @@ BOOL refreshing = NO;
             }
         } else {
             
-            self.lblActivity.text = @"Error";
+            self.lblActivity.text = @"Could not connect to server";
             [self.activity stopAnimating];
             self.activity.hidden = YES;
         }

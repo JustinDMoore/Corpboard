@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		92120A90195945B600FFB9A8 /* CSStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CSStatsViewController.m */; };
-		921241CA1958920F0010C78C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921241C91958920F0010C78C /* FacebookSDK.framework */; };
 		924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924280E11963A573006E8240 /* CBCorpsViewController.m */; };
 		924807501968830600481492 /* Bluecoats.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248074F1968830600481492 /* Bluecoats.png */; };
 		924807521968831400481492 /* Crossmen.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807511968831400481492 /* Crossmen.png */; };
@@ -37,11 +36,12 @@
 		925334A0194FD5D70004D16F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533484194FD5D70004D16F /* CoreData.framework */; };
 		925334A8194FD5D70004D16F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 925334A6194FD5D70004D16F /* InfoPlist.strings */; };
 		925334AA194FD5D70004D16F /* CorpsJudgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 925334A9194FD5D70004D16F /* CorpsJudgeTests.m */; };
-		925334BE194FD6F80004D16F /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925334BD194FD6F80004D16F /* iPhone.storyboard */; };
+		925334BE194FD6F80004D16F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925334BD194FD6F80004D16F /* Main.storyboard */; };
 		925334C1194FD7BC0004D16F /* CSShowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925334C0194FD7BC0004D16F /* CSShowsViewController.m */; };
 		9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAB1968F09700DFB09E /* Blue Devils1.png */; };
 		9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
+		927CC01A19F8D18E00B700B2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927CC01919F8D18E00B700B2 /* FacebookSDK.framework */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C795D71966729200A5D8F8 /* The Cavaliers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795D61966729200A5D8F8 /* The Cavaliers.png */; };
 		92C795DF196676F900A5D8F8 /* Blue Devils.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795DE196676F900A5D8F8 /* Blue Devils.png */; };
@@ -109,7 +109,6 @@
 /* Begin PBXFileReference section */
 		92120A8E195945B600FFB9A8 /* CSStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSStatsViewController.h; sourceTree = "<group>"; };
 		92120A8F195945B600FFB9A8 /* CSStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSStatsViewController.m; sourceTree = "<group>"; };
-		921241C91958920F0010C78C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		924280E01963A573006E8240 /* CBCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsViewController.h; sourceTree = "<group>"; };
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
 		9248074F1968830600481492 /* Bluecoats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bluecoats.png; sourceTree = "<group>"; };
@@ -143,13 +142,14 @@
 		925334A5194FD5D70004D16F /* CorpBoardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorpBoardTests-Info.plist"; sourceTree = "<group>"; };
 		925334A7194FD5D70004D16F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		925334A9194FD5D70004D16F /* CorpsJudgeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CorpsJudgeTests.m; sourceTree = "<group>"; };
-		925334BD194FD6F80004D16F /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
+		925334BD194FD6F80004D16F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		925334BF194FD7BC0004D16F /* CSShowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSShowsViewController.h; sourceTree = "<group>"; };
 		925334C0194FD7BC0004D16F /* CSShowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSShowsViewController.m; sourceTree = "<group>"; };
 		9270DBAB1968F09700DFB09E /* Blue Devils1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Devils1.png"; sourceTree = "<group>"; };
 		9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Regiment1.png"; sourceTree = "<group>"; };
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
 		927254FC1963B12000275511 /* CBCorpsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsDetailViewController.m; sourceTree = "<group>"; };
+		927CC01919F8D18E00B700B2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScore.m; sourceTree = "<group>"; };
 		92C795D61966729200A5D8F8 /* The Cavaliers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cavaliers.png"; sourceTree = "<group>"; };
@@ -186,7 +186,6 @@
 		D0307DB619537792000849F1 /* CSShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSShowDetailsViewController.m; sourceTree = "<group>"; };
 		D0307DBB1953B5B8000849F1 /* CSJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSJudgeViewController.h; path = ../CSJudgeViewController.h; sourceTree = "<group>"; };
 		D0307DBC1953B5B8000849F1 /* CSJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSJudgeViewController.m; path = ../CSJudgeViewController.m; sourceTree = "<group>"; };
-		D04702D01957842E0004A0EF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		D04702D5195785F70004A0EF /* CSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSLoginViewController.h; path = ../CSLoginViewController.h; sourceTree = "<group>"; };
 		D04702D6195785F70004A0EF /* CSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSLoginViewController.m; path = ../CSLoginViewController.m; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -234,10 +233,10 @@
 				D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */,
 				D0A8146719521D7800F4EC53 /* StoreKit.framework in Frameworks */,
 				D0A8146519521D7000F4EC53 /* Security.framework in Frameworks */,
-				921241CA1958920F0010C78C /* FacebookSDK.framework in Frameworks */,
 				D0A8146319521D6900F4EC53 /* QuartzCore.framework in Frameworks */,
 				D0A8146119521D5B00F4EC53 /* MobileCoreServices.framework in Frameworks */,
 				D0A8145F19521D5000F4EC53 /* libz.dylib in Frameworks */,
+				927CC01A19F8D18E00B700B2 /* FacebookSDK.framework in Frameworks */,
 				D0A8145D19521D3A00F4EC53 /* CoreLocation.framework in Frameworks */,
 				92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */,
 				D0A8145B19521D2C00F4EC53 /* CFNetwork.framework in Frameworks */,
@@ -266,8 +265,6 @@
 		92533472194FD5D70004D16F = {
 			isa = PBXGroup;
 			children = (
-				D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */,
-				D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */,
 				92533486194FD5D70004D16F /* CorpBoard */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
 				9253347D194FD5D70004D16F /* Frameworks */,
@@ -288,10 +285,9 @@
 		9253347D194FD5D70004D16F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				921241C91958920F0010C78C /* FacebookSDK.framework */,
+				927CC01919F8D18E00B700B2 /* FacebookSDK.framework */,
 				D04702DA195790B40004A0EF /* Social.framework */,
 				D04702D8195790AC0004A0EF /* Accounts.framework */,
-				D04702D01957842E0004A0EF /* FacebookSDK.framework */,
 				D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */,
 				D0A8146619521D7800F4EC53 /* StoreKit.framework */,
 				D0A8146419521D7000F4EC53 /* Security.framework */,
@@ -314,11 +310,10 @@
 		92533486194FD5D70004D16F /* CorpBoard */ = {
 			isa = PBXGroup;
 			children = (
-				925334BD194FD6F80004D16F /* iPhone.storyboard */,
-				D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */,
-				D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */,
-				927254FB1963B12000275511 /* CBCorpsDetailViewController.h */,
-				927254FC1963B12000275511 /* CBCorpsDetailViewController.m */,
+				925334BD194FD6F80004D16F /* Main.storyboard */,
+				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
+				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
+				D02D63FB19F820E7000139CE /* Classes */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
 				92533487194FD5D70004D16F /* Supporting Files */,
@@ -382,14 +377,14 @@
 			children = (
 				D04702D5195785F70004A0EF /* CSLoginViewController.h */,
 				D04702D6195785F70004A0EF /* CSLoginViewController.m */,
+				D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */,
+				D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */,
 				925334BF194FD7BC0004D16F /* CSShowsViewController.h */,
 				925334C0194FD7BC0004D16F /* CSShowsViewController.m */,
 				D0307DB519537792000849F1 /* CSShowDetailsViewController.h */,
 				D0307DB619537792000849F1 /* CSShowDetailsViewController.m */,
 				92120A8E195945B600FFB9A8 /* CSStatsViewController.h */,
 				92120A8F195945B600FFB9A8 /* CSStatsViewController.m */,
-				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
-				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
 				D0307DBB1953B5B8000849F1 /* CSJudgeViewController.h */,
 				D0307DBC1953B5B8000849F1 /* CSJudgeViewController.m */,
 				D0F03C9B1955EF950093FBC3 /* CSRecapViewController.h */,
@@ -402,6 +397,8 @@
 				92CF4C6719627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m */,
 				924280E01963A573006E8240 /* CBCorpsViewController.h */,
 				924280E11963A573006E8240 /* CBCorpsViewController.m */,
+				927254FB1963B12000275511 /* CBCorpsDetailViewController.h */,
+				927254FC1963B12000275511 /* CBCorpsDetailViewController.m */,
 				D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */,
 				D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */,
 			);
@@ -464,6 +461,16 @@
 				D02C99FD19689F4C008E06D8 /* Corps Head Shots */,
 			);
 			name = "Corps Images";
+			sourceTree = "<group>";
+		};
+		D02D63FB19F820E7000139CE /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */,
+				D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */,
+			);
+			name = Classes;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -569,7 +576,7 @@
 				92C795E1196677CE00A5D8F8 /* The Cadets.png in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				92C795F519667DAA00A5D8F8 /* The Academy.png in Resources */,
-				925334BE194FD6F80004D16F /* iPhone.storyboard in Resources */,
+				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
@@ -752,10 +759,12 @@
 					"$(PROJECT_DIR)",
 					/Users/Justin/Documents/FacebookSDK,
 					/Users/justin/Documents/FacebookSDK,
+					/Users/Justin/Documents/Developer/Frameworks/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -775,10 +784,12 @@
 					"$(PROJECT_DIR)",
 					/Users/Justin/Documents/FacebookSDK,
 					/Users/justin/Documents/FacebookSDK,
+					/Users/Justin/Documents/Developer/Frameworks/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

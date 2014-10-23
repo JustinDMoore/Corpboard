@@ -121,6 +121,12 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     tap.numberOfTapsRequired = 5;
     [self.lblShowsHeader addGestureRecognizer:tap];
     self.lblShowsHeader.userInteractionEnabled = YES;
+    
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+                                      style:UIBarButtonItemStylePlain
+                                     target:nil
+                                     action:nil];
 }
 
 bool trying;
@@ -182,7 +188,7 @@ bool trying;
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height);
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 2);
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
@@ -388,7 +394,7 @@ int counter = 0;
 -(void)checkShows {
     
     if (data.updatedShows) {
-        
+
         [timerCheckForShows invalidate];
         
         if ([data.arrayOfAllShows count]) {
@@ -413,44 +419,66 @@ NSDate *nearestDate;
 
     [self getPreviousAndNextShows];
     
-    [self.tableLastShows reloadData];
-    [self.tableNextShows reloadData];
+    if ([self.arrayOfNextShows count]) {
+        [self.tableNextShows reloadData];
+    } else {
+        self.tableNextShows.hidden = YES;
+    }
+    
+    if ([self.arrayOfLastShows count]) {
+        [self.tableLastShows reloadData];
+    } else {
+        self.tableLastShows.hidden = YES;
+    }
+    
+    if (![self.arrayOfLastShows count] || ![self.arrayOfNextShows count]) {
+        self.scrollViewShows.contentSize = CGSizeMake(self.scrollViewShows.contentSize.width / 2, self.scrollViewShows.contentSize.height);
+        self.pageShows.numberOfPages = 0;
+        self.scrollViewShows.scrollEnabled = NO;
+    }
 }
 
 -(void)getPreviousAndNextShows {
     
-    
-    // For Previous Shows (either shows Yesterday or 2 days ago)
     for (PFObject *show in data.arrayOfAllShows) {
         
-        //for yesterday
+        // adds all shows for yesterday
         if ([show[@"showDate"] isYesterday]) {
             [self.arrayOfLastShows addObject:show];
         }
         
-        //for today
-        
+        // adds all shows for today
         if ([show[@"showDate"] isToday]) {
             [self.arrayOfNextShows addObject:show];
         }
         
     }
     
-    //make sure we have shows for yesterday, if not... go back one more day
+    // if no shows yesterday, get the latest show
     if (![self.arrayOfLastShows count]) {
-        NSDate *twoDays = [NSDate dateWithDaysBeforeNow:2];
-        for (PFObject *show in data.arrayOfAllShows) {
-            if ([show[@"showDate"] isEqualToDateIgnoringTime:twoDays]) {
-                [self.arrayOfLastShows addObject:show];
+        
+        int numberOfDays = 1;
+        bool foundLastDate = NO;
+        while (!foundLastDate) {
+            NSDate *days = [NSDate dateWithDaysBeforeNow:numberOfDays];
+            for (PFObject *show in data.arrayOfAllShows) {
+                if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
+                    foundLastDate = YES;
+                    [self.arrayOfLastShows addObject:show];
+                }
             }
+            numberOfDays++;
         }
     }
     
-    //set the date string for the last shows table
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEEE M/dd"];
-    PFObject *show = [self.arrayOfLastShows objectAtIndex:0];
-    lastShowString = [formatter stringFromDate:show[@"showDate"]];
+    if ([self.arrayOfLastShows count]) {
+        //set the date string for the last shows table
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"EEEE M/dd"];
+        PFObject *show = [self.arrayOfLastShows objectAtIndex:0];
+        lastShowString = [formatter stringFromDate:show[@"showDate"]];
+    }
+    
     
     //make sure we have shows for today, if not... go up one more day
     
@@ -463,12 +491,14 @@ NSDate *nearestDate;
         }
     }
     
-    //set the date string for the next shows table
-    //set the date string for the last shows table
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-    [formatter2 setDateFormat:@"EEEE M/dd"];
-    PFObject *show2 = [self.arrayOfNextShows objectAtIndex:0];
-    nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+    if ([self.arrayOfNextShows count]) {
+        //set the date string for the next shows table
+        //set the date string for the last shows table
+        NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+        [formatter2 setDateFormat:@"EEEE M/dd"];
+        PFObject *show2 = [self.arrayOfNextShows objectAtIndex:0];
+        nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+    }
     
     self.lblShowsHeader.text = lastShowString;
 }
@@ -480,6 +510,14 @@ NSDate *nearestDate;
 }
 
 #pragma mark - TableView Delegates
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

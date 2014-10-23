@@ -227,6 +227,14 @@ int votedFavorites;
 
 #pragma mark - TableView
 
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 2;
