@@ -8,6 +8,7 @@
 
 #import "CSAppDelegate.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "CSShowsViewController.h"
 
 @implementation CSAppDelegate
@@ -24,6 +25,7 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    
     [PFFacebookUtils initializeFacebook];
     
     //facebook
@@ -34,6 +36,7 @@
                                consumerSecret:@"vr6Fb8nuoohYQsOekGT0UB33sLMwhqWmeedl41ypuixwWF2ZBO"];
     
     //push notifications
+    [application registerForRemoteNotifications];
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
@@ -43,6 +46,21 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+//    BOOL isLoggedIn = false;
+//    
+//    
+//    PFUser *currentUser = [PFUser currentUser];
+//    [currentUser fetchInBackground];
+//    
+//    if (currentUser) {
+//        isLoggedIn = true;
+//    }
+//    
+//    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
+//    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
+
     
     return YES;
 }

@@ -48,12 +48,18 @@
 
 -(void)showViewRate {
     
+    self.viewRate.frame =
+    CGRectMake(self.viewRate.frame.origin.x - 50, self.viewRate.frame.origin.y - 50, self.viewRate.frame.size.width - 100, self.viewRate.frame.size.height - 100);
     
+    self.viewRate.center = self.viewRate.superview.center;
     
     [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^(void) {
                          
-                         self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x - 55, self.viewRate.frame.origin.y - 55, self.viewRate.frame.size.width + 110, self.viewRate.frame.size.height + 110);
+                         self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x + 55, self.viewRate.frame.origin.y + 55, self.viewRate.frame.size.width + 110, self.viewRate.frame.size.height + 110);
+                         
+                         self.viewRate.center = self.viewRate.superview.center;
+                         
                          self.viewRate.alpha = 1;
                          
                      } completion:^(BOOL finished){
@@ -61,9 +67,14 @@
                          [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                                           animations:^(void) {
                                               
-                                              self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x + 5, self.viewRate.frame.origin.y + 5, self.viewRate.frame.size.width - 10, self.viewRate.frame.size.height - 10);
+                                              self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x - 5, self.viewRate.frame.origin.y - 5, self.viewRate.frame.size.width - 10, self.viewRate.frame.size.height - 10);
+                                              
+                                              self.viewRate.center = self.viewRate.superview.center;
+                                              
+                                             
                                               
                                               
+                                          } completion:^(BOOL finished){
                                               
                                               self.lblHeader.alpha = 1;
                                               self.lblSubHeader.alpha = 1;
@@ -73,14 +84,23 @@
                                               self.viewHorizontal.alpha = 1;
                                               self.viewVertical.alpha = 1;
                                               
-                                              
-                                          } completion:^(BOOL finished){
-                                              
-                                              
+                                              [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
+                                                               animations:^(void) {
+                                                                   
+                                                     
+                                                                   
+                                                                   
+                                                                   
+                                                                   
+                                                               } completion:^(BOOL finished){
+                                                                   
+                                                                   
+                                                                   
+                                                               }];
                                               
                                           }];
                          
-                     }];
+                        }];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -98,8 +118,8 @@
     self.txtFeedback.placeholderColor = [UIColor lightGrayColor];
     self.txtFeedback.textColor = [UIColor whiteColor];
     
-    self.viewRate.frame =
-    CGRectMake(self.viewRate.frame.origin.x + 50, self.viewRate.frame.origin.y + 50, self.viewRate.frame.size.width - 100, self.viewRate.frame.size.height - 100);
+    
+    
     self.viewRate.alpha = 0;
     self.lblHeader.alpha = 0;
     self.lblSubHeader.alpha = 0;

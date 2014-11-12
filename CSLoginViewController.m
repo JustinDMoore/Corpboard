@@ -8,6 +8,7 @@
 
 #import "CSLoginViewController.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "JustinHelper.h"
 #import "CSShowsViewController.h"
 #import "CSSingle.h"
@@ -65,9 +66,8 @@ BOOL loggingIn;
     self.navigationController.navigationBarHidden = YES;
     
     PFUser *currentUser = [PFUser currentUser];
-    [currentUser refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-    }];
+    [currentUser fetchInBackground];
+
     if (currentUser) {
         [self useApp];
     } else {

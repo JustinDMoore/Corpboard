@@ -7,7 +7,7 @@
 //
 
 #import "CSShowDetailsViewController.h"
-#import "CSRecapViewController.h"
+#import "CBWebViewController.h"
 #import "CSLoginViewController.h"
 #import "CSJudgeViewController.h"
 #import "CSSingle.h"
@@ -358,9 +358,11 @@ int votedFavorites;
         vc.show = self.show;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
-    } else if ([[segue identifier] isEqualToString:@"recap"]) {
-        CSRecapViewController *vc = [segue destinationViewController];
-        vc.recapURL = self.show[@"recapURL"];
+    } else if ([[segue identifier] isEqualToString:@"web"]) {
+        CBWebViewController *vc = [segue destinationViewController];
+        vc.webURL = self.show[@"recapURL"];
+        vc.websiteTitle = [NSString stringWithFormat:@"%@ Recap", self.show[@"showName"]];
+        vc.websiteSubTitle = vc.webURL;
     } 
 }
 

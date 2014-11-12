@@ -14,7 +14,7 @@
                     day:(NSInteger)day
                    year:(NSInteger)year {
     
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *dateComps = [[NSDateComponents alloc] init];
     [dateComps setCalendar:gregorian];
     [dateComps setMonth:month];
