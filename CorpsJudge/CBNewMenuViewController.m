@@ -47,7 +47,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
 @property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
 @property (nonatomic, strong) IBOutlet UIButton *btnSeeAll;
-@property (nonatomic, strong) IBOutlet UIButton *btnSeeAllArrow;
 
 // Current Top 12
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollTopTwelve;
@@ -57,7 +56,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UITableView *tableTopTwelve;
 @property (nonatomic, strong) IBOutlet UILabel *lblTopTwelveHeader;
 @property (nonatomic, strong) IBOutlet UIButton *btnSeeAllRankings;
-@property (nonatomic, strong) IBOutlet UIButton *btnSeeAllRankingsArrow;
 @property (nonatomic, strong) IBOutlet UIView *contentViewTopTwelve;
 
 @property (nonatomic, strong) IBOutlet UIView *viewFeedback;
@@ -73,6 +71,11 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
 
 @property (nonatomic, strong) IBOutlet UIImageView *imgUpsideDownCavalier;
+
+// News
+@property (weak, nonatomic) IBOutlet UITableView *tableNews;
+@property (weak, nonatomic) IBOutlet UIButton *btnSeeAllNews;
+
 
 -(IBAction)seeAllShows_clicked:(id)sender;
 -(IBAction)seeAllRankings_clicked:(id)sender;
@@ -182,6 +185,30 @@ bool trying;
 
 -(void)initUI {
 
+    //arrows
+    UITableViewCell *showArrow = [[UITableViewCell alloc] init];
+    [self.btnSeeAll addSubview:showArrow];
+    showArrow.frame = self.btnSeeAll.bounds;
+    showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    showArrow.userInteractionEnabled = NO;
+    showArrow.tintColor = [UIColor redColor];
+    
+    UITableViewCell *rankArrow = [[UITableViewCell alloc] init];
+    [self.btnSeeAllRankings addSubview:rankArrow];
+    rankArrow.frame = self.btnSeeAllRankings.bounds;
+    rankArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    rankArrow.userInteractionEnabled = NO;
+    rankArrow.tintColor = [UIColor redColor];
+    
+    UITableViewCell *newsArrow = [[UITableViewCell alloc] init];
+    [self.btnSeeAllNews addSubview:newsArrow];
+    newsArrow.frame = self.btnSeeAllNews.bounds;
+    newsArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    newsArrow.userInteractionEnabled = NO;
+    newsArrow.tintColor = [UIColor redColor];
+    
+    
+    //
     self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, 568);
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -202,7 +229,6 @@ bool trying;
     
     self.lblTopTwelveHeader.hidden = YES;
     self.btnSeeAllRankings.hidden = YES;
-    self.btnSeeAllRankingsArrow.hidden = YES;
     
     self.scrollTopTwelve.hidden = YES;
     self.scrollTopTwelve.canCancelContentTouches = YES;
@@ -223,7 +249,6 @@ bool trying;
     
     self.lblShowsHeader.hidden = YES;
     self.btnSeeAll.hidden = YES;
-    self.btnSeeAllArrow.hidden = YES;
     
     self.scrollViewShows.hidden = YES;
     self.scrollViewShows.canCancelContentTouches = YES;
@@ -384,7 +409,6 @@ int counter = 0;
     self.activityTopTwelve.hidden = YES;
     self.scrollTopTwelve.hidden = NO;
     self.lblTopTwelveHeader.hidden = NO;
-    self.btnSeeAllRankingsArrow.hidden = NO;
     self.btnSeeAllRankings.hidden = NO;
     [self.tableTopFour reloadData];
     [self.tableTopEight reloadData];
@@ -406,7 +430,6 @@ int counter = 0;
             self.showsActivity.hidden = YES;
             self.scrollViewShows.hidden = NO;
             self.lblShowsHeader.hidden = NO;
-            self.btnSeeAllArrow.hidden = NO;
             self.btnSeeAll.hidden = NO;
             
         }

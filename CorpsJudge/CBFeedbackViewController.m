@@ -49,56 +49,28 @@
 -(void)showViewRate {
     
     self.viewRate.frame =
-    CGRectMake(self.viewRate.frame.origin.x - 50, self.viewRate.frame.origin.y - 50, self.viewRate.frame.size.width - 100, self.viewRate.frame.size.height - 100);
+    CGRectMake(self.viewRate.frame.origin.x, self.viewRate.frame.origin.y, self.viewRate.frame.size.width - 50, self.viewRate.frame.size.height - 50);
     
     self.viewRate.center = self.viewRate.superview.center;
     
-    [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
+    [UIView animateWithDuration:.1 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^(void) {
                          
-                         self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x + 55, self.viewRate.frame.origin.y + 55, self.viewRate.frame.size.width + 110, self.viewRate.frame.size.height + 110);
+                         self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x, self.viewRate.frame.origin.y, self.viewRate.frame.size.width + 35, self.viewRate.frame.size.height + 40);
                          
                          self.viewRate.center = self.viewRate.superview.center;
                          
                          self.viewRate.alpha = 1;
                          
-                     } completion:^(BOOL finished){
+                         self.lblHeader.alpha = 1;
+                         self.lblSubHeader.alpha = 1;
+                         self.viewStars.alpha = 1;
+                         self.btnCancel.alpha = 1;
+                         self.btnSubmit.alpha = 1;
+                         self.viewHorizontal.alpha = 1;
+                         self.viewVertical.alpha = 1;
                          
-                         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
-                                          animations:^(void) {
-                                              
-                                              self.viewRate.frame = CGRectMake(self.viewRate.frame.origin.x - 5, self.viewRate.frame.origin.y - 5, self.viewRate.frame.size.width - 10, self.viewRate.frame.size.height - 10);
-                                              
-                                              self.viewRate.center = self.viewRate.superview.center;
-                                              
-                                             
-                                              
-                                              
-                                          } completion:^(BOOL finished){
-                                              
-                                              self.lblHeader.alpha = 1;
-                                              self.lblSubHeader.alpha = 1;
-                                              self.viewStars.alpha = 1;
-                                              self.btnCancel.alpha = 1;
-                                              self.btnSubmit.alpha = 1;
-                                              self.viewHorizontal.alpha = 1;
-                                              self.viewVertical.alpha = 1;
-                                              
-                                              [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
-                                                               animations:^(void) {
-                                                                   
-                                                     
-                                                                   
-                                                                   
-                                                                   
-                                                                   
-                                                               } completion:^(BOOL finished){
-                                                                   
-                                                                   
-                                                                   
-                                                               }];
-                                              
-                                          }];
+                     } completion:^(BOOL finished){
                          
                         }];
 }
@@ -117,8 +89,7 @@
     self.txtFeedback.placeholder = @"How can we improve?";
     self.txtFeedback.placeholderColor = [UIColor lightGrayColor];
     self.txtFeedback.textColor = [UIColor whiteColor];
-    
-    
+
     
     self.viewRate.alpha = 0;
     self.lblHeader.alpha = 0;
@@ -131,7 +102,8 @@
     
     self.btnSubmit.enabled = NO;
     
-    self.lblRating.text = @"";
+    self.lblRating.text = @"Test";
+    self.lblRating.alpha = 0;
     
     self.viewRate.layer.cornerRadius = 8;
     self.star1.image = [UIImage imageNamed:@"star_unselected"];
@@ -167,8 +139,9 @@
 
 -(void)tapStar:(UITapGestureRecognizer *)recog {
  
+    self.viewRate.center = self.viewRate.superview.center;
     self.btnSubmit.enabled = YES;
-    
+    self.lblRating.alpha = 1;
     UIImageView *imgView = (UIImageView*)recog.view;
     if (imgView == self.star1) { noOfStars = 1; self.lblRating.text = @"Poor"; }
     if (imgView == self.star2) { noOfStars = 2; self.lblRating.text = @"Fair"; }
@@ -196,6 +169,8 @@ int x = 0;
 
 -(void)animateStar {
  
+    self.viewRate.center = self.viewRate.superview.center;
+    
     UIImageView *theStar;
     
     if (x == 1) theStar = self.star1;
@@ -209,11 +184,14 @@ int x = 0;
                           delay:0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^(void) {
+                         
+                         self.viewRate.center = self.viewRate.superview.center;
+                         
     theStar.frame = CGRectMake(theStar.frame.origin.x - 10, theStar.frame.origin.y - 10, theStar.frame.size.width + 20, theStar.frame.size.height + 20);
                          theStar.image = [UIImage imageNamed:@"star_selected"];
                          theStar.tag = 1;
     } completion:^(BOOL finished){
-        
+        self.viewRate.center = self.viewRate.superview.center;
         x--;
         if (x > 0) [self animateStar];
         
@@ -224,15 +202,15 @@ int x = 0;
    theStar.frame = CGRectMake(theStar.frame.origin.x + 15, theStar.frame.origin.y + 15, theStar.frame.size.width - 30, theStar.frame.size.height - 30);
     } completion:^(BOOL finished){
     
-        
+        self.viewRate.center = self.viewRate.superview.center;
         //star resize
         [UIView animateWithDuration:.1 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                          animations:^(void) {
-                             
+                             self.viewRate.center = self.viewRate.superview.center;
                              theStar.frame = CGRectMake(theStar.frame.origin.x - 5, theStar.frame.origin.y - 5, theStar.frame.size.width + 10, theStar.frame.size.height + 10);
                          } completion:^(BOOL finished){
                              
-                             
+                             self.viewRate.center = self.viewRate.superview.center;
                          }];
     
     }];

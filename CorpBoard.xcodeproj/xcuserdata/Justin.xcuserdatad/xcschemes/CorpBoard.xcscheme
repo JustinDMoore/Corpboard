@@ -20,6 +20,20 @@
                ReferencedContainer = "container:CorpBoard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0AEF3B51A13325C0059368B"
+               BuildableName = "NewsViewTests.xctest"
+               BlueprintName = "NewsViewTests"
+               ReferencedContainer = "container:CorpBoard.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +42,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D0AEF3B51A13325C0059368B"
+               BuildableName = "NewsViewTests.xctest"
+               BlueprintName = "NewsViewTests"
+               ReferencedContainer = "container:CorpBoard.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

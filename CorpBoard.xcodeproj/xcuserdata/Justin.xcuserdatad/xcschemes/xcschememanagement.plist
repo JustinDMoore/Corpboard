@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>NewsView.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>9253349A194FD5D70004D16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D0AEF3AB1A13325C0059368B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D0AEF3B51A13325C0059368B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
