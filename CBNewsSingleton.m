@@ -63,6 +63,7 @@
         self.title   = [[NSMutableString alloc] init];
         self.link    = [[NSMutableString alloc] init];
         self.newsDate = [[NSMutableString alloc] init];
+        self.desc = [[NSMutableString alloc] init];
         
     }
     
@@ -76,6 +77,8 @@
         [self.link appendString:string];
     } else if ([self.element isEqualToString:@"news_date"]) {
         [self.newsDate appendString:string];
+    } else if ([self.element isEqualToString:@"description"]) {
+        [self.desc appendString:string];
     }
     
 }
@@ -89,7 +92,7 @@
         date = [dateFormatter dateFromString:self.newsDate];
         NSLog(@"DateObject : %@", date);
 
-        CBNewsItem *newsItem = [[CBNewsItem alloc] initTitle:self.title withLink:self.link withDate:date];
+        CBNewsItem *newsItem = [[CBNewsItem alloc] initTitle:self.title withDescription:self.desc withLink:self.link withDate:self.newsDate];
         [self.arrayOfNews addObject:newsItem];
     }
     

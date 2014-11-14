@@ -869,6 +869,70 @@
             </objects>
             <point key="canvasLocation" x="3729" y="-336"/>
         </scene>
+        <!--News View Controller-->
+        <scene sceneID="NAJ-Qn-ygN">
+            <objects>
+                <tableViewController id="01c-uY-Uvq" customClass="CBNewsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="22" sectionFooterHeight="22" id="IaT-fO-Fke">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="news" rowHeight="119" id="mER-dB-qr1">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mER-dB-qr1" id="70Z-mk-fBE">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F74-ZV-OQc">
+                                            <rect key="frame" x="8" y="38" width="359" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="a4a-dR-QIc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie theater event shows more than a decade of attendance growth" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvB-GW-Fnk">
+                                            <rect key="frame" x="8" y="9" width="359" height="39"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Drum Corps International - 11 hrs ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-DJ-dnK">
+                                            <rect key="frame" x="8" y="96" width="359" height="15"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.35686274509803922" green="0.53725490196078429" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nvB-GW-Fnk" firstAttribute="top" secondItem="70Z-mk-fBE" secondAttribute="topMargin" constant="1" id="2To-JE-n8a"/>
+                                        <constraint firstItem="nvB-GW-Fnk" firstAttribute="leading" secondItem="70Z-mk-fBE" secondAttribute="leadingMargin" id="3Qq-R9-Cfn"/>
+                                        <constraint firstItem="F74-ZV-OQc" firstAttribute="leading" secondItem="70Z-mk-fBE" secondAttribute="leadingMargin" id="N2q-Vg-26R"/>
+                                        <constraint firstItem="nvB-GW-Fnk" firstAttribute="trailing" secondItem="70Z-mk-fBE" secondAttribute="trailingMargin" id="OSU-0n-Dep"/>
+                                        <constraint firstItem="F74-ZV-OQc" firstAttribute="trailing" secondItem="70Z-mk-fBE" secondAttribute="trailingMargin" id="c0C-gH-7Qp"/>
+                                        <constraint firstItem="nIb-DJ-dnK" firstAttribute="leading" secondItem="70Z-mk-fBE" secondAttribute="leadingMargin" id="gAe-8H-TxA"/>
+                                        <constraint firstItem="nIb-DJ-dnK" firstAttribute="trailing" secondItem="70Z-mk-fBE" secondAttribute="trailingMargin" id="iTZ-xl-a4W"/>
+                                        <constraint firstItem="nIb-DJ-dnK" firstAttribute="top" secondItem="F74-ZV-OQc" secondAttribute="bottom" constant="8" id="sxG-br-f7J"/>
+                                        <constraint firstItem="F74-ZV-OQc" firstAttribute="top" secondItem="nvB-GW-Fnk" secondAttribute="bottom" constant="-10" id="zQ8-Ik-IEJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="01c-uY-Uvq" id="szo-cc-eZN"/>
+                            <outlet property="delegate" destination="01c-uY-Uvq" id="DQC-fN-g0j"/>
+                        </connections>
+                    </tableView>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qrK-AW-9z0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4695.5" y="-1720.5"/>
+        </scene>
         <!--CorpBoard-->
         <scene sceneID="Ut0-us-wbY">
             <objects>
@@ -1256,7 +1320,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="seeAllShows_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="Tp9-LG-YsX"/>
+                                                            <action selector="seeAllNews_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="6hX-eB-hs4"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAe-SO-2Ge">
@@ -1268,6 +1332,7 @@
                                                         <subviews>
                                                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ee-MB-cX6">
                                                                 <rect key="frame" x="8" y="0.0" width="213" height="105"/>
+                                                                <color key="backgroundColor" red="1" green="0.88266753899999995" blue="0.093107617190000005" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="603-gO-u9Q" id="AqI-Lr-8zL"/>
                                                                 </connections>
@@ -1361,6 +1426,7 @@
                         <segue destination="8So-nd-lBf" kind="show" identifier="corps" id="cT0-Qb-QSW"/>
                         <segue destination="7xq-yB-9TJ" kind="show" identifier="feedback" id="CNA-fS-Jnv"/>
                         <segue destination="gt5-Bv-vKN" kind="show" identifier="contest" id="4A2-t6-S2b"/>
+                        <segue destination="01c-uY-Uvq" kind="show" identifier="news" id="TaT-HX-mdf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -95,6 +95,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 -(IBAction)feedback_clicked:(id)sender;
 -(IBAction)finalsContest_clicked:(id)sender;
 -(IBAction)aboutTheCorps_clicked:(id)sender;
+- (IBAction)seeAllNews_clicked:(id)sender;
 
 @end
 
@@ -785,14 +786,21 @@ typedef enum ScrollDirection {
 
 ScrollDirection scrollDirection = ScrollDirectionNone;
 
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (scrollView == self.scrollNews) {
-        if (self.pageNews.currentPage == numOfNewsItems - 1) {
-            NSLog(@"leavign last page");
+        if (self.scrollNews.contentOffset.x < previousScroll) {
+            NSLog(@"finished going backward");
+            if (newsPage > 1) newsPage--;
+        } else if (self.scrollNews.contentOffset.x > previousScroll) {
+            NSLog(@"finished going forward");
+            if (newsPage < numOfNewsItems) newsPage++;
         }
+        NSLog(@"page %i", newsPage);
+        previousScroll = self.scrollNews.contentOffset.x;
     }
 }
 
+bool isScrolling = NO;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     if (scrollView == self.scrollMain) {
@@ -829,28 +837,45 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
         self.pageTopTwelve.currentPage = page;
     }
     
-//    if (scrollView == self.scrollNews) {
+    if (scrollView == self.scrollNews) {
 //        
-//        //self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
-//        
-//        // SECOND TO LAST PAGE
-//        if (self.pageNews.currentPage == numOfNewsItems - 2) {
+//        if (newsPage == numOfNewsItems) {
+//            if (!isScrolling) {
+//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - 16, self.scrollNews.frame.size.height);
+//                isScrolling = YES;
+//            }
+//        }
+//        if (newsPage == numOfNewsItems - 1) {
+//            if (scrollDirection == ScrollDirectionLeft) {
+//                if (!isScrolling) {
+//                    self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth + 8, self.scrollNews.frame.size.height);
+//                    isScrolling = YES;
+//                }
+//            }
+//        }
+        if (newsPage < numOfNewsItems - 2) {
+            //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth + 8, self.scrollNews.frame.size.height);
+        }
+        //self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
+        
+        // SECOND TO LAST PAGE
+//        if (newsPage == numOfNewsItems - 1) {
 //            if (scrollDirection == ScrollDirectionLeft) {
 //                
 //                // GOING TO LAST PAGE, CHANGE SIZE OF SCROLLVIEW
 //                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollNews.frame.size.height);
-//                //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
+//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
 //            } else {
 //                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-//                //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
 //            }
 //            // LAST PAGE GOING BACKWARDS NOW
-//        } else if (self.pageNews.currentPage == numOfNewsItems - 1) {
+//        } else if (newsPage == numOfNewsItems) {
 //            if (scrollDirection == ScrollDirectionRight) {
-//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//                self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
 //            }
 //            
-//            //self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//            self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
 ////            if (scrollDirection == ScrollDirectionRight) {
 ////                
 ////                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
@@ -861,7 +886,7 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
 //        int page = floor((self.scrollNews.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 //        self.pageNews.currentPage = page;
 //        NSLog(@"%f - page %lu", self.scrollNews.frame.size.width, self.pageNews.currentPage);
-//    }
+    }
     
     if (scrollView == self.scrollHeadshots) {
         // the user scrolled manually, so reset the counter
@@ -869,8 +894,15 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
     }
 }
 
+CGFloat previousScroll;
+int newsPage = 1;
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
+
+    if (scrollView == self.scrollNews) {
+        isScrolling = NO;
+        previousScroll = self.scrollNews.contentOffset.x;
+    }
+ 
 //    if (scrollView == self.scrollNews) {
 //        if (self.pageNews.currentPage == numOfNewsItems - 2) {
 //            // 2ND TO LAST PAGE
@@ -940,6 +972,10 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
 -(IBAction)aboutTheCorps_clicked:(id)sender {
 
     [self performSegueWithIdentifier:@"corps" sender:self];
+}
+
+- (IBAction)seeAllNews_clicked:(id)sender {
+    [self performSegueWithIdentifier:@"news" sender:self];
 }
 
 -(NSMutableDictionary *)dateIndex {

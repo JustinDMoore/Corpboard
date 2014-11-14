@@ -77,6 +77,7 @@
 		D047A34B196A096700F5F5BC /* star_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A34A196A096700F5F5BC /* star_selected.png */; };
 		D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
+		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
 		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
@@ -221,6 +222,8 @@
 		D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackViewController.m; sourceTree = "<group>"; };
 		D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextViewPlaceHolder.h; sourceTree = "<group>"; };
 		D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextViewPlaceHolder.m; sourceTree = "<group>"; };
+		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
+		D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsViewController.m; sourceTree = "<group>"; };
 		D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBLaunch.xib; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClipView.h; path = ../ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClipView.m; path = ../ClipView.m; sourceTree = "<group>"; };
@@ -453,6 +456,8 @@
 				D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */,
 				D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */,
 				D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */,
+				D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */,
+				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -696,6 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				D0307DB719537792000849F1 /* CSShowDetailsViewController.m in Sources */,
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
