@@ -63,6 +63,8 @@ BOOL loggingIn;
     //
     
     
+    
+    
     self.navigationController.navigationBarHidden = YES;
     
     PFUser *currentUser = [PFUser currentUser];

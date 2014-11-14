@@ -19,6 +19,35 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 
 @implementation NSDate (Utilities)
 
++ (NSString *)getUTCFormateDate:(NSDate *)localDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    return dateString;
+}
+
++ (NSString *)getLocalFormateFromUTCDate:(NSDate *)UTCDate
+{
+    NSTimeInterval seconds; // assume this exists
+    NSDate* ts_utc = [NSDate dateWithTimeIntervalSince1970:seconds];
+    
+    NSDateFormatter* df_utc = [[NSDateFormatter alloc] init];
+    [df_utc setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [df_utc setDateFormat:@"yyyy.MM.dd G 'at' HH:mm:ss zzz"];
+    
+    NSDateFormatter* df_local = [[NSDateFormatter alloc] init];
+    [df_local setTimeZone:[NSTimeZone timeZoneWithName:@"EST"]];
+    [df_local setDateFormat:@"yyyy.MM.dd G 'at' HH:mm:ss zzz"];
+    
+    NSString* ts_utc_string = [df_utc stringFromDate:ts_utc];
+    NSString* ts_local_string = [df_local stringFromDate:ts_utc];
+    
+    return ts_local_string;
+}
+
 // Courtesy of Lukasz Margielewski
 // Updated via Holger Haenisch
 + (NSCalendar *) currentCalendar

@@ -882,7 +882,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-nN-xbR" userLabel="Scroll View Main (vertical)">
-                                <rect key="frame" x="-40" y="30" width="960" height="1150"/>
+                                <rect key="frame" x="-40" y="30" width="960" height="1015"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB3-aG-t40" userLabel="MainContentView">
                                         <rect key="frame" x="40" y="0.0" width="920" height="1200"/>
@@ -892,7 +892,7 @@
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Kn-Ngj">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -910,7 +910,7 @@
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-u9-4Sb">
                                                         <rect key="frame" x="132" y="66" width="37" height="37"/>
                                                     </activityIndicatorView>
-                                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-vl-b91">
+                                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-vl-b91">
                                                         <rect key="frame" x="45" y="29" width="253" height="181"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pri-nq-ON5" userLabel="ContentViewShows">
@@ -1039,11 +1039,11 @@
                                                 <rect key="frame" x="0.0" y="398" width="320" height="150"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="ClipView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="532" width="320" height="230"/>
+                                                <rect key="frame" x="0.0" y="532" width="320" height="235"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Top 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJO-74-Y3m">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1061,7 +1061,7 @@
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ddi-1v-YUw">
                                                         <rect key="frame" x="132" y="66" width="37" height="37"/>
                                                     </activityIndicatorView>
-                                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DvV-nE-dui">
+                                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvV-nE-dui">
                                                         <rect key="frame" x="45" y="29" width="253" height="181"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2N-Ya-IY1" userLabel="ContentViewTopTwelve">
@@ -1226,6 +1226,10 @@
                                                     <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="OX4-Y7-p0h">
                                                         <rect key="frame" x="141" y="200" width="39" height="37"/>
                                                     </pageControl>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9x-fv-CfJ">
+                                                        <rect key="frame" x="8" y="234" width="350" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                                 <connections>
@@ -1236,11 +1240,11 @@
                                                 <rect key="frame" x="40" y="-100" width="240" height="128"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5i3-q8-WYf" userLabel="NewsView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="762" width="320" height="230"/>
+                                                <rect key="frame" x="0.0" y="767" width="700" height="145"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99L-WD-I9t">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1255,34 +1259,33 @@
                                                             <action selector="seeAllShows_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="Tp9-LG-YsX"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QgU-6l-Ss8">
-                                                        <rect key="frame" x="0.0" y="27" width="320" height="125"/>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAe-SO-2Ge">
+                                                        <rect key="frame" x="8" y="143" width="350" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5b-7i-eAj" userLabel="ClipView" customClass="ClipView">
+                                                        <rect key="frame" x="0.0" y="25" width="320" height="108"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFg-q7-jsm" customClass="CBNewsView">
-                                                                <rect key="frame" x="8" y="14" width="205" height="100"/>
-                                                                <color key="backgroundColor" red="0.38823529411764707" green="0.050980392156862744" blue="0.58039215686274503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ee-MB-cX6">
+                                                                <rect key="frame" x="8" y="0.0" width="213" height="105"/>
                                                                 <connections>
-                                                                    <action selector="aboutTheCorps_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="fE4-mQ-kal"/>
+                                                                    <outlet property="delegate" destination="603-gO-u9Q" id="AqI-Lr-8zL"/>
                                                                 </connections>
-                                                            </view>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0W9-Tq-ADS" customClass="UIControl">
-                                                                <rect key="frame" x="231" y="14" width="205" height="100"/>
-                                                                <color key="backgroundColor" red="0.74117647058823533" green="0.14901960784313725" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <connections>
-                                                                    <action selector="aboutTheCorps_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="skQ-tZ-k4X"/>
-                                                                </connections>
-                                                            </view>
+                                                            </scrollView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <outlet property="scrollview" destination="7ee-MB-cX6" id="LvM-Dm-a5J"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6">
-                                                <rect key="frame" x="0.0" y="992" width="320" height="125"/>
+                                                <rect key="frame" x="0.0" y="911" width="320" height="100"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
-                                                        <rect key="frame" x="6" y="14" width="150" height="85"/>
+                                                        <rect key="frame" x="6" y="9" width="150" height="85"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="About.png" translatesAutoresizingMaskIntoConstraints="NO" id="fru-j2-3CE">
                                                                 <rect key="frame" x="5" y="5" width="140" height="75"/>
@@ -1294,7 +1297,7 @@
                                                         </connections>
                                                     </view>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ia3-0E-Vl4" customClass="UIControl">
-                                                        <rect key="frame" x="164" y="14" width="150" height="85"/>
+                                                        <rect key="frame" x="164" y="9" width="150" height="85"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Feedback1.png" translatesAutoresizingMaskIntoConstraints="NO" id="hSv-3u-JRW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
@@ -1328,6 +1331,7 @@
                         <outlet property="btnSeeAll" destination="m1j-TQ-WyR" id="QS4-cN-3eb"/>
                         <outlet property="btnSeeAllNews" destination="o1E-bU-OIe" id="GHb-1T-PK2"/>
                         <outlet property="btnSeeAllRankings" destination="rKi-fi-4Hc" id="KYa-q6-Ev6"/>
+                        <outlet property="clipviewNews" destination="L5b-7i-eAj" id="icr-XV-7Ws"/>
                         <outlet property="contentMainView" destination="OB3-aG-t40" id="tdl-bS-njf"/>
                         <outlet property="contentViewShows" destination="Pri-nq-ON5" id="vW4-a5-TEi"/>
                         <outlet property="contentViewTopTwelve" destination="q2N-Ya-IY1" id="Jkl-WH-P0R"/>
@@ -1338,6 +1342,7 @@
                         <outlet property="pageTopTwelve" destination="OX4-Y7-p0h" id="YHw-VP-Qdp"/>
                         <outlet property="scrollHeadshots" destination="pww-Gk-PAI" id="qHF-8b-3gs"/>
                         <outlet property="scrollMain" destination="vWd-nN-xbR" id="Dtv-kZ-Se9"/>
+                        <outlet property="scrollNews" destination="7ee-MB-cX6" id="7Tc-rb-MtE"/>
                         <outlet property="scrollTopTwelve" destination="DvV-nE-dui" id="hz7-yf-hSK"/>
                         <outlet property="scrollViewShows" destination="SeT-vl-b91" id="jGM-Aq-xLJ"/>
                         <outlet property="showsActivity" destination="Ce6-u9-4Sb" id="5uF-ZC-OVR"/>
@@ -1347,7 +1352,9 @@
                         <outlet property="tableTopFour" destination="X8d-O5-0CU" id="tyn-8N-LMG"/>
                         <outlet property="tableTopTwelve" destination="BpV-Si-wiq" id="NXF-bW-WjZ"/>
                         <outlet property="viewAboutTheCorps" destination="Z15-Uh-jtu" id="xHT-HH-CDd"/>
+                        <outlet property="viewExtras" destination="slv-vG-kN6" id="hHH-7p-7hm"/>
                         <outlet property="viewFeedback" destination="ia3-0E-Vl4" id="qkw-Fo-JGG"/>
+                        <outlet property="viewNews" destination="5i3-q8-WYf" id="fbe-Yv-0Bj"/>
                         <segue destination="a3o-sb-0qX" kind="show" identifier="shows" id="o99-aO-U0e"/>
                         <segue destination="kuq-xU-myI" kind="show" identifier="openShow" id="yHE-cF-ijy"/>
                         <segue destination="8XX-OR-XBf" kind="show" identifier="rankings" id="oaA-Is-4o3"/>

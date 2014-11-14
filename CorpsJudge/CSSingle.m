@@ -27,6 +27,8 @@
         self.updatedCorps = NO;
         //self.currentDate = [NSDate date];
         self.currentDate = [JustinHelper dateWithMonth:7 day:14 year:2014];
+        
+        
     }
     return self;
 }

@@ -79,6 +79,10 @@
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
+		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
+		D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA81A157C24003557AF /* CBNewsItem.m */; };
+		D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAB1A1584A9003557AF /* CBNewsView.m */; };
+		D094AFAF1A15D95C003557AF /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */; };
 		D096D052195A7B6000835612 /* CSSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = D096D051195A7B6000835612 /* CSSingle.m */; };
 		D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D097A21E1A04125300C9FF72 /* CBWebViewController.m */; };
 		D0A8145919521D2500F4EC53 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8145819521D2500F4EC53 /* AudioToolbox.framework */; };
@@ -95,13 +99,6 @@
 		D0AEF3A21A1312EE0059368B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A11A1312EE0059368B /* Parse.framework */; };
 		D0AEF3A41A1312FE0059368B /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A31A1312FE0059368B /* ParseFacebookUtils.framework */; };
 		D0AEF3A61A1313070059368B /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A51A1313070059368B /* ParseUI.framework */; };
-		D0AEF3B11A13325C0059368B /* NewsView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0AEF3B01A13325C0059368B /* NewsView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0AEF3B71A13325C0059368B /* NewsView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3AC1A13325C0059368B /* NewsView.framework */; };
-		D0AEF3C01A13325C0059368B /* NewsViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEF3BF1A13325C0059368B /* NewsViewTests.m */; };
-		D0AEF3C31A13325C0059368B /* NewsView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3AC1A13325C0059368B /* NewsView.framework */; };
-		D0AEF3C41A13325C0059368B /* NewsView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3AC1A13325C0059368B /* NewsView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D0AEF3CE1A1332AE0059368B /* CBNewsView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0AEF3CC1A1332AE0059368B /* CBNewsView.h */; };
-		D0AEF3CF1A1332AE0059368B /* CBNewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEF3CD1A1332AE0059368B /* CBNewsView.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
 		D0DE78D8195E05A9001BDB36 /* CSContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CSContactViewController.m */; };
@@ -117,27 +114,6 @@
 			remoteGlobalIDString = 9253347A194FD5D70004D16F;
 			remoteInfo = CorpsJudge;
 		};
-		D0AEF3B81A13325C0059368B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 92533473194FD5D70004D16F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D0AEF3AB1A13325C0059368B;
-			remoteInfo = NewsView;
-		};
-		D0AEF3BA1A13325C0059368B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 92533473194FD5D70004D16F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9253347A194FD5D70004D16F;
-			remoteInfo = CorpBoard;
-		};
-		D0AEF3C11A13325C0059368B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 92533473194FD5D70004D16F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D0AEF3AB1A13325C0059368B;
-			remoteInfo = NewsView;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -147,7 +123,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D0AEF3C41A13325C0059368B /* NewsView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +224,14 @@
 		D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBLaunch.xib; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClipView.h; path = ../ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClipView.m; path = ../ClipView.m; sourceTree = "<group>"; };
+		D094AFA41A154FAC003557AF /* CBNewsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsSingleton.h; sourceTree = "<group>"; };
+		D094AFA51A154FAC003557AF /* CBNewsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsSingleton.m; sourceTree = "<group>"; };
+		D094AFA71A157C24003557AF /* CBNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsItem.h; sourceTree = "<group>"; };
+		D094AFA81A157C24003557AF /* CBNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsItem.m; sourceTree = "<group>"; };
+		D094AFAA1A1584A9003557AF /* CBNewsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsView.h; sourceTree = "<group>"; };
+		D094AFAB1A1584A9003557AF /* CBNewsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsView.m; sourceTree = "<group>"; };
+		D094AFAD1A15D95C003557AF /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
+		D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
 		D096D050195A7B6000835612 /* CSSingle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSingle.h; sourceTree = "<group>"; };
 		D096D051195A7B6000835612 /* CSSingle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSingle.m; sourceTree = "<group>"; };
 		D097A21D1A04125300C9FF72 /* CBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWebViewController.h; sourceTree = "<group>"; };
@@ -268,14 +251,8 @@
 		D0AEF3A11A1312EE0059368B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		D0AEF3A31A1312FE0059368B /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D0AEF3A51A1313070059368B /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		D0AEF3AC1A13325C0059368B /* NewsView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NewsView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0AEF3AF1A13325C0059368B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0AEF3B01A13325C0059368B /* NewsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsView.h; sourceTree = "<group>"; };
-		D0AEF3B61A13325C0059368B /* NewsViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AEF3BE1A13325C0059368B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AEF3BF1A13325C0059368B /* NewsViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewTests.m; sourceTree = "<group>"; };
-		D0AEF3CC1A1332AE0059368B /* CBNewsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsView.h; sourceTree = "<group>"; };
-		D0AEF3CD1A1332AE0059368B /* CBNewsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsView.m; sourceTree = "<group>"; };
 		D0BDD53319500C4300CA9668 /* JustinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustinHelper.h; sourceTree = "<group>"; };
 		D0BDD53419500C4300CA9668 /* JustinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JustinHelper.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
@@ -304,7 +281,6 @@
 				D0A8145F19521D5000F4EC53 /* libz.dylib in Frameworks */,
 				927CC01A19F8D18E00B700B2 /* FacebookSDK.framework in Frameworks */,
 				D0A8145D19521D3A00F4EC53 /* CoreLocation.framework in Frameworks */,
-				D0AEF3C31A13325C0059368B /* NewsView.framework in Frameworks */,
 				D0AEF3A21A1312EE0059368B /* Parse.framework in Frameworks */,
 				92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */,
 				D0A8145B19521D2C00F4EC53 /* CFNetwork.framework in Frameworks */,
@@ -327,21 +303,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0AEF3A81A13325C0059368B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D0AEF3B31A13325C0059368B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0AEF3B71A13325C0059368B /* NewsView.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -350,7 +311,6 @@
 			children = (
 				92533486194FD5D70004D16F /* CorpBoard */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
-				D0AEF3AD1A13325C0059368B /* NewsView */,
 				D0AEF3BC1A13325C0059368B /* NewsViewTests */,
 				9253347D194FD5D70004D16F /* Frameworks */,
 				9253347C194FD5D70004D16F /* Products */,
@@ -363,8 +323,6 @@
 			children = (
 				9253347B194FD5D70004D16F /* CorpBoard.app */,
 				9253349B194FD5D70004D16F /* CorpBoardTests.xctest */,
-				D0AEF3AC1A13325C0059368B /* NewsView.framework */,
-				D0AEF3B61A13325C0059368B /* NewsViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -397,6 +355,8 @@
 		92533486194FD5D70004D16F /* CorpBoard */ = {
 			isa = PBXGroup;
 			children = (
+				D094AFAD1A15D95C003557AF /* NSDate+InternetDateTime.h */,
+				D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */,
 				925334BD194FD6F80004D16F /* Main.storyboard */,
 				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
 				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
@@ -560,6 +520,12 @@
 			children = (
 				D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */,
 				D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */,
+				D094AFA41A154FAC003557AF /* CBNewsSingleton.h */,
+				D094AFA51A154FAC003557AF /* CBNewsSingleton.m */,
+				D094AFA71A157C24003557AF /* CBNewsItem.h */,
+				D094AFA81A157C24003557AF /* CBNewsItem.m */,
+				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
+				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
 			);
 			name = Classes;
 			path = ..;
@@ -574,25 +540,6 @@
 				D0AEF39E1A1312DB0059368B /* Bolts.framework */,
 			);
 			name = Parse;
-			sourceTree = "<group>";
-		};
-		D0AEF3AD1A13325C0059368B /* NewsView */ = {
-			isa = PBXGroup;
-			children = (
-				D0AEF3B01A13325C0059368B /* NewsView.h */,
-				D0AEF3AE1A13325C0059368B /* Supporting Files */,
-				D0AEF3CC1A1332AE0059368B /* CBNewsView.h */,
-				D0AEF3CD1A1332AE0059368B /* CBNewsView.m */,
-			);
-			path = NewsView;
-			sourceTree = "<group>";
-		};
-		D0AEF3AE1A13325C0059368B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D0AEF3AF1A13325C0059368B /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D0AEF3BC1A13325C0059368B /* NewsViewTests */ = {
@@ -614,18 +561,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D0AEF3A91A13325C0059368B /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0AEF3B11A13325C0059368B /* NewsView.h in Headers */,
-				D0AEF3CE1A1332AE0059368B /* CBNewsView.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		9253347A194FD5D70004D16F /* CorpBoard */ = {
 			isa = PBXNativeTarget;
@@ -639,7 +574,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D0AEF3C21A13325C0059368B /* PBXTargetDependency */,
 			);
 			name = CorpBoard;
 			productName = CorpsJudge;
@@ -664,43 +598,6 @@
 			productReference = 9253349B194FD5D70004D16F /* CorpBoardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D0AEF3AB1A13325C0059368B /* NewsView */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D0AEF3C51A13325D0059368B /* Build configuration list for PBXNativeTarget "NewsView" */;
-			buildPhases = (
-				D0AEF3A71A13325C0059368B /* Sources */,
-				D0AEF3A81A13325C0059368B /* Frameworks */,
-				D0AEF3A91A13325C0059368B /* Headers */,
-				D0AEF3AA1A13325C0059368B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NewsView;
-			productName = NewsView;
-			productReference = D0AEF3AC1A13325C0059368B /* NewsView.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D0AEF3B51A13325C0059368B /* NewsViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D0AEF3C91A13325D0059368B /* Build configuration list for PBXNativeTarget "NewsViewTests" */;
-			buildPhases = (
-				D0AEF3B21A13325C0059368B /* Sources */,
-				D0AEF3B31A13325C0059368B /* Frameworks */,
-				D0AEF3B41A13325C0059368B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D0AEF3B91A13325C0059368B /* PBXTargetDependency */,
-				D0AEF3BB1A13325C0059368B /* PBXTargetDependency */,
-			);
-			name = NewsViewTests;
-			productName = NewsViewTests;
-			productReference = D0AEF3B61A13325C0059368B /* NewsViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -715,14 +612,6 @@
 						DevelopmentTeam = 9S3528P93B;
 					};
 					9253349A194FD5D70004D16F = {
-						TestTargetID = 9253347A194FD5D70004D16F;
-					};
-					D0AEF3AB1A13325C0059368B = {
-						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 9S3528P93B;
-					};
-					D0AEF3B51A13325C0059368B = {
-						CreatedOnToolsVersion = 6.1;
 						TestTargetID = 9253347A194FD5D70004D16F;
 					};
 				};
@@ -741,8 +630,6 @@
 			targets = (
 				9253347A194FD5D70004D16F /* CorpBoard */,
 				9253349A194FD5D70004D16F /* CorpBoardTests */,
-				D0AEF3AB1A13325C0059368B /* NewsView */,
-				D0AEF3B51A13325C0059368B /* NewsViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -802,20 +689,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0AEF3AA1A13325C0059368B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D0AEF3B41A13325C0059368B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -828,6 +701,7 @@
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				92120A90195945B600FFB9A8 /* CSStatsViewController.m in Sources */,
+				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				D096D052195A7B6000835612 /* CSSingle.m in Sources */,
@@ -836,11 +710,13 @@
 				92CF4C6519627EBC00BE98D5 /* CSFinalsPredictionViewController.m in Sources */,
 				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				D0DE78D8195E05A9001BDB36 /* CSContactViewController.m in Sources */,
+				D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */,
 				92533491194FD5D70004D16F /* CSAppDelegate.m in Sources */,
 				925334C1194FD7BC0004D16F /* CSShowsViewController.m in Sources */,
 				D0067A6819690AB300C372D0 /* Math.m in Sources */,
 				D04702D7195785F70004A0EF /* CSLoginViewController.m in Sources */,
 				D0307DBD1953B5B8000849F1 /* CSJudgeViewController.m in Sources */,
+				D094AFAF1A15D95C003557AF /* NSDate+InternetDateTime.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
@@ -848,6 +724,7 @@
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D0F03C9D1955EF950093FBC3 /* CSRecapViewController.m in Sources */,
+				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,
@@ -862,22 +739,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0AEF3A71A13325C0059368B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0AEF3CF1A1332AE0059368B /* CBNewsView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D0AEF3B21A13325C0059368B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D0AEF3C01A13325C0059368B /* NewsViewTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -885,21 +746,6 @@
 			isa = PBXTargetDependency;
 			target = 9253347A194FD5D70004D16F /* CorpBoard */;
 			targetProxy = 925334A1194FD5D70004D16F /* PBXContainerItemProxy */;
-		};
-		D0AEF3B91A13325C0059368B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D0AEF3AB1A13325C0059368B /* NewsView */;
-			targetProxy = D0AEF3B81A13325C0059368B /* PBXContainerItemProxy */;
-		};
-		D0AEF3BB1A13325C0059368B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9253347A194FD5D70004D16F /* CorpBoard */;
-			targetProxy = D0AEF3BA1A13325C0059368B /* PBXContainerItemProxy */;
-		};
-		D0AEF3C21A13325C0059368B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D0AEF3AB1A13325C0059368B /* NewsView */;
-			targetProxy = D0AEF3C11A13325C0059368B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1083,98 +929,6 @@
 			};
 			name = Release;
 		};
-		D0AEF3C61A13325D0059368B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NewsView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D0AEF3C71A13325D0059368B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = NewsView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D0AEF3CA1A13325D0059368B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NewsViewTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorpBoard.app/CorpBoard";
-			};
-			name = Debug;
-		};
-		D0AEF3CB1A13325D0059368B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NewsViewTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorpBoard.app/CorpBoard";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1204,22 +958,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		D0AEF3C51A13325D0059368B /* Build configuration list for PBXNativeTarget "NewsView" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D0AEF3C61A13325D0059368B /* Debug */,
-				D0AEF3C71A13325D0059368B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		D0AEF3C91A13325D0059368B /* Build configuration list for PBXNativeTarget "NewsViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D0AEF3CA1A13325D0059368B /* Debug */,
-				D0AEF3CB1A13325D0059368B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

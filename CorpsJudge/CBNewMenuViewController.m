@@ -13,8 +13,14 @@
 #import "NSDate+Utilities.h"
 #import "CSShowDetailsViewController.h"
 #import "NSMutableArray+Shuffling.h"
+#import "CBNewsSingleton.h"
+#import "CBNewsItem.h"
+#import "CBNewsView.h"
+#import "ClipView.h"
 
 CSSingle *data;
+CBNewsSingleton *news;
+
 NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot;
 NSString *lastShowString;
 NSString *nextShowString;
@@ -67,14 +73,21 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 @property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageTopTwelve;
+@property (nonatomic, strong) UIPageControl *pageNews;
 
 @property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
 
 @property (nonatomic, strong) IBOutlet UIImageView *imgUpsideDownCavalier;
 
 // News
-@property (weak, nonatomic) IBOutlet UITableView *tableNews;
 @property (weak, nonatomic) IBOutlet UIButton *btnSeeAllNews;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollNews;
+@property (weak, nonatomic) IBOutlet ClipView *clipviewNews;
+@property (weak, nonatomic) IBOutlet ClipView *viewNews;
+
+// Extras
+@property (weak, nonatomic) IBOutlet UIView *viewExtras;
+
 
 
 -(IBAction)seeAllShows_clicked:(id)sender;
@@ -106,8 +119,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 {
     [super viewDidLoad];
     
-    data = [CSSingle data];
-    
     [self initVariables];
     [self initUI];
     
@@ -118,6 +129,9 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 }
 
 -(void)initVariables {
+    
+    data = [CSSingle data];
+    news = [CBNewsSingleton news];
     
     [self initHeadshots];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(admin:)];
@@ -185,6 +199,8 @@ bool trying;
 
 -(void)initUI {
 
+    [self initNewsFeed];
+    
     //arrows
     UITableViewCell *showArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAll addSubview:showArrow];
@@ -215,7 +231,7 @@ bool trying;
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 2);
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.25 );
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
@@ -286,6 +302,46 @@ bool trying;
     self.viewFeedback.layer.borderColor = [UIColor blackColor].CGColor;
     self.viewFeedback.layer.borderWidth = 1;
     
+}
+
+int numOfNewsItems = 6;
+int newsScrollWidth = 0;
+int newsContentWidth = 0;
+-(void)initNewsFeed {
+    
+    self.clipviewNews.backgroundColor = [UIColor clearColor];
+    
+    if ([news.arrayOfNews count]) {
+        self.pageNews = [[UIPageControl alloc] init];
+        self.pageNews.numberOfPages = [news.arrayOfNews count];
+        self.pageNews.currentPage = 1;
+        self.viewNews.hidden = NO;
+        if (numOfNewsItems > [news.arrayOfNews count]) {
+            numOfNewsItems = (int)[news.arrayOfNews count];
+        }
+        for (int i = 0; i < numOfNewsItems; i++) {
+            CBNewsItem *item = [news.arrayOfNews objectAtIndex:i];
+            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.newsDate title:item.title link:item.link];
+            nv.frame = CGRectMake((0 + (nv.frame.size.width * i) + (8 * i)), 7, nv.frame.size.width, nv.frame.size.height);
+            nv.colorNumber = [news.arrayOfColors objectAtIndex:i];
+            [nv createBackground];
+            [self.scrollNews addSubview:nv];
+            newsContentWidth += nv.frame.size.width + 8;
+            newsScrollWidth = nv.frame.size.width;
+        }
+        self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
+    } else {
+        self.scrollNews.hidden = YES;
+        UILabel *error = [[UILabel alloc] init];
+        error.frame = CGRectMake(0, 0, self.clipviewNews.frame.size.width, self.clipviewNews.frame.size.height);
+        error.text = @"Could Not Load News Feed";
+        error.numberOfLines = 0;
+        error.textColor = [UIColor lightGrayColor];
+        error.font = [UIFont systemFontOfSize:14];
+        error.textAlignment = NSTextAlignmentCenter;
+        [self.clipviewNews addSubview: error];
+        self.btnSeeAllNews.enabled = NO;
+    }
 }
 
 - (void)loadPageWithId:(int)index onPage:(int)page {
@@ -729,6 +785,13 @@ typedef enum ScrollDirection {
 
 ScrollDirection scrollDirection = ScrollDirectionNone;
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollNews) {
+        if (self.pageNews.currentPage == numOfNewsItems - 1) {
+            NSLog(@"leavign last page");
+        }
+    }
+}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -766,6 +829,40 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
         self.pageTopTwelve.currentPage = page;
     }
     
+//    if (scrollView == self.scrollNews) {
+//        
+//        //self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
+//        
+//        // SECOND TO LAST PAGE
+//        if (self.pageNews.currentPage == numOfNewsItems - 2) {
+//            if (scrollDirection == ScrollDirectionLeft) {
+//                
+//                // GOING TO LAST PAGE, CHANGE SIZE OF SCROLLVIEW
+//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollNews.frame.size.height);
+//                //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
+//            } else {
+//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//                //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//            }
+//            // LAST PAGE GOING BACKWARDS NOW
+//        } else if (self.pageNews.currentPage == numOfNewsItems - 1) {
+//            if (scrollDirection == ScrollDirectionRight) {
+//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//            }
+//            
+//            //self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+////            if (scrollDirection == ScrollDirectionRight) {
+////                
+////                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+////            }
+//            
+//        }
+//        CGFloat pageWidth = self.scrollNews.frame.size.width;
+//        int page = floor((self.scrollNews.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+//        self.pageNews.currentPage = page;
+//        NSLog(@"%f - page %lu", self.scrollNews.frame.size.width, self.pageNews.currentPage);
+//    }
+    
     if (scrollView == self.scrollHeadshots) {
         // the user scrolled manually, so reset the counter
         counter = 0;
@@ -773,6 +870,20 @@ ScrollDirection scrollDirection = ScrollDirectionNone;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+//    if (scrollView == self.scrollNews) {
+//        if (self.pageNews.currentPage == numOfNewsItems - 2) {
+//            // 2ND TO LAST PAGE
+//            NSLog(@"2nd to last page");
+//            self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
+//        } else if (self.pageNews.currentPage == numOfNewsItems - 1) {
+//            // LAST PAGE
+//            NSLog(@"on last page");
+//            self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
+//        } else {
+//            self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth, self.scrollNews.frame.size.height);
+//        }
+//    }
     
     if (scrollView == self.scrollHeadshots) {
      

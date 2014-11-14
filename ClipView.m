@@ -15,15 +15,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.userInteractionEnabled = YES;
     }
     return self;
 }
 
-//-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-//    UIView *hitView = [super hitTest:point withEvent:event];
-//    while (hitView && hitView.superview != self)
-//        hitView = hitView.superview;
-//    return [self pointInside:point withEvent:event] ? self.scrollview : nil;
-//}
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    
+    UIView* child = nil;
+    if ((child = [super hitTest:point withEvent:event]) == self)
+        return self.scrollview;
+    return child;
+}
 
 @end
