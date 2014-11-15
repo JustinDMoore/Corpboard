@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CBNewsView : UIView
-@property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *link;
 
@@ -18,6 +18,6 @@
 
 @property (nonatomic, strong) NSNumber *colorNumber;
 
--(id)initWithDate:(NSString *)date title:(NSString *)title link:(NSString *)link;
+-(id)initWithDate:(NSDate *)date title:(NSString *)title link:(NSString *)link;
 -(void)createBackground;
 @end

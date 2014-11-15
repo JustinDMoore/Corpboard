@@ -9,8 +9,11 @@
 #import "CBNewsSingleton.h"
 #import "CBNewsItem.h"
 #import "NSDate+InternetDateTime.h"
+#import "NSString+HTML.h"
 
-@implementation CBNewsSingleton
+@implementation CBNewsSingleton {
+   
+}
 
 +(id)news {
     static CBNewsSingleton *news = nil;
@@ -30,16 +33,81 @@
         }
         [self shuffle];
         
-        self.arrayOfNews = [[NSMutableArray alloc] init];
-        NSURL *url = [NSURL URLWithString:@"http://www.dci.org/news/rss/news_rss.xml"];
-        self.parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+        //rss setup
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        parsedItems = [[NSMutableArray alloc] init];
+        self.itemsToDisplay = [NSArray array];
         
         
-        [self.parser setDelegate:self];
-        [self.parser setShouldResolveExternalEntities:NO];
-        [self.parser parse];
+        self.isNewsLoaded = NO;
+        NSURL *feedURL = [NSURL URLWithString:@"http://www.dci.org/news/rss/news_rss.xml"];
+        feedParser = [[MWFeedParser alloc] initWithFeedURL:feedURL];
+        feedParser.delegate = self;
+        feedParser.feedParseType = ParseTypeFull;
+        // TODO: play with this synchronous stuff
+        feedParser.connectionType = ConnectionTypeAsynchronously;
+        [feedParser parse];
+        
     }
     return self;
+}
+
+#pragma mark -
+#pragma mark Parsing
+
+- (void)refresh {
+    NSLog(@"Refreshing RSS Feed");
+    [parsedItems removeAllObjects];
+    [feedParser stopParsing];
+    [feedParser parse];
+}
+
+- (void)updateTableWithParsedItems {
+    
+    self.itemsToDisplay = [parsedItems sortedArrayUsingDescriptors:
+                           [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                                ascending:NO]]];
+}
+
+#pragma mark -
+#pragma mark MWFeedParserDelegate
+
+- (void)feedParserDidStart:(MWFeedParser *)parser {
+    NSLog(@"Started Parsing: %@", parser.url);
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    NSLog(@"Parsed Feed Info: “%@”", info.title);
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
+    NSLog(@"Parsed Feed Item: “%@”", item.title);
+    if (item) [parsedItems addObject:item];
+}
+
+-(void)feedParserDidFinish:(MWFeedParser *)parser {
+    
+    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
+   [self updateTableWithParsedItems];
+    self.isNewsLoaded = YES;
+}
+
+- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
+    NSLog(@"Finished Parsing With Error: %@", error);
+    if (parsedItems.count == 0) {
+         // Show failed message in title
+    } else {
+        // Failed but some items parsed, so show and inform of error
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Parsing Incomplete"
+                                                        message:@"There was an error during the parsing of this feed. Not all of the feed items could parsed."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Dismiss"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    [self updateTableWithParsedItems];
 }
 
 - (void)shuffle
@@ -52,55 +120,5 @@
     }
 }
 
-// delegate methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    
-    self.element = elementName;
-    
-    if ([self.element isEqualToString:@"item"]) {
-        
-        self.title   = [[NSMutableString alloc] init];
-        self.link    = [[NSMutableString alloc] init];
-        self.newsDate = [[NSMutableString alloc] init];
-        self.desc = [[NSMutableString alloc] init];
-        
-    }
-    
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    
-    if ([self.element isEqualToString:@"title"]) {
-        [self.title appendString:string];
-    } else if ([self.element isEqualToString:@"link"]) {
-        [self.link appendString:string];
-    } else if ([self.element isEqualToString:@"news_date"]) {
-        [self.newsDate appendString:string];
-    } else if ([self.element isEqualToString:@"description"]) {
-        [self.desc appendString:string];
-    }
-    
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    
-    if ([elementName isEqualToString:@"item"]) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MMMM d"];
-        NSDate *date = [[NSDate alloc] init];
-        date = [dateFormatter dateFromString:self.newsDate];
-        NSLog(@"DateObject : %@", date);
-
-        CBNewsItem *newsItem = [[CBNewsItem alloc] initTitle:self.title withDescription:self.desc withLink:self.link withDate:self.newsDate];
-        [self.arrayOfNews addObject:newsItem];
-    }
-    
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-    
-
-}
 
 @end

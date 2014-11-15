@@ -17,11 +17,12 @@
 #import "CBNewsItem.h"
 #import "CBNewsView.h"
 #import "ClipView.h"
+#import "MWFeedItem.h"
 
 CSSingle *data;
 CBNewsSingleton *news;
 
-NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot;
+NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot, *timerCheckForNews;
 NSString *lastShowString;
 NSString *nextShowString;
 
@@ -126,6 +127,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     [self startTimerForShows];
     [self startTimerForCorps];
     [self startTimerForHeadshots];
+    [self startTimerForNews];
     
 }
 
@@ -200,7 +202,7 @@ bool trying;
 
 -(void)initUI {
 
-    [self initNewsFeed];
+
     
     //arrows
     UITableViewCell *showArrow = [[UITableViewCell alloc] init];
@@ -308,21 +310,23 @@ bool trying;
 int numOfNewsItems = 6;
 int newsScrollWidth = 0;
 int newsContentWidth = 0;
+
 -(void)initNewsFeed {
     
     self.clipviewNews.backgroundColor = [UIColor clearColor];
     
-    if ([news.arrayOfNews count]) {
+    if ([news.itemsToDisplay count]) {
         self.pageNews = [[UIPageControl alloc] init];
-        self.pageNews.numberOfPages = [news.arrayOfNews count];
+        self.pageNews.numberOfPages = [news.itemsToDisplay count];
         self.pageNews.currentPage = 1;
         self.viewNews.hidden = NO;
-        if (numOfNewsItems > [news.arrayOfNews count]) {
-            numOfNewsItems = (int)[news.arrayOfNews count];
+        if (numOfNewsItems > [news.itemsToDisplay count]) {
+            numOfNewsItems = (int)[news.itemsToDisplay count];
         }
         for (int i = 0; i < numOfNewsItems; i++) {
-            CBNewsItem *item = [news.arrayOfNews objectAtIndex:i];
-            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.newsDate title:item.title link:item.link];
+            //CBNewsItem *item = [news.itemsToDisplay objectAtIndex:i];
+            MWFeedItem *item = [news.itemsToDisplay objectAtIndex:i];
+            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.date title:item.title link:item.link];
             nv.frame = CGRectMake((0 + (nv.frame.size.width * i) + (8 * i)), 7, nv.frame.size.width, nv.frame.size.height);
             nv.colorNumber = [news.arrayOfColors objectAtIndex:i];
             [nv createBackground];
@@ -374,6 +378,15 @@ int newsContentWidth = 0;
     timerCheckForCorps = [NSTimer scheduledTimerWithTimeInterval:.5
                                                           target:self
                                                         selector:@selector(checkCorps)
+                                                        userInfo:nil
+                                                         repeats:YES];
+}
+
+-(void)startTimerForNews {
+    
+    timerCheckForNews = [NSTimer scheduledTimerWithTimeInterval:.5
+                                                          target:self
+                                                        selector:@selector(checkNews)
                                                         userInfo:nil
                                                          repeats:YES];
 }
@@ -490,6 +503,16 @@ int counter = 0;
             self.btnSeeAll.hidden = NO;
             
         }
+    }
+}
+
+-(void)checkNews {
+    
+    if (news.isNewsLoaded) {
+        
+        [timerCheckForNews invalidate];
+        
+        [self initNewsFeed];
     }
 }
 

@@ -44,7 +44,7 @@ CBNewsSingleton *news;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return [news.arrayOfNews count];
+    return [news.itemsToDisplay count];
 }
 
 
@@ -55,10 +55,10 @@ CBNewsSingleton *news;
     UILabel *desc = (UILabel *)[cell viewWithTag:2];
     UILabel *by = (UILabel *)[cell viewWithTag:3];
     
-    CBNewsItem *item = [news.arrayOfNews objectAtIndex:indexPath.row];
+    MWFeedItem *item = [news.itemsToDisplay objectAtIndex:indexPath.row];
     title.text = item.title;
-    desc.text = item.desc;
-    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", item.newsDate];
+    desc.text = item.summary;
+    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", item.date];
     
     return cell;
 }

@@ -14,7 +14,7 @@
 CBNewsSingleton *news;
 @implementation CBNewsView
 
--(id)initWithDate:(NSString *)date title:(NSString *)title link:(NSString *)link {
+-(id)initWithDate:(NSDate *)date title:(NSString *)title link:(NSString *)link {
     if (self = [super init]) {
         news = [CBNewsSingleton news];
         self.frame = CGRectMake(0, 0, 205, 100);

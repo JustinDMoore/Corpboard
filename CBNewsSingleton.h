@@ -7,22 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MWFeedParser.h"
 
-
-@interface CBNewsSingleton : NSObject <NSXMLParserDelegate> {
-
+@interface CBNewsSingleton : NSObject <MWFeedParserDelegate> {
+    // Parsing
+    MWFeedParser *feedParser;
+    NSMutableArray *parsedItems;
+    
+    // Displaying
+    
+    NSDateFormatter *formatter;
 }
 
-@property (nonatomic, strong) NSXMLParser *parser;
-
-@property (nonatomic, strong) NSMutableString *title;
-@property (nonatomic, strong) NSMutableString *desc;
-@property (nonatomic, strong) NSMutableString *link;
-@property (nonatomic, strong) NSString *element;
-@property (nonatomic, strong) NSMutableString *newsDate;
-@property (nonatomic, strong) NSString *date;
-@property (nonatomic, strong) NSMutableArray *arrayOfNews;
+@property (nonatomic, strong) NSArray *itemsToDisplay;
+@property (nonatomic) BOOL isNewsLoaded;
 @property (nonatomic, strong) NSMutableArray *arrayOfColors;
+
 +(id)news;
 
 @end
