@@ -30,7 +30,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 @interface CBNewMenuViewController ()
 
-
 @property (nonatomic) int prevIndex;
 @property (nonatomic) int currIndex;
 @property (nonatomic) int nextIndex;
@@ -74,7 +73,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 @property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageTopTwelve;
-@property (nonatomic, strong) UIPageControl *pageNews;
+
 
 @property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
 
@@ -85,6 +84,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollNews;
 @property (weak, nonatomic) IBOutlet ClipView *clipviewNews;
 @property (weak, nonatomic) IBOutlet ClipView *viewNews;
+@property (nonatomic) NSInteger newsPage;
 
 // Extras
 @property (weak, nonatomic) IBOutlet UIView *viewExtras;
@@ -316,9 +316,6 @@ int newsContentWidth = 0;
     self.clipviewNews.backgroundColor = [UIColor clearColor];
     
     if ([news.itemsToDisplay count]) {
-        self.pageNews = [[UIPageControl alloc] init];
-        self.pageNews.numberOfPages = [news.itemsToDisplay count];
-        self.pageNews.currentPage = 1;
         self.viewNews.hidden = NO;
         if (numOfNewsItems > [news.itemsToDisplay count]) {
             numOfNewsItems = (int)[news.itemsToDisplay count];
@@ -810,17 +807,17 @@ typedef enum ScrollDirection {
 ScrollDirection scrollDirection = ScrollDirectionNone;
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (scrollView == self.scrollNews) {
-        if (self.scrollNews.contentOffset.x < previousScroll) {
-            NSLog(@"finished going backward");
-            if (newsPage > 1) newsPage--;
-        } else if (self.scrollNews.contentOffset.x > previousScroll) {
-            NSLog(@"finished going forward");
-            if (newsPage < numOfNewsItems) newsPage++;
-        }
-        NSLog(@"page %i", newsPage);
-        previousScroll = self.scrollNews.contentOffset.x;
-    }
+//    if (scrollView == self.scrollNews) {
+//        if (self.scrollNews.contentOffset.x < previousScroll) {
+//            NSLog(@"finished going backward");
+//            if (newsPage > 1) newsPage--;
+//        } else if (self.scrollNews.contentOffset.x > previousScroll) {
+//            NSLog(@"finished going forward");
+//            if (newsPage < numOfNewsItems) newsPage++;
+//        }
+//        NSLog(@"page %i", newsPage);
+//        previousScroll = self.scrollNews.contentOffset.x;
+//    }
 }
 
 bool isScrolling = NO;
@@ -861,54 +858,11 @@ bool isScrolling = NO;
     }
     
     if (scrollView == self.scrollNews) {
-//        
-//        if (newsPage == numOfNewsItems) {
-//            if (!isScrolling) {
-//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - 16, self.scrollNews.frame.size.height);
-//                isScrolling = YES;
-//            }
-//        }
-//        if (newsPage == numOfNewsItems - 1) {
-//            if (scrollDirection == ScrollDirectionLeft) {
-//                if (!isScrolling) {
-//                    self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth + 8, self.scrollNews.frame.size.height);
-//                    isScrolling = YES;
-//                }
-//            }
-//        }
-        if (newsPage < numOfNewsItems - 2) {
-            //self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth + 8, self.scrollNews.frame.size.height);
-        }
-        //self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
-        
-        // SECOND TO LAST PAGE
-//        if (newsPage == numOfNewsItems - 1) {
-//            if (scrollDirection == ScrollDirectionLeft) {
-//                
-//                // GOING TO LAST PAGE, CHANGE SIZE OF SCROLLVIEW
-//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width, self.scrollNews.frame.size.height);
-//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
-//            } else {
-//                //self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-//                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-//            }
-//            // LAST PAGE GOING BACKWARDS NOW
-//        } else if (newsPage == numOfNewsItems) {
-//            if (scrollDirection == ScrollDirectionRight) {
-//                self.scrollNews.contentSize = CGSizeMake(self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-//            }
-//            
-//            self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-////            if (scrollDirection == ScrollDirectionRight) {
-////                
-////                self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-////            }
-//            
-//        }
-//        CGFloat pageWidth = self.scrollNews.frame.size.width;
-//        int page = floor((self.scrollNews.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-//        self.pageNews.currentPage = page;
-//        NSLog(@"%f - page %lu", self.scrollNews.frame.size.width, self.pageNews.currentPage);
+
+        CGFloat pageWidth = self.scrollNews.frame.size.width;
+        float fractionalPage = self.scrollNews.contentOffset.x / pageWidth;
+        NSInteger page = lround(fractionalPage);
+        self.newsPage = page;
     }
     
     if (scrollView == self.scrollHeadshots) {
@@ -917,14 +871,31 @@ bool isScrolling = NO;
     }
 }
 
+int lastPage;
+-(void)setNewsPage:(NSInteger)newsPage {
+
+    if (lastPage != (int)newsPage) {
+        
+        int dist = self.view.frame.size.width - newsScrollWidth - 16;
+        
+        // going to last page
+        if (newsPage == numOfNewsItems - 1) {
+            self.scrollNews.frame = CGRectMake(self.scrollNews.frame.origin.x + dist, self.scrollNews.frame.origin.y, self.scrollNews.frame.size.width, self.scrollNews.frame.size.height);
+        }
+        
+        // going from last page to 2nd to last page
+        if ((lastPage == numOfNewsItems - 1) && ((int)newsPage == numOfNewsItems - 2)) {
+            self.scrollNews.frame = CGRectMake(self.scrollNews.frame.origin.x - dist, self.scrollNews.frame.origin.y, self.scrollNews.frame.size.width, self.scrollNews.frame.size.height);
+        }
+        lastPage = (int)newsPage;
+    }
+}
+
 CGFloat previousScroll;
-int newsPage = 1;
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 
-    if (scrollView == self.scrollNews) {
-        isScrolling = NO;
-        previousScroll = self.scrollNews.contentOffset.x;
-    }
+
  
 //    if (scrollView == self.scrollNews) {
 //        if (self.pageNews.currentPage == numOfNewsItems - 2) {
