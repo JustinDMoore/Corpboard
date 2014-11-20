@@ -12,7 +12,9 @@
 #import "NSDate+Utilities.h"
 #import "UserScore.h"
 #import "CSSingle.h"
+#import "CSAppDelegate.h"
 
+CSAppDelegate *appDel;
 CSSingle *data;
 NSTimer *timer;
 PFQuery *queryUserRanks;
@@ -48,6 +50,7 @@ typedef enum : int {
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClass;
+@property (weak, nonatomic) IBOutlet UIButton *btnInfo;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentOfficial;
 @property (nonatomic) phase scorePhase;
 @property (weak, nonatomic) IBOutlet UILabel *lblActivity2;
@@ -156,6 +159,8 @@ typedef enum : int {
 
 -(void)initUI {
     
+    self.segmentOfficial.tintColor = appDel.appTintColor;
+    self.btnInfo.tintColor = appDel.appTintColor;
     [self.activity startAnimating];
     [self.segmentOfficial addTarget:self
                              action:@selector(officialChanged)
