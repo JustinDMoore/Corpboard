@@ -1294,15 +1294,35 @@ bool isDoneSortingFavorites = NO;
         default:
             break;
     }
+
+    UIView *oldBar = (UIView *)[cell viewWithTag:10];
+    int oldWidth = 1;
+    if (oldBar) {
+        if (barWidth == oldBar.frame.size.width) {
+            oldWidth = 1;
+        } else {
+            oldWidth = oldBar.frame.size.width;
+        }
+        [oldBar removeFromSuperview];
+    }
+    oldBar = nil;
     
-    bar.frame = CGRectMake(bar.frame.origin.x, bar.frame.origin.y, 5, bar.frame.size.height);
-    bar.backgroundColor = self.segmentOfficial.tintColor;
     bar.hidden = YES;
-    UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, barWidth, bar.frame.size.height)];
+    UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, oldWidth, bar.frame.size.height)];
     bar1.backgroundColor = self.segmentOfficial.tintColor;
+    bar1.tag = 10;
     [cell addSubview:bar1];
+    
+    [UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:2 options:0 animations:^{
+        bar1.frame = CGRectMake(bar1.frame.origin.x, bar1.frame.origin.y, barWidth, bar1.frame.size.height);
+    } completion:^(BOOL finished) {
+        
+    }];
+    
     return cell;
 }
+
+
 
 - (UIColor *)darkerColorForColor:(UIColor *)c
 {
@@ -1492,6 +1512,28 @@ bool isDoneSortingFavorites = NO;
 }
 - (IBAction)btnInfo_clicked:(id)sender {
     
-    [self performSegueWithIdentifier:@"info" sender:self];
+    CBRankingsInfoView *myCustomXIBViewObj =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBRankingsInfoView"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    [self.view addSubview:myCustomXIBViewObj];
+    [myCustomXIBViewObj showInParent:self.view.frame];
+    
+    for (UIView *sub in self.view.subviews) {
+        if (![sub isKindOfClass: [CBRankingsInfoView class]]) {
+            sub.userInteractionEnabled = NO;
+        }
+    }
+    [myCustomXIBViewObj setDelegate:self];
 }
+
+-(void)viewDidClose {
+    for (UIView *sub in self.view.subviews) {
+        if (![sub isKindOfClass: [CBRankingsInfoView class]]) {
+            sub.userInteractionEnabled = YES;
+        }
+    }
+}
+
 @end

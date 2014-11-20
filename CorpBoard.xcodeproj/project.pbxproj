@@ -42,6 +42,9 @@
 		9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
 		927CC01A19F8D18E00B700B2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927CC01919F8D18E00B700B2 /* FacebookSDK.framework */; };
+		928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
+		928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */; };
+		928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C795D71966729200A5D8F8 /* The Cavaliers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795D61966729200A5D8F8 /* The Cavaliers.png */; };
 		92C795DF196676F900A5D8F8 /* Blue Devils.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795DE196676F900A5D8F8 /* Blue Devils.png */; };
@@ -83,7 +86,6 @@
 		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
 		D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA81A157C24003557AF /* CBNewsItem.m */; };
 		D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAB1A1584A9003557AF /* CBNewsView.m */; };
-		D094AFAF1A15D95C003557AF /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */; };
 		D096D052195A7B6000835612 /* CSSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = D096D051195A7B6000835612 /* CSSingle.m */; };
 		D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D097A21E1A04125300C9FF72 /* CBWebViewController.m */; };
 		D0A8145919521D2500F4EC53 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8145819521D2500F4EC53 /* AudioToolbox.framework */; };
@@ -181,8 +183,11 @@
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
 		927254FC1963B12000275511 /* CBCorpsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsDetailViewController.m; sourceTree = "<group>"; };
 		927CC01919F8D18E00B700B2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScore.h; sourceTree = "<group>"; };
-		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScore.m; sourceTree = "<group>"; };
+		928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRankingsInfoView.xib; sourceTree = "<group>"; };
+		928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRankingsInfoView.h; sourceTree = "<group>"; };
+		928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRankingsInfoView.m; sourceTree = "<group>"; };
+		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
+		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
 		92C795D61966729200A5D8F8 /* The Cavaliers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cavaliers.png"; sourceTree = "<group>"; };
 		92C795DE196676F900A5D8F8 /* Blue Devils.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Devils.png"; sourceTree = "<group>"; };
 		92C795E0196677CE00A5D8F8 /* The Cadets.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cadets.png"; sourceTree = "<group>"; };
@@ -240,8 +245,6 @@
 		D094AFA81A157C24003557AF /* CBNewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsItem.m; sourceTree = "<group>"; };
 		D094AFAA1A1584A9003557AF /* CBNewsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsView.h; sourceTree = "<group>"; };
 		D094AFAB1A1584A9003557AF /* CBNewsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsView.m; sourceTree = "<group>"; };
-		D094AFAD1A15D95C003557AF /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
-		D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
 		D096D050195A7B6000835612 /* CSSingle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSingle.h; sourceTree = "<group>"; };
 		D096D051195A7B6000835612 /* CSSingle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSingle.m; sourceTree = "<group>"; };
 		D097A21D1A04125300C9FF72 /* CBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWebViewController.h; sourceTree = "<group>"; };
@@ -334,8 +337,7 @@
 		92533472194FD5D70004D16F = {
 			isa = PBXGroup;
 			children = (
-				D0C8CA331A16DAFC00CA4CAE /* Categories */,
-				D0C8CA2C1A16DADC00CA4CAE /* MWFeedParser */,
+				928CE8721A1E8DD3009CE39E /* News Feed */,
 				92533486194FD5D70004D16F /* CorpBoard */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
 				D0AEF3BC1A13325C0059368B /* NewsViewTests */,
@@ -382,11 +384,7 @@
 		92533486194FD5D70004D16F /* CorpBoard */ = {
 			isa = PBXGroup;
 			children = (
-				D094AFAD1A15D95C003557AF /* NSDate+InternetDateTime.h */,
-				D094AFAE1A15D95C003557AF /* NSDate+InternetDateTime.m */,
 				925334BD194FD6F80004D16F /* Main.storyboard */,
-				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
-				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
 				D02D63FB19F820E7000139CE /* Classes */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
@@ -486,6 +484,15 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		928CE8721A1E8DD3009CE39E /* News Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D0C8CA331A16DAFC00CA4CAE /* Categories */,
+				D0C8CA2C1A16DADC00CA4CAE /* MWFeedParser */,
+			);
+			name = "News Feed";
+			sourceTree = "<group>";
+		};
 		D00029761968915E003F9C48 /* World Class Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,6 +554,8 @@
 		D02D63FB19F820E7000139CE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
+				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
 				D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */,
 				D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */,
 				D094AFA41A154FAC003557AF /* CBNewsSingleton.h */,
@@ -555,6 +564,9 @@
 				D094AFA81A157C24003557AF /* CBNewsItem.m */,
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
+				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
+				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
+				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 			);
 			name = Classes;
 			path = ..;
@@ -737,6 +749,7 @@
 				92C795E1196677CE00A5D8F8 /* The Cadets.png in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				92C795F519667DAA00A5D8F8 /* The Academy.png in Resources */,
+				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
@@ -770,6 +783,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
+				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				D0C8CA3A1A16DB2400CA4CAE /* NSString+XMLEntities.m in Sources */,
@@ -795,7 +810,6 @@
 				D0C8CA2A1A16DAD700CA4CAE /* MWFeedInfo.m in Sources */,
 				D04702D7195785F70004A0EF /* CSLoginViewController.m in Sources */,
 				D0307DBD1953B5B8000849F1 /* CSJudgeViewController.m in Sources */,
-				D094AFAF1A15D95C003557AF /* NSDate+InternetDateTime.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
