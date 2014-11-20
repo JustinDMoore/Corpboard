@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,6 +12,9 @@
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2014 Justin Moore. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="439" width="441" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="441" id="C1K-up-yXH"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -21,31 +22,62 @@
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     </variation>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CorpBoard" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dci" translatesAutoresizingMaskIntoConstraints="NO" id="wJX-qC-bm2">
-                    <rect key="frame" x="164" y="198" width="152" height="128"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ql-tA-RSo">
+                    <rect key="frame" x="0.0" y="120" width="481" height="240"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_LOGO" translatesAutoresizingMaskIntoConstraints="NO" id="wJX-qC-bm2">
+                            <rect key="frame" x="164" y="20" width="152" height="128"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="128" id="KPs-Fg-sVy"/>
+                                <constraint firstAttribute="width" constant="152" id="rFP-cI-8uU"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CorpBoard" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                            <rect key="frame" x="20" y="156" width="441" height="43"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="441" id="0Tt-Ou-B9F"/>
+                                <constraint firstAttribute="height" constant="43" id="YNq-xI-S1c"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Presented by Drum Corps International" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2S-YH-SYQ">
+                            <rect key="frame" x="90" y="199" width="300" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="HZ1-ae-mbD"/>
+                                <constraint firstAttribute="width" constant="300" id="LoE-db-afE"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="®" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQI-jj-5l7">
+                            <rect key="frame" x="286" y="127" width="14" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.68235294117647061" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="wJX-qC-bm2" secondAttribute="height" multiplier="19:16" id="hqH-gP-3bh"/>
+                        <constraint firstAttribute="centerX" secondItem="wJX-qC-bm2" secondAttribute="centerX" constant="0.5" id="5b2-fg-d9k"/>
+                        <constraint firstItem="wJX-qC-bm2" firstAttribute="top" secondItem="8ql-tA-RSo" secondAttribute="top" constant="20" id="HBQ-zP-1MZ"/>
+                        <constraint firstItem="S2S-YH-SYQ" firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" constant="-0.5" id="OcR-ON-mYf"/>
+                        <constraint firstAttribute="height" constant="240" id="SSZ-22-xy1"/>
+                        <constraint firstItem="S2S-YH-SYQ" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" id="UNS-pu-vQv"/>
+                        <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="wJX-qC-bm2" secondAttribute="bottom" constant="8" id="if4-cZ-NDL"/>
+                        <constraint firstItem="kId-c2-rCX" firstAttribute="centerX" secondItem="wJX-qC-bm2" secondAttribute="centerX" constant="0.5" id="lNz-cm-pal"/>
                     </constraints>
-                </imageView>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="wJX-qC-bm2" secondAttribute="trailing" constant="164" id="033-wa-Bgd"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="Kid-kn-2rF"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstItem="wJX-qC-bm2" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="15" id="Q36-8L-trQ"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstItem="wJX-qC-bm2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="164" id="c4n-2k-Bno"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="top" secondItem="wJX-qC-bm2" secondAttribute="bottom" constant="113" id="lHn-SR-BB9"/>
+                <constraint firstAttribute="trailing" secondItem="8ql-tA-RSo" secondAttribute="trailing" constant="-1" id="3cf-i0-K4g"/>
+                <constraint firstItem="8ql-tA-RSo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5Ag-Fh-dfi"/>
+                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" constant="-0.5" id="BVq-td-cEo"/>
+                <constraint firstAttribute="centerY" secondItem="8ql-tA-RSo" secondAttribute="centerY" id="Ung-cf-38N"/>
+                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="q2B-me-I71"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -53,6 +85,6 @@
         </view>
     </objects>
     <resources>
-        <image name="dci" width="600" height="600"/>
+        <image name="DCI_LOGO" width="600" height="600"/>
     </resources>
 </document>

@@ -1012,7 +1012,8 @@ bool isDoneSortingFavorites = NO;
     UILabel *lblRank;
     UIView *bar;
     UILabel *lbldiff;
-    
+
+    int barWidth = 0;
     NSMutableArray *array;
     switch (self.scorePhase) {
             
@@ -1133,8 +1134,7 @@ bool isDoneSortingFavorites = NO;
                     if (indexPath.section == 0) result = (score.score/totalWorldHornlineVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenHornlineVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    int width = 2.8 * result;
-                    [bar setFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, width, bar.frame.size.height)];
+                    barWidth = 2.8 * result;
                 }
             }
             
@@ -1181,8 +1181,7 @@ bool isDoneSortingFavorites = NO;
                     if (indexPath.section == 0) result = (score.score/totalWorldPercussionVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenPercussionVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    int width = 2.8 * result;
-                    [bar setFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, width, bar.frame.size.height)];
+                    barWidth = 2.8 * result;
                 }
             }
             
@@ -1229,8 +1228,7 @@ bool isDoneSortingFavorites = NO;
                     if (indexPath.section == 0) result = (score.score/totalWorldColorguardVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenColorguardVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    int width = 2.8 * result;
-                    [bar setFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, width, bar.frame.size.height)];
+                    barWidth = 2.8 * result;
                 }
             }
             
@@ -1259,8 +1257,7 @@ bool isDoneSortingFavorites = NO;
                     if (indexPath.section == 0) result = (score.score/totalWorldLoudestVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenLoudestVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    int width = 2.8 * result;
-                    [bar setFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, width, bar.frame.size.height)];
+                    barWidth = 2.8 * result;
                 }
             }
         
@@ -1289,8 +1286,7 @@ bool isDoneSortingFavorites = NO;
                     if (indexPath.section == 0) result = (score.score/totalWorldFavoriteCorpsVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenFavoriteCorpsVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    int width = 2.8 * result;
-                    [bar setFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, width, bar.frame.size.height)];
+                    barWidth = 2.8 * result;
                 }
             }
             break;
@@ -1299,7 +1295,12 @@ bool isDoneSortingFavorites = NO;
             break;
     }
     
-    
+    bar.frame = CGRectMake(bar.frame.origin.x, bar.frame.origin.y, 5, bar.frame.size.height);
+    bar.backgroundColor = self.segmentOfficial.tintColor;
+    bar.hidden = YES;
+    UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, barWidth, bar.frame.size.height)];
+    bar1.backgroundColor = self.segmentOfficial.tintColor;
+    [cell addSubview:bar1];
     return cell;
 }
 

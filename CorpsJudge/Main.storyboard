@@ -433,12 +433,9 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gw2-Ft-ghZ">
+                                                <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gw2-Ft-ghZ">
                                                     <rect key="frame" x="20" y="27" width="169" height="10"/>
                                                     <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="169" id="k46-Da-2bm"/>
-                                                    </constraints>
                                                 </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMV-J4-Fgf">
                                                     <rect key="frame" x="335" y="5" width="62" height="21"/>
@@ -451,12 +448,9 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gw2-Ft-ghZ" firstAttribute="top" secondItem="SEr-kX-VSo" secondAttribute="bottom" constant="4" id="BmF-oW-2RI"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="eMV-J4-Fgf" secondAttribute="bottom" constant="9" id="DMZ-hS-hKK"/>
                                                 <constraint firstItem="SEr-kX-VSo" firstAttribute="leading" secondItem="vs3-Fj-Ejx" secondAttribute="leadingMargin" constant="12" id="FTV-Wk-Z8M"/>
-                                                <constraint firstItem="gw2-Ft-ghZ" firstAttribute="leading" secondItem="vs3-Fj-Ejx" secondAttribute="leadingMargin" constant="12" id="KV6-rb-v5g"/>
                                                 <constraint firstItem="eMV-J4-Fgf" firstAttribute="top" secondItem="vs3-Fj-Ejx" secondAttribute="topMargin" constant="-3" id="N1m-NK-7JV"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="gw2-Ft-ghZ" secondAttribute="bottom" constant="-2" id="Uka-Hm-nDd"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="eMV-J4-Fgf" secondAttribute="trailing" constant="9" id="jpM-U3-xHn"/>
                                                 <constraint firstItem="SEr-kX-VSo" firstAttribute="top" secondItem="vs3-Fj-Ejx" secondAttribute="topMargin" constant="-3" id="pfc-0O-jxg"/>
                                             </constraints>
