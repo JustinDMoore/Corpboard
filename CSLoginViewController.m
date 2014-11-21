@@ -84,10 +84,10 @@ BOOL loggingIn;
         [self.view addGestureRecognizer:singleTap];
         
         [self.viewMain setBackgroundColor:[UIColor whiteColor]];
-        self.txtEmail.alpha = 0;
-        self.txtPassword.alpha = 0;
-        self.txtEmail.hidden = YES;
-        self.txtPassword.hidden = YES;
+        //self.txtEmail.alpha = 0;
+        //self.txtPassword.alpha = 0;
+        //self.txtEmail.hidden = YES;
+        //self.txtPassword.hidden = YES;
     }
  
     

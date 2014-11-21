@@ -66,6 +66,8 @@
 		92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */; };
 		92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
+		D00338471A1FE339009C79C4 /* CBNewUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */; };
+		D003384B1A1FF39C009C79C4 /* ScreenName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* ScreenName.xib */; };
 		D0067A621968FFC500C372D0 /* retreat.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A611968FFC500C372D0 /* retreat.png */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
@@ -217,6 +219,7 @@
 		92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard2.png"; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
+		D003384A1A1FF39C009C79C4 /* ScreenName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenName.xib; sourceTree = "<group>"; };
 		D0067A611968FFC500C372D0 /* retreat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retreat.png; sourceTree = "<group>"; };
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
@@ -582,6 +585,7 @@
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
 				D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */,
+				D003384A1A1FF39C009C79C4 /* ScreenName.xib */,
 				D0F7E51F1A1F351300AE500E /* CBNewUserView.h */,
 				D0F7E5201A1F351300AE500E /* CBNewUserView.m */,
 				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
@@ -747,6 +751,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D003384B1A1FF39C009C79C4 /* ScreenName.xib in Resources */,
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				924807661968883E00481492 /* Carolina Crown.png in Resources */,
@@ -807,6 +812,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D00338471A1FE339009C79C4 /* CBNewUser.xib in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D0F7E5211A1F351300AE500E /* CBNewUserView.m in Sources */,

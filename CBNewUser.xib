@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBNewUserView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="CBNewUserView" customClass="CBNewUserView">
             <rect key="frame" x="0.0" y="0.0" width="304" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -17,7 +17,10 @@
                         <constraint firstAttribute="width" constant="224" id="Lnt-J8-Vtd"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="alert" returnKeyType="next"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="p4g-bE-AmG"/>
+                    </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pHC-CB-APB">
                     <rect key="frame" x="40" y="144" width="224" height="30"/>
@@ -26,7 +29,10 @@
                         <constraint firstAttribute="height" constant="30" id="sHc-FE-ddh"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="go"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="ToL-Um-pTa"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New and Existing Account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0i-7i-bjM">
                     <rect key="frame" x="49" y="18" width="207" height="30"/>
@@ -46,6 +52,9 @@
                     <state key="normal" title="Cancel">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="btnCancel_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="dp5-gt-Hdh"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQY-8Z-WhZ">
                     <rect key="frame" x="165" y="202" width="131" height="30"/>
@@ -55,8 +64,11 @@
                     <state key="normal" title="Sign In">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="btnSignUp_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="sEq-3W-K7h"/>
+                    </connections>
                 </button>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wbu-pH-J7Y">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbu-pH-J7Y">
                     <rect key="frame" x="156" y="194" width="1" height="42"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -97,6 +109,7 @@
                 <constraint firstItem="4Lm-i0-ojS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eWr-yN-Vku"/>
                 <constraint firstAttribute="trailing" secondItem="BQY-8Z-WhZ" secondAttribute="trailing" constant="8" id="fh6-8j-4i7"/>
                 <constraint firstAttribute="trailing" secondItem="ZJl-th-nwU" secondAttribute="trailing" id="hv3-TW-s4a"/>
+                <constraint firstItem="wbu-pH-J7Y" firstAttribute="leading" secondItem="4Lm-i0-ojS" secondAttribute="trailing" constant="8" symbolic="YES" id="kTQ-A6-9Tt"/>
                 <constraint firstAttribute="bottom" secondItem="BQY-8Z-WhZ" secondAttribute="bottom" constant="4" id="mlU-pK-vC7"/>
                 <constraint firstItem="X0i-7i-bjM" firstAttribute="centerX" secondItem="dbw-NE-99d" secondAttribute="centerX" id="pJ2-2q-Z0o"/>
                 <constraint firstItem="dbw-NE-99d" firstAttribute="top" secondItem="X0i-7i-bjM" secondAttribute="bottom" constant="-3" id="rkC-bl-ZzX"/>

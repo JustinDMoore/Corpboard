@@ -11,9 +11,9 @@
 
 @implementation CBNewUserView {
     
-    __weak IBOutlet UITextField *txtEmail;
-    __weak IBOutlet UITextField *txtPassword;
-    __weak IBOutlet UIButton *btnSignUp;
+    IBOutlet UITextField *txtEmail;
+    IBOutlet UITextField *txtPassword;
+    IBOutlet UIButton *btnSignUp;
     id currentResponder;
 }
 
@@ -59,18 +59,20 @@
 }
 
 -(void)initUI {
-    btnSignUp.enabled = NO;
+    txtEmail.delegate = self;
+    txtPassword.delegate = self;
+
 }
 
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
 
--(void)showInParent:(CGRect)parent {
+-(void)showInParent:(CGRect)parent withEmail:(NSString *)email {
     
     [self initUI];
     
-    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2), CGRectGetMidY(parent) - (self.frame.size.height / 2), self.frame.size.width, self.frame.size.height);
+    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2), CGRectGetMidY(parent) - (self.frame.size.height / 2) - 65, self.frame.size.width, self.frame.size.height);
     self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
     
     [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
@@ -79,7 +81,8 @@
         
     } completion:^(BOOL finished) {
         
-        
+        txtEmail.text = email;
+        [txtEmail becomeFirstResponder];
         
     }];
 }
@@ -115,9 +118,13 @@
 }
 
 - (IBAction)btnCancel_clicked:(id)sender {
+    [self closeView:YES];
 }
 
 - (IBAction)btnSignUp_clicked:(id)sender {
+    if ([self checkForEmailAndPassword:nil]) {
+        [self closeView:NO];
+    }
 }
 
 #pragma mark
@@ -129,39 +136,63 @@
     currentResponder = textField;
 }
 
-- (void)resignOnTap:(id)iSender {
-    
-    [currentResponder resignFirstResponder];
-    [txtEmail resignFirstResponder];
-    [txtPassword resignFirstResponder];
-    
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+
     if (textField == txtEmail)  {
-        [txtPassword becomeFirstResponder];
-        currentResponder = txtPassword;
+        if ([textField.text length]) {
+            [textField resignFirstResponder];
+            [txtPassword becomeFirstResponder];
+            currentResponder = txtPassword;
+        }
     }
+
     if (textField == txtPassword) {
-        // attempt login
-        //make sure we have un and pw
-        if ((![txtEmail.text isEqualToString:@""]) && (![txtPassword.text isEqualToString:@""])) {
-            if ([JustinHelper StringIsValidEmail:txtEmail.text]) {
-                [self closeView:NO];
-            } else {
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                                message:@"Please enter a valid email address"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                [txtEmail becomeFirstResponder];
-            }
+        if ([self checkForEmailAndPassword:textField]) {
+            [self closeView:NO];
         }
     }
     
     return NO;
 }
+
+-(BOOL)checkForEmailAndPassword: (UITextField *)textField {
+    
+    UIAlertView *alert;
+    
+    if (![txtEmail.text length]) {
+        alert = [[UIAlertView alloc] initWithTitle:@""
+                                           message:@"Please enter a valid email address"
+                                          delegate:self
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
+        [txtEmail becomeFirstResponder];
+        [alert show];
+        return NO;
+    } else {
+        if (![JustinHelper StringIsValidEmail:txtEmail.text]) {
+            alert = [[UIAlertView alloc] initWithTitle:@""
+                                               message:@"Please enter a valid email address"
+                                              delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+            [txtEmail becomeFirstResponder];
+            [alert show];
+            return NO;
+        }
+    }
+    
+    if (![txtPassword.text length]) {
+        alert = [[UIAlertView alloc] initWithTitle:@""
+                                           message:@"Please enter a password"
+                                          delegate:self
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
+        [txtPassword becomeFirstResponder];
+        [alert show];
+        return NO;
+    }
+
+    return YES;
+}
+
 @end

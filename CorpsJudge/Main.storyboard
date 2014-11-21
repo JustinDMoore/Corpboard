@@ -834,8 +834,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-mb-97c">
+                                <rect key="frame" x="4" y="525" width="312" height="43"/>
+                                <string key="text">An account helps to track of your scores, votes, and stats. Your information is confidential and not used for any other purpose or sold to third parties.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8EW-TG-79q">
-                                <rect key="frame" x="0.0" y="182" width="320" height="204"/>
+                                <rect key="frame" x="0.0" y="46" width="320" height="204"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ckb-tI-ldf">
                                         <rect key="frame" x="115" y="60" width="90" height="90"/>
@@ -874,7 +881,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xCV-sm-Fcy">
-                                <rect key="frame" x="45" y="394" width="231" height="30"/>
+                                <rect key="frame" x="45" y="258" width="231" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <connections>
@@ -882,22 +889,15 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AuY-EB-aZS">
-                                <rect key="frame" x="45" y="432" width="231" height="30"/>
+                                <rect key="frame" x="45" y="296" width="231" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="go"/>
                                 <connections>
                                     <outlet property="delegate" destination="KAX-NA-1Wl" id="mg4-CI-sW0"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-mb-97c">
-                                <rect key="frame" x="4" y="525" width="312" height="43"/>
-                                <string key="text">An account helps to track of your scores, votes, and stats. Your information is confidential and not used for any other purpose or sold to third parties.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZbJ-gB-p1n">
-                                <rect key="frame" x="150" y="477" width="20" height="20"/>
+                                <rect key="frame" x="150" y="341" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2319,7 +2319,7 @@
         <image name="trophy" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KZ6-GB-7dJ"/>
+        <segue reference="MjV-48-i3T"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="FNF-NK-DqA"/>
     </inferredMetricsTieBreakers>

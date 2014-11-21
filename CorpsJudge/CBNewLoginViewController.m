@@ -95,13 +95,18 @@ int ticker = 0;
     self.btnEmail.hidden = NO;
     self.lblDisclaimer.hidden = NO;
     
-    [UIView animateWithDuration:3 animations:^{
-        self.lblSignIn.alpha = 1;
-        self.btnFacebook.alpha = 1;
-        self.btnTwitter.alpha = 1;
-        self.btnEmail.alpha = 1;
-        self.lblDisclaimer.alpha = 1;
-    }];
+    [UIView animateWithDuration:2
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         self.lblSignIn.alpha = 1;
+                         self.btnFacebook.alpha = 1;
+                         self.btnTwitter.alpha = 1;
+                         self.btnEmail.alpha = 1;
+                         self.lblDisclaimer.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 -(void)useApp {
@@ -113,6 +118,30 @@ int ticker = 0;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 
+#pragma mark - Logging in
+#pragma mark
+
+-(void)createAccountWithEmail:(NSString *)email Password:(NSString *) pw ScreenName:(NSString *)screenname {
+    
+    PFUser *user = [PFUser user];
+    user.username = email;
+    user[@"screenname"] = screenname;
+    user.password = pw;
+    user.email = email;
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Hooray! Let them use the app now.
+            [self useApp];
+            
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            // Show the errorString somewhere and let the user try again.
+            NSLog(@"Error creating account: %@", errorString);
+        }
+    }];
+}
 
 - (IBAction)btnFacebook_clicked:(id)sender {
     NSArray *permissions = @[@"email", @"public_profile"];
@@ -148,12 +177,12 @@ int ticker = 0;
 - (IBAction)btnEmail_clicked:(id)sender {
     
     CBNewUserView *myCustomXIBViewObj =
-    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUserView"
+    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUser"
                                    owner:self
                                  options:nil]
      objectAtIndex:0];
     [self.view addSubview:myCustomXIBViewObj];
-    [myCustomXIBViewObj showInParent:self.view.frame];
+    [myCustomXIBViewObj showInParent:self.view.frame withEmail:@""];
     [myCustomXIBViewObj setDelegate:self];
 }
 
@@ -211,6 +240,18 @@ int ticker = 0;
             self.progressView.progress = 0.90;
         }
     }
+}
+
+#pragma mark
+#pragma mark - New User Delegates
+#pragma mark
+
+-(void)newUserCancelled {
+    
+}
+
+-(void)newUserCreated:(NSString *)email pw:(NSString *)password {
+
 }
 
 @end
