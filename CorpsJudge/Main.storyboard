@@ -694,6 +694,41 @@
             </objects>
             <point key="canvasLocation" x="5604" y="1017"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="B6t-2I-ki2">
+            <objects>
+                <viewController id="mfi-3f-rjk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fel-Mg-VLu"/>
+                        <viewControllerLayoutGuide type="bottom" id="xJC-Ge-qbx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pqh-SV-eiA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
+                                <rect key="frame" x="169" y="59" width="263" height="264"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvX-ZV-lfR">
+                                <rect key="frame" x="266" y="346" width="68" height="30"/>
+                                <state key="normal" title="New User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvY-Gj-T72">
+                                <rect key="frame" x="255" y="384" width="91" height="30"/>
+                                <state key="normal" title="Existing User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qy8-2Q-ziX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3680" y="-988"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="2aT-Kl-Mg2">
             <objects>
@@ -2156,6 +2191,7 @@
         <image name="About.png" width="350" height="170"/>
         <image name="Blue Devils.png" width="512" height="512"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
+        <image name="DCI_CorpBoard" width="600" height="600"/>
         <image name="Email" width="128" height="128"/>
         <image name="Facebook" width="128" height="128"/>
         <image name="Feedback1.png" width="350" height="170"/>
