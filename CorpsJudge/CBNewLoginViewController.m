@@ -146,6 +146,15 @@ int ticker = 0;
 }
 
 - (IBAction)btnEmail_clicked:(id)sender {
+    
+    CBNewUserView *myCustomXIBViewObj =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUserView"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    [self.view addSubview:myCustomXIBViewObj];
+    [myCustomXIBViewObj showInParent:self.view.frame];
+    [myCustomXIBViewObj setDelegate:self];
 }
 
 #pragma mark

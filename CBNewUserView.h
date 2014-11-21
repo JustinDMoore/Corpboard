@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBNewUserView : UIView
+@protocol newUserProtocol <NSObject>
+@required
+-(void)newUserCancelled;
+-(void)newUserCreated:(NSString *)email pw:(NSString *)password;
+@end
+@interface CBNewUserView : UIView <UITextFieldDelegate> {
+    id delegate;
+}
 
+-(void)setDelegate:(id)newDelegate;
+-(void)showInParent:(CGRect)parent;
 @end

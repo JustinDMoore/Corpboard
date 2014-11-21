@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CSSingle.h"
+#import "CBNewUserView.h"
 
-@interface CBNewLoginViewController : UIViewController <dataProtocol>
+@interface CBNewLoginViewController : UIViewController <dataProtocol, newUserProtocol>
 
 @end
