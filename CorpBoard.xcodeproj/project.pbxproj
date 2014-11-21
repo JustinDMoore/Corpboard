@@ -45,6 +45,9 @@
 		928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
 		928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */; };
 		928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
+		928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
+		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
+		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C795D71966729200A5D8F8 /* The Cavaliers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795D61966729200A5D8F8 /* The Cavaliers.png */; };
 		92C795DF196676F900A5D8F8 /* Blue Devils.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795DE196676F900A5D8F8 /* Blue Devils.png */; };
@@ -186,6 +189,9 @@
 		928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRankingsInfoView.xib; sourceTree = "<group>"; };
 		928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRankingsInfoView.h; sourceTree = "<group>"; };
 		928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRankingsInfoView.m; sourceTree = "<group>"; };
+		928CE8791A1EB88B009CE39E /* CBRateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRateView.xib; sourceTree = "<group>"; };
+		928CE87B1A1EBA62009CE39E /* CBRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRateView.h; sourceTree = "<group>"; };
+		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
 		92C795D61966729200A5D8F8 /* The Cavaliers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cavaliers.png"; sourceTree = "<group>"; };
@@ -565,6 +571,9 @@
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
+				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
+				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
+				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
 				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 			);
@@ -732,6 +741,7 @@
 				92C796071966805E00A5D8F8 /* Troopers.png in Resources */,
 				924807581968842800481492 /* Cascades.png in Resources */,
 				924807601968875D00481492 /* Mandarins.png in Resources */,
+				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
@@ -783,6 +793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
@@ -796,6 +807,7 @@
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				D096D052195A7B6000835612 /* CSSingle.m in Sources */,
+				928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */,
 				D0C8CA321A16DAF500CA4CAE /* NSDate+InternetDateTime.m in Sources */,
 				D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */,
 				D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */,

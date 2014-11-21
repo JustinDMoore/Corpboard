@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBRateView.h"
 
-@interface CBFeedbackViewController : UIViewController <UIAlertViewDelegate>
+@interface CBFeedbackViewController : UIViewController <UIAlertViewDelegate, RateProtocol>
 
 @end
