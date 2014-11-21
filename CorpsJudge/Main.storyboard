@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f8x-lv-76s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -624,7 +624,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCj-WS-AzQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5978" y="-1714"/>
+            <point key="canvasLocation" x="6790" y="-1714"/>
         </scene>
         <!--Shows-->
         <scene sceneID="fBB-D5-mDv">
@@ -694,10 +694,10 @@
             </objects>
             <point key="canvasLocation" x="5604" y="1017"/>
         </scene>
-        <!--View Controller-->
+        <!--New Login View Controller-->
         <scene sceneID="B6t-2I-ki2">
             <objects>
-                <viewController id="mfi-3f-rjk" sceneMemberID="viewController">
+                <viewController id="mfi-3f-rjk" customClass="CBNewLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fel-Mg-VLu"/>
                         <viewControllerLayoutGuide type="bottom" id="xJC-Ge-qbx"/>
@@ -706,28 +706,121 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
-                                <rect key="frame" x="169" y="59" width="263" height="264"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
+                                <rect key="frame" x="199" y="107" width="202" height="203"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="202" id="4wp-Co-WAn"/>
+                                    <constraint firstAttribute="height" constant="203" id="KW5-YT-Bvy"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZvX-ZV-lfR">
-                                <rect key="frame" x="266" y="346" width="68" height="30"/>
-                                <state key="normal" title="New User">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nz-Tn-CTE">
+                                <rect key="frame" x="199" y="370" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="lNR-kM-1xz"/>
+                                    <constraint firstAttribute="height" constant="60" id="t4l-Jv-aIj"/>
+                                </constraints>
+                                <state key="normal" image="Facebook-128">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnFacebook_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="nAf-02-Agi"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvY-Gj-T72">
-                                <rect key="frame" x="255" y="384" width="91" height="30"/>
-                                <state key="normal" title="Existing User">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQy-WH-dhh">
+                                <rect key="frame" x="270" y="370" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="YvM-vE-t4f"/>
+                                    <constraint firstAttribute="height" constant="60" id="uzD-X4-79d"/>
+                                </constraints>
+                                <state key="normal" image="Twitter Bird-128">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnTwitter_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="MtW-qD-iTm"/>
+                                </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsO-wy-e9O">
+                                <rect key="frame" x="341" y="370" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="HIj-N4-WSU"/>
+                                    <constraint firstAttribute="width" constant="60" id="aXG-pJ-Nex"/>
+                                </constraints>
+                                <state key="normal" image="Message-Mail-128">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnEmail_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="6rN-oP-hAL"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP USING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgS-kE-Vs3">
+                                <rect key="frame" x="237" y="341" width="128" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZjW-OJ-0OU">
+                                <rect key="frame" x="16" y="504" width="568" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="kf6-ZA-4Vo"/>
+                                </constraints>
+                                <string key="text">CorpBoard allows you to review shows you attend, vote for your favorite corps, and live chat during events. An account is necessary to ensure fair and accurate reporting. Your information is private and not used for any other purpose.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQk-zx-3fS">
+                                <rect key="frame" x="350" y="213" width="14" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1oL-3c-Z8i"/>
+                                    <constraint firstAttribute="width" constant="14" id="aAC-ng-QmF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9g2-Lg-d7Z">
+                                <rect key="frame" x="225" y="335" width="150" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="ATf-1d-DrO"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="ZjW-OJ-0OU" secondAttribute="bottom" constant="20" id="02t-Ht-e3M"/>
+                            <constraint firstAttribute="centerX" secondItem="Ve5-rd-AQi" secondAttribute="centerX" id="731-qx-EEt"/>
+                            <constraint firstItem="tQy-WH-dhh" firstAttribute="leading" secondItem="9nz-Tn-CTE" secondAttribute="trailing" constant="11" id="8Dw-0y-Ojk"/>
+                            <constraint firstItem="GQk-zx-3fS" firstAttribute="leading" secondItem="Ve5-rd-AQi" secondAttribute="trailing" constant="-51" id="BeM-XQ-hf1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZjW-OJ-0OU" secondAttribute="trailing" id="C0P-BA-6bZ"/>
+                            <constraint firstItem="tQy-WH-dhh" firstAttribute="centerY" secondItem="YsO-wy-e9O" secondAttribute="centerY" id="FVu-T0-EPe"/>
+                            <constraint firstAttribute="centerX" secondItem="ZjW-OJ-0OU" secondAttribute="centerX" id="G1f-1c-hxm"/>
+                            <constraint firstItem="FgS-kE-Vs3" firstAttribute="centerX" secondItem="tQy-WH-dhh" secondAttribute="centerX" constant="0.5" id="KUG-8E-vgk"/>
+                            <constraint firstItem="GQk-zx-3fS" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="-97" id="PxF-hS-xyw"/>
+                            <constraint firstItem="ZjW-OJ-0OU" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" id="WcI-pW-cfp"/>
+                            <constraint firstItem="9g2-Lg-d7Z" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="25" id="aoy-Pf-TDT"/>
+                            <constraint firstItem="Ve5-rd-AQi" firstAttribute="top" secondItem="fel-Mg-VLu" secondAttribute="bottom" constant="43" id="bJG-5h-630"/>
+                            <constraint firstItem="tQy-WH-dhh" firstAttribute="top" secondItem="FgS-kE-Vs3" secondAttribute="bottom" constant="8" id="dCC-Az-USc"/>
+                            <constraint firstItem="FgS-kE-Vs3" firstAttribute="centerX" secondItem="9g2-Lg-d7Z" secondAttribute="centerX" constant="0.5" id="ebh-Np-Elj"/>
+                            <constraint firstItem="YsO-wy-e9O" firstAttribute="leading" secondItem="tQy-WH-dhh" secondAttribute="trailing" constant="11" id="gCZ-Cg-N3w"/>
+                            <constraint firstItem="9nz-Tn-CTE" firstAttribute="centerY" secondItem="tQy-WH-dhh" secondAttribute="centerY" id="naE-BN-kZ4"/>
+                            <constraint firstItem="FgS-kE-Vs3" firstAttribute="top" secondItem="9g2-Lg-d7Z" secondAttribute="bottom" constant="4" id="nmV-TK-cl0"/>
+                            <constraint firstItem="9g2-Lg-d7Z" firstAttribute="centerX" secondItem="Ve5-rd-AQi" secondAttribute="centerX" id="oC7-aj-bbK"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Zg1-Yk-o0v"/>
+                    <connections>
+                        <outlet property="btnEmail" destination="YsO-wy-e9O" id="578-xM-t4p"/>
+                        <outlet property="btnFacebook" destination="9nz-Tn-CTE" id="gdh-gZ-yKV"/>
+                        <outlet property="btnTwitter" destination="tQy-WH-dhh" id="d9k-aB-Jbp"/>
+                        <outlet property="lblDisclaimer" destination="ZjW-OJ-0OU" id="upX-OO-iNh"/>
+                        <outlet property="lblSignIn" destination="FgS-kE-Vs3" id="NG3-VL-arg"/>
+                        <outlet property="progressView" destination="9g2-Lg-d7Z" id="c0h-vN-HWA"/>
+                        <segue destination="603-gO-u9Q" kind="show" identifier="menu" id="KZ6-GB-7dJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qy8-2Q-ziX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3680" y="-988"/>
+            <point key="canvasLocation" x="4510" y="-1036"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="2aT-Kl-Mg2">
@@ -889,7 +982,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qrK-AW-9z0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4695.5" y="-1720.5"/>
+            <point key="canvasLocation" x="5507.5" y="-1720.5"/>
         </scene>
         <!--CorpBoard-->
         <scene sceneID="Ut0-us-wbY">
@@ -1388,7 +1481,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4661.25" y="-335.91549295774644"/>
+            <point key="canvasLocation" x="5473" y="-336"/>
         </scene>
         <!--Contact Us-->
         <scene sceneID="CvZ-Ww-mYV">
@@ -2186,6 +2279,24 @@
             </objects>
             <point key="canvasLocation" x="2871" y="-336"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qk1-3e-3Ai">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qur-W5-86c" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="ZZF-3z-dNM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mfi-3f-rjk" kind="relationship" relationship="rootViewController" id="ZuL-Gp-H0X"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cPJ-54-dgz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3698" y="-1036"/>
+        </scene>
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
@@ -2194,8 +2305,11 @@
         <image name="DCI_CorpBoard" width="600" height="600"/>
         <image name="Email" width="128" height="128"/>
         <image name="Facebook" width="128" height="128"/>
+        <image name="Facebook-128" width="128" height="128"/>
         <image name="Feedback1.png" width="350" height="170"/>
+        <image name="Message-Mail-128" width="128" height="128"/>
         <image name="Twitter" width="128" height="128"/>
+        <image name="Twitter Bird-128" width="128" height="128"/>
         <image name="colorguard" width="30" height="30"/>
         <image name="favorite" width="30" height="30"/>
         <image name="hornline" width="30" height="30"/>
@@ -2205,6 +2319,7 @@
         <image name="trophy" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="KZ6-GB-7dJ"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="FNF-NK-DqA"/>
     </inferredMetricsTieBreakers>

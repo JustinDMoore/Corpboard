@@ -9,7 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface CSSingle : NSObject
+@protocol dataProtocol <NSObject>
+-(void)beganLoadingData;
+-(void)finishedLoadingData;
+
+
+@end
+
+@interface CSSingle : NSObject {
+    id delegate;
+}
 
 @property (nonatomic, strong) NSDate *currentDate;
 
@@ -51,7 +60,7 @@
 @property BOOL updatedShows;
 
 +(id)data;
-
+-(void)setDelegate:(id)newDelegate;
 -(void)getAllCorpsFromServer;
 -(void)getAllShowsFromServer;
 -(NSArray *)getOfficialScoresForShow:(PFObject *)show ;

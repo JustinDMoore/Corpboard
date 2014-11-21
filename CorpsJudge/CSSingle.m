@@ -23,6 +23,7 @@
 -(id)init {
     self = [super init];
     if (self) {
+
         self.updatedShows = NO;
         self.updatedCorps = NO;
         //self.currentDate = [NSDate date];
@@ -33,6 +34,10 @@
     return self;
 }
 
+-(void)setDelegate:(id)newDelegate{
+    delegate = newDelegate;
+}
+         
 #pragma mark - Parse methods
 
 -(void)getAllCorpsFromServer {
@@ -54,6 +59,7 @@
             }
             
             self.updatedCorps = YES;
+            [self didWeFinish];
         } else {
             
             NSLog(@"Error getting all shows: %@ %@", error, [error userInfo]);
@@ -73,6 +79,7 @@
         if (!error) {
             [self.arrayOfAllShows addObjectsFromArray:objects];
             self.updatedShows = YES;
+            [self didWeFinish];
         } else {
 
             NSLog(@"Error getting shows from server: %@ %@", error, [error userInfo]);
@@ -80,7 +87,11 @@
     }];
 }
 
-
+-(void)didWeFinish {
+    if ((self.updatedCorps) && (self.updatedShows)) {
+        [delegate finishedLoadingData];
+    }
+}
 
 // Returns a multidemensional array.
 // Index 0 is an NSMutableArray of world class scores

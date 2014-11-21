@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "880"
             endingLineNumber = "880"
-            landmarkName = "-scrollViewDidScroll:"
+            landmarkName = "-setNewsPage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

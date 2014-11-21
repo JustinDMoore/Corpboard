@@ -117,6 +117,9 @@
 		D0DE78D8195E05A9001BDB36 /* CSContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CSContactViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
 		D0F03C9D1955EF950093FBC3 /* CSRecapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F03C9C1955EF950093FBC3 /* CSRecapViewController.m */; };
+		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
+		D0F7E51E1A1F309E00AE500E /* CBNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */; };
+		D0F7E5211A1F351300AE500E /* CBNewUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBNewUserView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +299,11 @@
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
 		D0F03C9B1955EF950093FBC3 /* CSRecapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRecapViewController.h; sourceTree = "<group>"; };
 		D0F03C9C1955EF950093FBC3 /* CSRecapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRecapViewController.m; sourceTree = "<group>"; };
+		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
+		D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewLoginViewController.m; sourceTree = "<group>"; };
+		D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewUser.xib; sourceTree = "<group>"; };
+		D0F7E51F1A1F351300AE500E /* CBNewUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewUserView.h; sourceTree = "<group>"; };
+		D0F7E5201A1F351300AE500E /* CBNewUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewUserView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,6 +461,8 @@
 		925334C2194FD7C10004D16F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */,
+				D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */,
 				D04702D5195785F70004A0EF /* CSLoginViewController.h */,
 				D04702D6195785F70004A0EF /* CSLoginViewController.m */,
 				D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */,
@@ -571,6 +581,9 @@
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
+				D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */,
+				D0F7E51F1A1F351300AE500E /* CBNewUserView.h */,
+				D0F7E5201A1F351300AE500E /* CBNewUserView.m */,
 				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
 				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
 				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
@@ -746,6 +759,7 @@
 				9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				92C795F919667E2600A5D8F8 /* Boston Crusaders.png in Resources */,
+				D0F7E51E1A1F309E00AE500E /* CBNewUser.xib in Resources */,
 				9248075E1968872800481492 /* Blue Knights.png in Resources */,
 				92C7960119667F8B00A5D8F8 /* Jersey Surf.png in Resources */,
 				924807641968880F00481492 /* Phantom Regiment.png in Resources */,
@@ -793,7 +807,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
+				D0F7E5211A1F351300AE500E /* CBNewUserView.m in Sources */,
 				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
