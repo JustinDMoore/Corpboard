@@ -13,8 +13,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-Y9-AR4">
                     <rect key="frame" x="91" y="39" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="6aN-xZ-KgZ"/>
-                        <constraint firstAttribute="width" constant="60" id="VMm-XD-ZIH"/>
+                        <constraint firstAttribute="height" constant="60" id="0U0-44-3Mu"/>
+                        <constraint firstAttribute="width" constant="60" id="fSL-Qk-AnU"/>
                     </constraints>
                     <state key="normal" image="Twitter Bird-128">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -26,7 +26,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBJ-xb-gQl">
                     <rect key="frame" x="162" y="39" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="8By-k4-QPx"/>
+                        <constraint firstAttribute="height" constant="60" id="Zpy-ve-2JW"/>
+                        <constraint firstAttribute="width" constant="60" id="hGu-aa-eDf"/>
                     </constraints>
                     <state key="normal" image="Message-Mail-128">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,15 +37,16 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP USING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJs-3k-Rma">
-                    <rect key="frame" x="58" y="10" width="128" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="64" y="13" width="114" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KB1-Dh-7Br">
                     <rect key="frame" x="20" y="39" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="8iN-oU-NgT"/>
+                        <constraint firstAttribute="height" constant="60" id="e47-nh-mUu"/>
+                        <constraint firstAttribute="width" constant="60" id="lmZ-SF-HnF"/>
                     </constraints>
                     <state key="normal" image="Facebook-128">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,12 +56,12 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ci-bQ-Fv6">
-                    <rect key="frame" x="89" y="113" width="64" height="54"/>
+                    <rect key="frame" x="97" y="112" width="48" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="54" id="4L9-Xg-gad"/>
-                        <constraint firstAttribute="width" constant="64" id="reV-Y9-tlO"/>
+                        <constraint firstAttribute="height" constant="48" id="AxL-dR-olr"/>
+                        <constraint firstAttribute="width" constant="48" id="BFF-N0-rSR"/>
                     </constraints>
-                    <state key="normal" image="NavigationLeft">
+                    <state key="normal" image="BackArrow">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -69,18 +71,16 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="B1h-ke-pmC"/>
-                <constraint firstAttribute="bottom" secondItem="0ci-bQ-Fv6" secondAttribute="bottom" constant="6" id="DYg-eg-H7g"/>
-                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="centerX" secondItem="OEY-Y9-AR4" secondAttribute="centerX" id="HtL-7d-F8N"/>
-                <constraint firstItem="fJs-3k-Rma" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="58" id="M67-do-De3"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="KB1-Dh-7Br" secondAttribute="top" id="ZKR-hR-DCn"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="bottom" secondItem="vBJ-xb-gQl" secondAttribute="bottom" id="eb5-Zo-ydG"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="vBJ-xb-gQl" secondAttribute="top" id="ipc-ou-gZt"/>
-                <constraint firstItem="vBJ-xb-gQl" firstAttribute="leading" secondItem="OEY-Y9-AR4" secondAttribute="trailing" constant="11" id="lnU-Fh-TIi"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="fJs-3k-Rma" secondAttribute="bottom" constant="8" symbolic="YES" id="qGa-XW-z1e"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="bottom" secondItem="KB1-Dh-7Br" secondAttribute="bottom" id="sCK-KA-JwM"/>
-                <constraint firstItem="OEY-Y9-AR4" firstAttribute="leading" secondItem="KB1-Dh-7Br" secondAttribute="trailing" constant="11" id="uPl-0B-b5r"/>
-                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="top" secondItem="OEY-Y9-AR4" secondAttribute="bottom" constant="14" id="van-f9-LEK"/>
+                <constraint firstItem="KB1-Dh-7Br" firstAttribute="top" secondItem="fJs-3k-Rma" secondAttribute="bottom" constant="8" id="4fu-BD-Iu1"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="leading" secondItem="KB1-Dh-7Br" secondAttribute="trailing" constant="11" id="GNy-qz-qYQ"/>
+                <constraint firstItem="vBJ-xb-gQl" firstAttribute="top" secondItem="fJs-3k-Rma" secondAttribute="bottom" constant="8" id="HTX-QC-TKp"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="fJs-3k-Rma" secondAttribute="bottom" constant="8" id="PVG-X1-Lr8"/>
+                <constraint firstItem="vBJ-xb-gQl" firstAttribute="leading" secondItem="OEY-Y9-AR4" secondAttribute="trailing" constant="11" id="Q99-dn-YO5"/>
+                <constraint firstAttribute="centerX" secondItem="fJs-3k-Rma" secondAttribute="centerX" id="SiS-QS-cfP"/>
+                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="centerX" secondItem="OEY-Y9-AR4" secondAttribute="centerX" id="hkm-pE-SSy"/>
+                <constraint firstItem="fJs-3k-Rma" firstAttribute="centerX" secondItem="OEY-Y9-AR4" secondAttribute="centerX" id="ows-WG-1Tb"/>
+                <constraint firstItem="fJs-3k-Rma" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="tKD-jU-HxA"/>
+                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="top" secondItem="OEY-Y9-AR4" secondAttribute="bottom" constant="13" id="zbY-vA-UIq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -93,9 +93,9 @@
         </view>
     </objects>
     <resources>
+        <image name="BackArrow" width="128" height="128"/>
         <image name="Facebook-128" width="128" height="128"/>
         <image name="Message-Mail-128" width="128" height="128"/>
-        <image name="NavigationLeft" width="48" height="48"/>
         <image name="Twitter Bird-128" width="128" height="128"/>
     </resources>
 </document>

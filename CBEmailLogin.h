@@ -10,16 +10,20 @@
 
 @protocol EmailProtocol <NSObject>
 @required
--(void)newUserCancelled;
--(void)newUserCreated:(NSString *)email pw:(NSString *)password;
+-(void)emailCancelled;
+-(void)newUserCreatedFromEmail:(NSString *)email pw:(NSString *)password;
+-(void)successfulLoginFromEmail;
 @end
 
 @interface CBEmailLogin : UIView <UITextFieldDelegate> {
     id delegate;
+    BOOL newUser;
 }
 
+@property (nonatomic, strong) IBOutlet UILabel *lblTitle;
 @property (nonatomic, strong) UIView *viewToScroll;
 
+-(void)setIsNewUser:(BOOL)isNewUser;
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(CGRect)parent withEmail:(NSString *)email;
 

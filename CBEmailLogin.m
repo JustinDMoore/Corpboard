@@ -8,6 +8,8 @@
 
 #import "CBEmailLogin.h"
 #import "JustinHelper.h"
+#import <Parse/Parse.h>
+#import "ParseErrors.h"
 
 @implementation CBEmailLogin {
     
@@ -46,6 +48,15 @@
 
 }
 
+-(void)setIsNewUser:(BOOL)isNewUser {
+    newUser = isNewUser;
+    if (isNewUser) {
+        self.lblTitle.text = @"CREATE NEW ACCOUNT";
+    } else {
+        self.lblTitle.text = @"SIGN INTO EXISTING ACCOUNT";
+    }
+}
+
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
@@ -56,13 +67,57 @@
     txtPassword.text = @"";
     [txtEmail resignFirstResponder];
     [txtPassword resignFirstResponder];
-    [delegate newUserCancelled];
+    [delegate emailCancelled];
 }
 
 - (IBAction)btnSignUp_clicked:(id)sender {
     if ([self checkForEmailAndPassword:nil]) {
-        [delegate newUserCreated:txtEmail.text pw:txtPassword.text];
+        if (newUser) {
+            [txtEmail resignFirstResponder];
+            [txtPassword resignFirstResponder];
+            [self createAccountWithEmail:txtEmail.text Password:txtPassword.text];
+        } else {
+            [self signIntoAccountWithEmail:txtEmail.text andPassword:txtPassword.text];
+        }
     }
+}
+
+-(void)createAccountWithEmail:(NSString *)email Password:(NSString *) pw {
+    
+    PFUser *user = [PFUser user];
+    user.username = email;
+    user.password = pw;
+    user.email = email;
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Hooray! Let them use the app now.
+            [delegate newUserCreatedFromEmail:email pw:pw];
+            
+        } else {
+            NSString *errorString = [error userInfo][@"error"];
+            // Show the errorString somewhere and let the user try again.
+            NSLog(@"Error creating account: %@", errorString);
+            
+ 
+        }
+    }];
+}
+
+-(void)signIntoAccountWithEmail:(NSString *)email andPassword:(NSString *)pw {
+    
+    [PFUser logInWithUsernameInBackground:email password:pw
+                                    block:^(PFUser *user, NSError *error) {
+                                        if (user) {
+                                            NSLog(@"email login good");
+                                            [delegate successfulLoginFromEmail];
+                                        } else {
+                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                                            [alert show];
+                                            NSLog(@"%@", error);
+                                            // The login failed. Check error to see why.
+                                        }
+                                    }];
 }
 
 #pragma mark
@@ -144,7 +199,7 @@
 #pragma mark - Keyboard Notifications
 #pragma mark
 
-#define kOFFSET_FOR_KEYBOARD 95.0
+#define kOFFSET_FOR_KEYBOARD 125.0
 
 -(void)keyboardWillShow:(NSNotification*)aNotification {
     // Animate the current view out of the way

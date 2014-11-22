@@ -7,11 +7,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBIsNewUser">
-            <rect key="frame" x="0.0" y="0.0" width="242" height="173"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="173"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfv-j1-J2K">
-                    <rect key="frame" x="31" y="46" width="181" height="30"/>
+                    <rect key="frame" x="70" y="46" width="181" height="30"/>
                     <state key="normal" title="Sign Into Existing Account">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -20,7 +20,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaI-Xb-cTZ">
-                    <rect key="frame" x="50" y="8" width="142" height="30"/>
+                    <rect key="frame" x="89" y="8" width="142" height="30"/>
                     <state key="normal" title="Create New Account">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -28,16 +28,29 @@
                         <action selector="btnNewUser_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="p5l-Zb-VId"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dor-b8-Lr3">
+                    <rect key="frame" x="8" y="107" width="304" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="58" id="JLe-uP-CPa"/>
+                    </constraints>
+                    <string key="text">CorpBoard allows you to review shows you attend, vote for your favorite corps, and live chat during events. An account is necessary to ensure fair and accurate reporting. Your information is private and not used for any other purpose.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="dor-b8-Lr3" secondAttribute="bottom" constant="8" id="4Ya-bV-XJO"/>
                 <constraint firstAttribute="centerX" secondItem="VaI-Xb-cTZ" secondAttribute="centerX" id="HPu-VZ-n0y"/>
                 <constraint firstItem="nfv-j1-J2K" firstAttribute="top" secondItem="VaI-Xb-cTZ" secondAttribute="bottom" constant="8" id="imC-Zg-qFH"/>
                 <constraint firstItem="VaI-Xb-cTZ" firstAttribute="centerX" secondItem="nfv-j1-J2K" secondAttribute="centerX" constant="-0.5" id="n6H-NP-Hr0"/>
                 <constraint firstItem="VaI-Xb-cTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="oRB-gB-7wR"/>
+                <constraint firstAttribute="trailing" secondItem="dor-b8-Lr3" secondAttribute="trailing" constant="8" id="sR8-Tb-2t9"/>
+                <constraint firstItem="dor-b8-Lr3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="xcs-fK-uKw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="191" y="141"/>
+            <point key="canvasLocation" x="191" y="140.5"/>
         </view>
     </objects>
 </document>

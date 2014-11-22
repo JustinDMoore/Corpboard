@@ -706,40 +706,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
-                                <rect key="frame" x="199" y="107" width="202" height="203"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="202" id="4wp-Co-WAn"/>
-                                    <constraint firstAttribute="height" constant="203" id="KW5-YT-Bvy"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZjW-OJ-0OU">
-                                <rect key="frame" x="16" y="504" width="568" height="76"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="kf6-ZA-4Vo"/>
-                                </constraints>
-                                <string key="text">CorpBoard allows you to review shows you attend, vote for your favorite corps, and live chat during events. An account is necessary to ensure fair and accurate reporting. Your information is private and not used for any other purpose.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQk-zx-3fS">
-                                <rect key="frame" x="350" y="213" width="14" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="1oL-3c-Z8i"/>
-                                    <constraint firstAttribute="width" constant="14" id="aAC-ng-QmF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
-                                <rect key="frame" x="176" y="321" width="242" height="173"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="173" id="m9g-WJ-ASf"/>
-                                    <constraint firstAttribute="width" constant="242" id="vej-8F-JFb"/>
-                                </constraints>
-                            </scrollView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eic-jQ-pzn">
                                 <rect key="frame" x="-92" y="-27" width="242" height="173"/>
                                 <subviews>
@@ -782,19 +748,37 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
+                                <rect key="frame" x="0.0" y="321" width="600" height="271"/>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQk-zx-3fS">
+                                <rect key="frame" x="350" y="213" width="14" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1oL-3c-Z8i"/>
+                                    <constraint firstAttribute="width" constant="14" id="aAC-ng-QmF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
+                                <rect key="frame" x="199" y="107" width="202" height="203"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="202" id="4wp-Co-WAn"/>
+                                    <constraint firstAttribute="height" constant="203" id="KW5-YT-Bvy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="ZjW-OJ-0OU" secondAttribute="bottom" constant="20" id="02t-Ht-e3M"/>
                             <constraint firstAttribute="centerX" secondItem="Ve5-rd-AQi" secondAttribute="centerX" id="731-qx-EEt"/>
-                            <constraint firstItem="Ve5-rd-AQi" firstAttribute="centerX" secondItem="6Me-ku-fuh" secondAttribute="centerX" constant="3" id="AcF-f8-e3e"/>
                             <constraint firstItem="GQk-zx-3fS" firstAttribute="leading" secondItem="Ve5-rd-AQi" secondAttribute="trailing" constant="-51" id="BeM-XQ-hf1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZjW-OJ-0OU" secondAttribute="trailing" id="C0P-BA-6bZ"/>
-                            <constraint firstAttribute="centerX" secondItem="ZjW-OJ-0OU" secondAttribute="centerX" id="G1f-1c-hxm"/>
+                            <constraint firstItem="6Me-ku-fuh" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" constant="-16" id="Nwd-4r-erK"/>
                             <constraint firstItem="GQk-zx-3fS" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="-97" id="PxF-hS-xyw"/>
-                            <constraint firstItem="ZjW-OJ-0OU" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" id="WcI-pW-cfp"/>
-                            <constraint firstItem="6Me-ku-fuh" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="11" id="Yyk-TX-9vh"/>
+                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="6Me-ku-fuh" secondAttribute="bottom" constant="8" id="Roa-GL-6ZB"/>
+                            <constraint firstItem="6Me-ku-fuh" firstAttribute="trailing" secondItem="Pqh-SV-eiA" secondAttribute="trailingMargin" constant="16" id="Zja-ck-Htl"/>
                             <constraint firstItem="Ve5-rd-AQi" firstAttribute="top" secondItem="fel-Mg-VLu" secondAttribute="bottom" constant="43" id="bJG-5h-630"/>
+                            <constraint firstItem="6Me-ku-fuh" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="11" id="v9D-Cc-JEW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zg1-Yk-o0v"/>
@@ -802,7 +786,6 @@
                         <outlet property="btnEmail" destination="YsO-wy-e9O" id="578-xM-t4p"/>
                         <outlet property="btnFacebook" destination="9nz-Tn-CTE" id="gdh-gZ-yKV"/>
                         <outlet property="btnTwitter" destination="tQy-WH-dhh" id="d9k-aB-Jbp"/>
-                        <outlet property="lblDisclaimer" destination="ZjW-OJ-0OU" id="upX-OO-iNh"/>
                         <outlet property="lblSignIn" destination="FgS-kE-Vs3" id="NG3-VL-arg"/>
                         <outlet property="progressView" destination="9g2-Lg-d7Z" id="c0h-vN-HWA"/>
                         <outlet property="scrollLogin" destination="6Me-ku-fuh" id="gel-RW-we3"/>

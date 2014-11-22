@@ -65,6 +65,7 @@
 		92C7960319667FCB00A5D8F8 /* Oregon Crusaders.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C7960219667FCB00A5D8F8 /* Oregon Crusaders.png */; };
 		92C7960519667FFF00A5D8F8 /* Pacific Crest.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C7960419667FFF00A5D8F8 /* Pacific Crest.png */; };
 		92C796071966805E00A5D8F8 /* Troopers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C796061966805D00A5D8F8 /* Troopers.png */; };
+		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CSFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CSFinalsPredictionViewController.m */; };
 		92CF4C6819627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6719627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m */; };
 		92E810861968E2980078B65D /* The Cadets1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810851968E2980078B65D /* The Cadets1.png */; };
@@ -225,6 +226,8 @@
 		92C7960219667FCB00A5D8F8 /* Oregon Crusaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oregon Crusaders.png"; sourceTree = "<group>"; };
 		92C7960419667FFF00A5D8F8 /* Pacific Crest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacific Crest.png"; sourceTree = "<group>"; };
 		92C796061966805D00A5D8F8 /* Troopers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Troopers.png; sourceTree = "<group>"; };
+		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
+		92C8D1EC1A2144270030EC3D /* ParseErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseErrors.m; sourceTree = "<group>"; };
 		92CF4C6319627EBC00BE98D5 /* CSFinalsPredictionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSFinalsPredictionViewController.h; sourceTree = "<group>"; };
 		92CF4C6419627EBC00BE98D5 /* CSFinalsPredictionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSFinalsPredictionViewController.m; sourceTree = "<group>"; };
 		92CF4C6619627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSFinalsPredictionContestInfoViewController.h; sourceTree = "<group>"; };
@@ -619,6 +622,8 @@
 		D02D63FB19F820E7000139CE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				92C8D1EB1A2144270030EC3D /* ParseErrors.h */,
+				92C8D1EC1A2144270030EC3D /* ParseErrors.m */,
 				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
 				92AFD66F195A41DD001C4AF0 /* UserScore.m */,
 				D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */,
@@ -863,6 +868,7 @@
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				D00FCB581A2077BD00A8E742 /* CBNickname.m in Sources */,
 				D0C8CA3A1A16DB2400CA4CAE /* NSString+XMLEntities.m in Sources */,
+				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,
 				D0307DB719537792000849F1 /* CSShowDetailsViewController.m in Sources */,
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,

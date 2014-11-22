@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Left-Arrow-48.png"
+      "filename" : "Left-Arrow-128.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Left-Arrow-256.png"
     },
     {
       "idiom" : "universal",

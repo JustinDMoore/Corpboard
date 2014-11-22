@@ -98,7 +98,7 @@
         // AND START DOWNLOADING DATA
         
         [self.scrollLogin addSubview:self.viewProgress];
-        self.viewProgress.frame = CGRectMake(0, 0, self.viewProgress.frame.size.width, self.viewProgress.frame.size.height);
+        self.viewProgress.frame = CGRectMake(0, 0, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
         self.scrollLogin.contentSize = CGSizeMake(self.viewProgress.frame.size.width, self.viewProgress.frame.size.height);
         [self loadData];
         NSLog(@"Existing user.");
@@ -111,7 +111,7 @@
         // NEW USER, SHOW THE NEW USER DIALOG
         NSLog(@"New user.");
         [self.scrollLogin addSubview:self.viewNewUser];
-        self.viewNewUser.frame = CGRectMake(0, 0, self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
+        self.viewNewUser.frame = CGRectMake(0, 0, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
         self.scrollLogin.contentSize = CGSizeMake(self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
     }
     
@@ -242,7 +242,7 @@ int ticker = 0;
 - (IBAction)btnEmail_clicked:(id)sender {
 
     [self.scrollLogin addSubview:self.viewEmailLogin];
-    self.viewEmailLogin.frame = CGRectMake(self.viewSignUp.frame.origin.x + self.viewSignUp.frame.size.width, self.viewSignUp.frame.origin.y, self.viewEmailLogin.frame.size.width, self.viewEmailLogin.frame.size.height);
+    self.viewEmailLogin.frame = CGRectMake(self.viewSignUp.frame.origin.x + self.viewSignUp.frame.size.width, self.viewSignUp.frame.origin.y, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
     [self.viewEmailLogin setDelegate:self];
     self.viewEmailLogin.viewToScroll = self.view;
     self.scrollLogin.contentSize = CGSizeMake(self.viewSignUp.frame.size.width + self.viewEmailLogin.frame.size.width, self.viewSignUp.frame.size.height);
@@ -311,6 +311,7 @@ int ticker = 0;
 
 bool removeNewUserView = NO;
 bool removeSignInView = NO;
+bool removeEmailView = NO;
 
 -(void)newUserCancelled {
     [self.scrollLogin scrollRectToVisible:self.viewSignUp.frame animated:YES];
@@ -396,6 +397,12 @@ bool removeSignInView = NO;
         self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width - self.viewSignIn.frame.size.width, self.scrollLogin.contentSize.height);
         removeSignInView = NO;
     }
+    
+    if (removeEmailView) {
+        [self.viewEmailLogin removeFromSuperview];
+        self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width - self.viewEmailLogin.frame.size.width, self.scrollLogin.contentSize.height);
+        removeEmailView = NO;
+    }
 }
 
 #pragma mark
@@ -410,7 +417,7 @@ bool removeSignInView = NO;
     if (!newUser) [self.viewSignIn setTitleMessage:@"SIGN IN USING"];
     else [self.viewSignIn setTitleMessage:@"SIGN UP USING"];
     
-    self.viewSignIn.frame = CGRectMake(self.viewNewUser.frame.origin.x + self.viewNewUser.frame.size.width, self.viewNewUser.frame.origin.y, self.viewSignIn.frame.size.width, self.viewSignIn.frame.size.height);
+    self.viewSignIn.frame = CGRectMake(self.viewNewUser.frame.origin.x + self.viewNewUser.frame.size.width, self.viewNewUser.frame.origin.y, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
     self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width + self.viewSignIn.frame.size.width, self.scrollLogin.contentSize.height + self.viewSignIn.frame.size.height);
     [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
 }
@@ -420,4 +427,29 @@ bool removeSignInView = NO;
     [self.scrollLogin scrollRectToVisible:self.viewNewUser.frame animated:YES];
     removeSignInView = YES;
 }
+
+-(void)loginSuccessful:(BOOL)needsNickName {
+    if (!needsNickName) {
+        [self loadData];
+    }
+}
+
+-(void)emailSelected {
+    [self.scrollLogin addSubview:self.viewEmailLogin];
+    self.viewEmailLogin.frame = CGRectMake(self.viewSignIn.frame.origin.x + self.viewSignIn.frame.size.width, self.viewSignIn.frame.origin.y, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
+    self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width + self.viewEmailLogin.frame.size.width, self.scrollLogin.contentSize.height);
+    [self.scrollLogin scrollRectToVisible:self.viewEmailLogin.frame animated:YES];
+    self.viewEmailLogin.isNewUser = self.isNewUser;
+    self.viewEmailLogin.viewToScroll = self.view;
+}
+
+-(void)emailCancelled {
+    [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
+    removeEmailView = YES;
+}
+
+-(void)successfulLoginFromEmail {
+    [self loadData];
+}
+
 @end
