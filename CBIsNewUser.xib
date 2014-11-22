@@ -12,7 +12,10 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfv-j1-J2K">
                     <rect key="frame" x="70" y="46" width="181" height="30"/>
-                    <state key="normal" title="Sign Into Existing Account">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="181" id="9Kh-Kc-6M2"/>
+                    </constraints>
+                    <state key="normal" title="Existing Account">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -21,7 +24,10 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaI-Xb-cTZ">
                     <rect key="frame" x="89" y="8" width="142" height="30"/>
-                    <state key="normal" title="Create New Account">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="142" id="91h-UZ-hDI"/>
+                    </constraints>
+                    <state key="normal" title="Sign Up">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -41,11 +47,11 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="centerX" secondItem="VaI-Xb-cTZ" secondAttribute="centerX" id="0fM-0A-9tb"/>
                 <constraint firstAttribute="bottom" secondItem="dor-b8-Lr3" secondAttribute="bottom" constant="8" id="4Ya-bV-XJO"/>
-                <constraint firstAttribute="centerX" secondItem="VaI-Xb-cTZ" secondAttribute="centerX" id="HPu-VZ-n0y"/>
-                <constraint firstItem="nfv-j1-J2K" firstAttribute="top" secondItem="VaI-Xb-cTZ" secondAttribute="bottom" constant="8" id="imC-Zg-qFH"/>
-                <constraint firstItem="VaI-Xb-cTZ" firstAttribute="centerX" secondItem="nfv-j1-J2K" secondAttribute="centerX" constant="-0.5" id="n6H-NP-Hr0"/>
-                <constraint firstItem="VaI-Xb-cTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="oRB-gB-7wR"/>
+                <constraint firstItem="VaI-Xb-cTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="fzI-Rj-Pgz"/>
+                <constraint firstItem="VaI-Xb-cTZ" firstAttribute="centerX" secondItem="nfv-j1-J2K" secondAttribute="centerX" constant="-0.5" id="q1o-sL-Pw4"/>
+                <constraint firstItem="nfv-j1-J2K" firstAttribute="top" secondItem="VaI-Xb-cTZ" secondAttribute="bottom" constant="8" id="rYT-S7-17b"/>
                 <constraint firstAttribute="trailing" secondItem="dor-b8-Lr3" secondAttribute="trailing" constant="8" id="sR8-Tb-2t9"/>
                 <constraint firstItem="dor-b8-Lr3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="xcs-fK-uKw"/>
             </constraints>
