@@ -73,6 +73,7 @@
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
+		D00FCB581A2077BD00A8E742 /* CBScreenName.m in Sources */ = {isa = PBXBuildFile; fileRef = D00FCB571A2077BD00A8E742 /* CBScreenName.m */; };
 		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -226,6 +227,8 @@
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
 		D0067A6B1969236300C372D0 /* Feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback.png; sourceTree = "<group>"; };
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
+		D00FCB561A2077BD00A8E742 /* CBScreenName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBScreenName.h; sourceTree = "<group>"; };
+		D00FCB571A2077BD00A8E742 /* CBScreenName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBScreenName.m; sourceTree = "<group>"; };
 		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
 		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
@@ -583,14 +586,16 @@
 				D094AFA81A157C24003557AF /* CBNewsItem.m */,
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
-				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
-				D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */,
 				D003384A1A1FF39C009C79C4 /* ScreenName.xib */,
+				D00FCB561A2077BD00A8E742 /* CBScreenName.h */,
+				D00FCB571A2077BD00A8E742 /* CBScreenName.m */,
+				D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */,
 				D0F7E51F1A1F351300AE500E /* CBNewUserView.h */,
 				D0F7E5201A1F351300AE500E /* CBNewUserView.m */,
 				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
 				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
 				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
+				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
 				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 			);
@@ -820,6 +825,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
+				D00FCB581A2077BD00A8E742 /* CBScreenName.m in Sources */,
 				D0C8CA3A1A16DB2400CA4CAE /* NSString+XMLEntities.m in Sources */,
 				D0307DB719537792000849F1 /* CSShowDetailsViewController.m in Sources */,
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,

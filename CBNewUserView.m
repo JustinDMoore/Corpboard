@@ -22,45 +22,27 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // CUSTOM INITIALIZATION HERE
-        self.clipsToBounds = YES;
-        self.layer.cornerRadius = 8;
+        [self initUI];
         
-        // Set vertical effect
-        UIInterpolatingMotionEffect *verticalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.y"
-         type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        verticalMotionEffect.minimumRelativeValue = @(-10);
-        verticalMotionEffect.maximumRelativeValue = @(10);
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
         
-        // Set horizontal effect
-        UIInterpolatingMotionEffect *horizontalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.x"
-         type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        horizontalMotionEffect.minimumRelativeValue = @(-10);
-        horizontalMotionEffect.maximumRelativeValue = @(10);
-        
-        // Create group to combine both
-        UIMotionEffectGroup *group = [UIMotionEffectGroup new];
-        group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
-        
-        // Add both effects to your view
-        [self addMotionEffect:group];
-        
-        //disable superview subviews
-        for (UIView *v in self.superview.subviews) {
-            if (![v isKindOfClass:[CBNewUserView class]]) {
-                v.userInteractionEnabled = NO;
-            }
-        }
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
     }
     return self;
 }
 
 -(void)initUI {
+    
+    self.clipsToBounds = YES;
     txtEmail.delegate = self;
     txtPassword.delegate = self;
+    txtPassword.secureTextEntry = YES;
 
 }
 
@@ -68,62 +50,18 @@
     delegate = newDelegate;
 }
 
--(void)showInParent:(CGRect)parent withEmail:(NSString *)email {
-    
-    [self initUI];
-    
-    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2), CGRectGetMidY(parent) - (self.frame.size.height / 2) - 65, self.frame.size.width, self.frame.size.height);
-    self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
-    
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-        
-        self.transform = CGAffineTransformIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        txtEmail.text = email;
-        [txtEmail becomeFirstResponder];
-        
-    }];
-}
-
--(void)closeView:(BOOL)cancelled {
-    
-    for (UIView *v in self.superview.subviews) {
-        if (![v isKindOfClass:[CBNewUserView class]]) {
-            v.userInteractionEnabled = YES;
-        }
-    }
-    
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
-        
-        self.transform = CGAffineTransformScale(self.transform, 1.1, 1.1);
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.2
-                              delay:0
-             usingSpringWithDamping:1
-              initialSpringVelocity:8
-                            options:0
-                         animations:^{
-                             self.transform = CGAffineTransformScale(self.transform, 0.1f, 0.1f);
-                             self.alpha = 0;
-                         }
-                         completion:^(BOOL finished) {
-                             [self removeFromSuperview];
-                             if (cancelled) [delegate newUserCancelled];
-                             else [delegate newUserCreated:txtEmail.text pw:txtPassword.text];
-                         }];
-    }];
-}
 
 - (IBAction)btnCancel_clicked:(id)sender {
-    [self closeView:YES];
+    txtEmail.text = @"";
+    txtPassword.text = @"";
+    [txtEmail resignFirstResponder];
+    [txtPassword resignFirstResponder];
+    [delegate newUserCancelled];
 }
 
 - (IBAction)btnSignUp_clicked:(id)sender {
     if ([self checkForEmailAndPassword:nil]) {
-        [self closeView:NO];
+        [delegate newUserCreated:txtEmail.text pw:txtPassword.text];
     }
 }
 
@@ -134,6 +72,13 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
     currentResponder = textField;
+
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.viewToScroll.frame.origin.y >= 0)
+        {
+            [self setViewMovedUp:YES];
+        }
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -148,7 +93,7 @@
 
     if (textField == txtPassword) {
         if ([self checkForEmailAndPassword:textField]) {
-            [self closeView:NO];
+            
         }
     }
     
@@ -193,6 +138,61 @@
     }
 
     return YES;
+}
+
+#pragma mark
+#pragma mark - Keyboard Notifications
+#pragma mark
+
+#define kOFFSET_FOR_KEYBOARD 95.0
+
+-(void)keyboardWillShow:(NSNotification*)aNotification {
+    // Animate the current view out of the way
+    
+    if (self.viewToScroll.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.viewToScroll.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide:(NSNotification*)aNotification {
+
+    if (self.viewToScroll.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+    else if (self.viewToScroll.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.viewToScroll.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kOFFSET_FOR_KEYBOARD;
+        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+    }
+    self.viewToScroll.frame = rect;
+    
+    [UIView commitAnimations];
 }
 
 @end

@@ -13,7 +13,9 @@
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
     CSSingle *data;
+   
 }
+@property (nonatomic, strong) CBNewUserView *viewNewUser;
 @property (nonatomic) BOOL theBool;
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) PFUser *currentUser;
@@ -23,6 +25,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnEmail;
 @property (weak, nonatomic) IBOutlet UILabel *lblDisclaimer;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIButton *btnExistingUsers;
+
+
+@property (weak, nonatomic) IBOutlet UIView *viewSignUp;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollLogin;
 
 @end
 
@@ -41,6 +48,13 @@
     [data setDelegate:self];
     [[PFUser currentUser] fetchInBackground];
     self.currentUser = [PFUser currentUser];
+   
+    self.viewNewUser =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUser"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+   
     
     if (self.currentUser) {
 
@@ -71,20 +85,26 @@ int ticker = 0;
 
 -(void)initUI {
     
+    self.viewSignUp.backgroundColor = [UIColor blackColor];
+    
     self.lblSignIn.alpha = 0;
     self.btnFacebook.alpha = 0;
     self.btnTwitter.alpha = 0;
     self.btnEmail.alpha = 0;
     self.lblDisclaimer.alpha = 0;
+    self.btnExistingUsers.alpha = 0;
     
     self.lblSignIn.hidden = YES;
     self.btnFacebook.hidden = YES;
     self.btnTwitter.hidden = YES;
     self.btnEmail.hidden = YES;
     self.lblDisclaimer.hidden = YES;
+    self.btnExistingUsers.hidden = YES;
     
     self.progressView.hidden = YES;
     self.progressView.progress = 0;
+    
+    
 }
 
 -(void)newUser {
@@ -94,6 +114,7 @@ int ticker = 0;
     self.btnTwitter.hidden = NO;
     self.btnEmail.hidden = NO;
     self.lblDisclaimer.hidden = NO;
+    self.btnExistingUsers.hidden = NO;
     
     [UIView animateWithDuration:2
                           delay:0
@@ -104,9 +125,14 @@ int ticker = 0;
                          self.btnTwitter.alpha = 1;
                          self.btnEmail.alpha = 1;
                          self.lblDisclaimer.alpha = 1;
+                         self.btnExistingUsers.alpha = 1;
                      } completion:^(BOOL finished) {
                          
                      }];
+}
+
+-(void)createNickname {
+    
 }
 
 -(void)useApp {
@@ -175,15 +201,13 @@ int ticker = 0;
 }
 
 - (IBAction)btnEmail_clicked:(id)sender {
-    
-    CBNewUserView *myCustomXIBViewObj =
-    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUser"
-                                   owner:self
-                                 options:nil]
-     objectAtIndex:0];
-    [self.view addSubview:myCustomXIBViewObj];
-    [myCustomXIBViewObj showInParent:self.view.frame withEmail:@""];
-    [myCustomXIBViewObj setDelegate:self];
+
+    [self.scrollLogin addSubview:self.viewNewUser];
+    self.viewNewUser.frame = CGRectMake(self.viewSignUp.frame.origin.x + self.viewSignUp.frame.size.width, self.viewSignUp.frame.origin.y, self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
+    [self.viewNewUser setDelegate:self];
+    self.viewNewUser.viewToScroll = self.view;
+    self.scrollLogin.contentSize = CGSizeMake(self.viewSignUp.frame.size.width + self.viewNewUser.frame.size.width, self.viewSignUp.frame.size.height);
+    [self.scrollLogin scrollRectToVisible:self.viewNewUser.frame animated:YES];
 }
 
 #pragma mark
@@ -246,12 +270,86 @@ int ticker = 0;
 #pragma mark - New User Delegates
 #pragma mark
 
+bool removeNewUserView = NO;
+
 -(void)newUserCancelled {
-    
+    [self.scrollLogin scrollRectToVisible:self.viewSignUp.frame animated:YES];
+    removeNewUserView = YES;
 }
 
 -(void)newUserCreated:(NSString *)email pw:(NSString *)password {
 
+    //check to make sure they aren't an existing user
+    //if so, log in
+    PFUser *user = [PFUser user];
+    user.username = email;
+    user.password = password;
+    user.email = email;
+    
+    //try to log in first
+    [PFUser logInWithUsernameInBackground:email password:password block:^(PFUser *user, NSError *error) {
+        if (error) {
+            //no user found, sign them up
+            if (error.code == 205) {
+                [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+                        if ((error.code == 202) || (error.code == 203)) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username taken" message:@"The email you provided has already been taken." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [alert show];
+                        }
+                    } else {
+                        //get a nickname
+                        NSLog(@"need a nickname");
+                    }
+                }];
+            }
+        } else {
+            NSLog(@"logged iiiiin");
+            [self useApp];
+        }
+    }];
+}
+
+-(void)loginWithEmail:(NSString *)email andPW:(NSString *)password {
+ 
+    [PFUser logInWithUsernameInBackground:email
+                                 password:password
+                                    block:^(PFUser *user, NSError *error) {
+                                        
+                                        if (!error) {
+                                            //successful login
+                                            NSLog(@"logged in instead of new user");
+                                            if (![self doesUserHaveNickname]) {
+                                                
+                                            } else {
+                                                [self useApp];
+                                            }
+                                        } else {
+                                            NSString *errorString = [error userInfo][@"error"];
+                                            NSLog(@"Error creating account: %@", errorString);
+                                        }
+                                        
+                                    }];
+}
+
+-(BOOL)doesUserHaveNickname {
+    PFUser *user = [PFUser currentUser];
+    if (user[@"screenname"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark
+#pragma mark - UIScrollView Delegates
+#pragma mark
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (removeNewUserView) {
+        [self.viewNewUser removeFromSuperview];
+        removeNewUserView = NO;
+    }
 }
 
 @end

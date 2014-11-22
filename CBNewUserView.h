@@ -15,8 +15,11 @@
 @end
 @interface CBNewUserView : UIView <UITextFieldDelegate> {
     id delegate;
+    
 }
 
+@property (nonatomic, strong) UIView *viewToScroll;
+
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent withEmail:(NSString *)email
+-(void)showInParent:(CGRect)parent withEmail:(NSString *)email;
 @end

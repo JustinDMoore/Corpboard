@@ -10,6 +10,6 @@
 #import "CSSingle.h"
 #import "CBNewUserView.h"
 
-@interface CBNewLoginViewController : UIViewController <dataProtocol, newUserProtocol>
+@interface CBNewLoginViewController : UIViewController <dataProtocol, newUserProtocol, UIScrollViewDelegate>
 
 @end
