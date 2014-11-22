@@ -1,15 +1,15 @@
 //
-//  CBNewUserView.m
+//  CBEmailLogin.m
 //  CorpBoard
 //
 //  Created by Justin Moore on 11/21/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CBNewUserView.h"
+#import "CBEmailLogin.h"
 #import "JustinHelper.h"
 
-@implementation CBNewUserView {
+@implementation CBEmailLogin {
     
     IBOutlet UITextField *txtEmail;
     IBOutlet UITextField *txtPassword;

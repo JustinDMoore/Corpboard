@@ -15,7 +15,14 @@
     CSSingle *data;
    
 }
-@property (nonatomic, strong) CBNewUserView *viewNewUser;
+@property (nonatomic, strong) CBIsNewUser *viewNewUser;
+@property (nonatomic, strong) CBViewSignIn *viewSignIn;
+@property (nonatomic, strong) CBEmailLogin *viewEmailLogin;
+@property (nonatomic, strong) CBNickname *viewNickname;
+@property (nonatomic, strong) CBProgressView *viewProgress;
+
+@property (nonatomic) BOOL isNewUser;
+
 @property (nonatomic) BOOL theBool;
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) PFUser *currentUser;
@@ -25,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnEmail;
 @property (weak, nonatomic) IBOutlet UILabel *lblDisclaimer;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
-@property (weak, nonatomic) IBOutlet UIButton *btnExistingUsers;
 
 
 @property (weak, nonatomic) IBOutlet UIView *viewSignUp;
@@ -50,14 +56,50 @@
     self.currentUser = [PFUser currentUser];
    
     self.viewNewUser =
-    [[[NSBundle mainBundle] loadNibNamed:@"CBNewUser"
+    [[[NSBundle mainBundle] loadNibNamed:@"CBIsNewUser"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    
+    self.viewSignIn =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBViewSignIn"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    
+    self.viewEmailLogin =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBEmailLogin"
                                    owner:self
                                  options:nil]
      objectAtIndex:0];
    
+    self.viewNickname =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBNickname"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    
+    self.viewProgress =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBProgressView"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    
+    
+    [self.viewNewUser setDelegate:self];
+    [self.viewSignIn setDelegate:self];
+    [self.viewEmailLogin setDelegate:self];
+    [self.viewNickname setDelegate:self];
+    [self.viewProgress setDelegate:self];
+   
     
     if (self.currentUser) {
-
+        // EXISTING USER, START THE PROGRESS BAR
+        // AND START DOWNLOADING DATA
+        
+        [self.scrollLogin addSubview:self.viewProgress];
+        self.viewProgress.frame = CGRectMake(0, 0, self.viewProgress.frame.size.width, self.viewProgress.frame.size.height);
+        self.scrollLogin.contentSize = CGSizeMake(self.viewProgress.frame.size.width, self.viewProgress.frame.size.height);
         [self loadData];
         NSLog(@"Existing user.");
         timerCountdown = [NSTimer scheduledTimerWithTimeInterval:1
@@ -66,8 +108,11 @@
                                                             userInfo:nil
                                                              repeats:YES];
     } else {
+        // NEW USER, SHOW THE NEW USER DIALOG
         NSLog(@"New user.");
-        [self newUser];
+        [self.scrollLogin addSubview:self.viewNewUser];
+        self.viewNewUser.frame = CGRectMake(0, 0, self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
+        self.scrollLogin.contentSize = CGSizeMake(self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
     }
     
 }
@@ -92,15 +137,11 @@ int ticker = 0;
     self.btnTwitter.alpha = 0;
     self.btnEmail.alpha = 0;
     self.lblDisclaimer.alpha = 0;
-    self.btnExistingUsers.alpha = 0;
-    
     self.lblSignIn.hidden = YES;
     self.btnFacebook.hidden = YES;
     self.btnTwitter.hidden = YES;
     self.btnEmail.hidden = YES;
     self.lblDisclaimer.hidden = YES;
-    self.btnExistingUsers.hidden = YES;
-    
     self.progressView.hidden = YES;
     self.progressView.progress = 0;
     
@@ -114,7 +155,6 @@ int ticker = 0;
     self.btnTwitter.hidden = NO;
     self.btnEmail.hidden = NO;
     self.lblDisclaimer.hidden = NO;
-    self.btnExistingUsers.hidden = NO;
     
     [UIView animateWithDuration:2
                           delay:0
@@ -125,7 +165,6 @@ int ticker = 0;
                          self.btnTwitter.alpha = 1;
                          self.btnEmail.alpha = 1;
                          self.lblDisclaimer.alpha = 1;
-                         self.btnExistingUsers.alpha = 1;
                      } completion:^(BOOL finished) {
                          
                      }];
@@ -202,12 +241,12 @@ int ticker = 0;
 
 - (IBAction)btnEmail_clicked:(id)sender {
 
-    [self.scrollLogin addSubview:self.viewNewUser];
-    self.viewNewUser.frame = CGRectMake(self.viewSignUp.frame.origin.x + self.viewSignUp.frame.size.width, self.viewSignUp.frame.origin.y, self.viewNewUser.frame.size.width, self.viewNewUser.frame.size.height);
-    [self.viewNewUser setDelegate:self];
-    self.viewNewUser.viewToScroll = self.view;
-    self.scrollLogin.contentSize = CGSizeMake(self.viewSignUp.frame.size.width + self.viewNewUser.frame.size.width, self.viewSignUp.frame.size.height);
-    [self.scrollLogin scrollRectToVisible:self.viewNewUser.frame animated:YES];
+    [self.scrollLogin addSubview:self.viewEmailLogin];
+    self.viewEmailLogin.frame = CGRectMake(self.viewSignUp.frame.origin.x + self.viewSignUp.frame.size.width, self.viewSignUp.frame.origin.y, self.viewEmailLogin.frame.size.width, self.viewEmailLogin.frame.size.height);
+    [self.viewEmailLogin setDelegate:self];
+    self.viewEmailLogin.viewToScroll = self.view;
+    self.scrollLogin.contentSize = CGSizeMake(self.viewSignUp.frame.size.width + self.viewEmailLogin.frame.size.width, self.viewSignUp.frame.size.height);
+    [self.scrollLogin scrollRectToVisible:self.viewEmailLogin.frame animated:YES];
 }
 
 #pragma mark
@@ -271,6 +310,7 @@ int ticker = 0;
 #pragma mark
 
 bool removeNewUserView = NO;
+bool removeSignInView = NO;
 
 -(void)newUserCancelled {
     [self.scrollLogin scrollRectToVisible:self.viewSignUp.frame animated:YES];
@@ -347,9 +387,37 @@ bool removeNewUserView = NO;
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if (removeNewUserView) {
-        [self.viewNewUser removeFromSuperview];
+        [self.viewEmailLogin removeFromSuperview];
         removeNewUserView = NO;
+    }
+    
+    if (removeSignInView) {
+        [self.viewSignIn removeFromSuperview];
+        self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width - self.viewSignIn.frame.size.width, self.scrollLogin.contentSize.height);
+        removeSignInView = NO;
     }
 }
 
+#pragma mark
+#pragma mark - Protocol Methods
+#pragma mark
+
+//CBIsNewUser.h
+-(void)isNewUser:(BOOL)newUser {
+    self.isNewUser = newUser;
+    [self.scrollLogin addSubview:self.viewSignIn];
+    
+    if (!newUser) [self.viewSignIn setTitleMessage:@"SIGN IN USING"];
+    else [self.viewSignIn setTitleMessage:@"SIGN UP USING"];
+    
+    self.viewSignIn.frame = CGRectMake(self.viewNewUser.frame.origin.x + self.viewNewUser.frame.size.width, self.viewNewUser.frame.origin.y, self.viewSignIn.frame.size.width, self.viewSignIn.frame.size.height);
+    self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width + self.viewSignIn.frame.size.width, self.scrollLogin.contentSize.height + self.viewSignIn.frame.size.height);
+    [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
+}
+
+//SIGN IN/SIGN UP
+-(void)SignInCancelled {
+    [self.scrollLogin scrollRectToVisible:self.viewNewUser.frame animated:YES];
+    removeSignInView = YES;
+}
 @end

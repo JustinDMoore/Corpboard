@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBViewSignIn">
+            <rect key="frame" x="0.0" y="0.0" width="242" height="173"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-Y9-AR4">
+                    <rect key="frame" x="91" y="39" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="6aN-xZ-KgZ"/>
+                        <constraint firstAttribute="width" constant="60" id="VMm-XD-ZIH"/>
+                    </constraints>
+                    <state key="normal" image="Twitter Bird-128">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnTwitter_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="0EO-TE-YyU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBJ-xb-gQl">
+                    <rect key="frame" x="162" y="39" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="8By-k4-QPx"/>
+                    </constraints>
+                    <state key="normal" image="Message-Mail-128">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnEmail_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="1Iu-ld-28T"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP USING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJs-3k-Rma">
+                    <rect key="frame" x="58" y="10" width="128" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KB1-Dh-7Br">
+                    <rect key="frame" x="20" y="39" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="8iN-oU-NgT"/>
+                    </constraints>
+                    <state key="normal" image="Facebook-128">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnFacebook_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="hvD-eN-6xn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ci-bQ-Fv6">
+                    <rect key="frame" x="89" y="113" width="64" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="4L9-Xg-gad"/>
+                        <constraint firstAttribute="width" constant="64" id="reV-Y9-tlO"/>
+                    </constraints>
+                    <state key="normal" image="NavigationLeft">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnBack_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="7e5-Tw-HRX"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="B1h-ke-pmC"/>
+                <constraint firstAttribute="bottom" secondItem="0ci-bQ-Fv6" secondAttribute="bottom" constant="6" id="DYg-eg-H7g"/>
+                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="centerX" secondItem="OEY-Y9-AR4" secondAttribute="centerX" id="HtL-7d-F8N"/>
+                <constraint firstItem="fJs-3k-Rma" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="58" id="M67-do-De3"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="KB1-Dh-7Br" secondAttribute="top" id="ZKR-hR-DCn"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="bottom" secondItem="vBJ-xb-gQl" secondAttribute="bottom" id="eb5-Zo-ydG"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="vBJ-xb-gQl" secondAttribute="top" id="ipc-ou-gZt"/>
+                <constraint firstItem="vBJ-xb-gQl" firstAttribute="leading" secondItem="OEY-Y9-AR4" secondAttribute="trailing" constant="11" id="lnU-Fh-TIi"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="top" secondItem="fJs-3k-Rma" secondAttribute="bottom" constant="8" symbolic="YES" id="qGa-XW-z1e"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="bottom" secondItem="KB1-Dh-7Br" secondAttribute="bottom" id="sCK-KA-JwM"/>
+                <constraint firstItem="OEY-Y9-AR4" firstAttribute="leading" secondItem="KB1-Dh-7Br" secondAttribute="trailing" constant="11" id="uPl-0B-b5r"/>
+                <constraint firstItem="0ci-bQ-Fv6" firstAttribute="top" secondItem="OEY-Y9-AR4" secondAttribute="bottom" constant="14" id="van-f9-LEK"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnEmail" destination="vBJ-xb-gQl" id="Cnj-RN-SFp"/>
+                <outlet property="btnFacebook" destination="KB1-Dh-7Br" id="R68-Ab-vOt"/>
+                <outlet property="btnTwitter" destination="OEY-Y9-AR4" id="eSI-57-D5h"/>
+                <outlet property="lblTitle" destination="fJs-3k-Rma" id="D38-Ni-dNi"/>
+            </connections>
+            <point key="canvasLocation" x="357" y="333.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Facebook-128" width="128" height="128"/>
+        <image name="Message-Mail-128" width="128" height="128"/>
+        <image name="NavigationLeft" width="48" height="48"/>
+        <image name="Twitter Bird-128" width="128" height="128"/>
+    </resources>
+</document>

@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CSSingle.h"
-#import "CBNewUserView.h"
+#import "CBIsNewUser.h"
+#import "CBViewSignIn.h"
+#import "CBEmailLogin.h"
+#import "CBNickname.h"
+#import "CBProgressView.h"
 
-@interface CBNewLoginViewController : UIViewController <dataProtocol, newUserProtocol, UIScrollViewDelegate>
+@interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate>
 
 @end

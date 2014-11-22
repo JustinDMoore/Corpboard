@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBProgressView">
+            <rect key="frame" x="0.0" y="0.0" width="242" height="173"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-1t-TgW">
+                    <rect key="frame" x="46" y="57" width="150" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="Eoj-Ak-3id"/>
+                    </constraints>
+                </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Vl-YWj">
+                    <rect key="frame" x="83" y="84" width="76" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Ddg-1t-TgW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="57" id="C3o-nY-vds"/>
+                <constraint firstItem="xCR-Vl-YWj" firstAttribute="centerX" secondItem="Ddg-1t-TgW" secondAttribute="centerX" id="QKO-xP-sJT"/>
+                <constraint firstAttribute="centerX" secondItem="Ddg-1t-TgW" secondAttribute="centerX" id="X6Y-IC-ReC"/>
+                <constraint firstItem="xCR-Vl-YWj" firstAttribute="top" secondItem="Ddg-1t-TgW" secondAttribute="bottom" constant="25" id="egl-c5-G3m"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="239" y="262.5"/>
+        </view>
+    </objects>
+</document>

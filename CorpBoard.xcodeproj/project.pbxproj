@@ -38,10 +38,16 @@
 		925334AA194FD5D70004D16F /* CorpsJudgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 925334A9194FD5D70004D16F /* CorpsJudgeTests.m */; };
 		925334BE194FD6F80004D16F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925334BD194FD6F80004D16F /* Main.storyboard */; };
 		925334C1194FD7BC0004D16F /* CSShowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925334C0194FD7BC0004D16F /* CSShowsViewController.m */; };
+		9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */; };
+		9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBE61A209D8000FB40AB /* CBIsNewUser.m */; };
+		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
+		9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */; };
 		9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAB1968F09700DFB09E /* Blue Devils1.png */; };
 		9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
 		927CC01A19F8D18E00B700B2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927CC01919F8D18E00B700B2 /* FacebookSDK.framework */; };
+		927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927F4DF41A212B79008CC143 /* CBProgressView.xib */; };
+		927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F4DF71A212BF5008CC143 /* CBProgressView.m */; };
 		928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
 		928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */; };
 		928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
@@ -66,14 +72,14 @@
 		92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */; };
 		92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
-		D00338471A1FE339009C79C4 /* CBNewUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */; };
-		D003384B1A1FF39C009C79C4 /* ScreenName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* ScreenName.xib */; };
+		D00338471A1FE339009C79C4 /* CBEmailLogin.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBEmailLogin.xib */; };
+		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A621968FFC500C372D0 /* retreat.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A611968FFC500C372D0 /* retreat.png */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
-		D00FCB581A2077BD00A8E742 /* CBScreenName.m in Sources */ = {isa = PBXBuildFile; fileRef = D00FCB571A2077BD00A8E742 /* CBScreenName.m */; };
+		D00FCB581A2077BD00A8E742 /* CBNickname.m in Sources */ = {isa = PBXBuildFile; fileRef = D00FCB571A2077BD00A8E742 /* CBNickname.m */; };
 		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -121,8 +127,8 @@
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
 		D0F03C9D1955EF950093FBC3 /* CSRecapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F03C9C1955EF950093FBC3 /* CSRecapViewController.m */; };
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
-		D0F7E51E1A1F309E00AE500E /* CBNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */; };
-		D0F7E5211A1F351300AE500E /* CBNewUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBNewUserView.m */; };
+		D0F7E51E1A1F309E00AE500E /* CBEmailLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBEmailLogin.xib */; };
+		D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBEmailLogin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,11 +193,20 @@
 		925334BD194FD6F80004D16F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		925334BF194FD7BC0004D16F /* CSShowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSShowsViewController.h; sourceTree = "<group>"; };
 		925334C0194FD7BC0004D16F /* CSShowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSShowsViewController.m; sourceTree = "<group>"; };
+		9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBIsNewUser.xib; sourceTree = "<group>"; };
+		9253EBE51A209D8000FB40AB /* CBIsNewUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBIsNewUser.h; sourceTree = "<group>"; };
+		9253EBE61A209D8000FB40AB /* CBIsNewUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBIsNewUser.m; sourceTree = "<group>"; };
+		9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBViewSignIn.xib; sourceTree = "<group>"; };
+		9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBViewSignIn.h; sourceTree = "<group>"; };
+		9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBViewSignIn.m; sourceTree = "<group>"; };
 		9270DBAB1968F09700DFB09E /* Blue Devils1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Devils1.png"; sourceTree = "<group>"; };
 		9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Regiment1.png"; sourceTree = "<group>"; };
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
 		927254FC1963B12000275511 /* CBCorpsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsDetailViewController.m; sourceTree = "<group>"; };
 		927CC01919F8D18E00B700B2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		927F4DF41A212B79008CC143 /* CBProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProgressView.xib; sourceTree = "<group>"; };
+		927F4DF61A212BF5008CC143 /* CBProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProgressView.h; sourceTree = "<group>"; };
+		927F4DF71A212BF5008CC143 /* CBProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProgressView.m; sourceTree = "<group>"; };
 		928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRankingsInfoView.xib; sourceTree = "<group>"; };
 		928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRankingsInfoView.h; sourceTree = "<group>"; };
 		928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRankingsInfoView.m; sourceTree = "<group>"; };
@@ -220,15 +235,15 @@
 		92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard2.png"; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
-		D003384A1A1FF39C009C79C4 /* ScreenName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenName.xib; sourceTree = "<group>"; };
+		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
 		D0067A611968FFC500C372D0 /* retreat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retreat.png; sourceTree = "<group>"; };
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
 		D0067A6B1969236300C372D0 /* Feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback.png; sourceTree = "<group>"; };
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
-		D00FCB561A2077BD00A8E742 /* CBScreenName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBScreenName.h; sourceTree = "<group>"; };
-		D00FCB571A2077BD00A8E742 /* CBScreenName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBScreenName.m; sourceTree = "<group>"; };
+		D00FCB561A2077BD00A8E742 /* CBNickname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNickname.h; sourceTree = "<group>"; };
+		D00FCB571A2077BD00A8E742 /* CBNickname.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNickname.m; sourceTree = "<group>"; };
 		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
 		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
@@ -307,9 +322,9 @@
 		D0F03C9C1955EF950093FBC3 /* CSRecapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRecapViewController.m; sourceTree = "<group>"; };
 		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
 		D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewLoginViewController.m; sourceTree = "<group>"; };
-		D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewUser.xib; sourceTree = "<group>"; };
-		D0F7E51F1A1F351300AE500E /* CBNewUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewUserView.h; sourceTree = "<group>"; };
-		D0F7E5201A1F351300AE500E /* CBNewUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewUserView.m; sourceTree = "<group>"; };
+		D0F7E51D1A1F309E00AE500E /* CBEmailLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEmailLogin.xib; sourceTree = "<group>"; };
+		D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEmailLogin.h; sourceTree = "<group>"; };
+		D0F7E5201A1F351300AE500E /* CBEmailLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEmailLogin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,6 +521,34 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		927F4DF31A212AAE008CC143 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */,
+				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
+				9253EBE61A209D8000FB40AB /* CBIsNewUser.m */,
+				9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */,
+				9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */,
+				9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */,
+				D0F7E51D1A1F309E00AE500E /* CBEmailLogin.xib */,
+				D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */,
+				D0F7E5201A1F351300AE500E /* CBEmailLogin.m */,
+				D003384A1A1FF39C009C79C4 /* CBNickname.xib */,
+				D00FCB561A2077BD00A8E742 /* CBNickname.h */,
+				D00FCB571A2077BD00A8E742 /* CBNickname.m */,
+				927F4DF41A212B79008CC143 /* CBProgressView.xib */,
+				927F4DF61A212BF5008CC143 /* CBProgressView.h */,
+				927F4DF71A212BF5008CC143 /* CBProgressView.m */,
+				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
+				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
+				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
+				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
+				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
+				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
+			);
+			name = Xibs;
+			sourceTree = "<group>";
+		};
 		928CE8721A1E8DD3009CE39E /* News Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,18 +629,7 @@
 				D094AFA81A157C24003557AF /* CBNewsItem.m */,
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
-				D003384A1A1FF39C009C79C4 /* ScreenName.xib */,
-				D00FCB561A2077BD00A8E742 /* CBScreenName.h */,
-				D00FCB571A2077BD00A8E742 /* CBScreenName.m */,
-				D0F7E51D1A1F309E00AE500E /* CBNewUser.xib */,
-				D0F7E51F1A1F351300AE500E /* CBNewUserView.h */,
-				D0F7E5201A1F351300AE500E /* CBNewUserView.m */,
-				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
-				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
-				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
-				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
-				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
-				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
+				927F4DF31A212AAE008CC143 /* Xibs */,
 			);
 			name = Classes;
 			path = ..;
@@ -756,7 +788,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D003384B1A1FF39C009C79C4 /* ScreenName.xib in Resources */,
+				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				924807661968883E00481492 /* Carolina Crown.png in Resources */,
@@ -769,7 +801,8 @@
 				9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				92C795F919667E2600A5D8F8 /* Boston Crusaders.png in Resources */,
-				D0F7E51E1A1F309E00AE500E /* CBNewUser.xib in Resources */,
+				D0F7E51E1A1F309E00AE500E /* CBEmailLogin.xib in Resources */,
+				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
 				9248075E1968872800481492 /* Blue Knights.png in Resources */,
 				92C7960119667F8B00A5D8F8 /* Jersey Surf.png in Resources */,
 				924807641968880F00481492 /* Phantom Regiment.png in Resources */,
@@ -785,6 +818,8 @@
 				92C795F519667DAA00A5D8F8 /* The Academy.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
+				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
+				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
@@ -817,15 +852,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D00338471A1FE339009C79C4 /* CBNewUser.xib in Sources */,
+				D00338471A1FE339009C79C4 /* CBEmailLogin.xib in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
+				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
-				D0F7E5211A1F351300AE500E /* CBNewUserView.m in Sources */,
+				D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */,
 				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
-				D00FCB581A2077BD00A8E742 /* CBScreenName.m in Sources */,
+				D00FCB581A2077BD00A8E742 /* CBNickname.m in Sources */,
 				D0C8CA3A1A16DB2400CA4CAE /* NSString+XMLEntities.m in Sources */,
 				D0307DB719537792000849F1 /* CSShowDetailsViewController.m in Sources */,
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
@@ -850,9 +886,11 @@
 				D0C8CA2A1A16DAD700CA4CAE /* MWFeedInfo.m in Sources */,
 				D04702D7195785F70004A0EF /* CSLoginViewController.m in Sources */,
 				D0307DBD1953B5B8000849F1 /* CSJudgeViewController.m in Sources */,
+				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
+				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,

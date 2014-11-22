@@ -1,5 +1,5 @@
 //
-//  CBScreenName.h
+//  CBNickname.h
 //  CorpBoard
 //
 //  Created by Justin Moore on 11/21/14.
@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol nicknameProtocol <NSObject>
+@protocol NicknameProtocol <NSObject>
 @required
 -(void)nicknameChosen;
 @end
 
-@interface CBScreenName : UIView <UITextFieldDelegate> {
+@interface CBNickname : UIView <UITextFieldDelegate> {
     id delegate;
 }
 
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent withTitle:(NSString *)title;
+
 
 @end
