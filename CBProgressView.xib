@@ -7,17 +7,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBProgressView">
-            <rect key="frame" x="0.0" y="0.0" width="242" height="173"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-1t-TgW">
-                    <rect key="frame" x="46" y="57" width="150" height="2"/>
+                    <rect key="frame" x="85" y="57" width="150" height="2"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="Eoj-Ak-3id"/>
                     </constraints>
                 </progressView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Vl-YWj">
-                    <rect key="frame" x="83" y="84" width="76" height="21"/>
+                    <rect key="frame" x="122" y="84" width="76" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -31,6 +31,9 @@
                 <constraint firstItem="xCR-Vl-YWj" firstAttribute="top" secondItem="Ddg-1t-TgW" secondAttribute="bottom" constant="25" id="egl-c5-G3m"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="progressView" destination="Ddg-1t-TgW" id="byI-6P-unu"/>
+            </connections>
             <point key="canvasLocation" x="239" y="262.5"/>
         </view>
     </objects>

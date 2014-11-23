@@ -566,7 +566,7 @@ bool isDoneSortingFavorites = NO;
         if (![array count]) return ;
         double scoresTotal = 0;
         for (PFObject *obj in array) {
-            double i = [obj[@"hornlineScore"] doubleValue];
+            double i = [obj[@"score"] doubleValue];
             scoresTotal += i;
         }
         double grand = scoresTotal / [array count];

@@ -706,48 +706,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eic-jQ-pzn">
-                                <rect key="frame" x="-92" y="-27" width="242" height="173"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQy-WH-dhh">
-                                        <rect key="frame" x="91" y="55" width="60" height="60"/>
-                                        <state key="normal" image="Twitter Bird-128">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnTwitter_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="MtW-qD-iTm"/>
-                                        </connections>
-                                    </button>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9g2-Lg-d7Z">
-                                        <rect key="frame" x="46" y="20" width="150" height="2"/>
-                                    </progressView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsO-wy-e9O">
-                                        <rect key="frame" x="162" y="55" width="60" height="60"/>
-                                        <state key="normal" image="Message-Mail-128">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnEmail_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="6rN-oP-hAL"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SIGN UP USING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgS-kE-Vs3">
-                                        <rect key="frame" x="58" y="26" width="128" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nz-Tn-CTE">
-                                        <rect key="frame" x="20" y="55" width="60" height="60"/>
-                                        <state key="normal" image="Facebook-128">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnFacebook_clicked:" destination="mfi-3f-rjk" eventType="touchUpInside" id="nAf-02-Agi"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
                                 <rect key="frame" x="0.0" y="321" width="600" height="271"/>
                             </scrollView>
@@ -783,13 +741,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Zg1-Yk-o0v"/>
                     <connections>
-                        <outlet property="btnEmail" destination="YsO-wy-e9O" id="578-xM-t4p"/>
-                        <outlet property="btnFacebook" destination="9nz-Tn-CTE" id="gdh-gZ-yKV"/>
-                        <outlet property="btnTwitter" destination="tQy-WH-dhh" id="d9k-aB-Jbp"/>
-                        <outlet property="lblSignIn" destination="FgS-kE-Vs3" id="NG3-VL-arg"/>
-                        <outlet property="progressView" destination="9g2-Lg-d7Z" id="c0h-vN-HWA"/>
                         <outlet property="scrollLogin" destination="6Me-ku-fuh" id="gel-RW-we3"/>
-                        <outlet property="viewSignUp" destination="eic-jQ-pzn" id="xQA-eG-Oda"/>
                         <segue destination="603-gO-u9Q" kind="show" identifier="menu" id="KZ6-GB-7dJ"/>
                     </connections>
                 </viewController>
@@ -2280,11 +2232,8 @@
         <image name="DCI_CorpBoard" width="600" height="600"/>
         <image name="Email" width="128" height="128"/>
         <image name="Facebook" width="128" height="128"/>
-        <image name="Facebook-128" width="128" height="128"/>
         <image name="Feedback1.png" width="350" height="170"/>
-        <image name="Message-Mail-128" width="128" height="128"/>
         <image name="Twitter" width="128" height="128"/>
-        <image name="Twitter Bird-128" width="128" height="128"/>
         <image name="colorguard" width="30" height="30"/>
         <image name="favorite" width="30" height="30"/>
         <image name="hornline" width="30" height="30"/>

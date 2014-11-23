@@ -15,7 +15,12 @@
 @interface CBProgressView : UIView {
     id delegate;
 }
+@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
+@property (nonatomic) BOOL theBool;
+@property (nonatomic, strong) NSTimer *myTimer;
 
 -(void)setDelegate:(id)newDelegate;
+-(void)startProgress;
+-(void)stopProgress;
 
 @end
