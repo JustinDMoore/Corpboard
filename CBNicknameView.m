@@ -11,13 +11,16 @@
 
 @implementation CBNicknameView
 
+-(void)awakeFromNib {
+    [self initUI];
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super initWithCoder:aDecoder];
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-        [self initUI];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)

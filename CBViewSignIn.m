@@ -37,29 +37,41 @@
 - (IBAction)btnFacebook_clicked:(id)sender {
     NSArray *permissions = @[@"email", @"public_profile"];
     [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
+        NSString *nickname;
+        BOOL needsNickname = NO;
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Facebook login.");
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in through Facebook!");
-            [delegate loginSuccessful:YES];
+            nickname = user[@"nickname"];
+            if (![nickname length]) needsNickname = YES;
+            [delegate loginSuccessful:needsNickname];
         } else {
             NSLog(@"User logged in through Facebook!");
-            [delegate loginSuccessful:NO];
+            nickname = user[@"nickname"];
+            if (![nickname length]) needsNickname = YES;
+            [delegate loginSuccessful:needsNickname];
         }
     }];
 }
 
 - (IBAction)btnTwitter_clicked:(id)sender {
     [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+        NSString *nickname;
+        BOOL needsNickname = NO;
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Twitter login.");
             return;
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in with Twitter!");
-            [delegate loginSuccessful:YES];
+            nickname = user[@"nickname"];
+            if (![nickname length]) needsNickname = YES;
+            [delegate loginSuccessful:needsNickname];
         } else {
             NSLog(@"User logged in with Twitter!");
-            [delegate loginSuccessful:NO];
+            nickname = user[@"nickname"];
+            if (![nickname length]) needsNickname = YES;
+            [delegate loginSuccessful:needsNickname];
         }
     }];
 }

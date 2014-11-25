@@ -706,8 +706,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" pagingEnabled="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
-                                <rect key="frame" x="0.0" y="321" width="600" height="271"/>
+                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
+                                <rect key="frame" x="0.0" y="318" width="600" height="282"/>
+                                <color key="backgroundColor" red="0.40710003979999998" green="0.59191785799999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQk-zx-3fS">
                                 <rect key="frame" x="350" y="213" width="14" height="21"/>
@@ -733,10 +734,10 @@
                             <constraint firstItem="GQk-zx-3fS" firstAttribute="leading" secondItem="Ve5-rd-AQi" secondAttribute="trailing" constant="-51" id="BeM-XQ-hf1"/>
                             <constraint firstItem="6Me-ku-fuh" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" constant="-16" id="Nwd-4r-erK"/>
                             <constraint firstItem="GQk-zx-3fS" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="-97" id="PxF-hS-xyw"/>
-                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="6Me-ku-fuh" secondAttribute="bottom" constant="8" id="Roa-GL-6ZB"/>
+                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="6Me-ku-fuh" secondAttribute="bottom" id="Roa-GL-6ZB"/>
                             <constraint firstItem="6Me-ku-fuh" firstAttribute="trailing" secondItem="Pqh-SV-eiA" secondAttribute="trailingMargin" constant="16" id="Zja-ck-Htl"/>
                             <constraint firstItem="Ve5-rd-AQi" firstAttribute="top" secondItem="fel-Mg-VLu" secondAttribute="bottom" constant="43" id="bJG-5h-630"/>
-                            <constraint firstItem="6Me-ku-fuh" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="11" id="v9D-Cc-JEW"/>
+                            <constraint firstItem="6Me-ku-fuh" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="8" id="v9D-Cc-JEW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zg1-Yk-o0v"/>
