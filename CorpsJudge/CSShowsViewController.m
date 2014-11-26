@@ -226,7 +226,11 @@ BOOL refreshing = NO;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [self.showsTable dequeueReusableCellWithIdentifier:@"show"];
+    UITableViewCell *cell = [self.showsTable dequeueReusableCellWithIdentifier:@"show1"];
+    
+    UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:1];
+    UILabel *lblShowLocation = (UILabel *)[cell viewWithTag:2];
+    UIButton *btnScores = (UIButton *)[cell viewWithTag:3];
     
     if ([data.arrayOfAllShows count]) {
         
@@ -239,9 +243,21 @@ BOOL refreshing = NO;
         
         PFObject *show = [filteredArray objectAtIndex:[indexPath row]];
         
-        cell.textLabel.text = show[@"showName"];
-        cell.detailTextLabel.text = show[@"showLocation"];
-
+        lblShowTitle.text = show[@"showName"];
+        lblShowLocation.text = show[@"showLocation"];
+        BOOL isOver = [show[@"isShowOver"] boolValue];
+        if (isOver) {
+            btnScores.hidden = NO;
+            
+            btnScores.layer.borderWidth = 1.0f;
+            
+            btnScores.layer.borderColor = btnScores.titleLabel.tintColor.CGColor;
+            
+            btnScores.layer.cornerRadius = 4.0f;
+            btnScores.layer.masksToBounds = YES;
+            btnScores.titleLabel.text = @" Scores ";
+        } else btnScores.hidden = YES;
+        
     } else {
         cell.textLabel.text = @"";
         cell.detailTextLabel.text = @"";

@@ -674,7 +674,7 @@ NSDate *nearestDate;
                 
                 btnScores.layer.borderWidth = 1.0f;
                 
-                btnScores.layer.borderColor = [UIColor colorWithRed:19/255.0 green:144/255.0 blue:255/255.0 alpha:1.0].CGColor;
+                btnScores.layer.borderColor = btnScores.titleLabel.tintColor.CGColor;
                 
                 btnScores.layer.cornerRadius = 4.0f;
                 btnScores.layer.masksToBounds = YES;

@@ -668,11 +668,52 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KAQ-4k-6ZU">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="show1" id="KAQ-4k-6ZU">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KAQ-4k-6ZU" id="8Vj-tu-6LR">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6T-C4-dxd">
+                                                    <rect key="frame" x="8" y="5" width="708" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="93W-4D-FwG"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="e4H-8d-S6w"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1F-lF-XAl">
+                                                    <rect key="frame" x="8" y="23" width="718" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="esf-N7-r9D"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qN-U6-fdt">
+                                                    <rect key="frame" x="734" y="9" width="58" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="6Eu-gk-OOj"/>
+                                                        <constraint firstAttribute="width" constant="58" id="Z6o-PL-sBU"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Scores">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="G6T-C4-dxd" firstAttribute="leading" secondItem="h1F-lF-XAl" secondAttribute="leading" id="5OD-mn-ozh"/>
+                                                <constraint firstItem="5qN-U6-fdt" firstAttribute="trailing" secondItem="8Vj-tu-6LR" secondAttribute="trailingMargin" id="8Wq-5r-BiM"/>
+                                                <constraint firstAttribute="centerY" secondItem="5qN-U6-fdt" secondAttribute="centerY" constant="-2" id="Eqk-Uy-4jO"/>
+                                                <constraint firstItem="G6T-C4-dxd" firstAttribute="top" secondItem="8Vj-tu-6LR" secondAttribute="topMargin" constant="-3" id="Fef-qY-59D"/>
+                                                <constraint firstItem="5qN-U6-fdt" firstAttribute="leading" secondItem="G6T-C4-dxd" secondAttribute="trailing" constant="18" id="RMY-nY-xn7"/>
+                                                <constraint firstItem="5qN-U6-fdt" firstAttribute="leading" secondItem="h1F-lF-XAl" secondAttribute="trailing" constant="8" id="bbc-EB-VVV"/>
+                                                <constraint firstItem="G6T-C4-dxd" firstAttribute="leading" secondItem="8Vj-tu-6LR" secondAttribute="leadingMargin" id="bjw-QC-IZm"/>
+                                                <constraint firstItem="h1F-lF-XAl" firstAttribute="top" secondItem="G6T-C4-dxd" secondAttribute="bottom" constant="-3" id="nvR-1e-8E5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -700,7 +741,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Da2-J4-SdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5604" y="1017"/>
+            <point key="canvasLocation" x="5604" y="1012"/>
         </scene>
         <!--New Login View Controller-->
         <scene sceneID="B6t-2I-ki2">
