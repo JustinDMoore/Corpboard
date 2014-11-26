@@ -47,8 +47,8 @@
     //self.appTintColor = [UIColor colorWithRed:105/255.0 green:140/255.0 blue:181/255.0 alpha:1];
     
     self.appTintColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
-    
-    //self.appTintColor = [UIColor colorWithRed:57/255.0 green:97/255.0 blue:145/255.0 alpha:1];
+
+        
     
     [self.window setTintColor:self.appTintColor];
     self.window.backgroundColor = [UIColor whiteColor];

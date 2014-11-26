@@ -143,7 +143,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     self.lblShowsHeader.userInteractionEnabled = YES;
     
     self.navigationItem.backBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Menu"
+    [[UIBarButtonItem alloc] initWithTitle:@"    "
                                       style:UIBarButtonItemStylePlain
                                      target:nil
                                      action:nil];
@@ -653,20 +653,22 @@ NSDate *nearestDate;
     UIButton *btnScores;
     
     if (tableView == self.tableLastShows) {
-    
-        cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"show"];
-       
-        lblShowName = (UILabel *)[cell viewWithTag:1];
-        lblShowLocation = (UILabel *)[cell viewWithTag:2];
-        btnScores = (UIButton *)[cell viewWithTag:3];
         
         if ([self.arrayOfLastShows count]) {
             show = [self.arrayOfLastShows objectAtIndex:indexPath.row];
             
+            BOOL isOver = [show[@"isShowOver"] boolValue];
+            if (isOver) cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"scores"];
+            else cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"show"];
+                
+            lblShowName = (UILabel *)[cell viewWithTag:1];
+            lblShowLocation = (UILabel *)[cell viewWithTag:2];
+            btnScores = (UIButton *)[cell viewWithTag:3];
+            
             lblShowName.text = show[@"showName"];
             lblShowLocation.text = show[@"showLocation"];
             
-            BOOL isOver = [show[@"isShowOver"] boolValue];
+            
             if (isOver) {
                 btnScores.hidden = NO;
                 

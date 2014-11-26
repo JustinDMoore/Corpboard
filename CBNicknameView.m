@@ -8,12 +8,14 @@
 
 #import "CBNicknameView.h"
 #import "Parse/Parse.h"
+#import "BadWords.h"
 
-@implementation CBNicknameView
+@implementation CBNicknameView {
+    BadWords *bw;
+}
 
 -(void)awakeFromNib {
     [self initUI];
-    NSLog(@"%@", self.viewToScroll);
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -38,6 +40,7 @@
 
 -(void)initUI {
     self.txtNickname.delegate = self;
+    bw = [[BadWords alloc] init];
 }
 
 -(void)setDelegate:(id)newDelegate{
@@ -49,26 +52,31 @@
     if (![self.txtNickname.text length]) {
         return;
     } else {
-        PFQuery *query = [PFQuery queryWithClassName:@"User"];
-        [query whereKey:@"nickname" equalTo:self.txtNickname.text];
-        [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
-            if (!error) {
-                if (count > 0) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"This nickname is already taken." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alert show];
+        if (![bw stringContainsExplicit:self.txtNickname.text]) {
+            PFQuery *query = [PFQuery queryWithClassName:@"User"];
+            [query whereKey:@"nickname" equalTo:self.txtNickname.text];
+            [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+                if (!error) {
+                    if (count > 0) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"This nickname is already taken." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    } else {
+                        PFUser *user = [PFUser currentUser];
+                        user[@"nickname"] = self.txtNickname.text;
+                        [user saveInBackground];
+                        [self.txtNickname resignFirstResponder];
+                        [delegate nicknameChosen];
+                    }
                 } else {
-                    PFUser *user = [PFUser currentUser];
-                    user[@"nickname"] = self.txtNickname.text;
-                    [user saveInBackground];
-                    [self.txtNickname resignFirstResponder];
-                    [delegate nicknameChosen];
+                    // The request failed
                 }
-            } else {
-                // The request failed
-            }
-        }];
+            }];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Your nickname is potentially explicit in nature. Please choose a different nickname."  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
     }
-    
 }
 
 

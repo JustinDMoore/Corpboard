@@ -37,6 +37,10 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
+    if ([PFUser currentUser]) {
+        [self addView:self.viewProgress andScroll:NO];
+    }
+    
     PFQuery *query = [PFQuery queryWithClassName:@"messages"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

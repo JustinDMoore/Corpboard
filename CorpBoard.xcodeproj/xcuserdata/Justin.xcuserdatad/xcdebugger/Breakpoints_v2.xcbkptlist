@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorpsJudge/CBNewMenuViewController.m"
-            timestampString = "437707242.873012"
+            timestampString = "438674098.491745"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "880"
-            endingLineNumber = "880"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
             landmarkName = "-setNewsPage:"
             landmarkType = "5">
          </BreakpointContent>
