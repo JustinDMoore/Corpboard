@@ -16,6 +16,7 @@
 @interface CBNicknameView : UIView <UITextFieldDelegate> {
     id delegate;
 }
+
 @property (nonatomic,strong) IBOutlet UITextField *txtNickname;
 @property (nonatomic, strong) IBOutlet UILabel *lblTitle;
 @property (nonatomic, strong) UIView *viewToScroll;

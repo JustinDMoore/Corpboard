@@ -13,6 +13,7 @@
 
 -(void)awakeFromNib {
     [self initUI];
+    NSLog(@"%@", self.viewToScroll);
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -44,11 +45,11 @@
 }
 
 - (IBAction)btnDone_clicked:(id)sender {
-    //check for unique nickname in delegate
+
     if (![self.txtNickname.text length]) {
         return;
     } else {
-        PFQuery *query = [PFQuery queryWithClassName:@"Users"];
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
         [query whereKey:@"nickname" equalTo:self.txtNickname.text];
         [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
             if (!error) {
@@ -72,11 +73,7 @@
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    if  (self.viewToScroll.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
+
 }
 
 
@@ -92,54 +89,34 @@
 #pragma mark - Keyboard Notifications
 #pragma mark
 
-#define kOFFSET_FOR_KEYBOARD 95.0
-
 -(void)keyboardWillShow:(NSNotification*)aNotification {
-    // Animate the current view out of the way
     
-    if (self.viewToScroll.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.viewToScroll.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
+    self.viewToScroll.frame = CGRectMake(0, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+    
+    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+        NSLog(@"%@", self.viewToScroll);
+        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / 2), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    } completion:nil];
+    
 }
 
 -(void)keyboardWillHide:(NSNotification*)aNotification {
     
-    if (self.viewToScroll.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.viewToScroll.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)setViewMovedUp:(BOOL)movedUp
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
     
-    CGRect rect = self.viewToScroll.frame;
-    if (movedUp)
-    {
-        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-        // 2. increase the size of the view so that the area behind the keyboard is covered up.
-        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
-    }
-    else
-    {
-        // revert back to the normal state.
-        rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
-    }
-    self.viewToScroll.frame = rect;
+    NSDictionary *userInfo = [aNotification userInfo];
     
-    [UIView commitAnimations];
+    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+    
+    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+        NSLog(@"%@", self.viewToScroll);
+        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    } completion:nil];
 }
 @end

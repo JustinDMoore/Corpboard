@@ -72,14 +72,16 @@ BOOL cancelled;
     [txtEmail resignFirstResponder];
     [txtPassword resignFirstResponder];
     
-    
+    if (![txtEmail isFirstResponder] && ![txtPassword isFirstResponder]) {
+        [delegate emailCancelled];
+    }
 }
 
 - (IBAction)btnSignUp_clicked:(id)sender {
     if ([self checkForEmailAndPassword:nil]) {
+        [txtEmail resignFirstResponder];
+        [txtPassword resignFirstResponder];
         if (newUser) {
-            [txtEmail resignFirstResponder];
-            [txtPassword resignFirstResponder];
             [self createAccountWithEmail:txtEmail.text Password:txtPassword.text];
         } else {
             [self signIntoAccountWithEmail:txtEmail.text andPassword:txtPassword.text];
@@ -102,6 +104,8 @@ BOOL cancelled;
         } else {
             NSString *errorString = [error userInfo][@"error"];
             // Show the errorString somewhere and let the user try again.
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
             NSLog(@"Error creating account: %@", errorString);
             
  
@@ -133,11 +137,6 @@ BOOL cancelled;
     
     currentResponder = textField;
 
-        //move the main view, so that the keyboard does not hide it.
-        if  (self.viewToScroll.frame.origin.y >= 0)
-        {
-            [self setViewMovedUp:YES];
-        }
     
 }
 
@@ -204,64 +203,66 @@ BOOL cancelled;
 #pragma mark - Keyboard Notifications
 #pragma mark
 
-#define kOFFSET_FOR_KEYBOARD 50.0
-
 -(void)keyboardWillShow:(NSNotification*)aNotification {
-    // Animate the current view out of the way
-    cancelled = NO;
-    if (self.viewToScroll.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.viewToScroll.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
+
+    self.viewToScroll.frame = CGRectMake(0, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+    
+    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / 1.7), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    } completion:nil];
+    
 }
 
 -(void)keyboardWillHide:(NSNotification*)aNotification {
 
-    if (self.viewToScroll.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.viewToScroll.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
     
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+    
+    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+    } completion:nil];
 }
 
--(void)setViewMovedUp:(BOOL)movedUp
-{
+- (IBAction)btnForgotPassword_clicked:(id)sender {
     
-
-    
-    [UIView animateWithDuration:.3 animations:^{
-        CGRect rect = self.viewToScroll.frame;
-        if (movedUp)
-        {
-            // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-            // 2. increase the size of the view so that the area behind the keyboard is covered up.
-            rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-            rect.size.height += kOFFSET_FOR_KEYBOARD;
+    if ([txtEmail.text length]) {
+        //make sure it's a valid email
+        if (![JustinHelper StringIsValidEmail:txtEmail.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please enter a valid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            [txtEmail becomeFirstResponder];
+        } else {
+            //valid email, check to make sure we have account for it
+            [PFUser requestPasswordResetForEmailInBackground:txtEmail.text block:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    if (succeeded) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"An email will be sent to %@ with instructions to reset your password.", txtEmail.text] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    } else {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Unable to reset password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+            }];
+            [PFUser requestPasswordResetForEmailInBackground:@"email@example.com"];
         }
-        else
-        {
-            // revert back to the normal state.
-            rect.origin.y += kOFFSET_FOR_KEYBOARD;
-            rect.size.height -= kOFFSET_FOR_KEYBOARD;
-        }
-        self.viewToScroll.frame = rect;
-        UIScrollView *sc = (UIScrollView*)self.superview;
-        [sc scrollRectToVisible:self.frame animated:YES];
-    } completion:^(BOOL finished) {
-        
-//        if (cancelled) {
-//            [delegate emailCancelled];
-//        }
-    }];
-
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Enter your email address to reset your password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 @end

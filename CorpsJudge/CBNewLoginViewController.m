@@ -9,6 +9,7 @@
 #import "CBNewLoginViewController.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "ParseErrors.h"
 
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
@@ -36,6 +37,28 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
+    PFQuery *query = [PFQuery queryWithClassName:@"messages"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if ([objects count]) {
+                PFObject *obj = [objects lastObject];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:obj[@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                BOOL useApp = [obj[@"canUseApp"] boolValue];
+                if (useApp) {
+                    [self continueLoading];
+                }
+            } else {
+                [self continueLoading];
+            }
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
+}
+
+-(void)continueLoading {
     self.currentUser = [PFUser currentUser];
     if (self.currentUser) {
         [self.currentUser fetchInBackgroundWithTarget:self selector:@selector(callbackWithResult:error:)];
@@ -51,6 +74,8 @@
     data = [CSSingle data];
     [data setDelegate:self];
     self.navigationController.navigationBarHidden = YES;
+    
+    self.scrollLogin.delegate = self;
 
 }
 
@@ -62,7 +87,7 @@
         [self loadData];
     } else {
         NSLog(@"no nickname");
-        [self addView:self.viewNickname andScroll:YES];
+        [self addView:self.viewNickname andScroll:NO];
     }
 }
 
@@ -133,15 +158,9 @@ bool removeEmailView = NO;
 -(void)isNewUser:(BOOL)newUser {
     self.isNewUser = newUser;
     [self addView:self.viewSignIn andScroll:YES];
-    //[self.scrollLogin addSubview:self.viewSignIn];
     
     if (!newUser) [self.viewSignIn setTitleMessage:@"SIGN IN USING"];
     else [self.viewSignIn setTitleMessage:@"SIGN UP USING"];
-    
-//    self.viewSignIn.frame = CGRectMake(self.viewNewUser.frame.origin.x + self.viewSignIn.frame.size.width, self.viewSignIn.frame.origin.y, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
-//
-//    self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width + self.viewSignIn.frame.size.width, self.scrollLogin.contentSize.height + self.viewSignIn.frame.size.height);
-//    [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
 }
 
 //SIGN IN/SIGN UP
@@ -162,7 +181,6 @@ bool removeEmailView = NO;
 -(void)emailSelected {
     [self addView:self.viewEmailLogin andScroll:YES];
     self.viewEmailLogin.isNewUser = self.isNewUser;
-    self.viewEmailLogin.viewToScroll = self.view;
 }
 
 -(void)emailCancelled {
@@ -178,9 +196,13 @@ bool removeEmailView = NO;
     [self loadData];
 }
 
+-(void)newUserCreatedFromEmail:(NSString *)email pw:(NSString *)password {
+    [self addView:self.viewNickname andScroll:YES];
+}
+
 -(void)addView:(UIView *)viewToAdd andScroll:(BOOL)scroll {
     
-    viewToAdd.frame = CGRectMake(viewToAdd.frame.origin.x, viewToAdd.frame.origin.y, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
+    viewToAdd.frame = CGRectMake(viewToAdd.frame.origin.x, 0, self.scrollLogin.frame.size.width, self.scrollLogin.frame.size.height);
     
     
     if ([self.arrayOfSubviews count]) {
@@ -201,13 +223,14 @@ bool removeEmailView = NO;
 }
 
 -(void)removeViewFromScrollView:(UIView *)viewToRemove {
-    [viewToRemove removeFromSuperview];
-    self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width - self.scrollLogin.frame.size.width, self.scrollLogin.contentSize.height);
+    
+    self.scrollLogin.contentSize = CGSizeMake(self.scrollLogin.contentSize.width - viewToRemove.frame.size.width, self.scrollLogin.contentSize.height);
     for (UIView *view in self.arrayOfSubviews) {
         if (view == viewToRemove) {
             [self.arrayOfSubviews removeObject:view];
         }
     }
+    [viewToRemove removeFromSuperview];
 }
 
 -(NSMutableArray *)arrayOfSubviews {
@@ -225,6 +248,7 @@ bool removeEmailView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewNickname setDelegate:self];
+        _viewNickname.viewToScroll = self.view;
     }
     return _viewNickname;
 }
@@ -261,6 +285,7 @@ bool removeEmailView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewEmailLogin setDelegate:self];
+        _viewEmailLogin.viewToScroll = self.view;
     }
     return _viewEmailLogin;
 }
