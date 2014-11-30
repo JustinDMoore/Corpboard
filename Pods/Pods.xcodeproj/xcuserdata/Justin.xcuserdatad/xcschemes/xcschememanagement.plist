@@ -3,8 +3,50 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
+	<dict>
+		<key>Pods-JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-MWFeedParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>D1C5E9907D4382F2F0E91B5F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F07ABD44304FF64D0CBB04B0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA92D2E05F44A91087DF1C70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFD1ACFA8BE4C5F224046E61</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>
