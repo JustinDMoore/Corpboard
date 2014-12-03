@@ -17,9 +17,10 @@
    
 }
 @property (nonatomic, strong) NSMutableArray *arrayOfSubviews;
-@property (nonatomic, strong) CBIsNewUser *viewNewUser;
+@property (nonatomic, strong) CBIsNewUser *viewIsNewUser;
 @property (nonatomic, strong) CBViewSignIn *viewSignIn;
 @property (nonatomic, strong) CBEmailLogin *viewEmailLogin;
+@property (nonatomic, strong) CBEmailLogin *viewNewUser;
 @property (nonatomic, strong) CBNicknameView *viewNickname;
 @property (nonatomic, strong) CBProgressView *viewProgress;
 
@@ -69,7 +70,7 @@
     } else {
         // NEW USER, SHOW THE NEW USER DIALOG
         NSLog(@"New user.");
-        [self addView:self.viewNewUser andScroll:NO];
+        [self addView:self.viewIsNewUser andScroll:NO];
     }
 }
 
@@ -137,9 +138,10 @@ int ticker = 0;
 bool removeNewUserView = NO;
 bool removeSignInView = NO;
 bool removeEmailView = NO;
+bool removeNewUserEmail = NO;
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if (removeNewUserView) {
-        [self removeViewFromScrollView:self.viewNewUser];
+        [self removeViewFromScrollView:self.viewIsNewUser];
         removeNewUserView = NO;
     }
     
@@ -151,6 +153,10 @@ bool removeEmailView = NO;
     if (removeEmailView) {
         [self removeViewFromScrollView:self.viewEmailLogin];
         removeEmailView = NO;
+    }
+    if (removeNewUserEmail) {
+        [self removeViewFromScrollView:self.viewNewUser];
+        removeNewUserEmail = NO;
     }
 }
 
@@ -170,11 +176,12 @@ bool removeEmailView = NO;
 //SIGN IN/SIGN UP
 -(void)SignInCancelled {
     removeSignInView = YES;
-    [self.scrollLogin scrollRectToVisible:self.viewNewUser.frame animated:YES];
+    [self.scrollLogin scrollRectToVisible:self.viewIsNewUser.frame animated:YES];
     
 }
 
 -(void)loginSuccessful:(BOOL)needsNickName {
+    
     if (!needsNickName) {
         [self loadData];
     } else {
@@ -183,13 +190,28 @@ bool removeEmailView = NO;
 }
 
 -(void)emailSelected {
-    [self addView:self.viewEmailLogin andScroll:YES];
-    self.viewEmailLogin.isNewUser = self.isNewUser;
+    
+    if (self.isNewUser) {
+       [self addView:self.viewNewUser andScroll:YES];
+        self.viewNewUser.isNewUser = self.isNewUser;
+    } else {
+        [self addView:self.viewEmailLogin andScroll:YES];
+        self.viewEmailLogin.isNewUser = self.isNewUser;
+    }
+    
+    
 }
 
 -(void)emailCancelled {
+    
+    if (self.isNewUser) {
+        removeNewUserEmail = YES;
+    } else {
+        
+        removeEmailView = YES;
+    }
+    
     [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
-    removeEmailView = YES;
 }
 
 -(void)successfulLoginFromEmail {
@@ -200,7 +222,7 @@ bool removeEmailView = NO;
     [self loadData];
 }
 
--(void)newUserCreatedFromEmail:(NSString *)email pw:(NSString *)password {
+-(void)newUserCreatedFromEmail {
     [self addView:self.viewNickname andScroll:YES];
 }
 
@@ -257,16 +279,16 @@ bool removeEmailView = NO;
     return _viewNickname;
 }
 
--(CBIsNewUser *)viewNewUser {
-    if (!_viewNewUser) {
-        _viewNewUser =
+-(CBIsNewUser *)viewIsNewUser {
+    if (!_viewIsNewUser) {
+        _viewIsNewUser =
         [[[NSBundle mainBundle] loadNibNamed:@"CBIsNewUser"
                                        owner:self
                                      options:nil]
          objectAtIndex:0];
-        [_viewNewUser setDelegate:self];
+        [_viewIsNewUser setDelegate:self];
     }
-    return _viewNewUser;
+    return _viewIsNewUser;
 }
 
 -(CBViewSignIn *)viewSignIn {
@@ -277,6 +299,7 @@ bool removeEmailView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewSignIn setDelegate:self];
+        
     }
     return _viewSignIn;
 }
@@ -304,6 +327,18 @@ bool removeEmailView = NO;
         [_viewProgress setDelegate:self];
     }
     return _viewProgress;
+}
+
+-(CBEmailLogin *)viewNewUser {
+    if (!_viewNewUser) {
+            _viewNewUser = [[[NSBundle mainBundle] loadNibNamed:@"CBNewUser"
+                                       owner:self
+                                     options:nil]
+         objectAtIndex:0];
+        [_viewNewUser setDelegate:self];
+        _viewNewUser.viewToScroll = self.view;
+    }
+    return _viewNewUser;
 }
 
 @end

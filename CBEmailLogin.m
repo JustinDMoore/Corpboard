@@ -10,9 +10,14 @@
 #import "JustinHelper.h"
 #import <Parse/Parse.h>
 #import "ParseErrors.h"
+#import "ProgressHUD.h"
+#import "AppConstant.h"
+#import "pushnotification.h"
+
 
 @implementation CBEmailLogin {
     
+    IBOutlet UITextField *txtName;
     IBOutlet UITextField *txtEmail;
     IBOutlet UITextField *txtPassword;
     IBOutlet UIButton *btnSignUp;
@@ -82,51 +87,93 @@ BOOL cancelled;
         [txtEmail resignFirstResponder];
         [txtPassword resignFirstResponder];
         if (newUser) {
-            [self createAccountWithEmail:txtEmail.text Password:txtPassword.text];
+            [self createAccount];
         } else {
             [self signIntoAccountWithEmail:txtEmail.text andPassword:txtPassword.text];
         }
     }
 }
 
--(void)createAccountWithEmail:(NSString *)email Password:(NSString *) pw {
+-(void)createAccount {
     
-    PFUser *user = [PFUser user];
-    user.username = email;
-    user.password = pw;
-    user.email = email;
+//    PFUser *user = [PFUser user];
+//    user.username = email;
+//    user.password = pw;
+//    user.email = email;
+//    
+//    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (!error) {
+//            // Hooray! Let them use the app now.
+//            [delegate newUserCreatedFromEmail:email pw:pw];
+//            
+//        } else {
+//            NSString *errorString = [error userInfo][@"error"];
+//            // Show the errorString somewhere and let the user try again.
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//            [alert show];
+//            NSLog(@"Error creating account: %@", errorString);
+//            
+// 
+//        }
+//    }];
     
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            // Hooray! Let them use the app now.
-            [delegate newUserCreatedFromEmail:email pw:pw];
-            
-        } else {
-            NSString *errorString = [error userInfo][@"error"];
-            // Show the errorString somewhere and let the user try again.
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            NSLog(@"Error creating account: %@", errorString);
-            
- 
-        }
-    }];
+    NSString *name		= txtName.text;
+    NSString *password	= txtPassword.text;
+    NSString *email		= txtEmail.text;
+    
+  
+        [ProgressHUD show:@"Please wait..." Interaction:NO];
+        
+        PFUser *user = [PFUser user];
+        user.username = email;
+        user.password = password;
+        user.email = email;
+        user[PF_USER_EMAILCOPY] = email;
+        user[PF_USER_FULLNAME] = name;
+        user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
+        
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+             if (error == nil) {
+                 ParsePushUserAssign();
+                 [ProgressHUD showSuccess:@"Succeed."];
+                 [delegate newUserCreatedFromEmail];
+             } else {
+                 [ProgressHUD showError:error.userInfo[@"error"]];
+             }
+         }];
 }
 
 -(void)signIntoAccountWithEmail:(NSString *)email andPassword:(NSString *)pw {
     
-    [PFUser logInWithUsernameInBackground:email password:pw
-                                    block:^(PFUser *user, NSError *error) {
-                                        if (user) {
-                                            NSLog(@"email login good");
-                                            [delegate successfulLoginFromEmail];
-                                        } else {
-                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                                            [alert show];
-                                            NSLog(@"%@", error);
-                                            // The login failed. Check error to see why.
-                                        }
-                                    }];
+//    [PFUser logInWithUsernameInBackground:email password:pw
+//                                    block:^(PFUser *user, NSError *error) {
+//                                        if (user) {
+//                                            NSLog(@"email login good");
+//                                            [delegate successfulLoginFromEmail];
+//                                        } else {
+//                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                                            [alert show];
+//                                            NSLog(@"%@", error);
+//                                            // The login failed. Check error to see why.
+//                                        }
+//                                    }];
+
+
+    NSString *username = txtEmail.text;
+    NSString *password = txtPassword.text;
+    
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
+     {
+         if (user != nil)
+         {
+             ParsePushUserAssign();
+             [delegate successfulLoginFromEmail];
+         } else {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             [alert show];
+             NSLog(@"%@", error);
+         }
+     }];
 }
 
 #pragma mark
@@ -136,8 +183,6 @@ BOOL cancelled;
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
     currentResponder = textField;
-
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -162,6 +207,19 @@ BOOL cancelled;
 -(BOOL)checkForEmailAndPassword: (UITextField *)textField {
     
     UIAlertView *alert;
+    
+    if (newUser) {
+        if (![txtName.text length]) {
+            alert = [[UIAlertView alloc] initWithTitle:@""
+                                               message:@"Please enter your name"
+                                              delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+            [txtName becomeFirstResponder];
+            [alert show];
+            return NO;
+        }
+    }
     
     if (![txtEmail.text length]) {
         alert = [[UIAlertView alloc] initWithTitle:@""
@@ -214,7 +272,7 @@ BOOL cancelled;
     NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
     
     [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
-        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / 1.7), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / (newUser ? 1.3 : 1.7)), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
     } completion:nil];
     
 }

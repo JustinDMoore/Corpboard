@@ -11,7 +11,7 @@
 @protocol EmailProtocol <NSObject>
 @required
 -(void)emailCancelled;
--(void)newUserCreatedFromEmail:(NSString *)email pw:(NSString *)password;
+-(void)newUserCreatedFromEmail;
 -(void)successfulLoginFromEmail;
 @end
 

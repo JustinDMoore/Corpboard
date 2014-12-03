@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -743,6 +743,32 @@
             </objects>
             <point key="canvasLocation" x="5604" y="1012"/>
         </scene>
+        <!--Group View-->
+        <scene sceneID="k0u-fx-ASz">
+            <objects>
+                <tableViewController id="Bjn-4g-09S" customClass="GroupView" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="EoD-5I-2QB">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="1200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Jjm-cL-37f">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jjm-cL-37f" id="dKb-W4-Cfd">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Bjn-4g-09S" id="x0j-kl-jNY"/>
+                            <outlet property="delegate" destination="Bjn-4g-09S" id="2hV-5e-Omu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R4l-Qs-nVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4345" y="-1696"/>
+        </scene>
         <!--New Login View Controller-->
         <scene sceneID="B6t-2I-ki2">
             <objects>
@@ -876,13 +902,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-nN-xbR" userLabel="Scroll View Main (vertical)">
-                                <rect key="frame" x="-40" y="30" width="960" height="1015"/>
+                                <rect key="frame" x="-40" y="30" width="960" height="1200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB3-aG-t40" userLabel="MainContentView">
-                                        <rect key="frame" x="40" y="0.0" width="920" height="1200"/>
+                                        <rect key="frame" x="40" y="0.0" width="920" height="1300"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-8V-rLy" userLabel="ClipView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="169" width="320" height="230"/>
+                                                <rect key="frame" x="0.0" y="219" width="320" height="230"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Kn-Ngj">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1067,7 +1093,7 @@
                                                 </connections>
                                             </scrollView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEZ-jz-YNE">
-                                                <rect key="frame" x="0.0" y="399" width="320" height="150"/>
+                                                <rect key="frame" x="0.0" y="450" width="320" height="150"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1076,10 +1102,10 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="retreat.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
-                                                <rect key="frame" x="0.0" y="398" width="320" height="150"/>
+                                                <rect key="frame" x="0.0" y="449" width="320" height="150"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="ClipView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="532" width="320" height="235"/>
+                                                <rect key="frame" x="0.0" y="583" width="320" height="235"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Top 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJO-74-Y3m">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1280,7 +1306,7 @@
                                                 <rect key="frame" x="40" y="-100" width="240" height="128"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5i3-q8-WYf" userLabel="NewsView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="767" width="700" height="145"/>
+                                                <rect key="frame" x="0.0" y="818" width="700" height="145"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99L-WD-I9t">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1322,7 +1348,7 @@
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6">
-                                                <rect key="frame" x="0.0" y="911" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="963" width="320" height="100"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
                                                         <rect key="frame" x="6" y="9" width="150" height="85"/>
@@ -1350,6 +1376,24 @@
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5CV-vg-CGX" customClass="UIControl">
+                                                <rect key="frame" x="0.0" y="168" width="320" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYM-Y4-Xhp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                                        <state key="normal" title="Live Chat Now!">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="chat_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="mkb-bg-tfR"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="chat_clicked:" destination="603-gO-u9Q" eventType="valueChanged" id="iyP-gF-9Kf"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.047058828179999998" green="0.69019609689999994" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
@@ -1392,6 +1436,7 @@
                         <outlet property="tableTopFour" destination="X8d-O5-0CU" id="tyn-8N-LMG"/>
                         <outlet property="tableTopTwelve" destination="BpV-Si-wiq" id="NXF-bW-WjZ"/>
                         <outlet property="viewAboutTheCorps" destination="Z15-Uh-jtu" id="xHT-HH-CDd"/>
+                        <outlet property="viewChat" destination="5CV-vg-CGX" id="uC1-3C-9SI"/>
                         <outlet property="viewExtras" destination="slv-vG-kN6" id="hHH-7p-7hm"/>
                         <outlet property="viewFeedback" destination="ia3-0E-Vl4" id="qkw-Fo-JGG"/>
                         <outlet property="viewNews" destination="5i3-q8-WYf" id="fbe-Yv-0Bj"/>
@@ -1402,6 +1447,7 @@
                         <segue destination="7xq-yB-9TJ" kind="show" identifier="feedback" id="CNA-fS-Jnv"/>
                         <segue destination="gt5-Bv-vKN" kind="show" identifier="contest" id="4A2-t6-S2b"/>
                         <segue destination="01c-uY-Uvq" kind="show" identifier="news" id="TaT-HX-mdf"/>
+                        <segue destination="Bjn-4g-09S" kind="show" identifier="chat" id="eAZ-0D-3rj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2219,7 +2265,7 @@
         <image name="trophy" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="G84-g7-0Ap"/>
+        <segue reference="yHE-cF-ijy"/>
         <segue reference="E9Q-pS-Ymj"/>
     </inferredMetricsTieBreakers>
 </document>

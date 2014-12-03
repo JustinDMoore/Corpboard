@@ -44,6 +44,10 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 
+// Chat
+@property (weak, nonatomic) IBOutlet UIControl *viewChat;
+
+
 // Recent Shows
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollViewShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableLastShows;
@@ -945,6 +949,15 @@ CGFloat previousScroll;
         [scrollView scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
     }
 }
+
+#pragma mark
+#pragma mark - Actions
+#pragma mark
+
+- (IBAction)chat_clicked:(id)sender {
+    [self performSegueWithIdentifier:@"chat" sender:self];
+}
+
 
 -(IBAction)finalsContest_clicked:(id)sender {
     [self performSegueWithIdentifier:@"contest" sender:self];

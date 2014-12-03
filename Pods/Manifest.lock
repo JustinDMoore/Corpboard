@@ -1,7 +1,4 @@
 PODS:
-  - JSQMessagesViewController (6.1.0):
-    - JSQSystemSoundPlayer (~> 2.0.0)
-  - JSQSystemSoundPlayer (2.0.0)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
     - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
@@ -13,12 +10,9 @@ PODS:
   - MWFeedParser/NSString+HTML (1.0.1)
 
 DEPENDENCIES:
-  - JSQMessagesViewController
   - MWFeedParser
 
 SPEC CHECKSUMS:
-  JSQMessagesViewController: 8998c086bf6db5d6190376041903d5be2961f03f
-  JSQSystemSoundPlayer: c98443b1cbb3b45db09d0d3d6c2355cf78294981
   MWFeedParser: 003cbf5398e99a7f2057fbe9583054fd1b84be72
 
 COCOAPODS: 0.35.0
