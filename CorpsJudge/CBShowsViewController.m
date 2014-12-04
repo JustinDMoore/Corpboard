@@ -8,13 +8,13 @@
 
 #import "CBShowsViewController.h"
 #import <Parse/Parse.h>
-#import "CSShowDetailsViewController.h"
+#import "CBShowDetailsViewController.h"
 #import "NSDate+Utilities.h"
-#import "CSSingle.h"
+#import "CBSingle.h"
 
-CSSingle *data;
+CBSingle *data;
 NSTimer *timer;
-CSAppDelegate *del;
+CBAppDelegate *del;
 BOOL firstLoad = YES;
 BOOL refreshing = NO;
 
@@ -286,7 +286,7 @@ BOOL refreshing = NO;
     if ([[segue identifier] isEqualToString:@"showDetails"])
     {
         // Get reference to the destination view controller
-        CSShowDetailsViewController *vc = [segue destinationViewController];
+        CBShowDetailsViewController *vc = [segue destinationViewController];
         
         // Pass any objects to the view controller here, like...
         //vc.didUserVote = [data didUserVoteForShow:self.currentSelectedShow];

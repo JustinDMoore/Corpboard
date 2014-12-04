@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSAppDelegate.h"
+#import "CBAppDelegate.h"
 #import "Configuration.h"
-#import "CSJudgeViewController.h"
+#import "CBJudgeViewController.h"
 
 @interface CBShowsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

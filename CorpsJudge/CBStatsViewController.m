@@ -12,9 +12,9 @@
 #import "NSDate+Utilities.h"
 #import "UserScore.h"
 #import "CBSingle.h"
-#import "CSAppDelegate.h"
+#import "CBAppDelegate.h"
 
-CSAppDelegate *appDel;
+CBAppDelegate *appDel;
 CBSingle *data;
 NSTimer *timer;
 PFQuery *queryUserRanks;
