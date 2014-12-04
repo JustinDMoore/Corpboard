@@ -100,18 +100,6 @@
 		923D501C1A2C6DCF00E16B64 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D4FBD1A2C6DCF00E16B64 /* ProgressHUD.m */; };
 		923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D501E1A2C737600E16B64 /* CBChatMessages.m */; };
 		924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924280E11963A573006E8240 /* CBCorpsViewController.m */; };
-		924807501968830600481492 /* Bluecoats.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248074F1968830600481492 /* Bluecoats.png */; };
-		924807521968831400481492 /* Crossmen.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807511968831400481492 /* Crossmen.png */; };
-		924807541968836C00481492 /* Colts.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807531968836C00481492 /* Colts.png */; };
-		92480756196883A500481492 /* Santa Clara Vanguard.png in Resources */ = {isa = PBXBuildFile; fileRef = 92480755196883A500481492 /* Santa Clara Vanguard.png */; };
-		924807581968842800481492 /* Cascades.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807571968842800481492 /* Cascades.png */; };
-		9248075A1968846700481492 /* Pioneer.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807591968846700481492 /* Pioneer.png */; };
-		9248075C196884AC00481492 /* Madison Scouts.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248075B196884AC00481492 /* Madison Scouts.png */; };
-		9248075E1968872800481492 /* Blue Knights.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248075D1968872800481492 /* Blue Knights.png */; };
-		924807601968875D00481492 /* Mandarins.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248075F1968875D00481492 /* Mandarins.png */; };
-		924807621968879E00481492 /* Spirit of Atlanta.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807611968879E00481492 /* Spirit of Atlanta.png */; };
-		924807641968880F00481492 /* Phantom Regiment.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807631968880F00481492 /* Phantom Regiment.png */; };
-		924807661968883E00481492 /* Carolina Crown.png in Resources */ = {isa = PBXBuildFile; fileRef = 924807651968883E00481492 /* Carolina Crown.png */; };
 		924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 924E93B3195904380006DB81 /* UINavigationController+Orientation.m */; };
 		9253347F194FD5D70004D16F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9253347E194FD5D70004D16F /* Foundation.framework */; };
 		92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533480194FD5D70004D16F /* CoreGraphics.framework */; };
@@ -147,16 +135,6 @@
 		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
-		92C795D71966729200A5D8F8 /* The Cavaliers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795D61966729200A5D8F8 /* The Cavaliers.png */; };
-		92C795DF196676F900A5D8F8 /* Blue Devils.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795DE196676F900A5D8F8 /* Blue Devils.png */; };
-		92C795E1196677CE00A5D8F8 /* The Cadets.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795E0196677CE00A5D8F8 /* The Cadets.png */; };
-		92C795F519667DAA00A5D8F8 /* The Academy.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795F419667DAA00A5D8F8 /* The Academy.png */; };
-		92C795F719667DE600A5D8F8 /* Blue Stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795F619667DE600A5D8F8 /* Blue Stars.png */; };
-		92C795F919667E2600A5D8F8 /* Boston Crusaders.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C795F819667E2600A5D8F8 /* Boston Crusaders.png */; };
-		92C7960119667F8B00A5D8F8 /* Jersey Surf.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C7960019667F8B00A5D8F8 /* Jersey Surf.png */; };
-		92C7960319667FCB00A5D8F8 /* Oregon Crusaders.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C7960219667FCB00A5D8F8 /* Oregon Crusaders.png */; };
-		92C7960519667FFF00A5D8F8 /* Pacific Crest.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C7960419667FFF00A5D8F8 /* Pacific Crest.png */; };
-		92C796071966805E00A5D8F8 /* Troopers.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C796061966805D00A5D8F8 /* Troopers.png */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CSFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CSFinalsPredictionViewController.m */; };
 		92CF4C6819627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6719627F4500BE98D5 /* CSFinalsPredictionContestInfoViewController.m */; };
@@ -429,18 +407,6 @@
 		923D501E1A2C737600E16B64 /* CBChatMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChatMessages.m; sourceTree = "<group>"; };
 		924280E01963A573006E8240 /* CBCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsViewController.h; sourceTree = "<group>"; };
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
-		9248074F1968830600481492 /* Bluecoats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bluecoats.png; sourceTree = "<group>"; };
-		924807511968831400481492 /* Crossmen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Crossmen.png; sourceTree = "<group>"; };
-		924807531968836C00481492 /* Colts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Colts.png; sourceTree = "<group>"; };
-		92480755196883A500481492 /* Santa Clara Vanguard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard.png"; sourceTree = "<group>"; };
-		924807571968842800481492 /* Cascades.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cascades.png; sourceTree = "<group>"; };
-		924807591968846700481492 /* Pioneer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pioneer.png; sourceTree = "<group>"; };
-		9248075B196884AC00481492 /* Madison Scouts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Madison Scouts.png"; sourceTree = "<group>"; };
-		9248075D1968872800481492 /* Blue Knights.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Knights.png"; sourceTree = "<group>"; };
-		9248075F1968875D00481492 /* Mandarins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mandarins.png; sourceTree = "<group>"; };
-		924807611968879E00481492 /* Spirit of Atlanta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spirit of Atlanta.png"; sourceTree = "<group>"; };
-		924807631968880F00481492 /* Phantom Regiment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Regiment.png"; sourceTree = "<group>"; };
-		924807651968883E00481492 /* Carolina Crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Carolina Crown.png"; sourceTree = "<group>"; };
 		924E93B2195904380006DB81 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
 		924E93B3195904380006DB81 /* UINavigationController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Orientation.m"; sourceTree = "<group>"; };
 		9253347B194FD5D70004D16F /* CorpBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorpBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -487,16 +453,6 @@
 		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
-		92C795D61966729200A5D8F8 /* The Cavaliers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cavaliers.png"; sourceTree = "<group>"; };
-		92C795DE196676F900A5D8F8 /* Blue Devils.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Devils.png"; sourceTree = "<group>"; };
-		92C795E0196677CE00A5D8F8 /* The Cadets.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cadets.png"; sourceTree = "<group>"; };
-		92C795F419667DAA00A5D8F8 /* The Academy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Academy.png"; sourceTree = "<group>"; };
-		92C795F619667DE600A5D8F8 /* Blue Stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Stars.png"; sourceTree = "<group>"; };
-		92C795F819667E2600A5D8F8 /* Boston Crusaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Boston Crusaders.png"; sourceTree = "<group>"; };
-		92C7960019667F8B00A5D8F8 /* Jersey Surf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Jersey Surf.png"; sourceTree = "<group>"; };
-		92C7960219667FCB00A5D8F8 /* Oregon Crusaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oregon Crusaders.png"; sourceTree = "<group>"; };
-		92C7960419667FFF00A5D8F8 /* Pacific Crest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacific Crest.png"; sourceTree = "<group>"; };
-		92C796061966805D00A5D8F8 /* Troopers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Troopers.png; sourceTree = "<group>"; };
 		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
 		92C8D1EC1A2144270030EC3D /* ParseErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseErrors.m; sourceTree = "<group>"; };
 		92CF4C6319627EBC00BE98D5 /* CSFinalsPredictionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSFinalsPredictionViewController.h; sourceTree = "<group>"; };
@@ -1228,28 +1184,6 @@
 		D00029761968915E003F9C48 /* World Class Images */ = {
 			isa = PBXGroup;
 			children = (
-				92C795F619667DE600A5D8F8 /* Blue Stars.png */,
-				924807591968846700481492 /* Pioneer.png */,
-				924807571968842800481492 /* Cascades.png */,
-				92C795F819667E2600A5D8F8 /* Boston Crusaders.png */,
-				924807511968831400481492 /* Crossmen.png */,
-				9248075D1968872800481492 /* Blue Knights.png */,
-				924807531968836C00481492 /* Colts.png */,
-				924807651968883E00481492 /* Carolina Crown.png */,
-				9248075F1968875D00481492 /* Mandarins.png */,
-				924807631968880F00481492 /* Phantom Regiment.png */,
-				9248075B196884AC00481492 /* Madison Scouts.png */,
-				92480755196883A500481492 /* Santa Clara Vanguard.png */,
-				92C795F419667DAA00A5D8F8 /* The Academy.png */,
-				92C7960019667F8B00A5D8F8 /* Jersey Surf.png */,
-				924807611968879E00481492 /* Spirit of Atlanta.png */,
-				92C796061966805D00A5D8F8 /* Troopers.png */,
-				92C7960219667FCB00A5D8F8 /* Oregon Crusaders.png */,
-				92C7960419667FFF00A5D8F8 /* Pacific Crest.png */,
-				9248074F1968830600481492 /* Bluecoats.png */,
-				92C795E0196677CE00A5D8F8 /* The Cadets.png */,
-				92C795DE196676F900A5D8F8 /* Blue Devils.png */,
-				92C795D61966729200A5D8F8 /* The Cavaliers.png */,
 			);
 			name = "World Class Images";
 			sourceTree = "<group>";
@@ -1433,12 +1367,8 @@
 				923D50191A2C6DCF00E16B64 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
-				924807661968883E00481492 /* Carolina Crown.png in Resources */,
 				92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
-				92C796071966805E00A5D8F8 /* Troopers.png in Resources */,
-				924807581968842800481492 /* Cascades.png in Resources */,
-				924807601968875D00481492 /* Mandarins.png in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				923D4FD11A2C6DCF00E16B64 /* RegisterView.xib in Resources */,
@@ -1448,31 +1378,20 @@
 				923D4FDB1A2C6DCF00E16B64 /* tab_messages@2x.png in Resources */,
 				923D4FCD1A2C6DCF00E16B64 /* ProfileView.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
-				92C795F919667E2600A5D8F8 /* Boston Crusaders.png in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
 				92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */,
 				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
-				9248075E1968872800481492 /* Blue Knights.png in Resources */,
-				92C7960119667F8B00A5D8F8 /* Jersey Surf.png in Resources */,
-				924807641968880F00481492 /* Phantom Regiment.png in Resources */,
 				923D500F1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
 				923D4FCF1A2C6DCF00E16B64 /* LoginView.xib in Resources */,
-				92C795D71966729200A5D8F8 /* The Cavaliers.png in Resources */,
 				9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */,
-				9248075C196884AC00481492 /* Madison Scouts.png in Resources */,
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
-				924807621968879E00481492 /* Spirit of Atlanta.png in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				92E810881968E4CA0078B65D /* The Cadets2.png in Resources */,
-				92C795F719667DE600A5D8F8 /* Blue Stars.png in Resources */,
-				92480756196883A500481492 /* Santa Clara Vanguard.png in Resources */,
 				923D4FD31A2C6DCF00E16B64 /* WelcomeView.xib in Resources */,
-				92C795E1196677CE00A5D8F8 /* The Cadets.png in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
-				92C795F519667DAA00A5D8F8 /* The Academy.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1482,21 +1401,14 @@
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
-				924807541968836C00481492 /* Colts.png in Resources */,
-				9248075A1968846700481492 /* Pioneer.png in Resources */,
 				923D4FF01A2C6DCF00E16B64 /* JSQMessages.strings in Resources */,
-				92C795DF196676F900A5D8F8 /* Blue Devils.png in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
-				92C7960519667FFF00A5D8F8 /* Pacific Crest.png in Resources */,
 				92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */,
-				92C7960319667FCB00A5D8F8 /* Oregon Crusaders.png in Resources */,
 				92E810861968E2980078B65D /* The Cadets1.png in Resources */,
 				D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */,
 				923D4FEF1A2C6DCF00E16B64 /* JSQMessagesAssets.bundle in Resources */,
 				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
 				923D4FC91A2C6DCF00E16B64 /* MessagesCell.xib in Resources */,
-				924807501968830600481492 /* Bluecoats.png in Resources */,
-				924807521968831400481492 /* Crossmen.png in Resources */,
 				923D4FDC1A2C6DCF00E16B64 /* tab_private@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

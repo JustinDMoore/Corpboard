@@ -750,8 +750,22 @@ NSDate *nearestDate;
                 lblPosition.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1 + increment];
                 lblCorpsName.text = corps[@"corpsName"];
                 lblScore.text = corps[@"lastScore"];
-                UIImage *img = [UIImage imageNamed:corps[@"corpsName"]];
-                imgView.image = img;
+                //get corps logo from parse
+                PFFile *imageFile = corps[@"logo"];
+                if (imageFile) {
+                    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+                        if (!error) {
+                            imgView.image = [UIImage imageWithData:data];
+                        } else {
+                            imgView.image = nil;
+                            NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+                        }
+                    }];
+                } else {
+                    imgView.image = nil;
+                    NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+                }
+                //
                 
                 if ([corps[@"lastScoreDate"] isToday]) {
                     lblScoreDate.text = @"Today";

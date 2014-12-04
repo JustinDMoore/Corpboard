@@ -81,7 +81,22 @@
     
     self.corpsName.text = self.corps[@"corpsName"];
     self.corpsFrom.text = self.corps[@"from"];
-    self.imgCorps.image = [UIImage imageNamed:self.corps[@"corpsName"]];
+
+    
+    PFFile *imageFile = self.corps[@"logo"];
+    if (imageFile) {
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+            if (!error) {
+                self.imgCorps.image = [UIImage imageWithData:data];
+            } else {
+                self.imgCorps.image = nil;
+                NSLog(@"Could not display logo for %@", self.corps[@"corpsName"]);
+            }
+        }];
+    } else {
+        self.imgCorps.image = nil;
+        NSLog(@"Could not display logo for %@", self.corps[@"corpsName"]);
+    }
     
     self.title = self.corps[@"corpsName"];
     self.navigationController.navigationBarHidden = NO;
