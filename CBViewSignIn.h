@@ -10,6 +10,8 @@
 
 @protocol SignInProtocol <NSObject>
 @required
+-(void)loggingIn;
+-(void)errorLoggingIn;
 -(void)loginSuccessful:(BOOL)needsNickName;
 -(void)emailSelected;
 -(void)SignInCancelled;
@@ -21,7 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btnFacebook;
-@property (weak, nonatomic) IBOutlet UIButton *btnTwitter;
 @property (weak, nonatomic) IBOutlet UIButton *btnEmail;
 
 -(void)setDelegate:(id)newDelegate;

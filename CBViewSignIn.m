@@ -22,6 +22,8 @@
 #import "LoginView.h"
 #import "RegisterView.h"
 
+#import "ParseErrors.h"
+
 
 @implementation CBViewSignIn
 
@@ -71,18 +73,18 @@
 //    }];
     
     // ----
-    
-    [ProgressHUD show:@"Signing in..." Interaction:NO];
-    
+    [delegate loggingIn];
     [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
-         if (user != nil) {
+        if (user != nil) {
              if (user[PF_USER_FACEBOOKID] == nil) {
                  [self requestFacebook:user];
              } else {
                 [self userLoggedIn:user];
              }
          } else {
-            [ProgressHUD showError:error.userInfo[@"error"]];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            [delegate errorLoggingIn];
          }
      }];
 }
@@ -96,7 +98,9 @@
              [self processFacebook:user UserData:userData];
          } else {
              [PFUser logOut];
-             [ProgressHUD showError:@"Failed to fetch Facebook user data."];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             [alert show];
+             [delegate errorLoggingIn];
          }
      }];
 }
@@ -116,16 +120,23 @@
 
          PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
          [filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-              if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
+             if (error != nil) {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [alert show];
+             }
           }];
 
          if (image.size.width > 30) image = ResizeImage(image, 30, 30);
 
          PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
          [fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-              if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
+             if (error != nil) {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [alert show];
+             }
           }];
 
+         user[@"email"] = userData[@"email"];
          user[PF_USER_EMAILCOPY] = userData[@"email"];
          user[PF_USER_FULLNAME] = userData[@"name"];
          user[PF_USER_FULLNAME_LOWER] = [userData[@"name"] lowercaseString];
@@ -135,16 +146,19 @@
          [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
               if (error == nil) {
                   [ProgressHUD dismiss];
-                  //[self dismissViewControllerAnimated:YES completion:nil];
+                  [self userLoggedIn:user];
               } else {
                   [PFUser logOut];
-                  [ProgressHUD showError:error.userInfo[@"error"]];
+                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                  [alert show];
+                  [delegate errorLoggingIn];
               }
           }];
      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          [PFUser logOut];
-         [ProgressHUD showError:@"Failed to fetch Facebook profile picture."];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
      }];
     
     [[NSOperationQueue mainQueue] addOperation:operation];
@@ -153,39 +167,11 @@
 - (void)userLoggedIn:(PFUser *)user {
     
     ParsePushUserAssign();
-    [ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_FULLNAME]]];
     BOOL needsNickname = NO;
     NSString *nickname = user[@"nickname"];
     if (![nickname length]) needsNickname = YES;
     [delegate loginSuccessful:needsNickname];
 }
-
-#pragma mark
-#pragma mark - Twitter
-#pragma mark
-
-- (IBAction)btnTwitter_clicked:(id)sender {
-    
-    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
-        NSString *nickname;
-        BOOL needsNickname = NO;
-        if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Twitter login.");
-            return;
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in with Twitter!");
-            nickname = user[@"nickname"];
-            if (![nickname length]) needsNickname = YES;
-            [delegate loginSuccessful:needsNickname];
-        } else {
-            NSLog(@"User logged in with Twitter!");
-            nickname = user[@"nickname"];
-            if (![nickname length]) needsNickname = YES;
-            [delegate loginSuccessful:needsNickname];
-        }
-    }];
-}
-
 
 #pragma mark
 #pragma mark - Email

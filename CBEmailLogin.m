@@ -116,13 +116,12 @@ BOOL cancelled;
 // 
 //        }
 //    }];
-    
+    [delegate loggingIn];
     NSString *name		= txtName.text;
     NSString *password	= txtPassword.text;
-    NSString *email		= txtEmail.text;
+    NSString *email		= [txtEmail.text lowercaseString];
     
-  
-        [ProgressHUD show:@"Please wait..." Interaction:NO];
+
         
         PFUser *user = [PFUser user];
         user.username = email;
@@ -135,16 +134,17 @@ BOOL cancelled;
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
              if (error == nil) {
                  ParsePushUserAssign();
-                 [ProgressHUD showSuccess:@"Succeed."];
                  [delegate newUserCreatedFromEmail];
              } else {
-                 [ProgressHUD showError:error.userInfo[@"error"]];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                [delegate errorLoggingIn];
              }
          }];
 }
 
 -(void)signIntoAccountWithEmail:(NSString *)email andPassword:(NSString *)pw {
-    
+    [delegate loggingIn];
 //    [PFUser logInWithUsernameInBackground:email password:pw
 //                                    block:^(PFUser *user, NSError *error) {
 //                                        if (user) {
@@ -172,6 +172,7 @@ BOOL cancelled;
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
              [alert show];
              NSLog(@"%@", error);
+             [delegate errorLoggingIn];
          }
      }];
 }

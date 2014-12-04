@@ -157,6 +157,7 @@
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CSShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CSShowDetailsViewController.m */; };
 		D0307DBD1953B5B8000849F1 /* CSJudgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DBC1953B5B8000849F1 /* CSJudgeViewController.m */; };
+		D0345ECA1A303AC9002DBDC2 /* CBCorpDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
 		D047A349196A095F00F5F5BC /* star_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A348196A095F00F5F5BC /* star_unselected.png */; };
@@ -484,6 +485,8 @@
 		D0307DB619537792000849F1 /* CSShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSShowDetailsViewController.m; sourceTree = "<group>"; };
 		D0307DBB1953B5B8000849F1 /* CSJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSJudgeViewController.h; path = ../CSJudgeViewController.h; sourceTree = "<group>"; };
 		D0307DBC1953B5B8000849F1 /* CSJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSJudgeViewController.m; path = ../CSJudgeViewController.m; sourceTree = "<group>"; };
+		D0345EC81A303AC9002DBDC2 /* CBCorpDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpDetail.h; sourceTree = "<group>"; };
+		D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpDetail.m; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D04702DA195790B40004A0EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D047A348196A095F00F5F5BC /* star_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_unselected.png; sourceTree = "<group>"; };
@@ -1137,6 +1140,8 @@
 				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
+				D0345EC81A303AC9002DBDC2 /* CBCorpDetail.h */,
+				D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1564,6 +1569,7 @@
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				923D4FFB1A2C6DCF00E16B64 /* JSQMessagesBubbleImageFactory.m in Sources */,
+				D0345ECA1A303AC9002DBDC2 /* CBCorpDetail.m in Sources */,
 				923D50101A2C6DCF00E16B64 /* JSQMessagesComposerTextView.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				923D4FE21A2C6DCF00E16B64 /* AFSecurityPolicy.m in Sources */,

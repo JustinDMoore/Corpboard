@@ -13,6 +13,8 @@
 -(void)emailCancelled;
 -(void)newUserCreatedFromEmail;
 -(void)successfulLoginFromEmail;
+-(void)loggingIn;
+-(void)errorLoggingIn;
 @end
 
 @interface CBEmailLogin : UIView <UITextFieldDelegate> {

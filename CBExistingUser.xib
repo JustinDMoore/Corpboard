@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -44,8 +44,17 @@
                     <color key="textColor" red="0.77111950549999997" green="0.77111950549999997" blue="0.77111950549999997" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNo-Tm-fEW">
+                    <rect key="frame" x="101" y="116" width="117" height="30"/>
+                    <state key="normal" title="Forgot Password">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnForgotPassword_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="oQj-YH-bar"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Lm-i0-ojS">
-                    <rect key="frame" x="58" y="149" width="48" height="48"/>
+                    <rect key="frame" x="107" y="148" width="48" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="gXN-KD-4Qh"/>
                         <constraint firstAttribute="height" constant="48" id="pKe-jV-bWe"/>
@@ -58,7 +67,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQY-8Z-WhZ">
-                    <rect key="frame" x="212" y="149" width="48" height="48"/>
+                    <rect key="frame" x="163" y="148" width="48" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="8vP-N7-xw5"/>
                         <constraint firstAttribute="height" constant="48" id="WOZ-l0-COf"/>
@@ -70,15 +79,6 @@
                         <action selector="btnSignUp_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="sEq-3W-K7h"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNo-Tm-fEW">
-                    <rect key="frame" x="101" y="116" width="117" height="30"/>
-                    <state key="normal" title="Forgot Password">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnForgotPassword_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="oQj-YH-bar"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -87,10 +87,10 @@
                 <constraint firstAttribute="centerX" secondItem="dbw-NE-99d" secondAttribute="centerX" id="BER-35-gVQ"/>
                 <constraint firstItem="JNo-Tm-fEW" firstAttribute="centerX" secondItem="pHC-CB-APB" secondAttribute="centerX" constant="-0.5" id="PgJ-Nf-qnL"/>
                 <constraint firstItem="ajy-Ye-pVW" firstAttribute="centerX" secondItem="dbw-NE-99d" secondAttribute="centerX" constant="-1" id="QNK-cZ-3Hb"/>
-                <constraint firstItem="BQY-8Z-WhZ" firstAttribute="top" secondItem="JNo-Tm-fEW" secondAttribute="bottom" constant="3" id="SPi-Bq-lfz"/>
-                <constraint firstItem="4Lm-i0-ojS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="58" id="dzg-xI-5dI"/>
-                <constraint firstAttribute="trailing" secondItem="BQY-8Z-WhZ" secondAttribute="trailing" constant="60" id="h2Z-Ua-D8d"/>
-                <constraint firstItem="4Lm-i0-ojS" firstAttribute="top" secondItem="JNo-Tm-fEW" secondAttribute="bottom" constant="3" id="k7Z-DY-vvV"/>
+                <constraint firstItem="BQY-8Z-WhZ" firstAttribute="top" secondItem="JNo-Tm-fEW" secondAttribute="bottom" constant="2" id="SPi-Bq-lfz"/>
+                <constraint firstItem="4Lm-i0-ojS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="107" id="dzg-xI-5dI"/>
+                <constraint firstAttribute="trailing" secondItem="BQY-8Z-WhZ" secondAttribute="trailing" constant="109" id="h2Z-Ua-D8d"/>
+                <constraint firstItem="4Lm-i0-ojS" firstAttribute="top" secondItem="JNo-Tm-fEW" secondAttribute="bottom" constant="2" id="k7Z-DY-vvV"/>
                 <constraint firstItem="ajy-Ye-pVW" firstAttribute="top" secondItem="dbw-NE-99d" secondAttribute="bottom" constant="-1" id="lz1-Oa-wHb"/>
                 <constraint firstItem="dbw-NE-99d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="mbh-WF-udg"/>
                 <constraint firstItem="pHC-CB-APB" firstAttribute="top" secondItem="ajy-Ye-pVW" secondAttribute="bottom" constant="8" id="n36-d7-qx8"/>

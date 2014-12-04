@@ -17,7 +17,7 @@
         case 101: string = @"Incorrect email address or password."; break;
         case 100: string = @"Unable to connect to the server. This could be caused by a network error."; break;
         case 202: string = @"This username is already taken. If this is you, please select EXISTING ACCOUNT from the main menu."; break;
-        case 203: string = @"This username is already taken. If this is you, please select EXISTING ACCOUNT from the main menu."; break;
+        case 203: string = @"This email address is already taken. If this is you, please select EXISTING ACCOUNT from the main menu."; break;
         case 205: string = @"No account exists for the provided email address."; break;
         default: string = @"An unknown error has occurred."; break;
     }

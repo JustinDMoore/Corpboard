@@ -139,6 +139,7 @@ bool removeNewUserView = NO;
 bool removeSignInView = NO;
 bool removeEmailView = NO;
 bool removeNewUserEmail = NO;
+bool removeProgressView = NO;
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if (removeNewUserView) {
         [self removeViewFromScrollView:self.viewIsNewUser];
@@ -157,6 +158,10 @@ bool removeNewUserEmail = NO;
     if (removeNewUserEmail) {
         [self removeViewFromScrollView:self.viewNewUser];
         removeNewUserEmail = NO;
+    }
+    if (removeProgressView) {
+        [self removeViewFromScrollView:self.viewProgress];
+        removeProgressView = NO;
     }
 }
 
@@ -212,6 +217,17 @@ bool removeNewUserEmail = NO;
     }
     
     [self.scrollLogin scrollRectToVisible:self.viewSignIn.frame animated:YES];
+}
+
+-(void)loggingIn {
+    [self addView:self.viewProgress andScroll:YES];
+    [self.viewProgress startProgress];
+}
+
+-(void)errorLoggingIn {
+    removeProgressView = YES;
+    UIView *previousView = [self.arrayOfSubviews objectAtIndex:[self.arrayOfSubviews count] - 2];
+    [self.scrollLogin scrollRectToVisible:previousView.frame animated:YES];
 }
 
 -(void)successfulLoginFromEmail {
@@ -307,7 +323,7 @@ bool removeNewUserEmail = NO;
 -(CBEmailLogin *)viewEmailLogin {
     if (!_viewEmailLogin) {
         self.viewEmailLogin =
-        [[[NSBundle mainBundle] loadNibNamed:@"CBEmailLogin"
+        [[[NSBundle mainBundle] loadNibNamed:@"CBExistingUser"
                                        owner:self
                                      options:nil]
          objectAtIndex:0];
