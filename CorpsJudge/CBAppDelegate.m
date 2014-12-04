@@ -1,17 +1,16 @@
 //
-//  CJAppDelegate.m
-//  CorpsJudge
+//  CBAppDelegate.m
+//  CorpsBoard
 //
 //  Created by Isaias Favela on 6/16/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSAppDelegate.h"
+#import "CBAppDelegate.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
-#import "CSShowsViewController.h"
 
-@implementation CSAppDelegate
+@implementation CBAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;

@@ -1,18 +1,18 @@
 //
-//  CSSingle.m
-//  CorpsJudge
+//  CBSingle.m
+//  CorpsBoard
 //
 //  Created by Justin Moore on 6/24/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSSingle.h"
+#import "CBSingle.h"
 #import "JustinHelper.h"
 
-@implementation CSSingle
+@implementation CBSingle
 
 +(id)data {
-    static CSSingle *data = nil;
+    static CBSingle *data = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         data = [[self alloc] init];

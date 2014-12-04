@@ -1,21 +1,21 @@
 //
-//  CSContactViewController.m
-//  CorpsJudge
+//  CBContactViewController.m
+//  CorpsBoard
 //
 //  Created by Justin Moore on 6/27/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSContactViewController.h"
+#import "CBContactViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Parse/Parse.h>
 
-@interface CSContactViewController ()
+@interface CBContactViewController ()
 @property (nonatomic, strong) IBOutlet UITableView *tableFeedback;
 
 @end
 
-@implementation CSContactViewController
+@implementation CBContactViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSShowsViewController.h"
+#import "CBShowsViewController.h"
 #import <Parse/Parse.h>
 #import "CSShowDetailsViewController.h"
 #import "NSDate+Utilities.h"
@@ -18,7 +18,7 @@ CSAppDelegate *del;
 BOOL firstLoad = YES;
 BOOL refreshing = NO;
 
-@interface CSShowsViewController ()
+@interface CBShowsViewController ()
 @property (nonatomic, weak) IBOutlet UITableView *showsTable;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
@@ -28,7 +28,7 @@ BOOL refreshing = NO;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @end
 
-@implementation CSShowsViewController
+@implementation CBShowsViewController
 
 - (BOOL)shouldAutorotate
 {

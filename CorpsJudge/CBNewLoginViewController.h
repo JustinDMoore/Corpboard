@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CSSingle.h"
+#import "CBSingle.h"
 #import "CBIsNewUser.h"
 #import "CBViewSignIn.h"
 #import "CBEmailLogin.h"

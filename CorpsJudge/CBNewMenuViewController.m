@@ -8,10 +8,10 @@
 
 #import "CBNewMenuViewController.h"
 #import <Parse/Parse.h>
-#import "CSSingle.h"
+#import "CBSingle.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSDate+Utilities.h"
-#import "CSShowDetailsViewController.h"
+#import "CBShowDetailsViewController.h"
 #import "NSMutableArray+Shuffling.h"
 #import "CBNewsSingleton.h"
 #import "CBNewsItem.h"
@@ -19,7 +19,7 @@
 #import "ClipView.h"
 #import "MWFeedItem.h"
 
-CSSingle *data;
+CBSingle *data;
 CBNewsSingleton *news;
 
 NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot, *timerCheckForNews;
@@ -137,7 +137,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 -(void)initVariables {
     
-    data = [CSSingle data];
+    data = [CBSingle data];
     news = [CBNewsSingleton news];
     
     [self initHeadshots];
@@ -807,7 +807,7 @@ PFObject *showToOpen;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"openShow"]) {
-        CSShowDetailsViewController *vc = [segue destinationViewController];
+        CBShowDetailsViewController *vc = [segue destinationViewController];
         vc.show = showToOpen;
     }
 }

@@ -13,7 +13,7 @@
 
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
-    CSSingle *data;
+    CBSingle *data;
    
 }
 @property (nonatomic, strong) NSMutableArray *arrayOfSubviews;
@@ -76,7 +76,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    data = [CSSingle data];
+    data = [CBSingle data];
     [data setDelegate:self];
     self.navigationController.navigationBarHidden = YES;
     

@@ -1,21 +1,21 @@
 //
-//  CSStatsViewController.m
-//  CorpsJudge
+//  CBStatsViewController.m
+//  CorpsBoard
 //
 //  Created by Isaias Favela on 6/23/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSStatsViewController.h"
+#import "CBStatsViewController.h"
 #import <Parse/Parse.h>
 #import <Parse/Parse.h>
 #import "NSDate+Utilities.h"
 #import "UserScore.h"
-#import "CSSingle.h"
+#import "CBSingle.h"
 #import "CSAppDelegate.h"
 
 CSAppDelegate *appDel;
-CSSingle *data;
+CBSingle *data;
 NSTimer *timer;
 PFQuery *queryUserRanks;
 PFQuery *queryOfficialHornlineScores;
@@ -41,7 +41,7 @@ typedef enum : int {
     phaseFavorite = 5
 } phase;
 
-@interface CSStatsViewController ()
+@interface CBStatsViewController ()
 - (IBAction)btnInfo_clicked:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
@@ -73,7 +73,7 @@ typedef enum : int {
 
 @end
 
-@implementation CSStatsViewController
+@implementation CBStatsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

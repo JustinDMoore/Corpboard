@@ -1,18 +1,18 @@
 //
-//  CSFinalsPredictionContestInfoViewController.m
-//  CorpsJudge
+//  CBFinalsPredictionContestInfoViewController.m
+//  CorpsBoard
 //
 //  Created by Isaias Favela on 6/30/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSFinalsPredictionContestInfoViewController.h"
+#import "CBFinalsPredictionContestInfoViewController.h"
 
-@interface CSFinalsPredictionContestInfoViewController ()
+@interface CBFinalsPredictionContestInfoViewController ()
 
 @end
 
-@implementation CSFinalsPredictionContestInfoViewController
+@implementation CBFinalsPredictionContestInfoViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

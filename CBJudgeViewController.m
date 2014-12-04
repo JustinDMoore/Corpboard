@@ -1,13 +1,13 @@
 //
-//  CSJudgeViewController.m
-//  CorpsJudge
+//  CBJudgeViewController.m
+//  CorpsBoard
 //
 //  Created by Justin Moore on 6/19/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSJudgeViewController.h"
-#import "CSSingle.h"
+#import "CBJudgeViewController.h"
+#import "CBSingle.h"
 
 NSInteger favDrumsW = -1;
 NSInteger favHornlineW = -1;
@@ -23,9 +23,9 @@ NSInteger loudHornlineO = -1;
 
 NSInteger currentRowIndex;
 
-CSSingle *data;
+CBSingle *data;
 
-@interface CSJudgeViewController ()
+@interface CBJudgeViewController ()
 
 typedef enum : int {
     catdrums, cathornline, catguard, catcorps, catloud
@@ -66,7 +66,7 @@ typedef enum : int {
 
 @end
 
-@implementation CSJudgeViewController
+@implementation CBJudgeViewController
 
 - (BOOL)shouldAutorotate
 {
@@ -110,7 +110,7 @@ typedef enum : int {
     
     [super viewDidLoad];
     
-    data = [CSSingle data];
+    data = [CBSingle data];
     
     self.title = @"Review Show";
 

@@ -7,11 +7,11 @@
 //
 
 #import "CBCorpsViewController.h"
-#import "CSSingle.h"
+#import "CBSingle.h"
 #import "CBCorpsDetailViewController.h"
 #import "ILTranslucentView.h"
 
-CSSingle *data;
+CBSingle *data;
 NSTimer *timer;
 
 @interface CBCorpsViewController ()
@@ -57,7 +57,7 @@ NSTimer *timer;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    data = [CSSingle data];
+    data = [CBSingle data];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableCorps.hidden = YES;
     [self startTimer];

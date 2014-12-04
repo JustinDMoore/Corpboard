@@ -1,22 +1,22 @@
 //
-//  CSShowDetailsViewController.m
-//  CorpsJudge
+//  CBShowDetailsViewController.m
+//  CorpsBoard
 //
 //  Created by Justin Moore on 6/19/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import "CSShowDetailsViewController.h"
+#import "CBShowDetailsViewController.h"
 #import "CBWebViewController.h"
-#import "CSJudgeViewController.h"
-#import "CSSingle.h"
+#import "CBJudgeViewController.h"
+#import "CBSingle.h"
 
-CSSingle *data;
+CBSingle *data;
 
 int votedScore;
 int votedFavorites;
 
-@interface CSShowDetailsViewController() <CSJudgeViewControllerDelegate>
+@interface CBShowDetailsViewController() <CBJudgeViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
 @property (strong, nonatomic) NSMutableArray *arrayOfOpenClassScores;
@@ -39,7 +39,7 @@ int votedFavorites;
 
 @end
 
-@implementation CSShowDetailsViewController
+@implementation CBShowDetailsViewController
 
 - (BOOL)shouldAutorotate
 {
@@ -364,7 +364,7 @@ int votedFavorites;
     if ([[segue identifier] isEqualToString:@"judge"])
     {
         // Get reference to the destination view controller
-        CSJudgeViewController *vc = [segue destinationViewController];
+        CBJudgeViewController *vc = [segue destinationViewController];
         vc.delegate = self;
         // Pass any objects to the view controller here, like...
         vc.show = self.show;

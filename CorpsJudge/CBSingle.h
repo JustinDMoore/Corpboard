@@ -1,6 +1,6 @@
 //
-//  CSSingle.h
-//  CorpsJudge
+//  CBSingle.h
+//  CorpsBoard
 //
 //  Created by Justin Moore on 6/24/14.
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
@@ -16,7 +16,7 @@
 
 @end
 
-@interface CSSingle : NSObject {
+@interface CBSingle : NSObject {
     id delegate;
 }
 
