@@ -74,7 +74,7 @@
     
     // ----
     [delegate loggingIn];
-    [PFFacebookUtils logInWithPermissions:@[@"public_profile", @"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils logInWithPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (user != nil) {
              if (user[PF_USER_FACEBOOKID] == nil) {
                  [self requestFacebook:user];

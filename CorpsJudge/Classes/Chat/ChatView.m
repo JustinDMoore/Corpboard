@@ -18,6 +18,7 @@
 #import "pushnotification.h"
 
 #import "ChatView.h"
+#import "CBAppDelegate.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ChatView()
@@ -35,6 +36,9 @@
 	JSQMessagesBubbleImage *incomingBubbleImageData;
 	
 	JSQMessagesAvatarImage *placeholderImageData;
+    
+    CBAppDelegate *del;
+    
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +51,6 @@
 {
 	self = [super init];
 	roomId = roomId_;
-    
 	return self;
 }
 
@@ -56,6 +59,9 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
+    
+    self.collectionView.backgroundColor = [UIColor blackColor];
+    del = [UIApplication sharedApplication].delegate;
 	self.title = @"Chat";
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
@@ -67,7 +73,7 @@
 
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
 	outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-	incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+	incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:del.appTintColor];
 
 	placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"blank_avatar"] diameter:30.0];
 
