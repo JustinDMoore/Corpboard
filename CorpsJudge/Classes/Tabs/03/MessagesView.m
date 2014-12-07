@@ -167,6 +167,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	MessagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagesCell" forIndexPath:indexPath];
+    NSLog(@"message cell");
 	[cell bindData:messages[indexPath.row]];
 	return cell;
 }

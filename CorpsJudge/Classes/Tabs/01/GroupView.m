@@ -19,6 +19,8 @@
 #import "GroupView.h"
 #import "ChatView.h"
 
+#import "LiveChatCell.h"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
 {
@@ -36,8 +38,8 @@
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self)
 	{
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
-		self.tabBarItem.title = @"Chats";
+		//[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
+		self.tabBarItem.title = @"Live Chats";
 	}
 	return self;
 }
@@ -47,7 +49,13 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Group";
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ChatNameCell"
+                                               bundle:[NSBundle mainBundle]]
+         forCellReuseIdentifier:@"LiveChatCell"];
+    
+    self.tableView.backgroundColor = [UIColor blackColor];
+	self.title = @"Live Chats";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self
 																			 action:@selector(actionNew)];
@@ -76,7 +84,7 @@
 - (void)actionNew
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter a name for your group" message:nil delegate:self
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"What's the chat about?" message:nil delegate:self
 										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
 	[alert show];
@@ -149,11 +157,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    
+    static NSString *CellIdentifier = @"LiveChatCell";
+    LiveChatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    PFObject *chatroom = chatrooms[indexPath.row];
+    PFUser *createdBy = chatroom[@"user"];
 
-	PFObject *chatroom = chatrooms[indexPath.row];
-	cell.textLabel.text = chatroom[PF_CHATROOMS_NAME];
+    
+    // Configure the cell...
+    cell.imgLastUser.image = nil;
+    [cell.imgLastUser setFile:createdBy[@"picture"]];
+    [cell.imgLastUser loadInBackground];
+
+    
+    cell.lblLastUser.text = nil;
+    cell.lblLastUserHowLongAgo.text = nil;
+    cell.lblChatName.text = chatroom[PF_CHATROOMS_NAME];
+    cell.lblStartedByUserAndWhen.text = createdBy[@"nickname"];
+    cell.lblNumberOfMessagesAndViews.text = nil;
+
+
+
 
 	return cell;
 }

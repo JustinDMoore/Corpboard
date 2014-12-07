@@ -122,6 +122,8 @@
 		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
 		9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */; };
 		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
+		9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9264B2691A34E91700E1838F /* ChatNameCell.xib */; };
+		9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9264B26C1A34EAE800E1838F /* LiveChatCell.m */; };
 		9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAB1968F09700DFB09E /* Blue Devils1.png */; };
 		9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
@@ -438,6 +440,9 @@
 		9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBViewSignIn.m; sourceTree = "<group>"; };
 		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
 		92620E371A21A302003EC5D8 /* CBNicknameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNicknameView.m; sourceTree = "<group>"; };
+		9264B2691A34E91700E1838F /* ChatNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNameCell.xib; sourceTree = "<group>"; };
+		9264B26B1A34EAE800E1838F /* LiveChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveChatCell.h; sourceTree = SOURCE_ROOT; };
+		9264B26C1A34EAE800E1838F /* LiveChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveChatCell.m; sourceTree = SOURCE_ROOT; };
 		9270DBAB1968F09700DFB09E /* Blue Devils1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Devils1.png"; sourceTree = "<group>"; };
 		9270DBAD1968F56F00DFB09E /* Phantom Regiment1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Regiment1.png"; sourceTree = "<group>"; };
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
@@ -649,6 +654,9 @@
 			children = (
 				923D4EF51A2C6DCF00E16B64 /* GroupView.h */,
 				923D4EF61A2C6DCF00E16B64 /* GroupView.m */,
+				9264B2691A34E91700E1838F /* ChatNameCell.xib */,
+				9264B26B1A34EAE800E1838F /* LiveChatCell.h */,
+				9264B26C1A34EAE800E1838F /* LiveChatCell.m */,
 			);
 			path = 01;
 			sourceTree = "<group>";
@@ -1419,6 +1427,7 @@
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				923D501B1A2C6DCF00E16B64 /* ProgressHUD.bundle in Resources */,
+				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
@@ -1594,6 +1603,7 @@
 				923D500C1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.m in Sources */,
 				923D4FEE1A2C6DCF00E16B64 /* UIWebView+AFNetworking.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
+				9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,
 			);
