@@ -55,6 +55,7 @@
          forCellReuseIdentifier:@"LiveChatCell"];
     
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.title = @"Live Chats";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self
@@ -103,6 +104,8 @@
 		{
 			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
 			object[PF_CHATROOMS_NAME] = textField.text;
+            object[@"user"] = [PFUser currentUser];
+            object[@"lastMessageDate"] = [NSDate date];
 			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 			{
 				if (error == nil)
@@ -121,6 +124,7 @@
 {
 	[ProgressHUD show:nil];
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
+    [query orderByDescending:@"lastMessageDate"];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
