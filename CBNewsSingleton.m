@@ -58,7 +58,6 @@
 #pragma mark Parsing
 
 - (void)refresh {
-    NSLog(@"Refreshing RSS Feed");
     [parsedItems removeAllObjects];
     [feedParser stopParsing];
     [feedParser parse];
@@ -75,27 +74,27 @@
 #pragma mark MWFeedParserDelegate
 
 - (void)feedParserDidStart:(MWFeedParser *)parser {
-    NSLog(@"Started Parsing: %@", parser.url);
+   // NSLog(@"Started Parsing: %@", parser.url);
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
-    NSLog(@"Parsed Feed Info: “%@”", info.title);
+    //NSLog(@"Parsed Feed Info: “%@”", info.title);
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
-    NSLog(@"Parsed Feed Item: “%@”", item.title);
+    //NSLog(@"Parsed Feed Item: “%@”", item.title);
     if (item) [parsedItems addObject:item];
 }
 
 -(void)feedParserDidFinish:(MWFeedParser *)parser {
     
-    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
+    //NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
    [self updateTableWithParsedItems];
     self.isNewsLoaded = YES;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
-    NSLog(@"Finished Parsing With Error: %@", error);
+    //NSLog(@"Finished Parsing With Error: %@", error);
     if (parsedItems.count == 0) {
          // Show failed message in title
     } else {

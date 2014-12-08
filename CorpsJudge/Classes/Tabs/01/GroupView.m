@@ -164,23 +164,53 @@
     PFObject *chatroom = chatrooms[indexPath.row];
     PFUser *createdBy = chatroom[@"user"];
 
+    [createdBy fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            PFFile *imgFile = createdBy[@"picture"];
+            [cell.imgLastUser setFile:imgFile];
+            [cell.imgLastUser loadInBackground];
+            cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", createdBy[@"nickname"]];
+        } else {
+            NSLog(@"Error loading user image for chat room - %@", error.userInfo);
+        }
+    }];
     
-    // Configure the cell...
-    cell.imgLastUser.image = nil;
-    [cell.imgLastUser setFile:createdBy[@"picture"]];
-    [cell.imgLastUser loadInBackground];
-
+    PFQuery *count = [PFQuery queryWithClassName:@"Chat"];
+    [count whereKey:@"roomId" equalTo:chatroom.objectId];
+    [count countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        int views = [chatroom[@"numberOfViews"] intValue];
+        NSString *message;
+        if (number == 1) {
+            message = @"message";
+        } else {
+            message = @"messages";
+        }
+        
+        NSString *v;
+        if (views == 1) {
+            v = @"view";
+        } else {
+            v = @"views";
+        }
+        
+        cell.lblNumberOfMessagesAndViews.text = [NSString stringWithFormat:@"%i %@ - %i %@", number, message, views, v];
+    }];
     
+//
+//
     cell.lblLastUser.text = nil;
-    cell.lblLastUserHowLongAgo.text = nil;
+//    cell.lblLastUserHowLongAgo.text = nil;
     cell.lblChatName.text = chatroom[PF_CHATROOMS_NAME];
-    cell.lblStartedByUserAndWhen.text = createdBy[@"nickname"];
-    cell.lblNumberOfMessagesAndViews.text = nil;
-
-
-
-
+    
 	return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 104;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 104;
 }
 
 #pragma mark - Table view delegate
@@ -193,6 +223,11 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFObject *chatroom = chatrooms[indexPath.row];
 	NSString *roomId = chatroom.objectId;
+    
+    int numViews = [chatroom[@"numberOfViews"] intValue];
+    numViews++;
+    chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
+    [chatroom saveInBackground];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	CreateMessageItem([PFUser currentUser], roomId, chatroom[PF_CHATROOMS_NAME]);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
