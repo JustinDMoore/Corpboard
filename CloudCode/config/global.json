@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "CorpBoard": {
+            "applicationId": "wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ", 
+            "masterKey": "ghQaWz8I6ufa4jd5ZEN3W6kTAOXMSBCt6r9k7gKt"
+        }, 
+        "_default": {
+            "link": "CorpBoard"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.2"
+    }
+}

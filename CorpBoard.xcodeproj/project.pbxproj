@@ -167,6 +167,9 @@
 		D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
+		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
+		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
+		D064F3B21A36ECA1007455E2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AF1A36ECA1007455E2 /* index.html */; };
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
 		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
@@ -502,6 +505,9 @@
 		D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextViewPlaceHolder.m; sourceTree = "<group>"; };
 		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
 		D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsViewController.m; sourceTree = "<group>"; };
+		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		D064F3AD1A36ECA1007455E2 /* global.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = global.json; sourceTree = "<group>"; };
+		D064F3AF1A36ECA1007455E2 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CBLaunch.xib; path = CorpsJudge/CBLaunch.xib; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClipView.h; path = ../ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClipView.m; path = ../ClipView.m; sourceTree = "<group>"; };
@@ -1002,6 +1008,7 @@
 		92533472194FD5D70004D16F = {
 			isa = PBXGroup;
 			children = (
+				D064F3A91A36ECA1007455E2 /* CloudCode */,
 				92533486194FD5D70004D16F /* CorpBoard */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
 				D0AEF3BC1A13325C0059368B /* NewsViewTests */,
@@ -1270,6 +1277,40 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		D064F3A91A36ECA1007455E2 /* CloudCode */ = {
+			isa = PBXGroup;
+			children = (
+				D064F3AA1A36ECA1007455E2 /* cloud */,
+				D064F3AC1A36ECA1007455E2 /* config */,
+				D064F3AE1A36ECA1007455E2 /* public */,
+			);
+			path = CloudCode;
+			sourceTree = "<group>";
+		};
+		D064F3AA1A36ECA1007455E2 /* cloud */ = {
+			isa = PBXGroup;
+			children = (
+				D064F3AB1A36ECA1007455E2 /* main.js */,
+			);
+			path = cloud;
+			sourceTree = "<group>";
+		};
+		D064F3AC1A36ECA1007455E2 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D064F3AD1A36ECA1007455E2 /* global.json */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		D064F3AE1A36ECA1007455E2 /* public */ = {
+			isa = PBXGroup;
+			children = (
+				D064F3AF1A36ECA1007455E2 /* index.html */,
+			);
+			path = public;
+			sourceTree = "<group>";
+		};
 		D0AEF3A01A1312E10059368B /* Parse */ = {
 			isa = PBXGroup;
 			children = (
@@ -1409,8 +1450,10 @@
 				923D4FCD1A2C6DCF00E16B64 /* ProfileView.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
+				D064F3B11A36ECA1007455E2 /* global.json in Resources */,
 				92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */,
 				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
+				D064F3B01A36ECA1007455E2 /* main.js in Resources */,
 				923D500F1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
 				923D4FCF1A2C6DCF00E16B64 /* LoginView.xib in Resources */,
@@ -1424,6 +1467,7 @@
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
+				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				923D501B1A2C6DCF00E16B64 /* ProgressHUD.bundle in Resources */,
