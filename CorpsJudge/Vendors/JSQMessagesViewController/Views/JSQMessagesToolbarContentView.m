@@ -84,6 +84,7 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 - (void)setLeftBarButtonItem:(UIButton *)leftBarButtonItem
 {
+
     if (_leftBarButtonItem) {
         [_leftBarButtonItem removeFromSuperview];
     }

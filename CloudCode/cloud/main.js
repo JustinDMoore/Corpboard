@@ -53,12 +53,13 @@ Parse.Cloud.define("getFactsCount", function(request, response)
 
 
 // Increments number of messages in the chatroom a message is sent to
-Parse.Cloud.beforeSave("Chat", function(request, response) {
+Parse.Cloud.afterSave("Chat", function(request, response) {
                       query = new Parse.Query("ChatRooms");
                       query.get(request.object.get("roomId"), {
                                 success: function(post) {
                                 post.increment("numberOfMessages", 1);
                                 post.set("lastUser", request.user);
+                                post.set("lastMessageDate", new Date());
                                 post.save();
                                 response.success();
                                 },

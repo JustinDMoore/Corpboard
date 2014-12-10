@@ -10,7 +10,6 @@
 // THE SOFTWARE.
 
 #import <Parse/Parse.h>
-#import "ProgressHUD.h"
 
 #import "AppConstant.h"
 #import "messages.h"
@@ -22,10 +21,13 @@
 #import "LiveChatCell.h"
 #import "JSQMessagesTimestampFormatter.h"
 #import "NSDate+Utilities.h"
+
+#import "KVNProgress.h"
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
 {
 	NSMutableArray *chatrooms;
+    UIRefreshControl *refreshControl;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,12 +59,21 @@
     
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    
 	self.title = @"Live Chats";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	chatrooms = [[NSMutableArray alloc] init];
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [KVNProgress show];
+    [self refreshTableAndOpenRecent:NO];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,7 +123,7 @@
 - (void)actionNew
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"What's the chat about?" message:nil delegate:self
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"What's your question or topic for discussion?" message:nil delegate:self
 										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
 	[alert show];
@@ -140,7 +151,7 @@
 				{
 					[self refreshTableAndOpenRecent:YES];
 				}
-				else [ProgressHUD showError:@"Network error."];
+                else [KVNProgress showErrorWithStatus:@"Network error"];
 			}];
 		}
 	}
@@ -150,7 +161,7 @@
 - (void)refreshTableAndOpenRecent:(BOOL)open
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[ProgressHUD show:nil];
+    [KVNProgress show];
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -162,14 +173,16 @@
 			{
 				[chatrooms addObject:object];
 			}
-			[ProgressHUD dismiss];
-			[self.tableView reloadData];
+            [KVNProgress dismiss];
+            [refreshControl endRefreshing];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+			//[self.tableView reloadData];
             if (open) {
                 if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
                     [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             }
 		}
-		else [ProgressHUD showError:@"Network error."];
+        else [KVNProgress showErrorWithStatus:@"Network error"];
 	}];
 }
 

@@ -29,19 +29,20 @@
 
 -(void) setupProgressUI{
     
-    [KVNProgress appearance].statusColor = [UIColor darkGrayColor];
+    [KVNProgress appearance].statusColor = [UIColor whiteColor];
     [KVNProgress appearance].statusFont = [UIFont systemFontOfSize:17.0f];
     [KVNProgress appearance].circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
     [KVNProgress appearance].circleStrokeBackgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3f];
     [KVNProgress appearance].circleFillBackgroundColor = [UIColor clearColor];
-    [KVNProgress appearance].backgroundFillColor = [UIColor clearColor];
-    [KVNProgress appearance].backgroundTintColor = [UIColor clearColor];
+    [KVNProgress appearance].backgroundFillColor = [UIColor blackColor];
+    [KVNProgress appearance].backgroundTintColor = [UIColor blackColor];
     [KVNProgress appearance].successColor = [UIColor darkGrayColor];
     [KVNProgress appearance].errorColor = [UIColor darkGrayColor];
     [KVNProgress appearance].circleSize = 75.0f;
     [KVNProgress appearance].lineWidth = 2.0f;
     [KVNProgress appearance].successColor = [UIColor greenColor];
     [KVNProgress appearance].errorColor = [UIColor redColor];
+    
     
 }
 
@@ -132,7 +133,7 @@ float currentProgress = 0;
     self.lblFact.hidden = NO;
     self.lblFactHeader.hidden = NO;
     [self.lblFact sizeToFit];
-    
+    [self bringSubviewToFront:self.lblFactHeader];
     [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
     
     [self performSelector:@selector(animateLabel:) withObject:self.lblFact afterDelay:.1];

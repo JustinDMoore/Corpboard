@@ -67,7 +67,7 @@
     
     self.contentMode = UIViewContentModeRedraw;
     self.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.keyboardAppearance = UIKeyboardAppearanceDefault;
+    self.keyboardAppearance = UIKeyboardAppearanceDark;
     self.keyboardType = UIKeyboardTypeDefault;
     self.returnKeyType = UIReturnKeyDefault;
     

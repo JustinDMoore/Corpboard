@@ -339,7 +339,8 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-	
+    cell.textView.keyboardAppearance = UIKeyboardAppearanceDark;
+    [cell setBackgroundColor:[UIColor blackColor]];
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId])
 	{
@@ -349,6 +350,7 @@
 	{
 		cell.textView.textColor = [UIColor whiteColor];
 	}
+    cell.backgroundColor = [UIColor whiteColor];
 	return cell;
 }
 
