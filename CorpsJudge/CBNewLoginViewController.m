@@ -10,12 +10,14 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ParseErrors.h"
+#import "KVNProgress.h"
 
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
     CBSingle *data;
    
 }
+
 @property (nonatomic, strong) NSMutableArray *arrayOfSubviews;
 @property (nonatomic, strong) CBIsNewUser *viewIsNewUser;
 @property (nonatomic, strong) CBViewSignIn *viewSignIn;
@@ -39,6 +41,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     if ([PFUser currentUser]) {
+        //[KVNProgress showProgress:0 status:@"Signing In"];
+        //[KVNProgress updateProgress:.75 animated:YES];
         [self addView:self.viewProgress andScroll:NO];
     }
     
@@ -121,15 +125,35 @@ int ticker = 0;
 #pragma mark
 
 -(void)loadData {
+    [self getFactCount];
     [self addView:self.viewProgress andScroll:NO];
     [self.viewProgress startProgress];
     [data getAllCorpsFromServer];
     [data getAllShowsFromServer];
 }
 
+-(void)getFactCount {
+    
+    [PFCloud callFunctionInBackground:@"getRandomFact"
+                       withParameters:@{}
+                                block:^(NSArray *factArray, NSError *error) {
+                                    if (!error) {
+                                        if (factArray) {
+                                            PFObject *fact = [factArray lastObject];
+                                            [self.viewProgress setFact:fact[@"fact"]];
+                                        }
+                                        
+                                    } else {
+                                        NSLog(@"big error");
+                                    }
+                                }];
+    
+}
+        
 -(void)finishedLoadingData {
+
     [self.viewProgress stopProgress];
-    [self performSelector:@selector(useApp) withObject:nil afterDelay:.5];
+    
 }
 
 #pragma mark
@@ -168,6 +192,12 @@ bool removeProgressView = NO;
 #pragma mark
 #pragma mark - Protocol Methods
 #pragma mark
+
+//Progress
+-(void)progressComplete {
+    
+    [self performSelector:@selector(useApp) withObject:nil afterDelay:0];
+}
 
 //CBIsNewUser.h
 -(void)isNewUser:(BOOL)newUser {

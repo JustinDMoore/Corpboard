@@ -6,6 +6,12 @@
 // project.
 
 
+// KVNProgress
+#define COCOAPODS_POD_AVAILABLE_KVNProgress
+#define COCOAPODS_VERSION_MAJOR_KVNProgress 2
+#define COCOAPODS_VERSION_MINOR_KVNProgress 1
+#define COCOAPODS_VERSION_PATCH_KVNProgress 3
+
 // MWFeedParser
 #define COCOAPODS_POD_AVAILABLE_MWFeedParser
 #define COCOAPODS_VERSION_MAJOR_MWFeedParser 1

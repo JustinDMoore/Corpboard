@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,31 +10,40 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-1t-TgW">
-                    <rect key="frame" x="85" y="57" width="150" height="2"/>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CorpFacts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBM-XP-Yvh">
+                    <rect key="frame" x="120" y="113" width="81" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="Eoj-Ak-3id"/>
+                        <constraint firstAttribute="width" constant="81" id="not-dp-RX4"/>
+                        <constraint firstAttribute="height" constant="21" id="oIb-BC-5lR"/>
                     </constraints>
-                </progressView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOADING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Vl-YWj">
-                    <rect key="frame" x="122" y="84" width="76" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fact of the Day" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edr-xq-jQE">
+                    <rect key="frame" x="8" y="128" width="304" height="76"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="76" id="OFV-Q3-mHS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Ddg-1t-TgW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="57" id="C3o-nY-vds"/>
-                <constraint firstItem="xCR-Vl-YWj" firstAttribute="centerX" secondItem="Ddg-1t-TgW" secondAttribute="centerX" id="QKO-xP-sJT"/>
-                <constraint firstAttribute="centerX" secondItem="Ddg-1t-TgW" secondAttribute="centerX" id="X6Y-IC-ReC"/>
-                <constraint firstItem="xCR-Vl-YWj" firstAttribute="top" secondItem="Ddg-1t-TgW" secondAttribute="bottom" constant="25" id="egl-c5-G3m"/>
+                <constraint firstAttribute="bottom" secondItem="edr-xq-jQE" secondAttribute="bottom" id="2Nq-nS-lFx"/>
+                <constraint firstItem="edr-xq-jQE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="OdQ-l1-gwo"/>
+                <constraint firstAttribute="trailing" secondItem="edr-xq-jQE" secondAttribute="trailing" constant="8" id="ew4-Of-fPP"/>
+                <constraint firstItem="edr-xq-jQE" firstAttribute="centerX" secondItem="SBM-XP-Yvh" secondAttribute="centerX" constant="-0.5" id="gp8-lk-brN"/>
+                <constraint firstItem="edr-xq-jQE" firstAttribute="top" secondItem="SBM-XP-Yvh" secondAttribute="bottom" constant="-6" id="wKk-tr-88I"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="progressView" destination="Ddg-1t-TgW" id="byI-6P-unu"/>
+                <outlet property="lblFact" destination="edr-xq-jQE" id="3rR-fG-HLW"/>
+                <outlet property="lblFactHeader" destination="SBM-XP-Yvh" id="VzC-jB-sd9"/>
             </connections>
-            <point key="canvasLocation" x="239" y="262.5"/>
+            <point key="canvasLocation" x="239" y="262"/>
         </view>
     </objects>
 </document>

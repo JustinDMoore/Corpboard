@@ -7,20 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBAppDelegate.h"
 
 @protocol ProgressProtocol <NSObject>
-
+@required
+-(void)progressComplete;
 @end
 
 @interface CBProgressView : UIView {
     id delegate;
+    CBAppDelegate *del;
 }
-@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
-@property (nonatomic) BOOL theBool;
-@property (nonatomic, strong) NSTimer *myTimer;
+@property (nonatomic, strong) IBOutlet UILabel *lblFactHeader;
+@property (nonatomic, strong) IBOutlet UILabel *lblFact;
 
 -(void)setDelegate:(id)newDelegate;
 -(void)startProgress;
 -(void)stopProgress;
+-(void)errorProgress;
+-(void)setFact:(NSString*)fact;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "CBProgressView.h"
+#import "KVNProgress.h"
+
 
 @implementation CBProgressView
 
@@ -16,47 +18,145 @@
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-        self.progressView.progress = 0;
-        self.theBool = false;
-        //0.01667 is roughly 1/60, so it will update at 60 FPS
 
+
+        [self setupProgressUI];
+        [self progress];
+//        [KVNProgress showWithParameters:
+//         @{KVNProgressViewParameterFullScreen: @(NO),
+//           KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
+//           KVNProgressViewParameterStatus: @"",
+//           KVNProgressViewParameterSuperview: self
+//           }];
 
     }
     return self;
+}
+
+-(void) setupProgressUI{
+    
+    [KVNProgress appearance].statusColor = [UIColor darkGrayColor];
+    [KVNProgress appearance].statusFont = [UIFont systemFontOfSize:17.0f];
+    [KVNProgress appearance].circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
+    [KVNProgress appearance].circleStrokeBackgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3f];
+    [KVNProgress appearance].circleFillBackgroundColor = [UIColor clearColor];
+    [KVNProgress appearance].backgroundFillColor = [UIColor clearColor];
+    [KVNProgress appearance].backgroundTintColor = [UIColor clearColor];
+    [KVNProgress appearance].successColor = [UIColor darkGrayColor];
+    [KVNProgress appearance].errorColor = [UIColor darkGrayColor];
+    [KVNProgress appearance].circleSize = 75.0f;
+    [KVNProgress appearance].lineWidth = 2.0f;
+    [KVNProgress appearance].successColor = [UIColor greenColor];
+    [KVNProgress appearance].errorColor = [UIColor redColor];
+    
+}
+
+-(void)progress {
+  
+    [KVNProgress showProgress:0 parameters:
+     @{KVNProgressViewParameterFullScreen: @(NO),
+       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
+       KVNProgressViewParameterStatus: @"Loading",
+       KVNProgressViewParameterSuperview: self
+       }];
+    
+    [self updateProgress];
+
+}
+
+-(void)showSuccess {
+    [self setupProgressUI];
+    [KVNProgress showSuccessWithParameters:
+     @{KVNProgressViewParameterFullScreen: @(NO),
+       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
+       KVNProgressViewParameterStatus: @"Welcome",
+       KVNProgressViewParameterSuperview: self
+       }];
+    [self performSelector:@selector(complete) withObject:self afterDelay:2];
+}
+
+-(void)complete {
+    [delegate progressComplete];
+}
+
+
+-(float)getRandomProgressWithMin:(float)min {
+
+
+    return 5.0;
+}
+- (void)updateProgress
+{
+    dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
+    dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
+        [KVNProgress updateProgress:[self getRandomProgressWithMin:.2]
+                           animated:YES];
+    });
+    
+    dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC);
+    dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
+        [KVNProgress updateProgress:[self getRandomProgressWithMin:.4]
+                           animated:YES];
+    });
+    
+    dispatch_time_t popTime4 = dispatch_time(DISPATCH_TIME_NOW, 3.0f * NSEC_PER_SEC);
+    dispatch_after(popTime4, dispatch_get_main_queue(), ^(void){
+        [KVNProgress updateProgress:[self getRandomProgressWithMin:.8]
+                           animated:YES];
+    });
+    
 }
 
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
 
--(void)timerCallback {
-    if (self.theBool) {
-        if (self.progressView.progress >= 1) {
-            self.progressView.hidden = true;
-            [self.myTimer invalidate];
-        }
-        else {
-            self.progressView.progress += 0.005;
-        }
-    }
-    else {
-        self.progressView.progress += 0.05;
-        if (self.progressView.progress >= 0.90) {
-            self.progressView.progress = 0.90;
-        }
-    }
-}
-
 -(void)startProgress {
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                                    target:self selector:@selector(timerCallback) userInfo:nil repeats:YES];
+    [self progress];
 }
 -(void)stopProgress {
     
-    self.theBool = true;
-    [self.myTimer invalidate];
-    self.myTimer = nil;
-    self.progressView.progress = 100;
+    dispatch_time_t popTime5 = dispatch_time(DISPATCH_TIME_NOW, 5.0f * NSEC_PER_SEC);
+    dispatch_after(popTime5, dispatch_get_main_queue(), ^(void){
+        [KVNProgress updateProgress:1.0f
+                           animated:YES];
+        [self showSuccess];
+    });
 }
 
+-(void)setFact:(NSString*)fact {
+    self.lblFact.alpha = 0;
+    self.lblFactHeader.alpha = 0;
+    self.lblFact.text = fact;
+    self.lblFact.hidden = NO;
+    self.lblFactHeader.hidden = NO;
+    
+    [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
+    
+    [self performSelector:@selector(animateLabel:) withObject:self.lblFact afterDelay:.1];
+    
+    
+    
+}
+
+-(void)animateLabel:(UILabel *)label {
+    
+    [UIView animateWithDuration:.6
+                     animations:^{
+                         label.alpha = 1;
+                         label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y - 5, label.frame.size.width, label.frame.size.height);
+                     } completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+-(void)errorProgress:(NSString *)error {
+    [self setupProgressUI];
+    [KVNProgress showErrorWithParameters:
+     @{KVNProgressViewParameterFullScreen: @(NO),
+       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
+       KVNProgressViewParameterStatus: [NSString stringWithFormat:@"%@", error],
+       KVNProgressViewParameterSuperview: self
+       }];
+}
 @end
