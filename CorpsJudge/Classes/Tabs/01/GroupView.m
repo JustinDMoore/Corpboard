@@ -20,6 +20,7 @@
 #import "ChatView.h"
 
 #import "LiveChatCell.h"
+#import "JSQMessagesTimestampFormatter.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
@@ -105,6 +106,7 @@
 			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
 			object[PF_CHATROOMS_NAME] = textField.text;
             object[@"user"] = [PFUser currentUser];
+            object[@"lastUser"] = [PFUser currentUser];
             object[@"lastMessageDate"] = [NSDate date];
 			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 			{
@@ -165,44 +167,48 @@
     static NSString *CellIdentifier = @"LiveChatCell";
     LiveChatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    cell.lblLastUser.text = @"";
+    cell.lblLastUserHowLongAgo.text = @"";
+    cell.lblNumberOfMessagesAndViews.text = @"";
+    cell.lblStartedByUserAndWhen.text = @"";
+    
     PFObject *chatroom = chatrooms[indexPath.row];
-    PFUser *createdBy = chatroom[@"user"];
+    PFUser *lastUser = chatroom[@"lastUser"];
 
-    [createdBy fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    NSString *d = [[JSQMessagesTimestampFormatter sharedFormatter] timeForDate:chatroom.updatedAt];
+    NSDate *updated = chatroom.updatedAt;
+    
+    [lastUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
-            PFFile *imgFile = createdBy[@"picture"];
+            PFFile *imgFile = lastUser[@"picture"];
             [cell.imgLastUser setFile:imgFile];
             [cell.imgLastUser loadInBackground];
-            cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", createdBy[@"nickname"]];
+            cell.lblLastUser.text = lastUser[@"nickname"];
+            cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", lastUser[@"nickname"]];
         } else {
             NSLog(@"Error loading user image for chat room - %@", error.userInfo);
         }
     }];
     
-    PFQuery *count = [PFQuery queryWithClassName:@"Chat"];
-    [count whereKey:@"roomId" equalTo:chatroom.objectId];
-    [count countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        int views = [chatroom[@"numberOfViews"] intValue];
-        NSString *message;
-        if (number == 1) {
-            message = @"message";
-        } else {
-            message = @"messages";
-        }
-        
-        NSString *v;
-        if (views == 1) {
-            v = @"view";
-        } else {
-            v = @"views";
-        }
-        
-        cell.lblNumberOfMessagesAndViews.text = [NSString stringWithFormat:@"%i %@ - %i %@", number, message, views, v];
-    }];
+    int views = [chatroom[@"numberOfViews"] intValue];
+    int messages = [chatroom[@"numberOfMessages"] intValue];
+    NSString *m;
+    if (messages == 1) {
+        m = @"message";
+    } else {
+        m = @"messages";
+    }
     
-//
-//
-    cell.lblLastUser.text = nil;
+    NSString *v;
+    if (views == 1) {
+        v = @"view";
+    } else {
+        v = @"views";
+    }
+    
+    cell.lblNumberOfMessagesAndViews.text = [NSString stringWithFormat:@"%i %@ - %i %@", views, v, messages, m];
+
+    
 //    cell.lblLastUserHowLongAgo.text = nil;
     cell.lblChatName.text = chatroom[PF_CHATROOMS_NAME];
     

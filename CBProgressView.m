@@ -22,12 +22,6 @@
 
         [self setupProgressUI];
         [self progress];
-//        [KVNProgress showWithParameters:
-//         @{KVNProgressViewParameterFullScreen: @(NO),
-//           KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
-//           KVNProgressViewParameterStatus: @"",
-//           KVNProgressViewParameterSuperview: self
-//           }];
 
     }
     return self;
@@ -79,29 +73,36 @@
     [delegate progressComplete];
 }
 
+#define ARC4RANDOM_MAX 0x100000000
+float currentProgress = 0;
+-(double)getRandomProgressWithMin {
 
--(float)getRandomProgressWithMin:(float)min {
-
-
-    return 5.0;
+    double val = ((double)arc4random() / ARC4RANDOM_MAX)
+    * ((currentProgress + .25) - currentProgress)
+    + currentProgress;
+    if (val > .85) {
+        val = .85;
+    }
+    currentProgress = val;
+    return val;
 }
 - (void)updateProgress
 {
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
     dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin:.2]
+        [KVNProgress updateProgress:[self getRandomProgressWithMin]
                            animated:YES];
     });
     
     dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC);
     dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin:.4]
+        [KVNProgress updateProgress:[self getRandomProgressWithMin]
                            animated:YES];
     });
     
     dispatch_time_t popTime4 = dispatch_time(DISPATCH_TIME_NOW, 3.0f * NSEC_PER_SEC);
     dispatch_after(popTime4, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin:.8]
+        [KVNProgress updateProgress:[self getRandomProgressWithMin]
                            animated:YES];
     });
     

@@ -58,6 +58,7 @@ Parse.Cloud.beforeSave("Chat", function(request, response) {
                       query.get(request.object.get("roomId"), {
                                 success: function(post) {
                                 post.increment("numberOfMessages", 1);
+                                post.set("lastUser", request.user);
                                 post.save();
                                 response.success();
                                 },

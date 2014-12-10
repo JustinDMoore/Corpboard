@@ -238,7 +238,7 @@ bool trying;
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.25 );
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.4 );
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
