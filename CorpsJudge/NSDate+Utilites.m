@@ -42,7 +42,6 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
     [df_local setTimeZone:[NSTimeZone timeZoneWithName:@"EST"]];
     [df_local setDateFormat:@"yyyy.MM.dd G 'at' HH:mm:ss zzz"];
     
-    NSString* ts_utc_string = [df_utc stringFromDate:ts_utc];
     NSString* ts_local_string = [df_local stringFromDate:ts_utc];
     
     return ts_local_string;

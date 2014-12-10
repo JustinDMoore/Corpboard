@@ -350,7 +350,7 @@
 	{
 		cell.textView.textColor = [UIColor whiteColor];
 	}
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor blackColor];
 	return cell;
 }
 

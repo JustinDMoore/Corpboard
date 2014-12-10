@@ -118,7 +118,6 @@
     
     NSDictionary *userInfo = [aNotification userInfo];
     
-    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
     
