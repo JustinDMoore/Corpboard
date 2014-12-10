@@ -11,7 +11,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CorpFact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBM-XP-Yvh">
-                    <rect key="frame" x="120" y="113" width="81" height="21"/>
+                    <rect key="frame" x="120" y="105" width="81" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="81" id="not-dp-RX4"/>
                         <constraint firstAttribute="height" constant="21" id="oIb-BC-5lR"/>
@@ -36,7 +36,7 @@
                 <constraint firstItem="edr-xq-jQE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="OdQ-l1-gwo"/>
                 <constraint firstAttribute="trailing" secondItem="edr-xq-jQE" secondAttribute="trailing" constant="8" id="ew4-Of-fPP"/>
                 <constraint firstItem="edr-xq-jQE" firstAttribute="centerX" secondItem="SBM-XP-Yvh" secondAttribute="centerX" constant="-0.5" id="gp8-lk-brN"/>
-                <constraint firstItem="edr-xq-jQE" firstAttribute="top" secondItem="SBM-XP-Yvh" secondAttribute="bottom" constant="-6" id="wKk-tr-88I"/>
+                <constraint firstItem="edr-xq-jQE" firstAttribute="top" secondItem="SBM-XP-Yvh" secondAttribute="bottom" constant="2" id="wKk-tr-88I"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

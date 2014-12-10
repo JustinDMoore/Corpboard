@@ -131,6 +131,7 @@ float currentProgress = 0;
     self.lblFact.text = fact;
     self.lblFact.hidden = NO;
     self.lblFactHeader.hidden = NO;
+    [self.lblFact sizeToFit];
     
     [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
     

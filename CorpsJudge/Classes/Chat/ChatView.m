@@ -61,6 +61,7 @@
 	[super viewDidLoad];
     
     self.collectionView.backgroundColor = [UIColor blackColor];
+    self.collectionView.backgroundView.backgroundColor = [UIColor blackColor];
     del = [UIApplication sharedApplication].delegate;
 	self.title = @"Chat";
 	users = [[NSMutableArray alloc] init];
@@ -81,6 +82,26 @@
 	[self loadMessages];
 
 	ClearMessageCounter(roomId);
+}
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"BackArrow"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)goback
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

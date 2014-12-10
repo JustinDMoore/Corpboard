@@ -21,7 +21,7 @@
 
 #import "LiveChatCell.h"
 #import "JSQMessagesTimestampFormatter.h"
-
+#import "NSDate+Utilities.h"
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
 {
@@ -59,8 +59,6 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.title = @"Live Chats";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self
-																			 action:@selector(actionNew)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,6 +66,34 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"BackArrow"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *addBtnImg = [UIImage imageNamed:@"Add"];
+    [addBtn setBackgroundImage:addBtnImg forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(actionNew) forControlEvents:UIControlEventTouchUpInside];
+    addBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:addBtn] ;
+    self.navigationItem.rightBarButtonItem = addButton;
+}
+
+- (void)goback
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
@@ -75,7 +101,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
-		[self refreshTable];
+		[self refreshTableAndOpenRecent:NO];
 	}
 	else LoginUser(self);
 }
@@ -112,7 +138,7 @@
 			{
 				if (error == nil)
 				{
-					[self refreshTable];
+					[self refreshTableAndOpenRecent:YES];
 				}
 				else [ProgressHUD showError:@"Network error."];
 			}];
@@ -121,7 +147,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)refreshTable
+- (void)refreshTableAndOpenRecent:(BOOL)open
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[ProgressHUD show:nil];
@@ -138,6 +164,10 @@
 			}
 			[ProgressHUD dismiss];
 			[self.tableView reloadData];
+            if (open) {
+                if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
+                    [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            }
 		}
 		else [ProgressHUD showError:@"Network error."];
 	}];
@@ -175,9 +205,31 @@
     PFObject *chatroom = chatrooms[indexPath.row];
     PFUser *lastUser = chatroom[@"lastUser"];
 
-    NSString *d = [[JSQMessagesTimestampFormatter sharedFormatter] timeForDate:chatroom.updatedAt];
-    NSDate *updated = chatroom.updatedAt;
+    NSString *d = [[JSQMessagesTimestampFormatter sharedFormatter] timeForDate:chatroom[@"lastMessageDate"]];
+    NSDate *updated = chatroom[@"lastMessageDate"];
     
+    int diff = (int)[updated minutesBeforeDate:[NSDate date]];
+    
+    NSString *timeDiff;
+    if (diff < 3) {
+        timeDiff = @"Just Now";
+    } else if (diff <= 50) {
+        timeDiff = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        timeDiff = @"An hour ago";
+    } else {
+        if ([updated isYesterday]) timeDiff = @"Yesterday";
+        if ([updated daysBeforeDate:[NSDate date]] == 2) {
+            timeDiff = @"2 days ago";
+        } else {
+            if ([updated isToday]) {
+                timeDiff = d;
+            }
+        }
+    }
+    
+    cell.lblLastUserHowLongAgo.text = timeDiff;
+   
     [lastUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             PFFile *imgFile = lastUser[@"picture"];
@@ -208,9 +260,9 @@
     
     cell.lblNumberOfMessagesAndViews.text = [NSString stringWithFormat:@"%i %@ - %i %@", views, v, messages, m];
 
-    
-//    cell.lblLastUserHowLongAgo.text = nil;
     cell.lblChatName.text = chatroom[PF_CHATROOMS_NAME];
+    cell.lblChatName.numberOfLines = 3;
+    [cell.lblChatName sizeToFit];
     
 	return cell;
 }
