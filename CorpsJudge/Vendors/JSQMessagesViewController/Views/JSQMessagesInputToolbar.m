@@ -66,9 +66,18 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     _contentView = toolbarContentView;
     
     [self jsq_addObservers];
+
+    UIButton *btnCamera = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *imgCamera = [UIImage imageNamed:@"Camera"];
+    [btnCamera setBackgroundImage:imgCamera forState:UIControlStateNormal];
+
+    btnCamera.frame = CGRectMake(0, 0, 35, 35);
+
     
-    self.contentView.leftBarButtonItem = [JSQMessagesToolbarButtonFactory defaultAccessoryButtonItem];
+    self.contentView.leftBarButtonItem = btnCamera;
     self.contentView.rightBarButtonItem = [JSQMessagesToolbarButtonFactory defaultSendButtonItem];
+   
+    self.contentView.backgroundColor = [UIColor darkGrayColor];
     
     [self toggleSendButtonEnabled];
 }

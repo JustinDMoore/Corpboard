@@ -341,6 +341,7 @@
 	JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     cell.textView.keyboardAppearance = UIKeyboardAppearanceDark;
     [cell setBackgroundColor:[UIColor blackColor]];
+
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId])
 	{
@@ -413,7 +414,8 @@
 		   atIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didTapAvatarImageView");
+    PFUser *user = [users objectAtIndex:indexPath.row];
+	NSLog(@"didTapAvatarImageView - %@", user);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

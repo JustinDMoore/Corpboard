@@ -817,7 +817,7 @@
             <objects>
                 <tableViewController id="Bjn-4g-09S" customClass="GroupView" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="EoD-5I-2QB">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -833,6 +833,7 @@
                             <outlet property="delegate" destination="Bjn-4g-09S" id="2hV-5e-Omu"/>
                         </connections>
                     </tableView>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4l-Qs-nVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -893,6 +894,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qy8-2Q-ziX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4370" y="-1010"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Pu5-dI-Yfs">
+            <objects>
+                <viewController id="sQx-yV-WOz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z0N-nT-EIn"/>
+                        <viewControllerLayoutGuide type="bottom" id="sYE-oc-xZA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JnJ-dX-vth">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySp-d8-VtK" customClass="PFImageView">
+                                <rect key="frame" x="248" y="28" width="102" height="80"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
+                                <rect key="frame" x="262" y="116" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lxp-lI-TSI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5090" y="-2397"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="NAJ-Qn-ygN">
