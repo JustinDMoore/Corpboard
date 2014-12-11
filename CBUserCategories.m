@@ -10,7 +10,7 @@
 
 
 @implementation CBUserCategories {
-    NSArray *arrayOfCategories;
+    
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -21,10 +21,7 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 8;
         
-        self.tableCategories.delegate = self;
-        self.tableCategories.dataSource = self;
-        
-        arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Colorguard", nil];
+        self.arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Colorguard", nil];
         
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =
@@ -56,24 +53,47 @@
     delegate = newDelegate;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+-(void)showInParent:(CGRect)parent {
     
-    return 1;
+    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2), CGRectGetMidY(parent) - (self.frame.size.height / 2), self.frame.size.width, self.frame.size.height);
+    self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
+    
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
+        
+        self.transform = CGAffineTransformIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+}
+- (IBAction)btnCancel_clicked:(id)sender {
+    [self closeView:YES];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [arrayOfCategories count];
+- (IBAction)btnSave_clicked:(id)sender {
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    cell.textLabel.text = (NSString *)[arrayOfCategories objectAtIndex:indexPath.row];
-    return cell;
-    
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)closeView:(BOOL)cancelled {
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
+        
+        self.transform = CGAffineTransformScale(self.transform, 1.1, 1.1);
+        
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.2
+                              delay:0
+             usingSpringWithDamping:1
+              initialSpringVelocity:8
+                            options:0
+                         animations:^{
+                             self.transform = CGAffineTransformScale(self.transform, 0.1f, 0.1f);
+                             self.alpha = 0;
+                         }
+                         completion:^(BOOL finished) {
+                             [self removeFromSuperview];
+                             //if (cancelled) [delegate rateCancelled];
+                         }];
+    }];
     
 }
 

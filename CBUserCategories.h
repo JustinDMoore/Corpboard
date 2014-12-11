@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CBAppDelegate.h"
 
-@interface CBUserCategories : UIView <UITableViewDataSource, UITableViewDelegate> {
+@interface CBUserCategories : UIView {
     id delegate;
     CBAppDelegate *del;
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *tableCategories;
+@property (nonatomic, strong) NSArray *arrayOfCategories;
 
 -(void)setDelegate:(id)newDelegate;
+-(void)showInParent:(CGRect)parent;
 @end

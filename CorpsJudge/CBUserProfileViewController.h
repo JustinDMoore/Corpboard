@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 
-@interface CBUserProfileViewController : UIViewController {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     
 }
 

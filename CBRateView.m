@@ -198,7 +198,6 @@ UIImageView *currentStar;
     } completion:^(BOOL finished) {
         
         
-        
     }];
 }
 
