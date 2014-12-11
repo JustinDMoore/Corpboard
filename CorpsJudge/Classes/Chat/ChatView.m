@@ -20,6 +20,8 @@
 #import "ChatView.h"
 #import "CBAppDelegate.h"
 
+#import "CBUserProfileViewController.h"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ChatView()
 {
@@ -54,6 +56,9 @@
 	return self;
 }
 
+-(void)setRoomId:(NSString *)roomId_ {
+    roomId = roomId_;
+}
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -410,12 +415,24 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+PFUser *userForProfile;
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView
 		   atIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-    PFUser *user = [users objectAtIndex:indexPath.row];
-	NSLog(@"didTapAvatarImageView - %@", user);
+    userForProfile = [users objectAtIndex:indexPath.row];
+    if (userForProfile) {
+        [self performSegueWithIdentifier:@"profile" sender:self];
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"profile"])
+    {
+        CBUserProfileViewController *vc = [segue destinationViewController];
+        [vc setUser:userForProfile];
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

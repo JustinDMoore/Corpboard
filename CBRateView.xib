@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -74,15 +74,6 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you rate your CorpBoard experience?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TL6-IB-93o">
-                    <rect key="frame" x="34" y="46" width="226" height="36"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="226" id="BX8-qD-3CF"/>
-                        <constraint firstAttribute="height" constant="36" id="O6g-Ro-Sut"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCX-Mp-NI7">
                     <rect key="frame" x="-13" y="177" width="330" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,13 +82,22 @@
                     <rect key="frame" x="152" y="177" width="1" height="110"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you rate your CorpBoard experience?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TL6-IB-93o">
+                    <rect key="frame" x="39" y="46" width="226" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="226" id="BX8-qD-3CF"/>
+                        <constraint firstAttribute="height" constant="36" id="O6g-Ro-Sut"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="CCv-5F-yNt" firstAttribute="centerX" secondItem="0tV-vU-r10" secondAttribute="centerX" constant="-0.5" id="1Uy-WB-tXb"/>
-                <constraint firstItem="Vqd-C9-mby" firstAttribute="centerX" secondItem="TL6-IB-93o" secondAttribute="centerX" constant="5" id="1Zq-PC-Jn7"/>
+                <constraint firstItem="Vqd-C9-mby" firstAttribute="centerX" secondItem="TL6-IB-93o" secondAttribute="centerX" id="1Zq-PC-Jn7"/>
                 <constraint firstItem="CCv-5F-yNt" firstAttribute="top" secondItem="TL6-IB-93o" secondAttribute="bottom" constant="8" id="LgX-Zw-ohG"/>
-                <constraint firstItem="TL6-IB-93o" firstAttribute="centerX" secondItem="CCv-5F-yNt" secondAttribute="centerX" constant="-5" id="Pe4-FB-Glg"/>
+                <constraint firstItem="TL6-IB-93o" firstAttribute="centerX" secondItem="CCv-5F-yNt" secondAttribute="centerX" id="Pe4-FB-Glg"/>
                 <constraint firstItem="Vqd-C9-mby" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="aJe-rM-mji"/>
                 <constraint firstAttribute="centerX" secondItem="Vqd-C9-mby" secondAttribute="centerX" constant="0.5" id="atf-uY-QzP"/>
                 <constraint firstItem="0tV-vU-r10" firstAttribute="top" secondItem="CCv-5F-yNt" secondAttribute="bottom" constant="18" id="ekS-Ct-DoU"/>

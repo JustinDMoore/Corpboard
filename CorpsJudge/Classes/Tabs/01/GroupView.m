@@ -306,9 +306,19 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	CreateMessageItem([PFUser currentUser], roomId, chatroom[PF_CHATROOMS_NAME]);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ChatView *chatView = [[ChatView alloc] initWith:roomId];
-	chatView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:chatView animated:YES];
+    roomIdForChat = roomId;
+//    ChatView *chatView = [[ChatView alloc] initWith:roomId];
+	//chatView.hidesBottomBarWhenPushed = YES;
+    [self performSegueWithIdentifier:@"chat" sender:self];
+//    [self.navigationController pushViewController:chatView animated:YES];
+}
+
+NSString *roomIdForChat;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"chat"]) {
+        ChatView *vc = [segue destinationViewController];
+        [vc setRoomId:roomIdForChat];
+    }
 }
 
 @end

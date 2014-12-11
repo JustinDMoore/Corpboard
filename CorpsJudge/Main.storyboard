@@ -834,10 +834,34 @@
                         </connections>
                     </tableView>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="pZJ-ae-blk" kind="show" identifier="chat" id="5Nv-K9-6XG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4l-Qs-nVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4453" y="-2170"/>
+            <point key="canvasLocation" x="4098" y="-2415"/>
+        </scene>
+        <!--Chat View-->
+        <scene sceneID="3c4-50-cnx">
+            <objects>
+                <viewController id="pZJ-ae-blk" customClass="ChatView" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zGO-WT-Wrm"/>
+                        <viewControllerLayoutGuide type="bottom" id="EbQ-vZ-PuN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xPG-e4-QGW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="sQx-yV-WOz" kind="show" identifier="profile" id="yBL-Wb-Ve6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lWk-9E-DcV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4766" y="-2415"/>
         </scene>
         <!--New Login View Controller-->
         <scene sceneID="B6t-2I-ki2">
@@ -895,10 +919,10 @@
             </objects>
             <point key="canvasLocation" x="4370" y="-1010"/>
         </scene>
-        <!--View Controller-->
+        <!--User Profile View Controller-->
         <scene sceneID="Pu5-dI-Yfs">
             <objects>
-                <viewController id="sQx-yV-WOz" sceneMemberID="viewController">
+                <viewController id="sQx-yV-WOz" customClass="CBUserProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="z0N-nT-EIn"/>
                         <viewControllerLayoutGuide type="bottom" id="sYE-oc-xZA"/>
@@ -907,22 +931,115 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySp-d8-VtK" customClass="PFImageView">
-                                <rect key="frame" x="248" y="28" width="102" height="80"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
-                                <rect key="frame" x="262" y="116" width="77" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-KQ-pXo">
+                                <rect key="frame" x="0.0" y="113" width="600" height="487"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
+                                        <rect key="frame" x="175" y="35" width="251" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="251" id="yDZ-iu-iSk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lives in Twentynine Palms, CA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4b-9w-CuS">
+                                        <rect key="frame" x="151" y="56" width="298" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="298" id="yF5-Fl-lZf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ySp-d8-VtK" customClass="PFImageView">
+                                        <rect key="frame" x="263" y="-48" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="h3i-8e-IC1"/>
+                                            <constraint firstAttribute="height" constant="75" id="mOz-tD-qKh"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joined 12/2014  |  1,000 Views  |  3 Show Reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SC9-yt-bCr">
+                                        <rect key="frame" x="138" y="88" width="324" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="324" id="neG-P0-OsY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-Au-PtO">
+                                        <rect key="frame" x="231" y="111" width="139" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyJ-Si-ya0">
+                                                <rect key="frame" x="74" y="8" width="45" height="45"/>
+                                                <state key="normal" image="Chat">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
+                                                <rect key="frame" x="20" y="8" width="45" height="45"/>
+                                                <state key="normal" image="Cop_Red">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="139" id="0I1-Cl-H5Z"/>
+                                            <constraint firstAttribute="height" constant="60" id="OZC-LM-ImC"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rl-Je-NnS">
+                                        <rect key="frame" x="223" y="179" width="162" height="118"/>
+                                        <string key="text">Fan
+Alumni
+Staff
+Family of Member
+Brass Player
+Colorguard
+Percussionist</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="d4b-9w-CuS" secondAttribute="centerX" constant="0.5" id="6sC-IN-2Az"/>
+                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="rmU-Au-PtO" secondAttribute="centerX" constant="-0.5" id="C8f-E5-guV"/>
+                                    <constraint firstItem="ySp-d8-VtK" firstAttribute="centerX" secondItem="bUy-vC-L22" secondAttribute="centerX" id="Cfd-0Z-bdg"/>
+                                    <constraint firstItem="rmU-Au-PtO" firstAttribute="top" secondItem="SC9-yt-bCr" secondAttribute="bottom" constant="8" id="G9s-7l-dTG"/>
+                                    <constraint firstItem="d4b-9w-CuS" firstAttribute="top" secondItem="bUy-vC-L22" secondAttribute="bottom" id="HiQ-Sx-zb3"/>
+                                    <constraint firstItem="ySp-d8-VtK" firstAttribute="top" secondItem="RlW-KQ-pXo" secondAttribute="top" constant="-48" id="K8B-rA-XxO"/>
+                                    <constraint firstItem="bUy-vC-L22" firstAttribute="top" secondItem="ySp-d8-VtK" secondAttribute="bottom" constant="8" id="PWt-JB-6jZ"/>
+                                    <constraint firstItem="d4b-9w-CuS" firstAttribute="centerX" secondItem="bUy-vC-L22" secondAttribute="centerX" constant="-0.5" id="qOt-4K-BJJ"/>
+                                    <constraint firstAttribute="centerX" secondItem="ySp-d8-VtK" secondAttribute="centerX" constant="-0.5" id="saf-RB-Gji"/>
+                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="top" secondItem="d4b-9w-CuS" secondAttribute="bottom" constant="15" id="xRD-zL-A42"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RlW-KQ-pXo" firstAttribute="top" secondItem="z0N-nT-EIn" secondAttribute="bottom" constant="69" id="JRO-Ja-pXv"/>
+                            <constraint firstItem="sYE-oc-xZA" firstAttribute="top" secondItem="RlW-KQ-pXo" secondAttribute="bottom" id="af0-AU-f8e"/>
+                            <constraint firstItem="RlW-KQ-pXo" firstAttribute="leading" secondItem="JnJ-dX-vth" secondAttribute="leadingMargin" constant="-16" id="dKw-Yx-g5M"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RlW-KQ-pXo" secondAttribute="trailing" constant="-16" id="fcT-nf-YFM"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnMessageUser_clicked" destination="cyJ-Si-ya0" id="6qu-bp-axo"/>
+                        <outlet property="btnReportUser_clicked" destination="yvB-e2-cXy" id="kwj-zi-nfW"/>
+                        <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
+                        <outlet property="lblUserLocation" destination="d4b-9w-CuS" id="ANc-PO-ntF"/>
+                        <outlet property="lblUserNickname" destination="bUy-vC-L22" id="oyz-0e-hYm"/>
+                        <outlet property="lblViews" destination="SC9-yt-bCr" id="HQA-Gh-uas"/>
+                        <outlet property="viewControls" destination="rmU-Au-PtO" id="ppd-vj-oLQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxp-lI-TSI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5090" y="-2397"/>
+            <point key="canvasLocation" x="5411" y="-2415"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="NAJ-Qn-ygN">
@@ -2353,6 +2470,8 @@
         <image name="About.png" width="350" height="170"/>
         <image name="Blue Devils.png" width="512" height="512"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
+        <image name="Chat" width="48" height="48"/>
+        <image name="Cop_Red" width="48" height="48"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
         <image name="Feedback1.png" width="350" height="170"/>
         <image name="The Cadets.png" width="223" height="202"/>
