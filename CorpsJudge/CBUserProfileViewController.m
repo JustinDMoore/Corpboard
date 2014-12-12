@@ -7,7 +7,7 @@
 //
 
 #import "CBUserProfileViewController.h"
-#import "CBUserCategories.h"
+
 
 @interface CBUserProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *btnEditCategories;
@@ -43,23 +43,14 @@
     } else {
         self.viewControls.hidden = NO;
     }
-    
-    
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
     
-    PFFile *imgFile = self.userProfile[@"picture"];
-    
-    [self.imgUser setFile:imgFile];
-    [self.imgUser loadInBackground];
-    
-    self.lblUserNickname.text = self.userProfile[@"nickname"];
-    self.lblUserLocation.text = @"Lives in Twentynine Palms, CA";
-    self.lblViews.text = @"Joined 12/2014  |  1,000 Views  |  3 Show Reviews";
     
     editingProfile = NO;
     self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x + 40, self.btnEditPicture.frame.origin.y, self.btnEditPicture.frame.size.width, self.btnEditPicture.frame.size.height);
@@ -71,6 +62,8 @@
     self.btnEditPicture.hidden = YES;
     self.btnEditName.hidden = YES;
     self.btnEditCategories.hidden = YES;
+    
+    [self initUI];
     
 }
 
@@ -113,6 +106,31 @@
     }
 }
 
+-(void)initUI {
+    
+    PFFile *imgFile = self.userProfile[@"picture"];
+    
+    [self.imgUser setFile:imgFile];
+    [self.imgUser loadInBackground];
+    
+    self.lblUserNickname.text = self.userProfile[@"nickname"];
+    self.lblUserLocation.text = @"Lives in Twentynine Palms, CA";
+    self.lblViews.text = @"Joined 12/2014  |  1,000 Views  |  3 Show Reviews";
+    BOOL first = YES;
+    NSString *result;
+    for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
+        if (first) {
+            result = str;
+        } else {
+            result = [NSString stringWithFormat:@"%@\n%@",result, str];
+        }
+        if (first) first = NO;
+    }
+    self.lblUserCategories.numberOfLines = 0;
+    self.lblUserCategories.text = result;
+
+}
+
 -(void)goback {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -136,11 +154,21 @@ bool editingProfile = NO;
     [self.userCat setDelegate:self];
 }
 
+-(void)categoriesClosed {
+    self.userCat = nil;
+}
+
+-(void)savedCategories {
+    self.userProfile = [PFUser currentUser];
+    [self initUI];
+}
+
 -(void)setUser:(PFUser *)user {
     self.userProfile = user;
     
     
 }
+
 
 -(void)incrementProfileViews {
     //call cloud code
@@ -180,6 +208,15 @@ bool editingProfile = NO;
     cell.textLabel.text = (NSString *)[self.userCat.arrayOfCategories objectAtIndex:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [UIFont systemFontOfSize:14];
+    
+    for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
+        if ([str isEqualToString:[self.userCat.arrayOfCategories objectAtIndex:indexPath.row]]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+    
     return cell;
     
 }

@@ -7,7 +7,7 @@
 //
 
 #import "CBUserCategories.h"
-
+#import <Parse/Parse.h>
 
 @implementation CBUserCategories {
     
@@ -72,6 +72,21 @@
 }
 
 - (IBAction)btnSave_clicked:(id)sender {
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    NSArray *ar = [self.tableCategories indexPathsForSelectedRows];
+    for (NSIndexPath *path in ar) {
+        [arr addObject:[self.arrayOfCategories objectAtIndex:path.row]];
+    }
+    
+    PFUser *user = [PFUser currentUser];
+    user[@"arrayOfCategories"] = arr;
+    [user saveInBackgroundWithTarget:self selector:@selector(saved)];
+    
+}
+
+-(void)saved {
+    [self closeView:NO];
+    [delegate savedCategories];
 }
 
 -(void)closeView:(BOOL)cancelled {
@@ -91,7 +106,7 @@
                          }
                          completion:^(BOOL finished) {
                              [self removeFromSuperview];
-                             //if (cancelled) [delegate rateCancelled];
+                             [delegate categoriesClosed];
                          }];
     }];
     

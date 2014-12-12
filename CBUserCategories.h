@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CBAppDelegate.h"
 
+@protocol CBUserCategoriesProtocol <NSObject>
+
+-(void)categoriesClosed;
+-(void)savedCategories;
+
+@end
+
 @interface CBUserCategories : UIView {
     id delegate;
     CBAppDelegate *del;

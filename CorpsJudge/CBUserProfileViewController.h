@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import "CBUserCategories.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol> {
     
 }
 
@@ -23,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnMessageUser_clicked;
 @property (weak, nonatomic) IBOutlet UIButton *btnReportUser_clicked;
 @property (weak, nonatomic) IBOutlet UIView *viewControls;
+@property (weak, nonatomic) IBOutlet UILabel *lblUserCategories;
+
 
 
 -(void)setUser:(PFUser*)user;

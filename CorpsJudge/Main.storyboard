@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1008,7 +1008,7 @@ Percussionist</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Yl-mVx">
-                                        <rect key="frame" x="567" y="-13" width="25" height="25"/>
+                                        <rect key="frame" x="600" y="-13" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="ghr-P8-imf"/>
                                             <constraint firstAttribute="width" constant="25" id="xTb-e4-DwC"/>
@@ -1018,7 +1018,7 @@ Percussionist</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-gz-Xeb">
-                                        <rect key="frame" x="567" y="36" width="25" height="25"/>
+                                        <rect key="frame" x="600" y="36" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="U7p-ED-Vfc"/>
                                             <constraint firstAttribute="height" constant="25" id="hLT-S5-Yuk"/>
@@ -1028,7 +1028,7 @@ Percussionist</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STz-eW-HzX">
-                                        <rect key="frame" x="567" y="180" width="25" height="25"/>
+                                        <rect key="frame" x="600" y="180" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="5F1-NB-687"/>
                                             <constraint firstAttribute="width" constant="25" id="Knc-RV-IXs"/>
@@ -1044,7 +1044,7 @@ Percussionist</string>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="d4b-9w-CuS" secondAttribute="centerX" constant="0.5" id="6sC-IN-2Az"/>
-                                    <constraint firstAttribute="trailing" secondItem="21j-gz-Xeb" secondAttribute="trailing" constant="8" id="9CB-mL-TEa"/>
+                                    <constraint firstAttribute="trailing" secondItem="21j-gz-Xeb" secondAttribute="trailing" constant="-25" id="9CB-mL-TEa"/>
                                     <constraint firstItem="0rl-Je-NnS" firstAttribute="top" secondItem="rmU-Au-PtO" secondAttribute="bottom" constant="8" id="9zw-Wz-mHO"/>
                                     <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="rmU-Au-PtO" secondAttribute="centerX" constant="-0.5" id="C8f-E5-guV"/>
                                     <constraint firstItem="ySp-d8-VtK" firstAttribute="centerX" secondItem="bUy-vC-L22" secondAttribute="centerX" id="Cfd-0Z-bdg"/>
@@ -1052,8 +1052,8 @@ Percussionist</string>
                                     <constraint firstItem="d4b-9w-CuS" firstAttribute="top" secondItem="bUy-vC-L22" secondAttribute="bottom" id="HiQ-Sx-zb3"/>
                                     <constraint firstItem="ySp-d8-VtK" firstAttribute="top" secondItem="RlW-KQ-pXo" secondAttribute="top" constant="-48" id="K8B-rA-XxO"/>
                                     <constraint firstItem="bUy-vC-L22" firstAttribute="top" secondItem="ySp-d8-VtK" secondAttribute="bottom" constant="8" id="PWt-JB-6jZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="STz-eW-HzX" secondAttribute="trailing" constant="8" id="QCX-lp-Cse"/>
-                                    <constraint firstAttribute="trailing" secondItem="YZe-Yl-mVx" secondAttribute="trailing" constant="8" id="WQ1-rC-PZx"/>
+                                    <constraint firstAttribute="trailing" secondItem="STz-eW-HzX" secondAttribute="trailing" constant="-25" id="QCX-lp-Cse"/>
+                                    <constraint firstAttribute="trailing" secondItem="YZe-Yl-mVx" secondAttribute="trailing" constant="-25" id="WQ1-rC-PZx"/>
                                     <constraint firstItem="21j-gz-Xeb" firstAttribute="centerY" secondItem="bUy-vC-L22" secondAttribute="centerY" constant="3" id="bWl-qS-KIO"/>
                                     <constraint firstItem="STz-eW-HzX" firstAttribute="top" secondItem="0rl-Je-NnS" secondAttribute="top" constant="1" id="dBG-6u-j99"/>
                                     <constraint firstItem="YZe-Yl-mVx" firstAttribute="centerY" secondItem="ySp-d8-VtK" secondAttribute="centerY" constant="10" id="iZb-Qw-4Bn"/>
@@ -1079,6 +1079,7 @@ Percussionist</string>
                         <outlet property="btnMessageUser_clicked" destination="cyJ-Si-ya0" id="6qu-bp-axo"/>
                         <outlet property="btnReportUser_clicked" destination="yvB-e2-cXy" id="kwj-zi-nfW"/>
                         <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
+                        <outlet property="lblUserCategories" destination="0rl-Je-NnS" id="HXI-js-oUM"/>
                         <outlet property="lblUserLocation" destination="d4b-9w-CuS" id="ANc-PO-ntF"/>
                         <outlet property="lblUserNickname" destination="bUy-vC-L22" id="oyz-0e-hYm"/>
                         <outlet property="lblViews" destination="SC9-yt-bCr" id="HQA-Gh-uas"/>
