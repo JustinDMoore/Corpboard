@@ -21,8 +21,17 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 8;
         
-        self.arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Colorguard", nil];
+        [self.dict setObject:@"NO" forKey:@"Fan"];
+        [self.dict setObject:@"NO" forKey:@"Alumni"];
+        [self.dict setObject:@"NO" forKey:@"Active Member"];
+        [self.dict setObject:@"NO" forKey:@"Staff"];
+        [self.dict setObject:@"NO" forKey:@"Family of Member"];
+        [self.dict setObject:@"NO" forKey:@"Brass Player"];
+        [self.dict setObject:@"NO" forKey:@"Percussionist"];
+        [self.dict setObject:@"NO" forKey:@"Colorguard"];
         
+        self.arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Colorguard", nil];
+
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =
         [[UIInterpolatingMotionEffect alloc]
@@ -72,14 +81,19 @@
 }
 
 - (IBAction)btnSave_clicked:(id)sender {
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    NSArray *ar = [self.tableCategories indexPathsForSelectedRows];
-    for (NSIndexPath *path in ar) {
-        [arr addObject:[self.arrayOfCategories objectAtIndex:path.row]];
-    }
     
     PFUser *user = [PFUser currentUser];
-    user[@"arrayOfCategories"] = arr;
+    
+    NSMutableArray *mArr = [NSMutableArray array];
+    
+    for (NSString *key in self.dict) {
+        NSString *s = [self.dict objectForKey:key];
+        if ([s isEqualToString:@"YES"]) {
+            [mArr addObject:key];
+        }
+    }
+
+    user[@"arrayOfCategories"] = mArr;
     [user saveInBackgroundWithTarget:self selector:@selector(saved)];
     
 }
@@ -110,6 +124,26 @@
                          }];
     }];
     
+}
+
+-(void)setCategories:(NSArray *)arr {
+    
+    for (NSString *userCat in arr) {
+        for (NSString *cat in self.arrayOfCategories) {
+            if ([userCat isEqualToString:cat]) {
+                [self.dict setObject:@"YES" forKey:cat];
+                break;
+            }
+        }
+    }
+    
+}
+
+-(NSMutableDictionary *)dict {
+    if (!_dict) {
+        _dict = [[NSMutableDictionary alloc] init];
+    }
+    return _dict;
 }
 
 @end

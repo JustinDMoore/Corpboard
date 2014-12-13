@@ -21,9 +21,12 @@
     CBAppDelegate *del;
 }
 
+@property (nonatomic, strong) NSMutableDictionary *dict;
+
 @property (nonatomic, strong) IBOutlet UITableView *tableCategories;
 @property (nonatomic, strong) NSArray *arrayOfCategories;
 
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(CGRect)parent;
+-(void)setCategories:(NSArray *)arr;
 @end

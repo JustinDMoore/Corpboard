@@ -148,10 +148,14 @@ bool editingProfile = NO;
 }
 
 - (IBAction)btnEditCategories_clicked:(id)sender {
+
     [self.view addSubview:self.userCat];
     [self.userCat showInParent:self.view.frame];
+    [self.userCat setCategories:self.userProfile[@"arrayOfCategories"]];
+    
     
     [self.userCat setDelegate:self];
+    [self.userCat.tableCategories reloadData];
 }
 
 -(void)categoriesClosed {
@@ -206,17 +210,14 @@ bool editingProfile = NO;
     
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     cell.textLabel.text = (NSString *)[self.userCat.arrayOfCategories objectAtIndex:indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [UIFont systemFontOfSize:14];
-    
-    for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
-        if ([str isEqualToString:[self.userCat.arrayOfCategories objectAtIndex:indexPath.row]]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
+
+    NSString *str = [self.userCat.dict objectForKey:cell.textLabel.text];
+    if ([str isEqualToString:@"YES"]) {
+        [self tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
-    
+
     return cell;
     
 }
@@ -224,8 +225,12 @@ bool editingProfile = NO;
 {
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     tableViewCell.accessoryView.hidden = NO;
+    
+    if ([self.userCat.dict objectForKey:tableViewCell.textLabel.text]) {
+        [self.userCat.dict setObject:@"YES" forKey:tableViewCell.textLabel.text];
+    }
+    
     tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -233,6 +238,8 @@ bool editingProfile = NO;
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     tableViewCell.accessoryView.hidden = YES;
     tableViewCell.accessoryType = UITableViewCellAccessoryNone;
+    
+    [self.userCat.dict setObject:@"NO" forKey:tableViewCell.textLabel.text];
 }
 
 @end
