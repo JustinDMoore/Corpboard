@@ -132,6 +132,8 @@
         for (NSString *cat in self.arrayOfCategories) {
             if ([userCat isEqualToString:cat]) {
                 [self.dict setObject:@"YES" forKey:cat];
+                NSIndexPath *path = [NSIndexPath indexPathForRow:[self.arrayOfCategories indexOfObject:cat] inSection:0];
+                [self.tableCategories selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionNone];
                 break;
             }
         }

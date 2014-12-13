@@ -7,6 +7,7 @@
 //
 
 #import "CBUserProfileViewController.h"
+#import "NSDate+Utilities.h"
 
 
 @interface CBUserProfileViewController ()
@@ -115,7 +116,16 @@
     
     self.lblUserNickname.text = self.userProfile[@"nickname"];
     self.lblUserLocation.text = @"Lives in Twentynine Palms, CA";
-    self.lblViews.text = @"Joined 12/2014  |  1,000 Views  |  3 Show Reviews";
+    NSString *dd = [self.userProfile.createdAt stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+    
+    NSString *views;
+    int profileViews = (int)self.userProfile[@"profileViews"];
+    if (profileViews == 1) {
+        views = @"1 View";
+    } else {
+        views = [NSString stringWithFormat:@"%i Views", profileViews];
+    }
+    self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  3 Show Reviews", dd, views];
     BOOL first = YES;
     NSString *result;
     for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
@@ -210,36 +220,47 @@ bool editingProfile = NO;
     
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     cell.textLabel.text = (NSString *)[self.userCat.arrayOfCategories objectAtIndex:indexPath.row];
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [UIFont systemFontOfSize:14];
 
     NSString *str = [self.userCat.dict objectForKey:cell.textLabel.text];
     if ([str isEqualToString:@"YES"]) {
-        [self tableView:tableView didSelectRowAtIndexPath:indexPath];
+        [self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
+    } else {
+        [self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
     }
 
     return cell;
     
 }
+
+-(void)selectCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)path onOrOff:(BOOL)on fromMethod:(BOOL)method {
+    
+    if (on) {
+        if (!method) [self.userCat.tableCategories selectRowAtIndexPath:path animated:NO scrollPosition: UITableViewScrollPositionNone];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        if ([self.userCat.dict objectForKey:cell.textLabel.text]) {
+            [self.userCat.dict setObject:@"YES" forKey:cell.textLabel.text];
+        }
+    } else {
+        if (!method) [self.userCat.tableCategories deselectRowAtIndexPath:path animated:NO];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if ([self.userCat.dict objectForKey:cell.textLabel.text]) {
+            [self.userCat.dict setObject:@"NO" forKey:cell.textLabel.text];
+        }
+    }
+    
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
-    tableViewCell.accessoryView.hidden = NO;
-    
-    if ([self.userCat.dict objectForKey:tableViewCell.textLabel.text]) {
-        [self.userCat.dict setObject:@"YES" forKey:tableViewCell.textLabel.text];
-    }
-    
-    tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:YES fromMethod:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
-    tableViewCell.accessoryView.hidden = YES;
-    tableViewCell.accessoryType = UITableViewCellAccessoryNone;
-    
-    [self.userCat.dict setObject:@"NO" forKey:tableViewCell.textLabel.text];
+    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:NO fromMethod:YES];
 }
 
 @end
