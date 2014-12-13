@@ -32,7 +32,6 @@ Parse.Cloud.define("getRandomFact", function(request, response)
 
 Parse.Cloud.define("getFactsCount", function(request, response)
                    {
-                   console.log("here i am");
                    var countQuery = new Parse.Query("Facts");
                    var countResult = countQuery.count(
                                                       {
@@ -72,7 +71,24 @@ Parse.Cloud.afterSave("Chat", function(request, response) {
 
 
 
-
+// Increment user profile view count
+Parse.Cloud.define("incrementUserProfileViews", function(request, response) {
+                   Parse.Cloud.useMasterKey();
+                   var user = new Parse.User();
+                   var query = new Parse.Query(Parse.User);
+                   query.equalTo("objectId", request.params.userObjectId);
+                   query.first({
+                               success: function(object) {
+                               object.increment("profileViews", 1);
+                               object.save();
+                               response.success();
+                               },
+                               error: function(error) {
+                               console.error("Got an error " + error.code + " : " + error.message);
+                               response.error();
+                               }
+                               });
+                   });
 
 
 

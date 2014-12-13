@@ -11,22 +11,11 @@
 #import <ParseUI/ParseUI.h>
 #import "CBUserCategories.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate> {
     
 }
 
 @property (weak, nonatomic) PFUser *userProfile;
-@property (weak, nonatomic) IBOutlet PFImageView *imgUser;
-@property (weak, nonatomic) IBOutlet UILabel *lblUserNickname;
-@property (weak, nonatomic) IBOutlet UILabel *lblUserLocation;
-@property (weak, nonatomic) IBOutlet UILabel *lblViews;
-
-@property (weak, nonatomic) IBOutlet UIButton *btnMessageUser_clicked;
-@property (weak, nonatomic) IBOutlet UIButton *btnReportUser_clicked;
-@property (weak, nonatomic) IBOutlet UIView *viewControls;
-@property (weak, nonatomic) IBOutlet UILabel *lblUserCategories;
-
-
 
 -(void)setUser:(PFUser*)user;
 @end

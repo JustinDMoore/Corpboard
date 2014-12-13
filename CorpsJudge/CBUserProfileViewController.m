@@ -15,6 +15,28 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnEditName;
 @property (nonatomic, strong) CBUserCategories *userCat;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollProfile;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollCoverPhoto;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCoverPhoto;
+
+//UI
+@property (weak, nonatomic) IBOutlet PFImageView *imgUser;
+@property (weak, nonatomic) IBOutlet UILabel *lblUserNickname;
+@property (weak, nonatomic) IBOutlet UILabel *lblUserLocation;
+@property (weak, nonatomic) IBOutlet UILabel *lblViews;
+
+@property (weak, nonatomic) IBOutlet UIView *viewControls;
+@property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
+
+@property (weak, nonatomic) IBOutlet UILabel *lolMyCategories;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblUserCategories;
+@property (weak, nonatomic) IBOutlet UILabel *lblMyBackground;
+@property (weak, nonatomic) IBOutlet UITextView *lblBackground;
+
+
+
+
 @end
 
 @implementation CBUserProfileViewController
@@ -43,6 +65,9 @@
         self.viewControls.hidden = YES;
     } else {
         self.viewControls.hidden = NO;
+        NSMutableDictionary * params = [NSMutableDictionary new];
+        params[@"userObjectId"] = self.userProfile.objectId;
+        [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
     }
 }
 
@@ -65,7 +90,32 @@
     self.btnEditCategories.hidden = YES;
     
     [self initUI];
+    [self setParallex];
+}
+
+-(void)setParallex {
+    // Set vertical effect
+    UIInterpolatingMotionEffect *verticalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.y"
+     type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    verticalMotionEffect.minimumRelativeValue = @(-20);
+    verticalMotionEffect.maximumRelativeValue = @(20);
     
+    // Set horizontal effect
+    UIInterpolatingMotionEffect *horizontalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.x"
+     type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(-20);
+    horizontalMotionEffect.maximumRelativeValue = @(20);
+    
+    // Create group to combine both
+    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
+    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    
+    // Add both effects to your view
+    [self.scrollProfile addMotionEffect:group];
 }
 
 -(void)toggleEditButtons:(BOOL)show {
@@ -107,6 +157,11 @@
     }
 }
 
+-(void)viewDidLayoutSubviews {
+    [self.lblUserCategories setNumberOfLines:0];
+    [self.lblUserCategories sizeToFit];
+}
+
 -(void)initUI {
     
     PFFile *imgFile = self.userProfile[@"picture"];
@@ -116,19 +171,41 @@
     
     self.lblUserNickname.text = self.userProfile[@"nickname"];
     self.lblUserLocation.text = @"Lives in Twentynine Palms, CA";
+    
+    // joined date
     NSString *dd = [self.userProfile.createdAt stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
     
+    // profile views
     NSString *views;
-    int profileViews = (int)self.userProfile[@"profileViews"];
+    int profileViews = [self.userProfile[@"profileViews"] intValue];
     if (profileViews == 1) {
         views = @"1 View";
     } else {
-        views = [NSString stringWithFormat:@"%i Views", profileViews];
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:profileViews]];
+        
+        views = [NSString stringWithFormat:@"%@ Views", formatted];
     }
-    self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  3 Show Reviews", dd, views];
+    
+    //show reviews
+    NSString *reviews;
+    int showReviews = [self.userProfile[@"showReviews"] intValue];
+    if (showReviews == 1) {
+        reviews = @"1 Show Review";
+    } else {
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:showReviews]];
+        reviews = [NSString stringWithFormat:@"%@ Show Reviews", formatted];
+    }
+    
+    self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  %@", dd, views, reviews];
     BOOL first = YES;
     NSString *result;
+    int x = 0;
     for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
+        x++;
         if (first) {
             result = str;
         } else {
@@ -136,9 +213,25 @@
         }
         if (first) first = NO;
     }
-    self.lblUserCategories.numberOfLines = 0;
-    self.lblUserCategories.text = result;
 
+    self.lblUserCategories.text = result;
+    self.lblUserCategories.numberOfLines = 0;
+    [self.lblUserCategories sizeToFit];
+    
+    //profile scrollview
+    self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
+    [self.view bringSubviewToFront:self.scrollProfile];
+
+    //cover photo scrollview
+    self.imgCoverPhoto.frame = CGRectMake(self.imgCoverPhoto.frame.origin.x, self.imgCoverPhoto.frame.origin.y, self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height + 100);
+    self.scrollCoverPhoto.contentSize = CGSizeMake(self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height);
+    
+    ht = self.scrollCoverPhoto.frame.size.height;
+
+    if (!self.viewControls.hidden) {
+        self.lblAboutMe.frame = CGRectMake(self.lblAboutMe.frame.origin.x, self.viewControls.frame.origin.y, self.lblAboutMe.frame.size.width, self.lblBackground.frame.size.height);
+    }
+    
 }
 
 -(void)goback {
@@ -231,7 +324,6 @@ bool editingProfile = NO;
     }
 
     return cell;
-    
 }
 
 -(void)selectCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)path onOrOff:(BOOL)on fromMethod:(BOOL)method {
@@ -262,5 +354,33 @@ bool editingProfile = NO;
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:NO fromMethod:YES];
 }
+
+#pragma mark
+#pragma mark - Scrollview Delegates
+#pragma mark
+
+float ht;
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    if (scrollView == self.scrollProfile) {
+        CGPoint offset = scrollView.contentOffset;
+        if (scrollView.contentOffset.y < 0) {
+            self.scrollCoverPhoto.frame = CGRectMake(self.scrollCoverPhoto.frame.origin.x, self.scrollCoverPhoto.frame.origin.y, self.scrollCoverPhoto.frame.size.width, ht - self.scrollProfile.contentOffset.y);
+            
+        } else if (scrollView.contentOffset.y == 0) {
+             self.scrollCoverPhoto.frame = CGRectMake(self.scrollCoverPhoto.frame.origin.x, self.scrollCoverPhoto.frame.origin.y, self.scrollCoverPhoto.frame.size.width, ht);
+        } else {
+            
+            
+        }
+        
+        offset.y = offset.y / 3;
+        self.scrollCoverPhoto.contentOffset = offset;
+        
+        NSLog(@"%f", self.scrollCoverPhoto.frame.origin.y);
+    }
+
+}
+
 
 @end

@@ -928,161 +928,150 @@
                         <viewControllerLayoutGuide type="bottom" id="sYE-oc-xZA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JnJ-dX-vth">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-KQ-pXo">
-                                <rect key="frame" x="0.0" y="113" width="600" height="487"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jes-AS-KoB">
+                                <rect key="frame" x="0.0" y="44" width="320" height="206"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
-                                        <rect key="frame" x="175" y="35" width="251" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="251" id="yDZ-iu-iSk"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lives in Twentynine Palms, CA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4b-9w-CuS">
-                                        <rect key="frame" x="151" y="56" width="298" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="298" id="yF5-Fl-lZf"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ySp-d8-VtK" customClass="PFImageView">
-                                        <rect key="frame" x="263" y="-48" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="h3i-8e-IC1"/>
-                                            <constraint firstAttribute="height" constant="75" id="mOz-tD-qKh"/>
-                                        </constraints>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Santa Clara Vanguard1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kte-AL-npt">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joined 12/2014  |  1,000 Views  |  3 Show Reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SC9-yt-bCr">
-                                        <rect key="frame" x="138" y="88" width="324" height="15"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="324" id="neG-P0-OsY"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-Au-PtO">
-                                        <rect key="frame" x="231" y="111" width="139" height="60"/>
+                                </subviews>
+                            </scrollView>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btx-rt-wJT">
+                                <rect key="frame" x="-10" y="44" width="340" height="718"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-KQ-pXo">
+                                        <rect key="frame" x="0.0" y="206" width="340" height="700"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyJ-Si-ya0">
-                                                <rect key="frame" x="74" y="8" width="45" height="45"/>
-                                                <state key="normal" image="Chat">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Yl-mVx">
+                                                <rect key="frame" x="341" y="-13" width="25" height="25"/>
+                                                <state key="normal" image="Edit">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
-                                                <rect key="frame" x="20" y="8" width="45" height="45"/>
-                                                <state key="normal" image="Cop_Red">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-gz-Xeb">
+                                                <rect key="frame" x="341" y="36" width="25" height="25"/>
+                                                <state key="normal" image="Edit">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="139" id="0I1-Cl-H5Z"/>
-                                            <constraint firstAttribute="height" constant="60" id="OZC-LM-ImC"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rl-Je-NnS">
-                                        <rect key="frame" x="223" y="179" width="162" height="118"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="162" id="U81-Sj-NUe"/>
-                                            <constraint firstAttribute="height" constant="118" id="emR-p5-Uwy"/>
-                                        </constraints>
-                                        <string key="text">Fan
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STz-eW-HzX">
+                                                <rect key="frame" x="341" y="181" width="25" height="25"/>
+                                                <state key="normal" image="Edit">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnEditCategories_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="bbE-RH-Y7E"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
+                                                <rect key="frame" x="45" y="27" width="251" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lives in Twentynine Palms, CA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4b-9w-CuS">
+                                                <rect key="frame" x="21" y="47" width="298" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySp-d8-VtK" customClass="PFImageView">
+                                                <rect key="frame" x="133" y="-56" width="75" height="75"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Joined 12/2014  |  1,000 Views  |  3 Show Reviews" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SC9-yt-bCr">
+                                                <rect key="frame" x="8" y="79" width="324" height="15"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-Au-PtO">
+                                                <rect key="frame" x="101" y="103" width="139" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyJ-Si-ya0">
+                                                        <rect key="frame" x="74" y="8" width="45" height="45"/>
+                                                        <state key="normal" image="Chat">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
+                                                        <rect key="frame" x="20" y="8" width="45" height="45"/>
+                                                        <state key="normal" image="Badge">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VS7-mT-aXI">
+                                                <rect key="frame" x="32" y="166" width="105" height="35"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rl-Je-NnS">
+                                                <rect key="frame" x="31" y="236" width="234" height="129"/>
+                                                <string key="text">Fan
 Alumni
 Staff
 Family of Member
 Brass Player
 Colorguard
 Percussionist</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Yl-mVx">
-                                        <rect key="frame" x="600" y="-13" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="ghr-P8-imf"/>
-                                            <constraint firstAttribute="width" constant="25" id="xTb-e4-DwC"/>
-                                        </constraints>
-                                        <state key="normal" image="Edit">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-gz-Xeb">
-                                        <rect key="frame" x="600" y="36" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="U7p-ED-Vfc"/>
-                                            <constraint firstAttribute="height" constant="25" id="hLT-S5-Yuk"/>
-                                        </constraints>
-                                        <state key="normal" image="Edit">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STz-eW-HzX">
-                                        <rect key="frame" x="600" y="180" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="5F1-NB-687"/>
-                                            <constraint firstAttribute="width" constant="25" id="Knc-RV-IXs"/>
-                                        </constraints>
-                                        <state key="normal" image="Edit">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnEditCategories_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="bbE-RH-Y7E"/>
-                                        </connections>
-                                    </button>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miO-v8-hVy">
+                                                <rect key="frame" x="31" y="382" width="161" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgj-X3-qxC">
+                                                <rect key="frame" x="31" y="214" width="161" height="21"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="I marched Cadets from 1998-2002. Now I teach at Fortsmith High School and volunteer when I can." translatesAutoresizingMaskIntoConstraints="NO" id="MsQ-CR-jgA">
+                                                <rect key="frame" x="31" y="411" width="311" height="142"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="d4b-9w-CuS" secondAttribute="centerX" constant="0.5" id="6sC-IN-2Az"/>
-                                    <constraint firstAttribute="trailing" secondItem="21j-gz-Xeb" secondAttribute="trailing" constant="-25" id="9CB-mL-TEa"/>
-                                    <constraint firstItem="0rl-Je-NnS" firstAttribute="top" secondItem="rmU-Au-PtO" secondAttribute="bottom" constant="8" id="9zw-Wz-mHO"/>
-                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="centerX" secondItem="rmU-Au-PtO" secondAttribute="centerX" constant="-0.5" id="C8f-E5-guV"/>
-                                    <constraint firstItem="ySp-d8-VtK" firstAttribute="centerX" secondItem="bUy-vC-L22" secondAttribute="centerX" id="Cfd-0Z-bdg"/>
-                                    <constraint firstItem="rmU-Au-PtO" firstAttribute="top" secondItem="SC9-yt-bCr" secondAttribute="bottom" constant="8" id="G9s-7l-dTG"/>
-                                    <constraint firstItem="d4b-9w-CuS" firstAttribute="top" secondItem="bUy-vC-L22" secondAttribute="bottom" id="HiQ-Sx-zb3"/>
-                                    <constraint firstItem="ySp-d8-VtK" firstAttribute="top" secondItem="RlW-KQ-pXo" secondAttribute="top" constant="-48" id="K8B-rA-XxO"/>
-                                    <constraint firstItem="bUy-vC-L22" firstAttribute="top" secondItem="ySp-d8-VtK" secondAttribute="bottom" constant="8" id="PWt-JB-6jZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="STz-eW-HzX" secondAttribute="trailing" constant="-25" id="QCX-lp-Cse"/>
-                                    <constraint firstAttribute="trailing" secondItem="YZe-Yl-mVx" secondAttribute="trailing" constant="-25" id="WQ1-rC-PZx"/>
-                                    <constraint firstItem="21j-gz-Xeb" firstAttribute="centerY" secondItem="bUy-vC-L22" secondAttribute="centerY" constant="3" id="bWl-qS-KIO"/>
-                                    <constraint firstItem="STz-eW-HzX" firstAttribute="top" secondItem="0rl-Je-NnS" secondAttribute="top" constant="1" id="dBG-6u-j99"/>
-                                    <constraint firstItem="YZe-Yl-mVx" firstAttribute="centerY" secondItem="ySp-d8-VtK" secondAttribute="centerY" constant="10" id="iZb-Qw-4Bn"/>
-                                    <constraint firstItem="d4b-9w-CuS" firstAttribute="centerX" secondItem="bUy-vC-L22" secondAttribute="centerX" constant="-0.5" id="qOt-4K-BJJ"/>
-                                    <constraint firstAttribute="centerX" secondItem="ySp-d8-VtK" secondAttribute="centerX" constant="-0.5" id="saf-RB-Gji"/>
-                                    <constraint firstItem="SC9-yt-bCr" firstAttribute="top" secondItem="d4b-9w-CuS" secondAttribute="bottom" constant="15" id="xRD-zL-A42"/>
-                                    <constraint firstItem="rmU-Au-PtO" firstAttribute="centerX" secondItem="0rl-Je-NnS" secondAttribute="centerX" constant="-3.5" id="z3f-w7-Ebb"/>
-                                </constraints>
-                            </view>
+                                <connections>
+                                    <outlet property="delegate" destination="sQx-yV-WOz" id="Khd-xf-ej2"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="RlW-KQ-pXo" firstAttribute="top" secondItem="z0N-nT-EIn" secondAttribute="bottom" constant="69" id="JRO-Ja-pXv"/>
-                            <constraint firstItem="sYE-oc-xZA" firstAttribute="top" secondItem="RlW-KQ-pXo" secondAttribute="bottom" id="af0-AU-f8e"/>
-                            <constraint firstItem="RlW-KQ-pXo" firstAttribute="leading" secondItem="JnJ-dX-vth" secondAttribute="leadingMargin" constant="-16" id="dKw-Yx-g5M"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="RlW-KQ-pXo" secondAttribute="trailing" constant="-16" id="fcT-nf-YFM"/>
-                        </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="btnEditCategories" destination="STz-eW-HzX" id="EGd-Hp-HIB"/>
                         <outlet property="btnEditName" destination="21j-gz-Xeb" id="6qa-KC-RjX"/>
                         <outlet property="btnEditPicture" destination="YZe-Yl-mVx" id="rZC-n0-oRE"/>
-                        <outlet property="btnMessageUser_clicked" destination="cyJ-Si-ya0" id="6qu-bp-axo"/>
-                        <outlet property="btnReportUser_clicked" destination="yvB-e2-cXy" id="kwj-zi-nfW"/>
+                        <outlet property="imgCoverPhoto" destination="Kte-AL-npt" id="PjI-qm-Rgd"/>
                         <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
+                        <outlet property="lblAboutMe" destination="VS7-mT-aXI" id="CTG-Sl-EhO"/>
+                        <outlet property="lblBackground" destination="MsQ-CR-jgA" id="zfb-Ce-FhW"/>
+                        <outlet property="lblMyBackground" destination="miO-v8-hVy" id="xji-2K-ebc"/>
                         <outlet property="lblUserCategories" destination="0rl-Je-NnS" id="HXI-js-oUM"/>
                         <outlet property="lblUserLocation" destination="d4b-9w-CuS" id="ANc-PO-ntF"/>
                         <outlet property="lblUserNickname" destination="bUy-vC-L22" id="oyz-0e-hYm"/>
                         <outlet property="lblViews" destination="SC9-yt-bCr" id="HQA-Gh-uas"/>
+                        <outlet property="lolMyCategories" destination="zgj-X3-qxC" id="k3L-pK-LR1"/>
+                        <outlet property="scrollCoverPhoto" destination="jes-AS-KoB" id="eBH-WX-lQd"/>
+                        <outlet property="scrollProfile" destination="btx-rt-wJT" id="O2z-5P-QyH"/>
                         <outlet property="viewControls" destination="rmU-Au-PtO" id="ppd-vj-oLQ"/>
                     </connections>
                 </viewController>
@@ -2517,13 +2506,14 @@ Percussionist</string>
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
+        <image name="Badge" width="48" height="48"/>
         <image name="Blue Devils.png" width="512" height="512"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
-        <image name="Cop_Red" width="48" height="48"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
         <image name="Edit" width="48" height="48"/>
         <image name="Feedback1.png" width="350" height="170"/>
+        <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="The Cadets.png" width="223" height="202"/>
         <image name="The Cadets2.png" width="641" height="261"/>
         <image name="colorguard" width="30" height="30"/>
