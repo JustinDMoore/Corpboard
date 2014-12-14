@@ -16,8 +16,12 @@
 @property (nonatomic, strong) CBUserCategories *userCat;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollProfile;
+@property (weak, nonatomic) IBOutlet UIView *viewProfile;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollCoverPhoto;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCoverPhoto;
+@property (nonatomic, strong) NSMutableArray *arrayOfBadges;
+@property (nonatomic, strong) NSMutableArray *arrayOfLabels;
 
 //UI
 @property (weak, nonatomic) IBOutlet PFImageView *imgUser;
@@ -28,11 +32,12 @@
 @property (weak, nonatomic) IBOutlet UIView *viewControls;
 @property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
 
-@property (weak, nonatomic) IBOutlet UILabel *lolMyCategories;
+@property (weak, nonatomic) IBOutlet UILabel *lblMyBadges;
 
-@property (weak, nonatomic) IBOutlet UILabel *lblUserCategories;
-@property (weak, nonatomic) IBOutlet UILabel *lblMyBackground;
-@property (weak, nonatomic) IBOutlet UITextView *lblBackground;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnReport;
+@property (weak, nonatomic) IBOutlet UIButton *btnChat;
+
 
 
 
@@ -62,9 +67,11 @@
         configBtn.frame = CGRectMake(0, 0, 30, 30);
         UIBarButtonItem *configBarButton = [[UIBarButtonItem alloc] initWithCustomView:configBtn] ;
         self.navigationItem.rightBarButtonItem = configBarButton;
-        self.viewControls.hidden = YES;
+        self.btnReport.enabled = NO;
+        self.btnChat.enabled = NO;
     } else {
-        self.viewControls.hidden = NO;
+        self.btnReport.enabled = YES;
+        self.btnChat.enabled = YES;
         NSMutableDictionary * params = [NSMutableDictionary new];
         params[@"userObjectId"] = self.userProfile.objectId;
         [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
@@ -157,11 +164,6 @@
     }
 }
 
--(void)viewDidLayoutSubviews {
-    [self.lblUserCategories setNumberOfLines:0];
-    [self.lblUserCategories sizeToFit];
-}
-
 -(void)initUI {
     
     PFFile *imgFile = self.userProfile[@"picture"];
@@ -201,22 +203,50 @@
     }
     
     self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  %@", dd, views, reviews];
-    BOOL first = YES;
-    NSString *result;
-    int x = 0;
-    for (NSString *str in self.userProfile[@"arrayOfCategories"]) {
-        x++;
-        if (first) {
-            result = str;
-        } else {
-            result = [NSString stringWithFormat:@"%@\n%@",result, str];
-        }
-        if (first) first = NO;
-    }
+    
 
-    self.lblUserCategories.text = result;
-    self.lblUserCategories.numberOfLines = 0;
-    [self.lblUserCategories sizeToFit];
+    //clear the current badges
+    for (UILabel *badge in self.arrayOfBadges) {
+        [badge removeFromSuperview];
+    }
+    [self.arrayOfBadges removeAllObjects];
+    
+    //clear the current labels
+    for (UILabel *lbl in self.arrayOfLabels) {
+        [lbl removeFromSuperview];
+    }
+    [self.arrayOfLabels removeAllObjects];
+    
+    
+    //user badges
+    int y = self.lblMyBadges.frame.origin.y + 30;
+    
+    for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
+        
+        UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+        [myLabel setBackgroundColor:[UIColor clearColor]];
+        [myLabel setTextColor:[UIColor lightGrayColor]];
+        [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
+        [[myLabel layer] setBorderWidth:1];
+        [myLabel setText:[NSString stringWithFormat:@" %@ ",[self.userCat.arrayOfCategories objectAtIndex:i]]];
+        [myLabel sizeToFit];
+        [[self viewProfile] addSubview:myLabel];
+        [self.arrayOfBadges addObject:myLabel];
+        y+= 10 + myLabel.frame.size.height;
+    }
+    
+    // corp experiene
+    y+= 20;
+    
+    UILabel *lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+    lblCorpExperience.text = @"Corp Experience";
+    lblCorpExperience.font = self.lblMyBadges.font;
+    lblCorpExperience.textColor = self.lblMyBadges.textColor;
+    [lblCorpExperience sizeToFit];
+    [self.viewProfile addSubview:lblCorpExperience];
+    [self.arrayOfLabels addObject:lblCorpExperience];
+    y = lblCorpExperience.frame.origin.y;
+    
     
     //profile scrollview
     self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
@@ -227,10 +257,6 @@
     self.scrollCoverPhoto.contentSize = CGSizeMake(self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height);
     
     ht = self.scrollCoverPhoto.frame.size.height;
-
-    if (!self.viewControls.hidden) {
-        self.lblAboutMe.frame = CGRectMake(self.lblAboutMe.frame.origin.x, self.viewControls.frame.origin.y, self.lblAboutMe.frame.size.width, self.lblBackground.frame.size.height);
-    }
     
 }
 
@@ -382,5 +408,18 @@ float ht;
 
 }
 
+-(NSMutableArray *)arrayOfBadges {
+    if (!_arrayOfBadges) {
+        _arrayOfBadges = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfBadges;
+}
+
+-(NSMutableArray *)arrayOfLabels {
+    if (!_arrayOfLabels) {
+        _arrayOfLabels = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfLabels;
+}
 
 @end

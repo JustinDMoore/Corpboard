@@ -162,6 +162,8 @@
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
 		D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */; };
+		D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D034437A1A3D064000C410EE /* CBChooseCorp.xib */; };
+		D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */ = {isa = PBXBuildFile; fileRef = D034437D1A3D071000C410EE /* CBChooseCorp.m */; };
 		D0345ECA1A303AC9002DBDC2 /* CBCorpDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
@@ -501,6 +503,9 @@
 		D0307DB619537792000849F1 /* CBShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShowDetailsViewController.m; sourceTree = "<group>"; };
 		D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBJudgeViewController.h; path = ../CBJudgeViewController.h; sourceTree = "<group>"; };
 		D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBJudgeViewController.m; path = ../CBJudgeViewController.m; sourceTree = "<group>"; };
+		D034437A1A3D064000C410EE /* CBChooseCorp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBChooseCorp.xib; sourceTree = "<group>"; };
+		D034437C1A3D071000C410EE /* CBChooseCorp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBChooseCorp.h; sourceTree = "<group>"; };
+		D034437D1A3D071000C410EE /* CBChooseCorp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChooseCorp.m; sourceTree = "<group>"; };
 		D0345EC81A303AC9002DBDC2 /* CBCorpDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpDetail.h; sourceTree = "<group>"; };
 		D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpDetail.m; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -1176,6 +1181,9 @@
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 				926CC2711A39A146006E315F /* CBUserCategories.xib */,
 				926CC2741A39A19C006E315F /* CBUserCategories.m */,
+				D034437A1A3D064000C410EE /* CBChooseCorp.xib */,
+				D034437C1A3D071000C410EE /* CBChooseCorp.h */,
+				D034437D1A3D071000C410EE /* CBChooseCorp.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -1477,6 +1485,7 @@
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
 				92E810881968E4CA0078B65D /* The Cadets2.png in Resources */,
 				923D4FD31A2C6DCF00E16B64 /* WelcomeView.xib in Resources */,
+				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
@@ -1557,6 +1566,7 @@
 				923D4FCA1A2C6DCF00E16B64 /* MessagesView.m in Sources */,
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
+				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D50161A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
 				923D4FE81A2C6DCF00E16B64 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
