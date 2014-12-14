@@ -8,12 +8,19 @@
 
 #import "CBUserProfileViewController.h"
 #import "NSDate+Utilities.h"
+#import "CBSingle.h"
 
 
-@interface CBUserProfileViewController ()
+@interface CBUserProfileViewController () {
+    CBSingle *data;
+}
+
+@property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
+@property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLabels;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditCategories;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditName;
 @property (nonatomic, strong) CBUserCategories *userCat;
+@property (nonatomic, strong) CBChooseCorp *corpExperience;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollProfile;
 @property (weak, nonatomic) IBOutlet UIView *viewProfile;
@@ -21,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollCoverPhoto;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCoverPhoto;
 @property (nonatomic, strong) NSMutableArray *arrayOfBadges;
-@property (nonatomic, strong) NSMutableArray *arrayOfLabels;
+@property (nonatomic, strong) NSMutableArray *arrayOfSectionLabels;
 
 //UI
 @property (weak, nonatomic) IBOutlet PFImageView *imgUser;
@@ -37,6 +44,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet UIButton *btnChat;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditCorpExperience;
 
 
 
@@ -81,6 +89,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    data = [CBSingle data];
+    
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
     
@@ -92,12 +102,28 @@
     
     self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x + 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
     
+    self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x + 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
+    
     self.btnEditPicture.hidden = YES;
     self.btnEditName.hidden = YES;
     self.btnEditCategories.hidden = YES;
+    self.btnEditCorpExperience.hidden = YES;
     
-    [self initUI];
+    [self getUserCorpExperiences];
     [self setParallex];
+}
+
+-(void)getUserCorpExperiences {
+    [self.arrayOfCorpExperience removeAllObjects];
+    PFQuery *query = [PFQuery queryWithClassName:@"userCorpExperience"];
+    [query whereKey:@"user" equalTo:self.userProfile];
+    [query orderByDescending:@"year"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ([objects count]) {
+            [self.arrayOfCorpExperience addObjectsFromArray:objects];
+            [self initUI];
+        }
+    }];
 }
 
 -(void)setParallex {
@@ -131,6 +157,7 @@
         self.btnEditPicture.hidden = !show;
         self.btnEditName.hidden = !show;
         self.btnEditCategories.hidden = !show;
+        self.btnEditCorpExperience.hidden = !show;
         
         
         [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
@@ -140,6 +167,8 @@
             self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x - 40, self.btnEditName.frame.origin.y, self.btnEditName.frame.size.width, self.btnEditName.frame.size.height);
             
             self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x - 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
+            
+            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x - 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
             
         } completion:^(BOOL finished) {
             
@@ -155,11 +184,14 @@
             
             self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x + 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
             
+            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x + 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
+            
         } completion:^(BOOL finished) {
             
             self.btnEditPicture.hidden = show;
             self.btnEditName.hidden = show;
             self.btnEditCategories.hidden = show;
+            self.btnEditCorpExperience.hidden = show;
         }];
     }
 }
@@ -211,31 +243,51 @@
     }
     [self.arrayOfBadges removeAllObjects];
     
-    //clear the current labels
-    for (UILabel *lbl in self.arrayOfLabels) {
+    //clear the current section labels
+    for (UILabel *lbl in self.arrayOfSectionLabels) {
         [lbl removeFromSuperview];
     }
-    [self.arrayOfLabels removeAllObjects];
+    [self.arrayOfSectionLabels removeAllObjects];
     
+    //clear the current experiences
+    
+    for (UILabel *lbl in self.arrayOfCorpExperienceLabels) {
+        [lbl removeFromSuperview];
+    }
+    [self.arrayOfCorpExperienceLabels removeAllObjects];
+
     
     //user badges
     int y = self.lblMyBadges.frame.origin.y + 30;
     
-    for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
-        
-        UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
-        [myLabel setBackgroundColor:[UIColor clearColor]];
-        [myLabel setTextColor:[UIColor lightGrayColor]];
-        [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
-        [[myLabel layer] setBorderWidth:1];
-        [myLabel setText:[NSString stringWithFormat:@" %@ ",[self.userCat.arrayOfCategories objectAtIndex:i]]];
-        [myLabel sizeToFit];
-        [[self viewProfile] addSubview:myLabel];
-        [self.arrayOfBadges addObject:myLabel];
-        y+= 10 + myLabel.frame.size.height;
+    if ([self.userProfile[@"arrayOfCategories"] count]) {
+        for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
+            
+            UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+            [myLabel setBackgroundColor:[UIColor clearColor]];
+            [myLabel setTextColor:[UIColor lightGrayColor]];
+            [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
+            [[myLabel layer] setBorderWidth:1];
+            [myLabel setText:[NSString stringWithFormat:@" %@ ",[self.userProfile[@"arrayOfCategories"] objectAtIndex:i]]];
+            [myLabel setFont:[UIFont systemFontOfSize:14]];
+            [myLabel sizeToFit];
+            [[self viewProfile] addSubview:myLabel];
+            [self.arrayOfBadges addObject:myLabel];
+            y+= 5 + myLabel.frame.size.height;
+        }
+    } else {
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+        lbl.text = @"No badges yet";
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor lightGrayColor];
+        [lbl setFont:[UIFont systemFontOfSize:12]];
+        [lbl sizeToFit];
+        [self.viewProfile addSubview:lbl];
+        [self.arrayOfBadges addObject:lbl];
     }
     
-    // corp experiene
+    
+    // corp experience
     y+= 20;
     
     UILabel *lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
@@ -244,9 +296,34 @@
     lblCorpExperience.textColor = self.lblMyBadges.textColor;
     [lblCorpExperience sizeToFit];
     [self.viewProfile addSubview:lblCorpExperience];
-    [self.arrayOfLabels addObject:lblCorpExperience];
+    [self.arrayOfSectionLabels addObject:lblCorpExperience];
     y = lblCorpExperience.frame.origin.y;
     
+    if ([self.arrayOfCorpExperience count]) { //we have experience
+        
+        for (PFObject *exp in self.arrayOfCorpExperience) {
+            NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y+30, 200, 40)];
+            lbl.text = str;
+            lbl.backgroundColor = [UIColor clearColor];
+            lbl.textColor = [UIColor lightGrayColor];
+            [lbl setFont:[UIFont systemFontOfSize:12]];
+            [lbl sizeToFit];
+            [self.viewProfile addSubview:lbl];
+            [self.arrayOfCorpExperienceLabels addObject:lbl];
+            y+=5 + lbl.frame.size.height;
+        }
+        
+    } else { //we have no experience
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y+30, 200, 40)];
+        lbl.text = @"No corp experience listed";
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor lightGrayColor];
+        [lbl setFont:[UIFont systemFontOfSize:12]];
+        [lbl sizeToFit];
+        [self.viewProfile addSubview:lbl];
+        [self.arrayOfCorpExperienceLabels addObject:lbl];
+    }
     
     //profile scrollview
     self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
@@ -275,7 +352,9 @@ bool editingProfile = NO;
     
     
 }
-
+#pragma mark
+#pragma mark - IBActions
+#pragma mark
 - (IBAction)btnEditCategories_clicked:(id)sender {
 
     [self.view addSubview:self.userCat];
@@ -287,6 +366,37 @@ bool editingProfile = NO;
     [self.userCat.tableCategories reloadData];
 }
 
+UIPickerView *yearPicker;
+UIPickerView *positionPicker;
+UIPickerView *corpPicker;
+- (IBAction)btnEditCorpExperience_clicked:(id)sender {
+    
+    [self.view addSubview:self.corpExperience];
+    [self.corpExperience showInParent:self.view.frame];
+    
+    [self.corpExperience setDelegate:self];
+
+    yearPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
+    [yearPicker setDataSource: self];
+    [yearPicker setDelegate: self];
+    yearPicker.showsSelectionIndicator = YES;
+    self.corpExperience.txtYear.inputView = yearPicker;
+
+    positionPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
+    [positionPicker setDataSource: self];
+    [positionPicker setDelegate: self];
+    positionPicker.showsSelectionIndicator = YES;
+    self.corpExperience.txtPosition.inputView = positionPicker;
+    
+    corpPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
+    [corpPicker setDataSource: self];
+    [corpPicker setDelegate: self];
+    corpPicker.showsSelectionIndicator = YES;
+    self.corpExperience.txtCorpsName.inputView = corpPicker;
+    self.corpExperience.corpPicker = corpPicker;
+}
+
+
 -(void)categoriesClosed {
     self.userCat = nil;
 }
@@ -294,6 +404,14 @@ bool editingProfile = NO;
 -(void)savedCategories {
     self.userProfile = [PFUser currentUser];
     [self initUI];
+}
+
+-(void)savedCorpExperience {
+    [self getUserCorpExperiences];
+}
+
+-(void)closedCorpExperience {
+    self.corpExperience = nil;
 }
 
 -(void)setUser:(PFUser *)user {
@@ -322,6 +440,21 @@ bool editingProfile = NO;
     }
     return _userCat;
 }
+
+-(CBChooseCorp *)corpExperience {
+    if (!_corpExperience) {
+        _corpExperience = [[[NSBundle mainBundle] loadNibNamed:@"CBChooseCorp"
+                                                  owner:self
+                                                options:nil]
+                    objectAtIndex:0];
+        [_corpExperience setDelegate:self];
+    }
+    return _corpExperience;
+}
+
+#pragma mark
+#pragma mark - UITableview delegates
+#pragma mark
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.userCat.arrayOfCategories count];
@@ -382,6 +515,51 @@ bool editingProfile = NO;
 }
 
 #pragma mark
+#pragma mark - UIPickerview Delegates
+#pragma mark
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (pickerView == yearPicker) {
+        return [self.corpExperience.arrayOfYears objectAtIndex:row];
+    } else if (pickerView == positionPicker) {
+        return [self.corpExperience.arrayOfPositions objectAtIndex:row];
+    } else if (pickerView == corpPicker) {
+        PFObject *corp = [data.arrayOfAllCorps objectAtIndex:row];
+        return corp[@"corpsName"];
+    } else {
+        return @"error";
+    }
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (pickerView == yearPicker) {
+        return [self.corpExperience.arrayOfYears count];
+    } else if (pickerView == positionPicker) {
+        return [self.corpExperience.arrayOfPositions count];
+    } else if (pickerView == corpPicker) {
+        return [data.arrayOfAllCorps count];
+    } else {
+        return 1;
+    }
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+
+    if (pickerView == yearPicker) {
+        self.corpExperience.txtYear.text = [self.corpExperience.arrayOfYears objectAtIndex:row];
+    } else if (pickerView == positionPicker) {
+        self.corpExperience.txtPosition.text = [self.corpExperience.arrayOfPositions objectAtIndex:row];
+    } else if (pickerView == corpPicker) {
+        PFObject *corps = [data.arrayOfAllCorps objectAtIndex:row];
+        self.corpExperience.selectedCorp = corps;
+        self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
+    }
+}
+
+#pragma mark
 #pragma mark - Scrollview Delegates
 #pragma mark
 
@@ -415,11 +593,25 @@ float ht;
     return _arrayOfBadges;
 }
 
--(NSMutableArray *)arrayOfLabels {
-    if (!_arrayOfLabels) {
-        _arrayOfLabels = [[NSMutableArray alloc] init];
+-(NSMutableArray *)arrayOfSectionLabels {
+    if (!_arrayOfSectionLabels) {
+        _arrayOfSectionLabels = [[NSMutableArray alloc] init];
     }
-    return _arrayOfLabels;
+    return _arrayOfSectionLabels;
+}
+
+-(NSMutableArray *)arrayOfCorpExperience {
+    if (!_arrayOfCorpExperience) {
+        _arrayOfCorpExperience = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfCorpExperience;
+}
+
+-(NSMutableArray *)arrayOfCorpExperienceLabels {
+    if (!_arrayOfCorpExperienceLabels) {
+        _arrayOfCorpExperienceLabels = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfCorpExperienceLabels;
 }
 
 @end

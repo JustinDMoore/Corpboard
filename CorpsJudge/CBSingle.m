@@ -45,7 +45,7 @@
     self.updatedCorps = NO;
     self.arrayOfAllCorps = nil;
     PFQuery *query = [PFQuery queryWithClassName:@"corps"];
-    [query orderByDescending:@"corpsName"];
+    [query orderByAscending:@"corpsName"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
@@ -53,9 +53,12 @@
             [self.arrayOfAllCorps addObjectsFromArray:objects];
             
             for (PFObject *corps in objects) {
-                BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-                if (isWorld) [self.arrayOfWorldClass addObject:corps];
-                else [self.arrayOfOpenClass addObject:corps];
+                BOOL active = [corps[@"active"] boolValue];
+                if (active) {
+                    BOOL isWorld = [corps[@"isWorldClass"] boolValue];
+                    if (isWorld) [self.arrayOfWorldClass addObject:corps];
+                    else [self.arrayOfOpenClass addObject:corps];
+                }
             }
             
             self.updatedCorps = YES;

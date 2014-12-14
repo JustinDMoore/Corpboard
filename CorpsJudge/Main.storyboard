@@ -940,10 +940,10 @@
                                 </subviews>
                             </scrollView>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btx-rt-wJT">
-                                <rect key="frame" x="-10" y="44" width="340" height="718"/>
+                                <rect key="frame" x="-10" y="44" width="610" height="718"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-KQ-pXo">
-                                        <rect key="frame" x="0.0" y="206" width="340" height="700"/>
+                                        <rect key="frame" x="0.0" y="206" width="504" height="700"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Yl-mVx">
                                                 <rect key="frame" x="341" y="-13" width="25" height="25"/>
@@ -1017,18 +1017,15 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Cadets, 2000-2001, Mellophone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRE-jm-7ky">
-                                                <rect key="frame" x="21" y="312" width="281" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Cadets, 2000-2001, Mellophone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS4-cS-NEL">
-                                                <rect key="frame" x="21" y="332" width="281" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7J-9F-eLL">
+                                                <rect key="frame" x="341" y="253" width="25" height="25"/>
+                                                <state key="normal" image="Edit">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnEditCorpExperience_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="YMD-7z-8ow"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1045,6 +1042,7 @@
                     <connections>
                         <outlet property="btnChat" destination="cyJ-Si-ya0" id="YQ4-h7-XUa"/>
                         <outlet property="btnEditCategories" destination="STz-eW-HzX" id="EGd-Hp-HIB"/>
+                        <outlet property="btnEditCorpExperience" destination="A7J-9F-eLL" id="FCC-Wb-ruk"/>
                         <outlet property="btnEditName" destination="21j-gz-Xeb" id="6qa-KC-RjX"/>
                         <outlet property="btnEditPicture" destination="YZe-Yl-mVx" id="rZC-n0-oRE"/>
                         <outlet property="btnReport" destination="yvB-e2-cXy" id="mgX-Ln-z5E"/>

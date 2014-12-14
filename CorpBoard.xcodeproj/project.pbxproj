@@ -172,6 +172,7 @@
 		D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
+		D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0606BBC1A3D8614002A1F48 /* CBTextField.m */; };
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
 		D064F3B21A36ECA1007455E2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AF1A36ECA1007455E2 /* index.html */; };
@@ -518,6 +519,8 @@
 		D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextViewPlaceHolder.m; sourceTree = "<group>"; };
 		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
 		D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsViewController.m; sourceTree = "<group>"; };
+		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
+		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		D064F3AD1A36ECA1007455E2 /* global.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = global.json; sourceTree = "<group>"; };
 		D064F3AF1A36ECA1007455E2 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -1182,7 +1185,6 @@
 				926CC2711A39A146006E315F /* CBUserCategories.xib */,
 				926CC2741A39A19C006E315F /* CBUserCategories.m */,
 				D034437A1A3D064000C410EE /* CBChooseCorp.xib */,
-				D034437C1A3D071000C410EE /* CBChooseCorp.h */,
 				D034437D1A3D071000C410EE /* CBChooseCorp.m */,
 			);
 			name = Xibs;
@@ -1225,6 +1227,7 @@
 				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
 				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
 				926CC2731A39A19C006E315F /* CBUserCategories.h */,
+				D034437C1A3D071000C410EE /* CBChooseCorp.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1293,9 +1296,19 @@
 				D094AFA81A157C24003557AF /* CBNewsItem.m */,
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
+				D0606BBE1A3D8619002A1F48 /* SubClasses */,
 			);
 			name = Classes;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		D0606BBE1A3D8619002A1F48 /* SubClasses */ = {
+			isa = PBXGroup;
+			children = (
+				D0606BBB1A3D8614002A1F48 /* CBTextField.h */,
+				D0606BBC1A3D8614002A1F48 /* CBTextField.m */,
+			);
+			name = SubClasses;
 			sourceTree = "<group>";
 		};
 		D064F3A91A36ECA1007455E2 /* CloudCode */ = {
@@ -1625,6 +1638,7 @@
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
 				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				923D4FFC1A2C6DCF00E16B64 /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,
+				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */,
 				923D4FCE1A2C6DCF00E16B64 /* LoginView.m in Sources */,
 				D0F8D3D01A257DB0000A73E3 /* BadWords.m in Sources */,

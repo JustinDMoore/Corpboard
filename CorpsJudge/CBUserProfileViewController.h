@@ -10,8 +10,9 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "CBUserCategories.h"
+#import "CBChooseCorp.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol> {
     
 }
 

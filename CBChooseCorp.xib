@@ -6,47 +6,107 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="272" height="375"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBChooseCorp">
+            <rect key="frame" x="0.0" y="0.0" width="272" height="219"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pQF-bX-ryn">
-                    <rect key="frame" x="0.0" y="37" width="272" height="274"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Corp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxA-vU-3lY">
-                    <rect key="frame" x="34" y="8" width="204" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGk-P8-YPi">
-                    <rect key="frame" x="-4" y="340" width="131" height="30"/>
+                    <rect key="frame" x="-4" y="184" width="131" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Cancel">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="btnCancel_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="S0J-vW-hEI"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebo-T7-vwG">
-                    <rect key="frame" x="146" y="340" width="130" height="30"/>
+                    <rect key="frame" x="146" y="184" width="130" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="OK">
+                    <state key="normal" title="Add">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="btnSave_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nig-YK-kea"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AOz-b5-OLh">
-                    <rect key="frame" x="-29" y="334" width="330" height="1"/>
+                    <rect key="frame" x="-29" y="178" width="330" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kbe-0v-jB3">
-                    <rect key="frame" x="136" y="334" width="1" height="110"/>
+                    <rect key="frame" x="136" y="178" width="1" height="110"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new corp experience" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxA-vU-3lY">
+                    <rect key="frame" x="17" y="18" width="239" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="239" id="0ca-BT-aNS"/>
+                        <constraint firstAttribute="height" constant="27" id="3DQ-Pl-7uv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Corp Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vcm-Fh-Nwf" customClass="CBTextField">
+                    <rect key="frame" x="17" y="53" width="239" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="239" id="cwe-dW-FMQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Year" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-1h-xKJ" customClass="CBTextField">
+                    <rect key="frame" x="17" y="91" width="57" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="57" id="Scl-kq-Y1G"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Trumpet, Volunteer, Staff, etc." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v2k-2d-Ljf" customClass="CBTextField">
+                    <rect key="frame" x="17" y="129" width="239" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="239" id="3dA-q3-tYC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcO-FW-IPW">
+                    <rect key="frame" x="138" y="79" width="118" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="cxT-bY-4Sz"/>
+                        <constraint firstAttribute="width" constant="118" id="ugx-cd-FbA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Corp Not Listed?">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCorpNotListed_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Dc3-DZ-wkL"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="JxA-vU-3lY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="3Th-D2-Yvo"/>
+                <constraint firstItem="Obj-1h-xKJ" firstAttribute="leading" secondItem="v2k-2d-Ljf" secondAttribute="leading" id="4HG-Gw-qag"/>
+                <constraint firstItem="Obj-1h-xKJ" firstAttribute="top" secondItem="vcm-Fh-Nwf" secondAttribute="bottom" constant="8" id="N7R-QX-J9T"/>
+                <constraint firstItem="vcm-Fh-Nwf" firstAttribute="centerX" secondItem="JxA-vU-3lY" secondAttribute="centerX" id="UDJ-BN-w86"/>
+                <constraint firstItem="Obj-1h-xKJ" firstAttribute="leading" secondItem="vcm-Fh-Nwf" secondAttribute="leading" id="Vsn-kK-C7l"/>
+                <constraint firstItem="v2k-2d-Ljf" firstAttribute="top" secondItem="Obj-1h-xKJ" secondAttribute="bottom" constant="8" id="Xit-2R-aLB"/>
+                <constraint firstItem="kcO-FW-IPW" firstAttribute="trailing" secondItem="vcm-Fh-Nwf" secondAttribute="trailing" id="ZwB-os-qcJ"/>
+                <constraint firstItem="vcm-Fh-Nwf" firstAttribute="top" secondItem="JxA-vU-3lY" secondAttribute="bottom" constant="8" id="cCg-bd-7I9"/>
+                <constraint firstItem="kcO-FW-IPW" firstAttribute="top" secondItem="vcm-Fh-Nwf" secondAttribute="bottom" constant="-4" id="dZJ-YY-geW"/>
+                <constraint firstAttribute="centerX" secondItem="JxA-vU-3lY" secondAttribute="centerX" constant="-0.5" id="eBQ-Ga-O4L"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="277" y="398"/>
+            <connections>
+                <outlet property="btnCorps" destination="kcO-FW-IPW" id="dir-RE-roC"/>
+                <outlet property="txtCorpsName" destination="vcm-Fh-Nwf" id="SCv-BQ-LDB"/>
+                <outlet property="txtPosition" destination="v2k-2d-Ljf" id="RlM-df-CZW"/>
+                <outlet property="txtYear" destination="Obj-1h-xKJ" id="979-er-yzl"/>
+            </connections>
+            <point key="canvasLocation" x="277" y="319.5"/>
         </view>
     </objects>
 </document>
