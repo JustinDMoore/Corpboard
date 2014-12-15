@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLabels;
+@property (nonatomic, strong) UILabel *lblBackground;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditCategories;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditName;
 @property (nonatomic, strong) CBUserCategories *userCat;
@@ -197,7 +198,7 @@
 }
 
 -(void)initUI {
-    
+
     PFFile *imgFile = self.userProfile[@"picture"];
     
     [self.imgUser setFile:imgFile];
@@ -236,7 +237,6 @@
     
     self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  %@", dd, views, reviews];
     
-
     //clear the current badges
     for (UILabel *badge in self.arrayOfBadges) {
         [badge removeFromSuperview];
@@ -263,7 +263,7 @@
     if ([self.userProfile[@"arrayOfCategories"] count]) {
         for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
             
-            UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+            UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
             [myLabel setBackgroundColor:[UIColor clearColor]];
             [myLabel setTextColor:[UIColor lightGrayColor]];
             [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
@@ -315,7 +315,8 @@
         }
         
     } else { //we have no experience
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y+30, 200, 40)];
+        y+=30;
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, 200, 40)];
         lbl.text = @"No corp experience listed";
         lbl.backgroundColor = [UIColor clearColor];
         lbl.textColor = [UIColor lightGrayColor];
@@ -324,6 +325,45 @@
         [self.viewProfile addSubview:lbl];
         [self.arrayOfCorpExperienceLabels addObject:lbl];
     }
+    
+    //user background
+    y+= 40;
+    UILabel *lblUserBackground = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, self.view.frame.size.width, 40)];
+    lblUserBackground.text = @"My Background";
+    lblUserBackground.font = self.lblMyBadges.font;
+    lblUserBackground.textColor = self.lblMyBadges.textColor;
+    [lblUserBackground sizeToFit];
+    [self.viewProfile addSubview:lblUserBackground];
+    [self.arrayOfSectionLabels addObject:lblUserBackground];
+    y = lblUserBackground.frame.origin.y;
+
+    self.lblBackground = nil;
+    y+= 30;
+    if ([self.userProfile[@"background"] length]) { // we have a background
+        
+        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, self.view.frame.size.width - lblCorpExperience.frame.origin.x, 40)];
+        self.lblBackground.text = self.userProfile[@"background"];
+        self.lblBackground.backgroundColor = [UIColor clearColor];
+        self.lblBackground.textColor = [UIColor lightGrayColor];
+        [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
+        self.lblBackground.numberOfLines = 0;
+        self.lblBackground.lineBreakMode = NSLineBreakByWordWrapping;
+        [self.lblBackground sizeToFit];
+        [self.viewProfile addSubview:self.lblBackground];
+
+    } else { // we don't have a background
+        
+        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, 200, 40)];
+        self.lblBackground.text = @"No background listed";
+        self.lblBackground.backgroundColor = [UIColor clearColor];
+        self.lblBackground.textColor = [UIColor lightGrayColor];
+        [self.lblBackground sizeToFit];
+        [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
+        [self.lblBackground sizeToFit];
+        [self.viewProfile addSubview:self.lblBackground];
+        
+    }
+
     
     //profile scrollview
     self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
@@ -335,6 +375,13 @@
     
     ht = self.scrollCoverPhoto.frame.size.height;
     
+    
+    //recalculate the scrollview content height
+    
+    self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, 950 + self.lblBackground.frame.size.height);
+    
+    //needed to set the content offset of the cover picture
+    [self scrollViewDidScroll:self.scrollProfile];
 }
 
 -(void)goback {
