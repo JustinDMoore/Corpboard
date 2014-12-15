@@ -18,11 +18,19 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLabels;
 @property (nonatomic, strong) UILabel *lblBackground;
-@property (weak, nonatomic) IBOutlet UIButton *btnEditCategories;
+
+// EDIT BUTTONS
+
+@property (weak, nonatomic) IBOutlet UIButton *btnEditCoverPicture;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditName;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditBadges;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditCorpExperience;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditDescription;
+
 @property (nonatomic, strong) CBUserCategories *userCat;
 @property (nonatomic, strong) CBChooseCorp *corpExperience;
-@property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollProfile;
 @property (weak, nonatomic) IBOutlet UIView *viewProfile;
 
@@ -41,11 +49,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblMyBadges;
-
+@property (strong, nonatomic) UILabel *lblCorpExperience;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet UIButton *btnChat;
-@property (weak, nonatomic) IBOutlet UIButton *btnEditCorpExperience;
+
 
 
 
@@ -85,6 +93,10 @@
         params[@"userObjectId"] = self.userProfile.objectId;
         [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
     }
+    
+    
+    
+    [self toggleEditButtons:NO];
 }
 
 - (void)viewDidLoad {
@@ -97,21 +109,48 @@
     
     
     editingProfile = NO;
-    self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x + 40, self.btnEditPicture.frame.origin.y, self.btnEditPicture.frame.size.width, self.btnEditPicture.frame.size.height);
     
-    self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x + 40, self.btnEditName.frame.origin.y, self.btnEditName.frame.size.width, self.btnEditName.frame.size.height);
-    
-    self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x + 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
-    
-    self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x + 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
-    
+    self.btnEditCoverPicture.hidden = YES;
     self.btnEditPicture.hidden = YES;
     self.btnEditName.hidden = YES;
-    self.btnEditCategories.hidden = YES;
+    self.btnEditBadges.hidden = YES;
     self.btnEditCorpExperience.hidden = YES;
+    self.btnEditDescription.hidden = YES;
     
     [self getUserCorpExperiences];
     [self setParallex];
+    
+    self.btnEditPicture.layer.borderWidth = 1;
+    self.btnEditCoverPicture.layer.borderWidth = 1;
+    self.btnEditName.layer.borderWidth = 1;
+    self.btnEditBadges.layer.borderWidth = 1;
+    self.btnEditCorpExperience.layer.borderWidth = 1;
+    self.btnEditDescription.layer.borderWidth = 1;
+    
+    self.btnEditPicture.layer.cornerRadius = 8;
+    self.btnEditCoverPicture.layer.cornerRadius = 8;
+    self.btnEditName.layer.cornerRadius = 8;
+    self.btnEditBadges.layer.cornerRadius = 8;
+    self.btnEditCorpExperience.layer.cornerRadius = 8;
+    self.btnEditDescription.layer.cornerRadius = 8;
+    
+    
+    self.btnEditPicture.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    self.btnEditCoverPicture.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    self.btnEditName.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    self.btnEditBadges.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    self.btnEditCorpExperience.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    self.btnEditDescription.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
+    
+    [self.btnEditCoverPicture sizeToFit];
+    [self.btnEditPicture sizeToFit];
+    [self.btnEditName sizeToFit];
+    [self.btnEditBadges sizeToFit];
+    [self.btnEditCorpExperience sizeToFit];
+    [self.btnEditDescription sizeToFit];
+    
+    
+    [self toggleEditButtons:NO];
 }
 
 -(void)getUserCorpExperiences {
@@ -154,22 +193,75 @@
 
 -(void)toggleEditButtons:(BOOL)show {
     
+    self.btnEditCoverPicture.frame = CGRectMake(self.btnEditCoverPicture.frame.origin.x,
+                                           self.imgCoverPhoto.frame.origin.y,
+                                           self.btnEditCoverPicture.frame.size.width,
+                                           self.btnEditCoverPicture.frame.size.height);
+    
+    self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x,
+                                           self.imgUser.frame.origin.y,
+                                           self.btnEditPicture.frame.size.width,
+                                           self.btnEditPicture.frame.size.height);
+    
+    self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x,
+                                        self.lblUserNickname.frame.origin.y,
+                                        self.btnEditName.frame.size.width,
+                                        self.btnEditName.frame.size.height);
+    
+    self.btnEditBadges.frame = CGRectMake(self.btnEditBadges.frame.origin.x,
+                                              self.lblMyBadges.frame.origin.y,
+                                              self.btnEditBadges.frame.size.width,
+                                              self.btnEditBadges.frame.size.height);
+    
+    self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x,
+                                                  self.lblCorpExperience.frame.origin.y,
+                                                  self.btnEditCorpExperience.frame.size.width,
+                                                  self.btnEditCorpExperience.frame.size.height);
+    
+    self.btnEditDescription.frame = CGRectMake(self.btnEditDescription.frame.origin.x,
+                                           self.lblBackground.frame.origin.y,
+                                           self.btnEditDescription.frame.size.width,
+                                           self.btnEditDescription.frame.size.height);
+    
     if (editingProfile) {
+        self.btnEditCoverPicture.hidden = !show;
         self.btnEditPicture.hidden = !show;
         self.btnEditName.hidden = !show;
-        self.btnEditCategories.hidden = !show;
+        self.btnEditBadges.hidden = !show;
         self.btnEditCorpExperience.hidden = !show;
+        self.btnEditDescription.hidden = !show;
         
         
         [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
             
-            self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x - 40, self.btnEditPicture.frame.origin.y, self.btnEditPicture.frame.size.width, self.btnEditPicture.frame.size.height);
+            self.btnEditCoverPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x - 40,
+                                                   self.imgCoverPhoto.frame.origin.y,
+                                                   self.btnEditCoverPicture.frame.size.width,
+                                                   self.btnEditCoverPicture.frame.size.height);
             
-            self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x - 40, self.btnEditName.frame.origin.y, self.btnEditName.frame.size.width, self.btnEditName.frame.size.height);
+            self.btnEditPicture.frame = CGRectMake(self.imgUser.frame.origin.x + self.imgUser.frame.size.width + 5,
+                                                   self.imgUser.frame.origin.y + self.imgUser.frame.size.height - self.btnEditPicture.frame.size.height,
+                                                   self.btnEditPicture.frame.size.width,
+                                                   self.btnEditPicture.frame.size.height);
             
-            self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x - 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
+            self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x - 40,
+                                                self.lblUserNickname.frame.origin.y,
+                                                self.btnEditName.frame.size.width,
+                                                self.btnEditName.frame.size.height);
             
-            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x - 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
+            self.btnEditBadges.frame = CGRectMake(self.btnEditBadges.frame.origin.x - 40,
+                                                      self.lblMyBadges.frame.origin.y,
+                                                      self.btnEditBadges.frame.size.width,
+                                                      self.btnEditBadges.frame.size.height);
+            
+            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x - 40,
+                                                          self.lblCorpExperience.frame.origin.y,
+                                                          self.btnEditCorpExperience.frame.size.width,
+                                                          self.btnEditCorpExperience.frame.size.height);
+            self.btnEditDescription.frame = CGRectMake(self.btnEditDescription.frame.origin.x - 40,
+                                                          self.lblBackground.frame.origin.y,
+                                                          self.btnEditDescription.frame.size.width,
+                                                          self.btnEditDescription.frame.size.height);
             
         } completion:^(BOOL finished) {
             
@@ -179,20 +271,44 @@
         
         [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
             
-            self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x + 40, self.btnEditPicture.frame.origin.y, self.btnEditPicture.frame.size.width, self.btnEditPicture.frame.size.height);
+            self.btnEditCoverPicture.frame = CGRectMake(self.btnEditCoverPicture.frame.origin.x + 40,
+                                                   self.imgCoverPhoto.frame.origin.y,
+                                                   self.btnEditCoverPicture.frame.size.width,
+                                                   self.btnEditCoverPicture.frame.size.height);
             
-            self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x +40, self.btnEditName.frame.origin.y, self.btnEditName.frame.size.width, self.btnEditName.frame.size.height);
+            self.btnEditPicture.frame = CGRectMake(self.btnEditPicture.frame.origin.x + 40,
+                                                   self.imgUser.frame.origin.y,
+                                                   self.btnEditPicture.frame.size.width,
+                                                   self.btnEditPicture.frame.size.height);
             
-            self.btnEditCategories.frame = CGRectMake(self.btnEditCategories.frame.origin.x + 40, self.btnEditCategories.frame.origin.y, self.btnEditCategories.frame.size.width, self.btnEditCategories.frame.size.height);
+            self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x +40,
+                                                self.lblUserNickname.frame.origin.y,
+                                                self.btnEditName.frame.size.width,
+                                                self.btnEditName.frame.size.height);
             
-            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x + 40, self.btnEditCorpExperience.frame.origin.y, self.btnEditCorpExperience.frame.size.width, self.btnEditCorpExperience.frame.size.height);
+            self.btnEditBadges.frame = CGRectMake(self.btnEditBadges.frame.origin.x + 40,
+                                                      self.lblMyBadges.frame.origin.y,
+                                                      self.btnEditBadges.frame.size.width,
+                                                      self.btnEditBadges.frame.size.height);
+            
+            self.btnEditCorpExperience.frame = CGRectMake(self.btnEditCorpExperience.frame.origin.x + 40,
+                                                          self.lblCorpExperience.frame.origin.y,
+                                                          self.btnEditCorpExperience.frame.size.width,
+                                                          self.btnEditCorpExperience.frame.size.height);
+            
+            self.btnEditDescription.frame = CGRectMake(self.btnEditDescription.frame.origin.x + 60,
+                                                          self.lblBackground.frame.origin.y,
+                                                          self.btnEditDescription.frame.size.width,
+                                                          self.btnEditDescription.frame.size.height);
             
         } completion:^(BOOL finished) {
             
+            self.btnEditCoverPicture.hidden = show;
             self.btnEditPicture.hidden = show;
             self.btnEditName.hidden = show;
-            self.btnEditCategories.hidden = show;
+            self.btnEditBadges.hidden = show;
             self.btnEditCorpExperience.hidden = show;
+            self.btnEditDescription.hidden = show;
         }];
     }
 }
@@ -248,6 +364,8 @@
         [lbl removeFromSuperview];
     }
     [self.arrayOfSectionLabels removeAllObjects];
+    self.lblBackground = nil;
+    self.lblCorpExperience = nil;
     
     //clear the current experiences
     
@@ -290,20 +408,20 @@
     // corp experience
     y+= 20;
     
-    UILabel *lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
-    lblCorpExperience.text = @"Corp Experience";
-    lblCorpExperience.font = self.lblMyBadges.font;
-    lblCorpExperience.textColor = self.lblMyBadges.textColor;
-    [lblCorpExperience sizeToFit];
-    [self.viewProfile addSubview:lblCorpExperience];
-    [self.arrayOfSectionLabels addObject:lblCorpExperience];
-    y = lblCorpExperience.frame.origin.y;
+    self.lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+    self.lblCorpExperience.text = @"Corp Experience";
+    self.lblCorpExperience.font = self.lblMyBadges.font;
+    self.lblCorpExperience.textColor = self.lblMyBadges.textColor;
+    [self.lblCorpExperience sizeToFit];
+    [self.viewProfile addSubview:self.lblCorpExperience];
+    [self.arrayOfSectionLabels addObject:self.lblCorpExperience];
+    y = self.lblCorpExperience.frame.origin.y;
     
     if ([self.arrayOfCorpExperience count]) { //we have experience
         
         for (PFObject *exp in self.arrayOfCorpExperience) {
             NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y+30, 200, 40)];
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y+30, 200, 40)];
             lbl.text = str;
             lbl.backgroundColor = [UIColor clearColor];
             lbl.textColor = [UIColor lightGrayColor];
@@ -316,7 +434,7 @@
         
     } else { //we have no experience
         y+=30;
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, 200, 40)];
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
         lbl.text = @"No corp experience listed";
         lbl.backgroundColor = [UIColor clearColor];
         lbl.textColor = [UIColor lightGrayColor];
@@ -337,11 +455,12 @@
     [self.arrayOfSectionLabels addObject:lblUserBackground];
     y = lblUserBackground.frame.origin.y;
 
-    self.lblBackground = nil;
+    
+    
     y+= 30;
     if ([self.userProfile[@"background"] length]) { // we have a background
         
-        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, self.view.frame.size.width - lblCorpExperience.frame.origin.x, 40)];
+        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, self.view.frame.size.width - self.lblCorpExperience.frame.origin.x, 40)];
         self.lblBackground.text = self.userProfile[@"background"];
         self.lblBackground.backgroundColor = [UIColor clearColor];
         self.lblBackground.textColor = [UIColor lightGrayColor];
@@ -353,7 +472,7 @@
 
     } else { // we don't have a background
         
-        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(lblCorpExperience.frame.origin.x, y, 200, 40)];
+        self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
         self.lblBackground.text = @"No background listed";
         self.lblBackground.backgroundColor = [UIColor clearColor];
         self.lblBackground.textColor = [UIColor lightGrayColor];
@@ -382,6 +501,7 @@
     
     //needed to set the content offset of the cover picture
     [self scrollViewDidScroll:self.scrollProfile];
+
 }
 
 -(void)goback {

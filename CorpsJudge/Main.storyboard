@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -945,27 +945,6 @@
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-KQ-pXo">
                                         <rect key="frame" x="0.0" y="206" width="504" height="700"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Yl-mVx">
-                                                <rect key="frame" x="341" y="-13" width="25" height="25"/>
-                                                <state key="normal" image="Edit">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-gz-Xeb">
-                                                <rect key="frame" x="341" y="36" width="25" height="25"/>
-                                                <state key="normal" image="Edit">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STz-eW-HzX">
-                                                <rect key="frame" x="341" y="181" width="25" height="25"/>
-                                                <state key="normal" image="Edit">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="btnEditCategories_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="bbE-RH-Y7E"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUy-vC-L22">
                                                 <rect key="frame" x="45" y="27" width="251" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -992,13 +971,13 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyJ-Si-ya0">
                                                         <rect key="frame" x="74" y="8" width="45" height="45"/>
-                                                        <state key="normal" image="Chat">
+                                                        <state key="normal" image="Warning">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
                                                         <rect key="frame" x="20" y="8" width="45" height="45"/>
-                                                        <state key="normal" image="Badge">
+                                                        <state key="normal" image="Chat">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                     </button>
@@ -1017,14 +996,53 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7J-9F-eLL">
-                                                <rect key="frame" x="341" y="253" width="25" height="25"/>
-                                                <state key="normal" image="Edit">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ene-Jq-103">
+                                                <rect key="frame" x="335" y="25" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980392156867" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="btnEditCorpExperience_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="YMD-7z-8ow"/>
-                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zth-xF-I25">
+                                                <rect key="frame" x="335" y="-3" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4W-AY-j4w">
+                                                <rect key="frame" x="335" y="52" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qz-3A-jF2">
+                                                <rect key="frame" x="335" y="80" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hD6-Fr-fub">
+                                                <rect key="frame" x="335" y="106" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWG-g3-c2j">
+                                                <rect key="frame" x="335" y="141" width="56" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal" title="Edit " backgroundImage="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1041,10 +1059,12 @@
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="btnChat" destination="cyJ-Si-ya0" id="YQ4-h7-XUa"/>
-                        <outlet property="btnEditCategories" destination="STz-eW-HzX" id="EGd-Hp-HIB"/>
-                        <outlet property="btnEditCorpExperience" destination="A7J-9F-eLL" id="FCC-Wb-ruk"/>
-                        <outlet property="btnEditName" destination="21j-gz-Xeb" id="6qa-KC-RjX"/>
-                        <outlet property="btnEditPicture" destination="YZe-Yl-mVx" id="rZC-n0-oRE"/>
+                        <outlet property="btnEditBadges" destination="4qz-3A-jF2" id="fBO-UP-g45"/>
+                        <outlet property="btnEditCorpExperience" destination="hD6-Fr-fub" id="Wfk-PV-u4k"/>
+                        <outlet property="btnEditCoverPicture" destination="Zth-xF-I25" id="rKO-NI-lmb"/>
+                        <outlet property="btnEditDescription" destination="VWG-g3-c2j" id="4Im-ht-fAd"/>
+                        <outlet property="btnEditName" destination="Z4W-AY-j4w" id="sXq-7g-R1P"/>
+                        <outlet property="btnEditPicture" destination="ene-Jq-103" id="eev-Dc-XUo"/>
                         <outlet property="btnReport" destination="yvB-e2-cXy" id="mgX-Ln-z5E"/>
                         <outlet property="imgCoverPhoto" destination="Kte-AL-npt" id="PjI-qm-Rgd"/>
                         <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
@@ -2490,16 +2510,16 @@
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
-        <image name="Badge" width="48" height="48"/>
         <image name="Blue Devils.png" width="512" height="512"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
-        <image name="Edit" width="48" height="48"/>
+        <image name="Edit2" width="32" height="32"/>
         <image name="Feedback1.png" width="350" height="170"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="The Cadets.png" width="223" height="202"/>
         <image name="The Cadets2.png" width="641" height="261"/>
+        <image name="Warning" width="48" height="48"/>
         <image name="colorguard" width="30" height="30"/>
         <image name="favorite" width="30" height="30"/>
         <image name="hornline" width="30" height="30"/>
