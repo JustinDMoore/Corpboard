@@ -115,7 +115,7 @@
                                     <segue destination="RrN-fi-akD" kind="presentation" identifier="web" id="FNF-NK-DqA"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Blue Devils.png" translatesAutoresizingMaskIntoConstraints="NO" id="A27-0j-Cvh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Edit 2" translatesAutoresizingMaskIntoConstraints="NO" id="A27-0j-Cvh">
                                 <rect key="frame" x="16" y="67" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="9e2-rP-rTu"/>
@@ -996,50 +996,62 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ene-Jq-103">
-                                                <rect key="frame" x="335" y="25" width="56" height="26"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7W-2j-vUd">
+                                                <rect key="frame" x="335" y="-6" width="57" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " image="Edit2">
-                                                    <color key="titleColor" red="0.0" green="0.67450980392156867" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zth-xF-I25">
-                                                <rect key="frame" x="335" y="-3" width="56" height="26"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " image="Edit2">
-                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4W-AY-j4w">
-                                                <rect key="frame" x="335" y="52" width="56" height="26"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " image="Edit2">
-                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qz-3A-jF2">
-                                                <rect key="frame" x="335" y="80" width="56" height="26"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " image="Edit2">
-                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hD6-Fr-fub">
-                                                <rect key="frame" x="335" y="106" width="56" height="26"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " image="Edit2">
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWG-g3-c2j">
-                                                <rect key="frame" x="335" y="141" width="56" height="26"/>
+                                                <rect key="frame" x="335" y="159" width="57" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Edit " backgroundImage="Edit2">
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LH-hF-LhQ">
+                                                <rect key="frame" x="335" y="126" width="57" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPT-nF-ObM">
+                                                <rect key="frame" x="335" y="93" width="57" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2c-0q-WKj">
+                                                <rect key="frame" x="335" y="58" width="57" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
+                                                    <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJn-Kz-0Vt">
+                                                <rect key="frame" x="335" y="27" width="57" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                <state key="normal" title="Edit   " image="Edit2">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1059,12 +1071,12 @@
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="btnChat" destination="cyJ-Si-ya0" id="YQ4-h7-XUa"/>
-                        <outlet property="btnEditBadges" destination="4qz-3A-jF2" id="fBO-UP-g45"/>
-                        <outlet property="btnEditCorpExperience" destination="hD6-Fr-fub" id="Wfk-PV-u4k"/>
-                        <outlet property="btnEditCoverPicture" destination="Zth-xF-I25" id="rKO-NI-lmb"/>
+                        <outlet property="btnEditBadges" destination="EPT-nF-ObM" id="bJd-Ra-cXY"/>
+                        <outlet property="btnEditCorpExperience" destination="7LH-hF-LhQ" id="PO1-xV-PfV"/>
+                        <outlet property="btnEditCoverPicture" destination="o7W-2j-vUd" id="TJ1-uH-94k"/>
                         <outlet property="btnEditDescription" destination="VWG-g3-c2j" id="4Im-ht-fAd"/>
-                        <outlet property="btnEditName" destination="Z4W-AY-j4w" id="sXq-7g-R1P"/>
-                        <outlet property="btnEditPicture" destination="ene-Jq-103" id="eev-Dc-XUo"/>
+                        <outlet property="btnEditName" destination="C2c-0q-WKj" id="Xgt-eg-ajn"/>
+                        <outlet property="btnEditPicture" destination="gJn-Kz-0Vt" id="Y88-xT-upc"/>
                         <outlet property="btnReport" destination="yvB-e2-cXy" id="mgX-Ln-z5E"/>
                         <outlet property="imgCoverPhoto" destination="Kte-AL-npt" id="PjI-qm-Rgd"/>
                         <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
@@ -2510,10 +2522,10 @@
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
-        <image name="Blue Devils.png" width="512" height="512"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
+        <image name="Edit 2" width="512" height="512"/>
         <image name="Edit2" width="32" height="32"/>
         <image name="Feedback1.png" width="350" height="170"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>

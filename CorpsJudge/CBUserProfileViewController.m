@@ -244,12 +244,12 @@
                                                    self.btnEditPicture.frame.size.width,
                                                    self.btnEditPicture.frame.size.height);
             
-            self.btnEditName.frame = CGRectMake(self.btnEditName.frame.origin.x - 40,
+            self.btnEditName.frame = CGRectMake(self.lblUserNickname.frame.origin.x + self.lblUserNickname.frame.size.width + 5,
                                                 self.lblUserNickname.frame.origin.y,
                                                 self.btnEditName.frame.size.width,
                                                 self.btnEditName.frame.size.height);
             
-            self.btnEditBadges.frame = CGRectMake(self.btnEditBadges.frame.origin.x - 40,
+            self.btnEditBadges.frame = CGRectMake(self.lblMyBadges.frame.origin.x + self.lblMyBadges.frame.size.width + 5,
                                                       self.lblMyBadges.frame.origin.y,
                                                       self.btnEditBadges.frame.size.width,
                                                       self.btnEditBadges.frame.size.height);
@@ -522,7 +522,7 @@ bool editingProfile = NO;
 #pragma mark
 #pragma mark - IBActions
 #pragma mark
-- (IBAction)btnEditCategories_clicked:(id)sender {
+- (IBAction)btnEditBadges_clicked:(id)sender {
 
     [self.view addSubview:self.userCat];
     [self.userCat showInParent:self.view.frame];
