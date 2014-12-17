@@ -14,7 +14,6 @@
 
 @required
 -(void)savedCorpExperience;
--(void)changedTextField;
 -(void)closedCorpExperience;
 @end
 
@@ -36,5 +35,4 @@
 
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(CGRect)parent;
--(void)corpSelected;
 @end

@@ -9,8 +9,7 @@
 #import "CBUserProfileViewController.h"
 #import "NSDate+Utilities.h"
 #import "CBSingle.h"
-
-
+#import "KVNProgress.h"
 
 @interface CBUserProfileViewController () {
     CBSingle *data;
@@ -36,7 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *viewProfile;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollCoverPhoto;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCoverPhoto;
+@property (weak, nonatomic) IBOutlet PFImageView *imgCoverPhoto;
 @property (nonatomic, strong) NSMutableArray *arrayOfBadges;
 @property (nonatomic, strong) NSMutableArray *arrayOfSectionLabels;
 
@@ -55,11 +54,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet UIButton *btnChat;
-
-
-
-
-
 
 @end
 
@@ -247,10 +241,14 @@
 
     NSLog(@"%f", self.btnEditName.frame.origin.x);
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        PFFile *imgFile = self.userProfile[@"picture"];
         
+        PFFile *imgFile = self.userProfile[@"picture"];
         [self.imgUser setFile:imgFile];
         [self.imgUser loadInBackground];
+        
+        PFFile *coverFile = self.userProfile[@"coverPicture"];
+        [self.imgCoverPhoto setFile:coverFile];
+        [self.imgCoverPhoto loadInBackground];
         
         self.lblUserNickname.text = self.userProfile[@"nickname"];
         if ([self.userProfile[@"location"] length]) {
@@ -466,10 +464,74 @@ bool editingProfile = NO;
     }
     [self toggleEditButtons:editingProfile];
 }
+
+- (void)selectPhotos {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+BOOL coverPhoto = NO;
+#pragma mark
+#pragma mark - UIActionsheet Delegates
+#pragma mark
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            coverPhoto = YES;
+            [self selectPhotos];
+            break;
+        case 1:
+            coverPhoto = NO;
+            [self selectPhotos];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark
+#pragma mark - UIImagePickerControllerDelegate
+#pragma mark
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)image
+                  editingInfo:(NSDictionary *)editingInfo {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [KVNProgress show];
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            if (succeeded) {
+                PFUser *user = [PFUser currentUser];
+                if (coverPhoto) {
+                    user[@"coverPicture"] = imageFile;
+                } else {
+                    user[@"picture"] = imageFile;
+                }
+                
+                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [self initUI];
+                    [KVNProgress dismiss];
+                }];
+            }
+        } else {
+            [KVNProgress showErrorWithStatus:@"Could not update picture"];
+        }
+    }];
+}
+
 #pragma mark
 #pragma mark - IBActions
 #pragma mark
-
 
 - (IBAction)btnEditPicture_clicked:(id)sender {
     
@@ -483,6 +545,7 @@ bool editingProfile = NO;
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:other1, other2, nil];
+    actionSheet.delegate = self;
     [actionSheet showInView:self.view];
 }
 
