@@ -130,6 +130,8 @@
     [self.btnEditCorpExperience sizeToFit];
     [self.btnEditDescription sizeToFit];
 
+    self.imgCoverPhoto.image = nil;
+    self.imgUser.image = nil;
 }
 
 -(void)getUserCorpExperiences {
@@ -174,7 +176,7 @@
 -(void)toggleEditButtons:(BOOL)show {
      NSLog(@"b %f", self.btnEditName.frame.origin.x);
     
-    float offScreen = self.view.frame.size.width + 10;
+    float offScreen = self.view.frame.size.width + 15;
     float onScreen = self.view.frame.size.width - self.btnEditPicture.frame.size.width;
     
     self.btnEditPicture.frame = CGRectMake(!editingProfile ? onScreen : offScreen,
@@ -238,7 +240,7 @@
 }
 
 -(void)initUI {
-
+    
     NSLog(@"%f", self.btnEditName.frame.origin.x);
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
@@ -335,16 +337,18 @@
                 y+= 5 + myLabel.frame.size.height;
             }
         } else {
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
-            lbl.text = @"No badges yet";
-            lbl.backgroundColor = [UIColor clearColor];
-            lbl.textColor = [UIColor lightGrayColor];
-            [lbl setFont:[UIFont systemFontOfSize:12]];
-            [lbl sizeToFit];
-            [self.viewProfile addSubview:lbl];
-            [self.arrayOfBadges addObject:lbl];
+            UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
+            [myLabel setBackgroundColor:[UIColor clearColor]];
+            [myLabel setTextColor:[UIColor lightGrayColor]];
+            [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
+            [[myLabel layer] setBorderWidth:1];
+            [myLabel setText:@" New User "];
+            [myLabel setFont:[UIFont systemFontOfSize:14]];
+            [myLabel sizeToFit];
+            [[self viewProfile] addSubview:myLabel];
+            [self.arrayOfBadges addObject:myLabel];
+            y+= 5 + myLabel.frame.size.height;
         }
-        
         
         // corp experience
         y+= 20;
@@ -389,7 +393,7 @@
         //user background
         y+= 40;
         self.lblUserBackground = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, self.view.frame.size.width, 40)];
-        self.lblUserBackground.text = @"My Background";
+        self.lblUserBackground.text = @"Background";
         self.lblUserBackground.font = self.lblMyBadges.font;
         self.lblUserBackground.textColor = self.lblMyBadges.textColor;
         [self.lblUserBackground sizeToFit];
@@ -516,6 +520,7 @@ BOOL coverPhoto = NO;
                     user[@"coverPicture"] = imageFile;
                 } else {
                     user[@"picture"] = imageFile;
+                    user[@"thumbnail"] = imageFile;
                 }
                 
                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

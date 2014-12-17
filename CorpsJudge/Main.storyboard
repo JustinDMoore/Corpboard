@@ -380,7 +380,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLG-lD-TI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3444" y="-258"/>
+            <point key="canvasLocation" x="2906" y="-326"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="rBt-zg-ex9">
@@ -935,7 +935,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jes-AS-KoB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Santa Clara Vanguard1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kte-AL-npt" customClass="PFImageView">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Santa Clara Vanguard1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kte-AL-npt" customClass="PFImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
                                     </imageView>
                                 </subviews>
@@ -991,18 +991,18 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Badges" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgj-X3-qxC">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Badges" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgj-X3-qxC">
                                                 <rect key="frame" x="31" y="214" width="84" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWG-g3-c2j">
-                                                <rect key="frame" x="335" y="159" width="45" height="25"/>
+                                                <rect key="frame" x="335" y="159" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
-                                                <state key="normal" title="Edit         " image="Edit">
+                                                <state key="normal" title="Edit" image="Edit">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1011,11 +1011,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LH-hF-LhQ">
-                                                <rect key="frame" x="335" y="126" width="45" height="25"/>
+                                                <rect key="frame" x="335" y="126" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
-                                                <state key="normal" title="Edit         " image="Edit">
+                                                <state key="normal" title="Edit" image="Edit">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1024,11 +1024,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPT-nF-ObM">
-                                                <rect key="frame" x="335" y="93" width="45" height="25"/>
+                                                <rect key="frame" x="335" y="93" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
-                                                <state key="normal" title="Edit         " image="Edit">
+                                                <state key="normal" title="Edit" image="Edit">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1037,11 +1037,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2c-0q-WKj">
-                                                <rect key="frame" x="335" y="58" width="45" height="25"/>
+                                                <rect key="frame" x="335" y="58" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
-                                                <state key="normal" title="Edit         " image="Edit">
+                                                <state key="normal" title="Edit" image="Edit">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1050,11 +1050,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJn-Kz-0Vt">
-                                                <rect key="frame" x="335" y="27" width="45" height="25"/>
+                                                <rect key="frame" x="335" y="27" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                <inset key="contentEdgeInsets" minX="-10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="-15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
-                                                <state key="normal" title="Edit         " image="Edit">
+                                                <state key="normal" title="Edit" image="Edit">
                                                     <color key="titleColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1183,7 +1183,7 @@
                                         <rect key="frame" x="40" y="0.0" width="920" height="1300"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-8V-rLy" userLabel="ClipView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="219" width="320" height="230"/>
+                                                <rect key="frame" x="0.0" y="224" width="320" height="230"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Kn-Ngj">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1368,7 +1368,7 @@
                                                 </connections>
                                             </scrollView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEZ-jz-YNE">
-                                                <rect key="frame" x="0.0" y="450" width="320" height="150"/>
+                                                <rect key="frame" x="0.0" y="455" width="320" height="150"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1377,10 +1377,10 @@
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="retreat.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
-                                                <rect key="frame" x="0.0" y="449" width="320" height="150"/>
+                                                <rect key="frame" x="0.0" y="454" width="320" height="150"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="ClipView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="583" width="320" height="235"/>
+                                                <rect key="frame" x="0.0" y="588" width="320" height="235"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Top 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJO-74-Y3m">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1581,7 +1581,7 @@
                                                 <rect key="frame" x="40" y="-100" width="240" height="128"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5i3-q8-WYf" userLabel="NewsView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="818" width="700" height="145"/>
+                                                <rect key="frame" x="0.0" y="823" width="700" height="145"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99L-WD-I9t">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -1623,7 +1623,7 @@
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6">
-                                                <rect key="frame" x="0.0" y="963" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="968" width="320" height="100"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
                                                         <rect key="frame" x="6" y="9" width="150" height="85"/>
@@ -1653,22 +1653,62 @@
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5CV-vg-CGX" customClass="UIControl">
-                                                <rect key="frame" x="0.0" y="168" width="320" height="50"/>
+                                                <rect key="frame" x="0.0" y="169" width="320" height="55"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYM-Y4-Xhp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                                        <state key="normal" title="Live Chat Now!">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOb-fT-uke">
+                                                        <rect key="frame" x="15" y="34" width="33" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYM-Y4-Xhp">
+                                                        <rect key="frame" x="271" y="2" width="35" height="35"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
+                                                        <state key="normal" image="Chat">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="chat_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="mkb-bg-tfR"/>
                                                         </connections>
                                                     </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Live Chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOo-1X-ffB">
+                                                        <rect key="frame" x="257" y="34" width="63" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVZ-Ww-3bC">
+                                                        <rect key="frame" x="10" y="54" width="500" height="1"/>
+                                                        <color key="backgroundColor" red="0.47629381613756616" green="0.47629381613756616" blue="0.47629381613756616" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNu-IM-EjK">
+                                                        <rect key="frame" x="143" y="1" width="35" height="35"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
+                                                        <state key="normal" image="Message">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gg-9s-AhZ">
+                                                        <rect key="frame" x="129" y="33" width="63" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVQ-HI-UoB">
+                                                        <rect key="frame" x="14" y="0.0" width="35" height="35"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
+                                                        <state key="normal" image="User">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnProfile_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="qBD-dx-1GN"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <action selector="chat_clicked:" destination="603-gO-u9Q" eventType="valueChanged" id="iyP-gF-9Kf"/>
-                                                </connections>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.047058828179999998" green="0.69019609689999994" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
@@ -1687,6 +1727,9 @@
                     <size key="freeformSize" width="800" height="1200"/>
                     <connections>
                         <outlet property="activityTopTwelve" destination="Ddi-1v-YUw" id="MYk-ya-t9m"/>
+                        <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
+                        <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
+                        <outlet property="btnProfile" destination="wVQ-HI-UoB" id="pXt-63-uX8"/>
                         <outlet property="btnSeeAll" destination="m1j-TQ-WyR" id="QS4-cN-3eb"/>
                         <outlet property="btnSeeAllNews" destination="o1E-bU-OIe" id="GHb-1T-PK2"/>
                         <outlet property="btnSeeAllRankings" destination="rKi-fi-4Hc" id="KYa-q6-Ev6"/>
@@ -1697,6 +1740,7 @@
                         <outlet property="imgUpsideDownCavalier" destination="DId-Yi-xbI" id="smI-Y5-r43"/>
                         <outlet property="lblShowsHeader" destination="oPe-Kn-Ngj" id="rSz-Pu-Qvj"/>
                         <outlet property="lblTopTwelveHeader" destination="EJO-74-Y3m" id="rDD-I8-SHI"/>
+                        <outlet property="lblUserName" destination="TOb-fT-uke" id="zmq-Sa-cKm"/>
                         <outlet property="pageShows" destination="nv4-lc-iVb" id="XVo-Y5-DWr"/>
                         <outlet property="pageTopTwelve" destination="OX4-Y7-p0h" id="YHw-VP-Qdp"/>
                         <outlet property="scrollHeadshots" destination="pww-Gk-PAI" id="qHF-8b-3gs"/>
@@ -1711,10 +1755,10 @@
                         <outlet property="tableTopFour" destination="X8d-O5-0CU" id="tyn-8N-LMG"/>
                         <outlet property="tableTopTwelve" destination="BpV-Si-wiq" id="NXF-bW-WjZ"/>
                         <outlet property="viewAboutTheCorps" destination="Z15-Uh-jtu" id="xHT-HH-CDd"/>
-                        <outlet property="viewChat" destination="5CV-vg-CGX" id="uC1-3C-9SI"/>
                         <outlet property="viewExtras" destination="slv-vG-kN6" id="hHH-7p-7hm"/>
                         <outlet property="viewFeedback" destination="ia3-0E-Vl4" id="qkw-Fo-JGG"/>
                         <outlet property="viewNews" destination="5i3-q8-WYf" id="fbe-Yv-0Bj"/>
+                        <outlet property="viewProfile" destination="5CV-vg-CGX" id="1vG-LV-zzK"/>
                         <segue destination="a3o-sb-0qX" kind="show" identifier="shows" id="o99-aO-U0e"/>
                         <segue destination="kuq-xU-myI" kind="show" identifier="openShow" id="yHE-cF-ijy"/>
                         <segue destination="8XX-OR-XBf" kind="show" identifier="rankings" id="oaA-Is-4o3"/>
@@ -1723,11 +1767,12 @@
                         <segue destination="gt5-Bv-vKN" kind="show" identifier="contest" id="4A2-t6-S2b"/>
                         <segue destination="01c-uY-Uvq" kind="show" identifier="news" id="TaT-HX-mdf"/>
                         <segue destination="Bjn-4g-09S" kind="show" identifier="chat" id="eAZ-0D-3rj"/>
+                        <segue destination="sQx-yV-WOz" kind="show" identifier="profile" id="5XH-ng-dQw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5725" y="-694"/>
+            <point key="canvasLocation" x="5355" y="-774"/>
         </scene>
         <!--Contact Us-->
         <scene sceneID="CvZ-Ww-mYV">
@@ -2533,9 +2578,11 @@
         <image name="Edit" width="32" height="32"/>
         <image name="Edit 2" width="512" height="512"/>
         <image name="Feedback1.png" width="350" height="170"/>
+        <image name="Message" width="48" height="48"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="The Cadets.png" width="223" height="202"/>
         <image name="The Cadets2.png" width="641" height="261"/>
+        <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>
         <image name="colorguard" width="30" height="30"/>
         <image name="favorite" width="30" height="30"/>
@@ -2546,6 +2593,7 @@
         <image name="trophy" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="E9Q-pS-Ymj"/>
     </inferredMetricsTieBreakers>

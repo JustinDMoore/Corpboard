@@ -6,6 +6,12 @@
 // project.
 
 
+// JSBadgeView
+#define COCOAPODS_POD_AVAILABLE_JSBadgeView
+#define COCOAPODS_VERSION_MAJOR_JSBadgeView 1
+#define COCOAPODS_VERSION_MINOR_JSBadgeView 3
+#define COCOAPODS_VERSION_PATCH_JSBadgeView 2
+
 // KVNProgress
 #define COCOAPODS_POD_AVAILABLE_KVNProgress
 #define COCOAPODS_VERSION_MAJOR_KVNProgress 2
@@ -35,4 +41,10 @@
 #define COCOAPODS_VERSION_MAJOR_MWFeedParser_NSString_HTML 1
 #define COCOAPODS_VERSION_MINOR_MWFeedParser_NSString_HTML 0
 #define COCOAPODS_VERSION_PATCH_MWFeedParser_NSString_HTML 1
+
+// PulsingHalo
+#define COCOAPODS_POD_AVAILABLE_PulsingHalo
+#define COCOAPODS_VERSION_MAJOR_PulsingHalo 0
+#define COCOAPODS_VERSION_MINOR_PulsingHalo 0
+#define COCOAPODS_VERSION_PATCH_PulsingHalo 1
 

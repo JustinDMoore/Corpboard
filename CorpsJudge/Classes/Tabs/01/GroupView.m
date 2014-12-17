@@ -42,7 +42,7 @@
 	if (self)
 	{
 		//[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
-		self.tabBarItem.title = @"Live Chats";
+		self.tabBarItem.title = @"Live Chat";
 	}
 	return self;
 }
@@ -63,7 +63,7 @@
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     
-	self.title = @"Live Chats";
+	self.title = @"Live Chat";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.separatorInset = UIEdgeInsetsZero;

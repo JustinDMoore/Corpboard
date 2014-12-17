@@ -8,6 +8,7 @@
 
 #import "CBNewMenuViewController.h"
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "CBSingle.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSDate+Utilities.h"
@@ -18,6 +19,9 @@
 #import "CBNewsView.h"
 #import "ClipView.h"
 #import "MWFeedItem.h"
+#import "PulsingHaloLayer.h"
+#import "JSBadgeView.h"
+#import "CBUserProfileViewController.h"
 
 CBSingle *data;
 CBNewsSingleton *news;
@@ -44,8 +48,14 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 
-// Chat
-@property (weak, nonatomic) IBOutlet UIControl *viewChat;
+// Profile View
+@property (weak, nonatomic) IBOutlet UIControl *viewProfile;
+@property (weak, nonatomic) IBOutlet UIButton *btnLiveChat;
+@property (weak, nonatomic) IBOutlet UIButton *btnProfile;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblUserName;
+- (IBAction)btnProfile_clicked:(id)sender;
+
 
 
 // Recent Shows
@@ -53,6 +63,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UITableView *tableLastShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableNextShows;
 @property (nonatomic, strong) IBOutlet UIView *contentViewShows;
+@property (weak, nonatomic) IBOutlet UIButton *btnMessages;
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
 @property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
@@ -92,8 +103,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 // Extras
 @property (weak, nonatomic) IBOutlet UIView *viewExtras;
-
-
 
 -(IBAction)seeAllShows_clicked:(id)sender;
 -(IBAction)seeAllRankings_clicked:(id)sender;
@@ -204,9 +213,18 @@ bool trying;
     [self.arrayOfHeadshots shuffle];
 }
 
+-(void)loadProfile {
+    
+    self.viewProfile.backgroundColor = self.tableLastShows.backgroundColor;
+    
+    //check for new messages
+    JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
+    badgeView.badgeText = @"3";
+}
+
 -(void)initUI {
 
-
+    [self loadProfile];
     
     //arrows
     UITableViewCell *showArrow = [[UITableViewCell alloc] init];
@@ -308,7 +326,19 @@ bool trying;
     self.viewFeedback.layer.cornerRadius = 8;
     self.viewFeedback.layer.borderColor = [UIColor blackColor].CGColor;
     self.viewFeedback.layer.borderWidth = 1;
+    [self pulse];
     
+}
+
+-(void)pulse {
+    
+    PulsingHaloLayer *halo = [PulsingHaloLayer layer];
+    halo.position = self.btnLiveChat.center;
+    halo.radius = 20;
+    halo.animationDuration = 2;
+    halo.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.viewProfile.layer addSublayer:halo];
+    [self.viewProfile bringSubviewToFront:self.btnLiveChat];
 }
 
 int numOfNewsItems = 6;
@@ -809,6 +839,10 @@ PFObject *showToOpen;
     if ([segue.identifier isEqualToString:@"openShow"]) {
         CBShowDetailsViewController *vc = [segue destinationViewController];
         vc.show = showToOpen;
+    } else if ([segue.identifier isEqualToString:@"profile"]) {
+        
+        CBUserProfileViewController *vc = [segue destinationViewController];
+        [vc setUser:[PFUser currentUser]];
     }
 }
 
@@ -1036,4 +1070,8 @@ CGFloat previousScroll;
     return _arrayOfHeadshots;
 }
 
+- (IBAction)btnProfile_clicked:(id)sender {
+    
+    [self performSegueWithIdentifier:@"profile" sender:self];
+}
 @end

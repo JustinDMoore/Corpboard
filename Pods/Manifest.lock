@@ -1,4 +1,5 @@
 PODS:
+  - JSBadgeView (1.3.2)
   - KVNProgress (2.1.3)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
@@ -9,13 +10,18 @@ PODS:
     - MWFeedParser/NSString+HTML
   - MWFeedParser/NSDate+InternetDateTime (1.0.1)
   - MWFeedParser/NSString+HTML (1.0.1)
+  - PulsingHalo (0.0.1)
 
 DEPENDENCIES:
+  - JSBadgeView
   - KVNProgress
   - MWFeedParser
+  - PulsingHalo
 
 SPEC CHECKSUMS:
+  JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
   KVNProgress: 0c0fcd44798c91d50abbad19b76d869b4f8f5cb1
   MWFeedParser: 003cbf5398e99a7f2057fbe9583054fd1b84be72
+  PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
 
 COCOAPODS: 0.35.0
