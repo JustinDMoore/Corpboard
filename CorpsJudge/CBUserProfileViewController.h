@@ -11,8 +11,10 @@
 #import <ParseUI/ParseUI.h>
 #import "CBUserCategories.h"
 #import "CBChooseCorp.h"
+#import "CBEditName.h"
+#import "CBEditDescription.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol> {
     
 }
 
