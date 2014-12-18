@@ -605,9 +605,11 @@ UIPickerView *corpPicker;
 
 -(void)addNewCorpExperience {
     
+    self.viewExperienceList.hidden = YES;
+    
     [self.view addSubview:self.corpExperience];
     [self.corpExperience showInParent:self.view.frame];
-    
+    [self.view bringSubviewToFront:self.corpExperience];
     [self.corpExperience setDelegate:self];
     
     yearPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
@@ -655,9 +657,16 @@ UIPickerView *corpPicker;
     [self initUI];
 }
 
--(void)savedCorpExperience {
+-(void)savedCorpExperience:(PFObject *)obj {
+    [self.arrayOfCorpExperience addObject:obj];
     self.corpExperience = nil;
-    [self getUserCorpExperiences];
+    if (self.viewExperienceList.hidden) {
+        self.viewExperienceList.hidden = NO;
+        [self.viewExperienceList showInParent:self.view.frame];
+        [self.viewExperienceList.tableExperience reloadData];
+    } else {
+        [self getUserCorpExperiences];
+    }
 }
 
 -(void)closedCorpExperience {

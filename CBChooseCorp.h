@@ -13,7 +13,7 @@
 @protocol corpExperienceProtocol <NSObject>
 
 @required
--(void)savedCorpExperience;
+-(void)savedCorpExperience:(PFObject *)obj;
 -(void)closedCorpExperience;
 @end
 

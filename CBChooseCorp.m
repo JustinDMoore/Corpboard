@@ -117,15 +117,15 @@
         obj[@"year"] = year;
         
         [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [self saved];
+            [self saved: obj];
         }];
     }
     
 }
 
--(void)saved {
+-(void)saved:(PFObject *)obj {
     [self closeView:NO];
-    [delegate savedCorpExperience];
+    [delegate savedCorpExperience: obj];
 }
 - (IBAction)btnCorpNotListed_clicked:(UIButton*)sender {
     [self.txtCorpsName resignFirstResponder];

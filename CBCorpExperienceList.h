@@ -22,4 +22,5 @@
 - (IBAction)btnClose:(id)sender;
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(CGRect)parent;
+-(void)closeView:(BOOL)cancelled;
 @end
