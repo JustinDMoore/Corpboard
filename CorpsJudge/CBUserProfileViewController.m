@@ -10,9 +10,10 @@
 #import "NSDate+Utilities.h"
 #import "CBSingle.h"
 #import "KVNProgress.h"
+#import "MWPhotoBrowser.h"
 
 @interface CBUserProfileViewController () {
-    CBSingle *data;
+    CBSingle *_data;
 }
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
@@ -96,7 +97,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    data = [CBSingle data];
+    _data = [CBSingle data];
     
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
@@ -472,11 +473,78 @@ bool editingProfile = NO;
 }
 
 - (void)selectPhotos {
+
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate = self;
-    [self presentViewController:picker animated:YES completion:nil];
+    // Browser
+    NSMutableArray *photos = [[NSMutableArray alloc] init];
+    NSMutableArray *thumbs = [[NSMutableArray alloc] init];
+    MWPhoto *photo;
+    
+    [self.arrayOfPhotos removeAllObjects];
+    [self.arrayOfThumbs removeAllObjects];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
+    [query whereKey:@"type" equalTo:@"Cover"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ([objects count]) {
+            
+            for (PFObject *obj in objects) {
+
+                PFFile *imageFile = [obj objectForKey:@"photo"];
+                PFFile *imageThumb = [obj objectForKey:@"thumb"];
+                
+                [imageThumb getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+
+                        
+                        UIImage *img = [UIImage imageWithData:data];
+                        MWPhoto *photo = [MWPhoto photoWithImage:img];
+                        [thumbs addObject:photo];
+                        [browser reloadData];
+                    }
+                } progressBlock:^(int percentDone) {
+                    
+                }];
+                
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        
+                        UIImage *img = [UIImage imageWithData:data];
+                        MWPhoto *photo = [MWPhoto photoWithImage:img];
+                        [photos addObject:photo];
+                        [browser reloadData];
+                    }
+                } progressBlock:^(int percentDone) {
+                    
+                }];
+            }
+    
+            self.arrayOfPhotos = photos;
+            self.arrayOfThumbs = thumbs;
+            
+            
+            
+            browser.zoomPhotosToFill = YES;
+            
+            browser.enableGrid = YES;
+            //browser.startOnGrid = YES;
+            browser.displayActionButton = NO;
+            //[browser setCurrentPhotoIndex:0];
+            
+            // Modal
+            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+            nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentViewController:nc animated:YES completion:nil];
+
+        }
+    }];
+    
+    
+//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    picker.delegate = self;
+//    [self presentViewController:picker animated:YES completion:nil];
 }
 
 BOOL coverPhoto = NO;
@@ -868,7 +936,7 @@ UIPickerView *corpPicker;
     } else if (pickerView == positionPicker) {
         return [self.corpExperience.arrayOfPositions objectAtIndex:row];
     } else if (pickerView == corpPicker) {
-        PFObject *corp = [data.arrayOfAllCorps objectAtIndex:row];
+        PFObject *corp = [_data.arrayOfAllCorps objectAtIndex:row];
         return corp[@"corpsName"];
     } else {
         return @"error";
@@ -881,7 +949,7 @@ UIPickerView *corpPicker;
     } else if (pickerView == positionPicker) {
         return [self.corpExperience.arrayOfPositions count];
     } else if (pickerView == corpPicker) {
-        return [data.arrayOfAllCorps count];
+        return [_data.arrayOfAllCorps count];
     } else {
         return 1;
     }
@@ -898,11 +966,31 @@ UIPickerView *corpPicker;
     } else if (pickerView == positionPicker) {
         self.corpExperience.txtPosition.text = [self.corpExperience.arrayOfPositions objectAtIndex:row];
     } else if (pickerView == corpPicker) {
-        PFObject *corps = [data.arrayOfAllCorps objectAtIndex:row];
+        PFObject *corps = [_data.arrayOfAllCorps objectAtIndex:row];
         self.corpExperience.selectedCorp = corps;
         self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
     }
 }
+
+#pragma mark
+#pragma mark - MWPhotoBrowser Delegates
+#pragma mark
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.arrayOfPhotos.count;
+}
+- (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.arrayOfPhotos.count)
+        return [self.arrayOfPhotos objectAtIndex:index];
+    return nil;
+}
+
+-(id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"thumbnail");
+    if (index < self.arrayOfPhotos.count)
+        return [self.arrayOfPhotos objectAtIndex:index];
+    return nil;
+}
+
 
 #pragma mark
 #pragma mark - Scrollview Delegates
@@ -958,4 +1046,23 @@ float ht;
     return _arrayOfCorpExperienceLabels;
 }
 
+-(NSMutableArray *)arrayOfPhotos {
+    if (!_arrayOfPhotos) {
+        _arrayOfPhotos = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfPhotos;
+}
+
+-(NSMutableArray *)arrayOfThumbs {
+    if (!_arrayOfThumbs) {
+        _arrayOfThumbs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfThumbs;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"photos"]) {
+       
+    }
+}
 @end

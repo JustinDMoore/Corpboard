@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JSBadgeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -14,12 +19,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MWFeedParser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-PSTCollectionView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-PulsingHalo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +57,52 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>90FDF84558871C34458D6AA6</key>
+		<key>0A2390D029345EC1CE693905</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AA82B6C412157F23F0B6BABB</key>
+		<key>11AD2F0D551595F1E5EA95CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5A4597441E42CAC0786E183</key>
+		<key>1FEE377E83BFDB3660D719A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D4E7F2A6FEE17C9474270582</key>
+		<key>467552EEFD593BD4D03DF42C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7B46883DF9C441AC64C8B4A</key>
+		<key>511A1F6E6E175443C54F8384</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6CA9FDB4B29CA08A3B36B206</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B43862CF154B2AC43ABFD18C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE5773E959A3E82F307ECBCF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C252E1F5257B696D63415F36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7017A6F37EAC98EA94A7537</key>
 		<dict>
 			<key>primary</key>
 			<true/>

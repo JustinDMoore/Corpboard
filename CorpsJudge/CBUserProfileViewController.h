@@ -14,11 +14,14 @@
 #import "CBEditName.h"
 #import "CBEditDescription.h"
 #import "CBCorpExperienceList.h"
+#import "MWPhotoBrowser.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol, MWPhotoBrowserDelegate> {
     
 }
 
+@property (nonatomic, strong) NSMutableArray *arrayOfPhotos;
+@property (nonatomic, strong) NSMutableArray *arrayOfThumbs;
 @property (weak, nonatomic) PFUser *userProfile;
 
 -(void)setUser:(PFUser*)user;
