@@ -30,6 +30,7 @@
 @property (nonatomic, strong) CBUserCategories *userCat;
 @property (nonatomic, strong) CBChooseCorp *corpExperience;
 @property (nonatomic, strong) CBEditDescription *viewEditDescription;
+@property (nonatomic, strong) CBCorpExperienceList *viewExperienceList;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollProfile;
 @property (weak, nonatomic) IBOutlet UIView *viewProfile;
@@ -135,6 +136,7 @@
 }
 
 -(void)getUserCorpExperiences {
+    
     [self.arrayOfCorpExperience removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"userCorpExperience"];
     [query whereKey:@"user" equalTo:self.userProfile];
@@ -142,6 +144,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count]) {
             [self.arrayOfCorpExperience addObjectsFromArray:objects];
+            [self.viewExperienceList.tableExperience reloadData];
         }
         [self initUI];
     }];
@@ -240,8 +243,7 @@
 }
 
 -(void)initUI {
-    
-    NSLog(@"%f", self.btnEditName.frame.origin.x);
+
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         PFFile *imgFile = self.userProfile[@"picture"];
@@ -573,11 +575,19 @@ BOOL coverPhoto = NO;
 }
 
 -(void)savedName {
+    
     [self initUI];
     self.viewEditName = nil;
 }
 
+-(void)corpExperienceUpdated {
+    
+    [self getUserCorpExperiences];
+    self.viewExperienceList = nil;
+}
+
 -(void)cancelledSaveName {
+    
     self.viewEditName = nil;
 }
 
@@ -586,17 +596,26 @@ UIPickerView *positionPicker;
 UIPickerView *corpPicker;
 - (IBAction)btnEditCorpExperience_clicked:(id)sender {
     
+    [self.view addSubview:self.viewExperienceList];
+    [self.viewExperienceList showInParent:self.view.frame];
+    
+    [self.viewExperienceList setDelegate:self];
+    [self.viewExperienceList.tableExperience reloadData];
+}
+
+-(void)addNewCorpExperience {
+    
     [self.view addSubview:self.corpExperience];
     [self.corpExperience showInParent:self.view.frame];
     
     [self.corpExperience setDelegate:self];
-
+    
     yearPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
     [yearPicker setDataSource: self];
     [yearPicker setDelegate: self];
     yearPicker.showsSelectionIndicator = YES;
     self.corpExperience.txtYear.inputView = yearPicker;
-
+    
     positionPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
     [positionPicker setDataSource: self];
     [positionPicker setDelegate: self];
@@ -703,12 +722,30 @@ UIPickerView *corpPicker;
     return _viewEditDescription;
 }
 
+-(CBCorpExperienceList *)viewExperienceList {
+    if (!_viewExperienceList) {
+        _viewExperienceList = [[[NSBundle mainBundle] loadNibNamed:@"CBCorpExperienceList"
+                                                              owner:self
+                                                            options:nil]
+                                objectAtIndex:0];
+        [_viewExperienceList setDelegate:self];
+    }
+    return _viewExperienceList;
+}
+
 #pragma mark
 #pragma mark - UITableview delegates
 #pragma mark
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.userCat.arrayOfCategories count];
+    if (tableView == self.userCat.tableCategories) {
+        return [self.userCat.arrayOfCategories count];
+    } else if (tableView == self.viewExperienceList.tableExperience) {
+        return [self.arrayOfCorpExperience count] + 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -722,18 +759,50 @@ UIPickerView *corpPicker;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    cell.textLabel.text = (NSString *)[self.userCat.arrayOfCategories objectAtIndex:indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    
+    if (tableView == self.userCat.tableCategories) {
+        
+        cell.textLabel.text = (NSString *)[self.userCat.arrayOfCategories objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        
+        NSString *str = [self.userCat.dict objectForKey:cell.textLabel.text];
+        if ([str isEqualToString:@"YES"]) {
+            [self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
+        } else {
+            [self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
+        }
+    } else if (tableView == self.viewExperienceList.tableExperience) {
+        
+        if (indexPath.row == 0) {
 
-    NSString *str = [self.userCat.dict objectForKey:cell.textLabel.text];
-    if ([str isEqualToString:@"YES"]) {
-        [self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
-    } else {
-        [self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
+            cell.textLabel.text = @"    Add Experience";
+            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(5, (CGRectGetMidY(cell.frame) / 2) - (15 / 2), 15, 15)];
+            imageView.backgroundColor=[UIColor clearColor];
+            [imageView setImage:[UIImage imageNamed:@"Add"]];
+            [cell addSubview:imageView];
+        } else {
+            PFObject *exp = [self.arrayOfCorpExperience objectAtIndex:indexPath.row - 1];
+            NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
+            cell.textLabel.text = str;
+            
+        }
+        cell.textLabel.font = [UIFont systemFontOfSize:12];
     }
 
     return cell;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (tableView == self.viewExperienceList.tableExperience) {
+        if (indexPath.row == 0) {
+            return NO;
+        } else {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void)selectCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)path onOrOff:(BOOL)on fromMethod:(BOOL)method {
@@ -753,16 +822,32 @@ UIPickerView *corpPicker;
     }
     
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
-    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:YES fromMethod:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (tableView == self.userCat.tableCategories) {
+        UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+        [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:YES fromMethod:YES];
+    } else if (tableView == self.viewExperienceList.tableExperience) {
+        if (indexPath.row == 0) {
+            [self addNewCorpExperience];
+        }
+    }
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
-    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:NO fromMethod:YES];
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (tableView == self.userCat.tableCategories) {
+        UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+        [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:NO fromMethod:YES];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    PFObject *obj = [self.arrayOfCorpExperience objectAtIndex:indexPath.row - 1];
+    [obj deleteInBackground];
+    [self.arrayOfCorpExperience removeObjectAtIndex:indexPath.row - 1];
+    [self.viewExperienceList.tableExperience reloadData];
 }
 
 #pragma mark

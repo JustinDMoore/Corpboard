@@ -198,6 +198,8 @@
 		D0A8146719521D7800F4EC53 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146619521D7800F4EC53 /* StoreKit.framework */; };
 		D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */; };
 		D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A8146B19523A8200F4EC53 /* Configuration.m */; };
+		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
+		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0AEF3A21A1312EE0059368B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A11A1312EE0059368B /* Parse.framework */; };
 		D0AEF3A41A1312FE0059368B /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A31A1312FE0059368B /* ParseFacebookUtils.framework */; };
 		D0AEF3A61A1313070059368B /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AEF3A51A1313070059368B /* ParseUI.framework */; };
@@ -561,6 +563,9 @@
 		D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D0A8146A19523A8200F4EC53 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		D0A8146B19523A8200F4EC53 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBCorpExperienceList.xib; sourceTree = "<group>"; };
+		D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpExperienceList.h; sourceTree = "<group>"; };
+		D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpExperienceList.m; sourceTree = "<group>"; };
 		D0AEF3A11A1312EE0059368B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		D0AEF3A31A1312FE0059368B /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		D0AEF3A51A1313070059368B /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
@@ -1201,6 +1206,8 @@
 				D08E00F31A4147B700FF0B62 /* CBEditName.m */,
 				D08E00F51A41640700FF0B62 /* CBEditDescription.xib */,
 				D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */,
+				D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */,
+				D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -1245,6 +1252,7 @@
 				D034437C1A3D071000C410EE /* CBChooseCorp.h */,
 				D08E00F21A4147B700FF0B62 /* CBEditName.h */,
 				D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */,
+				D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1543,6 +1551,7 @@
 				923D4FEF1A2C6DCF00E16B64 /* JSQMessagesAssets.bundle in Resources */,
 				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
 				923D4FC91A2C6DCF00E16B64 /* MessagesCell.xib in Resources */,
+				D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */,
 				923D4FDC1A2C6DCF00E16B64 /* tab_private@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1699,6 +1708,7 @@
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				923D50121A2C6DCF00E16B64 /* JSQMessagesLabel.m in Sources */,
 				923D50011A2C6DCF00E16B64 /* JSQMessagesCollectionViewLayoutAttributes.m in Sources */,
+				D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
 				923D50071A2C6DCF00E16B64 /* JSQPhotoMediaItem.m in Sources */,

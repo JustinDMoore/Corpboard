@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4E7F2A6FEE17C9474270582"
-               BuildableName = "libPods-KVNProgress.a"
-               BlueprintName = "Pods-KVNProgress"
+               BlueprintIdentifier = "AA82B6C412157F23F0B6BABB"
+               BuildableName = "libPods-PulsingHalo.a"
+               BlueprintName = "Pods-PulsingHalo"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

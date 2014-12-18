@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-JSBadgeView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-MWFeedParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-PulsingHalo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4A0C9491ED7419B31C4455AE</key>
+		<key>90FDF84558871C34458D6AA6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC6E690A50A24E5F80085A14</key>
+		<key>AA82B6C412157F23F0B6BABB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD56B53F229949B84F2D9EC3</key>
+		<key>C5A4597441E42CAC0786E183</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D4E7F2A6FEE17C9474270582</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7B46883DF9C441AC64C8B4A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
