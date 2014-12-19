@@ -21,7 +21,6 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *arrayOfPhotos;
-@property (nonatomic, strong) NSMutableArray *arrayOfThumbs;
 @property (weak, nonatomic) PFUser *userProfile;
 
 -(void)setUser:(PFUser*)user;

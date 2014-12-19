@@ -472,46 +472,37 @@ bool editingProfile = NO;
     [self toggleEditButtons:editingProfile];
 }
 
+MWPhotoBrowser *browser;
 - (void)selectPhotos {
 
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+//    if (coverPhoto) {
+//        [self performSegueWithIdentifier:@"coverPhotos" sender:self];
+//    } else {
+//        
+//    }
+    browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     
     // Browser
     NSMutableArray *photos = [[NSMutableArray alloc] init];
-    NSMutableArray *thumbs = [[NSMutableArray alloc] init];
-    MWPhoto *photo;
     
     [self.arrayOfPhotos removeAllObjects];
-    [self.arrayOfThumbs removeAllObjects];
     
     PFQuery *query = [PFQuery queryWithClassName:@"photos"];
     [query whereKey:@"type" equalTo:@"Cover"];
+    [query orderByAscending:@"name"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count]) {
             
             for (PFObject *obj in objects) {
 
                 PFFile *imageFile = [obj objectForKey:@"photo"];
-                PFFile *imageThumb = [obj objectForKey:@"thumb"];
-                
-                [imageThumb getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-
-                        
-                        UIImage *img = [UIImage imageWithData:data];
-                        MWPhoto *photo = [MWPhoto photoWithImage:img];
-                        [thumbs addObject:photo];
-                        [browser reloadData];
-                    }
-                } progressBlock:^(int percentDone) {
-                    
-                }];
                 
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
                         
                         UIImage *img = [UIImage imageWithData:data];
                         MWPhoto *photo = [MWPhoto photoWithImage:img];
+                        photo.caption = obj[@"name"];
                         [photos addObject:photo];
                         [browser reloadData];
                     }
@@ -521,14 +512,12 @@ bool editingProfile = NO;
             }
     
             self.arrayOfPhotos = photos;
-            self.arrayOfThumbs = thumbs;
-            
             
             
             browser.zoomPhotosToFill = YES;
             
             browser.enableGrid = YES;
-            //browser.startOnGrid = YES;
+            browser.startOnGrid = YES;
             browser.displayActionButton = NO;
             //[browser setCurrentPhotoIndex:0];
             
@@ -536,6 +525,7 @@ bool editingProfile = NO;
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
             nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self presentViewController:nc animated:YES completion:nil];
+
 
         }
     }];
@@ -978,6 +968,7 @@ UIPickerView *corpPicker;
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
     return self.arrayOfPhotos.count;
 }
+
 - (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
     if (index < self.arrayOfPhotos.count)
         return [self.arrayOfPhotos objectAtIndex:index];
@@ -985,7 +976,7 @@ UIPickerView *corpPicker;
 }
 
 -(id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"thumbnail");
+ 
     if (index < self.arrayOfPhotos.count)
         return [self.arrayOfPhotos objectAtIndex:index];
     return nil;
@@ -1051,13 +1042,6 @@ float ht;
         _arrayOfPhotos = [[NSMutableArray alloc] init];
     }
     return _arrayOfPhotos;
-}
-
--(NSMutableArray *)arrayOfThumbs {
-    if (!_arrayOfThumbs) {
-        _arrayOfThumbs = [[NSMutableArray alloc] init];
-    }
-    return _arrayOfThumbs;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

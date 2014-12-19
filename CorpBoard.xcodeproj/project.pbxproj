@@ -158,6 +158,7 @@
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
+		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
 		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -503,6 +504,8 @@
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
 		D0067A6B1969236300C372D0 /* Feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback.png; sourceTree = "<group>"; };
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
+		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
+		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
 		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
 		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
@@ -1174,6 +1177,7 @@
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
 				D0345EC91A303AC9002DBDC2 /* CBCorpDetail.m */,
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
+				D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1234,6 +1238,7 @@
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
 				D0345EC81A303AC9002DBDC2 /* CBCorpDetail.h */,
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
+				D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1706,6 +1711,7 @@
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				923D4FF31A2C6DCF00E16B64 /* UIColor+JSQMessages.m in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
+				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
 				923D50121A2C6DCF00E16B64 /* JSQMessagesLabel.m in Sources */,
 				923D50011A2C6DCF00E16B64 /* JSQMessagesCollectionViewLayoutAttributes.m in Sources */,
 				D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */,
