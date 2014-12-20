@@ -486,6 +486,7 @@ MWPhotoBrowser *browser;
     NSMutableArray *photos = [[NSMutableArray alloc] init];
     
     [self.arrayOfPhotos removeAllObjects];
+    [self.arrayOfSelections removeAllObjects];
     
     PFQuery *query = [PFQuery queryWithClassName:@"photos"];
     [query whereKey:@"type" equalTo:@"Cover"];
@@ -499,6 +500,9 @@ MWPhotoBrowser *browser;
                 
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
+                        
+                        //set the default selection to NO
+                        [self.arrayOfSelections addObject:[NSNumber numberWithBool:NO]];
                         
                         UIImage *img = [UIImage imageWithData:data];
                         MWPhoto *photo = [MWPhoto photoWithImage:img];
@@ -515,11 +519,11 @@ MWPhotoBrowser *browser;
             
             
             browser.zoomPhotosToFill = YES;
-            
-            browser.enableGrid = YES;
+            browser.alwaysShowControls = NO;
             browser.startOnGrid = YES;
             browser.displayActionButton = NO;
-            //[browser setCurrentPhotoIndex:0];
+            [browser setCurrentPhotoIndex:0];
+            browser.displaySelectionButtons = YES;
             
             // Modal
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
@@ -982,6 +986,33 @@ UIPickerView *corpPicker;
     return nil;
 }
 
+- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index {
+    if ([self.arrayOfSelections count]) {
+        return [[self.arrayOfSelections objectAtIndex:index] boolValue];
+    } else return NO;
+}
+
+int firstPhotoLoad = YES;
+-(void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    if (!firstPhotoLoad) {
+        NSLog(@"tap");
+    }
+    firstPhotoLoad = NO;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
+    if ([self.arrayOfSelections count]) {
+        for (int i = 0; i<[self.arrayOfSelections count]; i++) {
+            [self.arrayOfSelections replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:NO]];
+        }
+        [self.arrayOfSelections replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
+    }
+    for (NSNumber *num in self.arrayOfSelections) {
+        if (num == [NSNumber numberWithBool:YES]) {
+            NSLog(@"selected %li", [self.arrayOfSelections indexOfObject:num]);
+        }
+    }
+}
 
 #pragma mark
 #pragma mark - Scrollview Delegates
@@ -1042,6 +1073,13 @@ float ht;
         _arrayOfPhotos = [[NSMutableArray alloc] init];
     }
     return _arrayOfPhotos;
+}
+
+-(NSMutableArray *)arrayOfSelections {
+    if (!_arrayOfSelections) {
+        _arrayOfSelections = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfSelections;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
