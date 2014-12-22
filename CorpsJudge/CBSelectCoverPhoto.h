@@ -12,12 +12,12 @@
 
 @protocol photoProtocol <NSObject>
 
--(void)photoSelected:(UIImage *)photo;
+-(void)photoSelected:(UIImage *)photo userPhoto:(BOOL)userPhoto;
 -(void)cameraSelected;
 
 @end
 
-@interface CBSelectCoverPhoto : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface CBSelectCoverPhoto : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
 
 }
 

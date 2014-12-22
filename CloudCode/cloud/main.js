@@ -89,7 +89,3 @@ Parse.Cloud.define("incrementUserProfileViews", function(request, response) {
                                }
                                });
                    });
-
-
-
-

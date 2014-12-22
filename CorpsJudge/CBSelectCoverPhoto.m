@@ -53,6 +53,7 @@ int progress = 1;
 -(void)getPhotos {
     PFQuery *query = [PFQuery queryWithClassName:@"photos"];
     [query whereKey:@"type" equalTo:@"Cover"];
+    [query whereKey:@"approved" equalTo:[NSNumber numberWithBool:YES]];
     [query orderByAscending:@"name"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject *obj in objects) {
@@ -185,7 +186,7 @@ int progress = 1;
     if (img) {
         
         [self goback];
-        [delegate photoSelected:img.image];
+        [delegate photoSelected:img.image userPhoto:NO];
     }
 }
 
@@ -197,6 +198,45 @@ int progress = 1;
 
 -(void)upload {
     NSLog(@"upload");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Photo" message:@"\rHave a corp themed cover photo that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover photo in their profile. By uploading a photo, you agree to allow Corpboard and it's users to use the photo. Your photo will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
+    alert.delegate = self;
+    [alert show];
+
+}
+
+-(void)submitCoverPhotoForApproval {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newCoverPhoto" object:self];
+}
+
+#pragma mark
+#pragma mark - UIAlertView Delegates
+#pragma mark
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        //cancelled
+    } else {
+        
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+#pragma mark
+#pragma mark - UIImagePickerControler Delegates
+#pragma mark
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)image
+                  editingInfo:(NSDictionary *)editingInfo {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
+    [self.delegate photoSelected:image userPhoto:YES];
 }
 
 /*

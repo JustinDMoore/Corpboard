@@ -28,10 +28,24 @@
         self.updatedCorps = NO;
         //self.currentDate = [NSDate date];
         self.currentDate = [JustinHelper dateWithMonth:7 day:14 year:2014];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(newCoverPhoto)
+                                                     name:@"newCoverPhoto" object:nil];
         
     }
     return self;
+}
+
+-(void)newCoverPhoto {
+    
+    PFQuery *adminQuery = [PFQuery queryWithClassName:@"User"];
+    [adminQuery whereKey:@"isAdmin" equalTo:[NSNumber numberWithBool:YES]];
+    
+    // Send the notification.
+    PFPush *push = [[PFPush alloc] init];
+    [push setQuery:adminQuery];
+    [push setMessage:@"New cover photo submitted for approval"];
+    [push sendPushInBackground];
 }
 
 -(void)setDelegate:(id)newDelegate{

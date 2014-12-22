@@ -10,8 +10,6 @@
 #import "NSDate+Utilities.h"
 #import "CBSingle.h"
 #import "KVNProgress.h"
-#import "MWPhotoBrowser.h"
-
 
 @interface CBUserProfileViewController () {
     CBSingle *_data;
@@ -474,76 +472,15 @@ bool editingProfile = NO;
     [self toggleEditButtons:editingProfile];
 }
 
-MWPhotoBrowser *browser;
 - (void)selectPhotos {
 
     if (coverPhoto) {
         
         [self performSegueWithIdentifier:@"coverPhotos" sender:self];
-        
     } else {
         
+        [self cameraSelected];
     }
-//    browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-//    
-//    // Browser
-//    NSMutableArray *photos = [[NSMutableArray alloc] init];
-//    
-//    [self.arrayOfPhotos removeAllObjects];
-//    [self.arrayOfSelections removeAllObjects];
-//    
-//    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
-//    [query whereKey:@"type" equalTo:@"Cover"];
-//    [query orderByAscending:@"name"];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if ([objects count]) {
-//            
-//            for (PFObject *obj in objects) {
-//
-//                PFFile *imageFile = [obj objectForKey:@"photo"];
-//                
-//                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//                    if (!error) {
-//                        
-//                        //set the default selection to NO
-//                        [self.arrayOfSelections addObject:[NSNumber numberWithBool:NO]];
-//                        
-//                        UIImage *img = [UIImage imageWithData:data];
-//                        MWPhoto *photo = [MWPhoto photoWithImage:img];
-//                        photo.caption = obj[@"name"];
-//                        [photos addObject:photo];
-//                        [browser reloadData];
-//                    }
-//                } progressBlock:^(int percentDone) {
-//                    
-//                }];
-//            }
-//    
-//            self.arrayOfPhotos = photos;
-//            
-//            
-//            browser.zoomPhotosToFill = YES;
-//            browser.alwaysShowControls = NO;
-//            browser.startOnGrid = YES;
-//            browser.displayActionButton = NO;
-//            [browser setCurrentPhotoIndex:0];
-//            browser.displaySelectionButtons = YES;
-//            
-//            // Modal
-//            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-//            nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//            [self presentViewController:nc animated:YES completion:nil];
-//
-//
-//        }
-//    }];
-    
-    
-//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//    picker.delegate = self;
-//    picker.sourceType = uiimagepickercontrollersou
-//    [self presentViewController:picker animated:YES completion:nil];
 }
 
 BOOL coverPhoto = NO;
@@ -577,38 +514,90 @@ BOOL coverPhoto = NO;
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    [self saveCoverPhoto:image];
+    [self savePhoto:image];
 }
 
--(void)saveCoverPhoto:(UIImage *)photo {
+-(void)submitPhotoForReview:(UIImage *)photo {
     
     [KVNProgress show];
     
     NSData *imageData = UIImagePNGRepresentation(photo);
-    PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
-    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            if (succeeded) {
-                PFUser *user = [PFUser currentUser];
-                if (coverPhoto) {
-                    user[@"coverPicture"] = imageFile;
-                } else {
-                    user[@"picture"] = imageFile;
-                    user[@"thumbnail"] = imageFile;
+    //make sure the image isn't too big
+    NSInteger size = imageData.length;
+    if (size < 10485760) {
+        
+        PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                if (succeeded) {
+                    PFObject *photoForReview = [PFObject objectWithClassName:@"photos"];
+                    photoForReview[@"type"] = @"Cover";
+                    photoForReview[@"user"] = [PFUser currentUser];
+                    photoForReview[@"isUserSubmitted"] = [NSNumber numberWithBool:YES];
+                    photoForReview[@"approved"] = [NSNumber numberWithBool:NO];
+                    photoForReview[@"photo"] = imageFile;
+
+                    [photoForReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+
+                            [KVNProgress showSuccess];
+                        }
+                        else {
+                            [KVNProgress showErrorWithStatus:@"Could not upload photo"];
+                        }
+                    }];
                 }
-                
-                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                     
-                        [self initUI];
-                        [KVNProgress showSuccess];
-                    }
-                }];
+            } else {
+                [KVNProgress showErrorWithStatus:@"Could not upload photo"];
             }
-        } else {
-            [KVNProgress showErrorWithStatus:@"Could not update picture"];
-        }
-    }];
+        }];
+        
+    } else {
+        [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
+    }
+
+}
+
+-(void)savePhoto:(UIImage *)photo {
+    
+    [KVNProgress show];
+    
+    NSData *imageData = UIImagePNGRepresentation(photo);
+    //make sure the image isn't too big
+    NSInteger size = imageData.length;
+    if (size < 10485760) {
+        
+        PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                if (succeeded) {
+                    PFUser *user = [PFUser currentUser];
+                    if (coverPhoto) {
+                        user[@"coverPicture"] = imageFile;
+                    } else {
+                        user[@"picture"] = imageFile;
+                        user[@"thumbnail"] = imageFile;
+                    }
+                    
+                    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            
+                            [self initUI];
+                            [KVNProgress showSuccess];
+                        }
+                        else {
+                            [KVNProgress showErrorWithStatus:@"Could not update photo"];
+                        }
+                    }];
+                }
+            } else {
+                [KVNProgress showErrorWithStatus:@"Could not update photo"];
+            }
+        }];
+
+    } else {
+        [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
+    }
 }
 
 #pragma mark
@@ -821,10 +810,15 @@ UIPickerView *corpPicker;
 #pragma mark - CBSelectCoverPhoto Delegates
 #pragma mark
 
--(void)photoSelected:(UIImage *)photo {
+-(void)photoSelected:(UIImage *)photo userPhoto:(BOOL)userPhoto {
     
-    [self saveCoverPhoto:photo];
+    if (userPhoto) {
+        [self submitPhotoForReview:photo];
+    } else {
+        [self savePhoto:photo];
+    }
 }
+
 -(void)cameraSelected {
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -993,54 +987,6 @@ UIPickerView *corpPicker;
         PFObject *corps = [_data.arrayOfAllCorps objectAtIndex:row];
         self.corpExperience.selectedCorp = corps;
         self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
-    }
-}
-
-#pragma mark
-#pragma mark - MWPhotoBrowser Delegates
-#pragma mark
-- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
-    return self.arrayOfPhotos.count;
-}
-
-- (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    if (index < self.arrayOfPhotos.count)
-        return [self.arrayOfPhotos objectAtIndex:index];
-    return nil;
-}
-
--(id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
- 
-    if (index < self.arrayOfPhotos.count)
-        return [self.arrayOfPhotos objectAtIndex:index];
-    return nil;
-}
-
-- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index {
-    if ([self.arrayOfSelections count]) {
-        return [[self.arrayOfSelections objectAtIndex:index] boolValue];
-    } else return NO;
-}
-
-int firstPhotoLoad = YES;
--(void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
-    if (!firstPhotoLoad) {
-        NSLog(@"tap");
-    }
-    firstPhotoLoad = NO;
-}
-
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
-    if ([self.arrayOfSelections count]) {
-        for (int i = 0; i<[self.arrayOfSelections count]; i++) {
-            [self.arrayOfSelections replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:NO]];
-        }
-        [self.arrayOfSelections replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
-    }
-    for (NSNumber *num in self.arrayOfSelections) {
-        if (num == [NSNumber numberWithBool:YES]) {
-            NSLog(@"selected %li", [self.arrayOfSelections indexOfObject:num]);
-        }
     }
 }
 

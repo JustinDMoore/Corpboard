@@ -14,10 +14,9 @@
 #import "CBEditName.h"
 #import "CBEditDescription.h"
 #import "CBCorpExperienceList.h"
-#import "MWPhotoBrowser.h"
 #import "CBSelectCoverPhoto.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol, MWPhotoBrowserDelegate, photoProtocol> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol, photoProtocol> {
     
 }
 
