@@ -1109,6 +1109,8 @@
 		92533487194FD5D70004D16F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9253348F194FD5D70004D16F /* CBAppDelegate.h */,
+				92533490194FD5D70004D16F /* CBAppDelegate.m */,
 				92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */,
 				D02B39EA1969EB91005E14AC /* ILTranslucentView.h */,
 				D02B39EB1969EB91005E14AC /* ILTranslucentView.m */,
@@ -1126,8 +1128,6 @@
 				D0A8146B19523A8200F4EC53 /* Configuration.m */,
 				D0BDD53319500C4300CA9668 /* JustinHelper.h */,
 				D0BDD53419500C4300CA9668 /* JustinHelper.m */,
-				9253348F194FD5D70004D16F /* CBAppDelegate.h */,
-				92533490194FD5D70004D16F /* CBAppDelegate.m */,
 				92533488194FD5D70004D16F /* CorpBoard-Info.plist */,
 				92533489194FD5D70004D16F /* InfoPlist.strings */,
 				9253348C194FD5D70004D16F /* main.m */,

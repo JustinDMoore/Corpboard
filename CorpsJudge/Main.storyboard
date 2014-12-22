@@ -1094,7 +1094,7 @@
                         <outlet property="scrollProfile" destination="btx-rt-wJT" id="O2z-5P-QyH"/>
                         <outlet property="viewControls" destination="rmU-Au-PtO" id="ppd-vj-oLQ"/>
                         <outlet property="viewProfile" destination="RlW-KQ-pXo" id="jCV-6Y-DvB"/>
-                        <segue destination="YCu-h2-zmE" kind="show" identifier="coverPhotos" id="eZU-tW-sdY"/>
+                        <segue destination="8lO-6Y-7PJ" kind="show" identifier="coverPhotos" id="yhw-of-a5J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxp-lI-TSI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1102,38 +1102,122 @@
             <point key="canvasLocation" x="5411" y="-2415"/>
         </scene>
         <!--Select Cover Photo-->
-        <scene sceneID="AYf-l2-Vyt">
+        <scene sceneID="xSA-v9-lzR">
             <objects>
-                <tableViewController id="YCu-h2-zmE" customClass="CBSelectCoverPhoto" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="210" sectionHeaderHeight="22" sectionFooterHeight="22" id="WuD-di-hLM">
+                <viewController id="8lO-6Y-7PJ" customClass="CBSelectCoverPhoto" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OCG-Gh-VXh"/>
+                        <viewControllerLayoutGuide type="bottom" id="yHg-ma-TSk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nrD-9h-OXk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoCell" rowHeight="200" id="pza-9N-A4b">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pza-9N-A4b" id="rXT-7j-982">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNN-3I-Ee9" customClass="PFImageView">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="YCu-h2-zmE" id="XVt-QX-LiM"/>
-                            <outlet property="delegate" destination="YCu-h2-zmE" id="dNg-cP-eeQ"/>
-                        </connections>
-                    </tableView>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eZn-fW-UVs">
+                                <rect key="frame" x="186" y="50" width="229" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="229" id="Rf0-Ju-Ju0"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Default"/>
+                                    <segment title="User Submitted"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YB9-oy-2p1">
+                                <rect key="frame" x="0.0" y="86" width="600" height="714"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoCell" rowHeight="139" id="zrP-Nu-QBK">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zrP-Nu-QBK" id="XMx-Z3-A2O">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z0F-6j-Aym" customClass="PFImageView">
+                                                    <rect key="frame" x="0.0" y="1" width="600" height="138"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="z0F-6j-Aym" secondAttribute="bottom" constant="-8" id="7ZK-gr-RjG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="z0F-6j-Aym" secondAttribute="trailing" constant="-8" id="fmF-wF-oeg"/>
+                                                <constraint firstItem="z0F-6j-Aym" firstAttribute="leading" secondItem="XMx-Z3-A2O" secondAttribute="leadingMargin" constant="-8" id="ndl-Ik-fE7"/>
+                                                <constraint firstItem="z0F-6j-Aym" firstAttribute="top" secondItem="XMx-Z3-A2O" secondAttribute="topMargin" constant="-7" id="rUA-1C-Uil"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="custom" rowHeight="134" id="xqW-3P-Wol">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xqW-3P-Wol" id="kma-A8-Nuq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNf-9c-YtK">
+                                                    <rect key="frame" x="47" y="79" width="185" height="30"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                                    <state key="normal" title="  Upload Cover Photo">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Anyone can use your creation" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEz-0P-eFo">
+                                                    <rect key="frame" x="65" y="98" width="200" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRE-dX-NYX">
+                                                    <rect key="frame" x="52" y="19" width="111" height="25"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                                    <state key="normal" title="  Camera Roll">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose your own photo" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGa-Dn-9gL">
+                                                    <rect key="frame" x="64" y="35" width="259" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z1B-Uu-dic">
+                                                    <rect key="frame" x="16" y="16" width="40" height="40"/>
+                                                    <state key="normal" image="CameraRoll">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0G-bJ-AvH">
+                                                    <rect key="frame" x="16" y="78" width="40" height="40"/>
+                                                    <state key="normal" image="Upload">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8lO-6Y-7PJ" id="bsD-bR-nvj"/>
+                                    <outlet property="delegate" destination="8lO-6Y-7PJ" id="Hdc-vp-DxJ"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="eZn-fW-UVs" secondAttribute="centerX" constant="-0.5" id="AfU-QB-RsZ"/>
+                            <constraint firstItem="yHg-ma-TSk" firstAttribute="top" secondItem="YB9-oy-2p1" secondAttribute="bottom" id="FC8-X4-61x"/>
+                            <constraint firstItem="YB9-oy-2p1" firstAttribute="leading" secondItem="nrD-9h-OXk" secondAttribute="leadingMargin" constant="-16" id="Oxt-kz-tyZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YB9-oy-2p1" secondAttribute="trailing" constant="-16" id="PSc-kg-ZYP"/>
+                            <constraint firstItem="YB9-oy-2p1" firstAttribute="top" secondItem="eZn-fW-UVs" secondAttribute="bottom" constant="8" id="Q7h-so-0hw"/>
+                            <constraint firstItem="eZn-fW-UVs" firstAttribute="top" secondItem="OCG-Gh-VXh" secondAttribute="bottom" constant="6" id="v5e-qR-Oz7"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="tablePhotos" destination="WuD-di-hLM" id="vba-Kz-hYg"/>
+                        <outlet property="segmentAlbum" destination="eZn-fW-UVs" id="GMy-dz-4a5"/>
+                        <outlet property="tablePhotos" destination="YB9-oy-2p1" id="4qw-Ve-3UK"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hjx-sg-rxy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ps-4c-sqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6114" y="-2415"/>
+            <point key="canvasLocation" x="6111" y="-2421"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="NAJ-Qn-ygN">
@@ -2607,6 +2691,7 @@
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
+        <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
@@ -2617,6 +2702,7 @@
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="The Cadets.png" width="223" height="202"/>
         <image name="The Cadets2.png" width="641" height="261"/>
+        <image name="Upload" width="48" height="48"/>
         <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>
         <image name="colorguard" width="30" height="30"/>

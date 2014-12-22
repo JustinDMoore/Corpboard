@@ -152,7 +152,7 @@ int ticker = 0;
         
 -(void)finishedLoadingData {
 
-    [self.viewProgress stopProgress];
+    [self.viewProgress completeProgress];
     
 }
 

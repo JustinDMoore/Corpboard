@@ -1,7 +1,7 @@
 PODS:
   - DACircularProgress (2.2.0)
   - JSBadgeView (1.3.2)
-  - KVNProgress (2.1.3)
+  - KVNProgress (2.1.5)
   - MBProgressHUD (0.9)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
@@ -33,7 +33,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
   JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
-  KVNProgress: 0c0fcd44798c91d50abbad19b76d869b4f8f5cb1
+  KVNProgress: 7b92508a8e3e9ee6c41962f70d20f6f7403ee27d
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   MWFeedParser: 003cbf5398e99a7f2057fbe9583054fd1b84be72
   MWPhotoBrowser: be05b3b7521e961382a4ba5579685bf5a00b93d8

@@ -7,8 +7,6 @@
 //
 
 #import "CBProgressView.h"
-#import "KVNProgress.h"
-
 
 @implementation CBProgressView
 
@@ -19,55 +17,58 @@
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
 
-
-        [self setupProgressUI];
+        self.backgroundColor = [UIColor orangeColor];
+        self.customConfiguration = [self customKVNProgressUIConfiguration];
+        [KVNProgress setConfiguration:self.customConfiguration];
         [self progress];
 
     }
     return self;
 }
 
--(void) setupProgressUI{
+- (KVNProgressConfiguration *)customKVNProgressUIConfiguration
+{
+    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
     
-    [KVNProgress appearance].statusColor = [UIColor whiteColor];
-    [KVNProgress appearance].statusFont = [UIFont systemFontOfSize:17.0f];
-    [KVNProgress appearance].circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
-    [KVNProgress appearance].circleStrokeBackgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3f];
-    [KVNProgress appearance].circleFillBackgroundColor = [UIColor clearColor];
-    [KVNProgress appearance].backgroundFillColor = [UIColor blackColor];
-    [KVNProgress appearance].backgroundTintColor = [UIColor blackColor];
-    [KVNProgress appearance].successColor = [UIColor darkGrayColor];
-    [KVNProgress appearance].errorColor = [UIColor darkGrayColor];
-    [KVNProgress appearance].circleSize = 75.0f;
-    [KVNProgress appearance].lineWidth = 2.0f;
-    [KVNProgress appearance].successColor = [UIColor greenColor];
-    [KVNProgress appearance].errorColor = [UIColor redColor];
-    
-    
+    // See the documentation of KVNProgressConfiguration
+    configuration.statusColor = [UIColor whiteColor];
+    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+    configuration.circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
+    configuration.circleStrokeBackgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3f];
+    configuration.circleFillBackgroundColor = [UIColor clearColor];
+    configuration.backgroundFillColor = [UIColor clearColor];
+    configuration.backgroundTintColor = [UIColor clearColor];
+    configuration.successColor = [UIColor greenColor];
+    configuration.errorColor = [UIColor redColor];
+    configuration.circleSize = 75.0f;
+    configuration.lineWidth = 2.0f;
+    configuration.backgroundType = KVNProgressBackgroundTypeSolid;
+    configuration.fullScreen = NO;
+    configuration.minimumSuccessDisplayTime = .5;
+
+    return configuration;
 }
 
 -(void)progress {
-  
-    [KVNProgress showProgress:0 parameters:
-     @{KVNProgressViewParameterFullScreen: @(NO),
-       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
-       KVNProgressViewParameterStatus: @"Loading",
-       KVNProgressViewParameterSuperview: self
-       }];
     
+    //[KVNProgress showProgress:0];
+    [KVNProgress showProgress:0
+                       status:nil
+                       onView:self.viewProgress];
     [self updateProgress];
 
 }
 
 -(void)showSuccess {
-    [self setupProgressUI];
-    [KVNProgress showSuccessWithParameters:
-     @{KVNProgressViewParameterFullScreen: @(NO),
-       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
-       KVNProgressViewParameterStatus: @"Welcome",
-       KVNProgressViewParameterSuperview: self
-       }];
-    [self performSelector:@selector(complete) withObject:self afterDelay:2];
+    
+    [KVNProgress showSuccessWithStatus:nil
+                                onView:self.viewProgress
+                            completion:^{
+                                [self complete];
+                            }];
+//    [KVNProgress showSuccessWithCompletion:^{
+//        [self complete];
+//    }];
 }
 
 -(void)complete {
@@ -87,26 +88,32 @@ float currentProgress = 0;
     currentProgress = val;
     return val;
 }
+
 - (void)updateProgress
 {
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
     dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin]
-                           animated:YES];
+        [self updateWithProgress:[self getRandomProgressWithMin]];
     });
     
     dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC);
     dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin]
-                           animated:YES];
+        [self updateWithProgress:[self getRandomProgressWithMin]];
     });
     
     dispatch_time_t popTime4 = dispatch_time(DISPATCH_TIME_NOW, 3.0f * NSEC_PER_SEC);
     dispatch_after(popTime4, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:[self getRandomProgressWithMin]
-                           animated:YES];
+        [self updateWithProgress:[self getRandomProgressWithMin]];
     });
     
+}
+
+-(void)updateWithProgress:(double)progress {
+    
+    if (!isComplete) {
+        [KVNProgress updateProgress:progress
+                           animated:YES];
+    }
 }
 
 -(void)setDelegate:(id)newDelegate{
@@ -116,14 +123,14 @@ float currentProgress = 0;
 -(void)startProgress {
     [self progress];
 }
--(void)stopProgress {
+
+BOOL isComplete = NO;
+-(void)completeProgress {
     
-    dispatch_time_t popTime5 = dispatch_time(DISPATCH_TIME_NOW, 5.0f * NSEC_PER_SEC);
-    dispatch_after(popTime5, dispatch_get_main_queue(), ^(void){
-        [KVNProgress updateProgress:1.0f
-                           animated:YES];
-        [self showSuccess];
-    });
+    isComplete = YES;
+    [KVNProgress updateProgress:1.0f
+                       animated:YES];
+    [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
 }
 
 -(void)setFact:(NSString*)fact {
@@ -154,12 +161,8 @@ float currentProgress = 0;
 }
 
 -(void)errorProgress:(NSString *)error {
-    [self setupProgressUI];
-    [KVNProgress showErrorWithParameters:
-     @{KVNProgressViewParameterFullScreen: @(NO),
-       KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),
-       KVNProgressViewParameterStatus: [NSString stringWithFormat:@"%@", error],
-       KVNProgressViewParameterSuperview: self
-       }];
+
+    [KVNProgress showErrorWithStatus:error
+                              onView:self];
 }
 @end

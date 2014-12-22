@@ -8,147 +8,154 @@
 
 @import UIKit;
 
-typedef NS_ENUM(NSUInteger, KVNProgressBackgroundType) {
-	/** Don't allow user interactions and show a blurred background. Default value. */
-	KVNProgressBackgroundTypeBlurred,
-	/** Don't allow user interactions and show a solid color background. */
-	KVNProgressBackgroundTypeSolid,
-};
+#import "KVNProgressConfiguration.h"
 
-/** @see showWithParameters: */
-extern NSString * const KVNProgressViewParameterFullScreen;
-/** @see showWithParameters: */
-extern NSString * const KVNProgressViewParameterBackgroundType;
-/** @see showWithParameters: */
-extern NSString * const KVNProgressViewParameterStatus;
-/** @see showWithParameters: */
-extern NSString * const KVNProgressViewParameterSuperview;
-
-/** The minimum time (in seconds) the hud will be displayed. No matter if <code>dismiss</code> is called. */
-static NSTimeInterval const KVNMinimumDisplayTime = 0.3;
-/** The minimum time (in seconds) the success will be displayed. */
-static NSTimeInterval const KVNMinimumSuccessDisplayTime = 2.0;
-/** The minimum time (in seconds) the error will be displayed. */
-static NSTimeInterval const KVNMinimumErrorDisplayTime = 1.3;
+typedef void (^KVNCompletionBlock)(void);
 
 @interface KVNProgress : UIView
 
-#pragma mark - Appearance
+#pragma mark - Configuration
 
-/** Color of the background view. Is not used when backgroundType is KVNProgressBackgroundTypeBlurred. */
-@property (nonatomic) UIColor *backgroundFillColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Tint color of the background view. Used to tint blurred background only when backgroundType is KVNProgressBackgroundTypeBlurred. */
-@property (nonatomic) UIColor *backgroundTintColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Color of the circle stroke. */
-@property (nonatomic) UIColor *circleStrokeForegroundColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Background color of the circle stroke. Used only when view is showing with a progress circle. */
-@property (nonatomic) UIColor *circleStrokeBackgroundColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** background color of the circle. */
-@property (nonatomic) UIColor *circleFillBackgroundColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** color of the circle and checkmark when showing success. */
-@property (nonatomic) UIColor *successColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** color of the circle and checkmark when showing error. */
-@property (nonatomic) UIColor *errorColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Color of the status label. */
-@property (nonatomic) UIColor *statusColor NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Font of the status label. */
-@property (nonatomic) UIFont *statusFont NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Size of the circle. */
-@property (nonatomic) CGFloat circleSize NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
-/** Width of the circle stroke line */
-@property (nonatomic) CGFloat lineWidth NS_AVAILABLE_IOS(7_0) UI_APPEARANCE_SELECTOR;
+/**
+ Configuration of the <code>KVNProgress</code> UI.
+ By default, equals to <code>[KVNProgressConfiguration defaultConfiguration]</code>.
+ */
++ (KVNProgressConfiguration *)configuration;
+
+/**
+ Changes the configuration of the <code>KVNProgress</code> views.
+ @param newConfiguration The new configuration for <code>KVNProgress</code>.
+ */
++ (void)setConfiguration:(KVNProgressConfiguration *)newConfiguration;
 
 #pragma mark - Loading
 
-/** Shows an indeterminate progress view with blurred background and no status (not in fullscreen). */
-+ (void)show NS_AVAILABLE_IOS(7_0);
+/** Shows an indeterminate progress view without status. */
++ (void)show;
 
 /**
- Shows an indeterminate progress view with blurred background and specified status (not in fullscreen).
- @param status The status to show on the displayed view.
+ Shows an indeterminate progress view with the <code>status</code>.
+ @param status The status to show.
  */
-+ (void)showWithStatus:(NSString *)status NS_AVAILABLE_IOS(7_0);
++ (void)showWithStatus:(NSString *)status;
 
 /**
- Shows a progress view with defined parameters.
- <br/><br/>Use:
- <br/><br/><code><b>KVNProgressViewParameterFullScreen</b></code>:<br/> to precise full screen or not HUD (<code>NSNumber</code> value from a boolean). <br/><i>Omit to set default non full screen.</i>
- <br/><br/><code><b>KVNProgressViewParameterBackgroundType</b></code>:<br/> to precise blurred or solid HUD background (<code>NSNumber</code> value from a <code>KVNProgressBackgroundType</code> enumeration value). <br/><i>Omit to set default blurred background type.</i>
- <br/><br/><code><b>KVNProgressViewParameterStatus</b></code>:<br/> to precise the HUD status (<code>NSString</code> value). <br/><i>Omit to set default no status.</i>
- <br/><br/><code><b>KVNProgressViewParameterSuperview</b></code>:<br/> to precise the superview of the HUD. <br/><i>Omit to set default current window superview.</i>
- <br/><br/>Example:
- <br/>
- <pre>
-[KVNProgress showWithParameters:<br/>
-  @{KVNProgressViewParameterFullScreen: @(YES),<br/>
-    KVNProgressViewParameterBackgroundType: @(KVNProgressBackgroundTypeSolid),<br/>
-    KVNProgressViewParameterStatus: \@"Loading",<br/>
-    KVNProgressViewParameterSuperview: self.view<br/>
-   }];
- </pre>
- @param parameters The parameters of the progress view.
+ Shows an indeterminate progress view added to <code>superview</code> with <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
  */
-+ (void)showWithParameters:(NSDictionary *)parameters NS_AVAILABLE_IOS(7_0);
++ (void)showWithStatus:(NSString *)status
+				onView:(UIView *)superview;
 
 #pragma mark - Progress
 
 /**
- Show a specified progress view with blurred background and no status (not in fullscreen).
+ Shows a progress view with a specified <code>progress</code> and no status.
  @param progress The progress to display between 0 and 1.
  */
-+ (void)showProgress:(CGFloat)progress NS_AVAILABLE_IOS(7_0);
++ (void)showProgress:(CGFloat)progress;
 
 /**
- Show a specified progress view with blurred background and specified status (not in fullscreen).
- @param status The status to show on the displayed view.
+ Shows a progress view with a specified <code>progress</code> and <code>status</code>.
+ @param status The status to show.
  */
 + (void)showProgress:(CGFloat)progress
-			  status:(NSString*)status NS_AVAILABLE_IOS(7_0);
+			  status:(NSString*)status;
 
 /**
- Shows a specified progress view with defined parameters.
- @see <code> showWithParameters:</code> method for more information on the possible parameters.
- @param progress The progress to display between 0 and 1.
- @param parameters The parameters of the progress view.
+ Shows a progress view added to <code>superview</code> with a specified <code>progress</code> and <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
  */
 + (void)showProgress:(CGFloat)progress
-		  parameters:(NSDictionary *)parameters NS_AVAILABLE_IOS(7_0);
+			  status:(NSString*)status
+			  onView:(UIView *)superview;
 
 #pragma mark - Success
 
-/** Show a success view with blurred background and no status (not in fullscreen). */
-+ (void)showSuccess NS_AVAILABLE_IOS(7_0);
+/** Shows a success view without status. */
++ (void)showSuccess;
+
+/** 
+ Shows a success view without status.
+ @param completion The completion handler called after the view is completely dismissed.
+ */
++ (void)showSuccessWithCompletion:(KVNCompletionBlock)completion;
 
 /**
- Show a success view with blurred background and specified status (not in fullscreen).
- @param status The status to show on the displayed view.
+ Shows a success view with <code>status</code>.
+ @param status The status to show.
  */
-+ (void)showSuccessWithStatus:(NSString *)status NS_AVAILABLE_IOS(7_0);
++ (void)showSuccessWithStatus:(NSString *)status;
 
 /**
- Shows a success view with defined parameters.
- @see <code> showWithParameters:</code> method for more information on the possible parameters.
- @param parameters The parameters of the progress view.
+ Shows a success view with <code>status</code>.
+ @param status The status to show.
+ @param completion The completion handler called after the view is completely dismissed.
  */
-+ (void)showSuccessWithParameters:(NSDictionary *)parameters NS_AVAILABLE_IOS(7_0);
++ (void)showSuccessWithStatus:(NSString *)status
+				   completion:(KVNCompletionBlock)completion;
+
+/**
+ Shows a success view added to <code>superview</code> with <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
+ */
++ (void)showSuccessWithStatus:(NSString *)status
+					   onView:(UIView *)superview;
+
+/**
+ Shows a success view added to <code>superview</code> with <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
+ @param completion The completion handler called after the view is completely dismissed.
+ */
++ (void)showSuccessWithStatus:(NSString *)status
+					   onView:(UIView *)superview
+				   completion:(KVNCompletionBlock)completion;
 
 #pragma mark - Error
 
-/** Show an error view with blurred background and no status (not in fullscreen). */
-+ (void)showError NS_AVAILABLE_IOS(7_0);
+/** Shows an error view without status. */
++ (void)showError;
 
 /**
- Show an error view with blurred background and specified status (not in fullscreen).
- @param status The status to show on the displayed view.
+ Shows an error view without status.
+ @param completion The completion handler called after the view is completely dismissed.
  */
-+ (void)showErrorWithStatus:(NSString *)status NS_AVAILABLE_IOS(7_0);
++ (void)showErrorWithCompletion:(KVNCompletionBlock)completion;
 
 /**
- Shows an error view with defined parameters.
- @see <code> showWithParameters:</code> method for more information on the possible parameters.
- @param parameters The parameters of the progress view.
+ Shows an error view with <code>status</code>.
+ @param status The status to show.
  */
-+ (void)showErrorWithParameters:(NSDictionary *)parameters NS_AVAILABLE_IOS(7_0);
++ (void)showErrorWithStatus:(NSString *)status;
+
+/**
+ Shows an error view with <code>status</code>.
+ @param status The status to show.
+ @param completion The completion handler called after the view is completely dismissed.
+ */
++ (void)showErrorWithStatus:(NSString *)status
+				 completion:(KVNCompletionBlock)completion;
+
+/**
+ Shows an error view added to <code>superview</code> with <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
+ */
++ (void)showErrorWithStatus:(NSString *)status
+					 onView:(UIView *)superview;
+
+/**
+ Shows an error view added to <code>superview</code> with <code>status</code>.
+ @param status The status to show.
+ @param onView The superview on which to add the progress view. Pass <code>nil</code> to add to main window.
+ @param completion The completion handler called after the view is completely dismissed.
+ */
++ (void)showErrorWithStatus:(NSString *)status
+					 onView:(UIView *)superview
+				 completion:(KVNCompletionBlock)completion;
 
 #pragma mark - Dimiss
 
@@ -157,27 +164,27 @@ static NSTimeInterval const KVNMinimumErrorDisplayTime = 1.3;
  <br/><br/><b>Remark:</b> You may want to use <code>dismissWithCompletion:</code> if <code>KVNMinimumDisplayTime</code> is greater than zero.
  @see dismissWithCompletion:
  */
-+ (void)dismiss NS_AVAILABLE_IOS(7_0);
++ (void)dismiss;
 
 /**
  Dismiss progress view with a fade animation and call a completion handler when the dismiss process is finished. Does nothing if the progress view is not on screen.
  <br/><br/><b>Remark:</b> This method can be usefull if the <code>KVNMinimumDisplayTime</code> constant is greater than zero to ensure the view is correctly dismissed.
- @param completion The completion handler called after the view is completely dismissed
+ @param completion The completion handler called after the view is completely dismissed.
  */
-+ (void)dismissWithCompletion:(void (^)(void))completion NS_AVAILABLE_IOS(7_0);
++ (void)dismissWithCompletion:(KVNCompletionBlock)completion;
 
 #pragma mark - Update
 
 /**
- Change the loading status while it's showing.
- Nothing happens when progress view isn't showing.
+ Changes the loading status while HUD is displayed.
+ Nothing happens when progress view is not displayed.
  @param status The status to show
  */
 + (void)updateStatus:(NSString*)status;
 
 /**
- Update the progress loader while it's showing
- Nothing happens when progress view isn't showing.
+ Update the progress loader while HUD is displayed
+ Nothing happens when progress view is not displayed.
  @param progress The progress value between 0 and 1
  @param animated Wether or not the change has to be animated
  */

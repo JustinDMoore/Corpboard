@@ -28,7 +28,7 @@
     
 }
 
-- (void)goback
+-(void)goback
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

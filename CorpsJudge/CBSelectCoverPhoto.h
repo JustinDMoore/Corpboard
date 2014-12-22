@@ -10,6 +10,16 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 
-@interface CBSelectCoverPhoto : UITableViewController
+@protocol photoProtocol <NSObject>
 
+-(void)photoSelected:(UIImage *)photo;
+-(void)cameraSelected;
+
+@end
+
+@interface CBSelectCoverPhoto : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+
+}
+
+@property(nonatomic,assign)id delegate;
 @end

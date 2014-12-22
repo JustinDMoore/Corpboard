@@ -9,17 +9,44 @@
 #import "CBSelectCoverPhoto.h"
 
 @interface CBSelectCoverPhoto ()
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentAlbum;
 @property (strong, nonatomic) IBOutlet UITableView *tablePhotos;
-@property (nonatomic, strong) NSMutableArray *arrayOfPhotoObjects;
-@property (nonatomic, strong) NSMutableArray *arrayOfPhotos;
+@property (nonatomic, strong) NSMutableArray *arrayOfDefaultPhotoObjects;
+@property (nonatomic, strong) NSMutableArray *arrayOfDefaultPhotos;
+@property (nonatomic, strong) NSMutableArray *arrayOfUserPhotoObjects;
+@property (nonatomic, strong) NSMutableArray *arrayOfUserPhotos;
 @end
 
 @implementation CBSelectCoverPhoto
 
-- (void)viewDidLoad {
+@synthesize delegate;
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"BackArrow"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+-(void)viewDidLoad {
+    
     [super viewDidLoad];
     self.tablePhotos.hidden = YES;
     [self getPhotos];
+    [self.segmentAlbum addTarget:self
+                         action:@selector(segmentChanged)
+               forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)goback
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 int progress = 1;
@@ -28,22 +55,38 @@ int progress = 1;
     [query whereKey:@"type" equalTo:@"Cover"];
     [query orderByAscending:@"name"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.arrayOfPhotoObjects addObjectsFromArray:objects];
         for (PFObject *obj in objects) {
+            BOOL isUserSubmitted = [obj[@"isUserSubmitted"] boolValue];
+            if (isUserSubmitted) {
+                [self.arrayOfUserPhotoObjects addObject:obj];
+            } else {
+                [self.arrayOfDefaultPhotoObjects addObject:obj];
+            }
+            
             PFFile *imgFile = obj[@"photo"];
             PFImageView *imgView = [PFImageView new];
             [imgView setFile:imgFile];
             [imgView loadInBackground:^(UIImage *image, NSError *error) {
-                NSLog(@"%i", progress);
-                NSLog(@"..%li", [objects count]);
-                [self.arrayOfPhotos addObject:imgView];
-                if ([self.arrayOfPhotos count] == [objects count]) {
+                
+                if (isUserSubmitted) {
+                    [self.arrayOfUserPhotos addObject:imgView];
+                } else {
+                    [self.arrayOfDefaultPhotos addObject:imgView];
+                }
+                
+                if ([self.arrayOfDefaultPhotos count] + [self.arrayOfUserPhotos count] == [objects count]) {
                     self.tablePhotos.hidden = NO;
                     [self.tablePhotos reloadData];
                 }
+
             }];
         }
     }];
+}
+
+-(void)segmentChanged {
+    
+    [self.tablePhotos reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,34 +103,102 @@ int progress = 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!tableView.hidden)
-        return [self.arrayOfPhotoObjects count];
-    else
-        return 0;
-    //if ([self.arrayOfPhotos count]) return [self.arrayOfPhotos count];
-    //else return 0;
+    
+    if (self.segmentAlbum.selectedSegmentIndex == 0) { //default
+        if (!tableView.hidden)
+            return [self.arrayOfDefaultPhotoObjects count] + 1;
+        else
+            return 0;
+    } else { //user submitted
+        return [self.arrayOfUserPhotoObjects count] + 1;
+    }
+    return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"photoCell" forIndexPath:indexPath];
     
-    PFObject *obj = [self.arrayOfPhotoObjects objectAtIndex:indexPath.row];
-    PFFile *imgFile = obj[@"photo"];
-    PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
-    [imgView setFile:imgFile];
-    [imgView loadInBackground];
-    imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+    UITableViewCell *cell;
+    
+        
+        if (indexPath.row == 0) {
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"custom"];
+            
+            UIButton *btnCamera = (UIButton *)[cell viewWithTag:1];
+            UIButton *btnUpload = (UIButton *)[cell viewWithTag:2];
+            UIButton *btnCamera2 = (UIButton *)[cell viewWithTag:3];
+            UIButton *btnUpload2 = (UIButton *)[cell viewWithTag:4];
+            
+            [btnCamera addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
+            [btnUpload addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
+            [btnCamera2 addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
+            [btnUpload2 addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
+            
+        } else {
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"photoCell"];
+            cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+            PFObject *obj;
+            
+            if (self.segmentAlbum.selectedSegmentIndex == 0) {
+                obj = [self.arrayOfDefaultPhotoObjects objectAtIndex:indexPath.row - 1];
+            } else {
+                obj = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
+            }
+            
+            PFFile *imgFile = obj[@"photo"];
+            PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
+            [imgView setFile:imgFile];
+            [imgView loadInBackground];
+            imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+    }
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    return 139;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    return 139;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0){
+        return;
+    }
+    
+    NSLog(@"delegate is: %@", self.delegate);
+    
+    PFImageView *img;
+    
+    if (self.segmentAlbum.selectedSegmentIndex == 0) {
+        img = [self.arrayOfDefaultPhotos objectAtIndex:indexPath.row - 1];
+    } else {
+        img = [self.arrayOfUserPhotos objectAtIndex:indexPath.row - 1];
+    }
+    
+    if (img) {
+        
+        [self goback];
+        [delegate photoSelected:img.image];
+    }
+}
+
+-(void)camera {
+    
+    [self goback];
+    [delegate cameraSelected];
+}
+
+-(void)upload {
+    NSLog(@"upload");
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,17 +243,32 @@ int progress = 1;
 }
 */
 
--(NSMutableArray *)arrayOfPhotoObjects {
-    if (!_arrayOfPhotoObjects) {
-        _arrayOfPhotoObjects = [[NSMutableArray alloc] init];
+-(NSMutableArray *)arrayOfDefaultPhotoObjects {
+    if (!_arrayOfDefaultPhotoObjects) {
+        _arrayOfDefaultPhotoObjects = [[NSMutableArray alloc] init];
     }
-    return _arrayOfPhotoObjects;
+    return _arrayOfDefaultPhotoObjects;
 }
 
--(NSMutableArray *)arrayOfPhotos {
-    if (!_arrayOfPhotos) {
-        _arrayOfPhotos = [[NSMutableArray alloc] init];
+-(NSMutableArray *)arrayOfDefaultPhotos {
+    if (!_arrayOfDefaultPhotos) {
+        _arrayOfDefaultPhotos = [[NSMutableArray alloc] init];
     }
-    return _arrayOfPhotos;
+    return _arrayOfDefaultPhotos;
 }
+
+-(NSMutableArray *)arrayOfUserPhotoObjects {
+    if (!_arrayOfUserPhotoObjects) {
+        _arrayOfUserPhotoObjects = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfUserPhotoObjects;
+}
+
+-(NSMutableArray *)arrayOfUserPhotos {
+    if (!_arrayOfUserPhotos) {
+        _arrayOfUserPhotos = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfUserPhotos;
+}
+
 @end

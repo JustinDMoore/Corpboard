@@ -12,6 +12,7 @@
 #import "KVNProgress.h"
 #import "MWPhotoBrowser.h"
 
+
 @interface CBUserProfileViewController () {
     CBSingle *_data;
 }
@@ -19,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLabels;
 @property (nonatomic, strong) UILabel *lblBackground;
+
+@property (nonatomic, strong) UIBarButtonItem *btnEditProfile;
 
 // EDIT BUTTONS
 @property (weak, nonatomic) IBOutlet UIButton *btnEditPicture;
@@ -80,8 +83,9 @@
         [configBtn setBackgroundImage:configBtnImage forState:UIControlStateNormal];
         [configBtn addTarget:self action:@selector(configProfile) forControlEvents:UIControlEventTouchUpInside];
         configBtn.frame = CGRectMake(0, 0, 30, 30);
-        UIBarButtonItem *configBarButton = [[UIBarButtonItem alloc] initWithCustomView:configBtn] ;
-        self.navigationItem.rightBarButtonItem = configBarButton;
+        self.btnEditProfile = [[UIBarButtonItem alloc] initWithCustomView:configBtn] ;
+        self.navigationItem.rightBarButtonItem = self.btnEditProfile;
+        self.btnEditProfile.enabled = NO;
         self.btnReport.enabled = NO;
         self.btnChat.enabled = NO;
     } else {
@@ -452,10 +456,8 @@
         [self scrollViewDidScroll:self.scrollProfile];
         
         editingProfile = NO;
-    }];
-    
-
-    
+        self.btnEditProfile.enabled = YES;
+    }];  
 }
 
 -(void)goback {
@@ -475,69 +477,72 @@ bool editingProfile = NO;
 MWPhotoBrowser *browser;
 - (void)selectPhotos {
 
-//    if (coverPhoto) {
-//        [self performSegueWithIdentifier:@"coverPhotos" sender:self];
-//    } else {
-//        
-//    }
-    browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    
-    // Browser
-    NSMutableArray *photos = [[NSMutableArray alloc] init];
-    
-    [self.arrayOfPhotos removeAllObjects];
-    [self.arrayOfSelections removeAllObjects];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
-    [query whereKey:@"type" equalTo:@"Cover"];
-    [query orderByAscending:@"name"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count]) {
-            
-            for (PFObject *obj in objects) {
-
-                PFFile *imageFile = [obj objectForKey:@"photo"];
-                
-                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-                        
-                        //set the default selection to NO
-                        [self.arrayOfSelections addObject:[NSNumber numberWithBool:NO]];
-                        
-                        UIImage *img = [UIImage imageWithData:data];
-                        MWPhoto *photo = [MWPhoto photoWithImage:img];
-                        photo.caption = obj[@"name"];
-                        [photos addObject:photo];
-                        [browser reloadData];
-                    }
-                } progressBlock:^(int percentDone) {
-                    
-                }];
-            }
-    
-            self.arrayOfPhotos = photos;
-            
-            
-            browser.zoomPhotosToFill = YES;
-            browser.alwaysShowControls = NO;
-            browser.startOnGrid = YES;
-            browser.displayActionButton = NO;
-            [browser setCurrentPhotoIndex:0];
-            browser.displaySelectionButtons = YES;
-            
-            // Modal
-            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
-            nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            [self presentViewController:nc animated:YES completion:nil];
-
-
-        }
-    }];
+    if (coverPhoto) {
+        
+        [self performSegueWithIdentifier:@"coverPhotos" sender:self];
+        
+    } else {
+        
+    }
+//    browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+//    
+//    // Browser
+//    NSMutableArray *photos = [[NSMutableArray alloc] init];
+//    
+//    [self.arrayOfPhotos removeAllObjects];
+//    [self.arrayOfSelections removeAllObjects];
+//    
+//    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
+//    [query whereKey:@"type" equalTo:@"Cover"];
+//    [query orderByAscending:@"name"];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if ([objects count]) {
+//            
+//            for (PFObject *obj in objects) {
+//
+//                PFFile *imageFile = [obj objectForKey:@"photo"];
+//                
+//                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//                    if (!error) {
+//                        
+//                        //set the default selection to NO
+//                        [self.arrayOfSelections addObject:[NSNumber numberWithBool:NO]];
+//                        
+//                        UIImage *img = [UIImage imageWithData:data];
+//                        MWPhoto *photo = [MWPhoto photoWithImage:img];
+//                        photo.caption = obj[@"name"];
+//                        [photos addObject:photo];
+//                        [browser reloadData];
+//                    }
+//                } progressBlock:^(int percentDone) {
+//                    
+//                }];
+//            }
+//    
+//            self.arrayOfPhotos = photos;
+//            
+//            
+//            browser.zoomPhotosToFill = YES;
+//            browser.alwaysShowControls = NO;
+//            browser.startOnGrid = YES;
+//            browser.displayActionButton = NO;
+//            [browser setCurrentPhotoIndex:0];
+//            browser.displaySelectionButtons = YES;
+//            
+//            // Modal
+//            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+//            nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//            [self presentViewController:nc animated:YES completion:nil];
+//
+//
+//        }
+//    }];
     
     
 //    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 //    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 //    picker.delegate = self;
+//    picker.sourceType = uiimagepickercontrollersou
 //    [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -572,9 +577,14 @@ BOOL coverPhoto = NO;
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
+    [self saveCoverPhoto:image];
+}
+
+-(void)saveCoverPhoto:(UIImage *)photo {
+    
     [KVNProgress show];
     
-    NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImagePNGRepresentation(photo);
     PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -588,8 +598,11 @@ BOOL coverPhoto = NO;
                 }
                 
                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [self initUI];
-                    [KVNProgress dismiss];
+                    if (succeeded) {
+                     
+                        [self initUI];
+                        [KVNProgress showSuccess];
+                    }
                 }];
             }
         } else {
@@ -802,6 +815,23 @@ UIPickerView *corpPicker;
         [_viewExperienceList setDelegate:self];
     }
     return _viewExperienceList;
+}
+
+#pragma mark
+#pragma mark - CBSelectCoverPhoto Delegates
+#pragma mark
+
+-(void)photoSelected:(UIImage *)photo {
+    
+    [self saveCoverPhoto:photo];
+}
+-(void)cameraSelected {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark
@@ -1083,8 +1113,13 @@ float ht;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"photos"]) {
-       
+   
+    NSLog(@"id %@", [segue destinationViewController]);
+    if ([segue.identifier isEqualToString:@"coverPhotos"]) {
+        
+        CBSelectCoverPhoto *vc = segue.destinationViewController;
+        vc.delegate = self;
     }
 }
+
 @end

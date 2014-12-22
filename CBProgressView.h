@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CBAppDelegate.h"
+#import "KVNProgress.h"
 
 @protocol ProgressProtocol <NSObject>
 @required
@@ -18,13 +19,15 @@
     id delegate;
     CBAppDelegate *del;
 }
+@property (nonatomic, strong) IBOutlet UIView *viewProgress;
+@property (nonatomic) KVNProgressConfiguration *customConfiguration;
 @property (nonatomic, strong) IBOutlet UILabel *lblFactHeader;
 @property (nonatomic, strong) IBOutlet UILabel *lblFact;
 
 -(void)setDelegate:(id)newDelegate;
 -(void)startProgress;
--(void)stopProgress;
--(void)errorProgress;
+-(void)completeProgress;
+-(void)errorProgress:(NSString *)error;
 -(void)setFact:(NSString*)fact;
 
 @end
