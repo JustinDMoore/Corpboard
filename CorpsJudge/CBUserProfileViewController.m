@@ -11,6 +11,10 @@
 #import "CBSingle.h"
 #import "KVNProgress.h"
 
+#import "AppConstant.h"
+#import "messages.h"
+#import "ChatView.h"
+
 @interface CBUserProfileViewController () {
     CBSingle *_data;
 }
@@ -57,6 +61,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet UIButton *btnChat;
+- (IBAction)btnChat_clicked:(id)sender;
+- (IBAction)btnReport_clicked:(id)sender;
+
+
+
 
 @end
 
@@ -1068,4 +1077,50 @@ float ht;
     }
 }
 
+- (IBAction)btnChat_clicked:(id)sender {
+    
+    PFUser *user1 = [PFUser currentUser];
+    PFUser *user2 = self.userProfile;
+    NSString *id1 = user1.objectId;
+    NSString *id2 = user2.objectId;
+    NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
+    CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    ChatView *chatView = [[ChatView alloc] initWith:roomId];
+    chatView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatView animated:YES];
+}
+
+- (IBAction)btnReport_clicked:(id)sender {
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report User" message:@"Tell us what happened" delegate:self
+                                          cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert textFieldAtIndex:0].autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    [alert textFieldAtIndex:0].autocorrectionType = UITextAutocorrectionTypeDefault;
+    [alert show];
+
+}
+
+#pragma mark
+#pragma mark - UIAlertView Delegates
+#pragma mark
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        if ([textField.text isEqualToString:@""] == NO)
+        {
+            PFObject *object = [PFObject objectWithClassName:@"reportUsers"];
+            object[@"report"] = textField.text;
+            object[@"userReporting"] = [PFUser currentUser];
+            object[@"userBeingReported"] = self.userProfile;
+            
+            [object saveEventually];
+        }
+    }
+}
 @end

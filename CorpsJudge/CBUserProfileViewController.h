@@ -16,7 +16,7 @@
 #import "CBCorpExperienceList.h"
 #import "CBSelectCoverPhoto.h"
 
-@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol, photoProtocol> {
+@interface CBUserProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CBUserCategoriesProtocol, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, corpExperienceProtocol, editNameProtocol, editDescriptionProtocol, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, corpExperienceListProtocol, photoProtocol, UIAlertViewDelegate> {
     
 }
 

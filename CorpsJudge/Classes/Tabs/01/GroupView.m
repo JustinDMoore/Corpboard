@@ -123,7 +123,7 @@
 - (void)actionNew
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"What's your question or topic for discussion?" message:nil delegate:self
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create New Chat" message:@"What's your question or topic for discussion?" delegate:self
 										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
 	[alert show];

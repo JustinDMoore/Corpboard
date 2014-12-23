@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -813,6 +813,32 @@
             </objects>
             <point key="canvasLocation" x="5604" y="1012"/>
         </scene>
+        <!--Private View-->
+        <scene sceneID="ybb-yD-zZN">
+            <objects>
+                <tableViewController id="krs-FK-NiX" customClass="PrivateView" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h2Z-Gu-Xit">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="1200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Sx4-Po-dP6">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sx4-Po-dP6" id="2aL-ok-ZsZ">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="krs-FK-NiX" id="CcS-f1-PkL"/>
+                            <outlet property="delegate" destination="krs-FK-NiX" id="QHF-Wq-D13"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xY-TM-nwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4795" y="-1310"/>
+        </scene>
         <!--Group View-->
         <scene sceneID="k0u-fx-ASz">
             <objects>
@@ -975,12 +1001,18 @@
                                                         <state key="normal" image="Warning">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="btnReport_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="VVc-rE-HS4"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
                                                         <rect key="frame" x="20" y="8" width="45" height="45"/>
                                                         <state key="normal" image="Chat">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="btnChat_clicked:" destination="sQx-yV-WOz" eventType="touchUpInside" id="xse-NL-EcL"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1076,13 +1108,13 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
-                        <outlet property="btnChat" destination="cyJ-Si-ya0" id="YQ4-h7-XUa"/>
+                        <outlet property="btnChat" destination="yvB-e2-cXy" id="xu7-zb-F88"/>
                         <outlet property="btnEditBadges" destination="EPT-nF-ObM" id="bJd-Ra-cXY"/>
                         <outlet property="btnEditCorpExperience" destination="7LH-hF-LhQ" id="PO1-xV-PfV"/>
                         <outlet property="btnEditDescription" destination="VWG-g3-c2j" id="4Im-ht-fAd"/>
                         <outlet property="btnEditName" destination="C2c-0q-WKj" id="Xgt-eg-ajn"/>
                         <outlet property="btnEditPicture" destination="gJn-Kz-0Vt" id="Y88-xT-upc"/>
-                        <outlet property="btnReport" destination="yvB-e2-cXy" id="mgX-Ln-z5E"/>
+                        <outlet property="btnReport" destination="cyJ-Si-ya0" id="njk-hN-99U"/>
                         <outlet property="imgCoverPhoto" destination="Kte-AL-npt" id="PjI-qm-Rgd"/>
                         <outlet property="imgUser" destination="ySp-d8-VtK" id="hes-iZ-0Pb"/>
                         <outlet property="lblAboutMe" destination="VS7-mT-aXI" id="CTG-Sl-EhO"/>
@@ -1808,6 +1840,9 @@
                                                         <state key="normal" image="Message">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <segue destination="krs-FK-NiX" kind="show" identifier="messages" id="QrO-de-uLh"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gg-9s-AhZ">
                                                         <rect key="frame" x="129" y="33" width="63" height="21"/>
