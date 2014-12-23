@@ -313,75 +313,6 @@
             </objects>
             <point key="canvasLocation" x="5106.5" y="-8.5"/>
         </scene>
-        <!--Corp Detail-->
-        <scene sceneID="47S-8U-OKv">
-            <objects>
-                <viewController id="mfG-FR-wo2" customClass="CBCorpDetail" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CjR-et-HNM"/>
-                        <viewControllerLayoutGuide type="bottom" id="aAg-Ml-BGa"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cGa-D0-k5X">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugy-ew-Pcf" userLabel="Scroll View Headshot">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="The Cadets2.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pdk-No-1mN">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
-                                    </imageView>
-                                </subviews>
-                            </scrollView>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdn-hx-Nfs" userLabel="Scroll View Content">
-                                <rect key="frame" x="0.0" y="142" width="320" height="401"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hmg-xo-Ys5">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Santa Clara Vangaurd" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2O-Ke-rsA">
-                                                <rect key="frame" x="23" y="70" width="275" height="29"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="The Cadets.png" translatesAutoresizingMaskIntoConstraints="NO" id="jf1-h2-DfR">
-                                                <rect key="frame" x="123" y="0.0" width="75" height="75"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Santa Clara, CA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8S-EA-pyE">
-                                                <rect key="frame" x="23" y="103" width="275" height="16"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nWM-WE-c7T">
-                                                <rect key="frame" x="23" y="122" width="275" height="28"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="www.scvanguard.org">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="openLink:" destination="3hW-82-wAr" eventType="touchUpInside" id="jGb-0M-9Y8"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="1200"/>
-                    <connections>
-                        <outlet property="imgLogo" destination="jf1-h2-DfR" id="SKK-iA-831"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hLG-lD-TI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2906" y="-326"/>
-        </scene>
         <!--Web View Controller-->
         <scene sceneID="rBt-zg-ex9">
             <objects>
@@ -391,11 +322,11 @@
                         <viewControllerLayoutGuide type="bottom" id="oOR-A5-Dg7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xf3-Rc-ASZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2uS-Gi-B7m">
-                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="flexibleSpace" id="KKW-dx-IhM"/>
                                     <barButtonItem style="plain" systemItem="stop" id="AWu-bW-7UH">
@@ -408,7 +339,7 @@
                                 <color key="barTintColor" red="0.90980392156862744" green="0.9137254901960784" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Santa Clara Vanguard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgq-bS-L7A">
-                                <rect key="frame" x="6" y="25" width="359" height="21"/>
+                                <rect key="frame" x="6" y="25" width="320" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="RPr-9W-mAx"/>
                                 </constraints>
@@ -417,7 +348,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="www.scvanguard.org" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAz-K1-fx9">
-                                <rect key="frame" x="6" y="40" width="366" height="21"/>
+                                <rect key="frame" x="6" y="40" width="327" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="aca-Jo-D5j"/>
                                 </constraints>
@@ -426,14 +357,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VT7-hv-yuy">
-                                <rect key="frame" x="0.0" y="64" width="414" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="RrN-fi-akD" id="6wa-od-eyN"/>
                                 </connections>
                             </webView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qi8-T8-5tc">
-                                <rect key="frame" x="0.0" y="63" width="414" height="2"/>
+                                <rect key="frame" x="0.0" y="63" width="375" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="NiC-2x-L6g"/>
                                 </constraints>
@@ -2735,8 +2666,6 @@
         <image name="Feedback1.png" width="350" height="170"/>
         <image name="Message" width="48" height="48"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
-        <image name="The Cadets.png" width="223" height="202"/>
-        <image name="The Cadets2.png" width="641" height="261"/>
         <image name="Upload" width="48" height="48"/>
         <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>
@@ -2751,6 +2680,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
-        <segue reference="E9Q-pS-Ymj"/>
+        <segue reference="FNF-NK-DqA"/>
     </inferredMetricsTieBreakers>
 </document>
