@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -79,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZR-Sf-XEi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4602" y="-141"/>
+            <point key="canvasLocation" x="4056" y="-160"/>
         </scene>
         <!--Corps Detail View Controller-->
         <scene sceneID="d5K-u7-Cgx">
@@ -210,7 +209,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repertoire" rowHeight="358" id="AgH-5F-ows">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repertoire" rowHeight="120" id="AgH-5F-ows">
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AgH-5F-ows" id="RUj-9n-VE3">
@@ -240,26 +239,14 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" indicatorStyle="white" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqB-Nc-0SZ">
-                                                    <rect key="frame" x="8" y="115" width="305" height="234"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerX" secondItem="yNw-wI-gGG" secondAttribute="centerX" constant="0.5" id="BFp-Il-4IE"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="1Gv-FN-FwU" secondAttribute="trailing" constant="-7" id="HFg-xB-RBR"/>
-                                                <constraint firstItem="SqB-Nc-0SZ" firstAttribute="trailing" secondItem="RUj-9n-VE3" secondAttribute="trailingMargin" id="HbW-Th-sM7"/>
-                                                <constraint firstItem="SqB-Nc-0SZ" firstAttribute="top" secondItem="1Gv-FN-FwU" secondAttribute="bottom" constant="9" id="KyX-hQ-t5z"/>
                                                 <constraint firstItem="1Gv-FN-FwU" firstAttribute="leading" secondItem="RUj-9n-VE3" secondAttribute="leadingMargin" constant="-8" id="TEh-iW-R2Z"/>
                                                 <constraint firstItem="yNw-wI-gGG" firstAttribute="top" secondItem="RUj-9n-VE3" secondAttribute="topMargin" id="V7E-iU-1q3"/>
                                                 <constraint firstAttribute="centerX" secondItem="zbB-As-q8e" secondAttribute="centerX" constant="1" id="VbT-GC-uma"/>
-                                                <constraint firstItem="SqB-Nc-0SZ" firstAttribute="bottom" secondItem="RUj-9n-VE3" secondAttribute="bottomMargin" id="XSP-an-Kbs"/>
                                                 <constraint firstItem="1Gv-FN-FwU" firstAttribute="top" secondItem="zbB-As-q8e" secondAttribute="bottom" constant="8" id="cHb-MC-I4D"/>
-                                                <constraint firstItem="SqB-Nc-0SZ" firstAttribute="leading" secondItem="RUj-9n-VE3" secondAttribute="leadingMargin" id="k2c-YY-hkz"/>
                                                 <constraint firstItem="zbB-As-q8e" firstAttribute="top" secondItem="yNw-wI-gGG" secondAttribute="bottom" constant="3" id="ljm-Bu-91S"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -311,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2K-Lz-iO3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5106.5" y="-8.5"/>
+            <point key="canvasLocation" x="4672.5" y="-122.5"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="rBt-zg-ex9">
@@ -2679,7 +2666,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5XH-ng-dQw"/>
-        <segue reference="yHE-cF-ijy"/>
+        <segue reference="G84-g7-0Ap"/>
         <segue reference="FNF-NK-DqA"/>
     </inferredMetricsTieBreakers>
 </document>

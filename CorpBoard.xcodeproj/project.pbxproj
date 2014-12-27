@@ -1042,8 +1042,8 @@
 		92533472194FD5D70004D16F = {
 			isa = PBXGroup;
 			children = (
-				D064F3A91A36ECA1007455E2 /* CloudCode */,
 				92533486194FD5D70004D16F /* CorpBoard */,
+				D064F3A91A36ECA1007455E2 /* Cloud Code */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
 				D0AEF3BC1A13325C0059368B /* NewsViewTests */,
 				9253347D194FD5D70004D16F /* Frameworks */,
@@ -1092,8 +1092,8 @@
 			isa = PBXGroup;
 			children = (
 				925334BD194FD6F80004D16F /* Main.storyboard */,
-				927F4DF31A212AAE008CC143 /* Xibs */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
+				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
 				92F0B6001A2C6D33005EA4B5 /* Chat API */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
@@ -1340,13 +1340,14 @@
 			name = SubClasses;
 			sourceTree = "<group>";
 		};
-		D064F3A91A36ECA1007455E2 /* CloudCode */ = {
+		D064F3A91A36ECA1007455E2 /* Cloud Code */ = {
 			isa = PBXGroup;
 			children = (
 				D064F3AA1A36ECA1007455E2 /* cloud */,
 				D064F3AC1A36ECA1007455E2 /* config */,
 				D064F3AE1A36ECA1007455E2 /* public */,
 			);
+			name = "Cloud Code";
 			path = CloudCode;
 			sourceTree = "<group>";
 		};

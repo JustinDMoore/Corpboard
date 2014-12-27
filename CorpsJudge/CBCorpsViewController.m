@@ -153,7 +153,20 @@ NSTimer *timer;
             corps = [data.arrayOfWorldClass objectAtIndex:indexPath.row];
            
             lblcorpsName.text = corps[@"corpsName"];
-            imgCorps.image = [UIImage imageNamed:corps[@"corpsName"]];
+            PFFile *imageFile = corps[@"logo"];
+            if (imageFile) {
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+                    if (!error) {
+                        imgCorps.image = [UIImage imageWithData:data];
+                    } else {
+                        imgCorps.image = nil;
+                        NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+                    }
+                }];
+            } else {
+                imgCorps.image = nil;
+                NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+            }
    
         }
     } else if (indexPath.section == 1) {
@@ -162,7 +175,20 @@ NSTimer *timer;
             PFObject *corps;
             corps = [data.arrayOfOpenClass objectAtIndex:indexPath.row];
             lblcorpsName.text = corps[@"corpsName"];
-            imgCorps.image = [UIImage imageNamed:corps[@"corpsName"]];
+            PFFile *imageFile = corps[@"logo"];
+            if (imageFile) {
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+                    if (!error) {
+                        imgCorps.image = [UIImage imageWithData:data];
+                    } else {
+                        imgCorps.image = nil;
+                        NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+                    }
+                }];
+            } else {
+                imgCorps.image = nil;
+                NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+            }
             
         }
     }
