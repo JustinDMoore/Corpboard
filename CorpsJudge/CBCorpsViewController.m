@@ -34,6 +34,7 @@ NSTimer *timer;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,7 +72,7 @@ NSTimer *timer;
     [self.tableCorps reloadData];
 }
 
--(void)checkForCorps {
+-(void)checkForCorp {
     
     if (data.updatedCorps) {
         [timer invalidate];
@@ -91,9 +92,10 @@ NSTimer *timer;
     
     timer = [NSTimer scheduledTimerWithTimeInterval:.5
                                              target:self
-                                           selector:@selector(checkForCorps)
+                                           selector:@selector(checkForCorp)
                                            userInfo:nil
                                             repeats:YES];
+
 }
 
 -(void)sortCorpsAlphabetically {

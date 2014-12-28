@@ -8,6 +8,7 @@
 
 #import "CBCorpsDetailViewController.h"
 #import "CBWebViewController.h"
+#import "CBAboutCorpsViewController.h"
 
 @interface CBCorpsDetailViewController ()
 
@@ -58,16 +59,17 @@
 
 }
 
-- (void)goback
-{
+-(void)goback {
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)initUI {
-    
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     selectedCell = 0;
     self.tableYears.hidden = YES;
+    self.tableRepertoire.hidden = YES;
     
     self.btnLink.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [self.btnLink setTitle:self.corps[@"website"] forState:UIControlStateNormal];
@@ -125,6 +127,9 @@
                 self.currentYear = [self.arrayOfRepertoires objectAtIndex:0];
                 self.tableYears.hidden = NO;
                 [self.tableYears reloadData];
+                
+                self.tableRepertoire.hidden = NO;
+                [self.tableRepertoire reloadData];
             }
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -199,27 +204,27 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (tableView == self.tableYears) {
-        return 20;
-    } else if (tableView == self.tableRepertoire) {
-        if (self.corps[@"champs"]) {
-            if (indexPath.row == 0) {
-                return 122;
-            } else {
-                UITextView *txt = [self getRepertoire];
-                NSLog(@"...... %@", txt.text);
-                int x = txt.frame.size.height;
-                return 120 + x;
-            }
-        } else {
-            UITextView *txt = [self getRepertoire];
-            return 120 + txt.frame.size.height;
-        }
-        
-    } else return 0;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    if (tableView == self.tableYears) {
+//        return 20;
+//    } else if (tableView == self.tableRepertoire) {
+//        if (self.corps[@"champs"]) {
+//            if (indexPath.row == 0) {
+//                return 122;
+//            } else {
+//                UITextView *txt = [self getRepertoire];
+//                NSLog(@"...... %@", txt.text);
+//                int x = txt.frame.size.height;
+//                return 120 + x;
+//            }
+//        } else {
+//            UITextView *txt = [self getRepertoire];
+//            return 120 + txt.frame.size.height;
+//        }
+//        
+//    } else return 0;
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -288,26 +293,26 @@
         UILabel *lblYear = (UILabel *)[cell viewWithTag:1];
         UILabel *lblScoreAndPlacement = (UILabel *)[cell viewWithTag:2];
         UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:3];
-        //UITextView *txtRepertoire = (UITextView *)[cell viewWithTag:4];
+        UILabel *txtRepertoire = (UILabel *)[cell viewWithTag:4];
         
         lblYear.text = [NSString stringWithFormat:@"%@", self.currentYear[@"year"]];
-        lblScoreAndPlacement.text = [NSString stringWithFormat:@"%@ - %@", self.currentYear[@"placement"], self.currentYear[@"score"]];
+        
+        if ([self.currentYear[@"placement"] length]) {
+            lblScoreAndPlacement.hidden = NO;
+            lblScoreAndPlacement.text = [NSString stringWithFormat:@"%@ - %@", self.currentYear[@"placement"], self.currentYear[@"score"]];
+        } else {
+            lblScoreAndPlacement.hidden = YES;
+        }
+        
         lblShowTitle.text = self.currentYear[@"showTitle"];
-        [cell addSubview:[self getRepertoire]];
+        
+        txtRepertoire.text = self.currentYear[@"repertoire"];
+        txtRepertoire.textColor = [UIColor lightGrayColor];
+        [txtRepertoire sizeToFit];
         
     }
     
     return cell;
-}
-
--(UITextView *)getRepertoire {
-    
-    UITextView *txtRepertoire = [[UITextView alloc] init];
-    txtRepertoire.text = self.currentYear[@"repertoire"];
-    txtRepertoire.textColor = [UIColor lightGrayColor];
-    txtRepertoire.frame = CGRectMake(8, 15, 305, txtRepertoire.frame.size.width);
-    [txtRepertoire sizeToFit];
-    return txtRepertoire;
 }
 
 int selectedCell = 0;
@@ -334,10 +339,16 @@ int selectedCell = 0;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"web"]) {
+        
         CBWebViewController *vc = [segue destinationViewController];
         vc.webURL = self.corps[@"website"];
         vc.websiteTitle = self.corps[@"corpsName"];
         vc.websiteSubTitle = vc.webURL;
+        
+    } else if ([[segue identifier] isEqualToString:@"about"]) {
+        
+        CBAboutCorpsViewController *vc = [segue destinationViewController];
+        vc.about = self.corps[@"about"];
     }
 }
 

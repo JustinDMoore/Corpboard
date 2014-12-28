@@ -183,6 +183,7 @@
 		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
 		D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F51A41640700FF0B62 /* CBEditDescription.xib */; };
 		D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */; };
+		D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */; };
 		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
 		D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA81A157C24003557AF /* CBNewsItem.m */; };
 		D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAB1A1584A9003557AF /* CBNewsView.m */; };
@@ -542,6 +543,8 @@
 		D08E00F51A41640700FF0B62 /* CBEditDescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditDescription.xib; sourceTree = "<group>"; };
 		D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditDescription.h; sourceTree = "<group>"; };
 		D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditDescription.m; sourceTree = "<group>"; };
+		D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAboutCorpsViewController.h; sourceTree = "<group>"; };
+		D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAboutCorpsViewController.m; sourceTree = "<group>"; };
 		D094AFA41A154FAC003557AF /* CBNewsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsSingleton.h; sourceTree = "<group>"; };
 		D094AFA51A154FAC003557AF /* CBNewsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsSingleton.m; sourceTree = "<group>"; };
 		D094AFA71A157C24003557AF /* CBNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsItem.h; sourceTree = "<group>"; };
@@ -1167,6 +1170,7 @@
 				92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */,
 				924280E11963A573006E8240 /* CBCorpsViewController.m */,
 				927254FC1963B12000275511 /* CBCorpsDetailViewController.m */,
+				D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */,
 				D097A21E1A04125300C9FF72 /* CBWebViewController.m */,
 				D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */,
 				D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */,
@@ -1227,6 +1231,7 @@
 				92CF4C6619627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.h */,
 				924280E01963A573006E8240 /* CBCorpsViewController.h */,
 				927254FB1963B12000275511 /* CBCorpsDetailViewController.h */,
+				D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */,
 				D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */,
 				D097A21D1A04125300C9FF72 /* CBWebViewController.h */,
 				D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */,
@@ -1646,6 +1651,7 @@
 				923D4FF21A2C6DCF00E16B64 /* NSString+JSQMessages.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				923D4FF11A2C6DCF00E16B64 /* JSQSystemSoundPlayer+JSQMessages.m in Sources */,
+				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				923D4FF71A2C6DCF00E16B64 /* JSQMessagesKeyboardController.m in Sources */,

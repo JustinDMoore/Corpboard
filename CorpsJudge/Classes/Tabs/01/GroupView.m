@@ -72,7 +72,7 @@
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
-    [KVNProgress show];
+    
     [self refreshTableAndOpenRecent:NO];
 }
 
@@ -162,6 +162,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
     [KVNProgress show];
+    
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
