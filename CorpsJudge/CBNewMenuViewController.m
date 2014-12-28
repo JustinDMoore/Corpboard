@@ -607,10 +607,16 @@ NSDate *nearestDate;
     
     if ([self.arrayOfLastShows count]) {
         //set the date string for the last shows table
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"EEEE M/dd"];
         PFObject *show = [self.arrayOfLastShows objectAtIndex:0];
-        lastShowString = [formatter stringFromDate:show[@"showDate"]];
+        
+        if ([show[@"showDate"] isYesterday]) {
+            lastShowString = @"Yesterday";
+        } else {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"EEEE M/dd"];
+            
+            lastShowString = [formatter stringFromDate:show[@"showDate"]];
+        }
     }
     
     
@@ -627,11 +633,18 @@ NSDate *nearestDate;
     
     if ([self.arrayOfNextShows count]) {
         //set the date string for the next shows table
-        //set the date string for the last shows table
-        NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-        [formatter2 setDateFormat:@"EEEE M/dd"];
         PFObject *show2 = [self.arrayOfNextShows objectAtIndex:0];
-        nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+        
+        if ([show2[@"showDate"] isToday]) {
+            nextShowString = @"Today";
+        } else if ([show2[@"showDate"] isTomorrow]) {
+            nextShowString = @"Tomorrow";
+        } else {
+            NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+            [formatter2 setDateFormat:@"EEEE M/dd"];
+            
+            nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+        }
     }
     
     self.lblShowsHeader.text = lastShowString;
@@ -898,11 +911,7 @@ bool isScrolling = NO;
         NSInteger page = lround(fractionalPage);
         self.pageShows.currentPage = page;
         
-        if (scrollDirection == ScrollDirectionRight) {
-            self.lblShowsHeader.text = lastShowString;
-        } else if (scrollDirection == ScrollDirectionLeft) {
-            self.lblShowsHeader.text = nextShowString;
-        }
+        
     }
     
     if (scrollView == self.scrollTopTwelve) {
@@ -965,6 +974,11 @@ CGFloat previousScroll;
 //            self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth, self.scrollNews.frame.size.height);
 //        }
 //    }
+    
+    if (scrollView == self.scrollViewShows) {
+        if (self.pageShows.currentPage == 0) self.lblShowsHeader.text = lastShowString;
+        else self.lblShowsHeader.text = nextShowString;
+    }
     
     if (scrollView == self.scrollHeadshots) {
      

@@ -11,6 +11,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ParseErrors.h"
 #import "KVNProgress.h"
+#import "Configuration.h"
 
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
@@ -38,8 +39,17 @@
 
 @implementation CBNewLoginViewController
 
+
 -(void)viewDidAppear:(BOOL)animated {
     
+    // *****************************************************
+    
+    // THE FOLLOWING LINE WILL CREATE ALL SHOWS AND SCORES
+    
+    //Configuration *config = [[Configuration alloc] init];
+    
+    // ****************************************************
+
     if ([PFUser currentUser]) {
         //[KVNProgress showProgress:0 status:@"Signing In"];
         //[KVNProgress updateProgress:.75 animated:YES];

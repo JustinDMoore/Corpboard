@@ -11,6 +11,8 @@
 #import "CBJudgeViewController.h"
 #import "CBSingle.h"
 
+#import <ParseUI/ParseUI.h>
+
 CBSingle *data;
 
 int votedScore;
@@ -61,6 +63,7 @@ int votedFavorites;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,10 +74,11 @@ int votedFavorites;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
+    [self setup];
 }
 
-- (void)goback
-{
+- (void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -82,6 +86,11 @@ int votedFavorites;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    [self setup];
+}
+
+-(void)setup {
+    
     [self initVariables];
     [self initUI];
     [self loadShow];
@@ -237,7 +246,9 @@ int votedFavorites;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - TableView
+#pragma mark
+#pragma mark - UITableview Delegates
+#pragma mark
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
@@ -284,6 +295,7 @@ int votedFavorites;
     UILabel *lblPosition;
     UILabel *lblScore;
     UILabel *lblTime;
+    PFImageView *imgLogo;
     
     if (isOver) {
          cell = [self.corpsTable dequeueReusableCellWithIdentifier:@"score"];
@@ -292,13 +304,14 @@ int votedFavorites;
         lblCorpsName = (UILabel *)[cell viewWithTag:1];
     } else {
          cell = [self.corpsTable dequeueReusableCellWithIdentifier:@"time"];
+        
         lblCorpsName = (UILabel *)[cell viewWithTag:1];
         lblTime = (UILabel *)[cell viewWithTag:2];
     }
    
-    
+    imgLogo = (PFImageView *)[cell viewWithTag:4];
 
-    
+    PFObject *corps;
     PFObject *score;
 
         if ([indexPath section] == 0) {
@@ -307,8 +320,8 @@ int votedFavorites;
             if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
         }
     if (score) {
-        PFObject *corps = score[@"corps"];
-        
+        corps = score[@"corps"];
+
         if (isOver) {
             lblCorpsName.text = corps[@"corpsName"];
             lblPosition.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
@@ -322,6 +335,12 @@ int votedFavorites;
             lblCorpsName.text = corps[@"corpsName"];
             lblTime.text = score[@"performanceTime"];
         }
+    }
+    
+    PFFile *imageFile = corps[@"logo"];
+    if (imageFile) {
+        [imgLogo setFile:imageFile];
+        [imgLogo loadInBackground];
     }
     
     return cell;

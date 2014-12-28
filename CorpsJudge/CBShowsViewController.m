@@ -19,7 +19,7 @@ BOOL firstLoad = YES;
 BOOL refreshing = NO;
 
 @interface CBShowsViewController ()
-@property (nonatomic, weak) IBOutlet UITableView *showsTable;
+@property (nonatomic, weak) IBOutlet UITableView *tableShows;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 @property (nonatomic, strong) PFObject *currentSelectedShow; //only updated when the user selects a show
@@ -61,7 +61,8 @@ BOOL refreshing = NO;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
-    [self.showsTable reloadData];
+    [self.tableShows deselectRowAtIndexPath:[self.tableShows indexPathForSelectedRow] animated:animated];
+    
 }
 
 - (void)goback
@@ -87,10 +88,10 @@ BOOL refreshing = NO;
 
 -(void)initUI {
     
-    self.showsTable.hidden = YES;
+    self.tableShows.hidden = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self.showsTable addSubview:self.refreshControl];
+    [self.tableShows addSubview:self.refreshControl];
 }
 
 -(void)checkForShows {
@@ -102,8 +103,8 @@ BOOL refreshing = NO;
             
             self.lblActivity.hidden = YES;
             [self.activity stopAnimating];
-            self.showsTable.hidden = NO;
-            self.showsTable.userInteractionEnabled = YES;
+            self.tableShows.hidden = NO;
+            self.tableShows.userInteractionEnabled = YES;
             [self.refreshControl endRefreshing];
             [self displayShows];
             if (firstLoad) {
@@ -120,7 +121,7 @@ BOOL refreshing = NO;
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
-    self.showsTable.userInteractionEnabled = NO;
+    self.tableShows.userInteractionEnabled = NO;
     self.dateIndex = nil;
     self.datesArray = nil;
     [data getAllShowsFromServer];
@@ -136,8 +137,11 @@ BOOL refreshing = NO;
 
 -(void)scrollToDate {
     
-    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:[self getIndexOfNearestDateFromDateArray] - 1];
-    [self.showsTable scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    NSInteger x = [self getIndexOfNearestDateFromDateArray] - 1;
+    if (x > 0) {
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:x];
+        [self.tableShows scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 -(void)startTimer {
@@ -152,13 +156,12 @@ BOOL refreshing = NO;
 -(void)reloadTable {
     
     [self processForTableView:data.arrayOfAllShows];
-    [self.showsTable reloadData];
+    [self.tableShows reloadData];
 }
 
 -(NSInteger)getIndexOfNearestDateFromDateArray {
 
     NSDate *testDate = [NSDate date];
-
     
     NSTimeInterval closestInterval = DBL_MAX;
     
@@ -226,7 +229,7 @@ BOOL refreshing = NO;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [self.showsTable dequeueReusableCellWithIdentifier:@"show1"];
+    UITableViewCell *cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show1"];
     
     UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:1];
     UILabel *lblShowLocation = (UILabel *)[cell viewWithTag:2];

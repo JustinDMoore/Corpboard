@@ -14,9 +14,9 @@
 //27 open class
 //49 corps
 
-NSInteger const JUNE = 10;
-NSInteger const JULY = 11;
-NSInteger const AUGUST = 12;
+NSInteger const JUNE = 12;
+NSInteger const JULY = 1;
+NSInteger const AUGUST = 2;
 
 //22 WORLD CLASS
 //world class
