@@ -110,6 +110,7 @@
             [self performSegueWithIdentifier:@"feedback" sender:self];
             break;
         case 1:
+            [self performSegueWithIdentifier:@"problem" sender:self];
             break;
         case 2:
             break;

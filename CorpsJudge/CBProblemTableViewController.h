@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBProblemTableViewController : UITableViewController
+@interface CBProblemTableViewController : UIViewController
 
 @end

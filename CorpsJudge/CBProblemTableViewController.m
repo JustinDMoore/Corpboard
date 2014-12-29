@@ -7,9 +7,13 @@
 //
 
 #import "CBProblemTableViewController.h"
+#import "CBTextViewPlaceHolder.h"
 
 @interface CBProblemTableViewController ()
-@property (strong, nonatomic) IBOutlet UITableView *tableProblem;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableWhereAt;
+@property (nonatomic, strong) NSArray *arrayOfProblemAreas;
+@property (weak, nonatomic) IBOutlet CBTextViewPlaceHolder *txtProblem;
 
 @end
 
@@ -35,12 +39,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.arrayOfProblemAreas = @[@"About the Corps", @"Ads", @"Chat or Messages", @"CorpRankings", @"Friends or Profiles", @"News", @"Shows", @"Show Reviews", @"Other"];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.txtProblem.placeholder = @"Briefly explain what happened...";
+    self.txtProblem.placeholderColor = [UIColor lightGrayColor];
+    self.txtProblem.textColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,40 +59,33 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return 3;
-    else return 0;
+    
+    return [self.arrayOfProblemAreas count];
 }
 
 bool isProblemOpen = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell1 = [self.tableProblem dequeueReusableCellWithIdentifier:@"Problem1" forIndexPath:indexPath];
-    UITableViewCell *cell2 = [self.tableProblem dequeueReusableCellWithIdentifier:@"Problem2" forIndexPath:indexPath];
-    UITableViewCell *cell3 = [self.tableProblem dequeueReusableCellWithIdentifier:@"Problem3" forIndexPath:indexPath];
-    
-    switch (indexPath.row) {
-        case 0:
-            if (!isProblemOpen) {
-                return cell2;
-                
-            } else {
-                return cell1;
-            }
-            break;
-            
-        default:
-            break;
-    }
-    
-    if (isProblemOpen) {
-        isProblemOpen = NO;
-    } else {
-        isProblemOpen = YES;
-    }
-    
-    return cell1;
+    UITableViewCell *cell = [self.tableWhereAt dequeueReusableCellWithIdentifier:@"basic" forIndexPath:indexPath];
+    cell.textLabel.text = [self.arrayOfProblemAreas objectAtIndex:indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
+NSInteger selectedRow = -1;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+
+}
+
+
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSIndexPath *oldIndex = [self.tableWhereAt indexPathForSelectedRow];
+    [self.tableWhereAt cellForRowAtIndexPath:oldIndex].accessoryType = UITableViewCellAccessoryNone;
+    [self.tableWhereAt cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    return indexPath;
+}
 
 /*
 // Override to support conditional editing of the table view.
