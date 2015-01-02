@@ -294,14 +294,48 @@
         UILabel *lblScoreAndPlacement = (UILabel *)[cell viewWithTag:2];
         UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:3];
         UILabel *txtRepertoire = (UILabel *)[cell viewWithTag:4];
+        //medal
+        UIImageView *imgMedal = (UIImageView *)[cell viewWithTag:5];
+        UILabel *lblGold = (UILabel *)[cell viewWithTag:6];
+        UILabel *lblMedal = (UILabel *)[cell viewWithTag:7];
         
         lblYear.text = [NSString stringWithFormat:@"%@", self.currentYear[@"year"]];
         
         if ([self.currentYear[@"placement"] length]) {
             lblScoreAndPlacement.hidden = NO;
             lblScoreAndPlacement.text = [NSString stringWithFormat:@"%@ - %@", self.currentYear[@"placement"], self.currentYear[@"score"]];
+            
+            //medals
+            if ([self.currentYear[@"placement"] isEqualToString:@"1st"]) {
+                imgMedal.hidden = NO;
+                lblGold.hidden = NO;
+                lblMedal.hidden = NO;
+                lblGold.text = @"GOLD";
+                imgMedal.image = [UIImage imageNamed:@"medal_gold"];
+            } else if ([self.currentYear[@"placement"] isEqualToString:@"2nd"]) {
+                imgMedal.hidden = NO;
+                lblGold.hidden = NO;
+                lblMedal.hidden = NO;
+                lblGold.text = @"SILVER";
+                imgMedal.image = [UIImage imageNamed:@"medal_silver"];
+            } else if ([self.currentYear[@"placement"] isEqualToString:@"3rd"]) {
+                imgMedal.hidden = NO;
+                lblGold.hidden = NO;
+                lblMedal.hidden = NO;
+                lblGold.text = @"BRONZE";
+                imgMedal.image = [UIImage imageNamed:@"medal_bronze"];
+            } else {
+                imgMedal.hidden = YES;
+                lblGold.hidden = YES;
+                lblMedal.hidden = YES;
+            }
+            
+            
         } else {
             lblScoreAndPlacement.hidden = YES;
+            lblGold.hidden = YES;
+            lblMedal.hidden = YES;
+            imgMedal.hidden = YES;
         }
         
         lblShowTitle.text = self.currentYear[@"showTitle"];
