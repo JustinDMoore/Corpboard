@@ -31,6 +31,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
+    self.title = @"About";
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];

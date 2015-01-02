@@ -47,6 +47,8 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    self.title = @"Corp Details";
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,7 +74,7 @@
     self.tableRepertoire.hidden = YES;
     
     self.btnLink.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.btnLink setTitle:self.corps[@"website"] forState:UIControlStateNormal];
+    [self.btnLink setTitle:self.corps[@"website_Display"] forState:UIControlStateNormal];
     self.btnLink.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     UITableViewCell *disclosure = [[UITableViewCell alloc] init];

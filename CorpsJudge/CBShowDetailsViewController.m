@@ -73,8 +73,7 @@ int votedFavorites;
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-    
-    [self setup];
+
 }
 
 - (void)goback {
@@ -181,10 +180,6 @@ int votedFavorites;
     self.corpsTable.hidden = NO;
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    self.arrayOfOpenClassScores = nil;
-    self.arrayOfWorldClassScores = nil;
-}
 
 -(void)loadShow {
     
@@ -201,43 +196,45 @@ int votedFavorites;
 
 -(void)getScoresForShow {
 
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"scores"];
-    [query whereKey:@"show" equalTo:self.show];
-    [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
-    [query setLimit:1000];
-    [query includeKey:@"corps"];
-    
-    BOOL isShowOver = [self.show[@"isShowOver"] boolValue];
-    if (isShowOver) {
-        [query orderByDescending:@"score"];
-    } else {
-        NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
-        NSSortDescriptor *name = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
-        [query orderBySortDescriptors:@[desc, name]];
-    }
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            if ([objects count]) {
-                for (PFObject *score in objects) {
-                    PFObject *corps = score[@"corps"];
-                    BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-                    if (isWorld) {
-                        [self.arrayOfWorldClassScores addObject:score];
-                    } else {
-                        [self.arrayOfOpenClassScores addObject:score];
-                    }
-                }
-            } else {
-                NSLog(@"No scores for show");
-            }
-            [self showUIAfterLoad];
+    if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count]) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"scores"];
+        [query whereKey:@"show" equalTo:self.show];
+        [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
+        [query setLimit:1000];
+        [query includeKey:@"corps"];
+        
+        BOOL isShowOver = [self.show[@"isShowOver"] boolValue];
+        if (isShowOver) {
+            [query orderByDescending:@"score"];
         } else {
-            // Log details of the failure
-            NSLog(@"Error getting official scores: %@ %@", error, [error userInfo]);
+            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
+            NSSortDescriptor *name = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
+            [query orderBySortDescriptors:@[desc, name]];
         }
-    }];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                if ([objects count]) {
+                    for (PFObject *score in objects) {
+                        PFObject *corps = score[@"corps"];
+                        BOOL isWorld = [corps[@"isWorldClass"] boolValue];
+                        if (isWorld) {
+                            [self.arrayOfWorldClassScores addObject:score];
+                        } else {
+                            [self.arrayOfOpenClassScores addObject:score];
+                        }
+                    }
+                } else {
+                    NSLog(@"No scores for show");
+                }
+                [self showUIAfterLoad];
+            } else {
+                // Log details of the failure
+                NSLog(@"Error getting official scores: %@ %@", error, [error userInfo]);
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

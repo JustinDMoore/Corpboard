@@ -88,6 +88,7 @@ typedef enum : int {
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -123,10 +124,10 @@ typedef enum : int {
         self.officialSwitch.hidden = YES;
     }
     
-    NSString *mystring1 = @"To keep votes accurate, only review this show if you attended it.";
-    NSString *mystring2 = @"Only the corps that you review will be submitted.";
+    NSString *mystring1 = @"To keep votes accurate, do not review this show if you did not attend.";
+    NSString *mystring2 = @"Corps that are not scored will not be included.";
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review the Show"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review Show"
                                                     message:[NSString stringWithFormat:@"\n%@\n\n%@", mystring1,mystring2]
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
@@ -968,7 +969,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 
     switch (scorePhase) {
         case phaseScore:
-            self.lblInstructions.text = @"Score the corps";
+            self.lblInstructions.text = @"What would you score the corps?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestdrums:
@@ -1038,7 +1039,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
         self.tabBar.selectedItem = nil;
         [self.btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];;
         self.scorePhase = phaseSummary;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review" message:@"You can only review this show once. \n After you're satisfied with your votes, tap submit." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review" message:@"You can only review this show once. \n\n After you're satisfied with your review, tap submit." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
