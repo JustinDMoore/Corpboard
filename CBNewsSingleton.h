@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "MWFeedParser.h"
 
+@protocol newsProtocol <NSObject>
+-(void)newsDidLoad;
+@end
+
 @interface CBNewsSingleton : NSObject <MWFeedParserDelegate> {
     // Parsing
     MWFeedParser *feedParser;
@@ -17,12 +21,14 @@
     // Displaying
     
     NSDateFormatter *formatter;
+    id delegate;
 }
 
 @property (nonatomic, strong) NSArray *itemsToDisplay;
-@property (nonatomic) BOOL isNewsLoaded;
+@property (nonatomic) BOOL newsLoaded;
 @property (nonatomic, strong) NSMutableArray *arrayOfColors;
 
 +(id)news;
+-(void)setDelegate:(id)newDelegate;
 
 @end

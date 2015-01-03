@@ -11,6 +11,9 @@
 
 @implementation CBSingle
 
+BOOL updatedCorps;
+BOOL updatedShows;
+
 +(id)data {
     static CBSingle *data = nil;
     static dispatch_once_t onceToken;
@@ -24,8 +27,8 @@
     self = [super init];
     if (self) {
 
-        self.updatedShows = NO;
-        self.updatedCorps = NO;
+        updatedShows = NO;
+        updatedCorps = NO;
         //self.currentDate = [NSDate date];
         self.currentDate = [JustinHelper dateWithMonth:7 day:14 year:2014];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -51,12 +54,24 @@
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
-         
-#pragma mark - Parse methods
+
+
+#pragma mark -
+#pragma mark - Data Methods
+#pragma mark -
+
+-(void)refreshCorpsAndShows {
+    
+    if ([delegate respondsToSelector:@selector(dataDidBeginLoading)]) {
+        [delegate dataDidBeginLoading];
+    }
+    [self getAllCorpsFromServer];
+    [self getAllShowsFromServer];
+}
 
 -(void)getAllCorpsFromServer {
     
-    self.updatedCorps = NO;
+    updatedCorps = NO;
     self.arrayOfAllCorps = nil;
     PFQuery *query = [PFQuery queryWithClassName:@"corps"];
     [query orderByAscending:@"corpsName"];
@@ -75,18 +90,21 @@
                 }
             }
             
-            self.updatedCorps = YES;
+            updatedCorps = YES;
             [self didWeFinish];
         } else {
             
             NSLog(@"Error getting all shows: %@ %@", error, [error userInfo]);
+            if ([delegate respondsToSelector:@selector(dataFailed)]) {
+                [delegate dataFailed];
+            }
         }
     }];
 }
 
 -(void)getAllShowsFromServer {
     
-    self.updatedShows = NO;
+    updatedShows = NO;
     self.arrayOfAllShows = nil;
     PFQuery *query = [PFQuery queryWithClassName:@"shows"];
     [query setLimit:1000];
@@ -95,18 +113,23 @@
         
         if (!error) {
             [self.arrayOfAllShows addObjectsFromArray:objects];
-            self.updatedShows = YES;
+            updatedShows = YES;
             [self didWeFinish];
         } else {
 
             NSLog(@"Error getting shows from server: %@ %@", error, [error userInfo]);
+            if ([delegate respondsToSelector:@selector(dataFailed)]) {
+                [delegate dataFailed];
+            }
         }
     }];
 }
 
 -(void)didWeFinish {
-    if ((self.updatedCorps) && (self.updatedShows)) {
-        [delegate finishedLoadingData];
+    
+    if ((updatedCorps) && (updatedShows)) {
+        self.dataLoaded = YES;
+        [delegate dataDidLoad];
     }
 }
 

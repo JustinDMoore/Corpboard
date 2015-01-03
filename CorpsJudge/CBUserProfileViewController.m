@@ -108,6 +108,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [KVNProgress show];
+    
     _data = [CBSingle data];
     
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
@@ -464,6 +466,7 @@
         
         editingProfile = NO;
         self.btnEditProfile.enabled = YES;
+        [KVNProgress dismiss];
     }];  
 }
 

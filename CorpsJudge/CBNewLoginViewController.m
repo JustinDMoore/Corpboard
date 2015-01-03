@@ -13,9 +13,11 @@
 #import "KVNProgress.h"
 #import "Configuration.h"
 
+
 @interface CBNewLoginViewController () {
     NSTimer *timerCountdown;
     CBSingle *data;
+    CBNewsSingleton *news;
    
 }
 
@@ -70,8 +72,9 @@
                 [self continueLoading];
             }
         } else {
+            [self.viewProgress errorProgress:[ParseErrors getErrorStringForCode:error.code]];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
+            //[alert show];
         }
     }];
 }
@@ -91,7 +94,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     data = [CBSingle data];
+    news = [CBNewsSingleton news];
     [data setDelegate:self];
+    [news setDelegate:self];
     self.navigationController.navigationBarHidden = YES;
     
     self.scrollLogin.delegate = self;
@@ -140,11 +145,11 @@ int ticker = 0;
 #pragma mark
 
 -(void)loadData {
+    
     [self getFactCount];
     [self addView:self.viewProgress andScroll:NO];
     [self.viewProgress startProgress];
-    [data getAllCorpsFromServer];
-    [data getAllShowsFromServer];
+    [data refreshCorpsAndShows];
 }
 
 -(void)getFactCount {
@@ -162,12 +167,6 @@ int ticker = 0;
                                         NSLog(@"big error");
                                     }
                                 }];
-    
-}
-        
--(void)finishedLoadingData {
-
-    [self.viewProgress completeProgress];
     
 }
 
@@ -319,6 +318,40 @@ bool removeProgressView = NO;
     }
     [viewToRemove removeFromSuperview];
 }
+
+#pragma mark
+#pragma mark - Data callbacks
+#pragma mark
+
+-(void)dataDidBeginLoading {
+    
+}
+
+-(void)dataDidLoad {
+    [self checkAllProgress];
+}
+
+-(void)dataFailed {
+    
+    [self.viewProgress errorProgress:@"There was a problem connecting to the sever."];
+    NSLog(@"data load failed");
+}
+
+-(void)newsDidLoad {
+    [self checkAllProgress];
+}
+
+-(void)checkAllProgress {
+    
+    
+    if (news.newsLoaded && data.dataLoaded) {
+        [self.viewProgress completeProgress];
+    }
+}
+
+#pragma mark
+#pragma mark - Lazy inits
+#pragma mark
 
 -(NSMutableArray *)arrayOfSubviews {
     if (!_arrayOfSubviews) {

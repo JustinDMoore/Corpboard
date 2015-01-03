@@ -11,6 +11,7 @@
 #import "CBShowDetailsViewController.h"
 #import "NSDate+Utilities.h"
 #import "CBSingle.h"
+#import "KVNProgress.h"
 
 CBSingle *data;
 NSTimer *timer;
@@ -73,7 +74,7 @@ BOOL refreshing = NO;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-    
+    [KVNProgress show];
     [self initVariables];
     [self initUI];
     [self startTimer];
@@ -96,7 +97,7 @@ BOOL refreshing = NO;
 
 -(void)checkForShows {
     
-    if (data.updatedShows) {
+    if (data.dataLoaded) {
         [timer invalidate];
         
         if ([data.arrayOfAllShows count]) {
@@ -117,14 +118,17 @@ BOOL refreshing = NO;
             [self.activity stopAnimating];
             self.activity.hidden = YES;
         }
+        [KVNProgress dismiss];
     }
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
+    
     self.tableShows.userInteractionEnabled = NO;
     self.dateIndex = nil;
     self.datesArray = nil;
-    [data getAllShowsFromServer];
+    [data refreshCorpsAndShows];
+#warning Remove the following timer. Use delegates instead
     [self startTimer];
 }
 

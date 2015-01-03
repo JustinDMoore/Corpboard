@@ -74,7 +74,7 @@ NSTimer *timer;
 
 -(void)checkForCorp {
     
-    if (data.updatedCorps) {
+    if (data.dataLoaded) {
         [timer invalidate];
         self.lblactivity.hidden = YES;
         [self.activity stopAnimating];

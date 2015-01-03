@@ -45,6 +45,7 @@
     configuration.backgroundType = KVNProgressBackgroundTypeSolid;
     configuration.fullScreen = NO;
     configuration.minimumSuccessDisplayTime = .5;
+    configuration.minimumErrorDisplayTime = 900;
 
     return configuration;
 }

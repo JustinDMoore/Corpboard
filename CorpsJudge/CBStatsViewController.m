@@ -144,7 +144,7 @@ typedef enum : int {
 
 -(void)checkForCorps {
     
-    if (data.updatedCorps) {
+    if (data.dataLoaded) {
         [timer invalidate];
         [self getAllCorps];
     }
@@ -1500,6 +1500,7 @@ bool isDoneSortingFavorites = NO;
 
 -(void)reloadTable {
     [self.tableCorps reloadData];
+    [KVNProgress dismiss];
 }
 
 #pragma mark - Properties

@@ -41,7 +41,7 @@
         self.itemsToDisplay = [NSArray array];
         
         
-        self.isNewsLoaded = NO;
+        self.newsLoaded = NO;
         NSURL *feedURL = [NSURL URLWithString:@"http://www.dci.org/news/rss/news_rss.xml"];
         feedParser = [[MWFeedParser alloc] initWithFeedURL:feedURL];
         feedParser.delegate = self;
@@ -52,6 +52,10 @@
         
     }
     return self;
+}
+
+-(void)setDelegate:(id)newDelegate{
+    delegate = newDelegate;
 }
 
 #pragma mark -
@@ -91,7 +95,10 @@
     
     //NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
    [self updateTableWithParsedItems];
-    self.isNewsLoaded = YES;
+    self.newsLoaded = YES;
+    if ([delegate respondsToSelector:@selector(newsDidLoad)]) {
+        [delegate newsDidLoad];
+    }
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {

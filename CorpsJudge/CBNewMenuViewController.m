@@ -458,7 +458,7 @@ int counter = 0;
 
 -(void)checkCorps {
     
-    if (data.updatedCorps) {
+    if (data.dataLoaded) {
         [timerCheckForCorps invalidate];
         [self sortScores];
     }
@@ -485,7 +485,7 @@ int counter = 0;
 
 -(void)checkShows {
     
-    if (data.updatedShows) {
+    if (data.dataLoaded) {
 
         [timerCheckForShows invalidate];
         
@@ -506,7 +506,7 @@ int counter = 0;
 
 -(void)checkNews {
     
-    if (news.isNewsLoaded) {
+    if (news.newsLoaded) {
         
         [timerCheckForNews invalidate];
         

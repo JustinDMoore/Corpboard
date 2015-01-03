@@ -10,10 +10,9 @@
 #import <Parse/Parse.h>
 
 @protocol dataProtocol <NSObject>
--(void)beganLoadingData;
--(void)finishedLoadingData;
-
-
+-(void)dataDidBeginLoading;
+-(void)dataDidLoad;
+-(void)dataFailed;
 @end
 
 @interface CBSingle : NSObject {
@@ -56,13 +55,11 @@
 @property (nonatomic, strong) NSMutableArray *arrayofWorldFavorites;
 @property (nonatomic, strong) NSMutableArray *arrayofOpenFavorites;
 
-@property BOOL updatedCorps;
-@property BOOL updatedShows;
+@property (nonatomic) BOOL dataLoaded;
 
 +(id)data;
 -(void)setDelegate:(id)newDelegate;
--(void)getAllCorpsFromServer;
--(void)getAllShowsFromServer;
+-(void)refreshCorpsAndShows;
 -(NSArray *)getOfficialScoresForShow:(PFObject *)show ;
 
 @end
