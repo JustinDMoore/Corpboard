@@ -7,6 +7,7 @@
 //
 
 #import "CBSelectCoverPhoto.h"
+#import "KVNProgress.h"
 
 @interface CBSelectCoverPhoto ()
 
@@ -32,11 +33,13 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
+    self.title = @"Cover Image";
 }
 
 -(void)viewDidLoad {
     
     [super viewDidLoad];
+    [KVNProgress show];
     self.tablePhotos.hidden = YES;
     [self getPhotos];
     [self.segmentAlbum addTarget:self
@@ -77,7 +80,7 @@ int progress = 1;
                 
                 if ([self.arrayOfDefaultPhotos count] + [self.arrayOfUserPhotos count] == [objects count]) {
                     self.tablePhotos.hidden = NO;
-                    [self.tablePhotos reloadData];
+                    [self reload];
                 }
 
             }];
@@ -85,9 +88,15 @@ int progress = 1;
     }];
 }
 
--(void)segmentChanged {
+-(void)reload {
     
     [self.tablePhotos reloadData];
+    [KVNProgress dismiss];
+}
+
+-(void)segmentChanged {
+    
+    [self reload];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,7 +120,11 @@ int progress = 1;
         else
             return 0;
     } else { //user submitted
-        return [self.arrayOfUserPhotoObjects count] + 1;
+        if ([self.arrayOfUserPhotoObjects count]) {
+            return [self.arrayOfUserPhotoObjects count] + 1;
+        } else {
+            return 2;
+        }
     }
     return 0;
 }
@@ -145,14 +158,29 @@ int progress = 1;
             if (self.segmentAlbum.selectedSegmentIndex == 0) {
                 obj = [self.arrayOfDefaultPhotoObjects objectAtIndex:indexPath.row - 1];
             } else {
-                obj = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
+                if ([self.arrayOfUserPhotoObjects count]) {
+                    obj = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
+                } else { //no user pictures yet
+                    obj = nil;
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"blank"];
+                    cell.textLabel.text = @"No user submitted cover images yet. Be the first to submit yours!";
+                    cell.textLabel.font = [UIFont systemFontOfSize:12];
+                    cell.textLabel.textColor = [UIColor lightGrayColor];
+                    cell.backgroundColor = [UIColor blackColor];
+                    cell.textLabel.numberOfLines = 0;
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    [cell.textLabel sizeToFit];
+                }
+                
             }
             
-            PFFile *imgFile = obj[@"photo"];
-            PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
-            [imgView setFile:imgFile];
-            [imgView loadInBackground];
-            imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+            if (obj) {
+                PFFile *imgFile = obj[@"photo"];
+                PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
+                [imgView setFile:imgFile];
+                [imgView loadInBackground];
+                imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+            }
     }
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -172,8 +200,6 @@ int progress = 1;
     if (indexPath.row == 0){
         return;
     }
-    
-    NSLog(@"delegate is: %@", self.delegate);
     
     PFImageView *img;
     
@@ -197,8 +223,8 @@ int progress = 1;
 }
 
 -(void)upload {
-    NSLog(@"upload");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Photo" message:@"\rHave a corp themed cover photo that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover photo in their profile. By uploading a photo, you agree to allow Corpboard and it's users to use the photo. Your photo will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Image" message:@"\rHave a corp themed cover image that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
     alert.delegate = self;
     [alert show];
 

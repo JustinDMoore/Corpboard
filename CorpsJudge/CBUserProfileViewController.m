@@ -17,6 +17,7 @@
 
 @interface CBUserProfileViewController () {
     CBSingle *_data;
+    BOOL profileLoaded;
 }
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
@@ -82,6 +83,7 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
+    self.title = @"Profile";
     
     PFUser *cUser = [PFUser currentUser];
     if ([self.userProfile.objectId isEqualToString: cUser.objectId]) {
@@ -92,7 +94,11 @@
         configBtn.frame = CGRectMake(0, 0, 30, 30);
         self.btnEditProfile = [[UIBarButtonItem alloc] initWithCustomView:configBtn] ;
         self.navigationItem.rightBarButtonItem = self.btnEditProfile;
-        self.btnEditProfile.enabled = NO;
+        if (profileLoaded) {
+            self.btnEditProfile.enabled = YES;
+        } else {
+            self.btnEditProfile.enabled = NO;
+        }
         self.btnReport.enabled = NO;
         self.btnChat.enabled = NO;
     } else {
@@ -119,31 +125,6 @@
     
     [self getUserCorpExperiences];
     [self setParallex];
-    
-    self.btnEditPicture.layer.borderWidth = 1;
-    self.btnEditName.layer.borderWidth = 1;
-    self.btnEditBadges.layer.borderWidth = 1;
-    self.btnEditCorpExperience.layer.borderWidth = 1;
-    self.btnEditDescription.layer.borderWidth = 1;
-    
-    self.btnEditPicture.layer.cornerRadius = 8;
-    self.btnEditName.layer.cornerRadius = 8;
-    self.btnEditBadges.layer.cornerRadius = 8;
-    self.btnEditCorpExperience.layer.cornerRadius = 8;
-    self.btnEditDescription.layer.cornerRadius = 8;
-    
-    
-    self.btnEditPicture.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
-    self.btnEditName.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
-    self.btnEditBadges.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
-    self.btnEditCorpExperience.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
-    self.btnEditDescription.layer.borderColor = self.btnEditPicture.titleLabel.textColor.CGColor;
-    
-    [self.btnEditPicture sizeToFit];
-    [self.btnEditName sizeToFit];
-    [self.btnEditBadges sizeToFit];
-    [self.btnEditCorpExperience sizeToFit];
-    [self.btnEditDescription sizeToFit];
 
     self.imgCoverPhoto.image = nil;
     self.imgUser.image = nil;
@@ -191,7 +172,6 @@
 }
 
 -(void)toggleEditButtons:(BOOL)show {
-     NSLog(@"b %f", self.btnEditName.frame.origin.x);
     
     float offScreen = self.view.frame.size.width + 15;
     float onScreen = self.view.frame.size.width - self.btnEditPicture.frame.size.width;
@@ -202,7 +182,7 @@
                                            self.btnEditPicture.frame.size.height);
     
     self.btnEditName.frame = CGRectMake(!editingProfile ? onScreen : offScreen,
-                                        self.lblUserNickname.frame.origin.y - self.btnEditName.frame.size.height + 3,
+                                        self.lblUserNickname.frame.origin.y,
                                         self.btnEditName.frame.size.width,
                                         self.btnEditName.frame.size.height);
     
@@ -231,7 +211,7 @@
                                                    self.btnEditPicture.frame.size.height);
             
             self.btnEditName.frame = CGRectMake(editingProfile ? onScreen : offScreen,
-                                                self.lblUserNickname.frame.origin.y - self.btnEditName.frame.size.height + 3,
+                                                self.lblUserNickname.frame.origin.y,
                                                 self.btnEditName.frame.size.width,
                                                 self.btnEditName.frame.size.height);
             
@@ -251,7 +231,7 @@
             
         } completion:^(BOOL finished) {
             
-            NSLog(@"a %f", self.btnEditName.frame.origin.x);
+            
             
         }];
 }
@@ -466,6 +446,7 @@
         
         editingProfile = NO;
         self.btnEditProfile.enabled = YES;
+        profileLoaded = YES;
         [KVNProgress dismiss];
     }];  
 }
@@ -519,6 +500,12 @@ BOOL coverPhoto = NO;
 #pragma mark
 #pragma mark - UIImagePickerControllerDelegate
 #pragma mark
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    self.btnEditProfile.enabled = YES;
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker
         didFinishPickingImage:(UIImage *)image
@@ -618,9 +605,9 @@ BOOL coverPhoto = NO;
 
 - (IBAction)btnEditPicture_clicked:(id)sender {
     
-    NSString *actionSheetTitle = @"Edit Profile Pictures"; //Action Sheet Title
-    NSString *other1 = @"Cover Picture";
-    NSString *other2 = @"Profile Picture";
+    NSString *actionSheetTitle = @"Edit Profile Images"; //Action Sheet Title
+    NSString *other1 = @"Cover Image";
+    NSString *other2 = @"Profile Image";
     NSString *cancelTitle = @"Cancel";
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:actionSheetTitle
@@ -1071,8 +1058,7 @@ float ht;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-   
-    NSLog(@"id %@", [segue destinationViewController]);
+
     if ([segue.identifier isEqualToString:@"coverPhotos"]) {
         
         CBSelectCoverPhoto *vc = segue.destinationViewController;

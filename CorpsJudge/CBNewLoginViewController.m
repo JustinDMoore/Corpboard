@@ -112,22 +112,9 @@
     
     NSString *name = self.currentUser[@"nickname"];
     if ([name length]) {
-        NSLog(@"has nickname");
         [self loadData];
     } else {
-        NSLog(@"no nickname");
         [self addView:self.viewNickname andScroll:NO];
-    }
-}
-
-int ticker = 0;
--(void)countIt {
-    if (ticker < 20) {
-        ticker ++;
-    } else {
-        [timerCountdown invalidate];
-        timerCountdown = nil;
-        NSLog(@"Timeout error loading Data");
     }
 }
 
