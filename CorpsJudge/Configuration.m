@@ -14,9 +14,9 @@
 //27 open class
 //49 corps
 
-NSInteger const JUNE = 12;
-NSInteger const JULY = 1;
-NSInteger const AUGUST = 2;
+NSInteger const JUNE = 1;
+NSInteger const JULY = 2;
+NSInteger const AUGUST = 3;
 
 //22 WORLD CLASS
 //world class
@@ -873,10 +873,10 @@ NSString *const KILTIES = @"Kilties";
     newShow[@"isShowOver"] = [NSNumber numberWithBool:NO];
     newShow[@"showName"] = showName;
     newShow[@"showLocation"] = showLocation;
-    newShow[@"showDate"] = [NSDate dateWithTimeInterval:60*60*50 sinceDate:[JustinHelper dateWithMonth:month day:day year:2014]];
+    newShow[@"showDate"] = [NSDate dateWithTimeInterval:60*60*50 sinceDate:[JustinHelper dateWithMonth:month day:day year:2015]];
     newShow[@"showDate"] = [JustinHelper dateWithMonth:month
                                                    day:day
-                                                  year:2014];
+                                                  year:2015];
     
     for (NSString *corps in corpsArray) {
         [performingCorps addObject:[self getCorpsByName:corps]];

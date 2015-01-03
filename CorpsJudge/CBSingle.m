@@ -30,7 +30,7 @@ BOOL updatedShows;
         updatedShows = NO;
         updatedCorps = NO;
         //self.currentDate = [NSDate date];
-        self.currentDate = [JustinHelper dateWithMonth:7 day:14 year:2014];
+        self.currentDate = [JustinHelper dateWithMonth:1 day:1 year:2015];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newCoverPhoto)
                                                      name:@"newCoverPhoto" object:nil];

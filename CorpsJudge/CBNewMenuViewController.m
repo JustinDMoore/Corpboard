@@ -130,7 +130,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 -(void)viewWillAppear:(BOOL)animated {
     
     self.navigationController.navigationBarHidden = NO;
-    [self.navigationItem setHidesBackButton:NO animated:NO];
+    [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
 - (void)viewDidLoad
