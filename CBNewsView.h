@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *fromLabel;
 
 @property (nonatomic, strong) NSNumber *colorNumber;
 

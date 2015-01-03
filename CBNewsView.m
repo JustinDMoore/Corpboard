@@ -70,13 +70,20 @@ CBNewsSingleton *news;
     [self addSubview:self.dateLabel];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.dateLabel.frame.origin.y + self.dateLabel.frame.size.height, 190, 60)];
-    self.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.titleLabel.font = [UIFont systemFontOfSize:14];
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.titleLabel.numberOfLines = 4;
+    self.titleLabel.numberOfLines = 3;
     self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
+    
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.frame.size.height - 17, 190, 21)];
+    self.fromLabel.font = [UIFont systemFontOfSize:10];
+    self.fromLabel.text = @"Drum Corps International";
+    self.fromLabel.textColor = [UIColor blueColor];
+    [self.fromLabel sizeToFit];
+    [self addSubview:self.fromLabel];
 }
 
 
