@@ -1008,14 +1008,19 @@ bool isDoneSortingFavorites = NO;
             
             break;
         default:
-            return 0;
+            return 1;
             break;
     }
-    return 0;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    UITableViewCell *blankCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"blank"];
+    blankCell.backgroundColor = [UIColor blackColor];
+    blankCell.textLabel.font = [UIFont systemFontOfSize:12];
+    blankCell.textLabel.textColor = [UIColor whiteColor];
+    
     UITableViewCell *cell;
     UILabel *lblCorpsName;
     UILabel *lblScore;
@@ -1049,41 +1054,55 @@ bool isDoneSortingFavorites = NO;
                 if (corps) {
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = corps[@"corpsName"];
-                    lblScore.text = corps[@"lastScore"];
-                    
-                    float newScore = [corps[@"lastScore"] floatValue];
-                    float oldScore = [corps[@"olderScore"] floatValue];
-                    float difference = newScore - oldScore;
-                    
-                    if (difference > 0) {
-                        [lbldiff setTextColor:[self darkerColorForColor:[UIColor greenColor]]];
-                        lbldiff.text = [NSString stringWithFormat:@"+%.2f", difference];
-                    } else if (difference < 0) {
-                        [lbldiff setTextColor:[UIColor redColor]];
-                        lbldiff.text = [NSString stringWithFormat:@"%.2f", difference];
-                    } else {
-                        [lbldiff setTextColor:[UIColor lightGrayColor]];
-                        lbldiff.text = @"";
-                    }
-                    
-                    NSDate *showD = corps[@"lastScoreDate"];
-                    if ([showD isToday]) lblDay.text = @"Today";
-                    else if ([showD isYesterday]) lblDay.text = @"Yesterday";
-                    else {
-                        NSInteger days = [showD daysBeforeDate:[NSDate date]];
-                        if (days > 5) {
-                            NSDateFormatter *format = [[NSDateFormatter alloc] init];
-                            [format setDateFormat:@"MMMM d"];
-                            
-                            NSString *dateString = [format stringFromDate:corps[@"lastScoreDate"]];
-                            lblDay.text = [NSString stringWithFormat:@"%@", dateString];
-                        } else if (days > 1) {
-                            lblDay.text = [NSString stringWithFormat:@"%li days ago", (long)days];
+                    if ([corps[@"lastScore"] length]) {
+                        lblScore.text = corps[@"lastScore"];
+                        
+                        float newScore = [corps[@"lastScore"] floatValue];
+                        float oldScore = [corps[@"olderScore"] floatValue];
+                        float difference = newScore - oldScore;
+                        
+                        if (difference > 0) {
+                            [lbldiff setTextColor:[self darkerColorForColor:[UIColor greenColor]]];
+                            lbldiff.text = [NSString stringWithFormat:@"+%.2f", difference];
+                        } else if (difference < 0) {
+                            [lbldiff setTextColor:[UIColor redColor]];
+                            lbldiff.text = [NSString stringWithFormat:@"%.2f", difference];
+                        } else {
+                            [lbldiff setTextColor:[UIColor lightGrayColor]];
+                            lbldiff.text = @"";
                         }
-                        else if (days <= 0) {
-                            lblDay.text = @"";
-                        }else lblDay.text = [NSString stringWithFormat:@"%li day ago", (long)days];
+                        
+                        NSDate *showD = corps[@"lastScoreDate"];
+                        if ([showD isToday]) lblDay.text = @"Today";
+                        else if ([showD isYesterday]) lblDay.text = @"Yesterday";
+                        else {
+                            NSInteger days = [showD daysBeforeDate:[NSDate date]];
+                            if (days > 5) {
+                                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                                [format setDateFormat:@"MMMM d"];
+                                
+                                NSString *dateString = [format stringFromDate:corps[@"lastScoreDate"]];
+                                lblDay.text = [NSString stringWithFormat:@"%@", dateString];
+                            } else if (days > 1) {
+                                lblDay.text = [NSString stringWithFormat:@"%li days ago", (long)days];
+                            }
+                            else if (days <= 0) {
+                                lblDay.text = @"";
+                            } else lblDay.text = [NSString stringWithFormat:@"%li day ago", (long)days];
+                        }
+                    } else { //no data
+                        cell = blankCell;
+                        cell.textLabel.text = corps[@"corpsName"];
+                        cell.textLabel.textColor = [UIColor whiteColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.detailTextLabel.text = @"No score yet";
+                        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+                        
                     }
+                    
+                    
+                    
                 }
             } else { // USER REVIEWS
                 
@@ -1117,13 +1136,24 @@ bool isDoneSortingFavorites = NO;
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
                 
-                PFObject *score;
-                if ([array count]) score = [array objectAtIndex:indexPath.row];
+                PFObject *corps;
+                if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
-                if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score[@"corpsName"];
-                    lblScore.text = score[@"lastBrass"];
+                if (corps) {
+                    if ([corps[@"lastBrass"] length]) {
+                        lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
+                        lblCorpsName.text = corps[@"corpsName"];
+                        lblScore.text = corps[@"lastBrass"];
+                    } else { //no data
+                        cell = blankCell;
+                        cell.textLabel.text = corps[@"corpsName"];
+                        cell.textLabel.textColor = [UIColor whiteColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.detailTextLabel.text = @"No brass score yet";
+                        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+                        
+                    }
                 }
             } else { // USER REVIEWS
             
@@ -1164,13 +1194,24 @@ bool isDoneSortingFavorites = NO;
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
                 
-                PFObject *score;
-                if ([array count]) score = [array objectAtIndex:indexPath.row];
+                PFObject *corps;
+                if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
-                if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score[@"corpsName"];
-                    lblScore.text = score[@"lastPercussion"];
+                if (corps) {
+                    if ([corps[@"lastPercussion"] length]) {
+                        lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
+                        lblCorpsName.text = corps[@"corpsName"];
+                        lblScore.text = corps[@"lastPercussion"];
+                    } else { //no data
+                        cell = blankCell;
+                        cell.textLabel.text = corps[@"corpsName"];
+                        cell.textLabel.textColor = [UIColor whiteColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.detailTextLabel.text = @"No percussion score yet";
+                        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+                        
+                    }
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -1211,13 +1252,25 @@ bool isDoneSortingFavorites = NO;
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
                 
-                PFObject *score;
-                if ([array count]) score = [array objectAtIndex:indexPath.row];
+                PFObject *corps;
+                if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
-                if (score) {
-                    lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score[@"corpsName"];
-                    lblScore.text = score[@"lastColorguard"];
+                if (corps) {
+                    if ([corps[@"lastColorguard"] length]) {
+                        lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
+                        lblCorpsName.text = corps[@"corpsName"];
+                        lblScore.text = corps[@"lastColorguard"];
+                    } else { //no data
+                        cell = blankCell;
+                        cell.textLabel.text = corps[@"corpsName"];
+                        cell.textLabel.textColor = [UIColor whiteColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.detailTextLabel.text = @"No colorguard score yet";
+                        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+                        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+                        
+                    }
+                    
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -1330,11 +1383,16 @@ bool isDoneSortingFavorites = NO;
     } completion:^(BOOL finished) {
         
     }];
-    
-    return cell;
+    if (![array count]) {
+        blankCell.backgroundColor = [UIColor blackColor];
+        blankCell.textLabel.textColor = [UIColor whiteColor];
+        blankCell.textLabel.font = [UIFont systemFontOfSize:12];
+        blankCell.textLabel.text = @"No votes yet";
+        return blankCell;
+    } else {
+        return cell;
+    }
 }
-
-
 
 - (UIColor *)darkerColorForColor:(UIColor *)c
 {

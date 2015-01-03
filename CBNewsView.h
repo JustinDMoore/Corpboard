@@ -16,7 +16,8 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
-@property (nonatomic, strong) UILabel *fromLabel;
+@property (nonatomic, strong) UILabel *lblFrom;
+@property (nonatomic, strong) UIImageView *imgFrom;
 
 @property (nonatomic, strong) NSNumber *colorNumber;
 

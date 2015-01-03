@@ -760,7 +760,7 @@ NSDate *nearestDate;
             if (corps) {
                 lblPosition.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1 + increment];
                 lblCorpsName.text = corps[@"corpsName"];
-                lblScore.text = corps[@"lastScore"];
+                
                 //get corps logo from parse
                 PFFile *imageFile = corps[@"logo"];
                 if (imageFile) {
@@ -791,6 +791,12 @@ NSDate *nearestDate;
                     } else {
                         lblScoreDate.text = [NSString stringWithFormat:@"%li day ago", (long)days];
                     }
+                }
+                if ([corps[@"lastScore"] length]) {
+                    lblScore.text = corps[@"lastScore"];
+                } else {
+                    lblScore.text = @"0";
+                    lblScoreDate.text = @"No score";
                 }
             }
         }

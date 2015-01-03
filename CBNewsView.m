@@ -69,7 +69,7 @@ CBNewsSingleton *news;
     [self.dateLabel sizeToFit];
     [self addSubview:self.dateLabel];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.dateLabel.frame.origin.y + self.dateLabel.frame.size.height, 190, 60)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.dateLabel.frame.origin.y + self.dateLabel.frame.size.height + 3, 190, 60)];
     self.titleLabel.font = [UIFont systemFontOfSize:14];
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor whiteColor];
@@ -78,12 +78,16 @@ CBNewsSingleton *news;
     [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
     
-    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.frame.size.height - 17, 190, 21)];
-    self.fromLabel.font = [UIFont systemFontOfSize:10];
-    self.fromLabel.text = @"Drum Corps International";
-    self.fromLabel.textColor = [UIColor blueColor];
-    [self.fromLabel sizeToFit];
-    [self addSubview:self.fromLabel];
+    self.imgFrom = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width - 35, self.frame.size.height - 25, 30, 21)];
+    self.imgFrom.image = [UIImage imageNamed:@"DCI_small"];
+    [self addSubview:self.imgFrom];
+    
+    self.lblFrom = [[UILabel alloc] initWithFrame:CGRectMake(self.imgFrom.frame.origin.x + 3, self.frame.size.height - 17, 190, 21)];
+    self.lblFrom.font = [UIFont systemFontOfSize:10];
+    self.lblFrom.text = @"";
+    self.lblFrom.textColor = [UIColor blueColor];
+    [self.lblFrom sizeToFit];
+    [self addSubview:self.lblFrom];
 }
 
 
