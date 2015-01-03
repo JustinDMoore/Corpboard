@@ -308,19 +308,19 @@
             lblScoreAndPlacement.text = [NSString stringWithFormat:@"%@ - %@", self.currentYear[@"placement"], self.currentYear[@"score"]];
             
             //medals
-            if ([self.currentYear[@"placement"] isEqualToString:@"1st"]) {
+            if ([self.currentYear[@"placement"] containsString:@"1st"]) {
                 imgMedal.hidden = NO;
                 lblGold.hidden = NO;
                 lblMedal.hidden = NO;
                 lblGold.text = @"GOLD";
                 imgMedal.image = [UIImage imageNamed:@"medal_gold"];
-            } else if ([self.currentYear[@"placement"] isEqualToString:@"2nd"]) {
+            } else if ([self.currentYear[@"placement"] containsString:@"2nd"]) {
                 imgMedal.hidden = NO;
                 lblGold.hidden = NO;
                 lblMedal.hidden = NO;
                 lblGold.text = @"SILVER";
                 imgMedal.image = [UIImage imageNamed:@"medal_silver"];
-            } else if ([self.currentYear[@"placement"] isEqualToString:@"3rd"]) {
+            } else if ([self.currentYear[@"placement"] containsString:@"3rd"]) {
                 imgMedal.hidden = NO;
                 lblGold.hidden = NO;
                 lblMedal.hidden = NO;
@@ -379,7 +379,7 @@ int selectedCell = 0;
         CBWebViewController *vc = [segue destinationViewController];
         vc.webURL = self.corps[@"website"];
         vc.websiteTitle = self.corps[@"corpsName"];
-        vc.websiteSubTitle = vc.webURL;
+        vc.websiteSubTitle = self.corps[@"website_Display"];
         
     } else if ([[segue identifier] isEqualToString:@"about"]) {
         

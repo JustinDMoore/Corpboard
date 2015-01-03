@@ -73,6 +73,9 @@ BOOL updatedShows;
     
     updatedCorps = NO;
     self.arrayOfAllCorps = nil;
+    self.arrayOfWorldClass = nil;
+    self.arrayOfOpenClass = nil;
+    
     PFQuery *query = [PFQuery queryWithClassName:@"corps"];
     [query orderByAscending:@"corpsName"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

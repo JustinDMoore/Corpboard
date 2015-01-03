@@ -91,7 +91,7 @@ BOOL refreshing = NO;
     
     self.tableShows.hidden = YES;
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshAll:) forControlEvents:UIControlEventValueChanged];
     [self.tableShows addSubview:self.refreshControl];
 }
 
@@ -122,7 +122,7 @@ BOOL refreshing = NO;
     }
 }
 
-- (void)refresh:(UIRefreshControl *)refreshControl {
+- (void)refreshAll:(UIRefreshControl *)refreshControl {
     
     self.tableShows.userInteractionEnabled = NO;
     self.dateIndex = nil;

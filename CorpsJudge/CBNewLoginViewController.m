@@ -41,6 +41,7 @@
 
 @implementation CBNewLoginViewController
 
+
 -(void)viewDidAppear:(BOOL)animated {
     
     // *****************************************************
