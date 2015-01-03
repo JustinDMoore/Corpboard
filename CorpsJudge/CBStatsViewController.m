@@ -13,6 +13,7 @@
 #import "UserScore.h"
 #import "CBSingle.h"
 #import "CBAppDelegate.h"
+#import "KVNProgress.h"
 
 CBAppDelegate *appDel;
 CBSingle *data;
@@ -105,6 +106,7 @@ typedef enum : int {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [KVNProgress show];
     [self initVariables];
     [self initUI];
 

@@ -10,6 +10,7 @@
 #import "CBWebViewController.h"
 #import "CBJudgeViewController.h"
 #import "CBSingle.h"
+#import "KVNProgress.h"
 
 #import <ParseUI/ParseUI.h>
 
@@ -81,10 +82,10 @@ int votedFavorites;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    [KVNProgress show];
     [self setup];
 }
 
@@ -178,6 +179,7 @@ int votedFavorites;
     self.activityInicator.hidden = YES;
     self.lblLoading.hidden = YES;
     self.corpsTable.hidden = NO;
+    [KVNProgress dismiss];
 }
 
 
