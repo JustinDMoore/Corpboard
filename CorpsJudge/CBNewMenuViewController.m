@@ -52,9 +52,12 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (weak, nonatomic) IBOutlet UIControl *viewProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnLiveChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnProfile;
+@property (weak, nonatomic) IBOutlet UIButton *btnAdmin;
+@property (weak, nonatomic) IBOutlet UILabel *lblAdmin;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblUserName;
 - (IBAction)btnProfile_clicked:(id)sender;
+- (IBAction)btnAdmin_clicked:(id)sender;
 
 
 
@@ -150,56 +153,12 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     news = [CBNewsSingleton news];
     
     [self initHeadshots];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(admin:)];
-    tap.numberOfTapsRequired = 5;
-    [self.lblShowsHeader addGestureRecognizer:tap];
-    self.lblShowsHeader.userInteractionEnabled = YES;
     
     self.navigationItem.backBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:@"    "
                                       style:UIBarButtonItemStylePlain
                                      target:nil
                                      action:nil];
-}
-
-bool trying;
--(void)admin:(UILongPressGestureRecognizer *)gesture {
-    
-    if (!trying) {
-        
-        trying = YES;
-        
-        if (data.adminMode) {
-            
-            data.adminMode = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Admin mode disabled" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-            
-        } else {
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Admin Mode" message:@"Enter password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-            alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
-            [alert show];
-        }
-    }
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex > 0) {
-        UITextField *txt = [alertView textFieldAtIndex:0];
-        if ([txt.text isEqualToString:@"Ju$tin!1"]) {
-            data.adminMode = YES;
-            NSLog(@"admin mode enabled");
-        } else {
-            data.adminMode = NO;
-            trying = NO;
-            [self admin:nil];
-        }
-    }
-   
-
-    trying = NO;
 }
 
 -(void)initHeadshots {
@@ -217,6 +176,14 @@ bool trying;
     
     self.viewProfile.backgroundColor = self.tableLastShows.backgroundColor;
     
+    // set admin
+    if (data.adminMode) {
+        self.btnAdmin.hidden = NO;
+        self.lblAdmin.hidden = NO;
+    } else {
+        self.btnAdmin.hidden = YES;
+        self.lblAdmin.hidden = YES;
+    }
     //check for new messages
     JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
     badgeView.badgeText = @"3";
@@ -1088,5 +1055,8 @@ CGFloat previousScroll;
 - (IBAction)btnProfile_clicked:(id)sender {
     
     [self performSegueWithIdentifier:@"profile" sender:self];
+}
+
+- (IBAction)btnAdmin_clicked:(id)sender {
 }
 @end

@@ -54,7 +54,7 @@
 		identifier = [decoder decodeObjectForKey:@"identifier"];
 		title = [decoder decodeObjectForKey:@"title"];
 		link = [decoder decodeObjectForKey:@"link"];
-		date = [decoder decodeObjectForKey:@"date"];
+		date = [decoder decodeObjectForKey:@"news_date"];
 		updated = [decoder decodeObjectForKey:@"updated"];
 		summary = [decoder decodeObjectForKey:@"summary"];
 		content = [decoder decodeObjectForKey:@"content"];
@@ -68,7 +68,7 @@
 	if (identifier) [encoder encodeObject:identifier forKey:@"identifier"];
 	if (title) [encoder encodeObject:title forKey:@"title"];
 	if (link) [encoder encodeObject:link forKey:@"link"];
-	if (date) [encoder encodeObject:date forKey:@"date"];
+	if (date) [encoder encodeObject:date forKey:@"news_date"];
 	if (updated) [encoder encodeObject:updated forKey:@"updated"];
 	if (summary) [encoder encodeObject:summary forKey:@"summary"];
 	if (content) [encoder encodeObject:content forKey:@"content"];

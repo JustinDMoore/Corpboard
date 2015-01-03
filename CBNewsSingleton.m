@@ -78,12 +78,14 @@
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    
     //NSLog(@"Parsed Feed Info: “%@”", info.title);
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
     //NSLog(@"Parsed Feed Item: “%@”", item.title);
     if (item) [parsedItems addObject:item];
+    NSLog(@"%@", item.description);
 }
 
 -(void)feedParserDidFinish:(MWFeedParser *)parser {

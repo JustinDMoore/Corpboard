@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSDate *newsDate;
 //@property (nonatomic, strong) NSString *newsDateString;
 
--(id)initTitle:(NSString *)newsTitle withDescription:(NSString *)description withLink:(NSString *)newsLink withDate:(NSString *)newsD;
+-(id)initTitle:(NSString *)newsTitle withDescription:(NSString *)description withLink:(NSString *)newsLink withDate:(NSDate *)newsD;
 
 @end

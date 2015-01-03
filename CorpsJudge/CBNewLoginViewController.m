@@ -39,7 +39,6 @@
 
 @implementation CBNewLoginViewController
 
-
 -(void)viewDidAppear:(BOOL)animated {
     
     // *****************************************************
@@ -78,6 +77,7 @@
 }
 
 -(void)continueLoading {
+    
     self.currentUser = [PFUser currentUser];
     if (self.currentUser) {
         [self.currentUser fetchInBackgroundWithTarget:self selector:@selector(callbackWithResult:error:)];
@@ -99,6 +99,11 @@
 }
 
 -(void)callbackWithResult:(PFObject *)refreshedObject error:(NSError *)error {
+    
+    //set admin
+    BOOL admin = [self.currentUser[@"isAdmin"] boolValue];
+    if (admin) data.adminMode = YES;
+    else data.adminMode = NO;
     
     NSString *name = self.currentUser[@"nickname"];
     if ([name length]) {

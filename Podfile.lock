@@ -15,7 +15,7 @@ PODS:
 DEPENDENCIES:
   - JSBadgeView
   - KVNProgress
-  - MWFeedParser
+  - MWFeedParser (= 1.0.1)
   - PulsingHalo
 
 SPEC CHECKSUMS:

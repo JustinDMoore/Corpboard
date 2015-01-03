@@ -32,7 +32,7 @@ CBNewsSingleton *news;
 -(void)createLabels {
     self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
     self.dateLabel.font = [UIFont boldSystemFontOfSize:14];
-    self.dateLabel.text = self.date;
+    self.dateLabel.text = [NSString stringWithFormat:@"%@", self.date];
     self.dateLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.dateLabel];
     

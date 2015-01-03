@@ -10,7 +10,7 @@
 
 @implementation CBNewsItem
 
--(id)initTitle:(NSString *)newsTitle withDescription:(NSString *)description withLink:(NSString *)newsLink withDate:(NSString *)newsD {
+-(id)initTitle:(NSString *)newsTitle withDescription:(NSString *)description withLink:(NSString *)newsLink withDate:(NSDate *)newsD {
     if (self == [super init]) {
         self.title = newsTitle;
         self.link = newsLink;

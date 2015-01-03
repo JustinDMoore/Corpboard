@@ -19,6 +19,7 @@ CBNewsSingleton *news;
 @implementation CBNewsViewController
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
