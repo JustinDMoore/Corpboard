@@ -10,6 +10,7 @@
 
 @interface CBNewsView : UIView
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSString *dateString;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *link;
 

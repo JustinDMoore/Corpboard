@@ -85,7 +85,6 @@
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
     //NSLog(@"Parsed Feed Item: “%@”", item.title);
     if (item) [parsedItems addObject:item];
-    NSLog(@"%@", item.description);
 }
 
 -(void)feedParserDidFinish:(MWFeedParser *)parser {

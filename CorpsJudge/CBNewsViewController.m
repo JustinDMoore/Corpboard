@@ -9,6 +9,9 @@
 #import "CBNewsViewController.h"
 #import "CBNewsSingleton.h"
 #import "CBNewsItem.h"
+#import "NSDate+Utilities.h"
+#import "JSQMessagesTimestampFormatter.h"
+#import "CBWebViewController.h"
 
 CBNewsSingleton *news;
 
@@ -17,6 +20,8 @@ CBNewsSingleton *news;
 @end
 
 @implementation CBNewsViewController
+
+MWFeedItem *itemForWeb;
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -53,7 +58,9 @@ CBNewsSingleton *news;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark -
+#pragma mark - UITableview delegates
+#pragma mark
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
@@ -77,13 +84,59 @@ CBNewsSingleton *news;
     
     MWFeedItem *item = [news.itemsToDisplay objectAtIndex:indexPath.row];
     title.text = item.title;
-    desc.text = item.summary;
-    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", item.date];
+    if ([item.title isEqualToString:@"Corps news and announcements"]) {
+        desc.text = @"The latest news and notes from Drum Corps International's World and Open Class corps";
+    } else {
+        desc.text = item.summary;
+    }
+   
+    NSString *dateString = @"";
+    int diff = (int)[item.date minutesBeforeDate:[NSDate date]];
+    if (diff < 5) {
+        dateString = @"Just Now";
+    } else if (diff <= 50) {
+        dateString = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        dateString = @"An hour ago";
+    } else {
+        if ([item.date isYesterday]) dateString = @"Yesterday";
+        if ([item.date daysBeforeDate:[NSDate date]] == 2) {
+            dateString = @"2 days ago";
+        } else {
+            if ([item.date isToday]) {
+                int hours = (int)[item.date hoursBeforeDate:[NSDate date]];
+                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+            } else {
+                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                [format setDateFormat:@"MMMM d"];
+                
+                dateString = [format stringFromDate:item.date];
+            }
+        }
+    }
+    
+    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", dateString];
     
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    itemForWeb = [news.itemsToDisplay objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"news" sender:self];
+}
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"news"]) {
+        CBWebViewController *vc = [segue destinationViewController];
+        vc.webURL = itemForWeb.link;
+        vc.websiteTitle = @"Drum Corps International";
+        vc.websiteSubTitle = itemForWeb.title;
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

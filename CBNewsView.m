@@ -10,20 +10,52 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 #import "CBNewsSingleton.h"
+#import "NSDate+Utilities.h"
 
 CBNewsSingleton *news;
 @implementation CBNewsView
 
 -(id)initWithDate:(NSDate *)date title:(NSString *)title link:(NSString *)link {
     if (self = [super init]) {
+        
         news = [CBNewsSingleton news];
         self.frame = CGRectMake(0, 0, 205, 100);
         self.layer.cornerRadius = 8;
         self.backgroundColor = [UIColor redColor];
-        self.date = date;
         self.title = title;
         self.link = link;
-        [self createLabels];
+        
+        self.date = date;
+        
+        NSString *dateString = @"";
+        int diff = (int)[date minutesBeforeDate:[NSDate date]];
+        if (diff < 5) {
+            dateString = @"Just Now";
+        } else if (diff <= 50) {
+            dateString = [NSString stringWithFormat:@"%i min ago", diff];
+        } else if ((diff > 50) && (diff < 65)) {
+            dateString = @"An hour ago";
+        } else {
+            if ([date isYesterday]) {
+                dateString = @"Yesterday";
+            }
+            if ([date daysBeforeDate:[NSDate date]] == 2) {
+                dateString = @"2 days ago";
+            } else {
+                if ([date isToday]) {
+                    int hours = (int)[date hoursBeforeDate:[NSDate date]];
+                    dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+                } else {
+                    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                    [format setDateFormat:@"MMMM d"];
+                    
+                    dateString = [format stringFromDate:date];
+                }
+            }
+        }
+    
+    self.dateString = dateString;
+    [self createLabels];
        
     }
     return self;
@@ -31,17 +63,19 @@ CBNewsSingleton *news;
 
 -(void)createLabels {
     self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
-    self.dateLabel.font = [UIFont boldSystemFontOfSize:14];
-    self.dateLabel.text = [NSString stringWithFormat:@"%@", self.date];
-    self.dateLabel.textColor = [UIColor whiteColor];
+    self.dateLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.dateLabel.text = self.dateString;
+    self.dateLabel.textColor = [UIColor lightGrayColor];
+    [self.dateLabel sizeToFit];
     [self addSubview:self.dateLabel];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 32, 190, 60)];
-    self.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.dateLabel.frame.origin.y + self.dateLabel.frame.size.height, 190, 60)];
+    self.titleLabel.font = [UIFont systemFontOfSize:16];
     self.titleLabel.text = self.title;
     self.titleLabel.textColor = [UIColor whiteColor];
-    self.titleLabel.numberOfLines = 0;
-    self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.titleLabel.numberOfLines = 4;
+    self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [self.titleLabel sizeToFit];
     [self addSubview:self.titleLabel];
 }
 
@@ -64,7 +98,7 @@ CBNewsSingleton *news;
             self.backgroundColor = [UIColor whiteColor];
             self.layer.borderColor = (__bridge CGColorRef)([UIColor grayColor]);
             self.titleLabel.textColor = [UIColor blackColor];
-            self.dateLabel.textColor = [UIColor blackColor];
+            self.dateLabel.textColor = [UIColor lightGrayColor];
             break;
         case 4:
             self.backgroundColor = [self getRGB1:252 two:61 three:77];
@@ -128,13 +162,13 @@ CBNewsSingleton *news;
             [self makeGradientWithOne:[self getRGB1:31 two:26 three:22] Two:[self getRGB1:54 two:47 three:41]];
             vertical = YES;
             self.titleLabel.textColor = [UIColor whiteColor];
-            self.dateLabel.textColor = self.titleLabel.textColor;
+            self.dateLabel.textColor = [UIColor lightGrayColor];
             
             break;
         case 16:
             self.backgroundColor = [self getRGB1:255 two:34 three:0];
             self.titleLabel.textColor = [UIColor blackColor];
-            self.dateLabel.textColor = self.titleLabel.textColor;
+            self.dateLabel.textColor = [UIColor lightGrayColor];
             break;
         default:
             break;
