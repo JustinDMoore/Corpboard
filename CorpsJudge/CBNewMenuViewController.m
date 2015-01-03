@@ -44,7 +44,14 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UIView *contentMainView;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfLastShows;
+@property (nonatomic, strong) NSMutableArray *arrayOfShowsYesterday;
+@property (nonatomic, strong) NSMutableArray *arrayOfShowsToday;
+@property (nonatomic, strong) NSMutableArray *arrayOfShowsTomorrow;
 @property (nonatomic, strong) NSMutableArray *arrayOfNextShows;
+
+@property (nonatomic, strong) NSMutableArray *arrayOfShowsForTable1;
+@property (nonatomic, strong) NSMutableArray *arrayOfShowsForTable2;
+
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 
@@ -131,6 +138,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:YES animated:NO];
+    [self setupShows];
 }
 
 - (void)viewDidLoad
@@ -140,11 +148,29 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     [self initVariables];
     [self initUI];
     
-    [self startTimerForShows];
-    [self startTimerForCorps];
-    [self startTimerForHeadshots];
-    [self startTimerForNews];
+    //[self checkShows];
+    //[self startTimerForShows];
+    //[self startTimerForCorps];
+    //[self startTimerForHeadshots];
+    //[self startTimerForNews];
     
+}
+
+-(void)setupShows {
+    
+    if ([data.arrayOfAllShows count]) {
+        
+        [self prepareShowsForTable];
+        
+        [self.showsActivity stopAnimating];
+        self.pageShows.hidden = NO;
+        self.showsActivity.hidden = YES;
+        self.scrollViewShows.hidden = NO;
+        self.lblShowsHeader.hidden = NO;
+        self.btnSeeAll.hidden = NO;
+        
+    }
+
 }
 
 -(void)initVariables {
@@ -483,27 +509,6 @@ int counter = 0;
     [self.tableTopTwelve reloadData];
 }
 
--(void)checkShows {
-    
-    if (data.dataLoaded) {
-
-        [timerCheckForShows invalidate];
-        
-        if ([data.arrayOfAllShows count]) {
-            
-            [self prepareShowsForTable];
-            
-            [self.showsActivity stopAnimating];
-            self.pageShows.hidden = NO;
-            self.showsActivity.hidden = YES;
-            self.scrollViewShows.hidden = NO;
-            self.lblShowsHeader.hidden = NO;
-            self.btnSeeAll.hidden = NO;
-            
-        }
-    }
-}
-
 -(void)checkNews {
     
     if (news.newsLoaded) {
@@ -520,19 +525,19 @@ NSDate *nearestDate;
 
     [self getPreviousAndNextShows];
     
-    if ([self.arrayOfNextShows count]) {
+    if ([self.arrayOfShowsForTable2 count]) {
         [self.tableNextShows reloadData];
     } else {
         self.tableNextShows.hidden = YES;
     }
     
-    if ([self.arrayOfLastShows count]) {
+    if ([self.arrayOfShowsForTable1 count]) {
         [self.tableLastShows reloadData];
     } else {
         self.tableLastShows.hidden = YES;
     }
     
-    if (![self.arrayOfLastShows count] || ![self.arrayOfNextShows count]) {
+    if (![self.arrayOfShowsForTable1 count] || ![self.arrayOfShowsForTable2 count]) {
         self.scrollViewShows.contentSize = CGSizeMake(self.scrollViewShows.contentSize.width / 2, self.scrollViewShows.contentSize.height);
         self.pageShows.numberOfPages = 0;
         self.scrollViewShows.scrollEnabled = NO;
@@ -541,43 +546,127 @@ NSDate *nearestDate;
 
 -(void)getPreviousAndNextShows {
     
+    [self.arrayOfLastShows removeAllObjects];
+    [self.arrayOfShowsYesterday removeAllObjects];
+    [self.arrayOfShowsToday removeAllObjects];
+    [self.arrayOfShowsTomorrow removeAllObjects];
+    [self.arrayOfNextShows removeAllObjects];
+    
+    self.arrayOfShowsForTable1 = nil;
+    self.arrayOfShowsForTable2 = nil;
+    
+    // get shows for yesterday, today, and tomorrow
     for (PFObject *show in data.arrayOfAllShows) {
         
         // adds all shows for yesterday
         if ([show[@"showDate"] isYesterday]) {
-            [self.arrayOfLastShows addObject:show];
+            [self.arrayOfShowsYesterday addObject:show];
         }
         
         // adds all shows for today
         if ([show[@"showDate"] isToday]) {
-            [self.arrayOfNextShows addObject:show];
+            [self.arrayOfShowsToday addObject:show];
         }
         
+        if ([show[@"showDate"] isTomorrow]) {
+            [self.arrayOfShowsTomorrow addObject:show];
+        }
     }
     
-    // if no shows yesterday, get the latest show
+    //get latest show prior to yesterday
     if (![self.arrayOfLastShows count]) {
         
-        int numberOfDays = 1;
+        int numberOfDays = 2;
         bool foundLastDate = NO;
         while (!foundLastDate) {
             NSDate *days = [NSDate dateWithDaysBeforeNow:numberOfDays];
             for (PFObject *show in data.arrayOfAllShows) {
                 if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
-                    foundLastDate = YES;
-                    [self.arrayOfLastShows addObject:show];
+                    if (![self.arrayOfShowsYesterday count]) {
+                        [self.arrayOfShowsYesterday addObject:show];
+                        foundLastDate = NO;
+                    } else {
+                        foundLastDate = YES;
+                        [self.arrayOfLastShows addObject:show];
+                    }
                 }
             }
             numberOfDays++;
+            if (numberOfDays > 60) break;
         }
     }
     
-    if ([self.arrayOfLastShows count]) {
-        //set the date string for the last shows table
-        PFObject *show = [self.arrayOfLastShows objectAtIndex:0];
+    //get the next show after tomorrow
+    if (![self.arrayOfNextShows count]) {
+        int numberOfDays = 2;
+        BOOL foundNextDate = NO;
+        while (!foundNextDate) {
+            NSDate *days = [NSDate dateWithDaysFromNow:numberOfDays];
+            for (PFObject *show in data.arrayOfAllShows) {
+                if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
+                    if (![self.arrayOfShowsTomorrow count]) { // this handles next after next
+                        [self.arrayOfShowsTomorrow addObject:show];
+                        foundNextDate = NO;
+                    } else {
+                        foundNextDate = YES;
+                        [self.arrayOfNextShows addObject:show];
+                    }
+                }
+            }
+            numberOfDays++;
+            if (numberOfDays > 60) break;
+        }
+    }
+    
+    //now see what we have and assign the tables
+    if ([self.arrayOfShowsToday count]) {
+        self.arrayOfShowsForTable1 = self.arrayOfShowsToday;
         
-        if ([show[@"showDate"] isYesterday]) {
+        if ([self.arrayOfShowsTomorrow count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+        } else if ([self.arrayOfNextShows count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+        }
+        
+    } else if ([self.arrayOfShowsYesterday count]) {
+        self.arrayOfShowsForTable1 = self.arrayOfShowsYesterday;
+        
+        if ([self.arrayOfShowsTomorrow count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+        } else if ([self.arrayOfNextShows count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+        }
+    
+    
+    } else if ([self.arrayOfLastShows count]) {
+        self.arrayOfShowsForTable1 = self.arrayOfLastShows;
+        
+        if ([self.arrayOfShowsTomorrow count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+        } else if ([self.arrayOfNextShows count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+        }
+        
+        
+    } else if ([self.arrayOfShowsTomorrow count]){
+        self.arrayOfShowsForTable1 = self.arrayOfShowsTomorrow;
+        
+        if ([self.arrayOfNextShows count]) {
+            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+        }
+    }
+
+    // set the date label for table 1 shows
+    if ([self.arrayOfShowsForTable1 count]) {
+
+        PFObject *show = [self.arrayOfShowsForTable1 objectAtIndex:0];
+        
+        if ([show[@"showDate"] isToday]) {
+            lastShowString = @"Today";
+        } else if ([show[@"showDate"] isYesterday]) {
             lastShowString = @"Yesterday";
+        } else if ([show[@"showDate"] isTomorrow]) {
+            lastShowString = @"Tomorrow";
         } else {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"EEEE M/dd"];
@@ -585,22 +674,11 @@ NSDate *nearestDate;
             lastShowString = [formatter stringFromDate:show[@"showDate"]];
         }
     }
-    
-    
-    //make sure we have shows for today, if not... go up one more day
-    
-    if (![self.arrayOfNextShows count]) {
-        NSDate *oneDay = [NSDate dateWithDaysFromNow:1];
-        for (PFObject *show in data.arrayOfAllShows) {
-            if ([show[@"showDate"] isEqualToDateIgnoringTime:oneDay]) {
-                [self.arrayOfNextShows addObject:show];
-            }
-        }
-    }
-    
-    if ([self.arrayOfNextShows count]) {
+
+    // set the date label for table 2 shows
+    if ([self.arrayOfShowsForTable2 count]) {
         //set the date string for the next shows table
-        PFObject *show2 = [self.arrayOfNextShows objectAtIndex:0];
+        PFObject *show2 = [self.arrayOfShowsForTable2 objectAtIndex:0];
         
         if ([show2[@"showDate"] isToday]) {
             nextShowString = @"Today";
@@ -639,14 +717,14 @@ NSDate *nearestDate;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableLastShows) {
-        if ([self.arrayOfLastShows count]) {
-            if ([self.arrayOfLastShows count] > 4) return 4;
-            else return [self.arrayOfLastShows count];
+        if ([self.arrayOfShowsForTable1 count]) {
+            if ([self.arrayOfShowsForTable1 count] > 4) return 4;
+            else return [self.arrayOfShowsForTable1 count];
         } else return 0;
     } else if (tableView == self.tableNextShows) {
-        if ([self.arrayOfNextShows count]) {
-            if ([self.arrayOfNextShows count] > 4) return 4;
-            else return [self.arrayOfNextShows count];
+        if ([self.arrayOfShowsForTable2 count]) {
+            if ([self.arrayOfShowsForTable2 count] > 4) return 4;
+            else return [self.arrayOfShowsForTable2 count];
         } else return 0;
     }
     
@@ -668,8 +746,8 @@ NSDate *nearestDate;
     
     if (tableView == self.tableLastShows) {
         
-        if ([self.arrayOfLastShows count]) {
-            show = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+        if ([self.arrayOfShowsForTable1 count]) {
+            show = [self.arrayOfShowsForTable1 objectAtIndex:indexPath.row];
             
             BOOL isOver = [show[@"isShowOver"] boolValue];
             if (isOver) cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"scores"];
@@ -706,8 +784,8 @@ NSDate *nearestDate;
         lblShowLocation = (UILabel *)[cell viewWithTag:2];
         btnScores = (UIButton *)[cell viewWithTag:3];
         
-        if ([self.arrayOfLastShows count]) {
-            show = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+        if ([self.arrayOfShowsForTable2 count]) {
+            show = [self.arrayOfShowsForTable2 objectAtIndex:indexPath.row];
             
             lblShowName.text = show[@"showName"];
             lblShowLocation.text = show[@"showLocation"];
@@ -1044,11 +1122,46 @@ CGFloat previousScroll;
     return _arrayOfLastShows;
 }
 
+-(NSMutableArray *)arrayOfShowsYesterday {
+    if (!_arrayOfShowsYesterday) {
+        _arrayOfShowsYesterday = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfShowsYesterday;
+}
+
+-(NSMutableArray *)arrayOfShowsToday {
+    if (!_arrayOfShowsToday) {
+        _arrayOfShowsToday = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfShowsToday;
+}
+
+-(NSMutableArray *)arrayOfShowsTomorrow {
+    if (!_arrayOfShowsTomorrow) {
+        _arrayOfShowsTomorrow = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfShowsTomorrow;
+}
+
 -(NSMutableArray *)arrayOfNextShows {
     if (!_arrayOfNextShows) {
         _arrayOfNextShows = [[NSMutableArray alloc] init];
     }
     return _arrayOfNextShows;
+}
+
+-(NSMutableArray *)arrayOfShowsForTable1 {
+    if (!_arrayOfShowsForTable1) {
+        _arrayOfShowsForTable1 = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfShowsForTable1;
+}
+
+-(NSMutableArray *)arrayOfShowsForTable2 {
+    if (!_arrayOfShowsForTable2) {
+        _arrayOfShowsForTable2 = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfShowsForTable2;
 }
 
 -(NSMutableArray *)arrayOfHeadshots {
