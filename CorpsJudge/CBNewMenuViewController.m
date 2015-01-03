@@ -576,19 +576,21 @@ NSDate *nearestDate;
     //get latest show prior to yesterday
     if (![self.arrayOfLastShows count]) {
         
+        NSMutableArray *arrayForLast;
+        if (![self.arrayOfShowsYesterday count]) { //if yesterday is empty, use it
+            arrayForLast = self.arrayOfShowsYesterday;
+        } else { // otherwise, use last shows
+            arrayForLast = self.arrayOfLastShows;
+        }
+        
         int numberOfDays = 2;
         bool foundLastDate = NO;
         while (!foundLastDate) {
             NSDate *days = [NSDate dateWithDaysBeforeNow:numberOfDays];
             for (PFObject *show in data.arrayOfAllShows) {
                 if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
-                    if (![self.arrayOfShowsYesterday count]) {
-                        [self.arrayOfShowsYesterday addObject:show];
-                        foundLastDate = NO;
-                    } else {
-                        foundLastDate = YES;
-                        [self.arrayOfLastShows addObject:show];
-                    }
+                    [arrayForLast addObject:show];
+                    foundLastDate = YES;
                 }
             }
             numberOfDays++;
@@ -598,19 +600,21 @@ NSDate *nearestDate;
     
     //get the next show after tomorrow
     if (![self.arrayOfNextShows count]) {
+        NSMutableArray *arrayForNext;
+        if (![self.arrayOfShowsTomorrow count]) { // if tomorrow is empty, use it
+            arrayForNext = self.arrayOfShowsTomorrow;
+        } else { // otherwise, use next shows
+            arrayForNext = self.arrayOfNextShows;
+        }
+        
         int numberOfDays = 2;
         BOOL foundNextDate = NO;
         while (!foundNextDate) {
             NSDate *days = [NSDate dateWithDaysFromNow:numberOfDays];
             for (PFObject *show in data.arrayOfAllShows) {
                 if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
-                    if (![self.arrayOfShowsTomorrow count]) { // this handles next after next
-                        [self.arrayOfShowsTomorrow addObject:show];
-                        foundNextDate = NO;
-                    } else {
+                    [arrayForNext addObject:show];
                         foundNextDate = YES;
-                        [self.arrayOfNextShows addObject:show];
-                    }
                 }
             }
             numberOfDays++;
@@ -888,11 +892,11 @@ PFObject *showToOpen;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (tableView == self.tableLastShows) {
-        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+        showToOpen = [self.arrayOfShowsForTable1 objectAtIndex:indexPath.row];
         if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
         
     } else if (tableView == self.tableNextShows) {
-        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+        showToOpen = [self.arrayOfShowsForTable2 objectAtIndex:indexPath.row];
         if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
     }
     
