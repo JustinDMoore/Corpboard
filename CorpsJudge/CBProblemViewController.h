@@ -1,5 +1,5 @@
 //
-//  CBProblemTableViewController.h
+//  CBProblemViewController.h
 //  CorpBoard
 //
 //  Created by Justin Moore on 11/8/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBProblemTableViewController : UIViewController
+@interface CBProblemViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

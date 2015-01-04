@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CBStatsViewController.m */; };
 		92275B3C1A4042BC006E8E8E /* CBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92275B3B1A4042BC006E8E8E /* CBView.m */; };
+		92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92393F261A59B5DE00020C6A /* CBProblemWhere.xib */; };
 		923D4FC31A2C6DCF00E16B64 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D4EEF1A2C6DCF00E16B64 /* NavigationController.m */; };
 		923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D4EF21A2C6DCF00E16B64 /* ChatView.m */; };
 		923D4FC51A2C6DCF00E16B64 /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D4EF61A2C6DCF00E16B64 /* GroupView.m */; };
@@ -122,6 +123,9 @@
 		9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBE61A209D8000FB40AB /* CBIsNewUser.m */; };
 		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
 		9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */; };
+		926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123611A59B9E200A6B755 /* CBProblemWhere.m */; };
+		926123641A59BA7A00A6B755 /* CBProblemDescribe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926123631A59BA7A00A6B755 /* CBProblemDescribe.xib */; };
+		926123671A59BBB700A6B755 /* CBProblemDescribe.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123661A59BBB700A6B755 /* CBProblemDescribe.m */; };
 		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
 		9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9264B2691A34E91700E1838F /* ChatNameCell.xib */; };
 		9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9264B26C1A34EAE800E1838F /* LiveChatCell.m */; };
@@ -159,7 +163,7 @@
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
-		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
+		D0281E8C1A0F556F00565EB8 /* CBProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
@@ -243,6 +247,7 @@
 		92120A8F195945B600FFB9A8 /* CBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStatsViewController.m; sourceTree = "<group>"; };
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
 		92275B3B1A4042BC006E8E8E /* CBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBView.m; sourceTree = "<group>"; };
+		92393F261A59B5DE00020C6A /* CBProblemWhere.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhere.xib; sourceTree = "<group>"; };
 		923D4EE41A2C6DCF00E16B64 /* AppConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
 		923D4EEE1A2C6DCF00E16B64 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		923D4EEF1A2C6DCF00E16B64 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -457,6 +462,11 @@
 		9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBViewSignIn.xib; sourceTree = "<group>"; };
 		9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBViewSignIn.h; sourceTree = "<group>"; };
 		9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBViewSignIn.m; sourceTree = "<group>"; };
+		926123601A59B9E200A6B755 /* CBProblemWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhere.h; sourceTree = "<group>"; };
+		926123611A59B9E200A6B755 /* CBProblemWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhere.m; sourceTree = "<group>"; };
+		926123631A59BA7A00A6B755 /* CBProblemDescribe.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemDescribe.xib; sourceTree = "<group>"; };
+		926123651A59BBB700A6B755 /* CBProblemDescribe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemDescribe.h; sourceTree = "<group>"; };
+		926123661A59BBB700A6B755 /* CBProblemDescribe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemDescribe.m; sourceTree = "<group>"; };
 		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
 		92620E371A21A302003EC5D8 /* CBNicknameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNicknameView.m; sourceTree = "<group>"; };
 		9264B2691A34E91700E1838F /* ChatNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNameCell.xib; sourceTree = "<group>"; };
@@ -506,8 +516,8 @@
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
 		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
-		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
-		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
+		D0281E8A1A0F556F00565EB8 /* CBProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemViewController.h; sourceTree = "<group>"; };
+		D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
 		D02B39EB1969EB91005E14AC /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Shuffling.h"; path = "../NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
@@ -1173,7 +1183,7 @@
 				D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */,
 				D097A21E1A04125300C9FF72 /* CBWebViewController.m */,
 				D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */,
-				D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */,
+				D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */,
 				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
@@ -1212,6 +1222,10 @@
 				D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */,
 				D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */,
 				D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */,
+				92393F261A59B5DE00020C6A /* CBProblemWhere.xib */,
+				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
+				926123631A59BA7A00A6B755 /* CBProblemDescribe.xib */,
+				926123661A59BBB700A6B755 /* CBProblemDescribe.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -1234,7 +1248,7 @@
 				D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */,
 				D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */,
 				D097A21D1A04125300C9FF72 /* CBWebViewController.h */,
-				D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */,
+				D0281E8A1A0F556F00565EB8 /* CBProblemViewController.h */,
 				D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */,
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
@@ -1258,6 +1272,8 @@
 				D08E00F21A4147B700FF0B62 /* CBEditName.h */,
 				D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */,
 				D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */,
+				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
+				926123651A59BBB700A6B755 /* CBProblemDescribe.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1534,6 +1550,7 @@
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
 				92E810881968E4CA0078B65D /* The Cadets2.png in Resources */,
 				923D4FD31A2C6DCF00E16B64 /* WelcomeView.xib in Resources */,
+				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
@@ -1541,6 +1558,7 @@
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
+				926123641A59BA7A00A6B755 /* CBProblemDescribe.xib in Resources */,
 				D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */,
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				923D501B1A2C6DCF00E16B64 /* ProgressHUD.bundle in Resources */,
@@ -1652,8 +1670,10 @@
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				923D4FF11A2C6DCF00E16B64 /* JSQSystemSoundPlayer+JSQMessages.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
+				926123671A59BBB700A6B755 /* CBProblemDescribe.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
-				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
+				D0281E8C1A0F556F00565EB8 /* CBProblemViewController.m in Sources */,
+				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				923D4FF71A2C6DCF00E16B64 /* JSQMessagesKeyboardController.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
