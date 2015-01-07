@@ -99,7 +99,7 @@
     [data setDelegate:self];
     [news setDelegate:self];
     self.navigationController.navigationBarHidden = YES;
-    
+    self.navigationController.toolbarHidden = YES;
     self.scrollLogin.delegate = self;
 
 }

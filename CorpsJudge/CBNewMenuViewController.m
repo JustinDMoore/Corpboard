@@ -173,6 +173,11 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 }
 
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 -(void)initVariables {
     
     data = [CBSingle data];

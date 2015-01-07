@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBProblemWhere : UIView
+@protocol problemWhereProtocol <NSObject>
+-(void)problemWhereCanceled;
+@end
+
+@interface CBProblemWhere : UIView {
+     id delegate;
+}
+
 @property (nonatomic, strong) IBOutlet UITableView *tableProblem;
 @property (nonatomic, strong) NSArray *arrayOfProblemAreas;
+-(void)showInParent:(CGRect)parent;
+-(void)closeView:(BOOL)cancelled;
+-(void)setDelegate:(id)newDelegate;
 @end

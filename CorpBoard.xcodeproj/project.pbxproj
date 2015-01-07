@@ -163,7 +163,7 @@
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
-		D0281E8C1A0F556F00565EB8 /* CBProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */; };
+		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
@@ -516,8 +516,8 @@
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
 		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
-		D0281E8A1A0F556F00565EB8 /* CBProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemViewController.h; sourceTree = "<group>"; };
-		D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemViewController.m; sourceTree = "<group>"; };
+		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
+		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
 		D02B39EB1969EB91005E14AC /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Shuffling.h"; path = "../NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
@@ -1183,7 +1183,7 @@
 				D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */,
 				D097A21E1A04125300C9FF72 /* CBWebViewController.m */,
 				D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */,
-				D0281E8B1A0F556F00565EB8 /* CBProblemViewController.m */,
+				D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */,
 				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
@@ -1248,7 +1248,7 @@
 				D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */,
 				D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */,
 				D097A21D1A04125300C9FF72 /* CBWebViewController.h */,
-				D0281E8A1A0F556F00565EB8 /* CBProblemViewController.h */,
+				D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */,
 				D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */,
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
@@ -1672,7 +1672,7 @@
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
 				926123671A59BBB700A6B755 /* CBProblemDescribe.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
-				D0281E8C1A0F556F00565EB8 /* CBProblemViewController.m in Sources */,
+				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				923D4FF71A2C6DCF00E16B64 /* JSQMessagesKeyboardController.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
