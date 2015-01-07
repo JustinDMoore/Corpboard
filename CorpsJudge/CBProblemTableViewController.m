@@ -17,11 +17,16 @@
 @property (nonatomic, strong) CBProblemDescribe *viewProblemDescribe;
 @property (nonatomic, strong) CBTextViewPlaceHolder *txtProblem;
 @property (nonatomic, strong) NSString *where;
-@property (nonatomic, strong) NSString *what;
 @property (nonatomic, strong) NSMutableArray *arrayOfScreenshots;
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
 @property (nonatomic, strong) UIView *view3;
+@property (nonatomic, strong) UIButton *imgView1;
+@property (nonatomic, strong) UIButton *imgView2;
+@property (nonatomic, strong) UIButton *imgView3;
+@property (nonatomic, strong) UIButton *btnDelete1;
+@property (nonatomic, strong) UIButton *btnDelete2;
+@property (nonatomic, strong) UIButton *btnDelete3;
 @end
 
 @implementation CBProblemTableViewController
@@ -42,8 +47,24 @@
 
 -(void)cancelProblem {
     
+    addingScreenshot = NO;
+    details = NO;
+    [self.arrayOfScreenshots removeAllObjects];
     [self.navigationController dismissViewControllerAnimated:YES
                                                   completion:nil];
+}
+
+-(void)checkIfReady {
+    
+    if (([self.where length]) && ([self.txtProblem.text length])) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+}
+
+-(void)textViewDidChange:(UITextView *)textView {
+    [self checkIfReady];
 }
 
 -(void)sendProblem {
@@ -57,7 +78,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.what = [NSString string];
+    self.clearsSelectionOnViewWillAppear = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -75,10 +96,8 @@
     
     [self.txtProblem resignFirstResponder];
     details = NO;
-    if ([self.txtProblem.text length]) {
-        self.what = self.txtProblem.text;
-    }
     [self.tableView reloadData];
+    [self checkIfReady];
 }
 
 -(void)screenshotDone {
@@ -88,56 +107,112 @@
 
 -(void)setViews {
     
-    UIButton *btnDelete1 = (UIButton *)[self.view1 viewWithTag:7];
-    UIButton *imgView1 = (UIButton *)[self.view1 viewWithTag:8];
+    self.btnDelete1 = (UIButton *)[self.view1 viewWithTag:7];
+    self.imgView1 = (UIButton *)[self.view1 viewWithTag:8];
     
-    UIButton *btnDelete2 = (UIButton *)[self.view2 viewWithTag:7];
-    UIButton *imgView2 = (UIButton *)[self.view2 viewWithTag:8];
+    self.btnDelete2 = (UIButton *)[self.view2 viewWithTag:7];
+    self.imgView2 = (UIButton *)[self.view2 viewWithTag:8];
     
-    UIButton *btnDelete3 = (UIButton *)[self.view3 viewWithTag:7];
-    UIButton *imgView3 = (UIButton *)[self.view3 viewWithTag:8];
+    self.btnDelete3 = (UIButton *)[self.view3 viewWithTag:7];
+    self.imgView3 = (UIButton *)[self.view3 viewWithTag:8];
     
-    [imgView1 addTarget:self action:@selector(addScreenshot) forControlEvents:UIControlEventTouchUpInside];
-    [imgView2 addTarget:self action:@selector(addScreenshot) forControlEvents:UIControlEventTouchUpInside];
-    [imgView2 addTarget:self action:@selector(addScreenshot) forControlEvents:UIControlEventTouchUpInside];
+    [self.imgView1 addTarget:self action:@selector(addScreenshot:) forControlEvents:UIControlEventTouchUpInside];
+    [self.imgView2 addTarget:self action:@selector(addScreenshot:) forControlEvents:UIControlEventTouchUpInside];
+    [self.imgView3 addTarget:self action:@selector(addScreenshot:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (3 > [self.arrayOfScreenshots count]) {
-        self.view3.hidden = YES;
-    } else {
-        self.view3.hidden = NO;
-        [imgView3 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:2] forState:UIControlStateNormal];
-        btnDelete3.hidden = NO;
-    }
+    [self.btnDelete1 addTarget:self action:@selector(deleteScreenShot:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnDelete2 addTarget:self action:@selector(deleteScreenShot:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnDelete3 addTarget:self action:@selector(deleteScreenShot:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (2 > [self.arrayOfScreenshots count]) {
-        self.view2.hidden = YES;
-    } else {
-        self.view2.hidden = NO;
-        [imgView2 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:1] forState:UIControlStateNormal];
-        btnDelete2.hidden = NO;
-        
-        self.view3.hidden = NO;
-        [imgView3 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
-        btnDelete3.hidden = YES;
-    }
-    
-    if (1 > [self.arrayOfScreenshots count]) {
-        self.view1.hidden = NO;
-        [imgView1 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
-        btnDelete1.hidden = YES;
-    } else {
-        self.view1.hidden = NO;
-        [imgView1 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:0] forState:UIControlStateNormal];
-        btnDelete1.hidden = NO;
-        
-        self.view2.hidden = NO;
-        [imgView2 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
-        btnDelete2.hidden = YES;
+    switch ([self.arrayOfScreenshots count]) {
+        case 0:
+            self.view1.hidden = NO;
+            self.imgView1.hidden = NO;
+            self.btnDelete1.hidden = YES;
+            [self.imgView1 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
+            
+            self.view2.hidden = YES;
+            self.imgView2.hidden = YES;
+            self.btnDelete2.hidden = YES;
+            
+            self.view3.hidden = YES;
+            self.imgView3.hidden = YES;
+            self.btnDelete3.hidden = YES;
+            break;
+        case 1:
+            self.view1.hidden = NO;
+            self.imgView1.hidden = NO;
+            self.btnDelete1.hidden = NO;
+            [self.imgView1 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:0] forState:UIControlStateNormal];
+            
+            self.view2.hidden = NO;
+            self.imgView2.hidden = NO;
+            self.btnDelete2.hidden = YES;
+            [self.imgView2 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
+            
+            self.view3.hidden = YES;
+            self.imgView3.hidden = YES;
+            self.btnDelete3.hidden = YES;
+            break;
+        case 2:
+            self.view1.hidden = NO;
+            self.imgView1.hidden = NO;
+            self.btnDelete1.hidden = NO;
+            [self.imgView1 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:0] forState:UIControlStateNormal];
+            
+            self.view2.hidden = NO;
+            self.imgView2.hidden = NO;
+            self.btnDelete2.hidden = NO;
+            [self.imgView2 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:1] forState:UIControlStateNormal];
+            
+            self.view3.hidden = NO;
+            self.imgView3.hidden = NO;
+            self.btnDelete3.hidden = YES;
+            [self.imgView3 setImage:[UIImage imageNamed:@"screenshot"] forState:UIControlStateNormal];
+            break;
+        case 3:
+            self.view1.hidden = NO;
+            self.imgView1.hidden = NO;
+            self.btnDelete1.hidden = NO;
+            [self.imgView1 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:0] forState:UIControlStateNormal];
+            
+            
+            self.view2.hidden = NO;
+            self.imgView2.hidden = NO;
+            self.btnDelete2.hidden = NO;
+            [self.imgView2 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:1] forState:UIControlStateNormal];
+            
+            self.view3.hidden = NO;
+            self.imgView3.hidden = NO;
+            self.btnDelete3.hidden = NO;
+            [self.imgView3 setImage:(UIImage *)[self.arrayOfScreenshots objectAtIndex:2] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
     }
     
 }
 
--(void)addScreenshot {
+-(void)deleteScreenShot:(id)sender {
+    if (sender == self.btnDelete1) {
+        [self.arrayOfScreenshots removeObjectAtIndex:0];
+    } else if (sender == self.btnDelete2) {
+        [self.arrayOfScreenshots removeObjectAtIndex:1];
+    } else if (sender == self.btnDelete3) {
+        [self.arrayOfScreenshots removeObjectAtIndex:2];
+    }
+    [self.tableView reloadData];
+}
+
+-(void)addScreenshot:(id)sender {
+    
+    if (sender == self.imgView1) {
+        if ([self.arrayOfScreenshots count] != 0) return;
+    } else if (sender == self.imgView2) {
+        if ([self.arrayOfScreenshots count] != 1) return;
+    } else if (sender == self.imgView3) {
+        if ([self.arrayOfScreenshots count] != 2) return;
+    }
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -220,7 +295,7 @@ bool isProblemOpen = NO;
                 if ([self.where length]) {
                     lbl.text = self.where;
                 } else {
-                    lbl.text = @"(Required)";
+                    lbl.text = @"(required)";
                 }
                 
                 break;
@@ -228,10 +303,10 @@ bool isProblemOpen = NO;
                 if (!details) {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"what1"];
                     lbl = (UILabel *)[cell viewWithTag:1];
-                    if ([self.what length]) {
-                        lbl.text = self.what;
+                    if ([self.txtProblem.text length]) {
+                        lbl.text = self.txtProblem.text;
                     } else {
-                        lbl.text = @"(Required)";
+                        lbl.text = @"(required)";
                     }
                 } else {
                     cell = [self.tableView dequeueReusableCellWithIdentifier:@"what2"];
@@ -258,6 +333,16 @@ bool isProblemOpen = NO;
                     [self setViews];
                 } else {
                     cell = [self.tableView dequeueReusableCellWithIdentifier:@"screenshot1"];
+                    lbl = (UILabel *)[cell viewWithTag:1];
+                    if (![self.arrayOfScreenshots count]) {
+                        lbl.text = @"(optional)";
+                    } else {
+                        if ([self.arrayOfScreenshots count] == 1) {
+                            lbl.text = @"1 screenshot attached";
+                        } else {
+                            lbl.text = [NSString stringWithFormat:@"%li screenshots attached", [self.arrayOfScreenshots count]];
+                        }
+                    }
                 }
                 
                 break;
@@ -277,14 +362,17 @@ BOOL addingScreenshot = NO;
         if (indexPath.row == 0) {
             [self showWhereTable];
             details = NO;
+            addingScreenshot = NO;
             [self.tableView reloadData];
         } else if (indexPath.row == 1) {
+            addingScreenshot = NO;
             if (details) [self whatDone];
             else {
                 details = YES;
                 [self.tableView reloadData];
             }
         } else if (indexPath.row == 2) {
+            details = NO;
             if (addingScreenshot) {
                 [self screenshotDone];
             } else {
@@ -296,6 +384,7 @@ BOOL addingScreenshot = NO;
         self.where = [self.viewProblemWhere.arrayOfProblemAreas objectAtIndex:indexPath.row];
         [self.viewProblemWhere closeView:NO];
         [self.tableView reloadData];
+        [self checkIfReady];
     }
 }
 
