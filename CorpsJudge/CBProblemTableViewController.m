@@ -30,7 +30,12 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"Broken Feature";
+    
+    if (self.isProblem) {
+        self.title = @"Broken Feature";
+    } else {
+        self.title = @"Incorrect Information";
+    }
     
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                     style:UIBarButtonItemStyleDone target:self action:@selector(cancelProblem)];
@@ -67,6 +72,11 @@
 -(void)sendProblem {
     
     PFObject *problem = [PFObject objectWithClassName:@"problems"];
+    if (self.isProblem) {
+        problem[@"type"] = @"Problem";
+    } else {
+        problem[@"type"] = @"Incorrect Information";
+    }
     problem[@"user"] = [PFUser currentUser];
     problem[@"whereAt"] = self.where;
     problem[@"whatHappened"] = self.txtProblem.text;
@@ -351,7 +361,12 @@ bool isProblemOpen = NO;
                     UIButton *btn = (UIButton *)[cell viewWithTag:2];
                     [btn addTarget:self action:@selector(whatDone) forControlEvents:UIControlEventTouchUpInside];
                     self.txtProblem = (CBTextViewPlaceHolder *)[cell viewWithTag:1];
-                    self.txtProblem.placeholder = @"Briefly explain what happened...";
+                    if (self.isProblem) {
+                        self.txtProblem.placeholder = @"Briefly explain what happened...";
+                    } else {
+                        self.txtProblem.placeholder = @"What information is incorrect?";
+                    }
+                    
                     self.txtProblem.backgroundColor = [UIColor blackColor];
                     self.txtProblem.placeholderColor = [UIColor lightGrayColor];
                     self.txtProblem.textColor = [UIColor whiteColor];

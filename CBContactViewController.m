@@ -9,6 +9,7 @@
 #import "CBContactViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Parse/Parse.h>
+#import "CBProblemTableViewController.h"
 
 @interface CBContactViewController ()
 @property (nonatomic, strong) IBOutlet UITableView *tableFeedback;
@@ -69,6 +70,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark
+#pragma mark - UITableView Delegates
+#pragma mark
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -110,12 +114,26 @@
             [self performSegueWithIdentifier:@"feedback" sender:self];
             break;
         case 1:
+            isProblem = YES;
             [self performSegueWithIdentifier:@"problem" sender:self];
             break;
         case 2:
+            isProblem = NO;
+            [self performSegueWithIdentifier:@"problem" sender:self];
             break;
         default:
             break;
     }
 }
+
+BOOL isProblem;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"problem"]) {
+        
+        CBProblemTableViewController *vc = [segue destinationViewController];
+        vc.isProblem = isProblem;
+    }
+}
+
 @end
