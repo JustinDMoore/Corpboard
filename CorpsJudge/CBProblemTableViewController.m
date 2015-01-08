@@ -8,13 +8,10 @@
 
 #import "CBProblemTableViewController.h"
 #import "CBTextViewPlaceHolder.h"
-
-
-#import "CBProblemDescribe.h"
+#import <Parse/Parse.h>
 
 @interface CBProblemTableViewController ()
 @property (nonatomic, strong) CBProblemWhere *viewProblemWhere;
-@property (nonatomic, strong) CBProblemDescribe *viewProblemDescribe;
 @property (nonatomic, strong) CBTextViewPlaceHolder *txtProblem;
 @property (nonatomic, strong) NSString *where;
 @property (nonatomic, strong) NSMutableArray *arrayOfScreenshots;
@@ -68,7 +65,48 @@
 }
 
 -(void)sendProblem {
-    NSLog(@"sent bitch");
+    
+    PFObject *problem = [PFObject objectWithClassName:@"problems"];
+    problem[@"user"] = [PFUser currentUser];
+    problem[@"whereAt"] = self.where;
+    problem[@"whatHappened"] = self.txtProblem.text;
+    [problem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            for (int i = 0; i <= [self.arrayOfScreenshots count]; i++)  {
+                
+                NSData *imageData = UIImagePNGRepresentation((UIImage *)[self.arrayOfScreenshots objectAtIndex:i]);
+                //make sure the image isn't too big
+                NSInteger size = imageData.length;
+                if (size < 10485760) {
+                    
+                    PFFile *imageFile = [PFFile fileWithName:@"screenshot.png" data:imageData];
+                    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            switch (i) {
+                                case 0:
+                                    problem[@"screenshot1"] = imageFile;
+                                    [problem saveInBackground];
+                                    break;
+                                case 1:
+                                    problem[@"screenshot2"] = imageFile;
+                                    [problem saveInBackground];
+                                    break;
+                                case 2:
+                                    problem[@"screenshot3"] = imageFile;
+                                    [problem saveInBackground];
+                                    break;
+                            }
+                        }
+                    }];
+                } else {
+                    NSLog(@"image too big");
+                }
+            }
+        }
+        [self cancelProblem];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Thank you for providing feedback on your CorpBoard experience. Your report will be used to improve CorpBoard." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -462,16 +500,6 @@ BOOL addingScreenshot = NO;
         [_viewProblemWhere setDelegate:self];
     }
     return _viewProblemWhere;
-}
-
--(CBProblemDescribe *)viewProblemDescribe {
-    if (!_viewProblemDescribe) {
-        _viewProblemDescribe = [[[NSBundle mainBundle] loadNibNamed:@"CBProblemDescribe"
-                                                      owner:self
-                                                    options:nil]
-                        objectAtIndex:0];
-    }
-    return _viewProblemDescribe;
 }
 
 -(NSMutableArray *)arrayOfScreenshots {
