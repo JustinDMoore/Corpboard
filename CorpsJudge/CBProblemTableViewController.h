@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CBProblemWhere.h"
 
-@interface CBProblemTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, problemWhereProtocol, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-@property (nonatomic) BOOL isProblem;
+@interface CBProblemTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, problemWhereProtocol, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+
+}
+
+@property (nonatomic) BOOL *problem;
+
 @end

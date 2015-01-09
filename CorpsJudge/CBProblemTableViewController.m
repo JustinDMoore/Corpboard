@@ -31,11 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.isProblem) {
-        self.title = @"Broken Feature";
-    } else {
-        self.title = @"Incorrect Information";
-    }
+    
     
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                     style:UIBarButtonItemStyleDone target:self action:@selector(cancelProblem)];
@@ -45,6 +41,13 @@
                                                                     style:UIBarButtonItemStyleDone target:self action:@selector(sendProblem)];
     self.navigationItem.rightBarButtonItem = rightButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    
+    if (self.problem) {
+        self.title = @"Broken Feature";
+    } else {
+        self.title = @"Incorrect Information";
+    }
 }
 
 -(void)cancelProblem {
@@ -72,7 +75,7 @@
 -(void)sendProblem {
     
     PFObject *problem = [PFObject objectWithClassName:@"problems"];
-    if (self.isProblem) {
+    if (problem) {
         problem[@"type"] = @"Problem";
     } else {
         problem[@"type"] = @"Incorrect Information";
@@ -127,10 +130,6 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.clearsSelectionOnViewWillAppear = YES;
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 
 -(void)showWhereTable {
@@ -361,7 +360,7 @@ bool isProblemOpen = NO;
                     UIButton *btn = (UIButton *)[cell viewWithTag:2];
                     [btn addTarget:self action:@selector(whatDone) forControlEvents:UIControlEventTouchUpInside];
                     self.txtProblem = (CBTextViewPlaceHolder *)[cell viewWithTag:1];
-                    if (self.isProblem) {
+                    if (self.problem) {
                         self.txtProblem.placeholder = @"Briefly explain what happened...";
                     } else {
                         self.txtProblem.placeholder = @"What information is incorrect?";

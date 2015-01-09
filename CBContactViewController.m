@@ -80,7 +80,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,30 +96,45 @@
         case 0:
             cell = [self.tableFeedback dequeueReusableCellWithIdentifier:@"general"];
             break;
-        case 1:
+        case 2:
             cell = [self.tableFeedback dequeueReusableCellWithIdentifier:@"bug"];
             break;
-        case 2:
+        case 1:
             cell = [self.tableFeedback dequeueReusableCellWithIdentifier:@"information"];
+            break;
+        case 3:
+            cell = [self.tableFeedback dequeueReusableCellWithIdentifier:@"rate"];
             break;
     }
     
     return cell;
 }
 
+#define YOUR_APP_STORE_ID 545174222 //Change this one to your ID
+
+static NSString *const iOS7AppStoreURLFormat = @"itms-apps://itunes.apple.com/app/id%d";
+static NSString *const iOSAppStoreURLFormat = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d";
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSURL *theUrl;
     switch (indexPath.row) {
         case 0:
             [self performSegueWithIdentifier:@"feedback" sender:self];
             break;
-        case 1:
+        case 2:
             isProblem = YES;
             [self performSegueWithIdentifier:@"problem" sender:self];
             break;
-        case 2:
+        case 1:
             isProblem = NO;
             [self performSegueWithIdentifier:@"problem" sender:self];
+            break;
+        case 3:
+
+            theUrl = [NSURL URLWithString:[NSString stringWithFormat:([[UIDevice currentDevice].systemVersion floatValue] >= 7.0f)? iOS7AppStoreURLFormat: iOSAppStoreURLFormat, YOUR_APP_STORE_ID]];
+            [[UIApplication sharedApplication] openURL:theUrl];
+            
             break;
         default:
             break;
@@ -131,8 +146,8 @@ BOOL isProblem;
     
     if ([[segue identifier] isEqualToString:@"problem"]) {
         
-        CBProblemTableViewController *vc = [segue destinationViewController];
-        vc.isProblem = isProblem;
+        CBProblemTableViewController *vc = (CBProblemTableViewController *)[[segue destinationViewController] topViewController];
+        vc.problem = &isProblem;
     }
 }
 
