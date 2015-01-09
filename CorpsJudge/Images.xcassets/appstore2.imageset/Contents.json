@@ -3,17 +3,15 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Broken-Wall-48-2.png"
+      "filename" : "appstore2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Broken-Wall-128-2.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Broken-Wall-256-2.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

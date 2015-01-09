@@ -150,9 +150,9 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     
     //[self checkShows];
     //[self startTimerForShows];
-    //[self startTimerForCorps];
-    //[self startTimerForHeadshots];
-    //[self startTimerForNews];
+    [self startTimerForCorps];
+    [self startTimerForHeadshots];
+    [self startTimerForNews];
     
 }
 
