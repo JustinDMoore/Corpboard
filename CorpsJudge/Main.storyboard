@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1776,7 +1776,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ia3-0E-Vl4" customClass="UIControl">
                                                         <rect key="frame" x="164" y="9" width="150" height="85"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Feedback1.png" translatesAutoresizingMaskIntoConstraints="NO" id="hSv-3u-JRW">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Contact" translatesAutoresizingMaskIntoConstraints="NO" id="hSv-3u-JRW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
                                                             </imageView>
                                                         </subviews>
@@ -2115,7 +2115,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mHz-fO-mUc" id="PQ0-sF-Y5z">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is the problem?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30O-9N-5Gu">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is the problem?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30O-9N-5Gu">
                                             <rect key="frame" x="17" y="14" width="173" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2142,7 +2142,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yeP-HC-VAB" id="8mX-NY-43T">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-w5-5ZQ">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-w5-5ZQ">
                                             <rect key="frame" x="17" y="14" width="132" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2280,7 +2280,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Ck-dp-oFp" id="sik-nz-Ud9">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K1-Pj-JqJ">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K1-Pj-JqJ">
                                             <rect key="frame" x="17" y="14" width="132" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2361,7 +2361,7 @@
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKy-ZF-Tr2" customClass="CBTextViewPlaceHolder">
-                                        <rect key="frame" x="0.0" y="37" width="568" height="523"/>
+                                        <rect key="frame" x="0.0" y="37" width="568" height="286"/>
                                         <color key="backgroundColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
@@ -2379,7 +2379,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="mSI-ff-id1" firstAttribute="top" secondItem="L5H-bL-F96" secondAttribute="top" constant="8" id="4rh-b1-HTu"/>
-                                    <constraint firstAttribute="bottom" secondItem="aKy-ZF-Tr2" secondAttribute="bottom" id="DJ5-Co-Mj9"/>
+                                    <constraint firstAttribute="bottom" secondItem="aKy-ZF-Tr2" secondAttribute="bottom" constant="237" id="DJ5-Co-Mj9"/>
                                     <constraint firstAttribute="trailing" secondItem="aKy-ZF-Tr2" secondAttribute="trailing" id="FLq-Ug-hPz"/>
                                     <constraint firstItem="ifl-zQ-coI" firstAttribute="top" secondItem="L5H-bL-F96" secondAttribute="top" constant="6" id="Fwq-BI-J2z"/>
                                     <constraint firstAttribute="centerX" secondItem="mSI-ff-id1" secondAttribute="centerX" constant="-0.5" id="MIs-cc-q5V"/>
@@ -2970,9 +2970,9 @@
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
+        <image name="Contact" width="450" height="255"/>
         <image name="DCI_CorpBoard" width="600" height="600"/>
-        <image name="Edit1" width="512" height="512"/>
-        <image name="Feedback1.png" width="350" height="170"/>
+        <image name="Edit1" width="128" height="128"/>
         <image name="Message" width="48" height="48"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="Upload" width="48" height="48"/>

@@ -335,25 +335,39 @@ bool isProblemOpen = NO;
     } else if (tableView == self.tableView) {
         UITableViewCell *cell;
         UILabel *lbl;
+        UILabel *lblQuestion;
         switch (indexPath.row) {
             case 0:
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"where"];
                 lbl = (UILabel *)[cell viewWithTag:1];
+                lblQuestion = (UILabel *)[cell viewWithTag:10];
                 if ([self.where length]) {
                     lbl.text = self.where;
                 } else {
                     lbl.text = @"(required)";
                 }
                 
+                if (self.problem) {
+                    lblQuestion.text = @"Where is the problem?";
+                } else {
+                    lblQuestion.text = @"Where is the information located?";
+                }
                 break;
             case 1:
                 if (!details) {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"what1"];
                     lbl = (UILabel *)[cell viewWithTag:1];
+                    lblQuestion = (UILabel *)[cell viewWithTag:10];
                     if ([self.txtProblem.text length]) {
                         lbl.text = self.txtProblem.text;
                     } else {
                         lbl.text = @"(required)";
+                    }
+                    
+                    if (self.problem) {
+                        lblQuestion.text = @"What happened?";
+                    } else {
+                        lblQuestion.text = @"What is incorrect?";
                     }
                 } else {
                     cell = [self.tableView dequeueReusableCellWithIdentifier:@"what2"];
@@ -364,6 +378,12 @@ bool isProblemOpen = NO;
                         self.txtProblem.placeholder = @"Briefly explain what happened...";
                     } else {
                         self.txtProblem.placeholder = @"What information is incorrect?";
+                    }
+                    lblQuestion = (UILabel *)[cell viewWithTag:10];
+                    if (self.problem) {
+                        lblQuestion.text = @"What happened?";
+                    } else {
+                        lblQuestion.text = @"What is incorrect?";
                     }
                     
                     self.txtProblem.backgroundColor = [UIColor blackColor];
