@@ -53,26 +53,7 @@
 #pragma mark - Facebook
 #pragma mark
 - (IBAction)btnFacebook_clicked:(id)sender {
-//    NSArray *permissions = @[@"email", @"public_profile"];
-//    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
-//        NSString *nickname;
-//        BOOL needsNickname = NO;
-//        if (!user) {
-//            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-//        } else if (user.isNew) {
-//            NSLog(@"User signed up and logged in through Facebook!");
-//            nickname = user[@"nickname"];
-//            if (![nickname length]) needsNickname = YES;
-//            [delegate loginSuccessful:needsNickname];
-//        } else {
-//            NSLog(@"User logged in through Facebook!");
-//            nickname = user[@"nickname"];
-//            if (![nickname length]) needsNickname = YES;
-//            [delegate loginSuccessful:needsNickname];
-//        }
-//    }];
-    
-    // ----
+
     [delegate loggingIn];
     [PFFacebookUtils logInWithPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (user != nil) {

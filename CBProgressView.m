@@ -27,9 +27,14 @@ int x = 0;
 -(void)timer {
     
     x++;
+    NSLog(@"%@", [NSString stringWithFormat:@"<SomeClass: %p>\nparmeterOne: %@",
+                  self, self]);
+    
     if (isComplete && x > minimumLoadTime) {
-        
+        NSLog(@"+ - %i", x);
+        x = 0;
         [tmrProgress invalidate];
+        tmrProgress = nil;
         [KVNProgress updateProgress:1.0f
                            animated:YES];
         [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
@@ -136,12 +141,16 @@ float currentProgress = 0;
 }
 
 -(void)startProgress {
-    [self progress];
-    tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
-                                                   target:self
-                                                 selector:@selector(timer)
-                                                 userInfo:nil
-                                                  repeats:YES];
+    
+    if (!isComplete) {
+        x = 0;
+        [self progress];
+        tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
+                                                       target:self
+                                                     selector:@selector(timer)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    }
 }
 
 BOOL isComplete = NO;

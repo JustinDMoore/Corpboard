@@ -41,7 +41,6 @@
 
 @implementation CBNewLoginViewController
 
-
 -(void)viewDidAppear:(BOOL)animated {
     
     // *****************************************************
@@ -199,7 +198,7 @@ bool removeProgressView = NO;
 
 //Progress
 -(void)progressComplete {
-    
+    self.viewProgress = nil;
     [self performSelector:@selector(useApp) withObject:nil afterDelay:0];
 }
 
@@ -254,6 +253,7 @@ bool removeProgressView = NO;
 }
 
 -(void)loggingIn {
+
     [self addView:self.viewProgress andScroll:YES];
     [self.viewProgress startProgress];
 }
@@ -425,4 +425,7 @@ bool removeProgressView = NO;
     return _viewNewUser;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.viewProgress = nil;
+}
 @end
