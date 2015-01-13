@@ -101,7 +101,7 @@
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.toolbarHidden = YES;
     self.scrollLogin.delegate = self;
-
+    [self getFactCount];
 }
 
 -(void)callbackWithResult:(PFObject *)refreshedObject error:(NSError *)error {
@@ -134,7 +134,7 @@
 
 -(void)loadData {
     
-    [self getFactCount];
+    //[self getFactCount];
     [self addView:self.viewProgress andScroll:NO];
     [self.viewProgress startProgress];
     [data refreshCorpsAndShows];
@@ -148,7 +148,9 @@
                                     if (!error) {
                                         if (factArray) {
                                             PFObject *fact = [factArray lastObject];
-                                            [self.viewProgress setFact:fact[@"fact"]];
+                                            if (fact) {
+                                                [self.viewProgress setFact:fact[@"fact"]];
+                                            }
                                         }
                                         
                                     } else {
@@ -326,12 +328,12 @@ bool removeProgressView = NO;
 }
 
 -(void)newsDidLoad {
+    
     [self checkAllProgress];
 }
 
 -(void)checkAllProgress {
-    
-    
+
     if (news.newsLoaded && data.dataLoaded) {
         [self.viewProgress completeProgress];
     }

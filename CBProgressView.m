@@ -10,20 +10,39 @@
 
 @implementation CBProgressView
 
+float minimumLoadTime = 3; //seconds
+NSTimer *tmrProgress;
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super initWithCoder:aDecoder];
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-
-        self.backgroundColor = [UIColor orangeColor];
-        self.customConfiguration = [self customKVNProgressUIConfiguration];
-        [KVNProgress setConfiguration:self.customConfiguration];
-        [self progress];
-
     }
     return self;
+}
+
+int x = 0;
+-(void)timer {
+    
+    x++;
+    if (isComplete && x > minimumLoadTime) {
+        
+        [tmrProgress invalidate];
+        [KVNProgress updateProgress:1.0f
+                           animated:YES];
+        [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
+        
+    }
+}
+
+-(void)awakeFromNib {
+    self.customConfiguration = [self customKVNProgressUIConfiguration];
+    [KVNProgress setConfiguration:self.customConfiguration];
+    self.backgroundColor = [UIColor blackColor];
+    self.viewProgress.backgroundColor = [UIColor blackColor];
+    //[self progress];
 }
 
 - (KVNProgressConfiguration *)customKVNProgressUIConfiguration
@@ -34,7 +53,7 @@
     configuration.statusColor = [UIColor whiteColor];
     configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
     configuration.circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
-    configuration.circleStrokeBackgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3f];
+    configuration.circleStrokeBackgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     configuration.circleFillBackgroundColor = [UIColor clearColor];
     configuration.backgroundFillColor = [UIColor clearColor];
     configuration.backgroundTintColor = [UIColor clearColor];
@@ -52,7 +71,6 @@
 
 -(void)progress {
     
-    //[KVNProgress showProgress:0];
     [KVNProgress showProgress:0
                        status:nil
                        onView:self.viewProgress];
@@ -67,9 +85,6 @@
                             completion:^{
                                 [self complete];
                             }];
-//    [KVNProgress showSuccessWithCompletion:^{
-//        [self complete];
-//    }];
 }
 
 -(void)complete {
@@ -111,10 +126,9 @@ float currentProgress = 0;
 
 -(void)updateWithProgress:(double)progress {
     
-    if (!isComplete) {
         [KVNProgress updateProgress:progress
                            animated:YES];
-    }
+    
 }
 
 -(void)setDelegate:(id)newDelegate{
@@ -123,18 +137,21 @@ float currentProgress = 0;
 
 -(void)startProgress {
     [self progress];
+    tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
+                                                   target:self
+                                                 selector:@selector(timer)
+                                                 userInfo:nil
+                                                  repeats:YES];
 }
 
 BOOL isComplete = NO;
 -(void)completeProgress {
     
     isComplete = YES;
-    [KVNProgress updateProgress:1.0f
-                       animated:YES];
-    [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
 }
 
 -(void)setFact:(NSString*)fact {
+    
     self.lblFact.alpha = 0;
     self.lblFactHeader.alpha = 0;
     self.lblFact.text = fact;
@@ -145,9 +162,6 @@ BOOL isComplete = NO;
     [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
     
     [self performSelector:@selector(animateLabel:) withObject:self.lblFact afterDelay:.1];
-    
-    
-    
 }
 
 -(void)animateLabel:(UILabel *)label {
