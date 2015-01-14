@@ -73,6 +73,7 @@
 @implementation CBUserProfileViewController
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
@@ -128,6 +129,8 @@
 
     self.imgCoverPhoto.image = nil;
     self.imgUser.image = nil;
+    self.lblUserNickname.text = @"";
+    self.lblUserLocation.text = @"";
 }
 
 -(void)getUserCorpExperiences {
@@ -535,6 +538,7 @@ BOOL coverPhoto = NO;
                     photoForReview[@"isUserSubmitted"] = [NSNumber numberWithBool:YES];
                     photoForReview[@"approved"] = [NSNumber numberWithBool:NO];
                     photoForReview[@"photo"] = imageFile;
+                    photoForReview[@"publicUse"] = [NSNumber numberWithBool:YES];
 
                     [photoForReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
