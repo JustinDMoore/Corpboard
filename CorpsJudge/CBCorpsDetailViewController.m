@@ -9,6 +9,7 @@
 #import "CBCorpsDetailViewController.h"
 #import "CBWebViewController.h"
 #import "CBAboutCorpsViewController.h"
+#import "KVNProgress.h"
 
 @interface CBCorpsDetailViewController ()
 
@@ -41,7 +42,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [KVNProgress show];
     [self initUI];
     [self getRepertoiresForCorps];
 }
@@ -133,8 +134,12 @@
                 self.tableRepertoire.hidden = NO;
                 [self.tableRepertoire reloadData];
             }
+            [KVNProgress dismiss];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+            [KVNProgress configuration].minimumErrorDisplayTime = 3;
+            [KVNProgress configuration].backgroundType = KVNProgressBackgroundTypeBlurred;
+            [KVNProgress showErrorWithStatus:@"Could not load the corp's history"];
         }
     }];
 }
