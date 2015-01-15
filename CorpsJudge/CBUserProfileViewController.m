@@ -131,6 +131,8 @@
     self.imgUser.image = nil;
     self.lblUserNickname.text = @"";
     self.lblUserLocation.text = @"";
+    self.scrollCoverPhoto.hidden = YES;
+    self.scrollProfile.hidden = YES;
 }
 
 -(void)getUserCorpExperiences {
@@ -241,6 +243,9 @@
 
 -(void)initUI {
 
+    self.scrollProfile.hidden = YES;
+    self.scrollCoverPhoto.hidden = YES;
+    
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         PFFile *imgFile = self.userProfile[@"picture"];
@@ -450,6 +455,8 @@
         editingProfile = NO;
         self.btnEditProfile.enabled = YES;
         profileLoaded = YES;
+        self.scrollProfile.hidden = NO;
+        self.scrollCoverPhoto.hidden = NO;
         [KVNProgress dismiss];
     }];  
 }
