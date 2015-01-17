@@ -460,6 +460,7 @@ int counter = 0;
 
 -(void)openShow:(UIButton *)sender {
     
+    
     UIView *parentCell = sender.superview;
     
     while (![parentCell isKindOfClass:[UITableViewCell class]]) {   // iOS 7 onwards the table cell hierachy has changed.
@@ -474,16 +475,25 @@ int counter = 0;
     
     
     UITableView *tableView = (UITableView *)parentView;
-    NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)parentCell];
+    //NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)parentCell];
     
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:tableView];
+    NSIndexPath *indPath = [tableView indexPathForRowAtPoint:buttonPosition];
     
     if (tableView == self.tableLastShows) {
-        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+        [self openShowAtIndex:indPath withTable:self.tableLastShows];
     } else if (tableView == self.tableNextShows) {
-        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+        [self openShowAtIndex:indPath withTable:self.tableNextShows];
     }
     
-    if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
+//    if (tableView == self.tableLastShows) {
+//        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+//    } else if (tableView == self.tableNextShows) {
+//        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+//    }
+//    
+//    if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
     
 }
 
@@ -780,6 +790,7 @@ NSDate *nearestDate;
                 btnScores.layer.cornerRadius = 4.0f;
                 btnScores.layer.masksToBounds = YES;
                 btnScores.titleLabel.text = @" Scores ";
+                btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
             } else btnScores.hidden = YES;
         }
         
@@ -811,6 +822,7 @@ NSDate *nearestDate;
                 btnScores.layer.cornerRadius = 4.0f;
                 btnScores.layer.masksToBounds = YES;
                 btnScores.titleLabel.text = @" Scores ";
+                btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
             } else btnScores.hidden = YES;
         }
         
@@ -896,6 +908,11 @@ NSDate *nearestDate;
 PFObject *showToOpen;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    [self openShowAtIndex:indexPath withTable:tableView];
+}
+
+-(void)openShowAtIndex:(NSIndexPath *)indexPath withTable:(UITableView *)tableView {
+    
     if (tableView == self.tableLastShows) {
         showToOpen = [self.arrayOfShowsForTable1 objectAtIndex:indexPath.row];
         if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
@@ -904,8 +921,6 @@ PFObject *showToOpen;
         showToOpen = [self.arrayOfShowsForTable2 objectAtIndex:indexPath.row];
         if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
     }
-    
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

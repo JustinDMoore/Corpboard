@@ -263,6 +263,8 @@ BOOL refreshing = NO;
             btnScores.layer.cornerRadius = 4.0f;
             btnScores.layer.masksToBounds = YES;
             btnScores.titleLabel.text = @" Scores ";
+            btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
+            [btnScores addTarget:self action:@selector(openShows:) forControlEvents:UIControlEventTouchUpInside];
         } else btnScores.hidden = YES;
         
     } else {
@@ -273,7 +275,22 @@ BOOL refreshing = NO;
     return cell;
 }
 
+
+-(void)openShows:(UIButton *)sender {
+
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableShows];
+    NSIndexPath *indPath = [self.tableShows indexPathForRowAtPoint:buttonPosition];
+
+    [self openShowAtIndex:indPath];
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self openShowAtIndex:indexPath];
+}
+
+-(void)openShowAtIndex:(NSIndexPath *)indexPath {
     
     NSString *dateString = [self.datesArray objectAtIndex:[indexPath section]];
     NSPredicate *search = [NSPredicate predicateWithFormat:@"showDate == %@", dateString];
@@ -282,8 +299,7 @@ BOOL refreshing = NO;
     //sort the dates within each section
     NSArray *filteredArray = [[data.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
-    self.currentSelectedShow = [filteredArray objectAtIndex:[indexPath row
-                                                   ]];
+    self.currentSelectedShow = [filteredArray objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"showDetails" sender:self];
 }
 
