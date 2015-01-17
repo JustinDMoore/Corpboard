@@ -71,7 +71,6 @@ typedef enum : int {
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldLoudestFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenLoudestFavs;
 
-
 @end
 
 @implementation CBStatsViewController
@@ -87,6 +86,7 @@ typedef enum : int {
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -258,6 +258,8 @@ typedef enum : int {
 //    }
     
     //for user rankings
+    [data.arrayOfUserWorldClassRankings removeAllObjects];
+    [data.arrayOfUserOpenClassRankings removeAllObjects];
     for (PFObject *corps in data.arrayOfAllCorps) {
         
         [self getUserRankForCorps:corps];
@@ -528,11 +530,16 @@ bool isDoneSortingFavorites = NO;
         self.tableCorps.hidden = NO;
         [self sortScores];
         isDoneSortingFavorites = YES;
-        
+        [self areWeDoneLoading];
     }
-
 }
 
+-(void)areWeDoneLoading {
+    if (isDoneSortingFavorites && isDoneSortingScores) {
+        [self reloadTable];
+        [KVNProgress dismiss];
+    }
+}
 
 -(int)getNumberOfFavoritesForCorps:(PFObject *)corps forArray:(NSMutableArray *)array {
     
@@ -544,6 +551,7 @@ bool isDoneSortingFavorites = NO;
     return results;
 }
 
+int numberOfRanks = 0;
 -(void)getUserRankForCorps:(PFObject *)corps {
     
     queryUserRanks = [PFQuery queryWithClassName:@"scores"];
@@ -556,6 +564,7 @@ bool isDoneSortingFavorites = NO;
     
     [queryUserRanks findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         if (![array count]) return ;
+        numberOfRanks++;
         double scoresTotal = 0;
         for (PFObject *obj in array) {
             double i = [obj[@"score"] doubleValue];
@@ -662,13 +671,9 @@ bool isDoneSortingFavorites = NO;
     else return NO;
 }
 
--(void)test {
- 
-
-}
-
 -(void)sortScores {
 
+    isDoneSortingScores = NO;
     switch (self.scorePhase) {
         {case phaseScore:
             
@@ -809,8 +814,12 @@ bool isDoneSortingFavorites = NO;
     self.lblActivity2.hidden = YES;
     self.activity.hidden = YES;
     [self.activity stopAnimating];
-    [self reloadTable];
+    isDoneSortingScores = YES;
+    [self areWeDoneLoading];
+
 }
+
+BOOL isDoneSortingScores = NO;
 
 #pragma mark - TableView
 
@@ -1533,12 +1542,10 @@ bool isDoneSortingFavorites = NO;
             break;
     }
     [self sortScores];
-    [self reloadTable];
 }
 
 -(void)reloadTable {
     [self.tableCorps reloadData];
-    [KVNProgress dismiss];
 }
 
 #pragma mark - Properties
