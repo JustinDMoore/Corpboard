@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface UserScore : NSObject
-@property (nonatomic, strong) NSString *corpsName;
+@property (nonatomic, strong) PFObject *corps;
 @property (nonatomic) double score;
+@property (nonatomic, strong) NSString *scoreString;
 @end

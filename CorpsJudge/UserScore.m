@@ -10,4 +10,17 @@
 
 @implementation UserScore
 
+-(void)setScore:(double)score {
+    
+    _score = score;
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMinimumFractionDigits:2];
+    [formatter setMaximumIntegerDigits:2];
+    
+    _scoreString = [formatter stringFromNumber:[NSNumber numberWithDouble:score]];
+}
+
 @end

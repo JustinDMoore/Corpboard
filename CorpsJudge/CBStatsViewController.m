@@ -8,7 +8,7 @@
 
 #import "CBStatsViewController.h"
 #import <Parse/Parse.h>
-#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "NSDate+Utilities.h"
 #import "UserScore.h"
 #import "CBSingle.h"
@@ -111,27 +111,6 @@ typedef enum : int {
     [self initUI];
 
     [self startTimer];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveNotification:)
-                                                 name:@"Notification"
-                                               object:nil];
-
-}
-
-- (void) receiveNotification:(NSNotification *) notification
-{
-    if (self.scorePhase == phaseBesthornline) {
-        for (UITableViewCell *cell in [self.tableCorps visibleCells])
-        {
-            UIView *block = (UIView *)[cell viewWithTag:2];
-            CGRect newFrame = CGRectMake(block.frame.origin.x, block.frame.origin.y, 2.8, block.frame.size.height); // different frame width
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                block.frame = newFrame; // where block is the custom subview
-                [block setNeedsDisplay];
-            }];
-        }
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -139,7 +118,6 @@ typedef enum : int {
     [queryUserRanks cancel];
     [queryOfficialHornlineScores cancel];
     [queryUserHornlineRanks cancel];
-
 }
 
 -(void)checkForCorps {
@@ -388,7 +366,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldFavs addObject:uc];
                 }
@@ -404,7 +382,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldHornlineFavs addObject:uc];
                 }
@@ -420,7 +398,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldPercussionFavs addObject:uc];
                 }
@@ -436,7 +414,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldColorguardFavs addObject:uc];
                 }
@@ -452,7 +430,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldLoudestFavs addObject:uc];
                 }
@@ -472,7 +450,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfOpenFavs addObject:uc];
                 }
@@ -488,7 +466,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfOpenHornlineFavs addObject:uc];
                 }
@@ -504,7 +482,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfOpenPercussionFavs addObject:uc];
                 }
@@ -520,7 +498,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfOpenColorguardFavs addObject:uc];
                 }
@@ -536,7 +514,7 @@ bool isDoneSortingFavorites = NO;
                 }
                 if (score > 0) {
                     UserScore *uc = [[UserScore alloc] init];
-                    uc.corpsName = corps[@"corpsName"];
+                    uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfOpenLoudestFavs addObject:uc];
                 }
@@ -586,7 +564,7 @@ bool isDoneSortingFavorites = NO;
         double grand = scoresTotal / [array count];
         PFObject *score = [array objectAtIndex:0];
         UserScore *us = [[UserScore alloc] init];
-        us.corpsName = score[@"corpsName"];
+        us.corps = score[@"corps"];
         us.score = grand;
         BOOL isWorld = [score[@"isWorldClass"] boolValue];
         if (isWorld) [data.arrayOfUserWorldClassRankings addObject:us];
@@ -602,7 +580,7 @@ bool isDoneSortingFavorites = NO;
     [queryUserHornlineRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
-            us.corpsName = corps[@"corpsName"];
+            us.corps = corps[@"corps"];
             us.score = [objects count];
             BOOL isWorld = [corps[@"isWorldClass"] boolValue];
             if (isWorld) [data.arrayOfWorldHornlineVotes addObject:us];
@@ -619,7 +597,7 @@ bool isDoneSortingFavorites = NO;
     [queryUserPercussionRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
-            us.corpsName = corps[@"corpsName"];
+            us.corps = corps[@"corps"];
             us.score = [objects count];
             BOOL isWorld = [corps[@"isWorldClass"] boolValue];
             if (isWorld) [data.arrayOfWorldPercussionVotes addObject:us];
@@ -636,7 +614,7 @@ bool isDoneSortingFavorites = NO;
     [queryUserColorguardRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
-            us.corpsName = corps[@"corpsName"];
+            us.corps = corps[@"corps"];
             us.score = [objects count];
             BOOL isWorld = [corps[@"isWorldClass"] boolValue];
             if (isWorld) [data.arrayofWorldColorguardVotes addObject:us];
@@ -653,7 +631,7 @@ bool isDoneSortingFavorites = NO;
     [queryUserLoudestRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
-            us.corpsName = corps[@"corpsName"];
+            us.corps = corps[@"corps"];
             us.score = [objects count];
             BOOL isWorld = [corps[@"isWorldClass"] boolValue];
             if (isWorld) [data.arrayofWorldLoudestVotes addObject:us];
@@ -670,7 +648,7 @@ bool isDoneSortingFavorites = NO;
     [queryUserFavorites findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
-            us.corpsName = corps[@"corpsName"];
+            us.corps = corps[@"corps"];
             us.score = [objects count];
             BOOL isWorld = [corps[@"isWorldClass"] boolValue];
             if (isWorld) [data.arrayofWorldFavorites addObject:us];
@@ -1031,6 +1009,7 @@ bool isDoneSortingFavorites = NO;
     UILabel *lblRank;
     UIView *bar;
     UILabel *lbldiff;
+    PFImageView *imgLogo;
 
     int barWidth = 0;
     NSMutableArray *array;
@@ -1049,11 +1028,17 @@ bool isDoneSortingFavorites = NO;
                 lblDay = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:4];
                 lbldiff = (UILabel *)[cell viewWithTag:5];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 PFObject *corps;
                 if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
                 if (corps) {
+                    PFFile *imageFile = corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = corps[@"corpsName"];
                     if ([corps[@"lastScore"] length]) {
@@ -1115,12 +1100,17 @@ bool isDoneSortingFavorites = NO;
                 lblRank = (UILabel *)[cell viewWithTag:1];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
                 lblScore = (UILabel *)[cell viewWithTag:3];
-                
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 UserScore *us;
                 if ([array count]) us = [array objectAtIndex:indexPath.row];
                 if (us) {
+                    PFFile *imageFile = us.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = us.corpsName;
+                    lblCorpsName.text = us.corps[@"corpsName"];
                     lblScore.text = [NSString stringWithFormat:@"%.2f", us.score];
                 }
             }
@@ -1137,11 +1127,16 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
-                
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 PFObject *corps;
                 if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
                 if (corps) {
+                    PFFile *imageFile = corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     if ([corps[@"lastBrass"] length]) {
                         lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                         lblCorpsName.text = corps[@"corpsName"];
@@ -1166,19 +1161,24 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
                 bar = (UIView *)[cell.contentView viewWithTag:2];
                 lblPercent = (UILabel *)[cell viewWithTag:3];
-                
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 UserScore *score;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
+                    PFFile *imageFile = score.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score.corpsName;
+                    lblCorpsName.text = score.corps[@"corpsName"];
                     //calculate percentage
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldHornlineVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenHornlineVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    barWidth = 2.8 * result;
+                    barWidth = 2.5 * result;
                 }
             }
             
@@ -1195,11 +1195,17 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 PFObject *corps;
                 if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
                 if (corps) {
+                    PFFile *imageFile = corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     if ([corps[@"lastPercussion"] length]) {
                         lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                         lblCorpsName.text = corps[@"corpsName"];
@@ -1224,19 +1230,25 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
                 bar = (UIView *)[cell.contentView viewWithTag:2];
                 lblPercent = (UILabel *)[cell viewWithTag:3];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 UserScore *score;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
+                    PFFile *imageFile = score.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score.corpsName;
+                    lblCorpsName.text = score.corps[@"corpsName"];
                     //calculate percentage
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldPercussionVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenPercussionVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    barWidth = 2.8 * result;
+                    barWidth = 2.5 * result;
                 }
             }
             
@@ -1253,11 +1265,17 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
                 lblScore = (UILabel *)[cell viewWithTag:3];
                 lblRank = (UILabel *)[cell viewWithTag:1];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 PFObject *corps;
                 if ([array count]) corps = [array objectAtIndex:indexPath.row];
                 
                 if (corps) {
+                    PFFile *imageFile = corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     if ([corps[@"lastColorguard"] length]) {
                         lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                         lblCorpsName.text = corps[@"corpsName"];
@@ -1283,19 +1301,25 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
                 bar = (UIView *)[cell.contentView viewWithTag:2];
                 lblPercent = (UILabel *)[cell viewWithTag:3];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 UserScore *score;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
+                    PFFile *imageFile = score.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score.corpsName;
+                    lblCorpsName.text = score.corps[@"corpsName"];
                     //calculate percentage
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldColorguardVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenColorguardVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    barWidth = 2.8 * result;
+                    barWidth = 2.5 * result;
                 }
             }
             
@@ -1312,19 +1336,25 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
                 bar = (UIView *)[cell.contentView viewWithTag:2];
                 lblPercent = (UILabel *)[cell viewWithTag:3];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 UserScore *score;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
+                    PFFile *imageFile = score.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score.corpsName;
+                    lblCorpsName.text = score.corps[@"corpsName"];
                     //calculate percentage
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldLoudestVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenLoudestVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    barWidth = 2.8 * result;
+                    barWidth = 2.5 * result;
                 }
             }
         
@@ -1341,19 +1371,25 @@ bool isDoneSortingFavorites = NO;
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
                 bar = (UIView *)[cell.contentView viewWithTag:2];
                 lblPercent = (UILabel *)[cell viewWithTag:3];
+                imgLogo = (PFImageView *)[cell viewWithTag:8];
                 
                 UserScore *score;
                 if ([array count]) score = [array objectAtIndex:indexPath.row];
                 
                 if (score) {
+                    PFFile *imageFile = score.corps[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-                    lblCorpsName.text = score.corpsName;
+                    lblCorpsName.text = score.corps[@"corpsName"];
                     //calculate percentage
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldFavoriteCorpsVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenFavoriteCorpsVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
-                    barWidth = 2.8 * result;
+                    barWidth = 2.5 * result;
                 }
             }
             break;
@@ -1373,6 +1409,8 @@ bool isDoneSortingFavorites = NO;
         [oldBar removeFromSuperview];
     }
     oldBar = nil;
+    
+    //barWidth = barWidth - bar.frame.origin.x;
     
     bar.hidden = YES;
     UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, oldWidth, bar.frame.size.height)];

@@ -8,6 +8,7 @@
 
 #import "CBJudgeViewController.h"
 #import "CBSingle.h"
+#import "UserScore.h"
 
 NSInteger favDrumsW = -1;
 NSInteger favHornlineW = -1;
@@ -57,7 +58,6 @@ typedef enum : int {
 - (IBAction)btnCancel_clicked:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnSubmit;
-@property (weak, nonatomic) IBOutlet UISwitch *officialSwitch;
 
 - (IBAction)Submit:(id)sender;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -117,12 +117,6 @@ typedef enum : int {
 
     UITabBarItem *item = [self.tabBar.items objectAtIndex:0];
     [self.tabBar setSelectedItem:item];
-
-    if (data.adminMode) {
-        self.officialSwitch.hidden = NO;
-    } else {
-        self.officialSwitch.hidden = YES;
-    }
     
     NSString *mystring1 = @"To keep votes accurate, do not review this show if you did not attend.";
     NSString *mystring2 = @"Corps that are not scored will not be included.";
@@ -140,13 +134,26 @@ typedef enum : int {
     
     if ([self.arrayOfWorldClassScores count]) {
         for (int i = 0; i < [self.arrayOfWorldClassScores count]; i++ ) {
-            [self.WScores addObject:@"0"];
+            
+            PFObject *score = [self.arrayOfWorldClassScores objectAtIndex:i];
+            UserScore *us = [[UserScore alloc] init];
+            us.corps = score[@"corps"];
+            us.score = 0;
+            [self.WScores addObject:us];
+            //[self.WScores addObject:@"0"];
         }
     }
 
     if ([self.arrayOfOpenClassScores count]) {
         for (int i = 0; i < [self.arrayOfOpenClassScores count]; i++ ) {
-            [self.OScores addObject:@"0"];
+            
+            PFObject *score = [self.arrayOfOpenClassScores objectAtIndex:i];
+            UserScore *us = [[UserScore alloc] init];
+            us.corps = score[@"corps"];
+            us.score = 0;
+            [self.OScores addObject:us];
+            
+            //[self.OScores addObject:@"0"];
         }
     }
     
@@ -299,10 +306,14 @@ bool backspaced;
     if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
     
     if (indexPath.section == 0) {
-        [self.WScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+        UserScore *score = [self.WScores objectAtIndex:indexPath.row];
+        score.score = [textField.text doubleValue];
+        //[self.WScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
         //[self.WScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
     } else if (indexPath.section == 1) {
-        [self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+        UserScore *score = [self.OScores objectAtIndex:indexPath.row];
+        score.score = [textField.text doubleValue];
+        //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
         //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
     }
 }
@@ -316,14 +327,6 @@ bool backspaced;
 - (IBAction)btnCancel_clicked:(id)sender {
 
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)nextPhase:(id)sender {
-    if (self.officialSwitch.on) {
-        [self prepareAndSubmitScores];
-    } else {
-        self.scorePhase++;
-    }
 }
 
 -(BOOL)areAllScoresEntered {
@@ -344,76 +347,20 @@ bool backspaced;
 
 -(void)prepareAndSubmitScores {
     
-    if (self.officialSwitch.isOn) {
-        
-        //mark the show as over
-        self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
-        [self.show saveInBackground];
-        
-        if (![self areAllScoresEntered]) {
-            return;
-        }
-    }
-    
-
-        
-        for (NSInteger j = 0; j < [self.tableCorps numberOfSections]; ++j)
-        {
-            for (NSInteger i = 0; i < [self.tableCorps numberOfRowsInSection:j]; ++i)
-            {
-
-                UITableViewCell *cell = [self.tableCorps cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
-                UITextField *text = (UITextField *)[cell viewWithTag:2];
-                NSIndexPath *path = [self.tableCorps indexPathForCell:cell];
-                
-                PFObject *score;
-                PFObject *corps;
-                
-                if (path.section == 0) { //world
-                    if ([self.arrayOfWorldClassScores count]) {
-                        score = [self.arrayOfWorldClassScores objectAtIndex:path.row];
-                    }
-                    
-                } else if (path.section == 1) { //open
-                    if ([self.arrayOfOpenClassScores count]) {
-                        score = [self.arrayOfOpenClassScores objectAtIndex:path.row];
-                    }
-                }
-                
-                corps = score[@"corps"];
-                
-                // submit the score
-                
-                if (self.officialSwitch.isOn)  { // OFFICIAL SCORE
-                    [self submitOfficialScore:score withScore:text.text];
-                } else {
-                    if (![text.text isEqualToString:@""] && (![text.text isEqualToString:@"0"])) { // USER SCORE
-                        [self submitUserScoreForCorps:corps withScores:text.text];
-                    }
-                }
-            }
-        }
+    [self submitUserScores];
     [self submitUserFavorites];
-    
     [self voted];
     
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks!" message:@"Your vote has been submitted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
+    
 }
 
-- (IBAction)voted {
+- (void)voted {
     if ([self.delegate respondsToSelector:@selector(voted)]) {
         [self.delegate voted];
     }
-}
-
--(void)submitOfficialScore:(PFObject *)officialScoreObject withScore:(NSString *)score {
-    
-    officialScoreObject[@"isOfficial"] = [NSNumber numberWithBool:YES];
-    officialScoreObject[@"score"] = score;
-    officialScoreObject[@"showDate"] = self.show[@"showDate"];
-    [officialScoreObject saveInBackground];
 }
 
 -(NSString *)getCategory:(category)cat {
@@ -451,7 +398,7 @@ bool backspaced;
 }
 
 -(void)submitUserFavorites {
-    
+
     
     [self submitFavorite:catdrums forWorldClass:YES forCorps:favDrumsW];
     [self submitFavorite:cathornline forWorldClass:YES forCorps:favHornlineW];
@@ -464,24 +411,59 @@ bool backspaced;
     [self submitFavorite:catguard forWorldClass:NO forCorps:favGuardO];
     [self submitFavorite:catcorps forWorldClass:NO forCorps:favCorpsO];
     [self submitFavorite:catloud forWorldClass:NO forCorps:loudHornlineO];
+    
 }
 
-- (void)submitUserScoreForCorps:(PFObject *)corpsForScore withScores:(NSString *)corpsScore {
+- (void)submitUserScores {
     
-    PFObject *score = [PFObject objectWithClassName:@"scores"];
-    
-    [score setObject:corpsForScore forKey:@"corps"];
-    [score setObject:self.show forKey:@"show"];
-    score[@"score"] = corpsScore;
-    score[@"corpsName"] = corpsForScore[@"corpsName"];
-    score[@"isOfficial"] = [NSNumber numberWithBool:NO];
-    score[@"user"] = [PFUser currentUser];
-    score[@"isWorldClass"] = corpsForScore[@"isWorldClass"];
-    score[@"showDate"] = self.show[@"showDate"];
-    
-    [score saveInBackground];
-
+    for (UserScore *us in self.WScores) {
+        
+        if (us.score > 0) {
+            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            score[@"corps"] = us.corps;
+            score[@"score"] = us.scoreString;
+            score[@"show"] = self.show;
+            score[@"corpsName"] = us.corps[@"corpsName"];
+            score[@"isOfficial"] = [NSNumber numberWithBool:NO];
+            score[@"user"] = [PFUser currentUser];
+            score[@"isWorldClass"] = [NSNumber numberWithBool:YES];
+            score[@"showDate"] = self.show[@"showDate"];
+            
+            [score saveInBackground];
+        }
     }
+    
+    for (UserScore *us in self.OScores) {
+        
+        if (us.score > 0) {
+            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            score[@"corps"] = us.corps;
+            score[@"score"] = us.scoreString;
+            score[@"show"] = self.show;
+            score[@"corpsName"] = us.corps[@"corpsName"];
+            score[@"isOfficial"] = [NSNumber numberWithBool:NO];
+            score[@"user"] = [PFUser currentUser];
+            score[@"isWorldClass"] = [NSNumber numberWithBool:NO];
+            score[@"showDate"] = self.show[@"showDate"];
+            
+            [score saveInBackground];
+        }
+    }
+//    
+//    PFObject *score = [PFObject objectWithClassName:@"scores"];
+//    
+//    [score setObject:corpsForScore forKey:@"corps"];
+//    [score setObject:self.show forKey:@"show"];
+//    score[@"score"] = corpsScore;
+//    score[@"corpsName"] = corpsForScore[@"corpsName"];
+//    score[@"isOfficial"] = [NSNumber numberWithBool:NO];
+//    score[@"user"] = [PFUser currentUser];
+//    score[@"isWorldClass"] = corpsForScore[@"isWorldClass"];
+//    score[@"showDate"] = self.show[@"showDate"];
+//    
+//    [score saveInBackground];
+
+}
 
 - (IBAction)previousPhase:(id)sender {
     self.scorePhase--;
@@ -685,17 +667,23 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
         switch (indexPath.section) {
             case 0:
                 if ([self.WScores count]) {
-                    scoreString = [self.WScores objectAtIndex:indexPath.row];
-                    if ([scoreString isEqualToString:@"0"])  {
+                    UserScore *score = [self.WScores objectAtIndex:indexPath.row];
+                    scoreString = score.scoreString;
+                    //scoreString = [self.WScores objectAtIndex:indexPath.row];
+                    if (score.score == 0)  {
                         text.text = @"";
                     } else text.text = scoreString;
                 }
                 break;
             case 1:
-                scoreString = [self.OScores objectAtIndex:indexPath.row];
-                if ([scoreString isEqualToString:@"0"])  {
-                    text.text = @"";
-                } else text.text = scoreString;
+                if ([self.OScores count]) {
+                    UserScore *score = [self.OScores objectAtIndex:indexPath.row];
+                    scoreString = score.scoreString;
+                    //scoreString = [self.OScores objectAtIndex:indexPath.row];
+                    if (score.score == 0)  {
+                        text.text = @"";
+                    } else text.text = scoreString;
+                }
                 break;
             default:
                 text.text = @"Error";
@@ -715,9 +703,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                 if ([self.arrayOfWorldClassScores count]) {
                     if (indexPath.row < [self.arrayOfWorldClassScores count]) { //scores
                         mainText = corps[@"corpsName"];
-                        detailText = [self.WScores objectAtIndex:indexPath.row];
+                        UserScore *score = [self.WScores objectAtIndex:indexPath.row];
+                        detailText = score.scoreString;
+                        //detailText = [self.WScores objectAtIndex:indexPath.row];
                         NSString *s;
-                        s = [self.WScores objectAtIndex:indexPath.row];
+                        //s = [self.WScores objectAtIndex:indexPath.row];
+                        s = detailText;
                         if (s) {
                             if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
                                 detailText = @"Not Scored";
@@ -763,9 +754,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                 if ([self.arrayOfOpenClassScores count]) {
                     if (indexPath.row < [self.arrayOfOpenClassScores count]) {
                         mainText = corps[@"corpsName"];
-                        detailText = [self.OScores objectAtIndex:indexPath.row];
+                        UserScore *score = [self.OScores objectAtIndex:indexPath.row];
+                        detailText = score.scoreString;
+                        //detailText = [self.OScores objectAtIndex:indexPath.row];
                         NSString *s;
-                        s = [self.OScores objectAtIndex:indexPath.row];
+                        //s = [self.OScores objectAtIndex:indexPath.row];
+                        s = detailText;
                         if (s) {
                             if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
                                 detailText = @"Not Scored";
@@ -809,10 +803,6 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     detailText =  @"Detail Error";
                     break;
                 }
-                
-        
-                
-                
            }
         // for phase Summary only
         cell.textLabel.text = mainText;
@@ -1032,6 +1022,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 - (IBAction)Submit:(id)sender {
+    
     if ([self.btnSubmit.titleLabel.text isEqualToString:@"Submit"]) {
         self.scorePhase = phaseScore;
         [self prepareAndSubmitScores];
