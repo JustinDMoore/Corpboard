@@ -669,12 +669,12 @@
                                 <rect key="frame" x="0.0" y="507" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="Rankings" image="trophy" id="Uqo-lJ-MyG"/>
-                                    <tabBarItem tag="1" title="Brass" image="hornline" id="i6z-OR-YQO"/>
-                                    <tabBarItem tag="2" title="Percussion" image="percussion" id="jtn-Yz-R1E"/>
-                                    <tabBarItem tag="3" title="Colorguard" image="colorguard" id="fSN-Ai-rG8"/>
-                                    <tabBarItem tag="4" title="Loudest" image="loudest" id="id2-Mc-1kb"/>
-                                    <tabBarItem tag="5" title="Favorite" image="favorite" id="dhK-Ya-zW0"/>
+                                    <tabBarItem title="Rankings" image="score_tab" id="Uqo-lJ-MyG"/>
+                                    <tabBarItem tag="1" title="Brass" image="horn_tab" id="i6z-OR-YQO"/>
+                                    <tabBarItem tag="2" title="Percussion" image="drum_tab" id="jtn-Yz-R1E"/>
+                                    <tabBarItem tag="3" title="Colorguard" image="flag_tab" id="fSN-Ai-rG8"/>
+                                    <tabBarItem tag="4" title="Loudest" image="loudest_tab" id="id2-Mc-1kb"/>
+                                    <tabBarItem tag="5" title="Favorite" image="favorite_tab" id="dhK-Ya-zW0"/>
                                 </items>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -2982,28 +2982,97 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="favorite" textLabel="gXp-ty-3oG" detailTextLabel="n86-vg-ZsJ" style="IBUITableViewCellStyleValue1" id="HL7-aC-DWH">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="favorite" id="HL7-aC-DWH">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HL7-aC-DWH" id="coI-nf-s84">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gXp-ty-3oG">
-                                                    <rect key="frame" x="15" y="12" width="31" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="5" contentMode="left" text="27" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsq-q2-DtX">
+                                                    <rect key="frame" x="8" y="15" width="16" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="left" text="None Selected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsi-Hj-JR7">
+                                                    <rect key="frame" x="488" y="14" width="104" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="104" id="CsF-nw-FWA"/>
+                                                        <constraint firstAttribute="height" constant="20" id="eSX-JU-TQI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="left" horizontalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCn-Ba-ugx">
+                                                    <rect key="frame" x="32" y="14" width="455" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="pPO-pn-QOe"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n86-vg-ZsJ">
-                                                    <rect key="frame" x="263" y="12" width="42" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="eCn-Ba-ugx" secondAttribute="centerY" constant="-2" id="7vD-oU-eUM"/>
+                                                <constraint firstItem="Xsi-Hj-JR7" firstAttribute="leading" secondItem="eCn-Ba-ugx" secondAttribute="trailing" constant="1" id="9CB-Ld-st9"/>
+                                                <constraint firstItem="eCn-Ba-ugx" firstAttribute="leading" secondItem="hsq-q2-DtX" secondAttribute="trailing" constant="8" id="DLu-1z-MRP"/>
+                                                <constraint firstAttribute="centerY" secondItem="Xsi-Hj-JR7" secondAttribute="centerY" constant="-2" id="Fk3-al-Khu"/>
+                                                <constraint firstAttribute="centerY" secondItem="hsq-q2-DtX" secondAttribute="centerY" constant="-2" id="kDe-iJ-JLJ"/>
+                                                <constraint firstItem="Xsi-Hj-JR7" firstAttribute="trailing" secondItem="coI-nf-s84" secondAttribute="trailingMargin" id="x04-LX-ERX"/>
+                                                <constraint firstItem="hsq-q2-DtX" firstAttribute="leading" secondItem="coI-nf-s84" secondAttribute="leadingMargin" id="zc0-nG-s8Q"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="caption" id="Oj6-HR-tn7">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Oj6-HR-tn7" id="D8x-ak-mfD">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="left" text="None Selected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CbW-9N-2tC">
+                                                    <rect key="frame" x="488" y="14" width="104" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="8CF-LL-YYX"/>
+                                                        <constraint firstAttribute="width" constant="104" id="qiO-Yv-vnz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" tag="8" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="If9-Sv-hir">
+                                                    <rect key="frame" x="8" y="4" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="6tF-yq-73a"/>
+                                                        <constraint firstAttribute="height" constant="35" id="ZdW-Cy-Q41"/>
+                                                    </constraints>
+                                                    <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="39" y="5" width="35" height="35"/>
+                                                    </variation>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="left" horizontalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvS-XK-lf3">
+                                                    <rect key="frame" x="51" y="13" width="429" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="CtR-PQ-30t"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CbW-9N-2tC" firstAttribute="leading" secondItem="tvS-XK-lf3" secondAttribute="trailing" constant="8" id="6bX-2f-l8y"/>
+                                                <constraint firstAttribute="centerY" secondItem="If9-Sv-hir" secondAttribute="centerY" constant="0.5" id="GO8-dS-dPv"/>
+                                                <constraint firstItem="CbW-9N-2tC" firstAttribute="trailing" secondItem="D8x-ak-mfD" secondAttribute="trailingMargin" id="IhE-Jp-W7f"/>
+                                                <constraint firstItem="tvS-XK-lf3" firstAttribute="leading" secondItem="If9-Sv-hir" secondAttribute="trailing" constant="8" id="LtU-GY-EdG"/>
+                                                <constraint firstAttribute="centerY" secondItem="CbW-9N-2tC" secondAttribute="centerY" constant="-2" id="X5l-V3-ek4"/>
+                                                <constraint firstItem="If9-Sv-hir" firstAttribute="centerY" secondItem="tvS-XK-lf3" secondAttribute="centerY" constant="-1.5" id="iDg-qD-ZYz"/>
+                                                <constraint firstItem="If9-Sv-hir" firstAttribute="leading" secondItem="D8x-ak-mfD" secondAttribute="leadingMargin" id="opm-VW-CJP"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -3017,12 +3086,12 @@
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="Score" image="trophy" id="czZ-V3-pwE"/>
-                                    <tabBarItem tag="1" title="Brass" image="hornline" id="PGR-C9-AKF"/>
-                                    <tabBarItem tag="2" title="Percussion" image="percussion" id="W6b-fB-Zsi"/>
-                                    <tabBarItem tag="3" title="Colorguard" image="colorguard" id="aom-SN-V0o"/>
-                                    <tabBarItem tag="4" title="Loudest" image="loudest" id="qcZ-jC-GTw"/>
-                                    <tabBarItem tag="5" title="Favorite" image="favorite" id="F1f-mk-Mhv"/>
+                                    <tabBarItem title="Score" image="score_tab" id="czZ-V3-pwE"/>
+                                    <tabBarItem tag="1" title="Brass" image="horn_tab" id="PGR-C9-AKF"/>
+                                    <tabBarItem tag="2" title="Percussion" image="drum_tab" id="W6b-fB-Zsi"/>
+                                    <tabBarItem tag="3" title="Colorguard" image="flag_tab" id="aom-SN-V0o"/>
+                                    <tabBarItem tag="4" title="Loudest" image="loudest_tab" id="qcZ-jC-GTw"/>
+                                    <tabBarItem tag="5" title="Favorite" image="favorite_tab" id="F1f-mk-Mhv"/>
                                 </items>
                                 <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -3085,7 +3154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6j-0q-52g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3766" y="89"/>
+            <point key="canvasLocation" x="3766" y="80"/>
         </scene>
         <!--Recap-->
         <scene sceneID="Mrb-m0-AGs">
@@ -3175,20 +3244,20 @@
         <image name="admin" width="48" height="48"/>
         <image name="appstore2" width="120" height="115"/>
         <image name="broken" width="48" height="48"/>
-        <image name="colorguard" width="30" height="30"/>
         <image name="delete" width="48" height="48"/>
+        <image name="drum_tab" width="48" height="48"/>
         <image name="edit2" width="48" height="48"/>
-        <image name="favorite" width="30" height="30"/>
-        <image name="hornline" width="30" height="30"/>
+        <image name="favorite_tab" width="48" height="48"/>
+        <image name="flag_tab" width="48" height="48"/>
+        <image name="horn_tab" width="48" height="48"/>
         <image name="info" width="256" height="256"/>
-        <image name="loudest" width="30" height="30"/>
+        <image name="loudest_tab" width="48" height="48"/>
         <image name="medal_gold" width="48" height="48"/>
-        <image name="percussion" width="30" height="30"/>
         <image name="recap" width="48" height="48"/>
         <image name="retreat.png" width="640" height="298"/>
+        <image name="score_tab" width="48" height="48"/>
         <image name="screenshot" width="183" height="275"/>
         <image name="star" width="256" height="256"/>
-        <image name="trophy" width="30" height="30"/>
         <image name="vote" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>

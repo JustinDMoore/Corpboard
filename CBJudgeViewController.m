@@ -702,10 +702,25 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         
     } else if (self.scorePhase == phaseSummary) {
         
-        cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"favorite"];
+        if (indexPath.section == 0) {
+            if (indexPath.row + 1 <= [self.WScores count]) {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"favorite"];
+            } else {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"caption"];
+            }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row + 1 <= [self.OScores count]) {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"favorite"];
+            } else {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"caption"];
+            }
+        }
+        
         NSString *blank = @"None selected";
         NSString *mainText;
         NSString *detailText;
+        
+        UIImageView *img = (UIImageView *)[cell viewWithTag:8];
         
         switch ([indexPath section]) {
             case 0: // world class
@@ -724,6 +739,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count]) { //                       best drums
                         mainText = @"Best Percussion";
+                        img.image = [UIImage imageNamed:@"drum"];
                         if (favDrumsW) {
                             detailText = favDrumsW[@"corpsName"];
                         } else {
@@ -731,13 +747,16 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 1) { //                  best hornline
                         mainText = @"Best Brass";
+                        img.image = [UIImage imageNamed:@"horn"];
                         if (favHornlineW) {
                             detailText = favHornlineW[@"corpsName"];
+                            
                         } else {
                             detailText = blank;
                         }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 2) { //                     best guard
                         mainText = @"Best Colorguard";
+                        img.image = [UIImage imageNamed:@"flag"];
                         if (favGuardW) {
                             detailText = favGuardW[@"corpsName"];
                         } else {
@@ -745,6 +764,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 3) { //                    loudest hornline
                         mainText = @"Loudest Hornline";
+                        img.image = [UIImage imageNamed:@"volume"];
                         if (loudHornlineW) {
                             detailText = loudHornlineW[@"corpsName"];
                         } else {
@@ -752,6 +772,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 4) { //                   favorite corps
                         mainText = @"Favorite Show";
+                        img.image = [UIImage imageNamed:@"heart"];
                         if (favCorpsW) {
                             detailText = favCorpsW[@"corpsName"];
                         } else {
@@ -780,6 +801,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count]) {
                         mainText = @"Best Percussion";
+                        img.image = [UIImage imageNamed:@"drum"];
                         if (favDrumsO) {
                             detailText = favDrumsO[@"corpsName"];
                         } else {
@@ -787,6 +809,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 1) {
                         mainText = @"Best Hornline";
+                        img.image = [UIImage imageNamed:@"horn"];
                         if (favHornlineO) {
                             detailText = favHornlineO[@"corpsName"];
                         } else {
@@ -794,6 +817,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 2) {
                         mainText = @"Best Colorguard";
+                        img.image = [UIImage imageNamed:@"flag"];
                         if (favGuardO) {
                             detailText = favGuardO[@"corpsName"];
                         } else {
@@ -801,6 +825,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 3) {
                         mainText = @"Loudest Hornline";
+                        img.image = [UIImage imageNamed:@"volume"];
                         if (loudHornlineO) {
                             detailText = loudHornlineO[@"corpsName"];
                         } else {
@@ -808,6 +833,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 4) {
                         mainText = @"Favorite Show";
+                        img.image = [UIImage imageNamed:@"heart"];
                         if (favCorpsO) {
                             detailText = favCorpsO[@"corpsName"];
                         } else {
@@ -823,8 +849,25 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                 }
            }
         // for phase Summary only
-        cell.textLabel.text = mainText;
-        cell.detailTextLabel.text = detailText;
+        UILabel *lblPlacement = (UILabel *)[cell viewWithTag:5];
+        UILabel *lblCorpName = (UILabel *)[cell viewWithTag:6];
+        UILabel *lblDetail = (UILabel *)[cell viewWithTag:7];
+        if (indexPath.section == 0) {
+            if (indexPath.row + 1 <= [self.WScores count]) {
+                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+            } else {
+                lblPlacement.text = @"";
+            }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row + 1 <= [self.OScores count]) {
+                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+            } else {
+                lblPlacement.text = @"";
+            }
+        }
+        
+        lblCorpName.text = mainText;
+        lblDetail.text = detailText;
         
     } else { //end of phase summary, handles everything other than summary and score
         
