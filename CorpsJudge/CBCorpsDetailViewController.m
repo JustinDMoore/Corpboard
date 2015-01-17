@@ -337,7 +337,6 @@
                 lblMedal.hidden = YES;
             }
             
-            
         } else {
             lblScoreAndPlacement.hidden = YES;
             lblGold.hidden = YES;
@@ -346,6 +345,14 @@
         }
         
         lblShowTitle.text = self.currentYear[@"showTitle"];
+        if ([lblShowTitle.text isEqualToString:@"TILT"]) {
+            UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:[UIFont systemFontSize]];
+            lblShowTitle.font = yourFont;
+            [self TILT:YES];
+        } else {
+            lblShowTitle.font = [UIFont boldSystemFontOfSize:14];
+            [self TILT:NO];
+        }
         
         txtRepertoire.text = self.currentYear[@"repertoire"];
         txtRepertoire.textColor = [UIColor lightGrayColor];
@@ -355,6 +362,20 @@
     
     return cell;
 }
+
+-(void)TILT:(BOOL)tilt {
+
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+    double rads;
+    if (tilt) {
+        rads = DEGREES_TO_RADIANS(4);
+    } else {
+        rads = DEGREES_TO_RADIANS(0);
+    }
+    CGAffineTransform transform = CGAffineTransformRotate(self.view.transform, rads);
+    self.tableRepertoire.transform = transform;
+}
+
 
 int selectedCell = 0;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
