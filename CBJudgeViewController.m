@@ -10,17 +10,17 @@
 #import "CBSingle.h"
 #import "UserScore.h"
 
-NSInteger favDrumsW = -1;
-NSInteger favHornlineW = -1;
-NSInteger favGuardW = -1;
-NSInteger favCorpsW = -1;
-NSInteger loudHornlineW = -1;
+PFObject *favDrumsW;
+PFObject *favHornlineW;
+PFObject *favGuardW;
+PFObject *favCorpsW;
+PFObject *loudHornlineW;
 
-NSInteger favDrumsO = -1;
-NSInteger favHornlineO = -1;
-NSInteger favGuardO = -1;
-NSInteger favCorpsO = -1;
-NSInteger loudHornlineO = -1;
+PFObject *favDrumsO;
+PFObject *favHornlineO;
+PFObject *favGuardO;
+PFObject *favCorpsO;
+PFObject *loudHornlineO;
 
 NSInteger currentRowIndex;
 
@@ -158,17 +158,17 @@ typedef enum : int {
     }
     
     
-     favDrumsW = -1;
-     favHornlineW = -1;
-     favGuardW = -1;
-     favCorpsW = -1;
-     loudHornlineW = -1;
+     favDrumsW = nil;
+     favHornlineW = nil;
+     favGuardW = nil;
+     favCorpsW = nil;
+     loudHornlineW = nil;
     
-     favDrumsO = -1;
-     favHornlineO = -1;
-     favGuardO = -1;
-     favCorpsO = -1;
-     loudHornlineO = -1;
+     favDrumsO = nil;
+     favHornlineO = nil;
+     favGuardO = nil;
+     favCorpsO = nil;
+     loudHornlineO = nil;
     
     self.tableCorps.allowsSelection = YES;
     self.scorePhase = phaseScore;
@@ -520,8 +520,7 @@ bool backspaced;
 }
 
 - (BOOL)tableView:(UITableView *)tableView
-shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
+shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
@@ -532,87 +531,97 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
             break;
         case phaseBestdrums:
             if (indexPath.section == 0) {
-                if (favDrumsW == indexPath.row) {
-                    favDrumsW = -1;
+                UserScore *us = [self.WScores objectAtIndex:indexPath.row];
+                if (favDrumsW == us.corps) {
+                    favDrumsW = nil;
                 } else {
-                    favDrumsW = indexPath.row;
+                    favDrumsW = us.corps;
                 }
             }
             
             if (indexPath.section == 1) {
-                if (favDrumsO == indexPath.row) {
-                    favDrumsO = -1;
+                UserScore *us = [self.OScores objectAtIndex:indexPath.row];
+                if (favDrumsO == us.corps) {
+                    favDrumsO = nil;
                 } else {
-                    favDrumsO = indexPath.row;
+                    favDrumsO = us.corps;
                 }
             }
 
             break;
         case phaseBestguard:
             if (indexPath.section == 0) {
-                if (favGuardW == indexPath.row) {
-                    favGuardW = -1;
+                UserScore *us = [self.WScores objectAtIndex:indexPath.row];
+                if (favGuardW == us.corps) {
+                    favGuardW = nil;
                 } else {
-                    favGuardW = indexPath.row;
+                    favGuardW = us.corps;
                 }
             }
             
             if (indexPath.section == 1) {
-                if (favGuardO == indexPath.row) {
-                    favGuardO = -1;
+                UserScore *us = [self.OScores objectAtIndex:indexPath.row];
+                if (favGuardO == us.corps) {
+                    favGuardO = nil;
                 } else {
-                    favGuardO = indexPath.row;
+                    favGuardO = us.corps;
                 }
             }
             break;
         case phaseBesthornline:
             if (indexPath.section == 0) {
-                if (favHornlineW == indexPath.row) {
-                    favHornlineW = -1;
+                UserScore *us = [self.WScores objectAtIndex:indexPath.row];
+                if (favHornlineW == us.corps) {
+                    favHornlineW = nil;
                 } else {
-                    favHornlineW = indexPath.row;
+                    favHornlineW = us.corps;
                 }
             }
             
             if (indexPath.section == 1) {
-                if (favHornlineO == indexPath.row) {
-                    favHornlineO = -1;
+                UserScore *us = [self.OScores objectAtIndex:indexPath.row];
+                if (favHornlineO == us.corps) {
+                    favHornlineO = nil;
                 } else {
-                    favHornlineO = indexPath.row;
+                    favHornlineO = us.corps;
                 }
             }
             break;
         case phaseFavorite:
             if (indexPath.section == 0) {
-                if (favCorpsW == indexPath.row) {
-                    favCorpsW = -1;
+                UserScore *us = [self.WScores objectAtIndex:indexPath.row];
+                if (favCorpsW == us.corps) {
+                    favCorpsW = nil;
                 } else {
-                    favCorpsW = indexPath.row;
+                    favCorpsW = us.corps;
                 }
             }
             
             if (indexPath.section == 1) {
-                if (favCorpsO == indexPath.row) {
-                    favCorpsO = -1;
+                UserScore *us = [self.OScores objectAtIndex:indexPath.row];
+                if (favCorpsO == us.corps) {
+                    favCorpsO = nil;
                 } else {
-                    favCorpsO = indexPath.row;
+                    favCorpsO = us.corps;
                 }
             }
             break;
         case phaseLoudesthornline:
             if (indexPath.section == 0) {
-                if (loudHornlineW == indexPath.row) {
-                    loudHornlineW = -1;
+                UserScore *us = [self.WScores objectAtIndex:indexPath.row];
+                if (loudHornlineW == us.corps) {
+                    loudHornlineW = nil;
                 } else {
-                    loudHornlineW = indexPath.row;
+                    loudHornlineW = us.corps;
                 }
             }
             
             if (indexPath.section == 1) {
-                if (loudHornlineO == indexPath.row) {
-                    loudHornlineO = -1;
+                UserScore *us = [self.OScores objectAtIndex:indexPath.row];
+                if (loudHornlineO == us.corps) {
+                    loudHornlineO = nil;
                 } else {
-                    loudHornlineO = indexPath.row;
+                    loudHornlineO = us.corps;
                 }
             }
             break;
@@ -629,23 +638,23 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
     UITableViewCell *cell;
     
     //get the correct corps name
-    PFObject *score;
+    UserScore *score;
     PFObject *corps;
     if ([indexPath section] == 0) {
-        if ([self.arrayOfWorldClassScores count]) {
-            if (indexPath.row < [self.arrayOfWorldClassScores count]) {
-                if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
+        if ([self.WScores count]) {
+            if (indexPath.row < [self.WScores count]) {
+                if ([self.WScores count]) score = [self.WScores objectAtIndex:[indexPath row]];
             }
         }
     } else if ([indexPath section] == 1) {
-        if ([self.arrayOfOpenClassScores count]) {
-            if (indexPath.row < [self.arrayOfOpenClassScores count]) {
-                if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
+        if ([self.OScores count]) {
+            if (indexPath.row < [self.OScores count]) {
+                if ([self.OScores count]) score = [self.OScores objectAtIndex:[indexPath row]];
             }
         }
     }
     
-        if (score) corps = score[@"corps"];
+        if (score) corps = score.corps;
     
     //now we have the corps name for the row
     
@@ -715,34 +724,39 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count]) { //                       best drums
                         mainText = @"Best Percussion";
-                        if (favDrumsW > -1) {
-                            PFObject *corps = [self.arrayOfWorldClassScores objectAtIndex:favDrumsW];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favDrumsW) {
+                            detailText = favDrumsW[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 1) { //                  best hornline
                         mainText = @"Best Brass";
-                        if (favHornlineW > -1) {
-                            PFObject *corps = [self.arrayOfWorldClassScores objectAtIndex:favHornlineW];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favHornlineW) {
+                            detailText = favHornlineW[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 2) { //                     best guard
                         mainText = @"Best Colorguard";
-                        if (favGuardW > -1) {
-                            PFObject *corps = [self.arrayOfWorldClassScores objectAtIndex:favGuardW];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favGuardW) {
+                            detailText = favGuardW[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 3) { //                    loudest hornline
                         mainText = @"Loudest Hornline";
-                        if (loudHornlineW > -1) {
-                            PFObject *corps = [self.arrayOfWorldClassScores objectAtIndex:loudHornlineW];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (loudHornlineW) {
+                            detailText = loudHornlineW[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 4) { //                   favorite corps
                         mainText = @"Favorite Show";
-                        if (favCorpsW > -1) {
-                            PFObject *corps = [self.arrayOfWorldClassScores objectAtIndex:favCorpsW];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favCorpsW) {
+                            detailText = favCorpsW[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else {
 //                        //cell.detailTextLabel.text = [self.WScores objectForKey:[NSString stringWithFormat:@"%d", (int)indexPath.row]];
 //                        detailText = [self.WScores objectAtIndex:indexPath.row];
@@ -766,35 +780,39 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count]) {
                         mainText = @"Best Percussion";
-                        if (favDrumsO > -1) {
-                            PFObject *corps = [self.arrayOfOpenClassScores objectAtIndex:favDrumsO];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favDrumsO) {
+                            detailText = favDrumsO[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 1) {
                         mainText = @"Best Hornline";
-                        if (favHornlineO > -1) {
-                            PFObject *corps = [self.arrayOfOpenClassScores objectAtIndex:favHornlineO];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favHornlineO) {
+                            detailText = favHornlineO[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 2) {
                         mainText = @"Best Colorguard";
-                        if (favGuardO > -1) {
-                            PFObject *corps = [self.arrayOfOpenClassScores objectAtIndex:favGuardO];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (favGuardO) {
+                            detailText = favGuardO[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 3) {
                         mainText = @"Loudest Hornline";
-                        if (loudHornlineO > -1) {
-                            PFObject *corps = [self.arrayOfOpenClassScores objectAtIndex:loudHornlineO];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
+                        if (loudHornlineO) {
+                            detailText = loudHornlineO[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 4) {
                         mainText = @"Favorite Show";
-                        if (favCorpsO > -1) {
-                            PFObject *corps = [self.arrayOfOpenClassScores objectAtIndex:favCorpsO];
-                            detailText = corps[@"corpsName"];
-                        } else detailText = blank;
-                        
+                        if (favCorpsO) {
+                            detailText = favCorpsO[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
                     }
                     
                     break;
@@ -812,16 +830,18 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
         
         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
         cell.textLabel.text = corps[@"corpsName"];
-        
+        UserScore *us;
         // set the checkmarks for world class
         if (indexPath.section == 0) {
+            
+            us = [self.WScores objectAtIndex:indexPath.row];
             
             switch (self.scorePhase) {
                 case phaseScore:
                     //nothing
                     break;
                 case phaseLoudesthornline:
-                    if (loudHornlineW == (int)indexPath.row) {
+                    if (loudHornlineW == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -829,7 +849,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseFavorite:
-                    if (favCorpsW == (int)indexPath.row) {
+                    if (favCorpsW == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -837,7 +857,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBesthornline:
-                    if (favHornlineW == (int)indexPath.row) {
+                    if (favHornlineW == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -845,7 +865,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBestguard:
-                    if (favGuardW == (int)indexPath.row) {
+                    if (favGuardW == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -853,7 +873,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBestdrums:
-                    if (favDrumsW == (int)indexPath.row) {
+                    if (favDrumsW == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -870,12 +890,13 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
         
         //check the checkmarks for open class
         if (indexPath.section == 1) {
+            us = [self.OScores objectAtIndex:indexPath.row];
             switch (self.scorePhase) {
                 case phaseScore:
                     //nothing
                     break;
                 case phaseLoudesthornline:
-                    if (loudHornlineO == (int)indexPath.row) {
+                    if (loudHornlineO == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -883,7 +904,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseFavorite:
-                    if (favCorpsO == (int)indexPath.row) {
+                    if (favCorpsO == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -891,7 +912,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBesthornline:
-                    if (favHornlineO == (int)indexPath.row) {
+                    if (favHornlineO == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -899,7 +920,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBestguard:
-                    if (favGuardO == (int)indexPath.row) {
+                    if (favGuardO == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -907,7 +928,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
                     }
                     break;
                 case phaseBestdrums:
-                    if (favDrumsO == (int)indexPath.row) {
+                    if (favDrumsO == us.corps) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     }
                     else {
@@ -1029,6 +1050,14 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
     } else if ([self.btnSubmit.titleLabel.text isEqualToString:@"Review"]) {
         self.tabBar.selectedItem = nil;
         [self.btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];;
+        
+        //sort the scores for display in summary
+        NSSortDescriptor *sortScores = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+        NSArray *sortCorpsDescriptor = [NSArray arrayWithObject: sortScores];
+        
+        if ([self.WScores count]) [self.WScores sortUsingDescriptors:sortCorpsDescriptor];
+        if ([self.OScores count]) [self.OScores sortUsingDescriptors:sortCorpsDescriptor];
+
         self.scorePhase = phaseSummary;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review" message:@"You can only review this show once. \n\n After you're satisfied with your review, tap submit." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
