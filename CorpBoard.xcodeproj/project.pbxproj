@@ -161,6 +161,10 @@
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
+		D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D011894C1A6B0D8A00D77EA9 /* Snow.sks */; };
+		D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D011894D1A6B0D8A00D77EA9 /* spark.png */; };
+		D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = D01189511A6B12BE00D77EA9 /* CBEffect.m */; };
+		D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D01189531A6B1E6400D77EA9 /* CadetSnow.sks */; };
 		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -511,6 +515,11 @@
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
 		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
+		D011894C1A6B0D8A00D77EA9 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
+		D011894D1A6B0D8A00D77EA9 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		D01189501A6B12BE00D77EA9 /* CBEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEffect.h; sourceTree = "<group>"; };
+		D01189511A6B12BE00D77EA9 /* CBEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEffect.m; sourceTree = "<group>"; };
+		D01189531A6B1E6400D77EA9 /* CadetSnow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CadetSnow.sks; sourceTree = "<group>"; };
 		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
 		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
@@ -1100,6 +1109,11 @@
 			isa = PBXGroup;
 			children = (
 				925334BD194FD6F80004D16F /* Main.storyboard */,
+				D011894C1A6B0D8A00D77EA9 /* Snow.sks */,
+				D01189531A6B1E6400D77EA9 /* CadetSnow.sks */,
+				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
+				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
+				D011894D1A6B0D8A00D77EA9 /* spark.png */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
@@ -1513,6 +1527,7 @@
 			files = (
 				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
+				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				923D50191A2C6DCF00E16B64 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
@@ -1534,12 +1549,14 @@
 				D064F3B01A36ECA1007455E2 /* main.js in Resources */,
 				923D500F1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
+				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
 				923D4FCF1A2C6DCF00E16B64 /* LoginView.xib in Resources */,
 				9270DBAE1968F56F00DFB09E /* Phantom Regiment1.png in Resources */,
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
+				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
 				92E810881968E4CA0078B65D /* The Cadets2.png in Resources */,
 				923D4FD31A2C6DCF00E16B64 /* WelcomeView.xib in Resources */,
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
@@ -1656,6 +1673,7 @@
 				92275B3C1A4042BC006E8E8E /* CBView.m in Sources */,
 				923D50111A2C6DCF00E16B64 /* JSQMessagesInputToolbar.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
+				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				923D4FF21A2C6DCF00E16B64 /* NSString+JSQMessages.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,

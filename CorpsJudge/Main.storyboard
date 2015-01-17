@@ -78,7 +78,7 @@
                         <viewControllerLayoutGuide type="top" id="rCQ-hH-oRF"/>
                         <viewControllerLayoutGuide type="bottom" id="P7V-ze-clR"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Jqp-k5-vAQ">
+                    <view key="view" contentMode="scaleToFill" id="Jqp-k5-vAQ" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -325,6 +325,7 @@
                         <outlet property="corpsFrom" destination="euu-yY-76g" id="e6L-FS-6T7"/>
                         <outlet property="corpsName" destination="eNn-pB-jTO" id="yun-bN-4BL"/>
                         <outlet property="imgCorps" destination="A27-0j-Cvh" id="aka-N2-zQv"/>
+                        <outlet property="skView" destination="Jqp-k5-vAQ" id="tZ9-MA-xU6"/>
                         <outlet property="tableRepertoire" destination="Ud0-0n-CcP" id="Ouc-BS-PpV"/>
                         <outlet property="tableYears" destination="2Ux-wa-Xhb" id="Bon-CO-bhI"/>
                     </connections>

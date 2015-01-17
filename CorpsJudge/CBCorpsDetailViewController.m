@@ -10,6 +10,8 @@
 #import "CBWebViewController.h"
 #import "CBAboutCorpsViewController.h"
 #import "KVNProgress.h"
+#import <SpriteKit/SpriteKit.h>
+#import "CBEffect.h"
 
 @interface CBCorpsDetailViewController ()
 
@@ -22,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgCorps;
 @property (nonatomic, strong) NSMutableArray *arrayOfRepertoires;
 @property (nonatomic, strong) PFObject *currentYear;
+@property IBOutlet SKView *skView;
+@property (nonatomic, strong) CBEffect *scene;
 
 - (IBAction)openLink:(UIButton*)sender;
 
@@ -45,6 +49,22 @@
     [KVNProgress show];
     [self initUI];
     [self getRepertoiresForCorps];
+    
+    
+    // Configure the SKView
+    SKView * skView = _skView;
+    
+    // Create and configure the scene.
+    self.scene = [CBEffect sceneWithSize:self.view.bounds.size];
+    self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    skView.allowsTransparency = YES;
+    self.scene.backgroundColor = [UIColor blackColor];
+    [skView presentScene:self.scene];
+    self.tableRepertoire.backgroundColor = [UIColor clearColor];
+    self.tableYears.backgroundColor = [UIColor clearColor];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -255,6 +275,7 @@
         lblYear.textColor = [UIColor lightGrayColor];
     }
     
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
@@ -286,6 +307,8 @@
     
     lblChampYears.text = [NSString stringWithFormat:@"%@", self.corps[@"champs"]];
     [lblChampYears sizeToFit];
+    
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 
 }
@@ -349,10 +372,17 @@
             UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:[UIFont systemFontSize]];
             lblShowTitle.font = yourFont;
             [self TILT:YES];
+        } else if ([lblShowTitle.text isEqualToString:@"12.25"]) {
+            [self.scene startCadetSnowing];
+        } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
+            [self.scene startSnowing];
         } else {
             lblShowTitle.font = [UIFont boldSystemFontOfSize:14];
             [self TILT:NO];
+            [self.scene stop];
         }
+        
+        
         
         txtRepertoire.text = self.currentYear[@"repertoire"];
         txtRepertoire.textColor = [UIColor lightGrayColor];
@@ -360,6 +390,7 @@
         
     }
     
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
@@ -376,6 +407,10 @@
     self.tableRepertoire.transform = transform;
 }
 
+-(void)SNOW:(BOOL)snow {
+
+    
+}
 
 int selectedCell = 0;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
