@@ -407,8 +407,15 @@
     } else {
         rads = DEGREES_TO_RADIANS(0);
     }
-    CGAffineTransform transform = CGAffineTransformRotate(self.view.transform, rads);
-    self.tableRepertoire.transform = transform;
+    
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:2 options:0 animations:^{
+        
+        CGAffineTransform transform = CGAffineTransformRotate(self.view.transform, rads);
+        self.tableRepertoire.transform = transform;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)SNOW:(BOOL)snow {
