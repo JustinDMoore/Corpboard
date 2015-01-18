@@ -369,7 +369,7 @@
         
         lblShowTitle.text = self.currentYear[@"showTitle"];
         if ([lblShowTitle.text isEqualToString:@"TILT"]) {
-            UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:[UIFont systemFontSize]];
+            UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:16];
             lblShowTitle.font = yourFont;
             [self TILT:YES];
         } else if ([lblShowTitle.text isEqualToString:@"12.25"]) {
@@ -377,7 +377,7 @@
         } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
             [self.scene startSnowing];
         } else {
-            lblShowTitle.font = [UIFont boldSystemFontOfSize:14];
+            lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
             [self TILT:NO];
             [self.scene stop];
         }
