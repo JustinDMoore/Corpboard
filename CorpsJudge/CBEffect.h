@@ -12,4 +12,6 @@
 -(void)startSnowing;
 -(void)stop;
 -(void)startCadetSnowing;
+-(void)startRaining;
+-(void)goToSpace;
 @end

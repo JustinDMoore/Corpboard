@@ -376,6 +376,10 @@
             [self.scene startCadetSnowing];
         } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
             [self.scene startSnowing];
+        } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
+            [self.scene startRaining];
+        } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
+            
         } else {
             lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
             [self TILT:NO];
