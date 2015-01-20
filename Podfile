@@ -1,5 +1,5 @@
 platform :ios, '7.0'
 pod 'MWFeedParser', '1.0.1'
-pod 'KVNProgress'
-pod 'PulsingHalo'
-pod 'JSBadgeView'
+pod 'KVNProgress', '2.1.6'
+pod 'PulsingHalo', '0.0.1'
+pod 'JSBadgeView', '1.3.2'

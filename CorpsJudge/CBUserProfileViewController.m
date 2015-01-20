@@ -704,6 +704,7 @@ UIPickerView *corpPicker;
     corpPicker.showsSelectionIndicator = YES;
     self.corpExperience.txtCorpsName.inputView = corpPicker;
     self.corpExperience.corpPicker = corpPicker;
+    
 }
 
 - (IBAction)btnEditDescription_clicked:(id)sender {
@@ -958,14 +959,20 @@ UIPickerView *corpPicker;
 #pragma mark
 #pragma mark - UIPickerview Delegates
 #pragma mark
+
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (pickerView == yearPicker) {
-        return [self.corpExperience.arrayOfYears objectAtIndex:row];
+        if (row == 0) return @"-Select Year-";
+        else return [self.corpExperience.arrayOfYears objectAtIndex:row - 1];
     } else if (pickerView == positionPicker) {
-        return [self.corpExperience.arrayOfPositions objectAtIndex:row];
+        if (row == 0) return @"-Select Position-";
+        else return [self.corpExperience.arrayOfPositions objectAtIndex:row - 1];
     } else if (pickerView == corpPicker) {
-        PFObject *corp = [_data.arrayOfAllCorps objectAtIndex:row];
-        return corp[@"corpsName"];
+        if (row == 0) return @"-Select Corp-";
+        else {
+            PFObject *corp = [_data.arrayOfAllCorps objectAtIndex:row - 1];
+            return corp[@"corpsName"];
+        }
     } else {
         return @"error";
     }
@@ -973,11 +980,11 @@ UIPickerView *corpPicker;
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (pickerView == yearPicker) {
-        return [self.corpExperience.arrayOfYears count];
+        return [self.corpExperience.arrayOfYears count] + 1;
     } else if (pickerView == positionPicker) {
-        return [self.corpExperience.arrayOfPositions count];
+        return [self.corpExperience.arrayOfPositions count] +1;
     } else if (pickerView == corpPicker) {
-        return [_data.arrayOfAllCorps count];
+        return [_data.arrayOfAllCorps count] +1;
     } else {
         return 1;
     }
@@ -990,13 +997,20 @@ UIPickerView *corpPicker;
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
 
     if (pickerView == yearPicker) {
-        self.corpExperience.txtYear.text = [self.corpExperience.arrayOfYears objectAtIndex:row];
+        if (row == 0) self.corpExperience.txtYear.text = @"";
+        else self.corpExperience.txtYear.text = [self.corpExperience.arrayOfYears objectAtIndex:row - 1];
     } else if (pickerView == positionPicker) {
-        self.corpExperience.txtPosition.text = [self.corpExperience.arrayOfPositions objectAtIndex:row];
+        if (row == 0) self.corpExperience.txtPosition.text = @"";
+        else self.corpExperience.txtPosition.text = [self.corpExperience.arrayOfPositions objectAtIndex:row - 1];
     } else if (pickerView == corpPicker) {
-        PFObject *corps = [_data.arrayOfAllCorps objectAtIndex:row];
-        self.corpExperience.selectedCorp = corps;
-        self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
+        if (row == 0) {
+            self.corpExperience.selectedCorp = nil;
+            self.corpExperience.txtCorpsName.text = @"";
+        } else {
+            PFObject *corps = [_data.arrayOfAllCorps objectAtIndex:row - 1];
+            self.corpExperience.selectedCorp = corps;
+            self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
+        }
     }
 }
 
