@@ -152,7 +152,7 @@
                 [self.tableYears reloadData];
                 
                 self.tableRepertoire.hidden = NO;
-                [self.tableRepertoire reloadData];
+                [self setUpRepertoire];
             }
             [KVNProgress dismiss];
         } else {
@@ -219,15 +219,61 @@
     return 1;
 }
 
+-(NSString *)getPlacement:(NSString *)placement {
+
+    NSRange stringRange = {0, MIN([placement length], 3)};
+    stringRange = [placement rangeOfComposedCharacterSequencesForRange:stringRange];
+    return [placement substringWithRange:stringRange];
+}
+
+int rows;
+NSMutableArray *arrayOfRows;
+-(void)setUpRepertoire {
+    
+    rows = 0;
+    arrayOfRows = nil;
+    arrayOfRows = [[NSMutableArray alloc] init];
+    
+    if (self.corps[@"champs"]) {
+        rows++;
+        [arrayOfRows addObject:@"champs"];
+    }
+    
+    if (self.currentYear[@"year"]) {
+        rows++;
+        [arrayOfRows addObject:@"year"];
+    }
+    
+    if ([self.currentYear[@"score"] length] || ([self.currentYear[@"placement"] length])) {
+        rows++;
+        [arrayOfRows addObject:@"score"];
+    }
+    
+    NSString *place = [self getPlacement:self.currentYear[@"placement"]];
+    
+         if ([place isEqualToString:@"1st"] || [place isEqualToString:@"2nd"] || [place isEqualToString:@"3rd"]) {
+        rows++;
+        [arrayOfRows addObject:@"medal"];
+    }
+    
+    if ([self.currentYear[@"showTitle"] length]) {
+        rows++;
+        [arrayOfRows addObject:@"title"];
+    }
+    
+    if ([self.currentYear[@"repertoire"] length]) {
+        rows++;
+        [arrayOfRows addObject:@"repertoire"];
+    }
+    
+    [self.tableRepertoire reloadData];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView == self.tableYears) return [self.arrayOfRepertoires count];
     else {
-        if (self.corps[@"champs"]) {
-            return 2;
-        } else {
-            return 1;
-        }
+        return rows;
     }
 }
 
@@ -281,19 +327,39 @@
 
 -(UITableViewCell *)tableRepertoirecellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        if (self.corps[@"champs"]) {
+    if (indexPath.row <= [arrayOfRows count]) {
+        NSString *str = [arrayOfRows objectAtIndex:indexPath.row];
+        if ([str isEqualToString:@"champs"]) {
+            
             return [self getChampsCell];
-        } else {
+            
+        } else if ([str isEqualToString:@"year"]) {
+            
+            return [self getYearCell];
+            
+        } else if ([str isEqualToString:@"score"]) {
+            
+           return [self getScoreCell];
+            
+        } else if ([str isEqualToString:@"medal"]) {
+            
+            return [self getMedalCell];
+            
+        } else if ([str isEqualToString:@"title"]) {
+            
+           return [self getTitleCell];
+            
+        } else if ([str isEqualToString:@"repertoire"]) {
+            
             return [self getRepertoireCell];
         }
-    } else {
-        return [self getRepertoireCell];
     }
+    
+    return nil;
 }
 
 -(UITableViewCell *)getChampsCell {
-
+    
     UITableViewCell *cell;
     cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"champs"];
     UILabel *lblNumberOfChamps = (UILabel *)[cell viewWithTag:1];
@@ -310,7 +376,87 @@
     
     cell.backgroundColor = [UIColor clearColor];
     return cell;
+}
 
+-(UITableViewCell *)getYearCell {
+    
+    UITableViewCell *cell;
+    cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"year"];
+    UILabel *lblYear = (UILabel *)[cell viewWithTag:1];
+    lblYear.text = [NSString stringWithFormat:@"%@", self.currentYear[@"year"]];
+    return cell;
+}
+
+-(UITableViewCell *)getScoreCell {
+    
+    UITableViewCell *cell;
+    cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"score"];
+    UILabel *lblScore = (UILabel *)[cell viewWithTag:2];
+    UILabel *lblClass = (UILabel *)[cell viewWithTag:3];
+    lblClass.text = self.currentYear[@"class"];
+    NSString *marker;
+    if ([self.currentYear[@"score"] length] && [self.currentYear[@"placement"] length]) {
+        marker = @" - ";
+    } else marker = @"";
+    
+    lblScore.text = [NSString stringWithFormat:@"%@%@%@", self.currentYear[@"placement"], marker, self.currentYear[@"score"]];
+    return cell;
+}
+
+-(UITableViewCell *)getMedalCell {
+    
+    UITableViewCell *cell;
+    cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"medal"];
+    UILabel *lblMedal = (UILabel *)[cell viewWithTag:6];
+    UIImageView *imgMedal = (UIImageView *)[cell viewWithTag:5];
+    
+    NSString *placement = [self getPlacement:self.currentYear[@"placement"]];
+    if ([placement isEqualToString:@"1st"]) {
+        
+        imgMedal.image = [UIImage imageNamed:@"medal_gold"];
+        lblMedal.text = @"GOLD";
+        
+    } else if ([placement isEqualToString:@"2nd"]) {
+        
+        imgMedal.image = [UIImage imageNamed:@"medal_silver"];
+        lblMedal.text = @"SILVER";
+        
+    } else if ([placement isEqualToString:@"3rd"]) {
+        
+        imgMedal.image = [UIImage imageNamed:@"medal_bronze"];
+        lblMedal.text = @"BRONZE";
+        
+    }
+
+    return cell;
+}
+
+-(UITableViewCell *)getTitleCell {
+    
+    UITableViewCell *cell;
+    cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"title"];
+    UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:3];
+    lblShowTitle.text = self.currentYear[@"showTitle"];
+    
+    if ([lblShowTitle.text isEqualToString:@"TILT"]) {
+        UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:16];
+        lblShowTitle.font = yourFont;
+        [self TILT:YES];
+    } else if ([lblShowTitle.text isEqualToString:@"12.25"]) {
+        [self.scene startCadetSnowing];
+    } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
+        [self.scene startSnowing];
+    } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
+        [self.scene startRaining];
+    } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
+        
+    } else {
+        lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
+        [self TILT:NO];
+        [self.scene stop];
+    }
+    
+    return cell;
 }
 
 -(UITableViewCell *)getRepertoireCell {
@@ -318,83 +464,12 @@
     UITableViewCell *cell;
     cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"repertoire"];
     
-    if (self.currentYear) {
-        
-        UILabel *lblYear = (UILabel *)[cell viewWithTag:1];
-        UILabel *lblScoreAndPlacement = (UILabel *)[cell viewWithTag:2];
-        UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:3];
-        UILabel *txtRepertoire = (UILabel *)[cell viewWithTag:4];
-        //medal
-        UIImageView *imgMedal = (UIImageView *)[cell viewWithTag:5];
-        UILabel *lblGold = (UILabel *)[cell viewWithTag:6];
-        UILabel *lblMedal = (UILabel *)[cell viewWithTag:7];
-        
-        lblYear.text = [NSString stringWithFormat:@"%@", self.currentYear[@"year"]];
-        
-        if ([self.currentYear[@"placement"] length]) {
-            lblScoreAndPlacement.hidden = NO;
-            lblScoreAndPlacement.text = [NSString stringWithFormat:@"%@ - %@", self.currentYear[@"placement"], self.currentYear[@"score"]];
-            
-            //medals
-            if ([self.currentYear[@"placement"] isEqualToString:@"1st"]) {
-                imgMedal.hidden = NO;
-                lblGold.hidden = NO;
-                lblMedal.hidden = NO;
-                lblGold.text = @"GOLD";
-                imgMedal.image = [UIImage imageNamed:@"medal_gold"];
-            } else if ([self.currentYear[@"placement"] isEqualToString:@"2nd"]) {
-                imgMedal.hidden = NO;
-                lblGold.hidden = NO;
-                lblMedal.hidden = NO;
-                lblGold.text = @"SILVER";
-                imgMedal.image = [UIImage imageNamed:@"medal_silver"];
-            } else if ([self.currentYear[@"placement"] isEqualToString:@"3rd"]) {
-                imgMedal.hidden = NO;
-                lblGold.hidden = NO;
-                lblMedal.hidden = NO;
-                lblGold.text = @"BRONZE";
-                imgMedal.image = [UIImage imageNamed:@"medal_bronze"];
-            } else {
-                imgMedal.hidden = YES;
-                lblGold.hidden = YES;
-                lblMedal.hidden = YES;
-            }
-            
-        } else {
-            lblScoreAndPlacement.hidden = YES;
-            lblGold.hidden = YES;
-            lblMedal.hidden = YES;
-            imgMedal.hidden = YES;
-        }
-        
-        lblShowTitle.text = self.currentYear[@"showTitle"];
-        if ([lblShowTitle.text isEqualToString:@"TILT"]) {
-            UIFont *yourFont = [UIFont fontWithName:@"Helvetica-BoldOblique" size:16];
-            lblShowTitle.font = yourFont;
-            [self TILT:YES];
-        } else if ([lblShowTitle.text isEqualToString:@"12.25"]) {
-            [self.scene startCadetSnowing];
-        } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
-            [self.scene startSnowing];
-        } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
-            [self.scene startRaining];
-        } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
-            
-        } else {
-            lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
-            [self TILT:NO];
-            [self.scene stop];
-        }
-        
-        
-        
-        txtRepertoire.text = self.currentYear[@"repertoire"];
-        txtRepertoire.textColor = [UIColor lightGrayColor];
-        [txtRepertoire sizeToFit];
-        
-    }
+    UILabel *txtRepertoire = (UILabel *)[cell viewWithTag:4];
     
-    cell.backgroundColor = [UIColor clearColor];
+    txtRepertoire.text = self.currentYear[@"repertoire"];
+    txtRepertoire.textColor = [UIColor lightGrayColor];
+    [txtRepertoire sizeToFit];
+    
     return cell;
 }
 
@@ -440,7 +515,7 @@ int selectedCell = 0;
         
         selectedCell = (int)indexPath.row;
         self.currentYear = [self.arrayOfRepertoires objectAtIndex:indexPath.row];
-        [self.tableRepertoire reloadData];
+        [self setUpRepertoire];
     }
 }
 
