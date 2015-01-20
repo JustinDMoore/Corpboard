@@ -11,7 +11,7 @@
 #import "CBJudgeViewController.h"
 #import "CBSingle.h"
 #import "KVNProgress.h"
-
+#import "NSDate+Utilities.h"
 #import <ParseUI/ParseUI.h>
 
 CBSingle *data;
@@ -140,7 +140,12 @@ int votedFavorites;
     if ((votedScore > 0) || (votedFavorites > 0)) {
         self.btnJudge.enabled = NO;
     } else {
-        self.btnJudge.enabled = YES;
+        NSDate *showD = self.show[@"showDate"];
+        if ([showD isInFuture]) {
+            self.btnJudge.enabled = NO;
+        } else {
+            self.btnJudge.enabled = YES;
+        }
     }
     
     NSString *recap = self.show[@"recapURL"];
