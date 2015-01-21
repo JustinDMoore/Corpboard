@@ -186,8 +186,15 @@
 
 - (IBAction)openLink:(UIButton*)sender {
     
-    //NSString *url = [NSString stringWithFormat:@"http://%@", sender.titleLabel.text];
-    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = self.corps[@"website"];
+    web.websiteTitle = [NSString stringWithFormat:@"%@ Recap", self.corps[@"corpsName"]];
+    web.websiteSubTitle = self.corps[@"website_Display"];
+    
+    [self presentViewController:web animated:YES completion:nil];
 }
 
 #pragma mark - Table View
@@ -521,14 +528,7 @@ int selectedCell = 0;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:@"web"]) {
-        
-        CBWebViewController *vc = [segue destinationViewController];
-        vc.webURL = self.corps[@"website"];
-        vc.websiteTitle = self.corps[@"corpsName"];
-        vc.websiteSubTitle = self.corps[@"website_Display"];
-        
-    } else if ([[segue identifier] isEqualToString:@"about"]) {
+    if ([[segue identifier] isEqualToString:@"about"]) {
         
         CBAboutCorpsViewController *vc = [segue destinationViewController];
         vc.about = self.corps[@"about"];

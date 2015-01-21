@@ -15,7 +15,6 @@
 #import <ParseUI/ParseUI.h>
 
 CBSingle *data;
-
 int votedScore;
 int votedFavorites;
 
@@ -28,17 +27,17 @@ int votedFavorites;
 @property (weak, nonatomic) IBOutlet UILabel *lblShowName;
 @property (weak, nonatomic) IBOutlet UILabel *lblShowLocation;
 @property (weak, nonatomic) IBOutlet UIButton *btnViewRecap;
-
 @property (strong, nonatomic) IBOutlet UITableView *corpsTable;
-
-@property (weak, nonatomic) IBOutlet UIButton *btnAddRecap;
-@property (weak, nonatomic) IBOutlet UITextField *txtRecapURL;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnReviewShow;
-@property (weak, nonatomic) IBOutlet UILabel *lblReviewShow;
+@property (weak, nonatomic) IBOutlet UILabel *lblEndShow;
+@property (weak, nonatomic) IBOutlet UIButton *btnEndShow;
+@property (weak, nonatomic) IBOutlet UIButton *btnRecapLink;
+@property (weak, nonatomic) IBOutlet UILabel *lblRecapLink;
 
-- (IBAction)btnReviewShow_Clicked:(id)sender;
-- (IBAction)submitRecapURL:(id)sender;
+- (IBAction)btnViewRecap_tapped:(id)sender;
+- (IBAction)btnReviewShow_tapped:(id)sender;
+- (IBAction)btnEndShow_tapped:(id)sender;
+- (IBAction)btnRecapLink_tapped:(id)sender;
 
 @end
 
@@ -106,16 +105,19 @@ int votedFavorites;
 -(void)initUI {
     
     if (data.adminMode) {
-        self.btnAddRecap.hidden = NO;
-        self.txtRecapURL.hidden = NO;
+        self.btnEndShow.hidden = NO;
+        self.lblEndShow.hidden = NO;
+        self.btnRecapLink.hidden = NO;
+        self.lblRecapLink.hidden = NO;
     } else {
-        self.btnAddRecap.hidden = YES;
-        self.txtRecapURL.hidden = YES;
+        self.btnEndShow.hidden = YES;
+        self.lblEndShow.hidden = YES;
+        self.btnRecapLink.hidden = YES;
+        self.lblRecapLink.hidden = YES;
     }
     
     self.btnViewRecap.enabled = NO;
     self.corpsTable.hidden = YES;
-
     self.btnReviewShow.enabled = NO;
     
 }
@@ -361,19 +363,33 @@ int votedFavorites;
     return _arrayOfOpenClassScores;
 }
 
-- (IBAction)btnReviewShow_Clicked:(id)sender {
+- (IBAction)btnEndShow_tapped:(id)sender {
+}
+
+- (IBAction)btnRecapLink_tapped:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Recap Link" message:@"Tap to paste the full web link for show recap." delegate:self
+                                          cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        if ([textField.text length]) {
+            self.show[@"recapURL"] = textField.text;
+            [self.show saveInBackground];
+        }
+    }
+}
+
+-(IBAction)btnReviewShow_tapped:(id)sender {
     
     [self performSegueWithIdentifier:@"judge" sender:self];
     
-}
-
-- (IBAction)submitRecapURL:(id)sender {
-    
-    if (![self.txtRecapURL.text isEqualToString:@""]) {
-        self.show[@"recapURL"] = self.txtRecapURL.text;
-        [self.show saveInBackground];
-        self.txtRecapURL.text = @"Success";
-    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -388,12 +404,19 @@ int votedFavorites;
         vc.show = self.show;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
-    } else if ([[segue identifier] isEqualToString:@"web"]) {
-        CBWebViewController *vc = [segue destinationViewController];
-        vc.webURL = self.show[@"recapURL"];
-        vc.websiteTitle = [NSString stringWithFormat:@"%@ Recap", self.show[@"showName"]];
-        vc.websiteSubTitle = vc.webURL;
-    } 
+    }
 }
 
+- (IBAction)btnViewRecap_tapped:(id)sender {
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = self.show[@"recapURL"];
+    web.websiteTitle = [NSString stringWithFormat:@"%@ Recap", self.show[@"showName"]];
+    web.websiteSubTitle = web.webURL;
+    
+    [self presentViewController:web animated:YES completion:nil];
+}
 @end

@@ -436,7 +436,7 @@
         <!--Web View Controller-->
         <scene sceneID="rBt-zg-ex9">
             <objects>
-                <viewController id="RrN-fi-akD" customClass="CBWebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="web" id="RrN-fi-akD" customClass="CBWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dj7-yw-8w4"/>
                         <viewControllerLayoutGuide type="bottom" id="oOR-A5-Dg7"/>
@@ -2723,21 +2723,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvo-lX-gFH">
                                 <rect key="frame" x="0.0" y="52" width="600" height="140"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NOD-TX-q8i">
-                                        <rect key="frame" x="308" y="16" width="98" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uod-Rx-F3Z">
-                                        <rect key="frame" x="270" y="16" width="30" height="30"/>
-                                        <state key="normal" title="URL">
-                                            <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="submitRecapURL:" destination="kuq-xU-myI" eventType="touchUpInside" id="i0b-qa-hmn"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="June 18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-Ra-9uz">
                                         <rect key="frame" x="18" y="0.0" width="175" height="21"/>
                                         <constraints>
@@ -2765,6 +2750,9 @@
                                         <state key="normal" image="recap">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnViewRecap_tapped:" destination="kuq-xU-myI" eventType="touchUpInside" id="etM-gc-WKB"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQl-pY-U32">
                                         <rect key="frame" x="110" y="80" width="40" height="40"/>
@@ -2772,7 +2760,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnReviewShow_Clicked:" destination="kuq-xU-myI" eventType="touchUpInside" id="RdM-BL-QeY"/>
+                                            <action selector="btnReviewShow_tapped:" destination="kuq-xU-myI" eventType="touchUpInside" id="UCN-aN-slz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View Recap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrl-wW-7Uy">
@@ -2789,12 +2777,30 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFt-bX-8Wr">
                                         <rect key="frame" x="202" y="80" width="40" height="40"/>
-                                        <state key="normal" image="recap">
+                                        <state key="normal" image="showDone">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnEndShow_tapped:" destination="kuq-xU-myI" eventType="touchUpInside" id="jhW-XI-qKY"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xco-Ev-dSl">
                                         <rect key="frame" x="189" y="119" width="66" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVj-sW-yPl">
+                                        <rect key="frame" x="306" y="80" width="40" height="40"/>
+                                        <state key="normal" image="recapURL">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnRecapLink_tapped:" destination="kuq-xU-myI" eventType="touchUpInside" id="cyT-Pj-hw4"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recap Link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNO-GH-p6T">
+                                        <rect key="frame" x="283" y="119" width="86" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2957,15 +2963,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="aVU-ey-u11"/>
                     <connections>
-                        <outlet property="btnAddRecap" destination="uod-Rx-F3Z" id="DIu-5f-Xwm"/>
+                        <outlet property="btnEndShow" destination="qFt-bX-8Wr" id="mNr-5y-dLZ"/>
+                        <outlet property="btnRecapLink" destination="yVj-sW-yPl" id="jnY-M8-R8a"/>
                         <outlet property="btnReviewShow" destination="tQl-pY-U32" id="cC3-zh-HgW"/>
                         <outlet property="btnViewRecap" destination="Jn8-kO-VA1" id="bUc-nB-EFN"/>
                         <outlet property="corpsTable" destination="ruf-xh-MgI" id="aqd-NR-6ty"/>
-                        <outlet property="lblReviewShow" destination="Lsa-Jb-OaR" id="Ijg-IA-3C6"/>
+                        <outlet property="lblEndShow" destination="xco-Ev-dSl" id="gn3-LP-wPc"/>
+                        <outlet property="lblRecapLink" destination="UNO-GH-p6T" id="XZb-i4-yHk"/>
                         <outlet property="lblShowDate" destination="5CJ-Ra-9uz" id="AQg-QS-iKT"/>
                         <outlet property="lblShowLocation" destination="2mZ-DY-Lao" id="laz-TT-A3c"/>
                         <outlet property="lblShowName" destination="qjb-f2-Csq" id="cxb-sf-6YZ"/>
-                        <outlet property="txtRecapURL" destination="NOD-TX-q8i" id="Fv3-pA-9a2"/>
                         <segue destination="cmp-61-Ykg" kind="presentation" identifier="judge" id="knG-bh-Dgc"/>
                     </connections>
                 </viewController>
@@ -3314,10 +3321,12 @@
         <image name="loudest_tab" width="48" height="48"/>
         <image name="medal_gold" width="48" height="48"/>
         <image name="recap" width="48" height="48"/>
+        <image name="recapURL" width="48" height="48"/>
         <image name="retreat.png" width="640" height="298"/>
         <image name="review" width="48" height="48"/>
         <image name="score_tab" width="48" height="48"/>
         <image name="screenshot" width="183" height="275"/>
+        <image name="showDone" width="48" height="48"/>
         <image name="star" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>

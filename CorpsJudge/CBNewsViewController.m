@@ -129,18 +129,18 @@ MWFeedItem *itemForWeb;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     itemForWeb = [news.itemsToDisplay objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"news" sender:self];
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = itemForWeb.link;
+    web.websiteTitle = @"Drum Corps International";
+    web.websiteSubTitle = itemForWeb.title;
+    
+    [self presentViewController:web animated:YES completion:nil];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"news"]) {
-        CBWebViewController *vc = [segue destinationViewController];
-        vc.webURL = itemForWeb.link;
-        vc.websiteTitle = @"Drum Corps International";
-        vc.websiteSubTitle = itemForWeb.title;
-    }
-}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 
 
-@interface CBShowDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CBShowDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) PFObject *show;
 
