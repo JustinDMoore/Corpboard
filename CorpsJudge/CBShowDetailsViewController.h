@@ -13,6 +13,5 @@
 @interface CBShowDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) PFObject *show;
-@property (weak, nonatomic) IBOutlet UIButton *btnJudge;
 
 @end

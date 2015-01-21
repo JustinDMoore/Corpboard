@@ -2761,40 +2761,40 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn8-kO-VA1">
-                                        <rect key="frame" x="105" y="80" width="40" height="40"/>
+                                        <rect key="frame" x="21" y="80" width="40" height="40"/>
                                         <state key="normal" image="recap">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQl-pY-U32">
-                                        <rect key="frame" x="22" y="80" width="40" height="40"/>
-                                        <state key="normal" image="vote">
+                                        <rect key="frame" x="110" y="80" width="40" height="40"/>
+                                        <state key="normal" image="review">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnJudge_Clicked:" destination="kuq-xU-myI" eventType="touchUpInside" id="nAT-nW-Zki"/>
+                                            <action selector="btnReviewShow_Clicked:" destination="kuq-xU-myI" eventType="touchUpInside" id="RdM-BL-QeY"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View Recap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrl-wW-7Uy">
-                                        <rect key="frame" x="92" y="119" width="66" height="21"/>
+                                        <rect key="frame" x="8" y="119" width="66" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Review Show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lsa-Jb-OaR">
-                                        <rect key="frame" x="0.0" y="119" width="84" height="21"/>
+                                        <rect key="frame" x="88" y="119" width="84" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFt-bX-8Wr">
-                                        <rect key="frame" x="185" y="80" width="40" height="40"/>
+                                        <rect key="frame" x="202" y="80" width="40" height="40"/>
                                         <state key="normal" image="recap">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xco-Ev-dSl">
-                                        <rect key="frame" x="172" y="119" width="66" height="21"/>
+                                        <rect key="frame" x="189" y="119" width="66" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2958,9 +2958,10 @@
                     <navigationItem key="navigationItem" title="Details" id="aVU-ey-u11"/>
                     <connections>
                         <outlet property="btnAddRecap" destination="uod-Rx-F3Z" id="DIu-5f-Xwm"/>
-                        <outlet property="btnJudge" destination="tQl-pY-U32" id="uWY-Dw-UKZ"/>
+                        <outlet property="btnReviewShow" destination="tQl-pY-U32" id="cC3-zh-HgW"/>
                         <outlet property="btnViewRecap" destination="Jn8-kO-VA1" id="bUc-nB-EFN"/>
                         <outlet property="corpsTable" destination="ruf-xh-MgI" id="aqd-NR-6ty"/>
+                        <outlet property="lblReviewShow" destination="Lsa-Jb-OaR" id="Ijg-IA-3C6"/>
                         <outlet property="lblShowDate" destination="5CJ-Ra-9uz" id="AQg-QS-iKT"/>
                         <outlet property="lblShowLocation" destination="2mZ-DY-Lao" id="laz-TT-A3c"/>
                         <outlet property="lblShowName" destination="qjb-f2-Csq" id="cxb-sf-6YZ"/>
@@ -3314,10 +3315,10 @@
         <image name="medal_gold" width="48" height="48"/>
         <image name="recap" width="48" height="48"/>
         <image name="retreat.png" width="640" height="298"/>
+        <image name="review" width="48" height="48"/>
         <image name="score_tab" width="48" height="48"/>
         <image name="screenshot" width="183" height="275"/>
         <image name="star" width="256" height="256"/>
-        <image name="vote" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yBL-Wb-Ve6"/>

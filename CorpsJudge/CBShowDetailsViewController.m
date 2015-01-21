@@ -31,13 +31,13 @@ int votedFavorites;
 
 @property (strong, nonatomic) IBOutlet UITableView *corpsTable;
 
-@property (weak, nonatomic) IBOutlet UILabel *lblLoading;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityInicator;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnAddRecap;
 @property (weak, nonatomic) IBOutlet UITextField *txtRecapURL;
 
-- (IBAction)btnJudge_Clicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnReviewShow;
+@property (weak, nonatomic) IBOutlet UILabel *lblReviewShow;
+
+- (IBAction)btnReviewShow_Clicked:(id)sender;
 - (IBAction)submitRecapURL:(id)sender;
 
 @end
@@ -105,8 +105,6 @@ int votedFavorites;
 
 -(void)initUI {
     
-    [self.activityInicator startAnimating];
-    
     if (data.adminMode) {
         self.btnAddRecap.hidden = NO;
         self.txtRecapURL.hidden = NO;
@@ -117,9 +115,8 @@ int votedFavorites;
     
     self.btnViewRecap.enabled = NO;
     self.corpsTable.hidden = YES;
-    self.activityInicator.hidden = NO;
-    self.lblLoading.hidden = NO;
-    self.btnJudge.enabled = NO;
+
+    self.btnReviewShow.enabled = NO;
     
 }
 
@@ -138,13 +135,14 @@ int votedFavorites;
 -(void)checkVote {
     
     if ((votedScore > 0) || (votedFavorites > 0)) {
-        self.btnJudge.enabled = NO;
+        self.btnReviewShow.enabled = NO;
+
     } else {
         NSDate *showD = self.show[@"showDate"];
         if ([showD isInFuture]) {
-            self.btnJudge.enabled = NO;
+            self.btnReviewShow.enabled = NO;
         } else {
-            self.btnJudge.enabled = YES;
+            self.btnReviewShow.enabled = YES;
         }
     }
     
@@ -174,15 +172,12 @@ int votedFavorites;
 
 -(void)voted {
     
-    self.btnJudge.enabled = NO;
+    self.btnReviewShow.enabled = NO;
 }
 
 -(void)showUIAfterLoad {
     
     [self.corpsTable reloadData];
-    [self.activityInicator stopAnimating];
-    self.activityInicator.hidden = YES;
-    self.lblLoading.hidden = YES;
     self.corpsTable.hidden = NO;
     [KVNProgress dismiss];
 }
@@ -366,7 +361,7 @@ int votedFavorites;
     return _arrayOfOpenClassScores;
 }
 
-- (IBAction)btnJudge_Clicked:(id)sender {
+- (IBAction)btnReviewShow_Clicked:(id)sender {
     
     [self performSegueWithIdentifier:@"judge" sender:self];
     
