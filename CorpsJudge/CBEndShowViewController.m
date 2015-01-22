@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblShowLocationAndDate;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowRainedOut;
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
+@property (nonatomic, assign) id currentResponder;
 
 - (IBAction)btnCancel_tapped:(id)sender;
 - (IBAction)btnShowRainedOut_tapped:(id)sender;
@@ -26,6 +27,8 @@
     
     self.tableCorps.estimatedRowHeight = 95;
     self.tableCorps.rowHeight = UITableViewAutomaticDimension;
+    self.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.lblShowName.text = self.show[@"showName"];
     
@@ -35,6 +38,22 @@
     NSString *dateString = [format stringFromDate:self.show[@"showDate"]];
     
     self.lblShowLocationAndDate.text = [NSString stringWithFormat:@"%@ - %@", self.show[@"showLocation"], dateString];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTouchesRequired:1];
+    [singleTap setCancelsTouchesInView:NO];
+    [self.view addGestureRecognizer:singleTap];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,8 +70,160 @@
 }
 
 #pragma mark
+#pragma mark - Keyboard Notifications
+#pragma mark
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    NSNumber *rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    
+    UIEdgeInsets contentInsets;
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
+    } else {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
+    }
+    
+    [UIView animateWithDuration:rate.floatValue animations:^{
+        self.tableCorps.contentInset = contentInsets;
+        self.tableCorps.scrollIndicatorInsets = contentInsets;
+    }];
+    
+    UITextField *txt = (UITextField*)self.currentResponder;
+    CGPoint location = [txt.superview convertPoint:txt.center toView:self.tableCorps];
+    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
+    
+    
+    [self.tableCorps scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    self.tableCorps.contentInset = UIEdgeInsetsZero;
+    self.tableCorps.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+#pragma mark
+#pragma mark - UITextField Delegates
+#pragma mark
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.currentResponder = textField;
+}
+
+int previouslen;
+bool backspaced;
+
+-(void)textFieldDidChange:(UITextField *)theTextField {
+    
+    if (theTextField.text.length < previouslen) {
+        backspaced = YES;
+    }
+    
+    if([theTextField.text hasSuffix:@"."]) {
+        if (theTextField.text.length == 2) {
+            
+            NSRange ran = NSMakeRange(0, 1);
+            NSString *txt = [theTextField.text substringWithRange:ran];
+            theTextField.text = txt;
+            return;
+        }
+    }
+    
+    if (theTextField.text.length == 3) {
+        NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+        NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+        if (range.location == NSNotFound) {
+            NSRange range = NSMakeRange(0, 2);
+            NSRange range2 = NSMakeRange(1, 1);
+            NSString *one = [theTextField.text substringWithRange:range];
+            NSString *two = [theTextField.text substringWithRange:range2];
+            theTextField.text = [NSString stringWithFormat:@"%@.%@", one, two];
+        }
+    }
+    
+    if (theTextField.text) {
+        NSString *regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,2}$";
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+        if (![pred evaluateWithObject:theTextField.text])
+        { // Error, input not matching! Remove last added character.
+            int len = (int)theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
+            theTextField.text = [theTextField.text substringWithRange:NSMakeRange(0, len)];
+            // Now checks if the new length, i.e. the length when the last digit has been deleted is 3, which means that the decimal dot is the last character. If so remove 2 instead of only 1 character!
+        }
+        else
+        { // OKay here, do whatever
+            if (!backspaced) {
+                if(theTextField.text.length == 2) // Add decimal dot if two digits have been entered!
+                {
+                    NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+                    NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+                    if (range.location == NSNotFound) {
+                        theTextField.text = [NSString stringWithFormat:@"%@.", theTextField.text];
+                    }
+                }
+            }
+        }
+    }
+    
+    previouslen = (int)theTextField.text.length;
+    backspaced = NO;
+}
+
+- (void)resignOnTap:(id)iSender {
+    [self.currentResponder resignFirstResponder];
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    CGPoint location = [textField.superview convertPoint:textField.center toView:self.tableCorps];
+    
+    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
+    
+    if (textField.text.length == 1) textField.text = @"";
+    if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
+    if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
+    if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
+    
+    PFObject *score;
+    
+    if (indexPath.section == 0) {
+        score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
+    
+    } else if (indexPath.section == 1) {
+        score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+    }
+    
+    switch (textField.tag) {
+        case 4: // guard
+            score[@"colorguardScore"] = textField.text;
+            break;
+        case 5: // brass
+            score[@"hornlineScore"] = textField.text;
+            break;
+        case 6: // percussion
+            score[@"percussionScore"] = textField.text;
+            break;
+        case 7: // total
+            score[@"score"] = textField.text;
+            break;
+    }
+}
+
+#pragma mark
 #pragma mark - UITableView Delegates
 #pragma mark
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 95;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 95;
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -98,6 +269,32 @@ BOOL finished = NO;
     UITextField *txtPercussion = (UITextField *)[cell viewWithTag:6];
     UITextField *txtOverall = (UITextField *)[cell viewWithTag:7];
 
+    [cell setUserInteractionEnabled:YES];
+    
+    txtColorguard.delegate = self;
+    [txtColorguard setUserInteractionEnabled:YES];
+    [txtColorguard addTarget:self
+             action:@selector(textFieldDidChange:)
+   forControlEvents:UIControlEventEditingChanged];
+    
+    txtBrass.delegate = self;
+    [txtBrass setUserInteractionEnabled:YES];
+    [txtBrass addTarget:self
+                      action:@selector(textFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
+
+    txtPercussion.delegate = self;
+    [txtPercussion setUserInteractionEnabled:YES];
+    [txtPercussion addTarget:self
+                      action:@selector(textFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
+    
+    txtOverall.delegate = self;
+    [txtOverall setUserInteractionEnabled:YES];
+    [txtOverall addTarget:self
+                      action:@selector(textFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
+    
     PFObject *corps;
     PFObject *score;
     

@@ -147,9 +147,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     
     [self initVariables];
     [self initUI];
-    
-    //[self checkShows];
-    //[self startTimerForShows];
+
     [self startTimerForCorps];
     [self startTimerForHeadshots];
     [self startTimerForNews];
@@ -418,15 +416,6 @@ int newsContentWidth = 0;
                                                         selector:@selector(checkNews)
                                                         userInfo:nil
                                                          repeats:YES];
-}
-
--(void)startTimerForShows {
-    
-    timerCheckForShows = [NSTimer scheduledTimerWithTimeInterval:.5
-                                             target:self
-                                           selector:@selector(checkShows)
-                                           userInfo:nil
-                                            repeats:YES];
 }
 
 int counter = 0;

@@ -50,8 +50,6 @@ typedef enum : int {
 
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
 @property (nonatomic, strong) UITextView *currentTextView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
-
 @property (nonatomic, assign) id currentResponder;
 @property (weak, nonatomic) IBOutlet UILabel *lblInstructions;
 @property (nonatomic, assign) phase scorePhase;
@@ -174,7 +172,6 @@ typedef enum : int {
     self.scorePhase = phaseScore;
     self.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.activity.hidden = YES;
     //self.activity.hidden = NO;
     //self.tableCorps.hidden = YES;
     //[self.activity startAnimating];
@@ -373,9 +370,9 @@ bool backspaced;
     }
 }
 
--(void)submitFavorite:(category)cat forWorldClass:(BOOL)isWorld forCorps:(NSInteger)intClass {
+-(void)submitFavorite:(category)cat forWorldClass:(BOOL)isWorld forCorps:(PFObject *)corp {
     
-    if (intClass > -1) {
+    if (corp) {
         NSMutableArray *classArray;
         if (isWorld) {
             classArray = self.arrayOfWorldClassScores;
@@ -388,10 +385,10 @@ bool backspaced;
         favorite[@"show"] = self.show;
         favorite[@"showName"] = self.show[@"showName"];
         favorite[@"user"] = [PFUser currentUser];
-        PFObject *score = [classArray objectAtIndex:intClass];
-        PFObject *corps = score[@"corps"];
-        favorite[@"corpsName"] = corps[@"corpsName"];
-        favorite[@"corps"] = corps;
+        //PFObject *score = [classArray objectAtIndex:intClass];
+        //PFObject *corps = score[@"corps"];
+        favorite[@"corpsName"] = corp[@"corpsName"];
+        favorite[@"corps"] = corp;
         favorite[@"isWorldClass"] = [NSNumber numberWithBool:isWorld];
         [favorite saveInBackground];
     }
@@ -400,7 +397,10 @@ bool backspaced;
 -(void)submitUserFavorites {
 
     
-    [self submitFavorite:catdrums forWorldClass:YES forCorps:favDrumsW];
+    [self submitFavorite:catdrums
+           forWorldClass:YES
+                forCorps:favDrumsW];
+    
     [self submitFavorite:cathornline forWorldClass:YES forCorps:favHornlineW];
     [self submitFavorite:catguard forWorldClass:YES forCorps:favGuardW];
     [self submitFavorite:catcorps forWorldClass:YES forCorps:favCorpsW];

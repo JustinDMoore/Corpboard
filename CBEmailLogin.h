@@ -27,6 +27,5 @@
 
 -(void)setIsNewUser:(BOOL)isNewUser;
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent withEmail:(NSString *)email;
 
 @end

@@ -74,7 +74,7 @@
         } else {
             [self.viewProgress errorProgress:[ParseErrors getErrorStringForCode:error.code]];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            //[alert show];
+            [alert show];
         }
     }];
 }

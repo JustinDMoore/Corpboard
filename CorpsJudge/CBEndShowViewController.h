@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface CBEndShowViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CBEndShowViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) PFObject *show;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClassScores;

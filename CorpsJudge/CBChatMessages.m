@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view addSubview:self.messageView];
+    [self.view addSubview:self.messageView.view];
 }
 
 - (void)didReceiveMemoryWarning {
