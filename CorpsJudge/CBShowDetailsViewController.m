@@ -13,6 +13,7 @@
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
 #import <ParseUI/ParseUI.h>
+#import "CBEndShowViewController.h"
 
 CBSingle *data;
 int votedScore;
@@ -364,6 +365,8 @@ int votedFavorites;
 }
 
 - (IBAction)btnEndShow_tapped:(id)sender {
+    
+    [self performSegueWithIdentifier:@"endShow" sender:self];
 }
 
 - (IBAction)btnRecapLink_tapped:(id)sender {
@@ -404,6 +407,13 @@ int votedFavorites;
         vc.show = self.show;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
+    } else if ([segue.identifier isEqualToString:@"endShow"]) {
+        
+        CBEndShowViewController *vc = [segue destinationViewController];
+        vc.show = self.show;
+        vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
+        vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
+        
     }
 }
 

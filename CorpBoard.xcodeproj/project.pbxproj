@@ -152,6 +152,7 @@
 		92E810881968E4CA0078B65D /* The Cadets2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810871968E4CA0078B65D /* The Cadets2.png */; };
 		92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */; };
 		92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */; };
+		92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */; };
 		980282A5D83A53EA1EB1CC9C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F30FB95542FD29A3C0C28E38 /* libPods.a */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
@@ -507,6 +508,8 @@
 		92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard1.png"; sourceTree = "<group>"; };
 		92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard2.png"; sourceTree = "<group>"; };
 		92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
+		92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEndShowViewController.h; sourceTree = "<group>"; };
+		92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEndShowViewController.m; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
@@ -1188,6 +1191,7 @@
 				D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */,
 				925334C0194FD7BC0004D16F /* CBShowsViewController.m */,
 				D0307DB619537792000849F1 /* CBShowDetailsViewController.m */,
+				92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */,
 				92120A8F195945B600FFB9A8 /* CBStatsViewController.m */,
 				D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */,
 				D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */,
@@ -1251,6 +1255,7 @@
 				D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */,
 				925334BF194FD7BC0004D16F /* CBShowsViewController.h */,
 				D0307DB519537792000849F1 /* CBShowDetailsViewController.h */,
+				92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */,
 				92120A8E195945B600FFB9A8 /* CBStatsViewController.h */,
 				D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */,
 				D0DE78D6195E05A9001BDB36 /* CBContactViewController.h */,
@@ -1650,6 +1655,7 @@
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				923D4FCA1A2C6DCF00E16B64 /* MessagesView.m in Sources */,
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
+				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D50161A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.m in Sources */,
