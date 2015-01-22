@@ -132,7 +132,9 @@ BOOL updatedShows;
     
     if ((updatedCorps) && (updatedShows)) {
         self.dataLoaded = YES;
-        [delegate dataDidLoad];
+        if ([delegate respondsToSelector:@selector(dataDidLoad)]) {
+            [delegate dataDidLoad];
+        }
     }
 }
 

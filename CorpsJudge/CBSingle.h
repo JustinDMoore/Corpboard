@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 
 @protocol dataProtocol <NSObject>
+@optional
 -(void)dataDidBeginLoading;
 -(void)dataDidLoad;
 -(void)dataFailed;

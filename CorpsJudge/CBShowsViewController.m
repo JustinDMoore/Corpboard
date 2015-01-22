@@ -10,11 +10,9 @@
 #import <Parse/Parse.h>
 #import "CBShowDetailsViewController.h"
 #import "NSDate+Utilities.h"
-#import "CBSingle.h"
 #import "KVNProgress.h"
 
 CBSingle *data;
-NSTimer *timer;
 CBAppDelegate *del;
 BOOL firstLoad = YES;
 BOOL refreshing = NO;
@@ -25,8 +23,6 @@ BOOL refreshing = NO;
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 @property (nonatomic, strong) PFObject *currentSelectedShow; //only updated when the user selects a show
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UILabel *lblActivity;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @end
 
 @implementation CBShowsViewController
@@ -77,7 +73,7 @@ BOOL refreshing = NO;
     [KVNProgress show];
     [self initVariables];
     [self initUI];
-    [self startTimer];
+    [self checkForShows];
 }
 
 -(void)initVariables {
@@ -98,12 +94,9 @@ BOOL refreshing = NO;
 -(void)checkForShows {
     
     if (data.dataLoaded) {
-        [timer invalidate];
         
         if ([data.arrayOfAllShows count]) {
-            
-            self.lblActivity.hidden = YES;
-            [self.activity stopAnimating];
+
             self.tableShows.hidden = NO;
             self.tableShows.userInteractionEnabled = YES;
             [self.refreshControl endRefreshing];
@@ -112,13 +105,10 @@ BOOL refreshing = NO;
                 [self scrollToDate];
                 firstLoad = NO;
             }
-        } else {
-            
-            self.lblActivity.text = @"Could not connect to server";
-            [self.activity stopAnimating];
-            self.activity.hidden = YES;
         }
         [KVNProgress dismiss];
+    } else {
+        NSLog(@"Not loaded");
     }
 }
 
@@ -128,8 +118,6 @@ BOOL refreshing = NO;
     self.dateIndex = nil;
     self.datesArray = nil;
     [data refreshCorpsAndShows];
-#warning Remove the following timer. Use delegates instead
-    [self startTimer];
 }
 
 -(void)displayShows {
@@ -146,15 +134,6 @@ BOOL refreshing = NO;
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:x];
         [self.tableShows scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
-}
-
--(void)startTimer {
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:.5
-                                             target:self
-                                           selector:@selector(checkForShows)
-                                           userInfo:nil
-                                            repeats:YES];
 }
 
 -(void)reloadTable {
@@ -315,6 +294,11 @@ BOOL refreshing = NO;
         //vc.didUserVote = [data didUserVoteForShow:self.currentSelectedShow];
         vc.show = self.currentSelectedShow;
     }
+}
+
+-(void)dataDidLoad {
+    
+    [self checkForShows];
 }
 
 #pragma mark - Properties
