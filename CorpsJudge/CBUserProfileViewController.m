@@ -52,21 +52,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblUserNickname;
 @property (weak, nonatomic) IBOutlet UILabel *lblUserLocation;
 @property (weak, nonatomic) IBOutlet UILabel *lblViews;
-
 @property (weak, nonatomic) IBOutlet UIView *viewControls;
 @property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblMyBadges;
 @property (strong, nonatomic) UILabel *lblCorpExperience;
 @property (strong, nonatomic) UILabel *lblUserBackground;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet UIButton *btnChat;
+
 - (IBAction)btnChat_clicked:(id)sender;
 - (IBAction)btnReport_clicked:(id)sender;
-
-
-
 
 @end
 
@@ -248,13 +243,23 @@
     
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
+    
         PFFile *imgFile = self.userProfile[@"picture"];
         [self.imgUser setFile:imgFile];
         [self.imgUser loadInBackground];
         
-        PFFile *coverFile = self.userProfile[@"coverPicture"];
-        [self.imgCoverPhoto setFile:coverFile];
-        [self.imgCoverPhoto loadInBackground];
+        PFFile *coverFile = self.userProfile[@"coverImage"];
+        if (coverFile) {
+            [self.imgCoverPhoto setFile:coverFile];
+            [self.imgCoverPhoto loadInBackground];
+        } else {
+            PFObject *coverImage = self.userProfile[@"coverPointer"];
+            [coverImage fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                PFFile *coverFile = coverImage[@"photo"];
+                [self.imgCoverPhoto setFile:coverFile];
+                [self.imgCoverPhoto loadInBackground];
+            }];
+        }
         
         self.lblUserNickname.text = self.userProfile[@"nickname"];
         if ([self.userProfile[@"location"] length]) {
@@ -482,7 +487,11 @@ bool editingProfile = NO;
         [self performSegueWithIdentifier:@"coverPhotos" sender:self];
     } else {
         
-        [self cameraSelected];
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:nil];
     }
 }
 
@@ -522,8 +531,7 @@ BOOL coverPhoto = NO;
                   editingInfo:(NSDictionary *)editingInfo {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    [self savePhoto:image];
+    [self saveProfileImage:image];
 }
 
 -(void)submitPhotoForReview:(UIImage *)photo {
@@ -568,7 +576,52 @@ BOOL coverPhoto = NO;
 
 }
 
--(void)savePhoto:(UIImage *)photo {
+-(void)saveCoverForProfile:(PFObject *)imageObject {
+ 
+    NSData *imageData = UIImagePNGRepresentation(imageObject[@"photo"]);
+    PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
+    
+    //make sure the image isn't too big
+    NSInteger size = imageData.length;
+    if (size < 10485760) {
+        
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                
+                PFObject *coverPhoto = [PFObject objectWithClassName:@"photos"];
+                coverPhoto[@"type"] = @"Cover";
+                coverPhoto[@"user"] = [PFUser currentUser];
+                coverPhoto[@"isUserSubmitted"] = [NSNumber numberWithBool:NO];
+                coverPhoto[@"approved"] = [NSNumber numberWithBool:YES];
+                coverPhoto[@"photo"] = imageData;
+                coverPhoto[@"publicUse"] = [NSNumber numberWithBool:YES];
+                
+                [coverPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        
+                        self.userProfile[@"coverPointer"] = coverPhoto.objectId;
+                        [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (succeeded) {
+                                [KVNProgress showSuccess];
+                            } else {
+                                [KVNProgress showErrorWithStatus:@"ha"];
+                            }
+                        }];
+                        
+                    }
+                    else {
+                        [KVNProgress showErrorWithStatus:@"Could not upload photo"];
+                    }
+                }];
+            }
+        }];
+    } else {
+        
+    }
+    
+}
+
+-(void)saveProfileImage:(UIImage *)photo {
     
     [KVNProgress show];
     
@@ -580,15 +633,12 @@ BOOL coverPhoto = NO;
         PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
+                
                 if (succeeded) {
-                    PFUser *user = [PFUser currentUser];
-                    if (coverPhoto) {
-                        user[@"coverPicture"] = imageFile;
-                    } else {
-                        user[@"picture"] = imageFile;
-                        user[@"thumbnail"] = imageFile;
-                    }
                     
+                    PFUser *user = [PFUser currentUser];
+                    user[@"picture"] = imageFile;
+                    user[@"thumbnail"] = imageFile;
                     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
                             
@@ -596,6 +646,7 @@ BOOL coverPhoto = NO;
                             [KVNProgress showSuccess];
                         }
                         else {
+                            
                             [KVNProgress showErrorWithStatus:@"Could not update photo"];
                         }
                     }];
@@ -816,22 +867,61 @@ UIPickerView *corpPicker;
 #pragma mark - CBSelectCoverPhoto Delegates
 #pragma mark
 
--(void)photoSelected:(UIImage *)photo userPhoto:(BOOL)userPhoto {
-    
-    if (userPhoto) {
-        [self submitPhotoForReview:photo];
-    } else {
-        [self savePhoto:photo];
-    }
+-(void)coverSubmitForApproval:(UIImage *)image {
+ 
+    [self submitPhotoForReview:image];
 }
 
--(void)cameraSelected {
+-(void)coverPhotoObject:(PFObject *)photoObject {
     
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:nil];
+    [KVNProgress show];
+    //either a default cover photo or user submitted cover photo
+    //just set the pointer and clear the profile cover photo
+
+    [self.userProfile removeObjectForKey:@"coverImage"];
+    self.userProfile[@"coverPointer"] = photoObject;
+    [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self initUI];
+        [KVNProgress showSuccess];
+    }];
+}
+
+-(void)coverImage:(UIImage *)image {
+    
+    [KVNProgress show];
+    
+    //new cover image from camera roll
+    //clear the cover pointer and set the image
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    //make sure the image isn't too big
+    NSInteger size = imageData.length;
+    if (size < 10485760) {
+        
+        PFFile *imageFile = [PFFile fileWithName:@"picture.png" data:imageData];
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (succeeded) {
+                
+                self.userProfile[@"coverImage"] = imageFile;
+                [self.userProfile removeObjectForKey:@"coverPointer"];
+                [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        [self initUI];
+                        [KVNProgress showSuccess];
+                    } else {
+                        [KVNProgress showErrorWithStatus:@"Could not update photo"];
+                    }
+                }];
+            } else {
+                
+                [KVNProgress showErrorWithStatus:@"Could not update photo"];
+            }
+        }];
+        
+    } else {
+        [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
+    }
 }
 
 #pragma mark

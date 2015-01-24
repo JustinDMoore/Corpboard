@@ -171,7 +171,6 @@ int progress = 1;
                     cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     [cell.textLabel sizeToFit];
                 }
-                
             }
             
             if (obj) {
@@ -201,29 +200,35 @@ int progress = 1;
         return;
     }
     
-    PFImageView *img;
+    PFObject *imgObject;
     
     if (self.segmentAlbum.selectedSegmentIndex == 0) {
-        img = [self.arrayOfDefaultPhotos objectAtIndex:indexPath.row - 1];
+        imgObject = [self.arrayOfDefaultPhotoObjects objectAtIndex:indexPath.row - 1];
     } else {
-        img = [self.arrayOfUserPhotos objectAtIndex:indexPath.row - 1];
+        imgObject = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
     }
     
-    if (img) {
+    if (imgObject) {
         
         [self goback];
-        [delegate photoSelected:img.image userPhoto:NO];
+        [delegate coverPhotoObject:imgObject];
     }
 }
 
 -(void)camera {
     
-    [self goback];
-    [delegate cameraSelected];
+    upload = NO;
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
+BOOL upload = NO;
 -(void)upload {
 
+    upload = YES;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Image" message:@"\rHave a corp themed cover image that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
     alert.delegate = self;
     [alert show];
@@ -261,8 +266,12 @@ int progress = 1;
                   editingInfo:(NSDictionary *)editingInfo {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-
-    [self.delegate photoSelected:image userPhoto:YES];
+    if (upload) {
+        [self.delegate coverSubmitForApproval:image];
+    } else {
+        [self.delegate coverImage:image];
+        [self goback];
+    }
 }
 
 /*

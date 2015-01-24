@@ -12,8 +12,9 @@
 
 @protocol photoProtocol <NSObject>
 
--(void)photoSelected:(UIImage *)photo userPhoto:(BOOL)userPhoto;
--(void)cameraSelected;
+-(void)coverSubmitForApproval:(UIImage *)image;
+-(void)coverPhotoObject:(PFObject *)photoObject;
+-(void)coverImage:(UIImage *)image;
 
 @end
 
