@@ -9,6 +9,7 @@
 #import "CBAppDelegate.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 
 @implementation CBAppDelegate
 
@@ -19,6 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //parse
+    [ParseCrashReporting enable];
     [Parse setApplicationId:@"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"
                   clientKey:@"ECyvUjxayFW3un2sOkTkgFJC8mmqweeOAjW0OlKJ"];
     
@@ -70,7 +72,6 @@
 //    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
 //    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
 
-    
     return YES;
 }
 
