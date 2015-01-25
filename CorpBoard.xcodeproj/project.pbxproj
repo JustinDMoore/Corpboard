@@ -152,6 +152,7 @@
 		92E810881968E4CA0078B65D /* The Cadets2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810871968E4CA0078B65D /* The Cadets2.png */; };
 		92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */; };
 		92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */; };
+		92EA19351A75889D0049AB4A /* starfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 92EA19341A75889D0049AB4A /* starfield.png */; };
 		92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */; };
 		92FE952B1A74E06200D4A7D9 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE952A1A74E06200D4A7D9 /* ParseUI.framework */; };
 		92FE952D1A74E06C00D4A7D9 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE952C1A74E06C00D4A7D9 /* ParseFacebookUtils.framework */; };
@@ -510,6 +511,7 @@
 		92E810871968E4CA0078B65D /* The Cadets2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cadets2.png"; sourceTree = "<group>"; };
 		92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard1.png"; sourceTree = "<group>"; };
 		92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard2.png"; sourceTree = "<group>"; };
+		92EA19341A75889D0049AB4A /* starfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starfield.png; sourceTree = "<group>"; };
 		92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
 		92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEndShowViewController.h; sourceTree = "<group>"; };
 		92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEndShowViewController.m; sourceTree = "<group>"; };
@@ -1132,6 +1134,7 @@
 				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
 				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
 				D011894D1A6B0D8A00D77EA9 /* spark.png */,
+				92EA19341A75889D0049AB4A /* starfield.png */,
 				92C020511A6B4CAC00F8891A /* Stars.sks */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
@@ -1600,6 +1603,7 @@
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
+				92EA19351A75889D0049AB4A /* starfield.png in Resources */,
 				923D4FF01A2C6DCF00E16B64 /* JSQMessages.strings in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
 				92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */,
@@ -1941,6 +1945,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1954,6 +1959,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1966,6 +1973,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1979,6 +1987,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

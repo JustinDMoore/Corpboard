@@ -48,9 +48,39 @@ CGPoint snowLocation;
 
 -(void)goToSpace {
     
-    [self addChild:[self newSnow:@"Stars"]];
-    emitter.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    SKEmitterNode *emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:50 starsPerSecond:1 starScaleFactor:0.2];
+    emitterNode.zPosition = -10;
+    [self addChild:emitterNode];
+    
+    emitterNode = [self starFieldEmitter:[SKColor grayColor] starSpeedY:30 starsPerSecond:2 starScaleFactor:0.1];
+    emitterNode.zPosition = -11;
+    [self addChild:emitterNode];
+
+    emitterNode = [self starFieldEmitter:[SKColor darkGrayColor] starSpeedY:15 starsPerSecond:4 starScaleFactor:0.05];
+    emitterNode.zPosition = -12;
+    [self addChild:emitterNode];
 }
+
+-(SKEmitterNode *)starFieldEmitter:(SKColor *)color starSpeedY:(CGFloat)starSpeedY starsPerSecond:(CGFloat)starsPerSecond starScaleFactor:(CGFloat) starScaleFactor {
+    
+    SKEmitterNode *emitterNode = [SKEmitterNode node];
+    
+    CGFloat lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / starSpeedY;
+    
+    emitterNode.particleTexture = [SKTexture textureWithImage:[UIImage imageNamed:@"spark"]];
+    emitterNode.particleBirthRate = starsPerSecond;
+    emitterNode.particleColor = [SKColor lightGrayColor];
+    emitterNode.particleSpeed = starSpeedY * -1;
+    emitterNode.particleScale = starScaleFactor;
+    emitterNode.particleColorBlendFactor = 1;
+    emitterNode.particleLifetime = lifetime;
+    
+    emitterNode.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
+    emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, 0);
+    [emitterNode advanceSimulationTime:lifetime];
+    return emitterNode;
+}
+
 
 //particle explosion - uses MyParticle.sks
 - (SKEmitterNode *) newSnow:(NSString *)type {
