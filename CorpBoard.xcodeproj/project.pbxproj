@@ -220,7 +220,6 @@
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBEmailLogin.m */; };
-		D0F8D3D01A257DB0000A73E3 /* BadWords.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F8D3CF1A257DB0000A73E3 /* BadWords.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -607,8 +606,6 @@
 		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
 		D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEmailLogin.h; sourceTree = "<group>"; };
 		D0F7E5201A1F351300AE500E /* CBEmailLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEmailLogin.m; sourceTree = "<group>"; };
-		D0F8D3CE1A257DB0000A73E3 /* BadWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadWords.h; sourceTree = "<group>"; };
-		D0F8D3CF1A257DB0000A73E3 /* BadWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadWords.m; sourceTree = "<group>"; };
 		F30FB95542FD29A3C0C28E38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F783FD497928939D583ED5B7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1345,8 +1342,6 @@
 		D02D63FB19F820E7000139CE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D0F8D3CE1A257DB0000A73E3 /* BadWords.h */,
-				D0F8D3CF1A257DB0000A73E3 /* BadWords.m */,
 				92C8D1EB1A2144270030EC3D /* ParseErrors.h */,
 				92C8D1EC1A2144270030EC3D /* ParseErrors.m */,
 				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
@@ -1725,7 +1720,6 @@
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */,
 				923D4FCE1A2C6DCF00E16B64 /* LoginView.m in Sources */,
-				D0F8D3D01A257DB0000A73E3 /* BadWords.m in Sources */,
 				923D4FEB1A2C6DCF00E16B64 /* UIImageView+AFNetworking.m in Sources */,
 				923D4FED1A2C6DCF00E16B64 /* UIRefreshControl+AFNetworking.m in Sources */,
 				923D4FE31A2C6DCF00E16B64 /* AFURLConnectionOperation.m in Sources */,
