@@ -245,8 +245,12 @@
         
     
         PFFile *imgFile = self.userProfile[@"picture"];
-        [self.imgUser setFile:imgFile];
-        [self.imgUser loadInBackground];
+        if (imgFile) {
+            [self.imgUser setFile:imgFile];
+            [self.imgUser loadInBackground];
+        } else {
+            [self.imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
+        }
         
         PFFile *coverFile = self.userProfile[@"coverImage"];
         if (coverFile) {
