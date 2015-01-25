@@ -456,7 +456,11 @@ NSMutableArray *arrayOfRows;
     } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
         [self.scene startRaining];
     } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
-        
+    } else if ([lblShowTitle.text isEqualToString:@"E = MC2"]){
+        NSString *superscript2 = @"\u00B2";
+        lblShowTitle.text = [NSString stringWithFormat:@"E = MC%@", superscript2];
+    } else if ([lblShowTitle.text isEqualToString:@"Out Of This World"]) {
+        [self.scene goToSpace];
     } else {
         lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
         [self TILT:NO];

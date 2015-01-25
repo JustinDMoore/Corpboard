@@ -159,6 +159,7 @@
 		92FE95311A74E07D00D4A7D9 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95301A74E07D00D4A7D9 /* ParseCrashReporting.framework */; };
 		92FE95351A74E0F500D4A7D9 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */; };
 		92FE95371A74E10900D4A7D9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */; };
+		92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 92FE95391A74FB3500D4A7D9 /* MyParticle.sks */; };
 		980282A5D83A53EA1EB1CC9C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F30FB95542FD29A3C0C28E38 /* libPods.a */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
@@ -518,6 +519,7 @@
 		92FE95301A74E07D00D4A7D9 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		92FE95391A74FB3500D4A7D9 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
@@ -1137,6 +1139,7 @@
 				92F0B6001A2C6D33005EA4B5 /* Chat API */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
 				92533487194FD5D70004D16F /* Supporting Files */,
+				92FE95391A74FB3500D4A7D9 /* MyParticle.sks */,
 			);
 			name = CorpBoard;
 			path = CorpsJudge;
@@ -1548,6 +1551,7 @@
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				923D50191A2C6DCF00E16B64 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
+				92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */,
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */,

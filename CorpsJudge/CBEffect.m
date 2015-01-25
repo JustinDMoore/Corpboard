@@ -49,6 +49,7 @@ CGPoint snowLocation;
 -(void)goToSpace {
     
     [self addChild:[self newSnow:@"Stars"]];
+    emitter.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
 }
 
 //particle explosion - uses MyParticle.sks
@@ -69,8 +70,8 @@ CGPoint snowLocation;
     emitter.position = snowLocation;
     emitter.name = @"Snow";
     emitter.targetNode = self.scene;
-    emitter.numParticlesToEmit = 0;
-    emitter.particleLifetime = 20;
+    //emitter.numParticlesToEmit = 0;
+    //emitter.particleLifetime = 20;
     emitter.zPosition=2.0;
     return emitter;
 }
