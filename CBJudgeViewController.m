@@ -355,12 +355,18 @@ bool backspaced;
 }
 
 - (void)voted {
+    
+    NSMutableDictionary * params = [NSMutableDictionary new];
+    params[@"userObjectId"] = [PFUser currentUser].objectId;
+    [PFCloud callFunctionInBackground:@"incrementReviewsByUser" withParameters:params];
+    
     if ([self.delegate respondsToSelector:@selector(voted)]) {
         [self.delegate voted];
     }
 }
 
 -(NSString *)getCategory:(category)cat {
+    
     switch (cat) {
         case catcorps: return @"Favorite Corps";
         case catdrums: return @"Favorite Drums";

@@ -89,3 +89,22 @@ Parse.Cloud.define("incrementUserProfileViews", function(request, response) {
                                }
                                });
                    });
+
+// Increment number of reviews given by user
+Parse.Cloud.define("incrementReviewsByUser", function(request, response) {
+                   Parse.Cloud.useMasterKey();
+                   var user = new Parse.User();
+                   var query = new Parse.Query(Parse.User);
+                   query.equalTo("objectId", request.params.userObjectId);
+                   query.first({
+                               success: function(object) {
+                               object.increment("showReviews", 1);
+                               object.save();
+                               response.success();
+                               },
+                               error: function(error) {
+                               console.error("Got an error " + error.code + " : " + error.message);
+                               response.error();
+                               }
+                               });
+                   });
