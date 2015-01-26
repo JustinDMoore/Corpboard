@@ -46,17 +46,43 @@ CGPoint snowLocation;
     }
 }
 
--(void)goToSpace {
+-(void)shootingStar {
     
-    SKEmitterNode *emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:50 starsPerSecond:1 starScaleFactor:0.2];
+    SKEmitterNode *shootingstar = [SKEmitterNode node];
+    shootingstar =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"ShootingStar" ofType:@"sks"]];
+
+    int test = self.frame.size.height;
+    int y = 1 + arc4random() % (test - 1);
+    
+    snowLocation = CGPointMake(-10, y);
+    shootingstar.position = snowLocation;
+    shootingstar.name = @"shootingStar";
+    shootingstar.targetNode = self.scene;
+    //emitter.numParticlesToEmit = 0;
+    //emitter.particleLifetime = 20;
+    shootingstar.zPosition = 2.0;
+    [self addChild:shootingstar];
+    SKAction *move = [SKAction moveByX:500 y:130 duration:2];
+    int waitDuration = 2 + arc4random() % (10 - 2);
+    SKAction *wait = [SKAction waitForDuration:waitDuration];
+    SKAction *sequence = [SKAction sequence:@[wait, move]];
+    [shootingstar runAction:sequence completion:^{
+        [shootingstar removeFromParent];
+        [self shootingStar];
+    }];
+}
+
+-(void)goToSpace {
+    [self shootingStar];
+    SKEmitterNode *emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:1 starsPerSecond:.1 starScaleFactor:0.08];
     emitterNode.zPosition = -10;
     [self addChild:emitterNode];
-    
-    emitterNode = [self starFieldEmitter:[SKColor grayColor] starSpeedY:30 starsPerSecond:2 starScaleFactor:0.1];
+
+    emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:.8 starsPerSecond:.08 starScaleFactor:0.06];
     emitterNode.zPosition = -11;
     [self addChild:emitterNode];
 
-    emitterNode = [self starFieldEmitter:[SKColor darkGrayColor] starSpeedY:15 starsPerSecond:4 starScaleFactor:0.05];
+    emitterNode = [self starFieldEmitter:[SKColor grayColor] starSpeedY:.5 starsPerSecond:.5 starScaleFactor:0.03];
     emitterNode.zPosition = -12;
     [self addChild:emitterNode];
 }
@@ -67,7 +93,7 @@ CGPoint snowLocation;
     
     CGFloat lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / starSpeedY;
     
-    emitterNode.particleTexture = [SKTexture textureWithImage:[UIImage imageNamed:@"spark"]];
+    emitterNode.particleTexture = [SKTexture textureWithImage:[UIImage imageNamed:@"stars"]];
     emitterNode.particleBirthRate = starsPerSecond;
     emitterNode.particleColor = [SKColor lightGrayColor];
     emitterNode.particleSpeed = starSpeedY * -1;
@@ -75,8 +101,11 @@ CGPoint snowLocation;
     emitterNode.particleColorBlendFactor = 1;
     emitterNode.particleLifetime = lifetime;
     
+    int rndValue = 1 + arc4random() % (45 - 1);
+    emitterNode.particleRotation = rndValue;
+    
     emitterNode.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
-    emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, 0);
+    emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, self.frame.size.height);
     [emitterNode advanceSimulationTime:lifetime];
     return emitterNode;
 }

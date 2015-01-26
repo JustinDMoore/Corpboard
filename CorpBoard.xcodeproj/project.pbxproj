@@ -103,6 +103,8 @@
 		923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D501E1A2C737600E16B64 /* CBChatMessages.m */; };
 		924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924280E11963A573006E8240 /* CBCorpsViewController.m */; };
 		924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 924E93B3195904380006DB81 /* UINavigationController+Orientation.m */; };
+		924FFA961A76422D003BF54B /* Stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 924FFA951A76422D003BF54B /* Stars.png */; };
+		924FFA981A764D00003BF54B /* ShootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = 924FFA971A764D00003BF54B /* ShootingStar.sks */; };
 		9253347F194FD5D70004D16F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9253347E194FD5D70004D16F /* Foundation.framework */; };
 		92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533480194FD5D70004D16F /* CoreGraphics.framework */; };
 		92533483194FD5D70004D16F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533482194FD5D70004D16F /* UIKit.framework */; };
@@ -445,6 +447,8 @@
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
 		924E93B2195904380006DB81 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
 		924E93B3195904380006DB81 /* UINavigationController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Orientation.m"; sourceTree = "<group>"; };
+		924FFA951A76422D003BF54B /* Stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stars.png; sourceTree = "<group>"; };
+		924FFA971A764D00003BF54B /* ShootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingStar.sks; sourceTree = "<group>"; };
 		9253347B194FD5D70004D16F /* CorpBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorpBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9253347E194FD5D70004D16F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92533480194FD5D70004D16F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1134,7 +1138,9 @@
 				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
 				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
 				D011894D1A6B0D8A00D77EA9 /* spark.png */,
+				924FFA971A764D00003BF54B /* ShootingStar.sks */,
 				92EA19341A75889D0049AB4A /* starfield.png */,
+				924FFA951A76422D003BF54B /* Stars.png */,
 				92C020511A6B4CAC00F8891A /* Stars.sks */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
@@ -1558,6 +1564,7 @@
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */,
+				924FFA981A764D00003BF54B /* ShootingStar.sks in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
@@ -1592,6 +1599,7 @@
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
+				924FFA961A76422D003BF54B /* Stars.png in Resources */,
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
