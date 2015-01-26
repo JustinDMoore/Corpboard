@@ -19,22 +19,28 @@ CGPoint snowLocation;
         
         
         self.backgroundColor = [SKColor blackColor];
+        [self clean];
     }
     return self;
 }
 
+-(void)clean {
+    [self removeAllActions];
+    [self removeAllChildren];
+}
+
 -(void)startSnowing {
-    
+    [self clean];
     [self addChild:[self newSnow:@"Snow"]];
 }
 
 -(void)startCadetSnowing {
-    
+    [self clean];
     [self addChild:[self newSnow:@"CadetSnow"]];
 }
 
 -(void)startRaining {
-    
+    [self clean];
     [self addChild:[self newSnow:@"Rain"]];
 }
 
@@ -44,6 +50,43 @@ CGPoint snowLocation;
         [child setParticleBirthRate:0];
         [child setParticleLifetime:0];
     }
+    [self clean];
+}
+
+-(void)prop {
+    
+    SKSpriteNode *plane = [SKSpriteNode spriteNodeWithImageNamed:@"plane2"];
+    plane.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    SKAction *scale = [SKAction scaleBy:0.2 duration:0];
+    [plane runAction:scale];
+    
+    SKSpriteNode *prop1 = [self getProp];
+    prop1.position = CGPointMake(-355, -75);
+    [plane addChild:prop1];
+    
+    SKSpriteNode *prop2 = [self getProp];
+    prop2.position = CGPointMake(-170, -75);
+    [plane addChild:prop2];
+    
+    SKSpriteNode *prop3 = [self getProp];
+    prop3.position = CGPointMake(160, -75);
+    [plane addChild:prop3];
+    
+    SKSpriteNode *prop4 = [self getProp];
+    prop4.position = CGPointMake(350, -75);
+    [plane addChild:prop4];
+
+    [self addChild:plane];
+}
+
+-(SKSpriteNode *)getProp {
+    
+    SKSpriteNode *prop = [SKSpriteNode spriteNodeWithImageNamed:@"prop"];
+    prop.size = CGSizeMake(90, 90);
+    SKAction *oneRevolution = [SKAction rotateByAngle:M_PI*2 duration: .4];
+    SKAction *repeat = [SKAction repeatActionForever:oneRevolution];
+    [prop runAction:repeat];
+    return prop;
 }
 
 -(void)shootingStar {
@@ -73,18 +116,27 @@ CGPoint snowLocation;
 }
 
 -(void)goToSpace {
+    [self clean];
     [self shootingStar];
-    SKEmitterNode *emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:1 starsPerSecond:.1 starScaleFactor:0.08];
-    emitterNode.zPosition = -10;
-    [self addChild:emitterNode];
+    
+    CGFloat lifetime;
+    SKEmitterNode *emitterNode1 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:1 starsPerSecond:.1 starScaleFactor:0.08];
+    emitterNode1.zPosition = -10;
+    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / 1;
+    [emitterNode1 advanceSimulationTime:lifetime];
+    [self addChild:emitterNode1];
 
-    emitterNode = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:.8 starsPerSecond:.08 starScaleFactor:0.06];
-    emitterNode.zPosition = -11;
-    [self addChild:emitterNode];
+    emitterNode1 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:.8 starsPerSecond:.08 starScaleFactor:0.06];
+    emitterNode1.zPosition = -11;
+    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .8;
+    [emitterNode1 advanceSimulationTime:lifetime];
+    [self addChild:emitterNode1];
 
-    emitterNode = [self starFieldEmitter:[SKColor grayColor] starSpeedY:.5 starsPerSecond:.5 starScaleFactor:0.03];
-    emitterNode.zPosition = -12;
-    [self addChild:emitterNode];
+    emitterNode1 = [self starFieldEmitter:[SKColor grayColor] starSpeedY:.5 starsPerSecond:.5 starScaleFactor:0.03];
+    emitterNode1.zPosition = -12;
+    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .5;
+    [emitterNode1 advanceSimulationTime:lifetime];
+    [self addChild:emitterNode1];
 }
 
 -(SKEmitterNode *)starFieldEmitter:(SKColor *)color starSpeedY:(CGFloat)starSpeedY starsPerSecond:(CGFloat)starsPerSecond starScaleFactor:(CGFloat) starScaleFactor {
@@ -106,7 +158,6 @@ CGPoint snowLocation;
     
     emitterNode.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
     emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, self.frame.size.height);
-    [emitterNode advanceSimulationTime:lifetime];
     return emitterNode;
 }
 

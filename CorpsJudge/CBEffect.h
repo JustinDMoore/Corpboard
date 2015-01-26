@@ -14,4 +14,5 @@
 -(void)startCadetSnowing;
 -(void)startRaining;
 -(void)goToSpace;
+-(void)prop;
 @end

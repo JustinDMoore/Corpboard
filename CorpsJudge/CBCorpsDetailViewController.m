@@ -454,7 +454,7 @@ NSMutableArray *arrayOfRows;
     } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
         [self.scene startSnowing];
     } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
-        [self.scene startRaining];
+        [self.scene prop];
     } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
     } else if ([lblShowTitle.text isEqualToString:@"E = MC2"]){
         NSString *superscript2 = @"\u00B2";
