@@ -191,7 +191,7 @@
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
     web.webURL = self.corps[@"website"];
-    web.websiteTitle = [NSString stringWithFormat:@"%@ Recap", self.corps[@"corpsName"]];
+    web.websiteTitle = self.corps[@"corpsName"];
     web.websiteSubTitle = self.corps[@"website_Display"];
     
     [self presentViewController:web animated:YES completion:nil];

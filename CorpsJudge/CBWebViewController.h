@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBWebViewController : UIViewController <UIWebViewDelegate>
+@interface CBWebViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSString *webURL;
 @property (nonatomic, strong) NSString *websiteTitle;
