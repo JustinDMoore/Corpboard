@@ -105,7 +105,14 @@ CGPoint snowLocation;
     //emitter.particleLifetime = 20;
     shootingstar.zPosition = 2.0;
     [self addChild:shootingstar];
-    SKAction *move = [SKAction moveByX:500 y:130 duration:2];
+    
+#define ARC4RANDOM_MAX      0x100000000
+    
+    double val = ((double)arc4random() / ARC4RANDOM_MAX);
+    
+    SKAction *scale = [SKAction scaleBy:val duration:0];
+    [shootingstar runAction: scale completion:nil];
+    SKAction *move = [SKAction moveByX:500 y:180 duration:2];
     int waitDuration = 2 + arc4random() % (10 - 2);
     SKAction *wait = [SKAction waitForDuration:waitDuration];
     SKAction *sequence = [SKAction sequence:@[wait, move]];
