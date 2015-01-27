@@ -1971,7 +1971,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";
@@ -1999,7 +1999,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
 				PROVISIONING_PROFILE = "";

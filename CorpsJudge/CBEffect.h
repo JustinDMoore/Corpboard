@@ -14,5 +14,5 @@
 -(void)startCadetSnowing;
 -(void)startRaining;
 -(void)goToSpace;
--(void)prop;
+-(void)perilousSkies:(CGRect)rect;
 @end
