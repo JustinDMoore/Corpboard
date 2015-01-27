@@ -89,37 +89,69 @@ CGPoint snowLocation;
     return prop;
 }
 
+-(BOOL) getYesOrNo {
+    
+    int tmp = (arc4random() % 30)+1;
+    if(tmp % 5 == 0)
+        return YES;
+    return NO;
+}
+
 -(void)shootingStar {
     
-    SKEmitterNode *shootingstar = [SKEmitterNode node];
-    shootingstar =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"ShootingStar" ofType:@"sks"]];
-
-    int test = self.frame.size.height;
-    int y = 1 + arc4random() % (test - 1);
+    BOOL left = [self getYesOrNo];
+    int xPos = 0;
+    int height = self.frame.size.height;
+    int yPos = 1 + arc4random() % (height - 1);
+    if (left) {
+        xPos = -50;
+    } else {
+        xPos = self.frame.size.width + 50;
+    }
     
-    snowLocation = CGPointMake(-10, y);
-    shootingstar.position = snowLocation;
+    SKEmitterNode *shootingstar = [SKEmitterNode node];
+    shootingstar =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"spark" ofType:@"sks"]];
+
+    CGPoint xy = CGPointMake(xPos, yPos);
+    shootingstar.position = xy;
     shootingstar.name = @"shootingStar";
-    shootingstar.targetNode = self.scene;
-    //emitter.numParticlesToEmit = 0;
-    //emitter.particleLifetime = 20;
-    shootingstar.zPosition = 2.0;
+    shootingstar.zPosition = -2.0;
+    shootingstar.targetNode = self;
     [self addChild:shootingstar];
     
-#define ARC4RANDOM_MAX      0x100000000
-    
-    double val = ((double)arc4random() / ARC4RANDOM_MAX);
-    
+    //make random size to simulate distance
+    float val = [self randFloatBetween:.1 and:.5];
     SKAction *scale = [SKAction scaleBy:val duration:0];
     [shootingstar runAction: scale completion:nil];
-    SKAction *move = [SKAction moveByX:500 y:180 duration:2];
-    int waitDuration = 2 + arc4random() % (10 - 2);
+    
+    //now set speed depending on size (smaller = farther = slower)
+    int dur = 0;
+    if (val < .2) dur = 5;
+    else if (val < .35) dur = 3;
+    else dur = 2;
+    
+    int moveY = -500 + arc4random() % (500 - -500);
+    int moveX;
+    if (left) {
+        moveX = 500;
+    } else {
+        moveX = -500;
+    }
+    SKAction *move = [SKAction moveByX:moveX y:moveY duration:dur];
+    int waitDuration = 2 + arc4random() % (5 - 2);
     SKAction *wait = [SKAction waitForDuration:waitDuration];
     SKAction *sequence = [SKAction sequence:@[wait, move]];
+
     [shootingstar runAction:sequence completion:^{
         [shootingstar removeFromParent];
-        [self shootingStar];
+        //[self shootingStar];
     }];
+}
+
+-(float) randFloatBetween:(float)low and:(float)high {
+    
+    float diff = high - low;
+    return (((float) rand() / RAND_MAX) * diff) + low;
 }
 
 -(void)goToSpace {
@@ -144,7 +176,12 @@ CGPoint snowLocation;
     lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .5;
     [emitterNode1 advanceSimulationTime:lifetime];
     [self addChild:emitterNode1];
+    
+    space = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(shootingStar) userInfo:nil repeats:YES];
+
 }
+
+NSTimer *space;
 
 -(SKEmitterNode *)starFieldEmitter:(SKColor *)color starSpeedY:(CGFloat)starSpeedY starsPerSecond:(CGFloat)starsPerSecond starScaleFactor:(CGFloat) starScaleFactor {
     

@@ -182,6 +182,8 @@
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
 		D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */; };
+		D033D1C01A7721F70048D80C /* star-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D033D1BF1A7721F70048D80C /* star-2.png */; };
+		D033D1C21A7726180048D80C /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = D033D1C11A7726180048D80C /* spark.sks */; };
 		D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D034437A1A3D064000C410EE /* CBChooseCorp.xib */; };
 		D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */ = {isa = PBXBuildFile; fileRef = D034437D1A3D071000C410EE /* CBChooseCorp.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
@@ -552,6 +554,8 @@
 		D0307DB619537792000849F1 /* CBShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShowDetailsViewController.m; sourceTree = "<group>"; };
 		D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBJudgeViewController.h; path = ../CBJudgeViewController.h; sourceTree = "<group>"; };
 		D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBJudgeViewController.m; path = ../CBJudgeViewController.m; sourceTree = "<group>"; };
+		D033D1BF1A7721F70048D80C /* star-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-2.png"; sourceTree = "<group>"; };
+		D033D1C11A7726180048D80C /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 		D034437A1A3D064000C410EE /* CBChooseCorp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBChooseCorp.xib; sourceTree = "<group>"; };
 		D034437C1A3D071000C410EE /* CBChooseCorp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBChooseCorp.h; sourceTree = "<group>"; };
 		D034437D1A3D071000C410EE /* CBChooseCorp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChooseCorp.m; sourceTree = "<group>"; };
@@ -1137,9 +1141,11 @@
 				D074E1531A6EEFCB00C1E300 /* Rain.sks */,
 				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
 				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
+				D033D1C11A7726180048D80C /* spark.sks */,
 				D011894D1A6B0D8A00D77EA9 /* spark.png */,
 				924FFA971A764D00003BF54B /* ShootingStar.sks */,
 				92EA19341A75889D0049AB4A /* starfield.png */,
+				D033D1BF1A7721F70048D80C /* star-2.png */,
 				924FFA951A76422D003BF54B /* Stars.png */,
 				92C020511A6B4CAC00F8891A /* Stars.sks */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
@@ -1599,6 +1605,7 @@
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
+				D033D1C01A7721F70048D80C /* star-2.png in Resources */,
 				924FFA961A76422D003BF54B /* Stars.png in Resources */,
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
@@ -1608,6 +1615,7 @@
 				923D501B1A2C6DCF00E16B64 /* ProgressHUD.bundle in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
+				D033D1C21A7726180048D80C /* spark.sks in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
@@ -1677,7 +1685,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
