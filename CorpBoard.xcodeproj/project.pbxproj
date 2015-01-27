@@ -103,8 +103,6 @@
 		923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D501E1A2C737600E16B64 /* CBChatMessages.m */; };
 		924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924280E11963A573006E8240 /* CBCorpsViewController.m */; };
 		924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 924E93B3195904380006DB81 /* UINavigationController+Orientation.m */; };
-		924FFA961A76422D003BF54B /* Stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 924FFA951A76422D003BF54B /* Stars.png */; };
-		924FFA981A764D00003BF54B /* ShootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = 924FFA971A764D00003BF54B /* ShootingStar.sks */; };
 		9253347F194FD5D70004D16F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9253347E194FD5D70004D16F /* Foundation.framework */; };
 		92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533480194FD5D70004D16F /* CoreGraphics.framework */; };
 		92533483194FD5D70004D16F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92533482194FD5D70004D16F /* UIKit.framework */; };
@@ -145,7 +143,6 @@
 		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
-		92C020521A6B4CAC00F8891A /* Stars.sks in Resources */ = {isa = PBXBuildFile; fileRef = 92C020511A6B4CAC00F8891A /* Stars.sks */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */; };
 		92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */; };
@@ -154,7 +151,6 @@
 		92E810881968E4CA0078B65D /* The Cadets2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810871968E4CA0078B65D /* The Cadets2.png */; };
 		92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */; };
 		92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */; };
-		92EA19351A75889D0049AB4A /* starfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 92EA19341A75889D0049AB4A /* starfield.png */; };
 		92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */; };
 		92FE952B1A74E06200D4A7D9 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE952A1A74E06200D4A7D9 /* ParseUI.framework */; };
 		92FE952D1A74E06C00D4A7D9 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE952C1A74E06C00D4A7D9 /* ParseFacebookUtils.framework */; };
@@ -182,8 +178,7 @@
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
 		D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */; };
-		D033D1C01A7721F70048D80C /* star-2.png in Resources */ = {isa = PBXBuildFile; fileRef = D033D1BF1A7721F70048D80C /* star-2.png */; };
-		D033D1C21A7726180048D80C /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = D033D1C11A7726180048D80C /* spark.sks */; };
+		D033D1C21A7726180048D80C /* shootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = D033D1C11A7726180048D80C /* shootingStar.sks */; };
 		D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D034437A1A3D064000C410EE /* CBChooseCorp.xib */; };
 		D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */ = {isa = PBXBuildFile; fileRef = D034437D1A3D071000C410EE /* CBChooseCorp.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
@@ -449,8 +444,6 @@
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
 		924E93B2195904380006DB81 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
 		924E93B3195904380006DB81 /* UINavigationController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Orientation.m"; sourceTree = "<group>"; };
-		924FFA951A76422D003BF54B /* Stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stars.png; sourceTree = "<group>"; };
-		924FFA971A764D00003BF54B /* ShootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingStar.sks; sourceTree = "<group>"; };
 		9253347B194FD5D70004D16F /* CorpBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorpBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9253347E194FD5D70004D16F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92533480194FD5D70004D16F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -505,7 +498,6 @@
 		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
-		92C020511A6B4CAC00F8891A /* Stars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Stars.sks; sourceTree = "<group>"; };
 		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
 		92C8D1EC1A2144270030EC3D /* ParseErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseErrors.m; sourceTree = "<group>"; };
 		92CF4C6319627EBC00BE98D5 /* CBFinalsPredictionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFinalsPredictionViewController.h; sourceTree = "<group>"; };
@@ -517,7 +509,6 @@
 		92E810871968E4CA0078B65D /* The Cadets2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "The Cadets2.png"; sourceTree = "<group>"; };
 		92E810891968E6B20078B65D /* Santa Clara Vanguard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard1.png"; sourceTree = "<group>"; };
 		92E8108D1968E9F10078B65D /* Santa Clara Vanguard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Clara Vanguard2.png"; sourceTree = "<group>"; };
-		92EA19341A75889D0049AB4A /* starfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starfield.png; sourceTree = "<group>"; };
 		92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
 		92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEndShowViewController.h; sourceTree = "<group>"; };
 		92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEndShowViewController.m; sourceTree = "<group>"; };
@@ -554,8 +545,7 @@
 		D0307DB619537792000849F1 /* CBShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShowDetailsViewController.m; sourceTree = "<group>"; };
 		D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBJudgeViewController.h; path = ../CBJudgeViewController.h; sourceTree = "<group>"; };
 		D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBJudgeViewController.m; path = ../CBJudgeViewController.m; sourceTree = "<group>"; };
-		D033D1BF1A7721F70048D80C /* star-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-2.png"; sourceTree = "<group>"; };
-		D033D1C11A7726180048D80C /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
+		D033D1C11A7726180048D80C /* shootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = shootingStar.sks; sourceTree = "<group>"; };
 		D034437A1A3D064000C410EE /* CBChooseCorp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBChooseCorp.xib; sourceTree = "<group>"; };
 		D034437C1A3D071000C410EE /* CBChooseCorp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBChooseCorp.h; sourceTree = "<group>"; };
 		D034437D1A3D071000C410EE /* CBChooseCorp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChooseCorp.m; sourceTree = "<group>"; };
@@ -680,6 +670,21 @@
 				15A4219440C800AE5E982027 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		920766AD1A778C1200A20926 /* Show Effects */ = {
+			isa = PBXGroup;
+			children = (
+				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
+				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
+				D011894C1A6B0D8A00D77EA9 /* Snow.sks */,
+				D01189531A6B1E6400D77EA9 /* CadetSnow.sks */,
+				D074E1531A6EEFCB00C1E300 /* Rain.sks */,
+				D033D1C11A7726180048D80C /* shootingStar.sks */,
+				D011894D1A6B0D8A00D77EA9 /* spark.png */,
+			);
+			name = "Show Effects";
+			path = CorpsJudge;
 			sourceTree = "<group>";
 		};
 		923D4EE31A2C6DCF00E16B64 /* app */ = {
@@ -1136,18 +1141,6 @@
 			isa = PBXGroup;
 			children = (
 				925334BD194FD6F80004D16F /* Main.storyboard */,
-				D011894C1A6B0D8A00D77EA9 /* Snow.sks */,
-				D01189531A6B1E6400D77EA9 /* CadetSnow.sks */,
-				D074E1531A6EEFCB00C1E300 /* Rain.sks */,
-				D01189501A6B12BE00D77EA9 /* CBEffect.h */,
-				D01189511A6B12BE00D77EA9 /* CBEffect.m */,
-				D033D1C11A7726180048D80C /* spark.sks */,
-				D011894D1A6B0D8A00D77EA9 /* spark.png */,
-				924FFA971A764D00003BF54B /* ShootingStar.sks */,
-				92EA19341A75889D0049AB4A /* starfield.png */,
-				D033D1BF1A7721F70048D80C /* star-2.png */,
-				924FFA951A76422D003BF54B /* Stars.png */,
-				92C020511A6B4CAC00F8891A /* Stars.sks */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
@@ -1371,6 +1364,7 @@
 		D02D63FB19F820E7000139CE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				920766AD1A778C1200A20926 /* Show Effects */,
 				92C8D1EB1A2144270030EC3D /* ParseErrors.h */,
 				92C8D1EC1A2144270030EC3D /* ParseErrors.m */,
 				92AFD66E195A41DD001C4AF0 /* UserScore.h */,
@@ -1570,7 +1564,6 @@
 				D0067A6C1969236300C372D0 /* Feedback.png in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */,
-				924FFA981A764D00003BF54B /* ShootingStar.sks in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
@@ -1598,15 +1591,12 @@
 				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
 				92E810881968E4CA0078B65D /* The Cadets2.png in Resources */,
 				923D4FD31A2C6DCF00E16B64 /* WelcomeView.xib in Resources */,
-				92C020521A6B4CAC00F8891A /* Stars.sks in Resources */,
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
 				D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				923D50171A2C6DCF00E16B64 /* JSQMessagesToolbarContentView.xib in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
-				D033D1C01A7721F70048D80C /* star-2.png in Resources */,
-				924FFA961A76422D003BF54B /* Stars.png in Resources */,
 				923D500D1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1615,11 +1605,10 @@
 				923D501B1A2C6DCF00E16B64 /* ProgressHUD.bundle in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
-				D033D1C21A7726180048D80C /* spark.sks in Resources */,
+				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
-				92EA19351A75889D0049AB4A /* starfield.png in Resources */,
 				923D4FF01A2C6DCF00E16B64 /* JSQMessages.strings in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
 				92E8108A1968E6B20078B65D /* Santa Clara Vanguard1.png in Resources */,
@@ -1685,7 +1674,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

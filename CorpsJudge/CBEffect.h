@@ -9,10 +9,11 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface CBEffect : SKScene
--(void)startSnowing;
+
 -(void)stop;
 -(void)startCadetSnowing;
--(void)startRaining;
--(void)goToSpace;
+-(void)startSnowing;
 -(void)perilousSkies:(CGRect)rect;
+-(void)launchToSpace;
+
 @end

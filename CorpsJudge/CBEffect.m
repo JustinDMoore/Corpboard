@@ -9,72 +9,129 @@
 #import "CBEffect.h"
 
 @implementation CBEffect
-SKEmitterNode *emitter;
 
 CGPoint snowLocation;
 
+// outer space
+BOOL inOuterSpace = NO;
+SKEmitterNode *starEmitter1;
+SKEmitterNode *starEmitter2;
+SKEmitterNode *starEmitter3;
+
+// perilous skies
+BOOL skiesArePerilous = NO;
+SKSpriteNode *plane;
+
+// blizard
+BOOL coldOutside = NO;
+SKEmitterNode *snowEmitter;
+
+//christmas time
+BOOL isChristmas = NO;
+SKEmitterNode *snowFlakeEmitter;
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
-        
-        
+       
         self.backgroundColor = [SKColor blackColor];
     }
     return self;
 }
 
--(void)startSnowing {
-
-    [self addChild:[self newSnow:@"Snow"]];
-}
-
--(void)startCadetSnowing {
-
-    [self addChild:[self newSnow:@"CadetSnow"]];
-}
-
--(void)startRaining {
-
-    [self addChild:[self newSnow:@"Rain"]];
-}
-
 -(void)stop {
     
-    for (SKEmitterNode *child in self.children) {
-        [child setParticleBirthRate:0];
-        [child setParticleLifetime:0];
+    if (inOuterSpace) [self landFromOuterSpace];
+    if (skiesArePerilous) [self tameThePerilousSkies];
+    if (coldOutside) [self stopSnowing];
+    if (isChristmas) [self stopCadetSnowing];
+}
+
+#pragma mark
+#pragma mark - Cadet Christmas
+#pragma mark
+
+-(void)startCadetSnowing {
+    
+    if (!isChristmas) {
+        [self stop];
+        isChristmas = YES;
+        [snowFlakeEmitter removeFromParent];
+        snowFlakeEmitter = nil;
+        snowFlakeEmitter = [self newEmitter:@"CadetSnow"];
+        [self addChild:snowFlakeEmitter];
     }
 }
 
+-(void)stopCadetSnowing {
+    
+    snowFlakeEmitter.particleBirthRate = 0;
+    snowFlakeEmitter.particleLifetime = 0;
+    snowFlakeEmitter.particleLifetimeRange = 0;
+    isChristmas = NO;
+}
+
+#pragma mark
+#pragma mark - Cold Outside
+#pragma mark
+
+-(void)startSnowing {
+    
+    if (!coldOutside) {
+        [self stop];
+        coldOutside = YES;
+        [snowEmitter removeFromParent];
+        snowEmitter = nil;
+        snowEmitter = [self newEmitter:@"Snow"];
+        [self addChild:snowEmitter];
+    }
+}
+
+-(void)stopSnowing {
+    
+    snowEmitter.particleBirthRate = 0;
+    snowEmitter.particleLifetime = 0;
+    snowEmitter.particleLifetimeRange = 0;
+    coldOutside = NO;
+}
+
+#pragma mark
+#pragma mark - Perilous Skies
+#pragma mark
+
 -(void)perilousSkies:(CGRect)rect {
     
-    SKSpriteNode *plane = [SKSpriteNode spriteNodeWithImageNamed:@"plane4"];
-    SKAction *scale = [SKAction scaleBy:0.1 duration:0];
-    [plane runAction:scale];
-    plane.position = CGPointMake(CGRectGetMidX(rect), self.size.height - 160);
-    
-    SKSpriteNode *prop1 = [self getProp];
-    prop1.position = CGPointMake(-355, -75);
-    [plane addChild:prop1];
-    
-    SKSpriteNode *prop2 = [self getProp];
-    prop2.position = CGPointMake(-170, -75);
-    [plane addChild:prop2];
-    
-    SKSpriteNode *prop3 = [self getProp];
-    prop3.position = CGPointMake(160, -75);
-    [plane addChild:prop3];
-    
-    SKSpriteNode *prop4 = [self getProp];
-    prop4.position = CGPointMake(350, -75);
-    [plane addChild:prop4];
-
-    plane.alpha = 0;
-    [self addChild:plane];
-    SKAction *show = [SKAction fadeAlphaTo:1 duration:3];
-    SKAction *grow = [SKAction scaleBy:1.4 duration:3];
-    SKAction *group = [SKAction group:@[show, grow]];
-    [plane runAction:group];
+    if (!skiesArePerilous) {
+        [self stop];
+        skiesArePerilous = YES;
+        
+        plane = [SKSpriteNode spriteNodeWithImageNamed:@"plane4"];
+        SKAction *scale = [SKAction scaleBy:0.1 duration:0];
+        [plane runAction:scale];
+        plane.position = CGPointMake(CGRectGetMidX(rect), self.size.height - 160);
+        
+        SKSpriteNode *prop1 = [self getProp];
+        prop1.position = CGPointMake(-355, -75);
+        [plane addChild:prop1];
+        
+        SKSpriteNode *prop2 = [self getProp];
+        prop2.position = CGPointMake(-170, -75);
+        [plane addChild:prop2];
+        
+        SKSpriteNode *prop3 = [self getProp];
+        prop3.position = CGPointMake(160, -75);
+        [plane addChild:prop3];
+        
+        SKSpriteNode *prop4 = [self getProp];
+        prop4.position = CGPointMake(350, -75);
+        [plane addChild:prop4];
+        
+        plane.alpha = 0;
+        [self addChild:plane];
+        SKAction *show = [SKAction fadeAlphaTo:1 duration:3];
+        SKAction *grow = [SKAction scaleBy:1.4 duration:3];
+        SKAction *group = [SKAction group:@[show, grow]];
+        [plane runAction:group];
+    }
 }
 
 -(SKSpriteNode *)getProp {
@@ -87,12 +144,78 @@ CGPoint snowLocation;
     return prop;
 }
 
--(BOOL) getYesOrNo {
+-(void)tameThePerilousSkies {
     
-    int tmp = (arc4random() % 30)+1;
-    if(tmp % 5 == 0)
-        return YES;
-    return NO;
+    [plane runAction:[SKAction fadeOutWithDuration:2] completion:^{
+        [plane removeFromParent];
+        plane = nil;
+        skiesArePerilous = NO;
+    }];
+}
+
+#pragma mark
+#pragma mark - Outer Space
+#pragma mark
+
+-(void)launchToSpace {
+
+    if (!inOuterSpace) {
+        [self stop];
+        inOuterSpace = YES;
+        
+        [self shootingStar];
+        
+        double lifetime;
+        starEmitter1 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:1 starsPerSecond:.1 starScaleFactor:0.08];
+        
+        lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / 1;
+        [starEmitter1 advanceSimulationTime:lifetime];
+        starEmitter1.zPosition = -10;
+        starEmitter1.name = @"starfield";
+        [self addChild:starEmitter1];
+        
+        starEmitter2 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:.8 starsPerSecond:.08 starScaleFactor:0.06];
+        starEmitter2.zPosition = -11;
+        lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .8;
+        [starEmitter2 advanceSimulationTime:lifetime];
+        starEmitter2.name = @"starfield";
+        [self addChild:starEmitter2];
+        
+        starEmitter3 = [self starFieldEmitter:[SKColor grayColor] starSpeedY:.5 starsPerSecond:.5 starScaleFactor:0.03];
+        starEmitter3.zPosition = -12;
+        lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .5;
+        [starEmitter3 advanceSimulationTime:lifetime];
+        starEmitter3.name = @"starfield";
+        [self addChild:starEmitter3];
+        
+        id wait = [SKAction waitForDuration:2];
+        id run = [SKAction runBlock:^{
+            [self shootingStar];
+        }];
+        [self.scene runAction:[SKAction repeatActionForever:[SKAction sequence:@[wait, run]]] withKey:@"shootingStars"];
+    }
+}
+
+-(SKEmitterNode *)starFieldEmitter:(SKColor *)color starSpeedY:(CGFloat)starSpeedY starsPerSecond:(CGFloat)starsPerSecond starScaleFactor:(CGFloat) starScaleFactor {
+    
+    SKEmitterNode *emitterNode = [SKEmitterNode node];
+    
+    CGFloat lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / starSpeedY;
+    
+    emitterNode.particleTexture = [SKTexture textureWithImage:[UIImage imageNamed:@"Stars"]];
+    emitterNode.particleBirthRate = starsPerSecond;
+    emitterNode.particleColor = [SKColor lightGrayColor];
+    emitterNode.particleSpeed = starSpeedY * -1;
+    emitterNode.particleScale = starScaleFactor;
+    emitterNode.particleColorBlendFactor = 1;
+    emitterNode.particleLifetime = lifetime;
+    
+    int rndValue = 1 + arc4random() % (45 - 1);
+    emitterNode.particleRotation = rndValue;
+    
+    emitterNode.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
+    emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, self.frame.size.height);
+    return emitterNode;
 }
 
 -(void)shootingStar {
@@ -108,8 +231,8 @@ CGPoint snowLocation;
     }
     
     SKEmitterNode *shootingstar = [SKEmitterNode node];
-    shootingstar =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"spark" ofType:@"sks"]];
-
+    shootingstar =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"shootingStar" ofType:@"sks"]];
+    
     CGPoint xy = CGPointMake(xPos, yPos);
     shootingstar.position = xy;
     shootingstar.name = @"shootingStar";
@@ -139,76 +262,39 @@ CGPoint snowLocation;
     int waitDuration = 2 + arc4random() % (5 - 2);
     SKAction *wait = [SKAction waitForDuration:waitDuration];
     SKAction *sequence = [SKAction sequence:@[wait, move]];
-
+    
     [shootingstar runAction:sequence completion:^{
         [shootingstar removeFromParent];
-        //[self shootingStar];
     }];
 }
 
--(float) randFloatBetween:(float)low and:(float)high {
+-(void)landFromOuterSpace {
     
-    float diff = high - low;
-    return (((float) rand() / RAND_MAX) * diff) + low;
+    [self.scene removeActionForKey:@"shootingStars"];
+    
+    [starEmitter1 removeFromParent];
+    starEmitter1 = nil;
+    
+    [starEmitter2 removeFromParent];
+    starEmitter2 = nil;
+    
+    [starEmitter3 removeFromParent];
+    starEmitter3 = nil;
+    
+    for (SKEmitterNode *emitter in self.children) {
+        if ([emitter.name isEqualToString:@"shootingStar"]) {
+            emitter.particleBirthRate = 0;
+        }
+    }
+    
+    inOuterSpace = NO;
 }
 
--(void)goToSpace {
-
-    [self shootingStar];
-    
-    double lifetime;
-    SKEmitterNode *emitterNode1 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:1 starsPerSecond:.1 starScaleFactor:0.08];
-    
-    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / 1;
-    [emitterNode1 advanceSimulationTime:lifetime];
-    emitterNode1.zPosition = -10;
-    [self addChild:emitterNode1];
-
-    SKEmitterNode *emitterNode2 = [self starFieldEmitter:[SKColor lightGrayColor] starSpeedY:.8 starsPerSecond:.08 starScaleFactor:0.06];
-    emitterNode2.zPosition = -11;
-    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .8;
-    [emitterNode2 advanceSimulationTime:lifetime];
-    [self addChild:emitterNode2];
-
-    SKEmitterNode *emitterNode3 = [self starFieldEmitter:[SKColor grayColor] starSpeedY:.5 starsPerSecond:.5 starScaleFactor:0.03];
-    emitterNode3.zPosition = -12;
-    lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / .5;
-    [emitterNode3 advanceSimulationTime:lifetime];
-    [self addChild:emitterNode3];
-    
-    space = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(shootingStar) userInfo:nil repeats:YES];
-
-}
-
-NSTimer *space;
-
--(SKEmitterNode *)starFieldEmitter:(SKColor *)color starSpeedY:(CGFloat)starSpeedY starsPerSecond:(CGFloat)starsPerSecond starScaleFactor:(CGFloat) starScaleFactor {
-    
-    SKEmitterNode *emitterNode = [SKEmitterNode node];
-    
-    CGFloat lifetime = self.frame.size.height * [[UIScreen mainScreen] scale] / starSpeedY;
-    
-    emitterNode.particleTexture = [SKTexture textureWithImage:[UIImage imageNamed:@"stars"]];
-    emitterNode.particleBirthRate = starsPerSecond;
-    emitterNode.particleColor = [SKColor lightGrayColor];
-    emitterNode.particleSpeed = starSpeedY * -1;
-    emitterNode.particleScale = starScaleFactor;
-    emitterNode.particleColorBlendFactor = 1;
-    emitterNode.particleLifetime = lifetime;
-    
-    int rndValue = 1 + arc4random() % (45 - 1);
-    emitterNode.particleRotation = rndValue;
-    
-    emitterNode.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
-    emitterNode.particlePositionRange = CGVectorMake(self.frame.size.width, self.frame.size.height);
-    return emitterNode;
-}
-
-
-//particle explosion - uses MyParticle.sks
-- (SKEmitterNode *) newSnow:(NSString *)type {
+-(SKEmitterNode *)newEmitter:(NSString *)type {
     
     snowLocation = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - 50);
+    
+    SKEmitterNode *emitter = [SKEmitterNode node];
     
     if ([type isEqualToString:@"Snow"]) {
         emitter =  [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"Snow" ofType:@"sks"]];
@@ -232,6 +318,20 @@ NSTimer *space;
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
 
+}
+
+-(float)randFloatBetween:(float)low and:(float)high {
+    
+    float diff = high - low;
+    return (((float) rand() / RAND_MAX) * diff) + low;
+}
+
+-(BOOL)getYesOrNo {
+    
+    int tmp = (arc4random() % 30)+1;
+    if(tmp % 5 == 0)
+        return YES;
+    return NO;
 }
 
 @end
