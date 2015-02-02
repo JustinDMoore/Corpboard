@@ -6,6 +6,13 @@
 // project.
 
 
+// IQKeyboardManager
+#define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 3.2.1.0.
+
 // JSBadgeView
 #define COCOAPODS_POD_AVAILABLE_JSBadgeView
 #define COCOAPODS_VERSION_MAJOR_JSBadgeView 1

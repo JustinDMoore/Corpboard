@@ -23,12 +23,14 @@
 #import "NSDate+Utilities.h"
 
 #import "KVNProgress.h"
+#import "IQKeyboardManager.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
 {
 	NSMutableArray *chatrooms;
     UIRefreshControl *refreshControl;
+    
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -110,12 +112,21 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
+    
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
 		[self refreshTableAndOpenRecent:NO];
 	}
 	else LoginUser(self);
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+        [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 }
 
 #pragma mark - User actions

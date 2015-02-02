@@ -3253,17 +3253,6 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PL7-0U-8gm">
-                                                    <rect key="frame" x="157" y="51" width="64" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="ZSb-SL-QZ7"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="rez-Pv-91E" id="jLI-31-BJE"/>
-                                                    </connections>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Perc" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjg-bW-gvi">
                                                     <rect key="frame" x="145" y="24" width="88" height="36"/>
                                                     <constraints>
@@ -3274,17 +3263,6 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9e-uV-YcO">
-                                                    <rect key="frame" x="86" y="51" width="64" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="7IW-rk-HY1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="rez-Pv-91E" id="efc-XH-8Jf"/>
-                                                    </connections>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guard" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNY-XS-w0z">
                                                     <rect key="frame" x="0.0" y="25" width="88" height="33"/>
                                                     <constraints>
@@ -3305,28 +3283,6 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="100" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PsC-Zu-9ei">
-                                                    <rect key="frame" x="229" y="51" width="64" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="SYV-og-HGL"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="rez-Pv-91E" id="lAn-PL-EjC"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7hK-bT-1X8">
-                                                    <rect key="frame" x="14" y="51" width="64" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="JAB-wB-miY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="rez-Pv-91E" id="uKI-Vu-aDP"/>
-                                                    </connections>
-                                                </textField>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wDu-1M-SMv">
                                                     <rect key="frame" x="208" y="7" width="60" height="22"/>
                                                     <constraints>
@@ -3347,14 +3303,58 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PL7-0U-8gm">
+                                                    <rect key="frame" x="15" y="50" width="64" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="ZSb-SL-QZ7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="rez-Pv-91E" id="jLI-31-BJE"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9e-uV-YcO">
+                                                    <rect key="frame" x="87" y="50" width="64" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="7IW-rk-HY1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="rez-Pv-91E" id="efc-XH-8Jf"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PsC-Zu-9ei">
+                                                    <rect key="frame" x="159" y="50" width="64" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="SYV-og-HGL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="rez-Pv-91E" id="lAn-PL-EjC"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="100" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7hK-bT-1X8">
+                                                    <rect key="frame" x="231" y="50" width="64" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="JAB-wB-miY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="rez-Pv-91E" id="uKI-Vu-aDP"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Zjg-bW-gvi" firstAttribute="leading" secondItem="OGq-Sr-jFg" secondAttribute="trailing" constant="-4" id="2an-m5-04B"/>
                                                 <constraint firstItem="SPg-lN-CkR" firstAttribute="centerY" secondItem="Zjg-bW-gvi" secondAttribute="centerY" constant="0.5" id="5kB-4W-bfF"/>
-                                                <constraint firstItem="PL7-0U-8gm" firstAttribute="centerX" secondItem="Zjg-bW-gvi" secondAttribute="centerX" id="9Cj-Ze-wcU"/>
-                                                <constraint firstItem="PsC-Zu-9ei" firstAttribute="top" secondItem="SPg-lN-CkR" secondAttribute="bottom" constant="-9" id="BQF-0b-grp"/>
-                                                <constraint firstItem="Z9e-uV-YcO" firstAttribute="top" secondItem="OGq-Sr-jFg" secondAttribute="bottom" constant="-7" id="BUX-Kw-lz9"/>
-                                                <constraint firstItem="7hK-bT-1X8" firstAttribute="top" secondItem="fNY-XS-w0z" secondAttribute="bottom" constant="-7" id="BdV-Od-Owp"/>
+                                                <constraint firstItem="PL7-0U-8gm" firstAttribute="centerX" secondItem="Zjg-bW-gvi" secondAttribute="centerX" constant="-142" id="9Cj-Ze-wcU"/>
+                                                <constraint firstItem="PsC-Zu-9ei" firstAttribute="top" secondItem="SPg-lN-CkR" secondAttribute="bottom" constant="-10" id="BQF-0b-grp"/>
+                                                <constraint firstItem="Z9e-uV-YcO" firstAttribute="top" secondItem="OGq-Sr-jFg" secondAttribute="bottom" constant="-8" id="BUX-Kw-lz9"/>
+                                                <constraint firstItem="7hK-bT-1X8" firstAttribute="top" secondItem="fNY-XS-w0z" secondAttribute="bottom" constant="-8" id="BdV-Od-Owp"/>
                                                 <constraint firstItem="wDu-1M-SMv" firstAttribute="leading" secondItem="57b-gJ-Y3S" secondAttribute="trailing" constant="6" id="CsY-5G-m0z"/>
                                                 <constraint firstItem="57b-gJ-Y3S" firstAttribute="centerY" secondItem="cbA-Me-I1D" secondAttribute="centerY" id="DGR-g1-ksK"/>
                                                 <constraint firstItem="57b-gJ-Y3S" firstAttribute="leading" secondItem="cbA-Me-I1D" secondAttribute="trailing" constant="8" id="HD1-21-yB9"/>
@@ -3363,14 +3363,14 @@
                                                 <constraint firstItem="57b-gJ-Y3S" firstAttribute="centerY" secondItem="wDu-1M-SMv" secondAttribute="centerY" constant="-0.5" id="MzH-ge-rKR"/>
                                                 <constraint firstItem="SPg-lN-CkR" firstAttribute="leading" secondItem="Zjg-bW-gvi" secondAttribute="trailing" constant="-6" id="OYN-u4-s7w"/>
                                                 <constraint firstItem="OGq-Sr-jFg" firstAttribute="centerY" secondItem="fNY-XS-w0z" secondAttribute="centerY" id="Rn9-2e-MNJ"/>
-                                                <constraint firstItem="PL7-0U-8gm" firstAttribute="top" secondItem="Zjg-bW-gvi" secondAttribute="bottom" constant="-9" id="Wdl-up-yep"/>
+                                                <constraint firstItem="PL7-0U-8gm" firstAttribute="top" secondItem="Zjg-bW-gvi" secondAttribute="bottom" constant="-10" id="Wdl-up-yep"/>
                                                 <constraint firstItem="fNY-XS-w0z" firstAttribute="top" secondItem="cbA-Me-I1D" secondAttribute="bottom" constant="-1" id="Yhr-AN-icC"/>
-                                                <constraint firstItem="Z9e-uV-YcO" firstAttribute="centerX" secondItem="OGq-Sr-jFg" secondAttribute="centerX" id="iNo-c3-HL5"/>
+                                                <constraint firstItem="Z9e-uV-YcO" firstAttribute="centerX" secondItem="OGq-Sr-jFg" secondAttribute="centerX" constant="1" id="iNo-c3-HL5"/>
                                                 <constraint firstItem="fNY-XS-w0z" firstAttribute="leading" secondItem="e8u-ui-C6J" secondAttribute="leadingMargin" constant="-8" id="j03-Wk-chp"/>
                                                 <constraint firstItem="cbA-Me-I1D" firstAttribute="leading" secondItem="e8u-ui-C6J" secondAttribute="leadingMargin" id="nGl-v6-naz"/>
-                                                <constraint firstItem="PsC-Zu-9ei" firstAttribute="centerX" secondItem="SPg-lN-CkR" secondAttribute="centerX" id="rAx-Xn-cTT"/>
+                                                <constraint firstItem="PsC-Zu-9ei" firstAttribute="centerX" secondItem="SPg-lN-CkR" secondAttribute="centerX" constant="-70" id="rAx-Xn-cTT"/>
                                                 <constraint firstItem="OGq-Sr-jFg" firstAttribute="centerY" secondItem="Zjg-bW-gvi" secondAttribute="centerY" constant="-0.5" id="shF-FM-4Ja"/>
-                                                <constraint firstItem="fNY-XS-w0z" firstAttribute="centerX" secondItem="7hK-bT-1X8" secondAttribute="centerX" constant="-2" id="uAI-q5-1eS"/>
+                                                <constraint firstItem="fNY-XS-w0z" firstAttribute="centerX" secondItem="7hK-bT-1X8" secondAttribute="centerX" constant="-219" id="uAI-q5-1eS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

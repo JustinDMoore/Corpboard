@@ -22,6 +22,8 @@
 
 #import "CBUserProfileViewController.h"
 
+#import "IQKeyboardManager.h"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ChatView()
 {
@@ -114,6 +116,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 }
@@ -123,6 +126,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewWillDisappear:animated];
+        [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 	[timer invalidate];
 }
 

@@ -9,6 +9,7 @@
 #import "CBProblemTableViewController.h"
 #import "CBTextViewPlaceHolder.h"
 #import <Parse/Parse.h>
+#import "IQKeyboardManager.h"
 
 @interface CBProblemTableViewController ()
 @property (nonatomic, strong) CBProblemWhere *viewProblemWhere;
@@ -48,6 +49,18 @@
     } else {
         self.title = @"Incorrect Information";
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 }
 
 -(void)cancelProblem {

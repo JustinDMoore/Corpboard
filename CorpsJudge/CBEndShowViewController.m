@@ -39,16 +39,6 @@
     
     self.lblShowLocationAndDate.text = [NSString stringWithFormat:@"%@ - %@", self.show[@"showLocation"], dateString];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
     [singleTap setNumberOfTapsRequired:1];
     [singleTap setNumberOfTouchesRequired:1];
@@ -67,41 +57,7 @@
 }
 
 - (IBAction)btnShowRainedOut_tapped:(id)sender {
-}
 
-#pragma mark
-#pragma mark - Keyboard Notifications
-#pragma mark
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
-    CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    NSNumber *rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-    
-    UIEdgeInsets contentInsets;
-    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
-        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
-    } else {
-        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
-    }
-    
-    [UIView animateWithDuration:rate.floatValue animations:^{
-        self.tableCorps.contentInset = contentInsets;
-        self.tableCorps.scrollIndicatorInsets = contentInsets;
-    }];
-    
-    UITextField *txt = (UITextField*)self.currentResponder;
-    CGPoint location = [txt.superview convertPoint:txt.center toView:self.tableCorps];
-    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
-    
-    
-    [self.tableCorps scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    self.tableCorps.contentInset = UIEdgeInsetsZero;
-    self.tableCorps.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
 #pragma mark
@@ -264,10 +220,10 @@ BOOL finished = NO;
     UILabel *lblPosition = (UILabel *)[cell viewWithTag:1];
     UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
     UIButton *btnRained = (UIButton *)[cell viewWithTag:3];
-    UITextField *txtColorguard = (UITextField *)[cell viewWithTag:4];
+    UITextField *txtColorguard = (UITextField *)[cell viewWithTag:6];
     UITextField *txtBrass = (UITextField *)[cell viewWithTag:5];
-    UITextField *txtPercussion = (UITextField *)[cell viewWithTag:6];
-    UITextField *txtOverall = (UITextField *)[cell viewWithTag:7];
+    UITextField *txtPercussion = (UITextField *)[cell viewWithTag:7];
+    UITextField *txtOverall = (UITextField *)[cell viewWithTag:4];
 
     [cell setUserInteractionEnabled:YES];
     

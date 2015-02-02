@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
+#import "IQKeyboardManager.h"
 
 @implementation CBAppDelegate
 
@@ -52,12 +53,16 @@
     self.appTintColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
     // hex 00aceb
 
-        
+    [[IQKeyboardManager sharedManager] setOverrideKeyboardAppearance:YES];
+    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:NO];
+    [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
+    [[IQKeyboardManager sharedManager] setKeyboardAppearance:UIKeyboardAppearanceDark];
+
     
     [self.window setTintColor:self.appTintColor];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
+
     
 //    BOOL isLoggedIn = false;
 //    

@@ -14,6 +14,7 @@
 #import "AppConstant.h"
 #import "messages.h"
 #import "ChatView.h"
+#import "IQKeyboardManager.h"
 
 @interface CBUserProfileViewController () {
     CBSingle *_data;
@@ -105,6 +106,18 @@
         [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
     }
 
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 }
 
 - (void)viewDidLoad {

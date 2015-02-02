@@ -9,6 +9,7 @@
 #import "CBFeedbackViewController.h"
 #import "CBTextViewPlaceholder.h"
 #import <Parse/Parse.h>
+#import "IQKeyboardManager.h"
 
 int noOfStars = 0;
 
@@ -51,6 +52,10 @@ int noOfStars = 0;
 
 -(void)viewDidAppear:(BOOL)animated {
     
+    [super viewDidAppear:animated];
+    
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    
     CBRateView *myCustomXIBViewObj =
     [[[NSBundle mainBundle] loadNibNamed:@"CBRateView"
                                    owner:self
@@ -60,6 +65,12 @@ int noOfStars = 0;
     [myCustomXIBViewObj showInParent:self.view.frame];
     
     [myCustomXIBViewObj setDelegate:self];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 }
 
 - (void)viewDidLoad

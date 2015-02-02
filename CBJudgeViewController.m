@@ -185,46 +185,7 @@ typedef enum : int {
     [self.view addGestureRecognizer:singleTap];
 
     [self.tableCorps reloadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    NSNumber *rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
-    
-    UIEdgeInsets contentInsets;
-    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
-        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
-    } else {
-        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
-    }
-    
-    [UIView animateWithDuration:rate.floatValue animations:^{
-        self.tableCorps.contentInset = contentInsets;
-        self.tableCorps.scrollIndicatorInsets = contentInsets;
-    }];
-    
-    UITextField *txt = (UITextField*)self.currentResponder;
-    CGPoint location = [txt.superview convertPoint:txt.center toView:self.tableCorps];
-    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
-    
-    [self.tableCorps scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    self.tableCorps.contentInset = UIEdgeInsetsZero;
-    self.tableCorps.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -672,6 +633,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         UITextField *text = (UITextField *)[cell viewWithTag:2];
         UILabel *label = (UILabel *)[cell viewWithTag:1];
         text.delegate = self;
+        [text setKeyboardAppearance:UIKeyboardAppearanceDark];
         [tableView setUserInteractionEnabled:YES];
         [cell setUserInteractionEnabled:YES];
         [text setUserInteractionEnabled:YES];
