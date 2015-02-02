@@ -10,7 +10,9 @@
 // THE SOFTWARE.
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface GroupView : UITableViewController <UIAlertViewDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#import "CBNewChatView.h"
 
+@interface GroupView : UITableViewController <UIAlertViewDelegate, NewChatProtocol>
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+@property (nonatomic, strong) CBNewChatView *viewNewChat;
 @end

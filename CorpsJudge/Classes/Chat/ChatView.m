@@ -414,12 +414,10 @@
 	NSLog(@"didTapLoadEarlierMessagesButton");
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 PFUser *userForProfile;
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView
-		   atIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+		   atIndexPath:(NSIndexPath *)indexPath {
+    
     userForProfile = [users objectAtIndex:indexPath.row];
     if (userForProfile) {
         [self performSegueWithIdentifier:@"profile" sender:self];
@@ -428,33 +426,26 @@ PFUser *userForProfile;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:@"profile"])
-    {
+    if ([[segue identifier] isEqualToString:@"profile"]) {
         CBUserProfileViewController *vc = [segue destinationViewController];
         [vc setUser:userForProfile];
     }
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
+    
 	NSLog(@"didTapMessageBubbleAtIndexPath");
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation {
+    
 	NSLog(@"didTapCellAtIndexPath %@", NSStringFromCGPoint(touchLocation));
 }
 
 #pragma mark - UIActionSheetDelegate
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
 	if (buttonIndex != actionSheet.cancelButtonIndex)
 	{
 		if (buttonIndex == 0)	ShouldStartCamera(self, YES);
@@ -464,10 +455,8 @@ PFUser *userForProfile;
 
 #pragma mark - UIImagePickerControllerDelegate
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
 	UIImage *picture = info[UIImagePickerControllerEditedImage];
 	[self sendMessage:@"[Picture message]" Picture:picture];
 	[picker dismissViewControllerAnimated:YES completion:nil];

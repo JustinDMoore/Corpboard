@@ -6,7 +6,12 @@
 //  Copyright (c) 2014 Pinch. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
+
+@class KVNProgress;
+
+typedef void (^KVNTapBlock)(KVNProgress *);
 
 typedef NS_ENUM(NSUInteger, KVNProgressBackgroundType) {
 	/** Don't allow user interactions and show a blurred background. Default value. */
@@ -64,6 +69,21 @@ typedef NS_ENUM(NSUInteger, KVNProgressBackgroundType) {
 @property (nonatomic) NSTimeInterval minimumSuccessDisplayTime;
 /** The minimum time (in seconds) the error will be displayed. */
 @property (nonatomic) NSTimeInterval minimumErrorDisplayTime;
+
+#pragma mark - Interaction
+
+/**
+ * The block called when the HUD is tapped.
+ * Use <code>nil</code> for no tap interaction with the HUD.
+ * Works only when <code>allowUserInteraction</code> is set to <code>NO</code>.
+ */
+@property (nonatomic, copy) KVNTapBlock tapBlock;
+/** 
+ * Enable user interaction with views behind the HUD. Does not work in fullscreen mode. 
+ * Is not compatible with the <code>tapBlock</code> property.
+ * @see tapBlock
+ */
+@property (nonatomic, getter = doesAllowUserInteraction) BOOL allowUserInteraction;
 
 #pragma mark - Helper
 

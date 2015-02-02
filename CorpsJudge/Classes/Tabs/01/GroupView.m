@@ -23,6 +23,7 @@
 #import "NSDate+Utilities.h"
 
 #import "KVNProgress.h"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GroupView()
 {
@@ -123,10 +124,16 @@
 - (void)actionNew
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create New Chat" message:@"What's your question or topic for discussion?" delegate:self
-										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-	[alert show];
+    [self toggleSubviews:NO];
+    [self.navigationController.view addSubview:self.viewNewChat];
+    //[self.view addSubview:self.viewNewChat];
+    [self.viewNewChat showInParent:self.view.frame];
+    
+    
+//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create New Chat" message:@"What's your question or topic for discussion?" delegate:self
+//										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//	[alert show];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -319,7 +326,59 @@ NSString *roomIdForChat;
     if ([segue.identifier isEqualToString:@"chat"]) {
         ChatView *vc = [segue destinationViewController];
         [vc setRoomId:roomIdForChat];
+        if ([msg length]) { //this sends the initial message to the chat
+            [vc sendMessage:msg Picture:nil];
+            msg = nil;
+        }
     }
 }
+
+-(CBNewChatView *)viewNewChat {
+    if (!_viewNewChat) {
+        _viewNewChat =
+        [[[NSBundle mainBundle] loadNibNamed:@"CBNewChatView"
+                                       owner:self
+                                     options:nil]
+         objectAtIndex:0];
+        [_viewNewChat setDelegate:self];
+    }
+    return _viewNewChat;
+}
+
+-(void)toggleSubviews:(BOOL)enableInteraction {
+    
+    self.view.userInteractionEnabled = enableInteraction;
+    for (UIView *view in [self.view subviews]) {
+        [view setUserInteractionEnabled:enableInteraction];
+    }
+}
+
+-(void)newChatCancelled {
+    [self toggleSubviews:YES];
+    self.viewNewChat = nil;
+}
+
+NSString *msg;
+-(void)newChatWithTopic:(NSString *)topic withMessage:(NSString *)message {
+    [self toggleSubviews:YES];
+    self.viewNewChat = nil;
+    
+    msg = message;
+    
+    PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
+    object[PF_CHATROOMS_NAME] = topic;
+    object[@"user"] = [PFUser currentUser];
+    object[@"lastUser"] = [PFUser currentUser];
+    object[@"lastMessageDate"] = [NSDate date];
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         if (error == nil)
+         {
+             [self refreshTableAndOpenRecent:YES];
+         }
+         else [KVNProgress showErrorWithStatus:@"Network error"];
+     }];
+}
+
 
 @end

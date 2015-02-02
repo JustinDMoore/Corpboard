@@ -168,6 +168,8 @@
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D0067A6C1969236300C372D0 /* Feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6B1969236300C372D0 /* Feedback.png */; };
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
+		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
+		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
 		D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D011894C1A6B0D8A00D77EA9 /* Snow.sks */; };
 		D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D011894D1A6B0D8A00D77EA9 /* spark.png */; };
@@ -528,6 +530,9 @@
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
 		D0067A6B1969236300C372D0 /* Feedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback.png; sourceTree = "<group>"; };
 		D0067A6D1969261C00C372D0 /* Feedback1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Feedback1.png; sourceTree = "<group>"; };
+		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
+		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
+		D01012451A7F40170040BFFD /* CBNewChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewChatView.m; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
 		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
 		D011894C1A6B0D8A00D77EA9 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
@@ -1262,6 +1267,8 @@
 				D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */,
 				92393F261A59B5DE00020C6A /* CBProblemWhere.xib */,
 				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
+				D01012421A7F3C950040BFFD /* CBNewChatView.xib */,
+				D01012451A7F40170040BFFD /* CBNewChatView.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -1310,6 +1317,7 @@
 				D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */,
 				D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */,
 				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
+				D01012441A7F40170040BFFD /* CBNewChatView.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1568,6 +1576,7 @@
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				923D4FD11A2C6DCF00E16B64 /* RegisterView.xib in Resources */,
+				D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */,
 				9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */,
 				923D4FF91A2C6DCF00E16B64 /* JSQMessagesViewController.xib in Resources */,
 				923D50141A2C6DCF00E16B64 /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
@@ -1689,6 +1698,7 @@
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				923D4FCA1A2C6DCF00E16B64 /* MessagesView.m in Sources */,
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
+				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,

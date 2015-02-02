@@ -100,7 +100,7 @@ static KVNProgressConfiguration *configuration;
 	
 	dispatch_once(&onceToken, ^{
 		UINib *nib = [UINib nibWithNibName:@"KVNProgressView"
-									bundle:nil];
+                                    bundle:[NSBundle bundleForClass:[self class]]];
 		NSArray *nibViews = [nib instantiateWithOwner:self
 											  options:0];
 		
@@ -518,10 +518,23 @@ static KVNProgressConfiguration *configuration;
 
 - (void)setupUI
 {
+	[self setupGestures];
 	[self setupConstraints];
 	[self setupCircleProgressView];
 	[self setupStatus:self.status];
 	[self setupBackground];
+}
+
+- (void)setupGestures
+{
+	for (UIGestureRecognizer *gestureRecognizer in self.gestureRecognizers) {
+		[self removeGestureRecognizer:gestureRecognizer];
+	}
+	
+	if (self.configuration.tapBlock) {
+		UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(performTapBlock)];
+		[self addGestureRecognizer:tapGestureRecognizer];
+	}
 }
 
 - (void)setupConstraints
@@ -1248,12 +1261,25 @@ static KVNProgressConfiguration *configuration;
 	return ([self sharedView].superview != nil && [self sharedView].alpha > 0.0f);
 }
 
+#pragma mark - Tap Block
+
+- (void)performTapBlock {
+	if (self.configuration.tapBlock) {
+		KVNPrepareBlockSelf();
+		self.configuration.tapBlock(KVNBlockSelf);
+	}
+}
+
 #pragma mark - HitTest
 
 // Used to block interaction for all views behind
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-	return (CGRectContainsPoint(self.frame, point)) ? self : nil;
+	if (self.configuration.allowUserInteraction && ![self isFullScreen]) {
+		return nil;
+	} else {
+		return (CGRectContainsPoint(self.frame, point)) ? self : nil;
+	}
 }
 
 @end
