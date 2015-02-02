@@ -7,6 +7,8 @@
 //
 
 #import "CBWebViewController.h"
+#import "CBAppDelegate.h"
+
 @interface CBWebViewController()
 @property (weak, nonatomic) IBOutlet UILabel *lblWebsiteTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblWebsiteSubTitle;
@@ -20,6 +22,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CBAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate setShouldRotate:YES];
     [self loadWebsite];
     // Do any additional setup after loading the view.
 }
@@ -84,6 +88,8 @@
 
 - (IBAction)btnClose_tapped:(id)sender {
     
+    CBAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate setShouldRotate:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
