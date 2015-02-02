@@ -29,9 +29,9 @@
         [self.dict setObject:@"NO" forKey:@"Family of Member"];
         [self.dict setObject:@"NO" forKey:@"Brass Player"];
         [self.dict setObject:@"NO" forKey:@"Percussionist"];
-        [self.dict setObject:@"NO" forKey:@"Colorguard"];
+        [self.dict setObject:@"NO" forKey:@"Color Guard"];
         
-        self.arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Former Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Colorguard", nil];
+        self.arrayOfCategories = [[NSArray alloc] initWithObjects: @"Fan", @"Alumni", @"Active Member", @"Staff", @"Former Staff", @"Family of Member", @"Brass Player", @"Percussionist", @"Color Guard", nil];
 
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =

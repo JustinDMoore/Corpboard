@@ -734,7 +734,7 @@
                                     <tabBarItem title="Rankings" image="score_tab" id="Uqo-lJ-MyG"/>
                                     <tabBarItem tag="1" title="Brass" image="horn_tab" id="i6z-OR-YQO"/>
                                     <tabBarItem tag="2" title="Percussion" image="drum_tab" id="jtn-Yz-R1E"/>
-                                    <tabBarItem tag="3" title="Colorguard" image="flag_tab" id="fSN-Ai-rG8"/>
+                                    <tabBarItem tag="3" title="Color Guard" image="flag_tab" id="fSN-Ai-rG8"/>
                                     <tabBarItem tag="4" title="Loudest" image="loudest_tab" id="id2-Mc-1kb"/>
                                     <tabBarItem tag="5" title="Favorite" image="favorite_tab" id="dhK-Ya-zW0"/>
                                 </items>
@@ -3144,7 +3144,7 @@
                                     <tabBarItem title="Score" image="score_tab" id="czZ-V3-pwE"/>
                                     <tabBarItem tag="1" title="Brass" image="horn_tab" id="PGR-C9-AKF"/>
                                     <tabBarItem tag="2" title="Percussion" image="drum_tab" id="W6b-fB-Zsi"/>
-                                    <tabBarItem tag="3" title="Colorguard" image="flag_tab" id="aom-SN-V0o"/>
+                                    <tabBarItem tag="3" title="Color Guard" image="flag_tab" id="aom-SN-V0o"/>
                                     <tabBarItem tag="4" title="Loudest" image="loudest_tab" id="qcZ-jC-GTw"/>
                                     <tabBarItem tag="5" title="Favorite" image="favorite_tab" id="F1f-mk-Mhv"/>
                                 </items>

@@ -296,7 +296,7 @@ bool isDoneSortingFavorites = NO;
             
             BOOL isWorld = [fav[@"isWorldClass"] boolValue];
             
-            if ([fav[@"category"] isEqualToString:@"Favorite Hornline"]) {
+            if ([fav[@"category"] isEqualToString:@"Favorite Brass"]) {
                 
                 if (isWorld) {
                     totalWorldHornlineVotes++;
@@ -327,7 +327,7 @@ bool isDoneSortingFavorites = NO;
                     totalOpenColorguardVotes++;
                     [data.arrayofOpenColorguardVotes addObject:fav];
                 }
-            } else if ([fav[@"category"] isEqualToString:@"Loudest Hornline"]) {
+            } else if ([fav[@"category"] isEqualToString:@"Loudest Brass"]) {
                 
                 if (isWorld) {
                     totalWorldLoudestVotes++;
@@ -585,7 +585,7 @@ int numberOfRanks = 0;
     
     queryUserHornlineRanks = [PFQuery queryWithClassName:@"favorites"];
     [queryUserHornlineRanks whereKey:@"corps" equalTo:corps];
-    [queryUserHornlineRanks whereKey:@"category" equalTo:@"Favorite Hornline"];
+    [queryUserHornlineRanks whereKey:@"category" equalTo:@"Favorite Brass"];
     [queryUserHornlineRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
@@ -636,7 +636,7 @@ int numberOfRanks = 0;
     
     queryUserLoudestRanks = [PFQuery queryWithClassName:@"favorites"];
     [queryUserLoudestRanks whereKey:@"corps" equalTo:corps];
-    [queryUserLoudestRanks whereKey:@"category" equalTo:@"Loudest Hornline"];
+    [queryUserLoudestRanks whereKey:@"category" equalTo:@"Loudest Brass"];
     [queryUserLoudestRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count] > 0) {
             UserScore *us = [[UserScore alloc] init];
@@ -1294,7 +1294,7 @@ BOOL isDoneSortingScores = NO;
                         cell.textLabel.text = corps[@"corpsName"];
                         cell.textLabel.textColor = [UIColor whiteColor];
                         cell.textLabel.font = [UIFont systemFontOfSize:16];
-                        cell.detailTextLabel.text = @"No colorguard score yet";
+                        cell.detailTextLabel.text = @"No color guard score yet";
                         cell.detailTextLabel.textColor = [UIColor lightGrayColor];
                         cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
                         
@@ -1472,7 +1472,7 @@ BOOL isDoneSortingScores = NO;
                 self.title = @"High Percussion";
                 break;
             case phaseBestguard:
-                self.title = @"High Colorguard";
+                self.title = @"High Color Guard";
                 break;
             case phaseBesthornline:
                 self.title = @"High Brass";
@@ -1491,13 +1491,13 @@ BOOL isDoneSortingScores = NO;
                 self.title = @"User Favorite Show";
                 break;
             case phaseLoudesthornline:
-                self.title = @"User Loudest Hornline";
+                self.title = @"User Loudest Brass";
                 break;
             case phaseBestdrums:
                 self.title = @"User Favorite Percussion";
                 break;
             case phaseBestguard:
-                self.title = @"User Favorite Colorguard";
+                self.title = @"User Favorite Color Guard";
                 break;
             case phaseBesthornline:
                 self.title = @"User Favorite Brass";

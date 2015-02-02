@@ -370,9 +370,9 @@ bool backspaced;
     switch (cat) {
         case catcorps: return @"Favorite Corps";
         case catdrums: return @"Favorite Drums";
-        case catguard: return @"Favorite Colorguard";
-        case cathornline: return @"Favorite Hornline";
-        case catloud: return @"Loudest Hornline";
+        case catguard: return @"Favorite Color Guard";
+        case cathornline: return @"Favorite Brass";
+        case catloud: return @"Loudest Brass";
     }
 }
 
@@ -751,7 +751,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         } else {
                             detailText = blank;
                         }
-                    } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 1) { //                  best hornline
+                    } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 1) { //                  best brass
                         mainText = @"Best Brass";
                         img.image = [UIImage imageNamed:@"horn"];
                         if (favHornlineW) {
@@ -761,15 +761,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                             detailText = blank;
                         }
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 2) { //                     best guard
-                        mainText = @"Best Colorguard";
+                        mainText = @"Best Color Guard";
                         img.image = [UIImage imageNamed:@"flag"];
                         if (favGuardW) {
                             detailText = favGuardW[@"corpsName"];
                         } else {
                             detailText = blank;
                         }
-                    } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 3) { //                    loudest hornline
-                        mainText = @"Loudest Hornline";
+                    } else if (indexPath.row == [self.arrayOfWorldClassScores count] + 3) { //                    loudest brass
+                        mainText = @"Loudest Brass";
                         img.image = [UIImage imageNamed:@"volume"];
                         if (loudHornlineW) {
                             detailText = loudHornlineW[@"corpsName"];
@@ -814,7 +814,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                             detailText = blank;
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 1) {
-                        mainText = @"Best Hornline";
+                        mainText = @"Best Brass";
                         img.image = [UIImage imageNamed:@"horn"];
                         if (favHornlineO) {
                             detailText = favHornlineO[@"corpsName"];
@@ -822,7 +822,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                             detailText = blank;
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 2) {
-                        mainText = @"Best Colorguard";
+                        mainText = @"Best Color Guard";
                         img.image = [UIImage imageNamed:@"flag"];
                         if (favGuardO) {
                             detailText = favGuardO[@"corpsName"];
@@ -830,7 +830,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                             detailText = blank;
                         }
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count] + 3) {
-                        mainText = @"Loudest Hornline";
+                        mainText = @"Loudest Brass";
                         img.image = [UIImage imageNamed:@"volume"];
                         if (loudHornlineO) {
                             detailText = loudHornlineO[@"corpsName"];
@@ -1041,11 +1041,11 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestguard:
-            self.lblInstructions.text = @"Who had the best colorguard?";
+            self.lblInstructions.text = @"Who had the best color guard?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseLoudesthornline:
-            self.lblInstructions.text = @"Who had the loudest hornline?";
+            self.lblInstructions.text = @"Who had the loudest brass?";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseFavorite:

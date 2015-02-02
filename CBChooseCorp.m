@@ -71,7 +71,7 @@
         [self.txtCorpsName becomeFirstResponder];
         
         self.arrayOfPositions = [NSArray arrayWithObjects:@"Staff", @"Volunteer", @"Drum Major", @"Trumpet", @"Mellophone", @"Baritone", @"Euphonium", @"Tuba"
-                                 @"Snare", @"Tenor", @"Bass", @"Front Ensemble", @"Colorguard", nil];
+                                 @"Snare", @"Tenor", @"Bass", @"Front Ensemble", @"Color Guard", nil];
         int year = 2015;
         while (year > 1971) {
             [self.arrayOfYears addObject:[NSString stringWithFormat:@"%i", year]];
