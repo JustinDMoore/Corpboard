@@ -22,6 +22,8 @@
 @interface PrivateView() {
     
 	NSMutableArray *users;
+    NSMutableArray *arrayOfChatsWithUsers;
+
 }
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
@@ -55,10 +57,16 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
 	users = [[NSMutableArray alloc] init];
+    arrayOfChatsWithUsers = [[NSMutableArray alloc] init];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [arrayOfChatsWithUsers removeAllObjects];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     
@@ -66,7 +74,7 @@
 
 	if ([PFUser currentUser] != nil) {
         
-		[self loadUsers];
+		[self loadMessages];
 	}
 	else LoginUser(self);
 }
@@ -88,8 +96,38 @@
 
 #pragma mark - Backend methods
 
-- (void)loadUsers {
+BOOL isLoading = NO;
+
+-(void)loadMessages {
     
+    if (isLoading == NO) {
+        [KVNProgress show];
+        isLoading = YES;
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+        [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
+        //[query whereKey:@"user" notEqualTo:[PFUser currentUser].objectId];
+        [query whereKey: @"user" notEqualTo: [PFUser currentUser]];
+        [query includeKey:@"user"];
+        [query orderByDescending:@"updatedAt"];
+        [query setLimit:50];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            if (error == nil) {
+                
+                [arrayOfChatsWithUsers addObjectsFromArray:objects];
+                
+            }
+            else [KVNProgress showErrorWithStatus:@"Network error"];
+            isLoading = NO;
+            [self.tableView reloadData];
+            [KVNProgress dismiss];
+        }];
+    }
+}
+
+- (void)loadUsers {
+
 	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
 	[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
 	[query orderByAscending:PF_USER_FULLNAME];
@@ -134,24 +172,48 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	return [users count];
+	return [arrayOfChatsWithUsers count];
 }
 
+CGRect frame;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"privateCell"];
-	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"privateCell"];
 
-	PFUser *user = users[indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"privateCell"];
+    if (cell == nil) {
+        // Load the top-level objects from the custom cell XIB.
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PrivateMessageCell" owner:self options:nil];
+        // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).
+        cell = [topLevelObjects objectAtIndex:0];
+    }
+
+    PFObject *lastMessage = arrayOfChatsWithUsers[indexPath.row];
     
     UIImageView *imgNew = (UIImageView *)[cell viewWithTag:2];
     UILabel *lblUser = (UILabel *)[cell viewWithTag:3];
     UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
     UILabel *lblLastMessage = (UILabel *)[cell viewWithTag:5];
     
-    lblUser.text = user[PF_USER_FULLNAME];
+    BOOL isRead = [lastMessage[@"read"] boolValue];
+
+    if (!isRead) {
+        imgNew.hidden = NO;
+    } else {
+        imgNew.hidden = YES;
+    }
+    
+    lblLastMessage.backgroundColor = [UIColor yellowColor];
+   
+    PFUser *user = lastMessage[@"user"];
+    lblUser.text = user[@"nickname"];
     [lblUser sizeToFit];
 
+    frame = lblLastMessage.frame;
+    
+    lblLastMessage.text = lastMessage[@"lastMessage"];
+    lblLastMessage.adjustsFontSizeToFitWidth = YES;
+    lblLastMessage.numberOfLines = 0;
+    [lblLastMessage setFrame:CGRectMake(0, 0, 20, 20)];
+    [lblLastMessage sizeToFit];
 	return cell;
 }
 
@@ -160,19 +222,29 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	PFUser *user1 = [PFUser currentUser];
-	PFUser *user2 = users[indexPath.row];
-	NSString *id1 = user1.objectId;
-	NSString *id2 = user2.objectId;
-	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-
-	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
-	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
-
-	ChatView *chatView = [[ChatView alloc] initWith:roomId];
+//
+//	PFUser *user1 = [PFUser currentUser];
+//	PFUser *user2 = users[indexPath.row];
+//	NSString *id1 = user1.objectId;
+//	NSString *id2 = user2.objectId;
+//	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
+//
+//	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
+//	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+    PFObject *lastMessage = arrayOfChatsWithUsers[indexPath.row];
+	ChatView *chatView = [[ChatView alloc] initWith:lastMessage[@"roomId"]];
 	chatView.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:chatView animated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 88;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 88;
 }
 
 #pragma mark - UISearchBarDelegate
@@ -211,6 +283,7 @@
 	searchBar.text = @"";
 	[searchBar resignFirstResponder];
 
+    
 	[self loadUsers];
 }
 

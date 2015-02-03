@@ -121,6 +121,7 @@
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
 		D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */; };
+		D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D054A74E1A816259000968CA /* PrivateMessageCell.m */; };
 		D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0606BBC1A3D8614002A1F48 /* CBTextField.m */; };
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
@@ -348,6 +349,8 @@
 		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
 		D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsViewController.m; sourceTree = "<group>"; };
 		D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivateMessageCell.xib; sourceTree = "<group>"; };
+		D054A74D1A816259000968CA /* PrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageCell.h; sourceTree = "<group>"; };
+		D054A74E1A816259000968CA /* PrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageCell.m; sourceTree = "<group>"; };
 		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
 		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -520,6 +523,8 @@
 				923D4EF91A2C6DCF00E16B64 /* PrivateView.m */,
 				923D4EFA1A2C6DCF00E16B64 /* PrivateView.xib */,
 				D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */,
+				D054A74D1A816259000968CA /* PrivateMessageCell.h */,
+				D054A74E1A816259000968CA /* PrivateMessageCell.m */,
 				923D4EFC1A2C6DCF00E16B64 /* MessagesCell.h */,
 				923D4EFD1A2C6DCF00E16B64 /* MessagesCell.m */,
 				923D4EFE1A2C6DCF00E16B64 /* MessagesCell.xib */,
@@ -1175,6 +1180,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
+				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,
 				D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */,
@@ -1363,7 +1369,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "95c2653d-8b4c-4943-a059-6222e3baf6b2";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1391,7 +1397,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "95c2653d-8b4c-4943-a059-6222e3baf6b2";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

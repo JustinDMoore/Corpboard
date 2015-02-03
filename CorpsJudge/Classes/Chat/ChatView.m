@@ -145,6 +145,11 @@
 				for (PFObject *object in [objects reverseObjectEnumerator]) {
                     
 					[self addMessage:object];
+                    BOOL isRead = [object[@"read"] boolValue];
+                    if (!isRead) {
+                        object[@"read"] = [NSNumber numberWithBool:YES];
+                        [object saveInBackground];
+                    }
 				}
 				if ([objects count] != 0) [self finishReceivingMessage];
 			}
