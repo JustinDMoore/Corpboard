@@ -51,7 +51,9 @@
 
 	self.tableView.tableHeaderView = viewHeader;
 	self.tableView.separatorInset = UIEdgeInsetsZero;
-
+    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
 	users = [[NSMutableArray alloc] init];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
@@ -137,11 +139,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"privateCell"];
+	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"privateCell"];
 
 	PFUser *user = users[indexPath.row];
-	cell.textLabel.text = user[PF_USER_FULLNAME];
+    
+    UIImageView *imgNew = (UIImageView *)[cell viewWithTag:2];
+    UILabel *lblUser = (UILabel *)[cell viewWithTag:3];
+    UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
+    UILabel *lblLastMessage = (UILabel *)[cell viewWithTag:5];
+    
+    lblUser.text = user[PF_USER_FULLNAME];
+    [lblUser sizeToFit];
 
 	return cell;
 }

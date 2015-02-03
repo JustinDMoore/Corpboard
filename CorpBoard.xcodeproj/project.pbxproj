@@ -120,6 +120,7 @@
 		D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
+		D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */; };
 		D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0606BBC1A3D8614002A1F48 /* CBTextField.m */; };
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
@@ -346,6 +347,7 @@
 		D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextViewPlaceHolder.m; sourceTree = "<group>"; };
 		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
 		D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsViewController.m; sourceTree = "<group>"; };
+		D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivateMessageCell.xib; sourceTree = "<group>"; };
 		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
 		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				923D4EF81A2C6DCF00E16B64 /* PrivateView.h */,
 				923D4EF91A2C6DCF00E16B64 /* PrivateView.m */,
 				923D4EFA1A2C6DCF00E16B64 /* PrivateView.xib */,
+				D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */,
 				923D4EFC1A2C6DCF00E16B64 /* MessagesCell.h */,
 				923D4EFD1A2C6DCF00E16B64 /* MessagesCell.m */,
 				923D4EFE1A2C6DCF00E16B64 /* MessagesCell.xib */,
@@ -1059,6 +1062,7 @@
 				D064F3B11A36ECA1007455E2 /* global.json in Resources */,
 				92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */,
 				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
+				D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */,
 				D064F3B01A36ECA1007455E2 /* main.js in Resources */,
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
