@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
+@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     
 
 }
@@ -17,8 +17,6 @@
 @property (nonatomic, retain) UIImageView *pageOneDoc;
 @property (nonatomic, retain) UIImageView *pageTwoDoc;
 @property (nonatomic, retain) UIImageView *pageThreeDoc;
-
-
 
 - (void)loadPageWithId:(int)index onPage:(int)page;
 

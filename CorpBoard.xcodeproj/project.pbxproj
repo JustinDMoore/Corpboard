@@ -170,6 +170,7 @@
 		D0067A6E1969261C00C372D0 /* Feedback1.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6D1969261C00C372D0 /* Feedback1.png */; };
 		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
 		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
+		D01012491A800F810040BFFD /* CBNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012481A800F810040BFFD /* CBNewsCell.m */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
 		D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D011894C1A6B0D8A00D77EA9 /* Snow.sks */; };
 		D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D011894D1A6B0D8A00D77EA9 /* spark.png */; };
@@ -194,6 +195,8 @@
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
 		D064F3B21A36ECA1007455E2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AF1A36ECA1007455E2 /* index.html */; };
+		D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0681E141A8010080084EB42 /* CBNewsCell.xib */; };
+		D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */; };
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
@@ -533,6 +536,8 @@
 		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
 		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
 		D01012451A7F40170040BFFD /* CBNewChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewChatView.m; sourceTree = "<group>"; };
+		D01012471A800F810040BFFD /* CBNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsCell.h; sourceTree = "<group>"; };
+		D01012481A800F810040BFFD /* CBNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsCell.m; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
 		D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSelectCoverPhoto.m; sourceTree = "<group>"; };
 		D011894C1A6B0D8A00D77EA9 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
@@ -569,6 +574,9 @@
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		D064F3AD1A36ECA1007455E2 /* global.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = global.json; sourceTree = "<group>"; };
 		D064F3AF1A36ECA1007455E2 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		D0681E141A8010080084EB42 /* CBNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewsCell.xib; sourceTree = "<group>"; };
+		D0681E161A8048A70084EB42 /* CBCollectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCollectionFlowLayout.h; sourceTree = "<group>"; };
+		D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCollectionFlowLayout.m; sourceTree = "<group>"; };
 		D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CBLaunch.xib; path = CorpsJudge/CBLaunch.xib; sourceTree = "<group>"; };
 		D074E1531A6EEFCB00C1E300 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
@@ -1269,6 +1277,7 @@
 				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
 				D01012421A7F3C950040BFFD /* CBNewChatView.xib */,
 				D01012451A7F40170040BFFD /* CBNewChatView.m */,
+				D0681E141A8010080084EB42 /* CBNewsCell.xib */,
 			);
 			name = Xibs;
 			path = ..;
@@ -1400,6 +1409,10 @@
 				D0606BBC1A3D8614002A1F48 /* CBTextField.m */,
 				92275B3A1A4042BC006E8E8E /* CBView.h */,
 				92275B3B1A4042BC006E8E8E /* CBView.m */,
+				D01012471A800F810040BFFD /* CBNewsCell.h */,
+				D01012481A800F810040BFFD /* CBNewsCell.m */,
+				D0681E161A8048A70084EB42 /* CBCollectionFlowLayout.h */,
+				D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1582,6 +1595,7 @@
 				923D50141A2C6DCF00E16B64 /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
 				923D4FDB1A2C6DCF00E16B64 /* tab_messages@2x.png in Resources */,
 				923D4FCD1A2C6DCF00E16B64 /* ProfileView.xib in Resources */,
+				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
 				D064F3B11A36ECA1007455E2 /* global.json in Resources */,
@@ -1782,6 +1796,7 @@
 				923D4FFF1A2C6DCF00E16B64 /* JSQMessagesCollectionViewFlowLayout.m in Sources */,
 				925334C1194FD7BC0004D16F /* CBShowsViewController.m in Sources */,
 				923D500B1A2C6DCF00E16B64 /* JSQMessagesCollectionViewCell.m in Sources */,
+				D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */,
 				923D4FD51A2C6DCF00E16B64 /* messages.m in Sources */,
 				923D4FC31A2C6DCF00E16B64 /* NavigationController.m in Sources */,
 				D0067A6819690AB300C372D0 /* Math.m in Sources */,
@@ -1806,6 +1821,7 @@
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
 				923D50071A2C6DCF00E16B64 /* JSQPhotoMediaItem.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
+				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				923D4FFB1A2C6DCF00E16B64 /* JSQMessagesBubbleImageFactory.m in Sources */,
 				923D50101A2C6DCF00E16B64 /* JSQMessagesComposerTextView.m in Sources */,

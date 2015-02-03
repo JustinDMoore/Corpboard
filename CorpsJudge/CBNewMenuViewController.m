@@ -22,6 +22,7 @@
 #import "PulsingHaloLayer.h"
 #import "JSBadgeView.h"
 #import "CBUserProfileViewController.h"
+#import "CBNewsCell.h"
 
 CBSingle *data;
 CBNewsSingleton *news;
@@ -110,6 +111,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (weak, nonatomic) IBOutlet ClipView *clipviewNews;
 @property (weak, nonatomic) IBOutlet ClipView *viewNews;
 @property (nonatomic) NSInteger newsPage;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionNews;
 
 // Extras
 @property (weak, nonatomic) IBOutlet UIView *viewExtras;
@@ -181,6 +183,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     data = [CBSingle data];
     news = [CBNewsSingleton news];
     
+    [self.collectionNews registerClass:[CBNewsCell class] forCellWithReuseIdentifier:@"CBNewsCell"];
     [self initHeadshots];
     
     self.navigationItem.backBarButtonItem =
@@ -324,6 +327,8 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     self.viewFeedback.layer.borderWidth = 1;
     [self pulse];
     
+    //news
+    self.collectionNews.backgroundColor = [UIColor clearColor];
 }
 
 -(void)pulse {
@@ -343,37 +348,39 @@ int newsContentWidth = 0;
 
 -(void)initNewsFeed {
     
-    self.clipviewNews.backgroundColor = [UIColor clearColor];
+    [self.collectionNews reloadData];
     
-    if ([news.itemsToDisplay count]) {
-        self.viewNews.hidden = NO;
-        if (numOfNewsItems > [news.itemsToDisplay count]) {
-            numOfNewsItems = (int)[news.itemsToDisplay count];
-        }
-        for (int i = 0; i < numOfNewsItems; i++) {
-            //CBNewsItem *item = [news.itemsToDisplay objectAtIndex:i];
-            MWFeedItem *item = [news.itemsToDisplay objectAtIndex:i];
-            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.date title:item.title link:item.link];
-            nv.frame = CGRectMake((0 + (nv.frame.size.width * i) + (8 * i)), 7, nv.frame.size.width, nv.frame.size.height);
-            nv.colorNumber = [news.arrayOfColors objectAtIndex:i];
-            [nv createBackground];
-            [self.scrollNews addSubview:nv];
-            newsContentWidth += nv.frame.size.width + 8;
-            newsScrollWidth = nv.frame.size.width;
-        }
-        self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
-    } else {
-        self.scrollNews.hidden = YES;
-        UILabel *error = [[UILabel alloc] init];
-        error.frame = CGRectMake(0, 0, self.clipviewNews.frame.size.width, self.clipviewNews.frame.size.height);
-        error.text = @"Could Not Load News Feed";
-        error.numberOfLines = 0;
-        error.textColor = [UIColor lightGrayColor];
-        error.font = [UIFont systemFontOfSize:14];
-        error.textAlignment = NSTextAlignmentCenter;
-        [self.clipviewNews addSubview: error];
-        self.btnSeeAllNews.enabled = NO;
-    }
+//    self.clipviewNews.backgroundColor = [UIColor clearColor];
+//    
+//    if ([news.itemsToDisplay count]) {
+//        self.viewNews.hidden = NO;
+//        if (numOfNewsItems > [news.itemsToDisplay count]) {
+//            numOfNewsItems = (int)[news.itemsToDisplay count];
+//        }
+//        for (int i = 0; i < numOfNewsItems; i++) {
+//            //CBNewsItem *item = [news.itemsToDisplay objectAtIndex:i];
+//            MWFeedItem *item = [news.itemsToDisplay objectAtIndex:i];
+//            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.date title:item.title link:item.link];
+//            nv.frame = CGRectMake((0 + (nv.frame.size.width * i) + (8 * i)), 7, nv.frame.size.width, nv.frame.size.height);
+//            nv.colorNumber = [news.arrayOfColors objectAtIndex:i];
+//            [nv createBackground];
+//            [self.scrollNews addSubview:nv];
+//            newsContentWidth += nv.frame.size.width + 8;
+//            newsScrollWidth = nv.frame.size.width;
+//        }
+//        self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
+//    } else {
+//        self.scrollNews.hidden = YES;
+//        UILabel *error = [[UILabel alloc] init];
+//        error.frame = CGRectMake(0, 0, self.clipviewNews.frame.size.width, self.clipviewNews.frame.size.height);
+//        error.text = @"Could Not Load News Feed";
+//        error.numberOfLines = 0;
+//        error.textColor = [UIColor lightGrayColor];
+//        error.font = [UIFont systemFontOfSize:14];
+//        error.textAlignment = NSTextAlignmentCenter;
+//        [self.clipviewNews addSubview: error];
+//        self.btnSeeAllNews.enabled = NO;
+//    }
 }
 
 - (void)loadPageWithId:(int)index onPage:(int)page {
@@ -1191,4 +1198,101 @@ CGFloat previousScroll;
 
 - (IBAction)btnAdmin_clicked:(id)sender {
 }
+
+#pragma mark -
+#pragma mark - UICollectionView Delegates
+#pragma mark
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+
+    return 6;
+}
+
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *cellIdentifier = [NSString stringWithFormat:@"cell%li", indexPath.row];
+    
+    CBNewsCell *cell = (CBNewsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    MWFeedItem *item = [news.itemsToDisplay objectAtIndex:indexPath.row];
+
+    
+    //date
+    NSString *dateString = @"";
+    NSDate *date = item.date;
+    int diff = (int)[date minutesBeforeDate:[NSDate date]];
+    if (diff < 5) {
+        dateString = @"Just Now";
+    } else if (diff <= 50) {
+        dateString = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        dateString = @"An hour ago";
+    } else {
+        if ([date isYesterday]) {
+            dateString = @"Yesterday";
+        }
+        if ([date daysBeforeDate:[NSDate date]] == 2) {
+            dateString = @"2 days ago";
+        } else {
+            if ([date isToday]) {
+                int hours = (int)[date hoursBeforeDate:[NSDate date]];
+                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+            } else {
+                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                [format setDateFormat:@"MMMM d"];
+                
+                dateString = [format stringFromDate:date];
+            }
+        }
+    }
+    
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
+    dateLabel.font = [UIFont boldSystemFontOfSize:12];
+    dateLabel.text = dateString;
+    dateLabel.textColor = [UIColor lightGrayColor];
+    [dateLabel sizeToFit];
+    [cell addSubview:dateLabel];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60)];
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.text = item.title;
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.numberOfLines = 3;
+    titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [titleLabel sizeToFit];
+    [cell addSubview:titleLabel];
+    
+    UIImageView *imgFrom = [[UIImageView alloc] initWithFrame:CGRectMake(cell.frame.size.width - 35, cell.frame.size.height - 25, 30, 21)];
+    imgFrom.image = [UIImage imageNamed:@"DCI_small"];
+    [cell addSubview:imgFrom];
+    
+    UILabel *lblFrom = [[UILabel alloc] initWithFrame:CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21)];
+    lblFrom.font = [UIFont systemFontOfSize:10];
+    lblFrom.text = @"";
+    lblFrom.textColor = [UIColor blueColor];
+    [lblFrom sizeToFit];
+    [cell addSubview:lblFrom];
+    
+    cell.lblDate = dateLabel;
+    cell.lblTitle = titleLabel;
+    
+    cell.clipsToBounds = YES;
+    cell.layer.cornerRadius = 8;
+    
+    cell.colorNumber = [[news.arrayOfColors objectAtIndex:indexPath.row] intValue];
+    
+    return cell;
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"tapped %li", indexPath.row);
+}
+
 @end

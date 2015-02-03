@@ -1872,21 +1872,71 @@
                                                         <rect key="frame" x="8" y="143" width="350" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5b-7i-eAj" userLabel="ClipView" customClass="ClipView">
-                                                        <rect key="frame" x="0.0" y="25" width="320" height="108"/>
-                                                        <subviews>
-                                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ee-MB-cX6">
-                                                                <rect key="frame" x="8" y="0.0" width="213" height="105"/>
-                                                                <connections>
-                                                                    <outlet property="delegate" destination="603-gO-u9Q" id="AqI-Lr-8zL"/>
-                                                                </connections>
-                                                            </scrollView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XT8-Z9-AJg">
+                                                        <rect key="frame" x="0.0" y="24" width="320" height="111"/>
+                                                        <color key="backgroundColor" red="0.77111950549999997" green="0.77111950549999997" blue="0.77111950549999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <collectionViewLayout key="collectionViewLayout" id="199-Fs-reO" customClass="CBCollectionFlowLayout"/>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell0" id="1jR-s6-Zza" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell1" id="8FE-ZS-6LR" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell2" id="QFk-ui-8Wh" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell3" id="15z-sP-k1V" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell4" id="g3D-6u-sf3" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell5" id="1z0-18-itH" customClass="CBNewsCell">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </collectionViewCell>
+                                                        </cells>
                                                         <connections>
-                                                            <outlet property="scrollview" destination="7ee-MB-cX6" id="LvM-Dm-a5J"/>
+                                                            <outlet property="dataSource" destination="603-gO-u9Q" id="Fsq-yG-cvG"/>
+                                                            <outlet property="delegate" destination="603-gO-u9Q" id="F33-sH-aI3"/>
                                                         </connections>
-                                                    </view>
+                                                    </collectionView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
@@ -2022,7 +2072,7 @@
                         <outlet property="btnSeeAll" destination="m1j-TQ-WyR" id="QS4-cN-3eb"/>
                         <outlet property="btnSeeAllNews" destination="o1E-bU-OIe" id="GHb-1T-PK2"/>
                         <outlet property="btnSeeAllRankings" destination="rKi-fi-4Hc" id="KYa-q6-Ev6"/>
-                        <outlet property="clipviewNews" destination="L5b-7i-eAj" id="icr-XV-7Ws"/>
+                        <outlet property="collectionNews" destination="XT8-Z9-AJg" id="O80-ny-8T3"/>
                         <outlet property="contentMainView" destination="OB3-aG-t40" id="tdl-bS-njf"/>
                         <outlet property="contentViewShows" destination="Pri-nq-ON5" id="vW4-a5-TEi"/>
                         <outlet property="contentViewTopTwelve" destination="q2N-Ya-IY1" id="Jkl-WH-P0R"/>
@@ -2035,7 +2085,6 @@
                         <outlet property="pageTopTwelve" destination="OX4-Y7-p0h" id="YHw-VP-Qdp"/>
                         <outlet property="scrollHeadshots" destination="pww-Gk-PAI" id="qHF-8b-3gs"/>
                         <outlet property="scrollMain" destination="vWd-nN-xbR" id="Dtv-kZ-Se9"/>
-                        <outlet property="scrollNews" destination="7ee-MB-cX6" id="7Tc-rb-MtE"/>
                         <outlet property="scrollTopTwelve" destination="DvV-nE-dui" id="hz7-yf-hSK"/>
                         <outlet property="scrollViewShows" destination="SeT-vl-b91" id="jGM-Aq-xLJ"/>
                         <outlet property="showsActivity" destination="Ce6-u9-4Sb" id="5uF-ZC-OVR"/>
@@ -2704,11 +2753,11 @@
                         <viewControllerLayoutGuide type="bottom" id="rAi-55-tzf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZyV-7h-8kj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="1156"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvo-lX-gFH">
-                                <rect key="frame" x="0.0" y="52" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="52" width="800" height="140"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="June 18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-Ra-9uz">
                                         <rect key="frame" x="18" y="0.0" width="175" height="21"/>
@@ -2727,7 +2776,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desert Classic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-f2-Csq">
-                                        <rect key="frame" x="18" y="23" width="574" height="24"/>
+                                        <rect key="frame" x="18" y="23" width="774" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2806,7 +2855,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ruf-xh-MgI">
-                                <rect key="frame" x="0.0" y="200" width="600" height="356"/>
+                                <rect key="frame" x="0.0" y="200" width="800" height="956"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2849,7 +2898,7 @@
                                                         <rect key="frame" x="39" y="5" width="35" height="35"/>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75.10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4g-5u-bXk">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="75.10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4g-5u-bXk">
                                                     <rect key="frame" x="549" y="11" width="43" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Klg-Hs-P5U"/>
@@ -2905,7 +2954,7 @@
                                                         <rect key="frame" x="8" y="5" width="35" height="35"/>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="65.10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4H-qW-mfg">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="65.10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4H-qW-mfg">
                                                     <rect key="frame" x="543" y="11" width="43" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="43" id="2sV-Us-g0f"/>
@@ -3529,7 +3578,7 @@
         <image name="star" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yBL-Wb-Ve6"/>
-        <segue reference="G84-g7-0Ap"/>
+        <segue reference="yHE-cF-ijy"/>
+        <segue reference="5XH-ng-dQw"/>
     </inferredMetricsTieBreakers>
 </document>
