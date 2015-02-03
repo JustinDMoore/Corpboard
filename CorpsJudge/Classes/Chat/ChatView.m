@@ -76,9 +76,9 @@
 	self.senderDisplayName = user[PF_USER_FULLNAME];
 
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
-	outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-	incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:del.appTintColor];
-
+	incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
+	outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:del.appTintColor];
+    
 	placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"blank_avatar"] diameter:30.0];
 
 	isLoading = NO;
@@ -322,13 +322,13 @@
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId]) {
         
-		cell.textView.textColor = [UIColor blackColor];
+		cell.textView.textColor = [UIColor whiteColor];
 	}
 	else {
         
-		cell.textView.textColor = [UIColor whiteColor];
+		cell.textView.textColor = [UIColor blackColor];
 	}
-    cell.backgroundColor = [UIColor blackColor];
+
 	return cell;
 }
 
