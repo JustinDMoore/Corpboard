@@ -9,10 +9,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 #import "CBNewChatView.h"
 
 @interface GroupView : UITableViewController <UIAlertViewDelegate, NewChatProtocol>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 @property (nonatomic, strong) CBNewChatView *viewNewChat;
+
 @end

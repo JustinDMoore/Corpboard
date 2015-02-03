@@ -16,9 +16,8 @@
 
 #import "MessagesCell.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesCell()
-{
+@interface MessagesCell() {
+    
 	PFObject *message;
 }
 
@@ -29,7 +28,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelCounter;
 
 @end
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation MessagesCell
 
@@ -37,25 +35,23 @@
 @synthesize labelDescription, labelLastMessage;
 @synthesize labelElapsed, labelCounter;
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)bindData:(PFObject *)message_
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)bindData:(PFObject *)message_ {
+    
 	message = message_;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	imageUser.layer.cornerRadius = imageUser.frame.size.width/2;
 	imageUser.layer.masksToBounds = YES;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	PFUser *lastUser = message[PF_MESSAGES_LASTUSER];
 	[imageUser setFile:lastUser[PF_USER_PICTURE]];
 	[imageUser loadInBackground];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	labelDescription.text = message[PF_MESSAGES_DESCRIPTION];
 	labelLastMessage.text = message[PF_MESSAGES_LASTMESSAGE];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:message.updatedAt];
 	labelElapsed.text = TimeElapsed(seconds);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	int counter = [message[PF_MESSAGES_COUNTER] intValue];
 	labelCounter.text = (counter == 0) ? @"" : [NSString stringWithFormat:@"%d new", counter];
 }

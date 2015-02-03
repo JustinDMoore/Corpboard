@@ -14,27 +14,24 @@
 
 #import "camera.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartCamera(id target, BOOL canEdit)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+BOOL ShouldStartCamera(id target, BOOL canEdit) {
+    
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) return NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
 	
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
 		&& [[UIImagePickerController availableMediaTypesForSourceType:
-			 UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage])
-	{
+			 UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]) {
+        
 		cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
 		cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
 		
-		if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])
-		{
+		if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+            
 			cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-		}
-		else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront])
-		{
+		} else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+            
 			cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 		}
 	}
@@ -49,30 +46,26 @@ BOOL ShouldStartCamera(id target, BOOL canEdit)
 	return YES;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartPhotoLibrary(id target, BOOL canEdit)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+BOOL ShouldStartPhotoLibrary(id target, BOOL canEdit) {
+    
 	if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
 		 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) return NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
 	
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
 		&& [[UIImagePickerController availableMediaTypesForSourceType:
-			 UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage])
-	{
+			 UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
+        
 		cameraUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 		cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-	}
-	else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
+	} else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
 			 && [[UIImagePickerController availableMediaTypesForSourceType:
-				  UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage])
-	{
+				  UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
+        
 		cameraUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
 		cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-	}
-	else return NO;
+	} else return NO;
 	
 	cameraUI.allowsEditing = canEdit;
 	cameraUI.delegate = target;

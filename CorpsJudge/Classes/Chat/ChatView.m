@@ -10,7 +10,7 @@
 // THE SOFTWARE.
 
 #import <Parse/Parse.h>
-#import "ProgressHUD.h"
+#import "KVNProgress.h"
 
 #import "AppConstant.h"
 #import "camera.h"
@@ -24,9 +24,8 @@
 
 #import "IQKeyboardManager.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface ChatView()
-{
+@interface ChatView() {
+    
 	NSTimer *timer;
 	BOOL isLoading;
     
@@ -45,26 +44,23 @@
     
 }
 @end
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation ChatView
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id)initWith:(NSString *)roomId_
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (id)initWith:(NSString *)roomId_ {
+    
 	self = [super init];
 	roomId = roomId_;
 	return self;
 }
 
 -(void)setRoomId:(NSString *)roomId_ {
+    
     roomId = roomId_;
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidLoad
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+
+- (void)viewDidLoad {
+    
 	[super viewDidLoad];
     
     self.collectionView.backgroundColor = [UIColor blackColor];
@@ -93,6 +89,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = NO;
@@ -106,25 +103,21 @@
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
-- (void)goback
-{
+- (void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidAppear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)viewDidAppear:(BOOL)animated {
+    
 	[super viewDidAppear:animated];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewWillDisappear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)viewWillDisappear:(BOOL)animated {
+    
 	[super viewWillDisappear:animated];
         [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 	[timer invalidate];
@@ -132,12 +125,10 @@
 
 #pragma mark - Backend methods
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)loadMessages
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (isLoading == NO)
-	{
+- (void)loadMessages {
+    
+	if (isLoading == NO) {
+        
 		isLoading = YES;
 		JSQMessage *message_last = [messages lastObject];
 
@@ -147,49 +138,47 @@
 		[query includeKey:PF_CHAT_USER];
 		[query orderByDescending:PF_CHAT_CREATEDAT];
 		[query setLimit:50];
-		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-		{
-			if (error == nil)
-			{
-				for (PFObject *object in [objects reverseObjectEnumerator])
-				{
+		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+			if (error == nil) {
+                
+				for (PFObject *object in [objects reverseObjectEnumerator]) {
+                    
 					[self addMessage:object];
 				}
 				if ([objects count] != 0) [self finishReceivingMessage];
 			}
-			else [ProgressHUD showError:@"Network error."];
+			else [KVNProgress showErrorWithStatus:@"Network error"];
 			isLoading = NO;
 		}];
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)addMessage:(PFObject *)object
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)addMessage:(PFObject *)object {
+    
 	PFUser *user = object[PF_CHAT_USER];
 	[users addObject:user];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (object[PF_CHAT_PICTURE] == nil)
-	{
+
+	if (object[PF_CHAT_PICTURE] == nil) {
+        
 		JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
 																	  date:object.createdAt text:object[PF_CHAT_TEXT]];
 		[messages addObject:message];
 	}
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (object[PF_CHAT_PICTURE] != nil)
-	{
+
+	if (object[PF_CHAT_PICTURE] != nil) {
+        
 		JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
 		mediaItem.appliesMediaViewMaskAsOutgoing = [user.objectId isEqualToString:self.senderId];
 		JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
 																		date:object.createdAt media:mediaItem];
 		[messages addObject:message];
-		//-----------------------------------------------------------------------------------------------------------------------------------------
+
 		PFFile *filePicture = object[PF_CHAT_PICTURE];
-		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
-		{
-			if (error == nil)
-			{
+		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            
+			if (error == nil) {
+                
 				mediaItem.image = [UIImage imageWithData:imageData];
 				[self.collectionView reloadData];
 			}
@@ -197,55 +186,49 @@
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)sendMessage:(NSString *)text Picture:(UIImage *)picture
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)sendMessage:(NSString *)text Picture:(UIImage *)picture {
+    
 	PFFile *filePicture = nil;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (picture != nil)
-	{
+
+	if (picture != nil) {
+        
 		filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(picture, 0.6)];
 		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
 			if (error != nil) NSLog(@"sendMessage picture save error.");
 		}];
 	}
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
 	object[PF_CHAT_USER] = [PFUser currentUser];
 	object[PF_CHAT_ROOMID] = roomId;
 	object[PF_CHAT_TEXT] = text;
 	if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
-	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error == nil)
-		{
+	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+		if (error == nil) {
+            
 			[JSQSystemSoundPlayer jsq_playMessageSentSound];
 			[self loadMessages];
 		}
-		else [ProgressHUD showError:@"Network error."];;
+		else [KVNProgress showErrorWithStatus:@"Network error"];;
 	}];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	SendPushNotification(roomId, text);
 	UpdateMessageCounter(roomId, text);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	[self finishSendingMessage];
 }
 
 #pragma mark - JSQMessagesViewController method overrides
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
+    
 	[self sendMessage:text Picture:nil];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)didPressAccessoryButton:(UIButton *)sender
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)didPressAccessoryButton:(UIButton *)sender {
+    
 	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
 											   otherButtonTitles:@"Take photo", @"Choose existing photo", nil];
 	[action showInView:self.view];
@@ -253,17 +236,14 @@
 
 #pragma mark - JSQMessages CollectionView DataSource
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 	return messages[indexPath.item];
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView
-			 messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+			 messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId])
 	{
@@ -272,19 +252,17 @@
 	return incomingBubbleImageData;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView
-					avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+					avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 	PFUser *user = users[indexPath.item];
-	if (avatars[user.objectId] == nil)
-	{
+	if (avatars[user.objectId] == nil) {
+        
 		PFFile *fileThumbnail = user[PF_USER_THUMBNAIL];
-		[fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
-		{
-			if (error == nil)
-			{
+		[fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            
+			if (error == nil) {
+                
 				avatars[user.objectId] = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:imageData] diameter:30.0];
 				[self.collectionView reloadData];
 			}
@@ -294,70 +272,60 @@
 	else return avatars[user.objectId];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (indexPath.item % 3 == 0)
-	{
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
+	if (indexPath.item % 3 == 0) {
+        
 		JSQMessage *message = messages[indexPath.item];
 		return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
 	}
 	return nil;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
 	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
-	{
+	if ([message.senderId isEqualToString:self.senderId]) {
+        
 		return nil;
 	}
 
-	if (indexPath.item - 1 > 0)
-	{
+	if (indexPath.item - 1 > 0) {
+        
 		JSQMessage *previousMessage = messages[indexPath.item-1];
-		if ([previousMessage.senderId isEqualToString:message.senderId])
-		{
+		if ([previousMessage.senderId isEqualToString:message.senderId]) {
+            
 			return nil;
 		}
 	}
 	return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
 	return nil;
 }
 
 #pragma mark - UICollectionView DataSource
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
 	return [messages count];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 	JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     cell.textView.keyboardAppearance = UIKeyboardAppearanceDark;
     [cell setBackgroundColor:[UIColor blackColor]];
 
 	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
-	{
+	if ([message.senderId isEqualToString:self.senderId]) {
+        
 		cell.textView.textColor = [UIColor blackColor];
 	}
-	else
-	{
+	else {
+        
 		cell.textView.textColor = [UIColor whiteColor];
 	}
     cell.backgroundColor = [UIColor blackColor];
@@ -366,55 +334,47 @@
 
 #pragma mark - JSQMessages collection view flow layout delegate
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
-				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (indexPath.item % 3 == 0)
-	{
+				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
+	if (indexPath.item % 3 == 0) {
+        
 		return kJSQMessagesCollectionViewCellLabelHeightDefault;
 	}
 	return 0.0f;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
-				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
 	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
-	{
+	if ([message.senderId isEqualToString:self.senderId]) {
+        
 		return 0.0f;
 	}
 	
-	if (indexPath.item - 1 > 0)
-	{
+	if (indexPath.item - 1 > 0) {
+        
 		JSQMessage *previousMessage = messages[indexPath.item-1];
-		if ([previousMessage.senderId isEqualToString:message.senderId])
-		{
+		if ([previousMessage.senderId isEqualToString:message.senderId]) {
+            
 			return 0.0f;
 		}
 	}
 	return kJSQMessagesCollectionViewCellLabelHeightDefault;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
-				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath {
+    
 	return 0.0f;
 }
 
 #pragma mark - Responding to collection view tap events
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView
-				header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+				header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender {
+    
 	NSLog(@"didTapLoadEarlierMessagesButton");
 }
 
@@ -450,8 +410,8 @@ PFUser *userForProfile;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-	if (buttonIndex != actionSheet.cancelButtonIndex)
-	{
+	if (buttonIndex != actionSheet.cancelButtonIndex) {
+        
 		if (buttonIndex == 0)	ShouldStartCamera(self, YES);
 		if (buttonIndex == 1)	ShouldStartPhotoLibrary(self, YES);
 	}

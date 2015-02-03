@@ -15,40 +15,34 @@
 
 #import "pushnotification.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-void ParsePushUserAssign(void)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+void ParsePushUserAssign(void) {
+    
 	PFInstallation *installation = [PFInstallation currentInstallation];
 	installation[PF_INSTALLATION_USER] = [PFUser currentUser];
-	[installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error != nil)
-		{
+	[installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+		if (error != nil) {
+            
 			NSLog(@"ParsePushUserAssign save error.");
 		}
 	}];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-void ParsePushUserResign(void)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+void ParsePushUserResign(void) {
+    
 	PFInstallation *installation = [PFInstallation currentInstallation];
 	installation[PF_INSTALLATION_USER] = [NSNull null];
-	[installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error != nil)
-		{
+	[installation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+		if (error != nil) {
+            
 			NSLog(@"ParsePushUserResign save error.");
 		}
 	}];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-void SendPushNotification(NSString *roomId, NSString *text)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+void SendPushNotification(NSString *roomId, NSString *text) {
+    
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
 	[query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
 	[query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
@@ -61,10 +55,10 @@ void SendPushNotification(NSString *roomId, NSString *text)
 	PFPush *push = [[PFPush alloc] init];
 	[push setQuery:queryInstallation];
 	[push setMessage:text];
-	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error != nil)
-		{
+	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+		if (error != nil) {
+            
 			NSLog(@"SendPushNotification send error.");
 		}
 	}];

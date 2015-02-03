@@ -25,22 +25,18 @@
 #import "KVNProgress.h"
 #import "IQKeyboardManager.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface GroupView()
-{
+@interface GroupView() {
+    
 	NSMutableArray *chatrooms;
     UIRefreshControl *refreshControl;
     
 }
 @end
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation GroupView
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self)
 	{
@@ -50,10 +46,8 @@
 	return self;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidLoad
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)viewDidLoad {
+    
 	[super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatNameCell"
@@ -67,10 +61,9 @@
     [self.tableView addSubview:refreshControl];
     
 	self.title = @"Live Chat";
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	self.tableView.separatorInset = UIEdgeInsetsZero;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	chatrooms = [[NSMutableArray alloc] init];
 }
 
@@ -79,9 +72,8 @@
     [self refreshTableAndOpenRecent:NO];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = NO;
@@ -103,21 +95,19 @@
     self.navigationItem.rightBarButtonItem = addButton;
 }
 
-- (void)goback
-{
+- (void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)viewDidAppear:(BOOL)animated {
+    
 	[super viewDidAppear:animated];
     
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
-    
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] != nil)
-	{
+
+	if ([PFUser currentUser] != nil) {
+        
 		[self refreshTableAndOpenRecent:NO];
 	}
 	else LoginUser(self);
@@ -131,65 +121,26 @@
 
 #pragma mark - User actions
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionNew
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)actionNew {
+    
     [self toggleSubviews:NO];
     [self.navigationController.view addSubview:self.viewNewChat];
-    //[self.view addSubview:self.viewNewChat];
     [self.viewNewChat showInParent:self.view.frame];
-    
-    
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create New Chat" message:@"What's your question or topic for discussion?" delegate:self
-//										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-//	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//	[alert show];
 }
 
-#pragma mark - UIAlertViewDelegate
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (buttonIndex != alertView.cancelButtonIndex)
-	{
-		UITextField *textField = [alertView textFieldAtIndex:0];
-		if ([textField.text isEqualToString:@""] == NO)
-		{
-			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
-			object[PF_CHATROOMS_NAME] = textField.text;
-            object[@"user"] = [PFUser currentUser];
-            object[@"lastUser"] = [PFUser currentUser];
-            object[@"lastMessageDate"] = [NSDate date];
-			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-			{
-				if (error == nil)
-				{
-					[self refreshTableAndOpenRecent:YES];
-				}
-                else [KVNProgress showErrorWithStatus:@"Network error"];
-			}];
-		}
-	}
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)refreshTableAndOpenRecent:(BOOL)open
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)refreshTableAndOpenRecent:(BOOL)open {
+    
     [KVNProgress show];
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
-		if (error == nil)
-		{
+		if (error == nil) {
+            
 			[chatrooms removeAllObjects];
-			for (PFObject *object in objects)
-			{
+			for (PFObject *object in objects) {
+                
 				[chatrooms addObject:object];
 			}
             [KVNProgress dismiss];
@@ -207,24 +158,16 @@
 
 #pragma mark - Table view data source
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
 	return [chatrooms count];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"LiveChatCell";
     LiveChatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -300,21 +243,21 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 104;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 104;
 }
 
 #pragma mark - Table view delegate
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	PFObject *chatroom = chatrooms[indexPath.row];
 	NSString *roomId = chatroom.objectId;
     
@@ -322,21 +265,24 @@
     numViews++;
     chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
     [chatroom saveInBackground];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	CreateMessageItem([PFUser currentUser], roomId, chatroom[PF_CHATROOMS_NAME]);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+
     roomIdForChat = roomId;
-//    ChatView *chatView = [[ChatView alloc] initWith:roomId];
-	//chatView.hidesBottomBarWhenPushed = YES;
+//  ChatView *chatView = [[ChatView alloc] initWith:roomId];
+//  chatView.hidesBottomBarWhenPushed = YES;
     [self performSegueWithIdentifier:@"chat" sender:self];
-//    [self.navigationController pushViewController:chatView animated:YES];
+//  [self.navigationController pushViewController:chatView animated:YES];
 }
 
 NSString *roomIdForChat;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([segue.identifier isEqualToString:@"chat"]) {
+        
         ChatView *vc = [segue destinationViewController];
         [vc setRoomId:roomIdForChat];
+        
         if ([msg length]) { //this sends the initial message to the chat
             [vc sendMessage:msg Picture:nil];
             msg = nil;
@@ -345,7 +291,9 @@ NSString *roomIdForChat;
 }
 
 -(CBNewChatView *)viewNewChat {
+    
     if (!_viewNewChat) {
+        
         _viewNewChat =
         [[[NSBundle mainBundle] loadNibNamed:@"CBNewChatView"
                                        owner:self
@@ -365,12 +313,15 @@ NSString *roomIdForChat;
 }
 
 -(void)newChatCancelled {
+    
     [self toggleSubviews:YES];
     self.viewNewChat = nil;
 }
 
 NSString *msg;
+
 -(void)newChatWithTopic:(NSString *)topic withMessage:(NSString *)message {
+    
     [self toggleSubviews:YES];
     self.viewNewChat = nil;
     
@@ -381,15 +332,14 @@ NSString *msg;
     object[@"user"] = [PFUser currentUser];
     object[@"lastUser"] = [PFUser currentUser];
     object[@"lastMessageDate"] = [NSDate date];
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         if (error == nil)
-         {
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+         if (error == nil) {
+             
              [self refreshTableAndOpenRecent:YES];
          }
          else [KVNProgress showErrorWithStatus:@"Network error"];
      }];
 }
-
 
 @end

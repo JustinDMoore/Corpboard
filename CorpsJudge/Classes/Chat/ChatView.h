@@ -11,11 +11,9 @@
 
 #import "JSQMessages.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ChatView : JSQMessagesViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 
-- (id)initWith:(NSString *)roomId_;
+-(id)initWith:(NSString *)roomId_;
 -(void)setRoomId:(NSString *)roomId_;
-- (void)sendMessage:(NSString *)text Picture:(UIImage *)picture;
+-(void)sendMessage:(NSString *)text Picture:(UIImage *)picture;
 @end

@@ -11,7 +11,7 @@
 @implementation LiveChatCell
 
 - (void)awakeFromNib {
-    // Initialization code
+
     self.imgLastUser.layer.cornerRadius = self.imgLastUser.frame.size.width/2;
     self.imgLastUser.layer.masksToBounds = YES;
 }

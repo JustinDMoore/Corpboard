@@ -10,7 +10,7 @@
 #import "JustinHelper.h"
 #import <Parse/Parse.h>
 #import "ParseErrors.h"
-#import "ProgressHUD.h"
+#import "KVNProgress.h"
 #import "AppConstant.h"
 #import "pushnotification.h"
 

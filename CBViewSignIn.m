@@ -12,15 +12,11 @@
 #import "AFNetworking.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
-#import "ProgressHUD.h"
+#import "KVNProgress.h"
 
 #import "AppConstant.h"
 #import "pushnotification.h"
 #import "utilities.h"
-
-#import "WelcomeView.h"
-#import "LoginView.h"
-#import "RegisterView.h"
 
 #import "ParseErrors.h"
 
@@ -126,7 +122,7 @@
          user[PF_USER_THUMBNAIL] = fileThumbnail;
          [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
               if (error == nil) {
-                  [ProgressHUD dismiss];
+                  [KVNProgress dismiss];
                   [self userLoggedIn:user];
               } else {
                   [PFUser logOut];
