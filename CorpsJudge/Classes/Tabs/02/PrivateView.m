@@ -175,7 +175,6 @@ BOOL isLoading = NO;
 	return [arrayOfChatsWithUsers count];
 }
 
-CGRect frame;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"privateCell"];
@@ -191,7 +190,8 @@ CGRect frame;
     UIImageView *imgNew = (UIImageView *)[cell viewWithTag:2];
     UILabel *lblUser = (UILabel *)[cell viewWithTag:3];
     UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
-    UILabel *lblLastMessage = (UILabel *)[cell viewWithTag:5];
+    UILabel *lblLastMessageHidden = (UILabel *)[cell viewWithTag:5];
+    lblLastMessageHidden.hidden = YES;
     
     BOOL isRead = [lastMessage[@"read"] boolValue];
 
@@ -200,20 +200,18 @@ CGRect frame;
     } else {
         imgNew.hidden = YES;
     }
-    
-    lblLastMessage.backgroundColor = [UIColor yellowColor];
    
     PFUser *user = lastMessage[@"user"];
     lblUser.text = user[@"nickname"];
     [lblUser sizeToFit];
-
-    frame = lblLastMessage.frame;
     
+    UILabel *lblLastMessage = [[UILabel alloc] initWithFrame:CGRectMake(30, 45, 282, 41)];
     lblLastMessage.text = lastMessage[@"lastMessage"];
-    lblLastMessage.adjustsFontSizeToFitWidth = YES;
-    lblLastMessage.numberOfLines = 0;
-    [lblLastMessage setFrame:CGRectMake(0, 0, 20, 20)];
+    lblLastMessage.textColor = [UIColor lightGrayColor];
+    lblLastMessage.font = [UIFont systemFontOfSize:14];
+    lblLastMessage.numberOfLines = 2;
     [lblLastMessage sizeToFit];
+    [cell addSubview:lblLastMessage];
 	return cell;
 }
 
