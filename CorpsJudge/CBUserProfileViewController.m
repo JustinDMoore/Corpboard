@@ -1201,12 +1201,13 @@ float ht;
     NSString *id2 = user2.objectId;
     NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
-    CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+    CreateMessageItem(user1, user2, roomId, user2[@"nickname"]);
+    CreateMessageItem(user2, user1, roomId, user1[@"nickname"]);
     //---------------------------------------------------------------------------------------------------------------------------------------------
     ChatView *chatView = [[ChatView alloc] initWith:roomId];
     chatView.hidesBottomBarWhenPushed = YES;
     chatView.user2 = user2;
+    chatView.isPrivate = YES;
     [self.navigationController pushViewController:chatView animated:YES];
 }
 

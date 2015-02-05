@@ -266,7 +266,7 @@
     chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
     [chatroom saveInBackground];
 
-	CreateMessageItem([PFUser currentUser], roomId, chatroom[PF_CHATROOMS_NAME]);
+	CreateMessageItem([PFUser currentUser], nil, roomId, chatroom[PF_CHATROOMS_NAME]);
 
     roomIdForChat = roomId;
 //  ChatView *chatView = [[ChatView alloc] initWith:roomId];

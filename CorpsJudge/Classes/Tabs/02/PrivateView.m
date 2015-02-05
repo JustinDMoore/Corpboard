@@ -124,7 +124,7 @@ BOOL isLoading = NO;
         PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
         [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
 
-        [query whereKey: @"user" notEqualTo: [PFUser currentUser]];
+        [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
         [query includeKey:@"user"];
         [query orderByDescending:@"updatedAt"];
         [query setLimit:50];
@@ -227,8 +227,8 @@ BOOL isLoading = NO;
 	NSString *id2 = user2.objectId;
 	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
 
-	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
-	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+	CreateMessageItem(user1, user2, roomId, user2[PF_USER_FULLNAME]);
+	CreateMessageItem(user2, user1, roomId, user1[PF_USER_FULLNAME]);
     
     PFObject *lastMessage = arrayOfChatsWithUsers[indexPath.row];
 	ChatView *chatView = [[ChatView alloc] initWith:lastMessage[@"roomId"]];
@@ -252,11 +252,21 @@ BOOL isLoading = NO;
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
      
-        NSMutableDictionary * params = [NSMutableDictionary new];
-        PFObject *chat = arrayOfChatsWithUsers[indexPath.row];
-        NSString *roomId = chat[@"roomId"];
-        params[@"roomId"] = roomId;
-        [PFCloud callFunctionInBackground:@"deletePosts" withParameters:params];
+        // This delete call only deletes the 'master' chat in Messages Class
+        // Cloud code executes after delete and deletes all messages belonging to that user
+        PFObject *messageToDelete = arrayOfChatsWithUsers[indexPath.row];
+        [messageToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                
+                [KVNProgress showErrorWithStatus:@"Could not delete chat"];
+            }
+        }];
+        
+//        NSMutableDictionary * params = [NSMutableDictionary new];
+//        PFObject *chat = arrayOfChatsWithUsers[indexPath.row];
+//        NSString *roomId = chat[@"roomId"];
+//        params[@"roomId"] = roomId;
+//        [PFCloud callFunctionInBackground:@"deleteChat" withParameters:params];
     }
 }
 #pragma mark - UISearchBarDelegate

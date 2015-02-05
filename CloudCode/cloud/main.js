@@ -111,51 +111,48 @@ Parse.Cloud.define("incrementReviewsByUser", function(request, response) {
 
 // Delete an entire private chat conversation for a user
 Parse.Cloud.define("deleteChat", function(request, response) {
-                   var userID = request.params.userID;
+            
+                   var queryChatMaster = new Parse.Query("Messages");
+                   queryChatMaster.equalTo("roomId", request.params.roomId);
+                   queryChatMaster.equalTo("belongsToUser", request.user);
+                   queryChatMaster.find
                    
-                   var query = new Parse.Query(Parse.Chat);
-                   query.equalTo("roomId", params.roomId);
-                   query.equalTo("belongsToUser", request.params.user);
-                   query.find().then(function (messages) {
-                                     
-                                     //What do I do HERE to delete the posts?
-                                     messages.forEach(function(message) {
-                                                   message.destroy({
-                                                                success: function() {
-                                                                console.error("Success 1");
-                                                                },
-                                                                error: function() {
-                                                               console.error("Got an error 2");
-                                                                }
-                                                                });
-                                                   });
-                                     }, function (error) {
-                                     response.error(error);
-                                     console.error("Got an error 1");
-                                     });
+                   var queryChat = new Parse.Query("Chat");
+                   queryChat.equalTo("roomId", request.params.roomId);
+                   queryChat.equalTo("belongsToUser", request.user);
+                   queryChat.find().then(function (users) {
+                                         
+                                         //What do I do HERE to delete the posts?
+                                         users.forEach(function(user) {
+                                                       
+                                                       user.destroy({
+                                                                    success: function() {
+                                                                    // SUCCESS CODE HERE, IF YOU WANT
+                                                                    
+                                                                    
+                                                                    },
+                                                                    error: function(error) {
+                                                                    // ERROR CODE HERE, IF YOU WANT
+                                                                    //response.error();
+                                                                    }
+                                                                    });
+                                                       });
+                                         }, function (error) {
+                                         response.error();
+                                         });
                    });
 
-Parse.Cloud.define("deletePosts", function(request, response) {
-                   
-                   //var userDeleting = new Parse.User({id:request.params.userId});
-                   var query = new Parse.Query("Chat");
-                   
-                   query.equalTo("roomId", params.roomId);
-                   //query.equalTo("belongsToUser", userDeleting);
-                   query.find().then(function (users) {
-                                     
-                                     //What do I do HERE to delete the posts?
-                                     users.forEach(function(user) {
-                                                   user.destroy({
-                                                                success: function() {
-                                                                // SUCCESS CODE HERE, IF YOU WANT
-                                                                },
-                                                                error: function() {
-                                                                // ERROR CODE HERE, IF YOU WANT
-                                                                }
-                                                                });
-                                                   });
-                                     }, function (error) {
-                                     //response.error(error);
-                                     });
-                   });
+Parse.Cloud.afterDelete("Messages", function(request) {
+                        
+                        var queryChat = new Parse.Query("Chat");
+                        queryChat.equalTo("roomId", request.params.roomId);
+                        queryChat.equalTo("belongsToUser", request.user);
+                        
+                        queryChat.find().then(function(messages) {
+                                          return Parse.Object.destroyAll(messages);
+                                          }).then(function(success) {
+                                                  // The related comments were deleted
+                                                  }, function(error) {
+                                                  console.error("Error deleting related comments " + error.code + ": " + error.message);
+                                                  });
+                        });
