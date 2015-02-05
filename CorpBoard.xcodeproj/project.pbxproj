@@ -192,7 +192,7 @@
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
 		92275B3B1A4042BC006E8E8E /* CBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBView.m; sourceTree = "<group>"; };
 		92393F261A59B5DE00020C6A /* CBProblemWhere.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhere.xib; sourceTree = "<group>"; };
-		923D4EE41A2C6DCF00E16B64 /* AppConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
+		923D4EE41A2C6DCF00E16B64 /* AppConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConstant.h; path = app/AppConstant.h; sourceTree = "<group>"; };
 		923D4EEE1A2C6DCF00E16B64 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		923D4EEF1A2C6DCF00E16B64 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		923D4EF11A2C6DCF00E16B64 /* ChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatView.h; sourceTree = "<group>"; };
@@ -480,14 +480,6 @@
 			);
 			name = "Show Effects";
 			path = CorpsJudge;
-			sourceTree = "<group>";
-		};
-		923D4EE31A2C6DCF00E16B64 /* app */ = {
-			isa = PBXGroup;
-			children = (
-				923D4EE41A2C6DCF00E16B64 /* AppConstant.h */,
-			);
-			path = app;
 			sourceTree = "<group>";
 		};
 		923D4EEC1A2C6DCF00E16B64 /* Classes */ = {
@@ -806,7 +798,7 @@
 		92F0B6001A2C6D33005EA4B5 /* Chat API */ = {
 			isa = PBXGroup;
 			children = (
-				923D4EE31A2C6DCF00E16B64 /* app */,
+				923D4EE41A2C6DCF00E16B64 /* AppConstant.h */,
 				923D4EEC1A2C6DCF00E16B64 /* Classes */,
 				923D4F191A2C6DCF00E16B64 /* Resources */,
 			);
@@ -1156,7 +1148,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1369,7 +1361,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "95c2653d-8b4c-4943-a059-6222e3baf6b2";
+				PROVISIONING_PROFILE = "a92a3708-bfb8-47c8-b27e-e261d14913cd";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1397,7 +1389,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "95c2653d-8b4c-4943-a059-6222e3baf6b2";
+				PROVISIONING_PROFILE = "a92a3708-bfb8-47c8-b27e-e261d14913cd";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

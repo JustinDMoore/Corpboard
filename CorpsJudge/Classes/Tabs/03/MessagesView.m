@@ -53,6 +53,8 @@
 	[super viewDidLoad];
 	self.title = @"Messages";
 
+    NSLog(@"haaaa");
+    
 	[tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
 	tableMessages.tableFooterView = [[UIView alloc] init];
 

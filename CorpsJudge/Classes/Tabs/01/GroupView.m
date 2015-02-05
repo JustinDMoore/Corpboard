@@ -282,7 +282,8 @@ NSString *roomIdForChat;
         
         ChatView *vc = [segue destinationViewController];
         [vc setRoomId:roomIdForChat];
-        
+        vc.isPrivate = NO;
+        vc.user2 = nil;
         if ([msg length]) { //this sends the initial message to the chat
             [vc sendMessage:msg Picture:nil];
             msg = nil;

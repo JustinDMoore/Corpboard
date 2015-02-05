@@ -134,6 +134,9 @@
 
 		PFQuery *query = [PFQuery queryWithClassName:PF_CHAT_CLASS_NAME];
 		[query whereKey:PF_CHAT_ROOMID equalTo:roomId];
+        if (self.isPrivate) {
+            [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
+        }
 		if (message_last != nil) [query whereKey:PF_CHAT_CREATEDAT greaterThan:message_last.date];
 		[query includeKey:PF_CHAT_USER];
 		[query orderByDescending:PF_CHAT_CREATEDAT];
@@ -204,20 +207,37 @@
 		}];
 	}
 
-	PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
-	object[PF_CHAT_USER] = [PFUser currentUser];
-	object[PF_CHAT_ROOMID] = roomId;
-	object[PF_CHAT_TEXT] = text;
-	if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
-	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
+    object[PF_CHAT_USER] = [PFUser currentUser];
+    object[PF_CHAT_ROOMID] = roomId;
+    object[PF_CHAT_TEXT] = text;
+    if (self.isPrivate) {
+        object[@"belongsToUser"] = [PFUser currentUser];
+    }
+    if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-		if (error == nil) {
+        if (error == nil) {
             
-			[JSQSystemSoundPlayer jsq_playMessageSentSound];
-			[self loadMessages];
-		}
-		else [KVNProgress showErrorWithStatus:@"Network error"];;
-	}];
+            [JSQSystemSoundPlayer jsq_playMessageSentSound];
+            [self loadMessages];
+        }
+        else [KVNProgress showErrorWithStatus:@"Network error"];;
+    }];
+    
+    if (self.isPrivate) {
+        
+        PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
+        object[PF_CHAT_USER] = [PFUser currentUser];
+        object[PF_CHAT_ROOMID] = roomId;
+        object[PF_CHAT_TEXT] = text;
+        object[@"belongsToUser"] = self.user2;
+        if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    
+            if (error)  [KVNProgress showErrorWithStatus:@"Network error"];;
+        }];
+    }
 
 	SendPushNotification(roomId, text);
 	UpdateMessageCounter(roomId, text);

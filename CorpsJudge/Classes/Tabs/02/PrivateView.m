@@ -55,6 +55,7 @@
 	self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
 	users = [[NSMutableArray alloc] init];
     arrayOfChatsWithUsers = [[NSMutableArray alloc] init];
@@ -66,6 +67,22 @@
     
     [super viewWillAppear:animated];
     [arrayOfChatsWithUsers removeAllObjects];
+    
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"BackArrow"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)goback {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -106,7 +123,7 @@ BOOL isLoading = NO;
         
         PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
         [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
-        //[query whereKey:@"user" notEqualTo:[PFUser currentUser].objectId];
+
         [query whereKey: @"user" notEqualTo: [PFUser currentUser]];
         [query includeKey:@"user"];
         [query orderByDescending:@"updatedAt"];
@@ -124,24 +141,6 @@ BOOL isLoading = NO;
             [KVNProgress dismiss];
         }];
     }
-}
-
-- (void)loadUsers {
-
-	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-	[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
-	[query orderByAscending:PF_USER_FULLNAME];
-	[query setLimit:1000];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-		if (error == nil) {
-            
-			[users removeAllObjects];
-			[users addObjectsFromArray:objects];
-			[self.tableView reloadData];
-		}
-		else [KVNProgress showErrorWithStatus:@"Network error"];
-	}];
 }
 
 - (void)searchUsers:(NSString *)search_lower {
@@ -221,16 +220,20 @@ BOOL isLoading = NO;
     
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 //
-//	PFUser *user1 = [PFUser currentUser];
-//	PFUser *user2 = users[indexPath.row];
-//	NSString *id1 = user1.objectId;
-//	NSString *id2 = user2.objectId;
-//	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-//
-//	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
-//	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+	PFUser *user1 = [PFUser currentUser];
+    PFObject *chat = arrayOfChatsWithUsers[indexPath.row];
+    PFUser *user2 = chat[@"user"];
+	NSString *id1 = user1.objectId;
+	NSString *id2 = user2.objectId;
+	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
+
+	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
+	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+    
     PFObject *lastMessage = arrayOfChatsWithUsers[indexPath.row];
 	ChatView *chatView = [[ChatView alloc] initWith:lastMessage[@"roomId"]];
+    chatView.isPrivate = YES;
+    chatView.user2 = user2;
 	chatView.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:chatView animated:YES];
 }
@@ -245,6 +248,17 @@ BOOL isLoading = NO;
     return 88;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+     
+        NSMutableDictionary * params = [NSMutableDictionary new];
+        PFObject *chat = arrayOfChatsWithUsers[indexPath.row];
+        NSString *roomId = chat[@"roomId"];
+        params[@"roomId"] = roomId;
+        [PFCloud callFunctionInBackground:@"deletePosts" withParameters:params];
+    }
+}
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -253,7 +267,7 @@ BOOL isLoading = NO;
         
 		[self searchUsers:[searchText lowercaseString]];
 	}
-	else [self loadUsers];
+	//else [self loadUsers];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar_ {
@@ -282,7 +296,7 @@ BOOL isLoading = NO;
 	[searchBar resignFirstResponder];
 
     
-	[self loadUsers];
+	//[self loadUsers];
 }
 
 @end

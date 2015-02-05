@@ -13,6 +13,9 @@
 
 @interface ChatView : JSQMessagesViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
 
+@property (nonatomic) BOOL isPrivate;
+@property (nonatomic, strong) PFUser *user2; // user that the current user is chatting with -- ONLY FOR PRIVATE MESSAGES
+
 -(id)initWith:(NSString *)roomId_;
 -(void)setRoomId:(NSString *)roomId_;
 -(void)sendMessage:(NSString *)text Picture:(UIImage *)picture;

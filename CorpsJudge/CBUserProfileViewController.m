@@ -1206,6 +1206,7 @@ float ht;
     //---------------------------------------------------------------------------------------------------------------------------------------------
     ChatView *chatView = [[ChatView alloc] initWith:roomId];
     chatView.hidesBottomBarWhenPushed = YES;
+    chatView.user2 = user2;
     [self.navigationController pushViewController:chatView animated:YES];
 }
 
