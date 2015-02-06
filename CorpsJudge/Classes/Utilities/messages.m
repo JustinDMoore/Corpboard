@@ -27,19 +27,21 @@ void CreateMessageItem(PFUser *user1, PFUser *user2, NSString *roomId, NSString 
 			if ([objects count] == 0) {
                 
 				PFObject *message = [PFObject objectWithClassName:PF_MESSAGES_CLASS_NAME];
-                if (user2) message[@"belongsToUser"] = user2;
+                if (user2)   message[@"belongsToUser"] = user2;
+                //if (user1 != [PFUser currentUser]) message[@"read"] = [NSNumber numberWithBool:NO];
 				message[PF_MESSAGES_USER] = user1;
 				message[PF_MESSAGES_ROOMID] = roomId;
 				message[PF_MESSAGES_DESCRIPTION] = description;
 				message[PF_MESSAGES_LASTUSER] = [PFUser currentUser];
-				message[PF_MESSAGES_LASTMESSAGE] = @"";
+				//message[PF_MESSAGES_LASTMESSAGE] = @"";
 				message[PF_MESSAGES_COUNTER] = @0;
 				message[PF_MESSAGES_UPDATEDACTION] = [NSDate date];
+                
 				[message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
 					if (error != nil) NSLog(@"CreateMessageItem save error.");
 				}];
-			}
+            }
 		}
 		else NSLog(@"CreateMessageItem query error.");
 	}];

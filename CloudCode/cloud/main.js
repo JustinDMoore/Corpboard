@@ -109,13 +109,8 @@ Parse.Cloud.define("incrementReviewsByUser", function(request, response) {
                                });
                    });
 
-// Delete an entire private chat conversation for a user
-Parse.Cloud.define("deleteChat", function(request, response) {
-            
-                   var queryChatMaster = new Parse.Query("Messages");
-                   queryChatMaster.equalTo("roomId", request.params.roomId);
-                   queryChatMaster.equalTo("belongsToUser", request.user);
-                   queryChatMaster.find
+// Delete all private chat messages -- called by deleteChat
+Parse.Cloud.define("deleteChatMessages", function(request, response) {
                    
                    var queryChat = new Parse.Query("Chat");
                    queryChat.equalTo("roomId", request.params.roomId);
@@ -142,17 +137,36 @@ Parse.Cloud.define("deleteChat", function(request, response) {
                                          });
                    });
 
-Parse.Cloud.afterDelete("Messages", function(request) {
-                        
-                        var queryChat = new Parse.Query("Chat");
-                        queryChat.equalTo("roomId", request.params.roomId);
-                        queryChat.equalTo("belongsToUser", request.user);
-                        
-                        queryChat.find().then(function(messages) {
-                                          return Parse.Object.destroyAll(messages);
-                                          }).then(function(success) {
-                                                  // The related comments were deleted
-                                                  }, function(error) {
-                                                  console.error("Error deleting related comments " + error.code + ": " + error.message);
-                                                  });
-                        });
+// Delete a private chat room - then calls deleteChatMessages
+Parse.Cloud.define("deleteChat", function(request, response) {
+                   
+                   var queryChatMaster = new Parse.Query("Messages");
+                   queryChatMaster.equalTo("roomId", request.params.roomId);
+                   queryChatMaster.equalTo("belongsToUser", request.user);
+                   queryChatMaster.find().then(function (users) {
+                                               
+                                               //What do I do HERE to delete the posts?
+                                               users.forEach(function(user) {
+                                                             
+                                                             user.destroy({
+                                                                          success: function() {
+                                                                          // SUCCESS CODE HERE, IF YOU WANT
+                                                                          Parse.Cloud.run('deleteChatMessages', { roomId: request.params.roomId }, {
+                                                                                          success: function(ratings) {
+                                                                                          // ratings should be 4.5
+                                                                                          },
+                                                                                          error: function(error) {
+                                                                                          }
+                                                                                          });
+                                                                          
+                                                                          },
+                                                                          error: function(error) {
+                                                                          // ERROR CODE HERE, IF YOU WANT
+                                                                          //response.error();
+                                                                          }
+                                                                          });
+                                                             });
+                                               }, function (error) {
+                                               response.error();
+                                               });
+                   });

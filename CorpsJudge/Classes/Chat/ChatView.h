@@ -15,6 +15,7 @@
 
 @property (nonatomic) BOOL isPrivate;
 @property (nonatomic, strong) PFUser *user2; // user that the current user is chatting with -- ONLY FOR PRIVATE MESSAGES
+@property (nonatomic, strong) PFObject *chatroomForPrivateChat;
 
 -(id)initWith:(NSString *)roomId_;
 -(void)setRoomId:(NSString *)roomId_;
