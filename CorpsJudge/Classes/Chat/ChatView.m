@@ -240,12 +240,6 @@ int numberOfNewMessages = 0;
     
     if (self.isPrivate) {
         
-        if (self.chatroomForPrivateChat) {
-            
-            self.chatroomForPrivateChat[@"read"] = [NSNumber numberWithBool:NO];
-            [self.chatroomForPrivateChat saveInBackground];
-        }
-        
         PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
         object[PF_CHAT_USER] = [PFUser currentUser];
         object[PF_CHAT_ROOMID] = roomId;

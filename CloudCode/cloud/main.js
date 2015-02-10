@@ -63,7 +63,7 @@ Parse.Cloud.afterSave("Chat", function(request, response) {
                                 response.success();
                                 },
                                 error: function(error) {
-                                console.error("Got an error " + error.code + " : " + error.message);
+                                console.error("Got an error");
                                 response.error();
                                 }
                                 });
@@ -170,3 +170,20 @@ Parse.Cloud.define("deleteChat", function(request, response) {
                                                response.error();
                                                });
                    });
+
+// Checks to see if the new message belongs to the user sending the message
+// if so, sets "read" to YES
+// if not the sending user, sets "read" to NO
+Parse.Cloud.beforeSave("Messages", function(request, response) {
+                       
+                       var user1 = request.user;
+                       var user2 = request.object.get("belongsToUser");
+                       
+                       if (user1.id == user2.id) {
+                       request.object.set("read", true);
+                       } else {
+                       request.object.set("read", false);
+                       }
+
+                       response.success();
+                       });

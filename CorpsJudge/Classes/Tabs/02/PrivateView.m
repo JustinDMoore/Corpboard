@@ -52,6 +52,8 @@
 	[super viewDidLoad];
 	self.title = @"Private";
 
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 	self.tableView.tableHeaderView = viewHeader;
 	self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.backgroundColor = [UIColor blackColor];
@@ -136,16 +138,20 @@ BOOL isLoading = NO;
                 
                 for (PFObject *obj in objects) {
                     
-                    if (obj[@"belongsToUser"] == [PFUser currentUser]) {
+                    PFUser *belongsTo = obj[@"belongsToUser"];
+                    if ([belongsTo.objectId isEqualToString:[PFUser currentUser].objectId]) {
                         
                         [arrayOfChatsForCurrentUser addObject:obj];
                     } else {
                         
                         [arrayOfChatsForOtherUsers addObject:obj];
                     }
+                    
                 }
+            } else {
+                [KVNProgress showErrorWithStatus:@"Network error"];
             }
-            else [KVNProgress showErrorWithStatus:@"Network error"];
+            
             isLoading = NO;
             [self.tableView reloadData];
             [KVNProgress dismiss];
@@ -181,7 +187,9 @@ BOOL isLoading = NO;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	return [arrayOfChatsForCurrentUser count];
+    if ([arrayOfChatsForCurrentUser count]) return [arrayOfChatsForCurrentUser count];
+    else return 0;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -232,7 +240,11 @@ BOOL isLoading = NO;
 //
 	PFUser *user1 = [PFUser currentUser];
     PFObject *chat = arrayOfChatsForCurrentUser[indexPath.row];
-    PFObject *chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
+    PFObject *chatForOtherUser;
+    if ([arrayOfChatsForOtherUsers count] > 0) {
+        chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
+    }
+    
     chat[@"read"] = [NSNumber numberWithBool:YES];
     [chat saveInBackground];
     PFUser *user2 = chat[@"user"];
@@ -240,14 +252,15 @@ BOOL isLoading = NO;
 	NSString *id2 = user2.objectId;
 	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
 
-	CreateMessageItem(user1, user2, roomId, user2[PF_USER_FULLNAME]);
-	CreateMessageItem(user2, user1, roomId, user1[PF_USER_FULLNAME]);
+	//CreateMessageItem(user1, user2, roomId, user2[PF_USER_FULLNAME]);
+	//if (chatForOtherUser) CreateMessageItem(user2, user1, roomId, user1[PF_USER_FULLNAME]);
     
     PFObject *lastMessage = arrayOfChatsForCurrentUser[indexPath.row];
 	ChatView *chatView = [[ChatView alloc] initWith:lastMessage[@"roomId"]];
     chatView.isPrivate = YES;
     chatView.user2 = user2;
-    chatView.chatroomForPrivateChat = chatForOtherUser;
+    if (chatForOtherUser)
+    chatView.chatroomForPrivateChat = chat;
 	chatView.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:chatView animated:YES];
 }
@@ -266,22 +279,29 @@ BOOL isLoading = NO;
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
      
-        PFObject *chat = arrayOfChatsForCurrentUser[indexPath.row];
-        [arrayOfChatsForCurrentUser removeObjectAtIndex:indexPath.row];
-        [arrayOfChatsForOtherUsers removeObjectAtIndex:indexPath.row];
-        // This delete call only deletes the 'master' chat in Messages Class
-        // The cloud function then calls another cloud function to delete the messages within the chat
-        NSMutableDictionary * params = [NSMutableDictionary new];
-        
-        NSString *roomId = chat[@"roomId"];
-        params[@"roomId"] = roomId;
-        
-        [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
-
-        [PFCloud callFunctionInBackground:@"deleteChat"
-                           withParameters:params];
+        if ([arrayOfChatsForCurrentUser count] > 0) {
+            
+            PFObject *chat = arrayOfChatsForCurrentUser[indexPath.row];
+            [arrayOfChatsForCurrentUser removeObjectAtIndex:indexPath.row];
+            
+            if ([arrayOfChatsForOtherUsers count] > 0) {
+                
+                [arrayOfChatsForOtherUsers removeObjectAtIndex:indexPath.row];
+            }
+            // This delete call only deletes the 'master' chat in Messages Class
+            // The cloud function then calls another cloud function to delete the messages within the chat
+            NSMutableDictionary * params = [NSMutableDictionary new];
+            
+            NSString *roomId = chat[@"roomId"];
+            params[@"roomId"] = roomId;
+            
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+            
+            [PFCloud callFunctionInBackground:@"deleteChat"
+                               withParameters:params];
+        }
     }
 }
 
