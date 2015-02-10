@@ -14,12 +14,14 @@
 -(void)dataDidBeginLoading;
 -(void)dataDidLoad;
 -(void)dataFailed;
+-(void)messagesUpdated:(int)num;
 @end
 
 @interface CBSingle : NSObject {
     id delegate;
 }
 
+@property (nonatomic) int numberOfMessages;
 @property (nonatomic, strong) NSDate *currentDate;
 
 @property (nonatomic) BOOL adminMode;
@@ -61,6 +63,7 @@
 +(id)data;
 -(void)setDelegate:(id)newDelegate;
 -(void)refreshCorpsAndShows;
--(NSArray *)getOfficialScoresForShow:(PFObject *)show ;
+-(NSArray *)getOfficialScoresForShow:(PFObject *)show;
+-(void)getUnreadMessagesForUser;
 
 @end

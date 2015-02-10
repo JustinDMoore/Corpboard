@@ -8,6 +8,7 @@
 
 #import "CBSingle.h"
 #import "JustinHelper.h"
+#import "AppConstant.h"
 
 @implementation CBSingle
 
@@ -180,6 +181,30 @@ BOOL updatedShows;
     return returnResults;
 }
 
+-(void)getUnreadMessagesForUser {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+    [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
+    
+    [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
+    [query whereKey:@"read" equalTo:[NSNumber numberWithBool:NO]];
+    [query includeKey:@"user"];
+    [query orderByDescending:@"updatedAt"];
+    [query setLimit:50];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        
+        if (!error) {
+            
+            self.numberOfMessages = number;
+            if ([delegate respondsToSelector:@selector(messagesUpdated:)]) {
+                [delegate messagesUpdated:number];
+            }
+        } else {
+            
+            NSLog(@"Error getting new messages.");
+        }
+    }];
+}
 
 #pragma mark - Properites
 

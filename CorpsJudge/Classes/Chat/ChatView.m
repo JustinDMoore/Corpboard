@@ -125,8 +125,6 @@
 
 #pragma mark - Backend methods
 
-int numberOfNewMessages = 0;
-
 - (void)loadMessages {
     
 	if (isLoading == NO) {
@@ -147,20 +145,7 @@ int numberOfNewMessages = 0;
             
 			if (error == nil) {
                 
-				for (PFObject *object in [objects reverseObjectEnumerator]) {
-                    BOOL read = [object[@"read"] boolValue];
-                    if (!read) {
-                        object[@"read"] = [NSNumber numberWithBool:YES];
-                        numberOfNewMessages++;
-                    }
-                    
-                    if (numberOfNewMessages > 0) {
-                        PFUser *currentUser = [PFUser currentUser];
-                        int numberOfUnreadMessages = [currentUser[@"numberOfUnreadMessages"] intValue];
-                        numberOfUnreadMessages = numberOfUnreadMessages - numberOfNewMessages;
-                        currentUser[@"numberOfUnreadMessages"] = [NSNumber numberWithInt:numberOfUnreadMessages];
-                        [currentUser saveInBackground];
-                    }
+                for (PFObject *object in [objects reverseObjectEnumerator]) {
                     
 					[self addMessage:object];
 				}
@@ -206,8 +191,8 @@ int numberOfNewMessages = 0;
 
 - (void)sendMessage:(NSString *)text Picture:(UIImage *)picture {
     
-    CreateMessageItem([PFUser currentUser], self.user2, roomId, self.user2[PF_USER_FULLNAME]);
-    CreateMessageItem(self.user2, [PFUser currentUser], roomId, [PFUser currentUser][PF_USER_FULLNAME]);
+    CreateMessageItem([PFUser currentUser], self.user2, roomId, self.user2[PF_USER_FULLNAME], text);
+    CreateMessageItem(self.user2, [PFUser currentUser], roomId, [PFUser currentUser][PF_USER_FULLNAME], text);
     
 	PFFile *filePicture = nil;
 

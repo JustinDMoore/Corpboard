@@ -11,7 +11,7 @@
 
 #import <Parse/Parse.h>
 
-void		CreateMessageItem			(PFUser *user1, PFUser *user2, NSString *roomId, NSString *description);
+void		CreateMessageItem			(PFUser *user1, PFUser *user2, NSString *roomId, NSString *description, NSString *message);
 void		DeleteMessageItem			(PFObject *message);
 
 void		UpdateMessageCounter		(NSString *roomId, NSString *lastMessage);

@@ -245,12 +245,16 @@ BOOL isLoading = NO;
         chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
     }
     
-    chat[@"read"] = [NSNumber numberWithBool:YES];
-    [chat saveInBackground];
+    BOOL isRead = [chat[@"read"] boolValue];
+    if (!isRead) {
+        chat[@"read"] = [NSNumber numberWithBool:YES];
+        [chat saveInBackground];
+    }
+
     PFUser *user2 = chat[@"user"];
-	NSString *id1 = user1.objectId;
-	NSString *id2 = user2.objectId;
-	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
+	//NSString *id1 = user1.objectId;
+	//NSString *id2 = user2.objectId;
+	//NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
 
 	//CreateMessageItem(user1, user2, roomId, user2[PF_USER_FULLNAME]);
 	//if (chatForOtherUser) CreateMessageItem(user2, user1, roomId, user1[PF_USER_FULLNAME]);

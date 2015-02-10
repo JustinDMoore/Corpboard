@@ -15,7 +15,7 @@
 
 #import "messages.h"
 
-void CreateMessageItem(PFUser *user1, PFUser *user2, NSString *roomId, NSString *description) {
+void CreateMessageItem(PFUser *user1, PFUser *user2, NSString *roomId, NSString *description, NSString *msg) {
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
 	[query whereKey:PF_MESSAGES_USER equalTo:user1];
@@ -33,7 +33,9 @@ void CreateMessageItem(PFUser *user1, PFUser *user2, NSString *roomId, NSString 
 				message[PF_MESSAGES_ROOMID] = roomId;
 				message[PF_MESSAGES_DESCRIPTION] = description;
 				message[PF_MESSAGES_LASTUSER] = [PFUser currentUser];
-				//message[PF_MESSAGES_LASTMESSAGE] = @"";
+                if ([msg length]) {
+                    message[PF_MESSAGES_LASTMESSAGE] = msg;
+                }
 				message[PF_MESSAGES_COUNTER] = @0;
 				message[PF_MESSAGES_UPDATEDACTION] = [NSDate date];
                 

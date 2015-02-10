@@ -9,7 +9,6 @@
 #import "CBNewMenuViewController.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-#import "CBSingle.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSDate+Utilities.h"
 #import "CBShowDetailsViewController.h"
@@ -67,14 +66,13 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 - (IBAction)btnProfile_clicked:(id)sender;
 - (IBAction)btnAdmin_clicked:(id)sender;
 
-
-
 // Recent Shows
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollViewShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableLastShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableNextShows;
 @property (nonatomic, strong) IBOutlet UIView *contentViewShows;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessages;
+@property (nonatomic, strong) JSBadgeView *messageBadge;
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
 @property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
@@ -141,6 +139,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:YES animated:NO];
     [self setupShows];
+    [data getUnreadMessagesForUser];
 }
 
 - (void)viewDidLoad
@@ -181,6 +180,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 -(void)initVariables {
     
     data = [CBSingle data];
+    [data setDelegate:self];
     news = [CBNewsSingleton news];
     
     [self.collectionNews registerClass:[CBNewsCell class] forCellWithReuseIdentifier:@"CBNewsCell"];
@@ -216,9 +216,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
         self.btnAdmin.hidden = YES;
         self.lblAdmin.hidden = YES;
     }
-    //check for new messages
-    JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
-    badgeView.badgeText = @"3";
 }
 
 -(void)initUI {
@@ -1293,6 +1290,32 @@ CGFloat previousScroll;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"tapped %li", indexPath.row);
+}
+
+#pragma mark
+#pragma mark - Data Protocol
+#pragma mark
+
+-(void)messagesUpdated:(int)num {
+ 
+    [self setMsgBadge];
+}
+
+-(void)setMsgBadge {
+    
+    if (data.numberOfMessages > 0) {
+        self.messageBadge.badgeText = [NSString stringWithFormat:@"%i", data.numberOfMessages];
+    } else {
+        self.messageBadge.badgeText = @"";
+    }
+}
+
+-(JSBadgeView *)messageBadge {
+    
+    if (!_messageBadge) {
+        _messageBadge = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
+    }
+    return _messageBadge;
 }
 
 @end

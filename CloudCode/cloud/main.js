@@ -178,12 +178,17 @@ Parse.Cloud.beforeSave("Messages", function(request, response) {
                        
                        var user1 = request.user;
                        var user2 = request.object.get("belongsToUser");
-                       
+                       var isRead = request.object.get("read");
+                       if (!isRead) {
                        if (user1.id == user2.id) {
                        request.object.set("read", true);
                        } else {
                        request.object.set("read", false);
                        }
+                       } else {
+                       request.object.set("read", isRead);
+                       }
+                       
 
                        response.success();
                        });
