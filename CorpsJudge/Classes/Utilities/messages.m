@@ -28,7 +28,6 @@ void CreateMessageItem(PFUser *user1, PFUser *user2, NSString *roomId, NSString 
                 
 				PFObject *message = [PFObject objectWithClassName:PF_MESSAGES_CLASS_NAME];
                 if (user2)   message[@"belongsToUser"] = user2;
-                //if (user1 != [PFUser currentUser]) message[@"read"] = [NSNumber numberWithBool:NO];
 				message[PF_MESSAGES_USER] = user1;
 				message[PF_MESSAGES_ROOMID] = roomId;
 				message[PF_MESSAGES_DESCRIPTION] = description;
@@ -67,10 +66,11 @@ void UpdateMessageCounter(NSString *roomId, NSString *lastMessage) {
 		if (error == nil) {
             
 			for (PFObject *message in objects) {
-                
-				PFUser *user = message[PF_MESSAGES_USER];
-				if ([user.objectId isEqualToString:[PFUser currentUser].objectId] == NO)
-					[message incrementKey:PF_MESSAGES_COUNTER byAmount:@1];
+
+                PFUser *belongs = message[@"belongsToUser"];
+                if (![belongs.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    [message incrementKey:PF_MESSAGES_COUNTER byAmount:@1];
+                }
 
 				message[PF_MESSAGES_LASTUSER] = [PFUser currentUser];
 				message[PF_MESSAGES_LASTMESSAGE] = lastMessage;
@@ -89,7 +89,7 @@ void ClearMessageCounter(NSString *roomId) {
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
 	[query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
-	[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
+	[query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
 		if (error == nil) {

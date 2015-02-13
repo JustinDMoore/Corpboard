@@ -1296,7 +1296,7 @@ CGFloat previousScroll;
 #pragma mark - Data Protocol
 #pragma mark
 
--(void)messagesUpdated:(int)num {
+-(void)messagesUpdated {
  
     [self setMsgBadge];
 }

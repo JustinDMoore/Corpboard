@@ -14,7 +14,7 @@
 -(void)dataDidBeginLoading;
 -(void)dataDidLoad;
 -(void)dataFailed;
--(void)messagesUpdated:(int)num;
+-(void)messagesUpdated;
 @end
 
 @interface CBSingle : NSObject {

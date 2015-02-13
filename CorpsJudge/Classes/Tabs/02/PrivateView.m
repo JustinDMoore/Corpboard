@@ -209,13 +209,12 @@ BOOL isLoading = NO;
     UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
     UILabel *lblLastMessageHidden = (UILabel *)[cell viewWithTag:5];
     lblLastMessageHidden.hidden = YES;
-    
-    BOOL isRead = [lastMessage[@"read"] boolValue];
 
-    if (!isRead) {
-        imgNew.hidden = NO;
-    } else {
+    int numOfUnreadMessages = [lastMessage[@"counter"] intValue];
+    if (numOfUnreadMessages == 0) {
         imgNew.hidden = YES;
+    } else {
+        imgNew.hidden = NO;
     }
    
     PFUser *user = lastMessage[@"user"];
@@ -243,12 +242,6 @@ BOOL isLoading = NO;
     PFObject *chatForOtherUser;
     if ([arrayOfChatsForOtherUsers count] > 0) {
         chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
-    }
-    
-    BOOL isRead = [chat[@"read"] boolValue];
-    if (!isRead) {
-        chat[@"read"] = [NSNumber numberWithBool:YES];
-        [chat saveInBackground];
     }
 
     PFUser *user2 = chat[@"user"];

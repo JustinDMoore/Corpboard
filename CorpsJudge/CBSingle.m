@@ -183,21 +183,24 @@ BOOL updatedShows;
 
 -(void)getUnreadMessagesForUser {
     
+    self.numberOfMessages = 0;
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
     [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
     
     [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
-    [query whereKey:@"read" equalTo:[NSNumber numberWithBool:NO]];
+    [query selectKeys:@[@"counter"]];
     [query includeKey:@"user"];
     [query orderByDescending:@"updatedAt"];
     [query setLimit:50];
-    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+
         if (!error) {
-            
-            self.numberOfMessages = number;
-            if ([delegate respondsToSelector:@selector(messagesUpdated:)]) {
-                [delegate messagesUpdated:number];
+            for (PFObject *obj in objects) {
+                self.numberOfMessages += [obj[@"counter"] intValue];
+            }
+            if ([delegate respondsToSelector:@selector(messagesUpdated)]) {
+                [delegate messagesUpdated];
             }
         } else {
             
