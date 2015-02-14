@@ -11,6 +11,8 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import "IQKeyboardManager.h"
+#import "CBSingle.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation CBAppDelegate
 
@@ -18,8 +20,17 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+CBSingle *data;
+
+-(void)setDelegate:(id)newDelegate{
+    delegate = newDelegate;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    data = [CBSingle data];
+    
     //parse
     [ParseCrashReporting enable];
     [Parse setApplicationId:@"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"
@@ -38,13 +49,14 @@
                                consumerSecret:@"vr6Fb8nuoohYQsOekGT0UB33sLMwhqWmeedl41ypuixwWF2ZBO"];
     
     //push notifications
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    }
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
     
     // Override point for customization after application launch.
     //self.appTintColor = [UIColor colorWithRed:63/255.0 green:97/255.0 blue:138/255.0 alpha:1];
@@ -100,17 +112,24 @@
 
 //for push notifications with parse
 - (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
-    // Store the deviceToken in the current installation and save it to Parse.
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current Installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[ @"global" ];
     [currentInstallation saveInBackground];
 }
 
 //handles push notification if the user is currently running the app (app not in background)
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    [data getUnreadMessagesForUser];
     [PFPush handlePush:userInfo];
+    if ([delegate respondsToSelector:@selector(messageReceived)]) {
+        
+        [delegate messageReceived];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

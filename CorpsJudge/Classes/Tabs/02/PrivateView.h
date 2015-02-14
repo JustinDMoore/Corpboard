@@ -9,6 +9,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@interface PrivateView : UITableViewController <UISearchBarDelegate>
+#import "CBAppDelegate.h"
+
+@interface PrivateView : UITableViewController <UISearchBarDelegate, messagesProtocol>
 
 @end

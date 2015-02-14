@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface CBAppDelegate : UIResponder <UIApplicationDelegate>
+@protocol messagesProtocol <NSObject>
+@required
+-(void)messageReceived;
+@end
+
+@interface CBAppDelegate : UIResponder <UIApplicationDelegate> {
+    id delegate;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) UIColor *appTintColor;
@@ -20,5 +27,5 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
+-(void)setDelegate:(id)newDelegate;
 @end

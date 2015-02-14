@@ -351,6 +351,7 @@
 		D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivateMessageCell.xib; sourceTree = "<group>"; };
 		D054A74D1A816259000968CA /* PrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageCell.h; sourceTree = "<group>"; };
 		D054A74E1A816259000968CA /* PrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageCell.m; sourceTree = "<group>"; };
+		D055CF911A8EC560002D3B31 /* Message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Message.caf; sourceTree = "<group>"; };
 		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
 		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -622,6 +623,7 @@
 				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
 				92F0B6001A2C6D33005EA4B5 /* Chat API */,
+				D055CF921A8EC564002D3B31 /* Audio */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
 				92533487194FD5D70004D16F /* Supporting Files */,
 				92FE95391A74FB3500D4A7D9 /* MyParticle.sks */,
@@ -861,6 +863,14 @@
 			);
 			name = Classes;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		D055CF921A8EC564002D3B31 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D055CF911A8EC560002D3B31 /* Message.caf */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 		D0606BBE1A3D8619002A1F48 /* SubClasses */ = {
@@ -1285,7 +1295,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1324,7 +1335,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1361,7 +1373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "a92a3708-bfb8-47c8-b27e-e261d14913cd";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1389,7 +1401,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CorpBoard;
-				PROVISIONING_PROFILE = "a92a3708-bfb8-47c8-b27e-e261d14913cd";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

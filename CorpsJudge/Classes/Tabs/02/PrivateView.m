@@ -24,7 +24,7 @@
 	NSMutableArray *users;
     NSMutableArray *arrayOfChatsForCurrentUser;
     NSMutableArray *arrayOfChatsForOtherUsers;
-
+    CBAppDelegate *del;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
@@ -50,6 +50,10 @@
 - (void)viewDidLoad {
     
 	[super viewDidLoad];
+    
+    del = [UIApplication sharedApplication].delegate;
+    [del setDelegate:self];
+    
 	self.title = @"Private";
 
     self.tableView.dataSource = self;
@@ -122,7 +126,11 @@ BOOL isLoading = NO;
 -(void)loadMessages {
     
     if (isLoading == NO) {
+        
         [KVNProgress show];
+        [arrayOfChatsForCurrentUser removeAllObjects];
+        [arrayOfChatsForOtherUsers removeAllObjects];
+        
         isLoading = YES;
         
         PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
@@ -221,7 +229,15 @@ BOOL isLoading = NO;
     lblUser.text = user[@"nickname"];
     [lblUser sizeToFit];
     
+    //clears the old message label
+    for (UIView *view in cell.subviews) {
+        if (view.tag == 10) {
+            [view removeFromSuperview];
+        }
+    }
+    
     UILabel *lblLastMessage = [[UILabel alloc] initWithFrame:CGRectMake(30, 45, 282, 41)];
+    lblLastMessage.tag = 10;
     lblLastMessage.text = lastMessage[@"lastMessage"];
     lblLastMessage.textColor = [UIColor lightGrayColor];
     lblLastMessage.font = [UIFont systemFontOfSize:14];
@@ -340,6 +356,11 @@ BOOL isLoading = NO;
 
     
 	//[self loadUsers];
+}
+
+-(void)messageReceived {
+    
+    [self loadMessages];
 }
 
 @end

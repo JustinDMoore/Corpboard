@@ -52,9 +52,14 @@ void SendPushNotification(NSString *roomId, NSString *text) {
 	PFQuery *queryInstallation = [PFInstallation query];
 	[queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
 
+    NSDictionary *data = @{
+                           @"alert" : @"New message received",
+                           @"badge" : @"Increment",
+                           @"sound" : @"default"
+                           };
 	PFPush *push = [[PFPush alloc] init];
 	[push setQuery:queryInstallation];
-	[push setMessage:text];
+    [push setData:data];
 	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
 		if (error != nil) {
