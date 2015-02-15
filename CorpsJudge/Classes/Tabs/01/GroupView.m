@@ -134,6 +134,8 @@
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
+    [query includeKey:@"lastUser"];
+    [query includeKey:@"user"];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil) {
@@ -179,6 +181,7 @@
     
     PFObject *chatroom = chatrooms[indexPath.row];
     PFUser *lastUser = chatroom[@"lastUser"];
+    PFUser *userWhoStartedChat = chatroom[@"user"];
 
     NSString *d = [[JSQMessagesTimestampFormatter sharedFormatter] timeForDate:chatroom[@"lastMessageDate"]];
     NSDate *updated = chatroom[@"lastMessageDate"];
@@ -211,7 +214,7 @@
             [cell.imgLastUser setFile:imgFile];
             [cell.imgLastUser loadInBackground];
             cell.lblLastUser.text = lastUser[@"nickname"];
-            cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", lastUser[@"nickname"]];
+            cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", userWhoStartedChat[@"nickname"]];
         } else {
             NSLog(@"Error loading user image for chat room - %@", error.userInfo);
         }
@@ -260,11 +263,15 @@
 
 	PFObject *chatroom = chatrooms[indexPath.row];
 	NSString *roomId = chatroom.objectId;
+    PFUser *userWhoStartedChat = chatroom[@"user"];
     
-    int numViews = [chatroom[@"numberOfViews"] intValue];
-    numViews++;
-    chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
-    [chatroom saveInBackground];
+    if (![[PFUser currentUser].objectId isEqualToString: userWhoStartedChat.objectId]) {
+       
+        int numViews = [chatroom[@"numberOfViews"] intValue];
+        numViews++;
+        chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
+        [chatroom saveInBackground];
+    }
 
 	CreateMessageItem([PFUser currentUser], nil, roomId, chatroom[PF_CHATROOMS_NAME], nil);
 
