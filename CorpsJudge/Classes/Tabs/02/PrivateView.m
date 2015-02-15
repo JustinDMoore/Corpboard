@@ -248,34 +248,43 @@ BOOL isLoading = NO;
 }
 
 #pragma mark - Table view delegate
-
+PFObject *chatForOtherUser;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-//
-	PFUser *user1 = [PFUser currentUser];
-    PFObject *chat = arrayOfChatsForCurrentUser[indexPath.row];
-    PFObject *chatForOtherUser;
+
+    chat = arrayOfChatsForCurrentUser[indexPath.row];
+    
     if ([arrayOfChatsForOtherUsers count] > 0) {
         chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
     }
 
     PFUser *user2 = chat[@"user"];
-	//NSString *id1 = user1.objectId;
-	//NSString *id2 = user2.objectId;
-	//NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-
-	//CreateMessageItem(user1, user2, roomId, user2[PF_USER_FULLNAME]);
-	//if (chatForOtherUser) CreateMessageItem(user2, user1, roomId, user1[PF_USER_FULLNAME]);
     
     PFObject *lastMessage = arrayOfChatsForCurrentUser[indexPath.row];
-	ChatView *chatView = [[ChatView alloc] initWith:lastMessage[@"roomId"]];
-    chatView.isPrivate = YES;
-    chatView.user2 = user2;
-    if (chatForOtherUser)
-    chatView.chatroomForPrivateChat = chat;
-	chatView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:chatView animated:YES];
+    roomIdForChat = lastMessage[@"roomId"];
+    user2 = user2;
+        [self performSegueWithIdentifier:@"chat" sender:self];
+}
+
+PFObject *chat;
+PFUser *user2;
+NSString *roomIdForChat;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"chat"]) {
+        
+        ChatView *vc = [segue destinationViewController];
+        if (chatForOtherUser) {
+            vc.chatroomForPrivateChat = chat;
+        }
+        vc.isPrivate = YES;
+        vc.user2 = user2;
+        [vc setRoomId:roomIdForChat];
+        vc.isPrivate = NO;
+        vc.user2 = nil;
+        vc.hidesBottomBarWhenPushed = YES;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
