@@ -196,13 +196,18 @@
     } else if ((diff > 50) && (diff < 65)) {
         timeDiff = @"An hour ago";
     } else {
-        if ([updated isYesterday]) timeDiff = @"Yesterday";
-        if ([updated daysBeforeDate:[NSDate date]] == 2) {
+        if ([updated isYesterday]) {
+            
+            timeDiff = @"Yesterday";
+        } else if ([updated daysBeforeDate:[NSDate date]] == 2) {
             timeDiff = @"2 days ago";
-        } else {
-            if ([updated isToday]) {
+        } else if ([updated isToday]) {
                 timeDiff = d;
-            }
+        } else {
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"MMMM d"];
+            
+            timeDiff = [format stringFromDate:updated];
         }
     }
     
