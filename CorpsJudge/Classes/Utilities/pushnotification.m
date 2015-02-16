@@ -41,7 +41,7 @@ void ParsePushUserResign(void) {
 	}];
 }
 
-void SendPushNotification(NSString *roomId, NSString *text) {
+void SendPushNotification(NSString *roomId, NSString *text, BOOL pvt) {
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
 	[query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
@@ -52,10 +52,18 @@ void SendPushNotification(NSString *roomId, NSString *text) {
 	PFQuery *queryInstallation = [PFInstallation query];
 	[queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
 
+    NSString *type;
+    if (pvt) {
+        type = @"Private Message";
+    } else {
+        type = @"Live Chat";
+    }
+    
     NSDictionary *data = @{
                            @"alert" : @"New message received",
                            @"badge" : @"Increment",
-                           @"sound" : @"default"
+                           @"sound" : @"default",
+                           @"type" : type
                            };
 	PFPush *push = [[PFPush alloc] init];
 	[push setQuery:queryInstallation];

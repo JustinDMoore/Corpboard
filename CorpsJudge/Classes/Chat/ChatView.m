@@ -233,11 +233,17 @@
         if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     
-            if (error)  [KVNProgress showErrorWithStatus:@"Network error"];;
+            if (error) [KVNProgress showErrorWithStatus:@"Network error"];;
         }];
     }
 
-	SendPushNotification(roomId, text);
+    BOOL x;
+    if (self.isPrivate) {
+        x = YES;
+    } else {
+        x = NO;
+    }
+	SendPushNotification(roomId, text, x);
 	UpdateMessageCounter(roomId, text);
 
 	[self finishSendingMessage];

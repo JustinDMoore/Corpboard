@@ -124,8 +124,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
+    NSString *pvt = [userInfo valueForKey:@"type"];
+    
     [data getUnreadMessagesForUser];
-    [PFPush handlePush:userInfo];
+    //[PFPush handlePush:userInfo];
     if ([delegate respondsToSelector:@selector(messageReceived)]) {
         
         [delegate messageReceived];
