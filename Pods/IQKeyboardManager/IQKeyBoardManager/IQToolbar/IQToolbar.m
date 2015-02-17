@@ -31,6 +31,15 @@
 @implementation IQToolbar
 @synthesize titleFont = _titleFont;
 
++(void)initialize
+{
+    [super initialize];
+    
+    [[self appearance] setTintColor:nil];
+    [[self appearance] setBarTintColor:nil];
+    [[self appearance] setBackgroundColor:nil];
+}
+
 -(void)initialize
 {
     [self sizeToFit];
@@ -94,6 +103,19 @@
         if ([item isKindOfClass:[IQTitleBarButtonItem class]])
         {
             [(IQTitleBarButtonItem*)item setFont:titleFont];
+        }
+    }
+}
+
+-(void)setTitle:(NSString *)title
+{
+    _title = title;
+    
+    for (UIBarButtonItem *item in self.items)
+    {
+        if ([item isKindOfClass:[IQTitleBarButtonItem class]])
+        {
+            [(IQTitleBarButtonItem*)item setTitle:title];
         }
     }
 }

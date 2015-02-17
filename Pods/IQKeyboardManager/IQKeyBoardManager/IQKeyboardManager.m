@@ -217,6 +217,7 @@ void _IQShowLog(NSString *logString);
             [self setKeyboardAppearance:UIKeyboardAppearanceDefault];
             
             [self setEnableAutoToolbar:YES];
+            [self setShouldFixTextViewClip:YES];
             [self setPreventShowingBottomBlankSpace:YES];
             [self setShouldShowTextFieldPlaceholder:YES];
             [self setShouldAdoptDefaultKeyboardAnimation:YES];
@@ -558,6 +559,12 @@ void _IQShowLog(NSString *logString);
                 _IQShowLog([NSString stringWithFormat:@"%@ old ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
                 
                 _lastScrollView.contentInset = movedInsets;
+                if (_lastScrollView.contentSize.height<_lastScrollView.frame.size.height)
+                {
+                    CGSize contentSize = _lastScrollView.contentSize;
+                    contentSize.height = _lastScrollView.frame.size.height;
+                    _lastScrollView.contentSize = contentSize;
+                }
                 
                 _IQShowLog([NSString stringWithFormat:@"%@ new ContentInset : %@",[_lastScrollView _IQDescription], NSStringFromUIEdgeInsets(_lastScrollView.contentInset)]);
             }
@@ -1025,23 +1032,25 @@ void _IQShowLog(NSString *logString);
 /* UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
 -(void)textFieldViewDidChange:(NSNotification*)notification //  (Bug ID: #18)
 {
-    UITextView *textView = (UITextView *)notification.object;
-    
-    CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
-    CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
-    
-    //Added overflow conditions (Bug ID: 95)
-    if ( overflow > 0  && overflow < FLT_MAX)
+    if (_shouldFixTextViewClip == YES)
     {
-        // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
-        // Scroll caret to visible area
-        CGPoint offset = textView.contentOffset;
-        offset.y += overflow + 7; // leave 7 pixels margin
+        UITextView *textView = (UITextView *)notification.object;
+        CGRect line = [textView caretRectForPosition: textView.selectedTextRange.start];
+        CGFloat overflow = CGRectGetMaxY(line) - (textView.contentOffset.y + CGRectGetHeight(textView.bounds) - textView.contentInset.bottom - textView.contentInset.top);
         
-        // Cannot animate with setContentOffset:animated: or caret will not appear
-        [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            [textView setContentOffset:offset];
-        } completion:NULL];
+        //Added overflow conditions (Bug ID: 95)
+        if ( overflow > 0  && overflow < FLT_MAX)
+        {
+            // We are at the bottom of the visible text and introduced a line feed, scroll down (iOS 7 does not do it)
+            // Scroll caret to visible area
+            CGPoint offset = textView.contentOffset;
+            offset.y += overflow + 7; // leave 7 pixels margin
+            
+            // Cannot animate with setContentOffset:animated: or caret will not appear
+            [UIView animateWithDuration:_animationDuration delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+                [textView setContentOffset:offset];
+            } completion:NULL];
+        }
     }
 }
 
@@ -1192,6 +1201,10 @@ void _IQShowLog(NSString *logString);
                 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
+            else if (textFieldRetain.previousInvocation)
+            {
+                [textFieldRetain.previousInvocation invoke];
+            }
         }
     }
 }
@@ -1232,6 +1245,10 @@ void _IQShowLog(NSString *logString);
 
                 _IQShowLog([NSString stringWithFormat:@"Refuses to become first responder: %@",[nextTextField _IQDescription]]);
             }
+            else if (textFieldRetain.nextInvocation)
+            {
+                [textFieldRetain.nextInvocation invoke];
+            }
         }
     }
 }
@@ -1246,8 +1263,24 @@ void _IQShowLog(NSString *logString);
         [[UIDevice currentDevice] playInputClick];
     }
 
-    //Resign textFieldView.
-    [self resignFirstResponder];
+    //  Retaining textFieldView
+    UIView *textFieldRetain = _textFieldView;
+    
+    //Resigning first responder
+    BOOL isResignFirstResponder = [_textFieldView resignFirstResponder];
+    
+    //  If it refuses then becoming it as first responder again.    (Bug ID: #96)
+    if (isResignFirstResponder == NO)
+    {
+        //If it refuses to resign then becoming it first responder again for getting notifications callback.
+        [textFieldRetain becomeFirstResponder];
+        
+        _IQShowLog([NSString stringWithFormat:@"Refuses to Resign first responder: %@",[_textFieldView _IQDescription]]);
+    }
+    else if (textFieldRetain.doneInvocation)
+    {
+        [textFieldRetain.doneInvocation invoke];
+    }
 }
 
 /*! Add toolbar if it is required to add on textFields and it's siblings. */
@@ -1259,7 +1292,7 @@ void _IQShowLog(NSString *logString);
 	//	If only one object is found, then adding only Done button.
 	if (siblings.count==1)
 	{
-        UIView *textField = [siblings firstObject];
+        UITextField *textField = [siblings firstObject];
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
 		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
@@ -1267,40 +1300,87 @@ void _IQShowLog(NSString *logString);
             //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
             textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
-            
-            //Setting toolbar tintColor //  (Enhancement ID: #30)
-            if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
-                [textField.inputAccessoryView setTintColor:[textField tintColor]];
-            
-            //Setting toolbar title font.   //  (Enhancement ID: #30)
-            if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
         }
-	}
-	else if(siblings.count)
-	{
-		//	If more than 1 textField is found. then adding previous/next/done buttons on it.
-		for (UITextField *textField in siblings)
-		{
+        
+        if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQDoneButtonToolbarTag)
+        {
+            IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+
+            if ([textField respondsToSelector:@selector(keyboardAppearance)])
+            {
+                switch ([(UITextField*)textField keyboardAppearance])
+                {
+                    case UIKeyboardAppearanceAlert:
+                    {
+                        toolbar.barStyle = UIBarStyleBlack;
+                        if ([toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[UIColor whiteColor]];
+                    }
+                        break;
+                    default:
+                    {
+                        toolbar.barStyle = UIBarStyleDefault;
+                        
+                        //Setting toolbar tintColor //  (Enhancement ID: #30)
+                        if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                            [toolbar setTintColor:[textField tintColor]];
+                    }
+                        break;
+                }
+            }
+            
+            if (_shouldShowTextFieldPlaceholder)
+            {
+                //Updating placeholder font to toolbar.     //(Bug ID: #148)
+                if ([textField respondsToSelector:@selector(placeholder)] && [toolbar.title isEqualToString:textField.placeholder] == NO)
+                    [toolbar setTitle:textField.placeholder];
+                
+                //Setting toolbar title font.   //  (Enhancement ID: #30)
+                if (_placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
+                    [toolbar setTitleFont:_placeholderFont];
+            }
+        }
+    }
+    else if(siblings.count)
+    {
+        //	If more than 1 textField is found. then adding previous/next/done buttons on it.
+        for (UITextField *textField in siblings)
+        {
             //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Done toolbar).
 			if (![textField inputAccessoryView] || [[textField inputAccessoryView] tag] == kIQDoneButtonToolbarTag)
 			{
                 //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 				[textField addPreviousNextDoneOnKeyboardWithTarget:self previousAction:@selector(previousAction:) nextAction:@selector(nextAction:) doneAction:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-                
-                //Setting toolbar tintColor //  (Enhancement ID: #30)
-                if (_shouldToolbarUsesTextFieldTintColor && [textField respondsToSelector:@selector(tintColor)])
-                    [textField.inputAccessoryView setTintColor:[textField tintColor]];
-                
-                //Setting toolbar title font.   //  (Enhancement ID: #30)
-                if (_shouldShowTextFieldPlaceholder && _placeholderFont && [_placeholderFont isKindOfClass:[UIFont class]])
-                    [(IQToolbar*)[textField inputAccessoryView] setTitleFont:_placeholderFont];
   			}
             
-            //If the toolbar is added by IQKeyboardManager then automatically enabling/disabling the previous/next button.
-            if (textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
+            if ([textField.inputAccessoryView isKindOfClass:[IQToolbar class]] && textField.inputAccessoryView.tag == kIQPreviousNextButtonToolbarTag)
             {
+                IQToolbar *toolbar = (IQToolbar*)[textField inputAccessoryView];
+
+                if ([textField respondsToSelector:@selector(keyboardAppearance)])
+                {
+                    switch ([(UITextField*)textField keyboardAppearance])
+                    {
+                        case UIKeyboardAppearanceAlert:
+                        {
+                            toolbar.barStyle = UIBarStyleBlack;
+                            if ([toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[UIColor whiteColor]];
+                        }
+                            break;
+                        default:
+                        {
+                            toolbar.barStyle = UIBarStyleDefault;
+                            
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if (_shouldToolbarUsesTextFieldTintColor && [toolbar respondsToSelector:@selector(tintColor)])
+                                [toolbar setTintColor:[textField tintColor]];
+                        }
+                            break;
+                    }
+                }
+                
                 //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
                 //	If firstTextField, then previous should not be enabled.
                 if (siblings[0] == textField)

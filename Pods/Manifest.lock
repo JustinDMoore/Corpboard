@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - IQKeyboardManager (3.2.1.0)
+  - IQKeyboardManager (3.2.1.1)
   - JSBadgeView (1.3.2)
   - JSQMessagesViewController (6.1.3):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -39,7 +39,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.0)
-  - IQKeyboardManager (= 3.2.1.0)
+  - IQKeyboardManager (= 3.2.1.1)
   - JSBadgeView (= 1.3.2)
   - JSQMessagesViewController (= 6.1.3)
   - JSQSystemSoundPlayer (= 2.0.1)
@@ -49,7 +49,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  IQKeyboardManager: 167388b27d0194abc50b2ffc3cc16b881a8227df
+  IQKeyboardManager: 4e83eef847c6f5edbd670284e50c7e3d643ebdb5
   JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
   JSQMessagesViewController: e93a288a9662d4519c95a28a8c0eec10beae1bfc
   JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
