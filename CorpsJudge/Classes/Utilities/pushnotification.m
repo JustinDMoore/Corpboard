@@ -53,11 +53,7 @@ void SendPushNotification(NSString *roomId, NSString *text, BOOL pvt) {
 	[queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
 
     NSString *type;
-    if (pvt) {
-        type = @"Private Message";
-    } else {
-        type = @"Live Chat";
-    }
+    type = pvt ? @"Private Message" : @"Live Chat";
     
     NSDictionary *data = @{
                            @"alert" : @"New message received",

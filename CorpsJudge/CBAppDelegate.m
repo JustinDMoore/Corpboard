@@ -126,11 +126,14 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     NSString *pvt = [userInfo valueForKey:@"type"];
     
-    [data getUnreadMessagesForUser];
-    //[PFPush handlePush:userInfo];
-    if ([delegate respondsToSelector:@selector(messageReceived)]) {
+    if ([pvt isEqualToString:@"Private Message"]) {
         
-        [delegate messageReceived];
+        [data getUnreadMessagesForUser];
+        //[PFPush handlePush:userInfo];
+        if ([delegate respondsToSelector:@selector(messageReceived)]) {
+            
+            [delegate messageReceived];
+        }
     }
 }
 

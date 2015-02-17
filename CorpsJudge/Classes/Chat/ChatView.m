@@ -212,7 +212,9 @@
     if (self.isPrivate) {
         object[@"belongsToUser"] = [PFUser currentUser];
     }
-    if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
+    if (filePicture != nil) {
+        object[PF_CHAT_PICTURE] = filePicture;
+    }
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
         if (error == nil) {
@@ -237,13 +239,7 @@
         }];
     }
 
-    BOOL x;
-    if (self.isPrivate) {
-        x = YES;
-    } else {
-        x = NO;
-    }
-	SendPushNotification(roomId, text, x);
+	SendPushNotification(roomId, text, self.isPrivate);
 	UpdateMessageCounter(roomId, text);
 
 	[self finishSendingMessage];

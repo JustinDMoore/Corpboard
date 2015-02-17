@@ -125,45 +125,48 @@ BOOL isLoading = NO;
 
 -(void)loadMessages {
     
-    if (isLoading == NO) {
+    if (self.isViewLoaded && self.view.window) {
         
-        [KVNProgress show];
-        [arrayOfChatsForCurrentUser removeAllObjects];
-        [arrayOfChatsForOtherUsers removeAllObjects];
-        
-        isLoading = YES;
-        
-        PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
-        [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
-
-        //[query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
-        [query includeKey:@"user"];
-        [query orderByDescending:@"updatedAt"];
-        [query setLimit:50];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (isLoading == NO) {
             
-            if (error == nil) {
+            isLoading = YES;
+            
+            [KVNProgress show];
+            [arrayOfChatsForCurrentUser removeAllObjects];
+            [arrayOfChatsForOtherUsers removeAllObjects];
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+            [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
+            
+            //[query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
+            [query includeKey:@"user"];
+            [query orderByDescending:@"updatedAt"];
+            [query setLimit:50];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 
-                for (PFObject *obj in objects) {
+                if (error == nil) {
                     
-                    PFUser *belongsTo = obj[@"belongsToUser"];
-                    if ([belongsTo.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                    for (PFObject *obj in objects) {
                         
-                        [arrayOfChatsForCurrentUser addObject:obj];
-                    } else {
+                        PFUser *belongsTo = obj[@"belongsToUser"];
+                        if ([belongsTo.objectId isEqualToString:[PFUser currentUser].objectId]) {
+                            
+                            [arrayOfChatsForCurrentUser addObject:obj];
+                        } else {
+                            
+                            [arrayOfChatsForOtherUsers addObject:obj];
+                        }
                         
-                        [arrayOfChatsForOtherUsers addObject:obj];
                     }
-                    
+                } else {
+                    [KVNProgress showErrorWithStatus:@"Network error"];
                 }
-            } else {
-                [KVNProgress showErrorWithStatus:@"Network error"];
-            }
-            
-            isLoading = NO;
-            [self.tableView reloadData];
-            [KVNProgress dismiss];
-        }];
+                
+                isLoading = NO;
+                [self.tableView reloadData];
+                [KVNProgress dismiss];
+            }];
+        }
     }
 }
 
@@ -259,12 +262,12 @@ PFObject *chatForOtherUser;
         chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
     }
 
-    PFUser *user2 = chat[@"user"];
+    user2 = chat[@"user"];
     
     PFObject *lastMessage = arrayOfChatsForCurrentUser[indexPath.row];
     roomIdForChat = lastMessage[@"roomId"];
-    user2 = user2;
-        [self performSegueWithIdentifier:@"chat" sender:self];
+    //user2 = user2;
+    [self performSegueWithIdentifier:@"chat" sender:self];
 }
 
 PFObject *chat;
@@ -281,8 +284,6 @@ NSString *roomIdForChat;
         vc.isPrivate = YES;
         vc.user2 = user2;
         [vc setRoomId:roomIdForChat];
-        vc.isPrivate = NO;
-        vc.user2 = nil;
         vc.hidesBottomBarWhenPushed = YES;
     }
 }
