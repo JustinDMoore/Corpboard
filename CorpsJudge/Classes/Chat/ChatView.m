@@ -23,6 +23,7 @@
 #import "CBUserProfileViewController.h"
 
 #import "IQKeyboardManager.h"
+#import "CBImageViewController.h"
 
 @interface ChatView() {
     
@@ -418,13 +419,27 @@ PFUser *userForProfile;
     if ([[segue identifier] isEqualToString:@"profile"]) {
         CBUserProfileViewController *vc = [segue destinationViewController];
         [vc setUser:userForProfile];
+    } else if ([[segue identifier] isEqualToString:@"picture"]) {
+        
+        CBImageViewController *vc = [segue destinationViewController];
+        
+        JSQPhotoMediaItem *pic = (JSQPhotoMediaItem *)messageToView.media;
+        [vc.imgPicture setImage:pic.image];
+        [vc.imgPicture loadInBackground];
     }
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
     
 	NSLog(@"didTapMessageBubbleAtIndexPath");
+    JSQMessage *message = messages[indexPath.item];
+    if (message.isMediaMessage) {
+        messageToView = message;
+        [self performSegueWithIdentifier:@"picture" sender:self];
+    }
 }
+
+JSQMessage *messageToView;
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation {
     

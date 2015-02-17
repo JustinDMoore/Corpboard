@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -989,11 +989,38 @@
                     </view>
                     <connections>
                         <segue destination="sQx-yV-WOz" kind="show" identifier="profile" id="yBL-Wb-Ve6"/>
+                        <segue destination="sax-xO-tk9" kind="show" identifier="picture" id="hen-TI-OHw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWk-9E-DcV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3074" y="-2730"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="ov0-bb-iAv">
+            <objects>
+                <viewController id="sax-xO-tk9" customClass="CBImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yHg-n8-X4B"/>
+                        <viewControllerLayoutGuide type="bottom" id="FXM-ui-xMB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zbg-Cj-e9F">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRC-eY-WT0" customClass="PFImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imgPicture" destination="RRC-eY-WT0" id="wiL-v9-yS1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gSM-i2-L2V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3758" y="-2730"/>
         </scene>
         <!--New Login View Controller-->
         <scene sceneID="B6t-2I-ki2">
@@ -3581,8 +3608,8 @@
         <image name="star" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="5Fi-Lt-Ok5"/>
+        <segue reference="yBL-Wb-Ve6"/>
     </inferredMetricsTieBreakers>
 </document>
