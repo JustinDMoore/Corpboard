@@ -14,9 +14,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnShowRainedOut;
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
 @property (nonatomic, assign) id currentResponder;
+@property (weak, nonatomic) IBOutlet UILabel *lblShowStatus;
 
 - (IBAction)btnCancel_tapped:(id)sender;
 - (IBAction)btnShowRainedOut_tapped:(id)sender;
+- (IBAction)btnShowComplete_tapped:(id)sender;
 
 @end
 
@@ -30,8 +32,18 @@
     self.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.lblShowName.text = self.show[@"showName"];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTouchesRequired:1];
+    [singleTap setCancelsTouchesInView:NO];
+    [self.view addGestureRecognizer:singleTap];
+    [self initUI];
+}
+
+
+-(void)initUI {
     
+    self.lblShowName.text = self.show[@"showName"];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"EEE, MMM d"];
     
@@ -39,11 +51,15 @@
     
     self.lblShowLocationAndDate.text = [NSString stringWithFormat:@"%@ - %@", self.show[@"showLocation"], dateString];
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [singleTap setNumberOfTouchesRequired:1];
-    [singleTap setCancelsTouchesInView:NO];
-    [self.view addGestureRecognizer:singleTap];
+    BOOL isOver = [self.show[@"isShowOver"] boolValue];
+    if (!isOver) {
+        self.lblShowStatus.text = @"This show is not complete. The scores are not available to the public.";
+        self.lblShowStatus.textColor = [UIColor redColor];
+    } else {
+        self.lblShowStatus.text = @"Show complete. Scores available to the public.";
+        self.lblShowStatus.textColor = [UIColor greenColor];
+    }
+    [self.tableCorps reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,6 +74,89 @@
 
 - (IBAction)btnShowRainedOut_tapped:(id)sender {
 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rained Out" message:@"Do you want to mark this show as cancelled due to weather?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+    
+}
+
+- (IBAction)btnShowComplete_tapped:(id)sender {
+}
+
+- (IBAction)btnPerformanceRainedOut_tapped:(id)sender {
+    
+}
+
+- (void)checkButtonTapped:(id)sender
+{
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableCorps];
+    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:buttonPosition];
+    if (indexPath != nil) {
+        
+        PFObject *score;
+        if (indexPath.section == 0) {
+            score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
+        } else if (indexPath.section == 1) {
+            score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        }
+        if (score) {
+            score[@"colorguardScore"] = @"0";
+            score[@"percussionScore"] = @"0";
+            score[@"hornlineScore"] = @"0";
+            score[@"score"] = @"0";
+            score[@"exception"] = @"Rained Out";
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+            }];
+        }
+    }
+}
+
+#pragma mark
+#pragma mark - UIAlertView Delegates
+#pragma mark
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        //cancelled
+    } else {
+        
+        self.show[@"exception"] = @"Rained Out";
+        self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
+        [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) [self.show saveEventually];
+        }];
+        
+        if ([self.arrayOfWorldClassScores count]) {
+            for (PFObject *score in self.arrayOfWorldClassScores) {
+                
+                score[@"exception"] = @"Rained Out";
+                score[@"score"] = @"0";
+                score[@"colorguardScore"] = @"0";
+                score[@"hornlineScore"] = @"0";
+                score[@"percussionScore"] = @"0";
+                [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) [score saveEventually];
+                    [self initUI];
+                }];
+            }
+        }
+        
+        if ([self.arrayOfOpenClassScores count]) {
+            for (PFObject *score in self.arrayOfOpenClassScores) {
+                
+                score[@"exception"] = @"Rained Out";
+                score[@"score"] = @"0";
+                score[@"colorguardScore"] = @"0";
+                score[@"hornlineScore"] = @"0";
+                score[@"percussionScore"] = @"0";
+                [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) [score saveEventually];
+                    [self initUI];
+                }];
+            }
+        }
+    }
 }
 
 #pragma mark
@@ -152,19 +251,20 @@ bool backspaced;
     }
     
     switch (textField.tag) {
-        case 4: // guard
+        case 6: // guard
             score[@"colorguardScore"] = textField.text;
             break;
         case 5: // brass
             score[@"hornlineScore"] = textField.text;
             break;
-        case 6: // percussion
+        case 7: // percussion
             score[@"percussionScore"] = textField.text;
             break;
-        case 7: // total
+        case 4: // total
             score[@"score"] = textField.text;
             break;
     }
+    [score saveEventually];
 }
 
 #pragma mark
@@ -220,6 +320,8 @@ BOOL finished = NO;
     UILabel *lblPosition = (UILabel *)[cell viewWithTag:1];
     UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
     UIButton *btnRained = (UIButton *)[cell viewWithTag:3];
+    [btnRained addTarget:self action:@selector(checkButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
     UITextField *txtColorguard = (UITextField *)[cell viewWithTag:6];
     UITextField *txtBrass = (UITextField *)[cell viewWithTag:5];
     UITextField *txtPercussion = (UITextField *)[cell viewWithTag:7];
@@ -263,6 +365,7 @@ BOOL finished = NO;
         corps = score[@"corps"];
 
         lblCorpsName.text = corps[@"corpsName"];
+        [lblCorpsName sizeToFit];
         if (finished) {
             lblPosition.text = [NSString stringWithFormat:@"%li", indexPath.row + 1];
         } else {

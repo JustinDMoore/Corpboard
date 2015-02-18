@@ -218,8 +218,11 @@ int votedFavorites;
         [query includeKey:@"corps"];
         
         BOOL isShowOver = [self.show[@"isShowOver"] boolValue];
+        NSString *exc = self.show[@"exception"];
         if (isShowOver) {
-            [query orderByDescending:@"score"];
+            if (![exc length]) {
+                [query orderByDescending:@"score"]; //order by score if show complete, and no exception (rain)
+            }
         } else {
             NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
             NSSortDescriptor *name = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
@@ -309,7 +312,7 @@ int votedFavorites;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     BOOL isOver = [self.show[@"isShowOver"] boolValue];
-    
+
     UITableViewCell *cell;
     
     UILabel *lblCorpsName;
@@ -318,11 +321,32 @@ int votedFavorites;
     UILabel *lblTime;
     PFImageView *imgLogo;
     
+    PFObject *corps;
+    PFObject *score;
+    
+    if ([indexPath section] == 0) {
+        if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
+    } else {
+        if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
+    }
+    
+    NSString *exc = score[@"exception"];
+    
     if (isOver) {
-         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"score"];
-        lblPosition = (UILabel *)[cell viewWithTag:2];
-        lblScore = (UILabel *)[cell viewWithTag:3];
-        lblCorpsName = (UILabel *)[cell viewWithTag:1];
+        if ([exc length]) {
+            
+            cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"time"];
+            
+            lblCorpsName = (UILabel *)[cell viewWithTag:1];
+            lblTime = (UILabel *)[cell viewWithTag:2];
+        } else {
+            
+            cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"score"];
+            lblPosition = (UILabel *)[cell viewWithTag:2];
+            lblScore = (UILabel *)[cell viewWithTag:3];
+            lblCorpsName = (UILabel *)[cell viewWithTag:1];
+        }
+
     } else {
          cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"time"];
         
@@ -332,25 +356,17 @@ int votedFavorites;
    
     imgLogo = (PFImageView *)[cell viewWithTag:4];
 
-    PFObject *corps;
-    PFObject *score;
 
-        if ([indexPath section] == 0) {
-            if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
-        } else {
-            if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
-        }
     if (score) {
         corps = score[@"corps"];
 
         if (isOver) {
             lblCorpsName.text = corps[@"corpsName"];
-            lblPosition.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
-            NSNumber *totalscore = score[@"score"];
-            if (totalscore) {
-                lblScore.text = [NSString stringWithFormat:@"%@", totalscore];
+            if ([exc length]) {
+                lblTime.text = exc;
             } else {
-                lblScore.text = @"";
+                lblPosition.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
+                lblScore.text = score[@"score"];
             }
         } else {
             lblCorpsName.text = corps[@"corpsName"];

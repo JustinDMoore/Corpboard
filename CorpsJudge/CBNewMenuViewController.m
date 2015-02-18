@@ -774,16 +774,32 @@ NSDate *nearestDate;
             
             
             if (isOver) {
-                btnScores.hidden = NO;
+                NSString *exc = show[@"exception"];
+                if ([exc length]) {
+                    
+                    UILabel *lblException = [[UILabel alloc] initWithFrame:CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20)];
+                    lblException.font = [UIFont systemFontOfSize:12];
+                    lblException.textColor = [UIColor lightGrayColor];
+                    lblException.text = exc;
+                    lblException.textAlignment = NSTextAlignmentRight;
+                    [lblException sizeToFit];
+                    [cell addSubview:lblException];
+                    btnScores.hidden = YES;
+                } else {
+                    
+                    btnScores.hidden = NO;
+                    
+                    btnScores.layer.borderWidth = 1.0f;
+                    
+                    btnScores.layer.borderColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1].CGColor;
+                    
+                    btnScores.layer.cornerRadius = 4.0f;
+                    btnScores.layer.masksToBounds = YES;
+                    btnScores.titleLabel.text = @" Scores ";
+                    btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
+                }
                 
-                btnScores.layer.borderWidth = 1.0f;
-                
-                btnScores.layer.borderColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1].CGColor;
-                
-                btnScores.layer.cornerRadius = 4.0f;
-                btnScores.layer.masksToBounds = YES;
-                btnScores.titleLabel.text = @" Scores ";
-                btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
+
             } else btnScores.hidden = YES;
         }
         
