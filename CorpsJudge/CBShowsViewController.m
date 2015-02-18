@@ -187,6 +187,17 @@ BOOL refreshing = NO;
 
 #pragma mark - Shows TableView
 
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    
+    // Background color
+    view.tintColor = [UIColor darkGrayColor];
+    
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor lightGrayColor]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:16]];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return [self.dateIndex count];
@@ -195,8 +206,8 @@ BOOL refreshing = NO;
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     NSDate *showDate = [self.datesArray objectAtIndex:section];
-    if ([showDate isToday]) return @"TODAY";
-    if ([showDate isTomorrow]) return @"TOMORROW";
+    if ([showDate isToday]) return @"Today";
+    if ([showDate isTomorrow]) return @"Tomorrow";
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMMM d"];

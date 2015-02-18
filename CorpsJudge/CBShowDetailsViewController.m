@@ -28,7 +28,7 @@ int votedFavorites;
 @property (weak, nonatomic) IBOutlet UILabel *lblShowName;
 @property (weak, nonatomic) IBOutlet UILabel *lblShowLocation;
 @property (weak, nonatomic) IBOutlet UIButton *btnViewRecap;
-@property (strong, nonatomic) IBOutlet UITableView *corpsTable;
+@property (strong, nonatomic) IBOutlet UITableView *tableCorps;
 @property (weak, nonatomic) IBOutlet UIButton *btnReviewShow;
 @property (weak, nonatomic) IBOutlet UILabel *lblEndShow;
 @property (weak, nonatomic) IBOutlet UIButton *btnEndShow;
@@ -85,8 +85,16 @@ int votedFavorites;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    
+    [self setAutomaticallyAdjustsScrollViewInsets:YES];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.frame = CGRectZero;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
     [KVNProgress show];
     [self setup];
+    
 }
 
 -(void)setup {
@@ -100,7 +108,7 @@ int votedFavorites;
 -(void)initVariables {
     
     self.title = @"Show Details";
-    self.automaticallyAdjustsScrollViewInsets = NO;
+   
 }
 
 -(void)initUI {
@@ -118,9 +126,9 @@ int votedFavorites;
     }
     
     self.btnViewRecap.enabled = NO;
-    self.corpsTable.hidden = YES;
+    self.tableCorps.hidden = YES;
     self.btnReviewShow.enabled = NO;
-    
+    self.tableCorps.backgroundColor = [UIColor blackColor];
 }
 
 -(void)votedFavorites:(NSNumber *)result error:(NSError *)error {
@@ -180,8 +188,8 @@ int votedFavorites;
 
 -(void)showUIAfterLoad {
     
-    [self.corpsTable reloadData];
-    self.corpsTable.hidden = NO;
+    [self.tableCorps reloadData];
+    self.tableCorps.hidden = NO;
     [KVNProgress dismiss];
 }
 
@@ -274,7 +282,18 @@ int votedFavorites;
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    
+    // Background color
+    view.tintColor = [UIColor darkGrayColor];
+    
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor lightGrayColor]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:16]];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
         switch (section) {
             case 0:
@@ -300,12 +319,12 @@ int votedFavorites;
     PFImageView *imgLogo;
     
     if (isOver) {
-         cell = [self.corpsTable dequeueReusableCellWithIdentifier:@"score"];
+         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"score"];
         lblPosition = (UILabel *)[cell viewWithTag:2];
         lblScore = (UILabel *)[cell viewWithTag:3];
         lblCorpsName = (UILabel *)[cell viewWithTag:1];
     } else {
-         cell = [self.corpsTable dequeueReusableCellWithIdentifier:@"time"];
+         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"time"];
         
         lblCorpsName = (UILabel *)[cell viewWithTag:1];
         lblTime = (UILabel *)[cell viewWithTag:2];
