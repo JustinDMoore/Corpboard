@@ -424,8 +424,9 @@ PFUser *userForProfile;
         CBImageViewController *vc = [segue destinationViewController];
         
         JSQPhotoMediaItem *pic = (JSQPhotoMediaItem *)messageToView.media;
-        [vc.imgPicture setImage:pic.image];
-        [vc.imgPicture loadInBackground];
+        NSLog(@"%@", pic);
+        vc.imgPicture = pic.image;
+
     }
 }
 

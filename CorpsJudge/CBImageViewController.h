@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ParseUI/ParseUI.h>
 
 @interface CBImageViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet PFImageView *imgPicture;
+@property (weak, nonatomic) UIImage *imgPicture;
 
 @end

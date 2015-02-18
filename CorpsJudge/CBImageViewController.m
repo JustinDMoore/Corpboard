@@ -9,13 +9,14 @@
 #import "CBImageViewController.h"
 
 @interface CBImageViewController ()
-
+@property (nonatomic, strong) IBOutlet UIImageView *imgViewPicture;
 @end
 
 @implementation CBImageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //self.imgViewPicture.image = self.imgPicture;
     // Do any additional setup after loading the view.
 }
 
