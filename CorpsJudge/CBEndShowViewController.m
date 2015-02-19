@@ -53,7 +53,7 @@
     
     BOOL isOver = [self.show[@"isShowOver"] boolValue];
     if (!isOver) {
-        self.lblShowStatus.text = @"This show is not complete. The scores are not available to the public.";
+        self.lblShowStatus.text = @"This show is not complete. Scores are not available to the public.";
         self.lblShowStatus.textColor = [UIColor redColor];
     } else {
         self.lblShowStatus.text = @"Show complete. Scores available to the public.";
@@ -75,15 +75,63 @@
 - (IBAction)btnShowRainedOut_tapped:(id)sender {
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rained Out" message:@"Do you want to mark this show as cancelled due to weather?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alert.tag = 1;
     [alert show];
     
 }
 
 - (IBAction)btnShowComplete_tapped:(id)sender {
+
+    NSString *title;
+    NSString *msg;
+    
+    if ([self areAllScoresEntered]) {
+        
+        title = @"Complete Show";
+        msg = @"Are you sure you want to complete this show? \n\n All scores will be available to the public.";
+        
+    } else {
+        
+        title = @"Missing Scores";
+        msg = @"Are you sure you want to complete the show with missing scores? \n\n All scores will be available to the public.";
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alert.tag = 2;
+    [alert show];
 }
 
-- (IBAction)btnPerformanceRainedOut_tapped:(id)sender {
+-(BOOL)areAllScoresEntered {
     
+    NSString *total;
+    NSString *guard;
+    NSString *perc;
+    NSString *brass;
+    
+    for (PFObject *score in self.arrayOfWorldClassScores) {
+        total = score[@"score"];
+        guard = score[@"colorguardScore"];
+        perc = score[@"percussionScore"];
+        brass = score[@"hornlineScore"];
+    
+        if (![total length]) return NO;
+        if (![guard length]) return NO;
+        if (![perc length]) return NO;
+        if (![brass length]) return NO;
+    }
+    
+    for (PFObject *score in self.arrayOfOpenClassScores) {
+        total = score[@"score"];
+        guard = score[@"colorguardScore"];
+        perc = score[@"percussionScore"];
+        brass = score[@"hornlineScore"];
+        
+        if (![total length]) return NO;
+        if (![guard length]) return NO;
+        if (![perc length]) return NO;
+        if (![brass length]) return NO;
+    }
+    return YES;
 }
 
 - (void)checkButtonTapped:(id)sender
@@ -105,6 +153,7 @@
             score[@"score"] = @"0";
             score[@"exception"] = @"Rained Out";
             [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) [self initUI];
                 if (error) [score saveEventually];
             }];
         }
@@ -120,41 +169,118 @@
     if (buttonIndex == 0) {
         //cancelled
     } else {
-        
-        self.show[@"exception"] = @"Rained Out";
-        self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
-        [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) [self.show saveEventually];
-        }];
-        
-        if ([self.arrayOfWorldClassScores count]) {
-            for (PFObject *score in self.arrayOfWorldClassScores) {
-                
-                score[@"exception"] = @"Rained Out";
-                score[@"score"] = @"0";
-                score[@"colorguardScore"] = @"0";
-                score[@"hornlineScore"] = @"0";
-                score[@"percussionScore"] = @"0";
-                [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (error) [score saveEventually];
-                    [self initUI];
-                }];
-            }
+        switch (alertView.tag) {
+            case 1: [self weather];
+                break;
+            case 2: [self completeShow];
         }
+    }
+}
+
+-(void)completeShow {
+    
+    [self.show removeObjectForKey:@"exception"];
+    self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
+    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-        if ([self.arrayOfOpenClassScores count]) {
-            for (PFObject *score in self.arrayOfOpenClassScores) {
+        if (error) [self.show saveEventually];
+    }];
+    
+    [self saveScores:self.arrayOfWorldClassScores];
+    [self saveScores:self.arrayOfOpenClassScores];
+}
+
+-(void)saveScores:(NSMutableArray *)array {
+    
+    if ([array count]) {
+        
+        for (PFObject *score in array) {
+            
+            PFObject *corps = score[@"corps"];
+            NSString *total = score[@"score"];
+            NSString *guard = score[@"colorguardScore"];
+            NSString *perc = score[@"percussionScore"];
+            NSString *brass = score[@"hornlineScore"];
+            
+            if ([total length]) {
+                if (![total isEqualToString:@"0"]) {
+                    corps[@"olderScore"] = corps[@"lastScore"];
+                    corps[@"lastScore"] = score[@"score"];
+                    corps[@"lastScoreDate"] = self.show[@"showDate"];
+                }
+            }
+            if ([brass length]) {
+                if (![brass isEqualToString:@"0"]) corps[@"lastBrass"] = score[@"hornlineScore"];
+            }
+            if ([guard length]) {
+                if (![guard isEqualToString:@"0"]) corps[@"lastColorguard"] = score[@"colorguardScore"];
+            }
+            
+            if ([perc length]) {
+                if (![perc isEqualToString:@"0"]) corps[@"lastPercussion"] = score[@"percussionScore"];
+            }
+            
+            [corps saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [corps saveEventually];
+            }];
+            
+            int x = 0;
+            x += [score[@"score"] intValue];
+            x += [score[@"colorguardScore"] intValue];
+            x += [score[@"hornlineScore"] intValue];
+            x += [score[@"percussionScore"] intValue];
+            
+            if (x == 0) {
                 
                 score[@"exception"] = @"Rained Out";
-                score[@"score"] = @"0";
-                score[@"colorguardScore"] = @"0";
-                score[@"hornlineScore"] = @"0";
-                score[@"percussionScore"] = @"0";
-                [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (error) [score saveEventually];
-                    [self initUI];
-                }];
+            } else {
+                
+                [score removeObjectForKey:@"exception"];
             }
+            
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+                [self initUI];
+            }];
+        }
+    }
+}
+
+-(void)weather {
+    
+    self.show[@"exception"] = @"Rained Out";
+    self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
+    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) [self.show saveEventually];
+    }];
+    
+    if ([self.arrayOfWorldClassScores count]) {
+        for (PFObject *score in self.arrayOfWorldClassScores) {
+            
+            score[@"exception"] = @"Rained Out";
+            score[@"score"] = @"0";
+            score[@"colorguardScore"] = @"0";
+            score[@"hornlineScore"] = @"0";
+            score[@"percussionScore"] = @"0";
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+                [self initUI];
+            }];
+        }
+    }
+    
+    if ([self.arrayOfOpenClassScores count]) {
+        for (PFObject *score in self.arrayOfOpenClassScores) {
+            
+            score[@"exception"] = @"Rained Out";
+            score[@"score"] = @"0";
+            score[@"colorguardScore"] = @"0";
+            score[@"hornlineScore"] = @"0";
+            score[@"percussionScore"] = @"0";
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+                [self initUI];
+            }];
         }
     }
 }

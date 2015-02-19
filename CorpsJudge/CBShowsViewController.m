@@ -223,15 +223,10 @@ BOOL refreshing = NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    UITableViewCell *cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show1"];
     
-    UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:1];
-    UILabel *lblShowLocation = (UILabel *)[cell viewWithTag:2];
-    UIButton *btnScores = (UIButton *)[cell viewWithTag:3];
+    UITableViewCell *cell;
     
     if ([data.arrayOfAllShows count]) {
-        
         NSString *dateString = [self.datesArray objectAtIndex:[indexPath section]];
         NSPredicate *search = [NSPredicate predicateWithFormat:@"showDate == %@", dateString];
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"showDate" ascending:YES];
@@ -240,30 +235,41 @@ BOOL refreshing = NO;
         NSArray *filteredArray = [[data.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
         
         PFObject *show = [filteredArray objectAtIndex:[indexPath row]];
+        NSString *exc = show[@"exception"];
+        
+        UILabel *lblException;
+        UIButton *btnScores;
+        if ([exc length]) {
+            
+            cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show2"];
+            lblException = (UILabel *)[cell viewWithTag:4];
+            btnScores.hidden = YES;
+            lblException.hidden = NO;
+        } else {
+            
+            cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show1"];
+            btnScores = (UIButton *)[cell viewWithTag:3];
+            lblException.hidden = YES;
+            btnScores.hidden = NO;
+        }
+        
+        UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:1];
+        UILabel *lblShowLocation = (UILabel *)[cell viewWithTag:2];
         
         lblShowTitle.text = show[@"showName"];
         lblShowLocation.text = show[@"showLocation"];
         BOOL isOver = [show[@"isShowOver"] boolValue];
         
         if (isOver) {
-            NSString *exc = show[@"exception"];
             if ([exc length]) {
                 
-                UILabel *lblException = [[UILabel alloc] initWithFrame:CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20)];
-                lblException.font = [UIFont systemFontOfSize:12];
-                lblException.textColor = [UIColor lightGrayColor];
                 lblException.text = exc;
-                lblException.textAlignment = NSTextAlignmentRight;
-                [lblException sizeToFit];
-                [cell addSubview:lblException];
                 btnScores.hidden = YES;
-                
+                lblException.hidden = NO;
             } else {
-                
+                lblException.hidden = YES;
                 btnScores.hidden = NO;
-                
                 btnScores.layer.borderWidth = 1.0f;
-                
                 btnScores.layer.borderColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1].CGColor;
                 
                 btnScores.layer.cornerRadius = 4.0f;
@@ -272,14 +278,14 @@ BOOL refreshing = NO;
                 btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
                 [btnScores addTarget:self action:@selector(openShows:) forControlEvents:UIControlEventTouchUpInside];
             }
+            
+        } else {
+            btnScores.hidden = YES;
+            lblException.hidden = YES;
+        }
 
-        } else btnScores.hidden = YES;
-        
-    } else {
-        
-        cell.textLabel.text = @"";
-        cell.detailTextLabel.text = @"";
     }
+    
     
     return cell;
 }
