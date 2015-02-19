@@ -98,12 +98,12 @@ typedef enum : int {
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
-- (void)goback
-{
+-(void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
     [KVNProgress show];

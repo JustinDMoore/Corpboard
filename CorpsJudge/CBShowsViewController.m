@@ -60,7 +60,7 @@ BOOL refreshing = NO;
     self.navigationItem.leftBarButtonItem = backButton;
     
     [self.tableShows deselectRowAtIndexPath:[self.tableShows indexPathForSelectedRow] animated:animated];
-    
+    [self.tableShows reloadData];
 }
 
 - (void)goback

@@ -8,6 +8,10 @@
 
 #import "CBEffect.h"
 
+@interface CBEffect()
+@property (nonatomic, strong) SKEmitterNode *rainEmitter;
+@end
+
 @implementation CBEffect
 
 CGPoint snowLocation;
@@ -30,6 +34,9 @@ SKEmitterNode *snowEmitter;
 BOOL isChristmas = NO;
 SKEmitterNode *snowFlakeEmitter;
 
+//wet
+BOOL isRaining = NO;
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
        
@@ -44,6 +51,7 @@ SKEmitterNode *snowFlakeEmitter;
     if (skiesArePerilous) [self tameThePerilousSkies];
     if (coldOutside) [self stopSnowing];
     if (isChristmas) [self stopCadetSnowing];
+    if (isRaining) [self stopRaining];
 }
 
 #pragma mark
@@ -68,6 +76,32 @@ SKEmitterNode *snowFlakeEmitter;
     snowFlakeEmitter.particleLifetime = 0;
     snowFlakeEmitter.particleLifetimeRange = 0;
     isChristmas = NO;
+}
+
+#pragma mark
+#pragma mark - Wet day
+#pragma mark
+
+-(void)startRaining {
+    
+    if (!isRaining) {
+        [self stop];
+        isRaining = YES;
+        [self.rainEmitter removeFromParent];
+        if (self.rainEmitter) {
+            self.rainEmitter = nil;
+        }
+        self.rainEmitter = [self newEmitter:@"Rain"];
+        [self addChild:self.rainEmitter];
+    }
+}
+
+-(void)stopRaining {
+    
+    self.rainEmitter.particleBirthRate = 0;
+    self.rainEmitter.particleLifetime = 0;
+    self.rainEmitter.particleLifetimeRange = 0;
+    isRaining = NO;
 }
 
 #pragma mark

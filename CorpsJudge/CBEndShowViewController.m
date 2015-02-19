@@ -69,11 +69,14 @@
 
 - (IBAction)btnCancel_tapped:(id)sender {
     
+    [self.currentResponder resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnShowRainedOut_tapped:(id)sender {
 
+    [self.currentResponder resignFirstResponder];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rained Out" message:@"Do you want to mark this show as cancelled due to weather?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     alert.tag = 1;
     [alert show];
@@ -82,6 +85,8 @@
 
 - (IBAction)btnShowComplete_tapped:(id)sender {
 
+    [self.currentResponder resignFirstResponder];
+    
     NSString *title;
     NSString *msg;
     
@@ -134,8 +139,9 @@
     return YES;
 }
 
-- (void)checkButtonTapped:(id)sender
-{
+- (void)checkButtonTappedForRain:(id)sender {
+    
+    [self.currentResponder resignFirstResponder];
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableCorps];
     NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:buttonPosition];
     if (indexPath != nil) {
@@ -152,6 +158,33 @@
             score[@"hornlineScore"] = @"0";
             score[@"score"] = @"0";
             score[@"exception"] = @"Rained Out";
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) [self initUI];
+                if (error) [score saveEventually];
+            }];
+        }
+    }
+}
+
+- (void)checkButtonTappedForExhibition:(id)sender {
+    
+    [self.currentResponder resignFirstResponder];
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableCorps];
+    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:buttonPosition];
+    if (indexPath != nil) {
+        
+        PFObject *score;
+        if (indexPath.section == 0) {
+            score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
+        } else if (indexPath.section == 1) {
+            score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        }
+        if (score) {
+            score[@"colorguardScore"] = @"0";
+            score[@"percussionScore"] = @"0";
+            score[@"hornlineScore"] = @"0";
+            score[@"score"] = @"0";
+            score[@"exception"] = @"Exhibition";
             [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) [self initUI];
                 if (error) [score saveEventually];
@@ -289,6 +322,14 @@
 #pragma mark - UITextField Delegates
 #pragma mark
 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    NSString *txt = textField.text;
+    textField.text = nil;
+    textField.text = txt;
+    return YES;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.currentResponder = textField;
 }
@@ -298,99 +339,106 @@ bool backspaced;
 
 -(void)textFieldDidChange:(UITextField *)theTextField {
     
-    if (theTextField.text.length < previouslen) {
-        backspaced = YES;
-    }
-    
-    if([theTextField.text hasSuffix:@"."]) {
-        if (theTextField.text.length == 2) {
-            
-            NSRange ran = NSMakeRange(0, 1);
-            NSString *txt = [theTextField.text substringWithRange:ran];
-            theTextField.text = txt;
-            return;
+    if (theTextField) {
+        if (theTextField.text.length < previouslen) {
+            backspaced = YES;
         }
-    }
-    
-    if (theTextField.text.length == 3) {
-        NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
-        NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
-        if (range.location == NSNotFound) {
-            NSRange range = NSMakeRange(0, 2);
-            NSRange range2 = NSMakeRange(1, 1);
-            NSString *one = [theTextField.text substringWithRange:range];
-            NSString *two = [theTextField.text substringWithRange:range2];
-            theTextField.text = [NSString stringWithFormat:@"%@.%@", one, two];
+        
+        if([theTextField.text hasSuffix:@"."]) {
+            if (theTextField.text.length == 2) {
+                
+                NSRange ran = NSMakeRange(0, 1);
+                NSString *txt = [theTextField.text substringWithRange:ran];
+                theTextField.text = txt;
+                return;
+            }
         }
-    }
-    
-    if (theTextField.text) {
-        NSString *regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,2}$";
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-        if (![pred evaluateWithObject:theTextField.text])
-        { // Error, input not matching! Remove last added character.
-            int len = (int)theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
-            theTextField.text = [theTextField.text substringWithRange:NSMakeRange(0, len)];
-            // Now checks if the new length, i.e. the length when the last digit has been deleted is 3, which means that the decimal dot is the last character. If so remove 2 instead of only 1 character!
+        
+        if (theTextField.text.length == 3) {
+            NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+            NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+            if (range.location == NSNotFound) {
+                NSRange range = NSMakeRange(0, 2);
+                NSRange range2 = NSMakeRange(1, 1);
+                NSString *one = [theTextField.text substringWithRange:range];
+                NSString *two = [theTextField.text substringWithRange:range2];
+                theTextField.text = [NSString stringWithFormat:@"%@.%@", one, two];
+            }
         }
-        else
-        { // OKay here, do whatever
-            if (!backspaced) {
-                if(theTextField.text.length == 2) // Add decimal dot if two digits have been entered!
-                {
-                    NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
-                    NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
-                    if (range.location == NSNotFound) {
-                        theTextField.text = [NSString stringWithFormat:@"%@.", theTextField.text];
+        
+        if (theTextField.text) {
+            NSString *regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,2}$";
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+            if (![pred evaluateWithObject:theTextField.text])
+            { // Error, input not matching! Remove last added character.
+                int len = (int)theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
+                theTextField.text = [theTextField.text substringWithRange:NSMakeRange(0, len)];
+                // Now checks if the new length, i.e. the length when the last digit has been deleted is 3, which means that the decimal dot is the last character. If so remove 2 instead of only 1 character!
+            }
+            else
+            { // OKay here, do whatever
+                if (!backspaced) {
+                    if(theTextField.text.length == 2) // Add decimal dot if two digits have been entered!
+                    {
+                        NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+                        NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+                        if (range.location == NSNotFound) {
+                            theTextField.text = [NSString stringWithFormat:@"%@.", theTextField.text];
+                        }
                     }
                 }
             }
         }
+        
+        previouslen = (int)theTextField.text.length;
+        backspaced = NO;
     }
-    
-    previouslen = (int)theTextField.text.length;
-    backspaced = NO;
 }
 
 - (void)resignOnTap:(id)iSender {
-    [self.currentResponder resignFirstResponder];
+    
+    if (self.currentResponder) {
+        [self.currentResponder resignFirstResponder];
+    }
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
-    CGPoint location = [textField.superview convertPoint:textField.center toView:self.tableCorps];
-    
-    NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
-    
-    if (textField.text.length == 1) textField.text = @"";
-    if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
-    if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
-    if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
-    
-    PFObject *score;
-    
-    if (indexPath.section == 0) {
-        score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
-    
-    } else if (indexPath.section == 1) {
-        score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+    if (textField) {
+        CGPoint location = [textField.superview convertPoint:textField.center toView:self.tableCorps];
+        
+        NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
+        
+        if (textField.text.length == 1) textField.text = @"";
+        if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
+        if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
+        if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
+        
+        PFObject *score;
+        
+        if (indexPath.section == 0) {
+            score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
+            
+        } else if (indexPath.section == 1) {
+            score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        }
+        
+        switch (textField.tag) {
+            case 6: // guard
+                score[@"colorguardScore"] = textField.text;
+                break;
+            case 5: // brass
+                score[@"hornlineScore"] = textField.text;
+                break;
+            case 7: // percussion
+                score[@"percussionScore"] = textField.text;
+                break;
+            case 4: // total
+                score[@"score"] = textField.text;
+                break;
+        }
+        [score saveEventually];
     }
-    
-    switch (textField.tag) {
-        case 6: // guard
-            score[@"colorguardScore"] = textField.text;
-            break;
-        case 5: // brass
-            score[@"hornlineScore"] = textField.text;
-            break;
-        case 7: // percussion
-            score[@"percussionScore"] = textField.text;
-            break;
-        case 4: // total
-            score[@"score"] = textField.text;
-            break;
-    }
-    [score saveEventually];
 }
 
 #pragma mark
@@ -445,8 +493,10 @@ BOOL finished = NO;
     
     UILabel *lblPosition = (UILabel *)[cell viewWithTag:1];
     UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
-    UIButton *btnRained = (UIButton *)[cell viewWithTag:3];
-    [btnRained addTarget:self action:@selector(checkButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *btnRained = (UIButton *)[cell viewWithTag:100];
+    UIButton *btnExhibition = (UIButton *)[cell viewWithTag:101];
+    [btnRained addTarget:self action:@selector(checkButtonTappedForRain:) forControlEvents:UIControlEventTouchUpInside];
+    [btnExhibition addTarget:self action:@selector(checkButtonTappedForExhibition:) forControlEvents:UIControlEventTouchUpInside];
     
     UITextField *txtColorguard = (UITextField *)[cell viewWithTag:6];
     UITextField *txtBrass = (UITextField *)[cell viewWithTag:5];

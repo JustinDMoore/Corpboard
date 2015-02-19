@@ -15,5 +15,7 @@
 -(void)startSnowing;
 -(void)perilousSkies:(CGRect)rect;
 -(void)launchToSpace;
+-(void)startRaining;
+-(void)stopRaining;
 
 @end

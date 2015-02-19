@@ -14,6 +14,8 @@
 #import "NSDate+Utilities.h"
 #import <ParseUI/ParseUI.h>
 #import "CBEndShowViewController.h"
+#import <SpriteKit/SpriteKit.h>
+#import "CBEffect.h"
 
 CBSingle *data;
 int votedScore;
@@ -34,6 +36,8 @@ int votedFavorites;
 @property (weak, nonatomic) IBOutlet UIButton *btnEndShow;
 @property (weak, nonatomic) IBOutlet UIButton *btnRecapLink;
 @property (weak, nonatomic) IBOutlet UILabel *lblRecapLink;
+@property IBOutlet SKView *skView;
+@property (nonatomic, strong) CBEffect *scene;
 
 - (IBAction)btnViewRecap_tapped:(id)sender;
 - (IBAction)btnReviewShow_tapped:(id)sender;
@@ -79,6 +83,7 @@ int votedFavorites;
 
 - (void)goback {
     
+    self.scene = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -86,15 +91,26 @@ int votedFavorites;
 
     [super viewDidLoad];
     
-    [self setAutomaticallyAdjustsScrollViewInsets:YES];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.view.frame = CGRectZero;
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    // Configure the SKView
+    SKView * skView = _skView;
+    
+    // Create and configure the scene.
+    self.scene = [CBEffect sceneWithSize:[[UIScreen mainScreen] bounds].size];
+    self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    skView.allowsTransparency = YES;
+    self.scene.backgroundColor = [UIColor blackColor];
+    [skView presentScene:self.scene];
+    self.tableCorps.backgroundColor = [UIColor clearColor];
+    
+    [self setAutomaticallyAdjustsScrollViewInsets:YES];
     
     [KVNProgress show];
     [self setup];
     
+
 }
 
 -(void)setup {
@@ -128,7 +144,7 @@ int votedFavorites;
     self.btnViewRecap.enabled = NO;
     self.tableCorps.hidden = YES;
     self.btnReviewShow.enabled = NO;
-    self.tableCorps.backgroundColor = [UIColor blackColor];
+    self.tableCorps.backgroundColor = [UIColor clearColor];
 }
 
 -(void)votedFavorites:(NSNumber *)result error:(NSError *)error {
@@ -204,7 +220,11 @@ int votedFavorites;
     self.lblShowLocation.text = self.show[@"showLocation"];
     
     [self getScoresForShow];
-
+    
+    NSString *exc = self.show[@"exception"];
+    if ([exc isEqualToString:@"Rained Out"]) {
+        //[self.scene startRaining];
+    }
 }
 
 -(void)getScoresForShow {

@@ -164,22 +164,8 @@
     }];
 }
 
--(void)makeLineLayer:(CALayer *)layer lineFromPointA:(CGPoint)pointA toPointB:(CGPoint)pointB
-{
-    CAShapeLayer *line = [CAShapeLayer layer];
-    UIBezierPath *linePath=[UIBezierPath bezierPath];
-    [linePath moveToPoint: pointA];
-    [linePath addLineToPoint:pointB];
-    line.path=linePath.CGPath;
-    line.fillColor = nil;
-    line.lineWidth = .5;
-    line.opacity = 1.0;
-    line.strokeColor = [UIColor whiteColor].CGColor;
-    [layer addSublayer:line];
-}
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -504,11 +490,6 @@ NSMutableArray *arrayOfRows;
     } completion:^(BOOL finished) {
         
     }];
-}
-
--(void)SNOW:(BOOL)snow {
-
-    
 }
 
 int selectedCell = 0;
