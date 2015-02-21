@@ -1303,11 +1303,42 @@ CGFloat previousScroll;
     
 }
 
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"tapped %li", indexPath.row);
 }
 
+// NOTE: This delegate method requires you to disable UICollectionView's `pagingEnabled` property.
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
+
+    if (scrollView == self.collectionNews) {
+        CGPoint point = *targetContentOffset;
+
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionNews.collectionViewLayout;
+
+        // This assumes that the values of `layout.sectionInset.left` and
+        // `layout.sectionInset.right` are the same with `layout.minimumInteritemSpacing`.
+        // Remember that we're trying to snap to one item at a time. So one
+        // visible item comprises of its width plus the left margin.
+        CGFloat visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width;
+
+        // It's either we go forwards or backwards.
+        int indexOfItemToSnap = round(point.x / visibleWidth);
+
+        // The only exemption is the last item.
+        if (indexOfItemToSnap + 1 == [self.collectionNews numberOfItemsInSection:0]) { // last item
+            *targetContentOffset = CGPointMake(self.collectionNews.contentSize.width -
+                                               self.collectionNews.bounds.size.width, 0);
+        } else {
+            *targetContentOffset = CGPointMake(indexOfItemToSnap * visibleWidth, 0);
+        }
+    }
+}
+
+                                               
 #pragma mark
 #pragma mark - Data Protocol
 #pragma mark
