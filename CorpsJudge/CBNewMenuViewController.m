@@ -1210,6 +1210,8 @@ CGFloat previousScroll;
 }
 
 - (IBAction)btnAdmin_clicked:(id)sender {
+
+    [self performSegueWithIdentifier:@"admin" sender:self];
 }
 
 #pragma mark -

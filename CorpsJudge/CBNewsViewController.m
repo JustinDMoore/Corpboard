@@ -38,8 +38,8 @@ MWFeedItem *itemForWeb;
     
 }
 
-- (void)goback
-{
+- (void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -47,7 +47,7 @@ MWFeedItem *itemForWeb;
     [super viewDidLoad];
     news = [CBNewsSingleton news];
     
-    self.tableView.estimatedRowHeight = 20.0;
+    self.tableView.estimatedRowHeight = 65.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.clearsSelectionOnViewWillAppear = YES;
 }
