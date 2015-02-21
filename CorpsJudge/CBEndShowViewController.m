@@ -7,6 +7,7 @@
 //
 
 #import "CBEndShowViewController.h"
+#import "AppConstant.h"
 
 @interface CBEndShowViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblShowName;
@@ -87,23 +88,37 @@
 
     [self.currentResponder resignFirstResponder];
     
+    BOOL over = [self.show[@"isShowOver"] boolValue];
+
     NSString *title;
     NSString *msg;
+    UIAlertView *alert;
     
-    if ([self areAllScoresEntered]) {
+    if (!over) {
+
         
-        title = @"Complete Show";
-        msg = @"Are you sure you want to complete this show? \n\n All scores will be available to the public.";
+        if ([self areAllScoresEntered]) {
+            
+            title = @"Complete Show";
+            msg = @"Are you sure you want to complete this show? \n\n All scores will be available to the public.";
+            
+        } else {
+            
+            title = @"Missing Scores";
+            msg = @"Are you sure you want to complete the show with missing scores? \n\n All scores will be available to the public.";
+        }
+        
+
+        alert.tag = 2;
+        alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
         
     } else {
-        
-        title = @"Missing Scores";
-        msg = @"Are you sure you want to complete the show with missing scores? \n\n All scores will be available to the public.";
+        title = @"Show Complete";
+        msg = @"This show is already complete and scores are available to the public.";
+        alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    alert.tag = 2;
-    [alert show];
 }
 
 -(BOOL)areAllScoresEntered {
@@ -206,21 +221,54 @@
             case 1: [self weather];
                 break;
             case 2: [self completeShow];
+                break;
+            case 3: [self sendPush];
         }
     }
 }
 
+-(void)sendPush {
+
+    int rndValue = 1 + arc4random() % (4 - 1);
+    NSString *text;
+    switch (rndValue) {
+        case 1: text = [NSString stringWithFormat:@"Scores are up for %@!", self.show[@"showLocation"]];
+            break;
+        case 2: text = [NSString stringWithFormat:@"Check out the scores for %@!", self.show[@"showLocation"]];
+            break;
+        case 3: text = [NSString stringWithFormat:@"%@ scores are in!", self.show[@"showLocation"]];
+        default: text = [NSString stringWithFormat:@"See who came out on top in %@!", self.show[@"showLocation"]];
+            break;
+    }
+    
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"deviceType" equalTo:@"ios"];
+    [PFPush sendPushMessageToQueryInBackground:pushQuery
+                                   withMessage:text];
+}
+
 -(void)completeShow {
     
-    [self.show removeObjectForKey:@"exception"];
-    self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
-    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-        if (error) [self.show saveEventually];
-    }];
-    
-    [self saveScores:self.arrayOfWorldClassScores];
-    [self saveScores:self.arrayOfOpenClassScores];
+    BOOL over = [self.show[@"isShowOver"] boolValue];
+    if (!over) {
+        [self saveScores:self.arrayOfWorldClassScores];
+        [self saveScores:self.arrayOfOpenClassScores];
+        [self.show removeObjectForKey:@"exception"];
+        self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
+        [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (error) [self.show saveEventually];
+            else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notification"
+                                                                message:@"Send push notification to users notifying them scores are up?"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"No"
+                                                      otherButtonTitles:@"Yes", nil];
+                alert.tag = 3;
+                [alert show];
+            }
+        }];
+    }
 }
 
 -(void)saveScores:(NSMutableArray *)array {
