@@ -13,6 +13,6 @@
 
 }
 
-@property (nonatomic) BOOL problem;
+@property (nonatomic) BOOL isAProblem;
 
 @end

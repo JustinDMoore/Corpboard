@@ -170,3 +170,126 @@ Parse.Cloud.define("deleteChat", function(request, response) {
                                                response.error();
                                                });
                    });
+
+// Admin functions
+Parse.Cloud.afterSave("feedback", function(request, response) {
+                      Parse.Cloud.useMasterKey();
+                      var query = new Parse.Query("admin");
+                      query.equalTo("objectId", "IjplBNRNjj");
+                      query.first({
+                                  success: function(object) {
+                                  object.increment("feedback", 1);
+                                  object.save();
+                                  Parse.Push.send({
+                                                  channels: [ "admin" ],
+                                                  data: {
+                                                  alert: "New Feedback Received"
+                                                  }
+                                                  }, { success: function() { 
+                                                  // success!
+                                                  }, error: function(err) { 
+                                                  console.log(err);
+                                                  }
+                                                  });
+
+                                  response.success();
+                                  },
+                                  error: function(error) {
+                                  console.error("Got an error " + error.code + " : " + error.message);
+                                  response.error();
+                                  }
+                                  });
+                      });
+
+Parse.Cloud.afterSave("photos", function(request, response) {
+                      Parse.Cloud.useMasterKey();
+                      var userSubmitted = request.object.get("isUserSubmitted");
+                      if (userSubmitted) {
+                      var query = new Parse.Query("admin");
+                      query.equalTo("objectId", "IjplBNRNjj");
+                      query.first({
+                                  success: function(object) {
+                                  object.increment("photos", 1);
+                                  object.save();
+                                  Parse.Push.send({
+                                                  channels: [ "admin" ],
+                                                  data: {
+                                                  alert: "New cover photo for review"
+                                                  }
+                                                  }, { success: function() {
+                                                  // success!
+                                                  }, error: function(err) {
+                                                  console.log(err);
+                                                  }
+                                                  });
+                                  
+                                  response.success();
+                                  },
+                                  error: function(error) {
+                                  console.error("Got an error " + error.code + " : " + error.message);
+                                  response.error();
+                                  }
+                                  });
+                      }
+                      
+                      });
+
+Parse.Cloud.afterSave("reportUsers", function(request, response) {
+                      Parse.Cloud.useMasterKey();
+                      var query = new Parse.Query("admin");
+                      query.equalTo("objectId", "IjplBNRNjj");
+                      query.first({
+                                  success: function(object) {
+                                  object.increment("usersReported", 1);
+                                  object.save();
+                                  Parse.Push.send({
+                                                  channels: [ "admin" ],
+                                                  data: {
+                                                  alert: "A user has been reported"
+                                                  }
+                                                  }, { success: function() {
+                                                  // success!
+                                                  }, error: function(err) {
+                                                  console.log(err);
+                                                  }
+                                                  });
+                                  
+                                  response.success();
+                                  },
+                                  error: function(error) {
+                                  console.error("Got an error " + error.code + " : " + error.message);
+                                  response.error();
+                                  }
+                                  });
+                      });
+
+Parse.Cloud.afterSave("problems", function(request, response) {
+                      Parse.Cloud.useMasterKey();
+                      var type = request.object.get("type");
+                      
+                      var query = new Parse.Query("admin");
+                      query.equalTo("objectId", "IjplBNRNjj");
+                      query.first({
+                                  success: function(object) {
+                                  object.increment("problems", 1);
+                                  object.save();
+                                  Parse.Push.send({
+                                                  channels: [ "admin" ],
+                                                  data: {
+                                                  alert: type + " reported"
+                                                  }
+                                                  }, { success: function() {
+                                                  // success!
+                                                  }, error: function(err) {
+                                                  console.log(err);
+                                                  }
+                                                  });
+                                  
+                                  response.success();
+                                  },
+                                  error: function(error) {
+                                  console.error("Got an error " + error.code + " : " + error.message);
+                                  response.error();
+                                  }
+                                  });
+                      });

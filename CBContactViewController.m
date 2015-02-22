@@ -147,7 +147,7 @@ BOOL isProblem;
     if ([[segue identifier] isEqualToString:@"problem"]) {
         
         CBProblemTableViewController *vc = (CBProblemTableViewController *)[[segue destinationViewController] topViewController];
-        vc.problem = isProblem;
+        vc.isAProblem = isProblem;
     }
 }
 

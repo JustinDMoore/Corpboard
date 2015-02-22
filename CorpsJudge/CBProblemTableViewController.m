@@ -44,7 +44,7 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     
-    if (self.problem) {
+    if (self.isAProblem) {
         self.title = @"Broken Feature";
     } else {
         self.title = @"Incorrect Information";
@@ -88,7 +88,7 @@
 -(void)sendProblem {
     
     PFObject *problem = [PFObject objectWithClassName:@"problems"];
-    if (problem) {
+    if (self.isAProblem) {
         problem[@"type"] = @"Problem";
     } else {
         problem[@"type"] = @"Incorrect Information";
@@ -111,28 +111,31 @@
                             switch (i) {
                                 case 0:
                                     problem[@"screenshot1"] = imageFile;
-                                    [problem saveInBackground];
+                                    [problem saveEventually];
                                     break;
                                 case 1:
                                     problem[@"screenshot2"] = imageFile;
-                                    [problem saveInBackground];
+                                    [problem saveEventually];
                                     break;
                                 case 2:
                                     problem[@"screenshot3"] = imageFile;
-                                    [problem saveInBackground];
+                                    [problem saveEventually];
                                     break;
                             }
                         }
+                        
+                       
                     }];
                 } else {
                     NSLog(@"image too big");
                 }
             }
         }
-        [self cancelProblem];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Thank you for providing feedback on your CorpBoard experience. Your report will be used to improve CorpBoard." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
     }];
+    
+    [self cancelProblem];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Thank you for providing feedback about your CorpBoard experience. Your report will be used to improve CorpBoard." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (void)viewDidLoad {
@@ -360,7 +363,7 @@ bool isProblemOpen = NO;
                     lbl.text = @"(required)";
                 }
                 
-                if (self.problem) {
+                if (self.isAProblem) {
                     lblQuestion.text = @"Where is the problem?";
                 } else {
                     lblQuestion.text = @"Where is the information located?";
@@ -377,7 +380,7 @@ bool isProblemOpen = NO;
                         lbl.text = @"(required)";
                     }
                     
-                    if (self.problem) {
+                    if (self.isAProblem) {
                         lblQuestion.text = @"What happened?";
                     } else {
                         lblQuestion.text = @"What is incorrect?";
@@ -387,13 +390,13 @@ bool isProblemOpen = NO;
                     UIButton *btn = (UIButton *)[cell viewWithTag:2];
                     [btn addTarget:self action:@selector(whatDone) forControlEvents:UIControlEventTouchUpInside];
                     self.txtProblem = (CBTextViewPlaceHolder *)[cell viewWithTag:1];
-                    if (self.problem) {
+                    if (self.isAProblem) {
                         self.txtProblem.placeholder = @"Briefly explain what happened...";
                     } else {
                         self.txtProblem.placeholder = @"What information is incorrect?";
                     }
                     lblQuestion = (UILabel *)[cell viewWithTag:10];
-                    if (self.problem) {
+                    if (self.isAProblem) {
                         lblQuestion.text = @"What happened?";
                     } else {
                         lblQuestion.text = @"What is incorrect?";

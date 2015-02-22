@@ -485,7 +485,9 @@ bool backspaced;
                 score[@"score"] = textField.text;
                 break;
         }
-        [score saveEventually];
+        [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) [score saveEventually];
+        }];
     }
 }
 

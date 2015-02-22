@@ -1,30 +1,28 @@
 //
-//  CBAdminView.m
+//  CBAdminTableViewController.m
 //  CorpBoard
 //
-//  Created by Isaias Favela on 2/21/15.
+//  Created by Justin Moore on 2/22/15.
 //  Copyright (c) 2015 Justin Moore. All rights reserved.
 //
 
-#import "CBAdminView.h"
+#import "CBAdminTableViewController.h"
 #import <Parse/Parse.h>
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
 
-@interface CBAdminView ()
-@property (weak, nonatomic) IBOutlet UITableView *tableAdmin;
+@interface CBAdminTableViewController ()
 @property (nonatomic, strong) NSMutableArray *arrayOfFeedback;
 @end
 
-@implementation CBAdminView
+@implementation CBAdminTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableAdmin.estimatedRowHeight = 20.0;
-    self.tableAdmin.rowHeight = UITableViewAutomaticDimension;
-    self.tableAdmin.dataSource = self;
-    self.tableAdmin.delegate = self;
+    self.tableView.estimatedRowHeight = 68;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
     [self getFeedback];
 }
 
@@ -60,53 +58,38 @@
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfFeedback addObjectsFromArray:objects];
-                [self.tableAdmin reloadData];
+                [self.tableView reloadData];
             }
         }
     }];
 }
 
--(NSMutableArray *)arrayOfFeedback {
-    
-    if (!_arrayOfFeedback) {
-        
-        _arrayOfFeedback = [[NSMutableArray alloc] init];
-    }
-    return _arrayOfFeedback;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark
-#pragma mark - UITableViewDelegates
-#pragma mark
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
     return [self.arrayOfFeedback count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     return [self getFeedbackCell:tableView cellForRowAtIndexPath:indexPath];
-
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 65;
-}
-
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 65;
 }
 
 -(UITableViewCell *)getFeedbackCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedback" forIndexPath:indexPath];
     
     UILabel *lblUser = (UILabel *)[cell viewWithTag:6];
@@ -146,13 +129,12 @@
         }
     }
     
-    lblUser.text = [NSString stringWithFormat:@"%@ - %@", userFeedback[@"fullname"], userFeedback[@"nickname"]];
+    lblUser.text = userFeedback[@"nickname"];
     lblDate.text = dateString;
     NSString *feedback = objFeedback[@"text"];
     if ([feedback length]) lblFeedback.text = feedback;
     else lblFeedback.text = @"No Feedback Given"
         ;
-    [lblFeedback sizeToFit];
     
     int stars = [objFeedback[@"stars"] intValue];
     switch (stars) {
@@ -200,6 +182,15 @@
             break;
     }
     return cell;
+}
+
+-(NSMutableArray *)arrayOfFeedback {
+    
+    if (!_arrayOfFeedback) {
+        
+        _arrayOfFeedback = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfFeedback;
 }
 
 @end

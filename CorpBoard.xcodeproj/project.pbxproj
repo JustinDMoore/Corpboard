@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		920395231A9920B9003C8E3C /* CBAdminView.m in Sources */ = {isa = PBXBuildFile; fileRef = 920395221A9920B9003C8E3C /* CBAdminView.m */; };
 		92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CBStatsViewController.m */; };
 		92275B3C1A4042BC006E8E8E /* CBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92275B3B1A4042BC006E8E8E /* CBView.m */; };
 		92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92393F261A59B5DE00020C6A /* CBProblemWhere.xib */; };
@@ -153,6 +152,7 @@
 		D0A8146719521D7800F4EC53 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146619521D7800F4EC53 /* StoreKit.framework */; };
 		D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */; };
 		D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A8146B19523A8200F4EC53 /* Configuration.m */; };
+		D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */; };
 		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
@@ -189,8 +189,6 @@
 
 /* Begin PBXFileReference section */
 		15A4219440C800AE5E982027 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		920395211A9920B9003C8E3C /* CBAdminView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAdminView.h; sourceTree = "<group>"; };
-		920395221A9920B9003C8E3C /* CBAdminView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAdminView.m; sourceTree = "<group>"; };
 		92120A8E195945B600FFB9A8 /* CBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStatsViewController.h; sourceTree = "<group>"; };
 		92120A8F195945B600FFB9A8 /* CBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStatsViewController.m; sourceTree = "<group>"; };
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
@@ -399,6 +397,8 @@
 		D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D0A8146A19523A8200F4EC53 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		D0A8146B19523A8200F4EC53 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAdminTableViewController.h; sourceTree = "<group>"; };
+		D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAdminTableViewController.m; sourceTree = "<group>"; };
 		D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBCorpExperienceList.xib; sourceTree = "<group>"; };
 		D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpExperienceList.h; sourceTree = "<group>"; };
 		D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpExperienceList.m; sourceTree = "<group>"; };
@@ -712,7 +712,7 @@
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
 				D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */,
 				92EA0B851A93BF7700894C98 /* CBImageViewController.m */,
-				920395221A9920B9003C8E3C /* CBAdminView.m */,
+				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -781,7 +781,7 @@
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
 				D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */,
 				92EA0B841A93BF7700894C98 /* CBImageViewController.h */,
-				920395211A9920B9003C8E3C /* CBAdminView.h */,
+				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1168,7 +1168,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1198,7 +1198,6 @@
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,
 				D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */,
 				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
-				920395231A9920B9003C8E3C /* CBAdminView.m in Sources */,
 				92275B3C1A4042BC006E8E8E /* CBView.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
@@ -1209,6 +1208,7 @@
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
+				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
 				928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */,
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
