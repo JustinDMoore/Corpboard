@@ -61,6 +61,8 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (weak, nonatomic) IBOutlet UIButton *btnProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnAdmin;
 @property (weak, nonatomic) IBOutlet UILabel *lblAdmin;
+@property (nonatomic, strong) JSBadgeView *badgeMessages;
+@property (nonatomic, strong) JSBadgeView *badgeAdmin;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblUserName;
 - (IBAction)btnProfile_clicked:(id)sender;
@@ -72,7 +74,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UITableView *tableNextShows;
 @property (nonatomic, strong) IBOutlet UIView *contentViewShows;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessages;
-@property (nonatomic, strong) JSBadgeView *messageBadge;
+
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
 @property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
@@ -194,12 +196,13 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 }
 
 -(void)initHeadshots {
+    
     [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard1"]];
     [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard2"]];
     [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Blue Devils1"]];
     [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets1"]];
     [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets2"]];
-       [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Phantom Regiment1"]];
+    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Phantom Regiment1"]];
 
     [self.arrayOfHeadshots shuffle];
 }
@@ -212,6 +215,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     if (data.adminMode) {
         self.btnAdmin.hidden = NO;
         self.lblAdmin.hidden = NO;
+        [self setAdminBadge];
     } else {
         self.btnAdmin.hidden = YES;
         self.lblAdmin.hidden = YES;
@@ -1353,18 +1357,41 @@ CGFloat previousScroll;
 -(void)setMsgBadge {
     
     if (data.numberOfMessages > 0) {
-        self.messageBadge.badgeText = [NSString stringWithFormat:@"%i", data.numberOfMessages];
+        self.badgeMessages.badgeText = [NSString stringWithFormat:@"%i", data.numberOfMessages];
     } else {
-        self.messageBadge.badgeText = @"";
+        self.badgeMessages.badgeText = @"";
     }
 }
 
--(JSBadgeView *)messageBadge {
+-(void)setAdminBadge {
     
-    if (!_messageBadge) {
-        _messageBadge = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
+    int num = 0;
+    num += [data.objAdmin[@"feedback"] intValue];
+    num += [data.objAdmin[@"photos"] intValue];
+    num += [data.objAdmin[@"usersReported"] intValue];
+    num += [data.objAdmin[@"problems"] intValue];
+    
+    if (num > 0) {
+        self.badgeAdmin.badgeText = [NSString stringWithFormat:@"%i", num];
+    } else {
+        self.badgeAdmin.badgeText = @"";
     }
-    return _messageBadge;
+}
+
+-(JSBadgeView *)badgeMessages {
+    
+    if (!_badgeMessages) {
+        _badgeMessages = [[JSBadgeView alloc] initWithParentView:self.btnMessages alignment:JSBadgeViewAlignmentTopRight];
+    }
+    return _badgeMessages;
+}
+
+-(JSBadgeView *)badgeAdmin {
+    
+    if (!_badgeAdmin) {
+        _badgeAdmin = [[JSBadgeView alloc] initWithParentView:self.btnAdmin alignment:JSBadgeViewAlignmentTopRight];
+    }
+    return _badgeAdmin;
 }
 
 @end

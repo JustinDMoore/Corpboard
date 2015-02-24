@@ -12,9 +12,6 @@
 
 @implementation CBSingle
 
-BOOL updatedCorps;
-BOOL updatedShows;
-
 +(id)data {
     static CBSingle *data = nil;
     static dispatch_once_t onceToken;
@@ -28,8 +25,9 @@ BOOL updatedShows;
     self = [super init];
     if (self) {
 
-        updatedShows = NO;
-        updatedCorps = NO;
+        self.updatedAdmin = NO;
+        self.updatedShows = NO;
+        self.updatedCorps = NO;
         //self.currentDate = [NSDate date];
         self.currentDate = [JustinHelper dateWithMonth:1 day:1 year:2015];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -60,6 +58,19 @@ BOOL updatedShows;
 #pragma mark -
 #pragma mark - Data Methods
 #pragma mark -
+-(void)refreshAdmin {
+    
+    self.updatedAdmin = NO;
+    PFQuery *queryAdmin = [PFQuery queryWithClassName:@"admin"];
+    [queryAdmin whereKey:@"objectId" equalTo:@"IjplBNRNjj"];
+    [queryAdmin findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.objAdmin = objects[0];
+            self.updatedAdmin = YES;
+            [self didWeFinish];
+        }
+    }];
+}
 
 -(void)refreshCorpsAndShows {
     
@@ -72,7 +83,7 @@ BOOL updatedShows;
 
 -(void)getAllCorpsFromServer {
     
-    updatedCorps = NO;
+    self.updatedCorps = NO;
     self.arrayOfAllCorps = nil;
     self.arrayOfWorldClass = nil;
     self.arrayOfOpenClass = nil;
@@ -94,7 +105,7 @@ BOOL updatedShows;
                 }
             }
             
-            updatedCorps = YES;
+            self.updatedCorps = YES;
             [self didWeFinish];
         } else {
             
@@ -108,7 +119,7 @@ BOOL updatedShows;
 
 -(void)getAllShowsFromServer {
     
-    updatedShows = NO;
+    self.updatedShows = NO;
     self.arrayOfAllShows = nil;
     PFQuery *query = [PFQuery queryWithClassName:@"shows"];
     [query setLimit:1000];
@@ -117,7 +128,7 @@ BOOL updatedShows;
         
         if (!error) {
             [self.arrayOfAllShows addObjectsFromArray:objects];
-            updatedShows = YES;
+            self.updatedShows = YES;
             [self didWeFinish];
         } else {
 
@@ -131,7 +142,7 @@ BOOL updatedShows;
 
 -(void)didWeFinish {
     
-    if ((updatedCorps) && (updatedShows)) {
+    if ((self.updatedCorps) && (self.updatedShows) && (self.updatedAdmin)) {
         self.dataLoaded = YES;
         if ([delegate respondsToSelector:@selector(dataDidLoad)]) {
             [delegate dataDidLoad];

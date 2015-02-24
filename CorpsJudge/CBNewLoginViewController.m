@@ -136,7 +136,13 @@
     //[self getFactCount];
     [self addView:self.viewProgress andScroll:NO];
     [self.viewProgress startProgress];
+    if (data.adminMode) {
+        [data refreshAdmin];
+    } else {
+        data.updatedAdmin = YES;
+    }
     [data refreshCorpsAndShows];
+    
 }
 
 -(void)getFactCount {

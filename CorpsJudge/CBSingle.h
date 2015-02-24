@@ -21,6 +21,11 @@
     id delegate;
 }
 
+@property (nonatomic) BOOL updatedAdmin;
+@property (nonatomic) BOOL updatedCorps;
+@property (nonatomic) BOOL updatedShows;
+
+@property (nonatomic, strong) PFObject *objAdmin;
 @property (nonatomic) int numberOfMessages;
 @property (nonatomic, strong) NSDate *currentDate;
 
@@ -62,6 +67,7 @@
 
 +(id)data;
 -(void)setDelegate:(id)newDelegate;
+-(void)refreshAdmin;
 -(void)refreshCorpsAndShows;
 -(NSArray *)getOfficialScoresForShow:(PFObject *)show;
 -(void)getUnreadMessagesForUser;

@@ -153,6 +153,7 @@
 		D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */; };
 		D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A8146B19523A8200F4EC53 /* Configuration.m */; };
 		D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */; };
+		D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */; };
 		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
@@ -399,6 +400,8 @@
 		D0A8146B19523A8200F4EC53 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAdminTableViewController.h; sourceTree = "<group>"; };
 		D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAdminTableViewController.m; sourceTree = "<group>"; };
+		D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAdminViewController.h; sourceTree = "<group>"; };
+		D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAdminViewController.m; sourceTree = "<group>"; };
 		D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBCorpExperienceList.xib; sourceTree = "<group>"; };
 		D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpExperienceList.h; sourceTree = "<group>"; };
 		D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpExperienceList.m; sourceTree = "<group>"; };
@@ -712,6 +715,7 @@
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
 				D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */,
 				92EA0B851A93BF7700894C98 /* CBImageViewController.m */,
+				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
 				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
 			);
 			name = ViewControllers;
@@ -781,6 +785,7 @@
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
 				D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */,
 				92EA0B841A93BF7700894C98 /* CBImageViewController.h */,
+				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
 				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
 			);
 			name = Headers;
@@ -1236,6 +1241,7 @@
 				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
+				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
