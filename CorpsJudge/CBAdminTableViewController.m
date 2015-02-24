@@ -10,9 +10,11 @@
 #import <Parse/Parse.h>
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
+#import "CBUserProfileViewController.h"
+#import <ParseUI/ParseUI.h>
 
 @interface CBAdminTableViewController ()
-@property (nonatomic, strong) NSMutableArray *arrayOfFeedback;
+@property (nonatomic, strong) NSMutableArray *arrayOfData;
 @end
 
 @implementation CBAdminTableViewController
@@ -23,7 +25,16 @@
     self.tableView.estimatedRowHeight = 68;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
-    [self getFeedback];
+    switch ((int)self.type) {
+        case feedback: [self getFeedback];
+            break;
+        case bugs: [self getBugs];
+            break;
+        case photos:
+            break;
+        case reports:
+            break;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,7 +48,20 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-    self.title = @"News";
+    
+    switch ((int)self.type) {
+        case feedback: self.title = @"User Feedback";
+            break;
+        case bugs: self.title = @"Bugs";
+            break;
+        case photos: self.title = @"Photos For Review";
+            break;
+        case reports: self.title = @"Reported Users";
+            break;
+    }
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    [super viewWillAppear:animated];
     
 }
 
@@ -49,7 +73,7 @@
 -(void)getFeedback {
     
     [KVNProgress show];
-    
+    [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"feedback"];
     [query includeKey:@"user"];
     [query orderByDescending:@"createdAt"];
@@ -57,7 +81,25 @@
         [KVNProgress dismiss];
         if (!error) {
             if ([objects count]) {
-                [self.arrayOfFeedback addObjectsFromArray:objects];
+                [self.arrayOfData addObjectsFromArray:objects];
+                [self.tableView reloadData];
+            }
+        }
+    }];
+}
+
+-(void)getBugs {
+    
+    [KVNProgress show];
+    [self.arrayOfData removeAllObjects];
+    PFQuery *query = [PFQuery queryWithClassName:@"problems"];
+    [query includeKey:@"user"];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [KVNProgress dismiss];
+        if (!error) {
+            if ([objects count]) {
+                [self.arrayOfData addObjectsFromArray:objects];
                 [self.tableView reloadData];
             }
         }
@@ -79,13 +121,70 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return [self.arrayOfFeedback count];
+    return [self.arrayOfData count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return [self getFeedbackCell:tableView cellForRowAtIndexPath:indexPath];
+    switch ((int)self.type) {
+        case feedback: return [self getFeedbackCell:tableView cellForRowAtIndexPath:indexPath];
+            break;
+        case bugs: return [self getBugCell:tableView cellForRowAtIndexPath:indexPath];
+            break;
+        default: return nil;
+            break;
+    }
+}
+
+-(UITableViewCell *)getBugCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bug" forIndexPath:indexPath];
+    
+    UILabel *lblUser = (UILabel *)[cell viewWithTag:6];
+    UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
+    UILabel *lblFeedback = (UILabel *)[cell viewWithTag:8];
+    UILabel *lblType = (UILabel *)[cell viewWithTag:9];
+    UILabel *lblWhereAt = (UILabel *)[cell viewWithTag:10];
+    PFImageView *img1 = (PFImageView *)[cell viewWithTag:1];
+    PFImageView *img2 = (PFImageView *)[cell viewWithTag:2];
+    PFImageView *img3 = (PFImageView *)[cell viewWithTag:3];
+    
+    PFObject *objBug = self.arrayOfData[indexPath.row];
+    PFUser *userBug = objBug[@"user"];
+    NSString *dateString = @"";
+    
+    int diff = (int)[objBug.createdAt minutesBeforeDate:[NSDate date]];
+    if (diff < 5) {
+        dateString = @"Just Now";
+    } else if (diff <= 50) {
+        dateString = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        dateString = @"An hour ago";
+    } else {
+        if ([objBug.createdAt isYesterday]) dateString = @"Yesterday";
+        if ([objBug.createdAt daysBeforeDate:[NSDate date]] == 2) {
+            dateString = @"2 days ago";
+        } else {
+            if ([objBug.createdAt isToday]) {
+                int hours = (int)[objBug.createdAt hoursBeforeDate:[NSDate date]];
+                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+            } else {
+                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                [format setDateFormat:@"MMMM d"];
+                
+                dateString = [format stringFromDate:objBug.createdAt];
+            }
+        }
+    }
+    
+    lblUser.text = userBug[@"nickname"];
+    lblDate.text = dateString;
+    lblType.text = userBug[@"type"];
+    lblWhereAt.text = userBug[@"whereAt"];
+    lblFeedback.text = userBug[@"whatHappened"];
+    NSString *feedback = objBug[@"whatHappened"];
+    
+    return cell;
 }
 
 -(UITableViewCell *)getFeedbackCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -101,7 +200,7 @@
     UIImageView *imgStar4 = (UIImageView *)[cell viewWithTag:4];
     UIImageView *imgStar5 = (UIImageView *)[cell viewWithTag:5];
     
-    PFObject *objFeedback = self.arrayOfFeedback[indexPath.row];
+    PFObject *objFeedback = self.arrayOfData[indexPath.row];
     PFUser *userFeedback = objFeedback[@"user"];
     NSString *dateString = @"";
     
@@ -184,13 +283,35 @@
     return cell;
 }
 
--(NSMutableArray *)arrayOfFeedback {
+NSInteger selectedCell;
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (!_arrayOfFeedback) {
-        
-        _arrayOfFeedback = [[NSMutableArray alloc] init];
+    selectedCell = indexPath.row;
+    
+    switch ((int)self.type) {
+        case feedback: [self performSegueWithIdentifier:@"profile" sender:self];
+            break;
     }
-    return _arrayOfFeedback;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"profile"]) {
+        CBUserProfileViewController *vc = [segue destinationViewController];
+        PFObject *obj = self.arrayOfData[selectedCell];
+        PFUser *user = obj[@"user"];
+        vc.userProfile = user;
+    }
+}
+
+-(NSMutableArray *)arrayOfData {
+    
+    if (!_arrayOfData) {
+        
+        _arrayOfData = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfData;
 }
 
 @end

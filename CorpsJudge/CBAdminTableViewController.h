@@ -10,4 +10,13 @@
 
 @interface CBAdminTableViewController : UITableViewController
 
+typedef enum {
+    feedback,
+    bugs,
+    photos,
+    reports
+} adminType;
+
+@property (nonatomic) adminType type;
+
 @end

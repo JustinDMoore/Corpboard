@@ -9,6 +9,7 @@
 #import "CBAdminViewController.h"
 #import "JSBadgeView.h"
 #import "CBSingle.h"
+#import "CBAdminTableViewController.h"
 
 @interface CBAdminViewController ()
 @property (nonatomic, strong) JSBadgeView *badgeFeedback;
@@ -24,6 +25,7 @@ CBSingle *data;
 - (void)viewDidLoad {
     [super viewDidLoad];
     data = [CBSingle data];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,7 +43,10 @@ CBSingle *data;
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-    self.title = @"News";
+    self.title = @"Admin";
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    [super viewWillAppear:animated];
 }
 
 - (void)goback {
@@ -104,6 +109,8 @@ CBSingle *data;
 }
 
 NSInteger selectedRow;
+NSString *adminCategory;
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     selectedRow = indexPath.row;
@@ -128,10 +135,23 @@ NSInteger selectedRow;
             badgeView = self.badgeUsersReported;
             break;
     }
+    
+    adminCategory = category;
     badgeView.badgeText = @"";
     data.objAdmin[category] = [NSNumber numberWithInt:0];
     [data.objAdmin saveEventually];
     [self performSegueWithIdentifier:@"adminDetails" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"adminDetails"]) {
+        CBAdminTableViewController *vc = [segue destinationViewController];
+        if ([adminCategory isEqualToString:@"feedback"]) vc.type = feedback;
+        else if ([adminCategory isEqualToString:@"problems"]) vc.type = bugs;
+        else if ([adminCategory isEqualToString:@"photos"]) vc.type = photos;
+        else if ([adminCategory isEqualToString:@"usersReported"]) vc.type = reports;
+    }
 }
 
 @end
