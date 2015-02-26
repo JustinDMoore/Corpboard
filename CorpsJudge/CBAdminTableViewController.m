@@ -41,6 +41,7 @@
             [self getPhotos];
             break;
         case reports:
+            [self getReports];
             break;
     }
     
@@ -138,6 +139,25 @@
     }];
 }
 
+-(void)getReports {
+    
+    [KVNProgress show];
+    [self.arrayOfData removeAllObjects];
+    PFQuery *query = [PFQuery queryWithClassName:@"reportUsers"];
+    [query includeKey:@"userReporting"];
+    [query includeKey:@"userBeingReported"];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [KVNProgress dismiss];
+        if (!error) {
+            if ([objects count]) {
+                [self.arrayOfData addObjectsFromArray:objects];
+                [self reload];
+            }
+        }
+    }];
+}
+
 -(void)reload {
     
     if ([self.arrayOfData count]) {
@@ -182,8 +202,6 @@
 
     [self.arrayOfData removeObject:objPhoto];
     [self reload];
-
-
 }
 
 -(void)showScreenShots:(id)sender {
@@ -235,9 +253,59 @@
         case bugs: return [self getBugCell:tableView cellForRowAtIndexPath:indexPath];
             break;
         case photos: return [self getPhotoCell:tableView cellForRowAtIndexPath:indexPath];
+            break;
+        case reports: return [self getReportCell:tableView cellForRowAtIndexPath:indexPath];
+            break;
         default: return nil;
             break;
     }
+}
+
+-(UITableViewCell *)getReportCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"report" forIndexPath:indexPath];
+    tableView.estimatedRowHeight = 68;
+
+    UIButton *btnUserReporting = (UIButton *)[cell viewWithTag:1];
+    UIButton *btnUserBeingReported = (UIButton *)[cell viewWithTag:2];
+    UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
+    UILabel *lblFeedback = (UILabel *)[cell viewWithTag:8];
+    
+    PFObject *objReport = self.arrayOfData[indexPath.row];
+    PFUser *userReporting = objReport[@"userReporting"];
+    PFUser *userBeingReported = objReport[@"userBeingReported"];
+    NSString *dateString = @"";
+    
+    [btnUserReporting setTitle:userReporting[@"nickname"] forState:UIControlStateNormal];
+    [btnUserBeingReported setTitle:userBeingReported[@"nickname"] forState:UIControlStateNormal];
+    
+    int diff = (int)[objReport.createdAt minutesBeforeDate:[NSDate date]];
+    if (diff < 5) {
+        dateString = @"Just Now";
+    } else if (diff <= 50) {
+        dateString = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        dateString = @"An hour ago";
+    } else {
+        if ([objReport.createdAt isYesterday]) dateString = @"Yesterday";
+        if ([objReport.createdAt daysBeforeDate:[NSDate date]] == 2) {
+            dateString = @"2 days ago";
+        } else {
+            if ([objReport.createdAt isToday]) {
+                int hours = (int)[objReport.createdAt hoursBeforeDate:[NSDate date]];
+                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+            } else {
+                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                [format setDateFormat:@"MMMM d"];
+                
+                dateString = [format stringFromDate:objReport.createdAt];
+            }
+        }
+    }
+    lblFeedback.text = objReport[@"report"];
+    lblDate.text = dateString;
+    
+    return cell;
 }
 
 -(UITableViewCell *)getPhotoCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
