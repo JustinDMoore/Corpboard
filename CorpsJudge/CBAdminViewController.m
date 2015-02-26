@@ -46,6 +46,7 @@ CBSingle *data;
     self.title = @"Admin";
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [super viewWillAppear:animated];
 }
 

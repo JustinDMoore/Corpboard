@@ -38,6 +38,7 @@
             [self getBugs];
             break;
         case photos:
+            [self getPhotos];
             break;
         case reports:
             break;
@@ -45,6 +46,7 @@
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -72,7 +74,7 @@
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:animated];
     [super viewWillAppear:animated];
-    
+
 }
 
 - (void)goback {
@@ -92,7 +94,7 @@
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];
-                [self.tableView reloadData];
+                [self reload];
             }
         }
     }];
@@ -110,10 +112,78 @@
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];
-                [self.tableView reloadData];
+                [self reload];
             }
         }
     }];
+}
+
+-(void)getPhotos {
+    
+    [KVNProgress show];
+    [self.arrayOfData removeAllObjects];
+    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
+    [query includeKey:@"user"];
+    [query whereKey:@"isUserSubmitted" equalTo:[NSNumber numberWithBool:YES]];
+    [query whereKey:@"approved" equalTo:[NSNumber numberWithBool:NO]];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [KVNProgress dismiss];
+        if (!error) {
+            if ([objects count]) {
+                [self.arrayOfData addObjectsFromArray:objects];
+                [self reload];
+            }
+        }
+    }];
+}
+
+-(void)reload {
+    
+    if ([self.arrayOfData count]) {
+        self.tableView.hidden = NO;
+        [self.tableView reloadData];
+    } else {
+        self.tableView.hidden = YES;
+    }
+}
+
+-(void)approvePhoto:(id)sender {
+
+    UIButton *btn = (UIButton *)sender;
+    CGPoint buttonPosition = [btn convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    PFObject *objPhoto = self.arrayOfData[indexPath.row];
+    PFUser *objUser = objPhoto[@"user"];
+
+    PFQuery *innerQuery = [PFUser query];
+    [innerQuery whereKey:@"objectId" equalTo:objUser.objectId];
+    PFQuery *query1 = [PFInstallation query];
+    [query1 whereKey:@"user" matchesQuery:innerQuery];
+    
+    PFPush *push = [[PFPush alloc] init];
+    switch (btn.tag) {
+        case 1:
+            objPhoto[@"approved"] = [NSNumber numberWithBool:YES];
+            [objPhoto saveEventually];
+            [push setQuery:query1];
+            [push setMessage:@"A cover photo you submitted has been approved."];
+            [push sendPushInBackground];
+            break;
+        case 2:
+            [push setQuery:query1];
+            [push setMessage:@"A cover photo you submitted was not approved."];
+            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+               [objPhoto deleteEventually];
+            }];
+            break;
+    }
+
+    [self.arrayOfData removeObject:objPhoto];
+    [self reload];
+
+
 }
 
 -(void)showScreenShots:(id)sender {
@@ -164,9 +234,66 @@
             break;
         case bugs: return [self getBugCell:tableView cellForRowAtIndexPath:indexPath];
             break;
+        case photos: return [self getPhotoCell:tableView cellForRowAtIndexPath:indexPath];
         default: return nil;
             break;
     }
+}
+
+-(UITableViewCell *)getPhotoCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"photo" forIndexPath:indexPath];
+    tableView.rowHeight = 180;
+    UILabel *lblUser = (UILabel *)[cell viewWithTag:6];
+    UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
+    
+    UIButton *btnApprove = (UIButton *)[cell viewWithTag:1];
+    UIButton *btnDeny = (UIButton *)[cell viewWithTag:2];
+    
+    PFImageView *imgView = (PFImageView *)[cell viewWithTag:30];
+    
+    [btnApprove addTarget:self action:@selector(approvePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    [btnDeny addTarget:self action:@selector(approvePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    
+    PFObject *objPhoto = self.arrayOfData[indexPath.row];
+    PFUser *userPhoto = objPhoto[@"user"];
+    NSString *dateString = @"";
+    
+    PFFile *photoFile = objPhoto[@"photo"];
+    
+    if (photoFile) {
+        [imgView setFile:photoFile];
+        [imgView loadInBackground];
+    }
+
+    int diff = (int)[objPhoto.createdAt minutesBeforeDate:[NSDate date]];
+    if (diff < 5) {
+        dateString = @"Just Now";
+    } else if (diff <= 50) {
+        dateString = [NSString stringWithFormat:@"%i min ago", diff];
+    } else if ((diff > 50) && (diff < 65)) {
+        dateString = @"An hour ago";
+    } else {
+        if ([objPhoto.createdAt isYesterday]) dateString = @"Yesterday";
+        if ([objPhoto.createdAt daysBeforeDate:[NSDate date]] == 2) {
+            dateString = @"2 days ago";
+        } else {
+            if ([objPhoto.createdAt isToday]) {
+                int hours = (int)[objPhoto.createdAt hoursBeforeDate:[NSDate date]];
+                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
+            } else {
+                NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                [format setDateFormat:@"MMMM d"];
+                
+                dateString = [format stringFromDate:objPhoto.createdAt];
+            }
+        }
+    }
+    
+    lblUser.text = userPhoto[@"nickname"];
+    lblDate.text = dateString;
+    
+    return cell;
 }
 
 -(UITableViewCell *)getBugCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -350,6 +477,8 @@ NSInteger selectedCell;
         case feedback: [self performSegueWithIdentifier:@"profile" sender:self];
             break;
         case bugs: [self performSegueWithIdentifier:@"profile" sender:self];
+            break;
+        case photos: [self performSegueWithIdentifier:@"profile" sender:self];
             break;
     }
 }

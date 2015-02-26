@@ -174,6 +174,11 @@ Parse.Cloud.define("deleteChat", function(request, response) {
 // Admin functions
 Parse.Cloud.afterSave("feedback", function(request, response) {
                       Parse.Cloud.useMasterKey();
+                      
+                      if (request.object.existed()) { // it existed before
+                      
+                      } else { // it is new
+                      
                       var query = new Parse.Query("admin");
                       query.equalTo("objectId", "IjplBNRNjj");
                       query.first({
@@ -185,13 +190,13 @@ Parse.Cloud.afterSave("feedback", function(request, response) {
                                                   data: {
                                                   alert: "New Feedback Received"
                                                   }
-                                                  }, { success: function() { 
+                                                  }, { success: function() {
                                                   // success!
-                                                  }, error: function(err) { 
+                                                  }, error: function(err) {
                                                   console.log(err);
                                                   }
                                                   });
-
+                                  
                                   response.success();
                                   },
                                   error: function(error) {
@@ -199,10 +204,18 @@ Parse.Cloud.afterSave("feedback", function(request, response) {
                                   response.error();
                                   }
                                   });
+                      
+                      }
+                      
                       });
 
 Parse.Cloud.afterSave("photos", function(request, response) {
                       Parse.Cloud.useMasterKey();
+                      
+                      if (request.object.existed()) { // it existed before
+                      
+                      } else { // it is new
+                      
                       var userSubmitted = request.object.get("isUserSubmitted");
                       if (userSubmitted) {
                       var query = new Parse.Query("admin");
@@ -231,11 +244,17 @@ Parse.Cloud.afterSave("photos", function(request, response) {
                                   }
                                   });
                       }
+                      }
+
                       
                       });
 
 Parse.Cloud.afterSave("reportUsers", function(request, response) {
                       Parse.Cloud.useMasterKey();
+                      
+                      if (request.object.existed()) { // it existed before
+                      } else { // it is new
+                      
                       var query = new Parse.Query("admin");
                       query.equalTo("objectId", "IjplBNRNjj");
                       query.first({
@@ -261,12 +280,19 @@ Parse.Cloud.afterSave("reportUsers", function(request, response) {
                                   response.error();
                                   }
                                   });
+                      
+                      
+                      }
+                      
                       });
 
 Parse.Cloud.afterSave("problems", function(request, response) {
                       Parse.Cloud.useMasterKey();
-                      var type = request.object.get("type");
                       
+                      if (request.object.existed()) { // it existed before
+                      } else { // it is new
+                      
+                      var type = request.object.get("type");
                       var query = new Parse.Query("admin");
                       query.equalTo("objectId", "IjplBNRNjj");
                       query.first({
@@ -292,4 +318,29 @@ Parse.Cloud.afterSave("problems", function(request, response) {
                                   response.error();
                                   }
                                   });
+                      
+                      }
+                      
+                      });
+
+Parse.Cloud.afterSave("users", function(request, response) {
+                      Parse.Cloud.useMasterKey();
+                      
+                      if (request.object.existed()) { // it existed before
+                      } else { // it is new
+
+                      Parse.Push.send({
+                                      channels: [ "admin" ],
+                                      data: {
+                                      alert: "New user!"
+                                      }
+                                      }, { success: function() {
+                                      // success!
+                                      }, error: function(err) {
+                                      console.log(err);
+                                      }
+                                      });
+                      
+                      }
+                      
                       });
