@@ -15,26 +15,36 @@
 
 @interface CBAdminTableViewController ()
 @property (nonatomic, strong) NSMutableArray *arrayOfData;
+@property (nonatomic, strong) CBPhoto *photoBrowser;
+
 @end
 
 @implementation CBAdminTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated {
     
-    self.tableView.estimatedRowHeight = 68;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    [super viewDidAppear:animated];
     
     switch ((int)self.type) {
-        case feedback: [self getFeedback];
+        case feedback:
+            [self getFeedback];
             break;
-        case bugs: [self getBugs];
+        case bugs:
+            [self getBugs];
             break;
         case photos:
             break;
         case reports:
             break;
     }
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -106,6 +116,29 @@
     }];
 }
 
+-(void)showScreenShots:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    CGPoint buttonPosition = [btn convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    PFObject *objBug = self.arrayOfData[indexPath.row];
+    PFFile *imgFile;
+    switch (btn.tag) {
+        case 11: imgFile = objBug[@"screenshot1"];
+            break;
+        case 12: imgFile = objBug[@"screenshot2"];
+            break;
+        case 13: imgFile = objBug[@"screenshot3"];
+            break;
+    }
+    
+    if (imgFile) {
+        [self.navigationController.view addSubview:self.photoBrowser];
+        self.photoBrowser.imgFile = imgFile;
+        [self.photoBrowser showInParent:self.view.frame];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -139,19 +172,44 @@
 -(UITableViewCell *)getBugCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bug" forIndexPath:indexPath];
-    
+    tableView.estimatedRowHeight = 110;
     UILabel *lblUser = (UILabel *)[cell viewWithTag:6];
     UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
     UILabel *lblFeedback = (UILabel *)[cell viewWithTag:8];
     UILabel *lblType = (UILabel *)[cell viewWithTag:9];
     UILabel *lblWhereAt = (UILabel *)[cell viewWithTag:10];
-    PFImageView *img1 = (PFImageView *)[cell viewWithTag:1];
-    PFImageView *img2 = (PFImageView *)[cell viewWithTag:2];
-    PFImageView *img3 = (PFImageView *)[cell viewWithTag:3];
+    UIButton *btnScreenshot1 = (UIButton *)[cell viewWithTag:11];
+    UIButton *btnScreenshot2 = (UIButton *)[cell viewWithTag:12];
+    UIButton *btnScreenshot3 = (UIButton *)[cell viewWithTag:13];
+    [btnScreenshot1 addTarget:self action:@selector(showScreenShots:) forControlEvents:UIControlEventTouchUpInside];
+    [btnScreenshot2 addTarget:self action:@selector(showScreenShots:) forControlEvents:UIControlEventTouchUpInside];
+    [btnScreenshot3 addTarget:self action:@selector(showScreenShots:) forControlEvents:UIControlEventTouchUpInside];
     
     PFObject *objBug = self.arrayOfData[indexPath.row];
     PFUser *userBug = objBug[@"user"];
     NSString *dateString = @"";
+    
+    PFFile *screenshot1 = objBug[@"screenshot1"];
+    PFFile *screenshot2 = objBug[@"screenshot2"];
+    PFFile *screenshot3 = objBug[@"screenshot3"];
+    
+    if (screenshot1) {
+        btnScreenshot1.hidden = NO;
+    }  else {
+        btnScreenshot1.hidden = YES;
+    }
+    
+    if (screenshot2) {
+        btnScreenshot2.hidden = NO;
+    }  else {
+        btnScreenshot2.hidden = YES;
+    }
+    
+    if (screenshot3) {
+        btnScreenshot3.hidden = NO;
+    }  else {
+        btnScreenshot3.hidden = YES;
+    }
     
     int diff = (int)[objBug.createdAt minutesBeforeDate:[NSDate date]];
     if (diff < 5) {
@@ -179,18 +237,17 @@
     
     lblUser.text = userBug[@"nickname"];
     lblDate.text = dateString;
-    lblType.text = userBug[@"type"];
-    lblWhereAt.text = userBug[@"whereAt"];
-    lblFeedback.text = userBug[@"whatHappened"];
-    NSString *feedback = objBug[@"whatHappened"];
-    
+    lblType.text = objBug[@"type"];
+    lblWhereAt.text = objBug[@"whereAt"];
+    lblFeedback.text = objBug[@"whatHappened"];
+
     return cell;
 }
 
 -(UITableViewCell *)getFeedbackCell:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedback" forIndexPath:indexPath];
-    
+    tableView.estimatedRowHeight = 68;
     UILabel *lblUser = (UILabel *)[cell viewWithTag:6];
     UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
     UILabel *lblFeedback = (UILabel *)[cell viewWithTag:8];
@@ -292,6 +349,8 @@ NSInteger selectedCell;
     switch ((int)self.type) {
         case feedback: [self performSegueWithIdentifier:@"profile" sender:self];
             break;
+        case bugs: [self performSegueWithIdentifier:@"profile" sender:self];
+            break;
     }
 }
 
@@ -312,6 +371,25 @@ NSInteger selectedCell;
         _arrayOfData = [[NSMutableArray alloc] init];
     }
     return _arrayOfData;
+}
+
+-(CBPhoto *)photoBrowser {
+    
+    if (!_photoBrowser) {
+        
+        _photoBrowser =
+        [[[NSBundle mainBundle] loadNibNamed:@"CBPhoto"
+                                       owner:self
+                                     options:nil]
+         objectAtIndex:0];
+    }
+    [_photoBrowser setDelegate:self];
+    return _photoBrowser;
+}
+
+-(void)imageClosed {
+    
+    self.photoBrowser = nil;
 }
 
 @end

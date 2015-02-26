@@ -163,6 +163,8 @@
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBEmailLogin.m */; };
+		D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */; };
+		D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -419,6 +421,9 @@
 		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
 		D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEmailLogin.h; sourceTree = "<group>"; };
 		D0F7E5201A1F351300AE500E /* CBEmailLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEmailLogin.m; sourceTree = "<group>"; };
+		D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPhoto.xib; sourceTree = "<group>"; };
+		D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPhoto.h; sourceTree = "<group>"; };
+		D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPhoto.m; sourceTree = "<group>"; };
 		F30FB95542FD29A3C0C28E38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F783FD497928939D583ED5B7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -756,6 +761,8 @@
 				D01012421A7F3C950040BFFD /* CBNewChatView.xib */,
 				D01012451A7F40170040BFFD /* CBNewChatView.m */,
 				D0681E141A8010080084EB42 /* CBNewsCell.xib */,
+				D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */,
+				D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -808,6 +815,7 @@
 				D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */,
 				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
 				D01012441A7F40170040BFFD /* CBNewChatView.h */,
+				D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1074,6 +1082,7 @@
 				92E8108E1968E9F10078B65D /* Santa Clara Vanguard2.png in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
+				D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */,
 				9270DBAC1968F09700DFB09E /* Blue Devils1.png in Resources */,
@@ -1173,7 +1182,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1236,6 +1245,7 @@
 				923D4FC31A2C6DCF00E16B64 /* NavigationController.m in Sources */,
 				D0067A6819690AB300C372D0 /* Math.m in Sources */,
 				923D4FD61A2C6DCF00E16B64 /* pushnotification.m in Sources */,
+				D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */,
 				D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */,
 				923D4FC81A2C6DCF00E16B64 /* MessagesCell.m in Sources */,
 				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,

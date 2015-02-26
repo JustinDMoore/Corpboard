@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBPhoto.h"
 
-@interface CBAdminTableViewController : UITableViewController
+@interface CBAdminTableViewController : UITableViewController <BugPhotoProtocol>
 
 typedef enum {
     feedback,
