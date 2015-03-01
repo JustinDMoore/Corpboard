@@ -42,7 +42,7 @@
 	if (self) {
         
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
-		self.tabBarItem.title = @"Private";
+		self.tabBarItem.title = @"Messages";
 	}
 	return self;
 }

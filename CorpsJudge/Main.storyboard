@@ -1068,7 +1068,7 @@
                                 <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard1" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
                                 <rect key="frame" x="199" y="87" width="202" height="203"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="202" id="4wp-Co-WAn"/>
@@ -4139,7 +4139,7 @@
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
         <image name="Contact" width="450" height="255"/>
-        <image name="DCI_CorpBoard" width="600" height="600"/>
+        <image name="DCI_CorpBoard1" width="600" height="600"/>
         <image name="Message" width="48" height="48"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
         <image name="Upload" width="48" height="48"/>

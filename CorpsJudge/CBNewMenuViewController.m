@@ -138,10 +138,27 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 
 -(void)viewWillAppear:(BOOL)animated {
     
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont fontWithName:@"copperplate-bold" size:30],
+      NSFontAttributeName, nil]];
+    self.title = @"Corpboard";
+    
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:YES animated:NO];
     [self setupShows];
     [data getUnreadMessagesForUser];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont fontWithName:@"Helvetica NeueUI" size:20],
+      NSFontAttributeName, nil]];
 }
 
 - (void)viewDidLoad
