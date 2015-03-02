@@ -44,10 +44,6 @@
             [self getReports];
             break;
     }
-    
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -61,6 +57,10 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     switch ((int)self.type) {
         case feedback: self.title = @"User Feedback";
@@ -205,6 +205,7 @@
 }
 
 -(void)showScreenShots:(id)sender {
+    
     UIButton *btn = (UIButton *)sender;
     CGPoint buttonPosition = [btn convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
@@ -227,11 +228,64 @@
     }
 }
 
+NSIndexPath *currentIndex;
+-(void)deleteReport:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    CGPoint buttonPosition = [btn convertPoint:CGPointZero toView:self.tableView];
+    currentIndex = [self.tableView indexPathForRowAtPoint:buttonPosition];
+
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Are you sure you want to delete this report?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark
+#pragma mark - UIAlertView
+#pragma mark
+
+-(void)alertViewCancel:(UIAlertView *)alertView {
+    
+    currentIndex = nil;
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) {
+        PFObject *objReportToDelete = self.arrayOfData[currentIndex.row];
+        [objReportToDelete deleteEventually];
+        [self.arrayOfData removeObject:objReportToDelete];
+        [self reload];
+        currentIndex = nil;
+    }
+}
+
+PFUser *userToOpen;
+-(void)openUserProfile:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    CGPoint buttonPosition = [btn convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    PFObject *objReport = self.arrayOfData[indexPath.row];
+    
+    if (btn.tag == 1) {
+        
+        userToOpen = objReport[@"userReporting"];
+        
+    } else if (btn.tag == 2) {
+        
+        userToOpen = objReport[@"userBeingReported"];
+        
+    }
+    
+    [self performSegueWithIdentifier:@"profile" sender:self];
+}
 
 #pragma mark - Table view data source
 
@@ -268,6 +322,7 @@
 
     UIButton *btnUserReporting = (UIButton *)[cell viewWithTag:1];
     UIButton *btnUserBeingReported = (UIButton *)[cell viewWithTag:2];
+    UIButton *btnDelete = (UIButton *)[cell viewWithTag:11];
     UILabel *lblDate = (UILabel *)[cell viewWithTag:7];
     UILabel *lblFeedback = (UILabel *)[cell viewWithTag:8];
     
@@ -275,6 +330,10 @@
     PFUser *userReporting = objReport[@"userReporting"];
     PFUser *userBeingReported = objReport[@"userBeingReported"];
     NSString *dateString = @"";
+    
+    [btnDelete addTarget:self action:@selector(deleteReport:) forControlEvents:UIControlEventTouchUpInside];
+    [btnUserReporting addTarget:self action:@selector(openUserProfile:) forControlEvents:UIControlEventTouchUpInside];
+    [btnUserBeingReported addTarget:self action:@selector(openUserProfile:) forControlEvents:UIControlEventTouchUpInside];
     
     [btnUserReporting setTitle:userReporting[@"nickname"] forState:UIControlStateNormal];
     [btnUserBeingReported setTitle:userBeingReported[@"nickname"] forState:UIControlStateNormal];
@@ -535,18 +594,25 @@
     return cell;
 }
 
-NSInteger selectedCell;
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    selectedCell = indexPath.row;
+    PFObject *obj;
     
     switch ((int)self.type) {
-        case feedback: [self performSegueWithIdentifier:@"profile" sender:self];
+        case feedback:
+            obj = self.arrayOfData[indexPath.row];
+            userToOpen = obj[@"user"];
+            [self performSegueWithIdentifier:@"profile" sender:self];
             break;
-        case bugs: [self performSegueWithIdentifier:@"profile" sender:self];
+        case bugs:
+            obj = self.arrayOfData[indexPath.row];
+            userToOpen = obj[@"user"];
+            [self performSegueWithIdentifier:@"profile" sender:self];
             break;
-        case photos: [self performSegueWithIdentifier:@"profile" sender:self];
+        case photos:
+            obj = self.arrayOfData[indexPath.row];
+            userToOpen = obj[@"user"];
+            [self performSegueWithIdentifier:@"profile" sender:self];
             break;
     }
 }
@@ -555,9 +621,7 @@ NSInteger selectedCell;
     
     if ([segue.identifier isEqualToString:@"profile"]) {
         CBUserProfileViewController *vc = [segue destinationViewController];
-        PFObject *obj = self.arrayOfData[selectedCell];
-        PFUser *user = obj[@"user"];
-        vc.userProfile = user;
+        vc.userProfile = userToOpen;
     }
 }
 
