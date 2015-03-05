@@ -26,13 +26,12 @@ float minimumLoadTime = 3; //seconds
 }
 
 int x = 0;
--(void)timer {
+-(void)tickTock:(NSTimer *)timer {
     
     x++;
-    NSLog(@"%@", [NSString stringWithFormat:@"<SomeClass: %p>\nparmeterOne: %@",
-                  self, self]);
+    NSLog(@"%i", x);
     
-    if (isComplete && x > minimumLoadTime) {
+    if (isComplete && (x > minimumLoadTime)) {
         NSLog(@"+ - %i", x);
         x = 0;
         [self.tmrProgress invalidate];
@@ -42,7 +41,6 @@ int x = 0;
         [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
         
     }
-    if (isComplete) x = 0;
 }
 
 -(void)awakeFromNib {
@@ -53,8 +51,8 @@ int x = 0;
     //[self progress];
 }
 
-- (KVNProgressConfiguration *)customKVNProgressUIConfiguration
-{
+- (KVNProgressConfiguration *)customKVNProgressUIConfiguration {
+    
     KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
     
     // See the documentation of KVNProgressConfiguration
@@ -149,19 +147,19 @@ float currentProgress = 0;
     if (!isComplete) {
         x = 0;
         [self progress];
-        self.tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
-                                                       target:self
-                                                     selector:@selector(timer)
-                                                     userInfo:nil
-                                                      repeats:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
+                                                                target:self
+                                                              selector:@selector(tickTock:)
+                                                              userInfo:nil
+                                                               repeats:YES];
+        });
     }
 }
 
 BOOL isComplete = NO;
 -(void)completeProgress {
-    
-    [self.tmrProgress invalidate];
-    self.tmrProgress = nil;
+
     isComplete = YES;
 }
 

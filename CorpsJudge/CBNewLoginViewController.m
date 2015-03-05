@@ -260,8 +260,10 @@ bool removeProgressView = NO;
 
 -(void)loggingIn {
 
-    [self addView:self.viewProgress andScroll:YES];
-    [self.viewProgress startProgress];
+    //by calling start progess here, it is being called twice
+    //which results in an infinite loop
+    //[self addView:self.viewProgress andScroll:YES];
+    //[self.viewProgress startProgress];
 }
 
 -(void)errorLoggingIn {
