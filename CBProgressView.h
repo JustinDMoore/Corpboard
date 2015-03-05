@@ -23,7 +23,7 @@
 @property (nonatomic) KVNProgressConfiguration *customConfiguration;
 @property (nonatomic, strong) IBOutlet UILabel *lblFactHeader;
 @property (nonatomic, strong) IBOutlet UILabel *lblFact;
-
+@property (nonatomic, weak) NSTimer *tmrProgress;
 -(void)setDelegate:(id)newDelegate;
 -(void)startProgress;
 -(void)completeProgress;

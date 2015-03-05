@@ -15,7 +15,7 @@
 
 
 @interface CBNewLoginViewController () {
-    NSTimer *timerCountdown;
+    //NSTimer *timerCountdown;
     CBSingle *data;
     CBNewsSingleton *news;
    
@@ -32,7 +32,7 @@
 @property (nonatomic) BOOL isNewUser;
 
 @property (nonatomic) BOOL theBool;
-@property (nonatomic, strong) NSTimer *myTimer;
+//@property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) PFUser *currentUser;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollLogin;

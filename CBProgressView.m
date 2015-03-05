@@ -8,10 +8,12 @@
 
 #import "CBProgressView.h"
 
-@implementation CBProgressView
+@implementation CBProgressView {
+    
+}
 
 float minimumLoadTime = 3; //seconds
-NSTimer *tmrProgress;
+
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -33,13 +35,14 @@ int x = 0;
     if (isComplete && x > minimumLoadTime) {
         NSLog(@"+ - %i", x);
         x = 0;
-        [tmrProgress invalidate];
-        tmrProgress = nil;
+        [self.tmrProgress invalidate];
+        self.tmrProgress = nil;
         [KVNProgress updateProgress:1.0f
                            animated:YES];
         [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
         
     }
+    if (isComplete) x = 0;
 }
 
 -(void)awakeFromNib {
@@ -110,8 +113,8 @@ float currentProgress = 0;
     return val;
 }
 
-- (void)updateProgress
-{
+-(void)updateProgress {
+    
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
     dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
         [self updateWithProgress:[self getRandomProgressWithMin]];
@@ -136,7 +139,8 @@ float currentProgress = 0;
     
 }
 
--(void)setDelegate:(id)newDelegate{
+-(void)setDelegate:(id)newDelegate {
+    
     delegate = newDelegate;
 }
 
@@ -145,7 +149,7 @@ float currentProgress = 0;
     if (!isComplete) {
         x = 0;
         [self progress];
-        tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
+        self.tmrProgress = [NSTimer scheduledTimerWithTimeInterval:1
                                                        target:self
                                                      selector:@selector(timer)
                                                      userInfo:nil
@@ -156,6 +160,8 @@ float currentProgress = 0;
 BOOL isComplete = NO;
 -(void)completeProgress {
     
+    [self.tmrProgress invalidate];
+    self.tmrProgress = nil;
     isComplete = YES;
 }
 
@@ -188,5 +194,7 @@ BOOL isComplete = NO;
 
     [KVNProgress showErrorWithStatus:error
                               onView:self];
+    [self.tmrProgress invalidate];
+    self.tmrProgress = nil;
 }
 @end
