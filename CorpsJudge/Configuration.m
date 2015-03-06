@@ -89,65 +89,67 @@ NSString *const KILTIES = @"Kilties";
 
 -(void)createAllCorps {
     
-    //world class
-    [self addCorps:THE_CADETS isWorldClass:YES];
-    [self addCorps:THE_ACADEMY isWorldClass:YES];
-    [self addCorps:BLUE_DEVILS isWorldClass:YES];
-    [self addCorps:BLUE_KNIGHTS isWorldClass:YES];
-    [self addCorps:BLUECOATS isWorldClass:YES];
-    [self addCorps:BLUE_STARS isWorldClass:YES];
-    [self addCorps:BOSTON_CRUSADERS isWorldClass:YES];
-    [self addCorps:CAROLINA_CROWN isWorldClass:YES];
-    [self addCorps:CASCADES isWorldClass:YES];
-    [self addCorps:THE_CAVALIERS isWorldClass:YES];
-    [self addCorps:COLTS isWorldClass:YES];
-    [self addCorps:CROSSMEN isWorldClass:YES];
-    [self addCorps:JERSEY_SURF isWorldClass:YES];
-    [self addCorps:MADISON_SCOUTS isWorldClass:YES];
-    [self addCorps:MANDARINS isWorldClass:YES];
-    [self addCorps:OREGON_CRUSADERS isWorldClass:YES];
-    [self addCorps:PACIFIC_CREST isWorldClass:YES];
-    [self addCorps:PHANTOM_REGIMENT isWorldClass:YES];
-    [self addCorps:PIONEER isWorldClass:YES];
-    [self addCorps:SANTA_CLARA_VANGUARD isWorldClass:YES];
-    [self addCorps:SPIRIT_OF_ATLANTA isWorldClass:YES];
-    [self addCorps:TROOPERS isWorldClass:YES];
+    // World Class
+    [self addCorps:THE_CADETS class:@"World"];
+    [self addCorps:THE_ACADEMY class:@"World"];
+    [self addCorps:BLUE_DEVILS class:@"World"];
+    [self addCorps:BLUECOATS class:@"World"];
+    [self addCorps:BLUE_STARS class:@"World"];
+    [self addCorps:BOSTON_CRUSADERS class:@"World"];
+    [self addCorps:CAROLINA_CROWN class:@"World"];
+    [self addCorps:CASCADES class:@"World"];
+    [self addCorps:THE_CAVALIERS class:@"World"];
+    [self addCorps:COLTS class:@"World"];
+    [self addCorps:CROSSMEN class:@"World"];
+    [self addCorps:JERSEY_SURF class:@"World"];
+    [self addCorps:MADISON_SCOUTS class:@"World"];
+    [self addCorps:MANDARINS class:@"World"];
+    [self addCorps:OREGON_CRUSADERS class:@"World"];
+    [self addCorps:PACIFIC_CREST class:@"World"];
+    [self addCorps:PHANTOM_REGIMENT class:@"World"];
+    [self addCorps:PIONEER class:@"World"];
+    [self addCorps:SANTA_CLARA_VANGUARD class:@"World"];
+    [self addCorps:SPIRIT_OF_ATLANTA class:@"World"];
+    [self addCorps:TROOPERS class:@"World"];
+
+    // Open Class
+    [self addCorps:SEVENTH_REGIMENT class:@"Open"];
+    [self addCorps:BLUE_DEVILS_B class:@"Open"];
+    [self addCorps:BLUE_DEVILS_C class:@"Open"];
+    [self addCorps:BLUE_SAINTS class:@"Open"];
+    [self addCorps:CITY_SOUND class:@"Open"];
+    [self addCorps:COASTAL_SURGE class:@"Open"];
+    [self addCorps:COLT_CADETS class:@"Open"];
+    [self addCorps:COLUMBIANS class:@"Open"];
+    [self addCorps:ERUPTION class:@"Open"];
+    [self addCorps:GENESIS class:@"Open"];
+    [self addCorps:GOLD class:@"Open"];
+    [self addCorps:GOLDEN_EMPIRE class:@"Open"];
+    [self addCorps:GUARDIANS class:@"Open"];
+    [self addCorps:IMPULSE class:@"Open"];
+    [self addCorps:INCOGNITO class:@"Open"];
+    [self addCorps:LEGENDS class:@"Open"];
+    [self addCorps:LES_STENTORS class:@"Open"];
+    [self addCorps:LOUISIANA_STARS class:@"Open"];
+    [self addCorps:MUSIC_CITY class:@"Open"];
+    [self addCorps:RACINE_SCOUTS class:@"Open"];
+    [self addCorps:RAIDERS class:@"Open"];
+    [self addCorps:SPARTANS class:@"Open"];
+    [self addCorps:THUNDER class:@"Open"];
+    [self addCorps:VANGUARD_CADETS class:@"Open"];
+    [self addCorps:WATCHMEN class:@"Open"];
     
-    //open class
-    [self addCorps:SEVENTH_REGIMENT isWorldClass:NO];
-    [self addCorps:BLUE_DEVILS_B isWorldClass:NO];
-    [self addCorps:BLUE_DEVILS_C isWorldClass:NO];
-    [self addCorps:BLUE_SAINTS isWorldClass:NO];
-    [self addCorps:CITY_SOUND isWorldClass:NO];
-    [self addCorps:COASTAL_SURGE isWorldClass:NO];
-    [self addCorps:COLT_CADETS isWorldClass:NO];
-    [self addCorps:COLUMBIANS isWorldClass:NO];
-    [self addCorps:ERUPTION isWorldClass:NO];
-    [self addCorps:GENESIS isWorldClass:NO];
-    [self addCorps:GOLD isWorldClass:NO];
-    [self addCorps:GOLDEN_EMPIRE isWorldClass:NO];
-    [self addCorps:GUARDIANS isWorldClass:NO];
-    [self addCorps:IMPULSE isWorldClass:NO];
-    [self addCorps:INCOGNITO isWorldClass:NO];
-    [self addCorps:LEGENDS isWorldClass:NO];
-    [self addCorps:LES_STENTORS isWorldClass:NO];
-    [self addCorps:LOUISIANA_STARS isWorldClass:NO];
-    [self addCorps:MUSIC_CITY isWorldClass:NO];
-    [self addCorps:RACINE_SCOUTS isWorldClass:NO];
-    [self addCorps:RAIDERS isWorldClass:NO];
-    [self addCorps:SPARTANS isWorldClass:NO];
-    [self addCorps:THUNDER isWorldClass:NO];
-    [self addCorps:VANGUARD_CADETS isWorldClass:NO];
-    [self addCorps:WATCHMEN isWorldClass:NO];
-    [self addCorps:CINCINNATI_TRADITION isWorldClass:NO];
-    [self addCorps:KILTIES isWorldClass:NO];
+    //All Age Class
+    [self addCorps:CINCINNATI_TRADITION class:@"All Age"];
+    [self addCorps:KILTIES class:@"All Age"];
+
 }
 
 // This method checks the array of corps from the server to make sure it matches
 // what is hard coded as constants in the app
 -(void)checkAllCorps {
     
-    //world class
+    // World class
     [self getCorpsByName: THE_CADETS];
     [self getCorpsByName: THE_ACADEMY];
     [self getCorpsByName: BLUE_DEVILS];
@@ -171,7 +173,7 @@ NSString *const KILTIES = @"Kilties";
     [self getCorpsByName: SPIRIT_OF_ATLANTA];
     [self getCorpsByName: TROOPERS];
     
-    //open class
+    // Open class
     [self getCorpsByName: SEVENTH_REGIMENT];
     [self getCorpsByName: BLUE_DEVILS_B];
     [self getCorpsByName: BLUE_DEVILS_C];
@@ -197,6 +199,8 @@ NSString *const KILTIES = @"Kilties";
     [self getCorpsByName: THUNDER];
     [self getCorpsByName: VANGUARD_CADETS];
     [self getCorpsByName: WATCHMEN];
+    
+    // All Age Class
     [self getCorpsByName: CINCINNATI_TRADITION];
     [self getCorpsByName: KILTIES];
 }
@@ -216,7 +220,6 @@ NSString *const KILTIES = @"Kilties";
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
-        
     }];
 }
 
@@ -896,16 +899,16 @@ NSString *const KILTIES = @"Kilties";
     [score setObject:show forKey:@"show"];
     score[@"corpsName"] = corps[@"corpsName"];
     score[@"isOfficial"] = [NSNumber numberWithBool:YES];
-    score[@"isWorldClass"] = corps[@"isWorldClass"];
+    score[@"class"] = corps[@"class"];
     score[@"showDate"] = show[@"showDate"];
     [score saveInBackground];
 }
 
--(void)addCorps:(NSString *)corpsName isWorldClass:(BOOL)isWorld {
+-(void)addCorps:(NSString *)corpsName class:(NSString *)corpsClass {
     
     PFObject *newCorps = [PFObject objectWithClassName:@"corps"];
     newCorps[@"corpsName"] = corpsName;
-    newCorps[@"isWorldClass"] = [NSNumber numberWithBool:isWorld];
+    newCorps[@"class"] = corpsClass;
     [newCorps saveInBackground];
 }
 

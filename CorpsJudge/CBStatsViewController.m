@@ -26,12 +26,11 @@ PFQuery *queryUserColorguardRanks;
 PFQuery *queryUserLoudestRanks;
 PFQuery *queryUserFavorites;
 
-int totalWorldHornlineVotes, totalOpenHornlineVotes;
-int totalWorldPercussionVotes, totalOpenPercussionVotes;
-int totalWorldColorguardVotes, totalOpenColorguardVotes;
-int totalWorldLoudestVotes, totalOpenLoudestVotes;
-int totalWorldFavoriteCorpsVotes, totalOpenFavoriteCorpsVotes;
-
+int totalWorldHornlineVotes, totalOpenHornlineVotes, totalAllAgeHornlineVotes;
+int totalWorldPercussionVotes, totalOpenPercussionVotes, totalAllAgePercussionVotes;
+int totalWorldColorguardVotes, totalOpenColorguardVotes, totalAllAgeColorguardVotes;
+int totalWorldLoudestVotes, totalOpenLoudestVotes, totalAllAgeLoudestVotes;
+int totalWorldFavoriteCorpsVotes, totalOpenFavoriteCorpsVotes, totalAllAgeFavoriteCorpsVotes;
 
 typedef enum : int {
     phaseScore = 0,
@@ -58,18 +57,23 @@ typedef enum : int {
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenFavs;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeFavs;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldHornlineFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenHornlineFavs;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeHornlineFavs;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldPercussionFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenPercussionFavs;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgePercussionFavs;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldColorguardFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenColorguardFavs;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeColorguardFavs;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldLoudestFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenLoudestFavs;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeLoudestFavs;
 
 @end
 
@@ -186,80 +190,12 @@ typedef enum : int {
     } else {
         [self getAllFavorites];
     }
-    
-//    if (![data.arrayofWorldHornlineVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (isWorld) [self getUserHornlineRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofOpenHornlineVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (!isWorld) [self getUserHornlineRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofWorldPercussionVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (isWorld) [self getUserPercussionRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofOpenPercussionVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (!isWorld) [self getUserPercussionRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofWorldColorguardVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (isWorld) [self getUserColorguardRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofOpenColorguardVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (!isWorld) [self getUserColorguardRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofWorldLoudestVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (isWorld) [self getUserLoudestRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofOpenLoudestVotes count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (!isWorld) [self getUserLoudestRankForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofWorldFavorites count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (isWorld) [self getUserFavoritesForCorps:corps];
-//        }
-//    }
-//    
-//    if (![data.arrayofOpenFavorites count]) {
-//        for (PFObject *corps in data.arrayOfAllCorps) {
-//            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-//            if (!isWorld) [self getUserFavoritesForCorps:corps];
-//        }
-//    }
-    
+        
     //for user rankings
     [data.arrayOfUserWorldClassRankings removeAllObjects];
     [data.arrayOfUserOpenClassRankings removeAllObjects];
+    [data.arrayOfUserAllAgeClassRankings removeAllObjects];
+    
     for (PFObject *corps in data.arrayOfAllCorps) {
         
         [self getUserRankForCorps:corps];
@@ -280,11 +216,12 @@ typedef enum : int {
     
     if ([objects count]) {
         [data.arrayOfAllFavorites addObjectsFromArray:objects];
-        [self sortAllFavorites];
+        
     } else {
+        
         NSLog(@"Error getting user votes: %@ %@", error, [error userInfo]);
     }
-    
+    [self sortAllFavorites];
 }
 
 bool isDoneSortingFavorites = NO;
@@ -293,68 +230,77 @@ bool isDoneSortingFavorites = NO;
     if ([data.arrayOfAllFavorites count]) {
         
         for (PFObject *fav in data.arrayOfAllFavorites) {
-            
-            BOOL isWorld = [fav[@"isWorldClass"] boolValue];
+
+            NSString *corpClass = fav[@"class"];
             
             if ([fav[@"category"] isEqualToString:@"Favorite Brass"]) {
                 
-                if (isWorld) {
+                if ([corpClass isEqualToString:@"World"]) {
                     totalWorldHornlineVotes++;
                     [data.arrayOfWorldHornlineVotes addObject:fav];
-                }
-                else {
+                } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenHornlineVotes++;
                     [data.arrayOfOpenHornlineVotes addObject:fav];
+                } else if ([corpClass isEqualToString:@"All Age"]) {
+                    totalAllAgeHornlineVotes++;
+                    [data.arrayOfAllAgeHornlineVotes addObject:fav];
                 }
                 
             } else if ([fav[@"category"] isEqualToString:@"Favorite Drums"]) {
                 
-                if (isWorld) {
+                if ([corpClass isEqualToString:@"World"]) {
                     totalWorldPercussionVotes++;
                     [data.arrayOfWorldPercussionVotes addObject:fav];
-                }
-                else {
+                } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenPercussionVotes++;
                     [data.arrayOfOpenPercussionVotes addObject:fav];
+                } else if ([corpClass isEqualToString:@"All Age"]) {
+                    totalAllAgePercussionVotes++;
+                    [data.arrayOfAllAgePercussionVotes addObject:fav];
                 }
             } else if ([fav[@"category"] isEqualToString:@"Favorite Colorguard"]) {
                 
-                if (isWorld) {
+                if ([corpClass isEqualToString:@"World"]) {
                     totalWorldColorguardVotes++;
                     [data.arrayofWorldColorguardVotes addObject:fav];
-                }
-                else {
+                } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenColorguardVotes++;
                     [data.arrayofOpenColorguardVotes addObject:fav];
+                } else if ([corpClass isEqualToString:@"All Age"]) {
+                    totalAllAgeColorguardVotes++;
+                    [data.arrayofAllAgeColorguardVotes addObject:fav];
                 }
+                
             } else if ([fav[@"category"] isEqualToString:@"Loudest Brass"]) {
                 
-                if (isWorld) {
+                if ([corpClass isEqualToString:@"World"]) {
                     totalWorldLoudestVotes++;
                     [data.arrayofWorldLoudestVotes addObject:fav];
-                }
-                else {
+                } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenLoudestVotes++;
                     [data.arrayofOpenLoudestVotes addObject:fav];
+                } else if ([corpClass isEqualToString:@"All Age"]) {
+                    totalAllAgeLoudestVotes++;
+                    [data.arrayofAllAgeLoudestVotes addObject:fav];
                 }
                 
             } else if ([fav[@"category"] isEqualToString:@"Favorite Corps"]) {
                 
-                if (isWorld) {
+                if ([corpClass isEqualToString:@"World"]) {
                     totalWorldFavoriteCorpsVotes++;
                     [data.arrayofWorldFavorites addObject:fav];
-                }
-                else {
+                } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenFavoriteCorpsVotes++;
                     [data.arrayofOpenFavorites addObject:fav];
+                } else if ([corpClass isEqualToString:@"All Age"]) {
+                    totalAllAgeFavoriteCorpsVotes++;
+                    [data.arrayofAllAgeFavorites addObject:fav];
                 }
             }
         }
         
-        
         //now we have the favorites seperated into arrays by category
         //now go through each corps and count the votes
-       
       
         for (PFObject *corps in data.arrayOfWorldClass) {
             
@@ -522,16 +468,100 @@ bool isDoneSortingFavorites = NO;
                 }
             }
         }
-       
-        [self.activity stopAnimating];
-        self.activity.hidden = YES;
-        self.lblactivity.hidden = YES;
-        self.lblActivity2.hidden = YES;
-        self.tableCorps.hidden = NO;
-        [self sortScores];
-        isDoneSortingFavorites = YES;
-        [self areWeDoneLoading];
+        
+        for (PFObject *corps in data.arrayOfAllAgeClass) {
+            
+            
+            //all age favs
+            {
+                int score = 0;
+                for (PFObject *fav in data.arrayofAllAgeFavorites) {
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
+                        score++;
+                    }
+                }
+                if (score > 0) {
+                    UserScore *uc = [[UserScore alloc] init];
+                    uc.corps = corps;
+                    uc.score = score;
+                    [self.arrayOfAllAgeFavs addObject:uc];
+                }
+            }
+            
+            //all age hornline favs
+            {
+                int score = 0;
+                for (PFObject *fav in data.arrayOfAllAgeHornlineVotes) {
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
+                        score++;
+                    }
+                }
+                if (score > 0) {
+                    UserScore *uc = [[UserScore alloc] init];
+                    uc.corps = corps;
+                    uc.score = score;
+                    [self.arrayOfAllAgeHornlineFavs addObject:uc];
+                }
+            }
+            
+            //all age percussion favs
+            {
+                int score = 0;
+                for (PFObject *fav in data.arrayOfAllAgePercussionVotes) {
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
+                        score++;
+                    }
+                }
+                if (score > 0) {
+                    UserScore *uc = [[UserScore alloc] init];
+                    uc.corps = corps;
+                    uc.score = score;
+                    [self.arrayOfAllAgePercussionFavs addObject:uc];
+                }
+            }
+            
+            //all age colorguard favs
+            {
+                int score = 0;
+                for (PFObject *fav in data.arrayofAllAgeColorguardVotes) {
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
+                        score++;
+                    }
+                }
+                if (score > 0) {
+                    UserScore *uc = [[UserScore alloc] init];
+                    uc.corps = corps;
+                    uc.score = score;
+                    [self.arrayOfAllAgeColorguardFavs addObject:uc];
+                }
+            }
+            
+            //all age loudest
+            {
+                int score = 0;
+                for (PFObject *fav in data.arrayofAllAgeLoudestVotes) {
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
+                        score++;
+                    }
+                }
+                if (score > 0) {
+                    UserScore *uc = [[UserScore alloc] init];
+                    uc.corps = corps;
+                    uc.score = score;
+                    [self.arrayOfAllAgeLoudestFavs addObject:uc];
+                }
+            }
+        }
     }
+    
+    [self.activity stopAnimating];
+    self.activity.hidden = YES;
+    self.lblactivity.hidden = YES;
+    self.lblActivity2.hidden = YES;
+    self.tableCorps.hidden = NO;
+    [self sortScores];
+    isDoneSortingFavorites = YES;
+    [self areWeDoneLoading];
 }
 
 -(void)areWeDoneLoading {
@@ -575,9 +605,20 @@ int numberOfRanks = 0;
         UserScore *us = [[UserScore alloc] init];
         us.corps = score[@"corps"];
         us.score = grand;
-        BOOL isWorld = [score[@"isWorldClass"] boolValue];
-        if (isWorld) [data.arrayOfUserWorldClassRankings addObject:us];
-        else [data.arrayOfUserOpenClassRankings addObject:us];
+
+        if ([score[@"class"] isEqualToString:@"World"]) {
+         
+            [data.arrayOfUserWorldClassRankings addObject:us];
+            
+        } else if ([score[@"class"] isEqualToString:@"Open"]) {
+            
+            [data.arrayOfUserOpenClassRankings addObject:us];
+            
+        } else if ([score[@"class"] isEqualToString:@"All Age"]) {
+            
+            [data.arrayOfUserAllAgeClassRankings addObject:us];
+            
+        }
     }];
 }
 
@@ -591,9 +632,20 @@ int numberOfRanks = 0;
             UserScore *us = [[UserScore alloc] init];
             us.corps = corps[@"corps"];
             us.score = [objects count];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) [data.arrayOfWorldHornlineVotes addObject:us];
-            else [data.arrayOfOpenHornlineVotes addObject:us];
+
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
+                [data.arrayOfWorldHornlineVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
+                [data.arrayOfOpenHornlineVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                [data.arrayOfAllAgeHornlineVotes addObject:us];
+                
+            }
         }
     }];
 }
@@ -608,9 +660,20 @@ int numberOfRanks = 0;
             UserScore *us = [[UserScore alloc] init];
             us.corps = corps[@"corps"];
             us.score = [objects count];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) [data.arrayOfWorldPercussionVotes addObject:us];
-            else [data.arrayOfOpenPercussionVotes addObject:us];
+
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
+                [data.arrayOfWorldPercussionVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
+                [data.arrayOfOpenPercussionVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                [data.arrayOfAllAgePercussionVotes addObject:us];
+                
+            }
         }
     }];
 }
@@ -625,9 +688,20 @@ int numberOfRanks = 0;
             UserScore *us = [[UserScore alloc] init];
             us.corps = corps[@"corps"];
             us.score = [objects count];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) [data.arrayofWorldColorguardVotes addObject:us];
-            else [data.arrayofOpenColorguardVotes addObject:us];
+            
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
+                [data.arrayofWorldColorguardVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
+                [data.arrayofOpenColorguardVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                [data.arrayofAllAgeColorguardVotes addObject:us];
+                
+            }
         }
     }];
 }
@@ -642,9 +716,20 @@ int numberOfRanks = 0;
             UserScore *us = [[UserScore alloc] init];
             us.corps = corps[@"corps"];
             us.score = [objects count];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) [data.arrayofWorldLoudestVotes addObject:us];
-            else [data.arrayofOpenLoudestVotes addObject:us];
+            
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
+                [data.arrayofWorldLoudestVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
+                [data.arrayofOpenLoudestVotes addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                 [data.arrayofAllAgeLoudestVotes addObject:us];
+                
+            }
         }
     }];
 }
@@ -659,9 +744,20 @@ int numberOfRanks = 0;
             UserScore *us = [[UserScore alloc] init];
             us.corps = corps[@"corps"];
             us.score = [objects count];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) [data.arrayofWorldFavorites addObject:us];
-            else [data.arrayofOpenFavorites addObject:us];
+            
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
+                [data.arrayofWorldFavorites addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
+                [data.arrayofOpenFavorites addObject:us];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                [data.arrayofAllAgeFavorites addObject:us];
+                
+            }
         }
     }];
 }
@@ -685,6 +781,7 @@ int numberOfRanks = 0;
                     
                     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
                     if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortOfficialScoresDescriptor];
+                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortOfficialScoresDescriptor];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -694,6 +791,7 @@ int numberOfRanks = 0;
                     
                     if ([data.arrayOfUserWorldClassRankings count]) [data.arrayOfUserWorldClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
                     if ([data.arrayOfUserOpenClassRankings count]) [data.arrayOfUserOpenClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
+                    if ([data.arrayOfUserAllAgeClassRankings count]) [data.arrayOfUserAllAgeClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
                 }
             }
 
@@ -709,6 +807,7 @@ int numberOfRanks = 0;
                     
                     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
                     if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
+                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -718,6 +817,7 @@ int numberOfRanks = 0;
                     
                     if ([self.arrayOfWorldHornlineFavs count]) [self.arrayOfWorldHornlineFavs sortUsingDescriptors:sortDescriptorForUserHornline];
                     if ([self.arrayOfOpenHornlineFavs count]) [self.arrayOfOpenHornlineFavs sortUsingDescriptors:sortDescriptorForUserHornline];
+                    if ([self.arrayOfAllAgeHornlineFavs count]) [self.arrayOfAllAgeHornlineFavs sortUsingDescriptors:sortDescriptorForUserHornline];
                     
                 }
             }
@@ -734,6 +834,7 @@ int numberOfRanks = 0;
                     
                     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
                     if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -743,6 +844,7 @@ int numberOfRanks = 0;
                     
                     if ([self.arrayOfWorldPercussionFavs count]) [self.arrayOfWorldPercussionFavs sortUsingDescriptors:sortDescriptorForUserPercussion];
                     if ([self.arrayOfOpenPercussionFavs count]) [self.arrayOfOpenPercussionFavs sortUsingDescriptors:sortDescriptorForUserPercussion];
+                    if ([self.arrayOfAllAgePercussionFavs count]) [self.arrayOfAllAgePercussionFavs sortUsingDescriptors:sortDescriptorForUserPercussion];
                 }
             }
     
@@ -759,6 +861,7 @@ int numberOfRanks = 0;
                     
                     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
                     if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
+                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -768,6 +871,7 @@ int numberOfRanks = 0;
                     
                     if ([self.arrayOfWorldColorguardFavs count]) [self.arrayOfWorldColorguardFavs sortUsingDescriptors:sortDescriptorsForUserColorguardVotes];
                     if ([self.arrayOfOpenColorguardFavs count]) [self.arrayOfOpenColorguardFavs sortUsingDescriptors:sortDescriptorsForUserColorguardVotes];
+                    if ([self.arrayOfAllAgeColorguardFavs count]) [self.arrayOfAllAgeColorguardFavs sortUsingDescriptors:sortDescriptorsForUserColorguardVotes];
                 }
             }
             
@@ -783,6 +887,7 @@ int numberOfRanks = 0;
                     
                     if ([self.arrayOfWorldLoudestFavs count]) [self.arrayOfWorldLoudestFavs sortUsingDescriptors:sortDescriptorsForLoudestHornline];
                     if ([self.arrayOfOpenLoudestFavs count]) [self.arrayOfOpenLoudestFavs sortUsingDescriptors:sortDescriptorsForLoudestHornline];
+                    if ([self.arrayOfAllAgeLoudestFavs count]) [self.arrayOfAllAgeLoudestFavs sortUsingDescriptors:sortDescriptorsForLoudestHornline];
                 }
             }
         break;}
@@ -798,6 +903,7 @@ int numberOfRanks = 0;
                     
                     if ([self.arrayOfWorldFavs count]) [self.arrayOfWorldFavs sortUsingDescriptors:sortDescriptorsForFavoriteCorps];
                     if ([self.arrayOfOpenFavs count]) [self.arrayOfOpenFavs sortUsingDescriptors:sortDescriptorsForFavoriteCorps];
+                    if ([self.arrayOfAllAgeFavs count]) [self.arrayOfAllAgeFavs sortUsingDescriptors:sortDescriptorsForFavoriteCorps];
                 }
             }
             
@@ -845,7 +951,7 @@ BOOL isDoneSortingScores = NO;
         }
     }
     
-    return 2;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -853,6 +959,7 @@ BOOL isDoneSortingScores = NO;
     switch (section) {
         case 0: return @"World Class";
         case 1: return @"Open Class";
+        case 2: return @"All Age Class";
         default: return @"Error";
     }
 }
@@ -870,6 +977,9 @@ BOOL isDoneSortingScores = NO;
                 } else if (section ==1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                } else if (section == 2) {
+                    
+                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -878,6 +988,9 @@ BOOL isDoneSortingScores = NO;
                 } else if (section == 1) {
                     
                     if ([data.arrayOfUserOpenClassRankings count]) return [data.arrayOfUserOpenClassRankings count];
+                } else if (section == 2) {
+                    
+                    if ([data.arrayOfUserAllAgeClassRankings count]) return [data.arrayOfUserAllAgeClassRankings count];
                 }
             }
             break;
@@ -889,18 +1002,26 @@ BOOL isDoneSortingScores = NO;
                 if (section == 0) {
                     
                     if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
-                } else if (section ==1) {
+                } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                
+                } else if (section == 2) {
+                    
+                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldHornlineFavs count]) return [self.arrayOfWorldHornlineFavs count];
-                } else if (section ==1) {
+                } else if (section == 1) {
                     
                     if ([self.arrayOfOpenHornlineFavs count]) return [self.arrayOfOpenHornlineFavs count];
+                
+                } else if (section == 2) {
+                    
+                    if ([self.arrayOfAllAgeHornlineFavs count]) return [self.arrayOfAllAgeHornlineFavs count];
                 }
             }
             break;
@@ -912,18 +1033,27 @@ BOOL isDoneSortingScores = NO;
                 if (section == 0) {
                     
                     if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
-                } else if (section ==1) {
+                } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                
+                } else if (section == 2) {
+                    
+                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
                 }
+                
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldPercussionFavs count]) return [self.arrayOfWorldPercussionFavs count];
-                } else if (section ==1) {
+                } else if (section == 1) {
                     
                     if ([self.arrayOfOpenPercussionFavs count]) return [self.arrayOfOpenPercussionFavs count];
+                    
+                } else if (section == 2) {
+                    
+                    if ([self.arrayOfAllAgePercussionFavs count]) return [self.arrayOfAllAgePercussionFavs count];
                 }
             }
             
@@ -936,18 +1066,28 @@ BOOL isDoneSortingScores = NO;
                 if (section == 0) {
                     
                     if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
-                } else if (section ==1) {
+                    
+                } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                
+                } else if (section == 2) {
+                    
+                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
                 }
+                
             }  else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldColorguardFavs count]) return [self.arrayOfWorldColorguardFavs count];
-                } else if (section ==1) {
+                } else if (section == 1) {
                     
                     if ([self.arrayOfOpenColorguardFavs count]) return [self.arrayOfOpenColorguardFavs count];
+                
+                } else if (section == 2) {
+                    
+                    if ([self.arrayOfAllAgeColorguardFavs count]) return [self.arrayOfAllAgeColorguardFavs count];
                 }
             }
 
@@ -967,10 +1107,16 @@ BOOL isDoneSortingScores = NO;
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldLoudestFavs count]) return [self.arrayOfWorldLoudestFavs count];
-                } else if (section ==1) {
+                
+                } else if (section == 1) {
                     
                     if ([self.arrayOfOpenLoudestFavs count]) return [self.arrayOfOpenLoudestFavs count];
+                
+                } else if (section == 2) {
+                    
+                    if ([self.arrayOfAllAgeLoudestFavs count]) return [self.arrayOfAllAgeLoudestFavs count];
                 }
+
             }
             
             break;
@@ -989,9 +1135,14 @@ BOOL isDoneSortingScores = NO;
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldFavs count]) return [self.arrayOfWorldFavs count];
-                } else if (section ==1) {
+                
+                } else if (section == 1) {
                     
                     if ([self.arrayOfOpenFavs count]) return [self.arrayOfOpenFavs count];
+                
+                } else if (section == 2) {
+                    
+                    if ([self.arrayOfAllAgeFavs count]) return [self.arrayOfAllAgeFavs count];
                 }
             }
             
@@ -1030,6 +1181,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = data.arrayOfWorldClass;
                 if (indexPath.section == 1) array = data.arrayOfOpenClass;
+                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"officialRank"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1104,6 +1256,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = data.arrayOfUserWorldClassRankings;
                 if (indexPath.section == 1) array = data.arrayOfUserOpenClassRankings;
+                if (indexPath.section == 2) array = data.arrayOfUserAllAgeClassRankings;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblRank = (UILabel *)[cell viewWithTag:1];
@@ -1131,6 +1284,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = data.arrayOfWorldClass;
                 if (indexPath.section == 1) array = data.arrayOfOpenClass;
+                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1165,6 +1319,7 @@ BOOL isDoneSortingScores = NO;
             
                 if (indexPath.section == 0) array = self.arrayOfWorldHornlineFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenHornlineFavs;
+                if (indexPath.section == 2) array = self.arrayOfAllAgeHornlineFavs;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1186,6 +1341,7 @@ BOOL isDoneSortingScores = NO;
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldHornlineVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenHornlineVotes) * 100;
+                    if (indexPath.section == 2) result = (score.score/totalAllAgeHornlineVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
                     barWidth = 2.5 * result;
                 }
@@ -1199,6 +1355,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = data.arrayOfWorldClass;
                 if (indexPath.section == 1) array = data.arrayOfOpenClass;
+                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1234,6 +1391,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = self.arrayOfWorldPercussionFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenPercussionFavs;
+                if (indexPath.section == 2) array = self.arrayOfAllAgePercussionFavs;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1256,6 +1414,7 @@ BOOL isDoneSortingScores = NO;
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldPercussionVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenPercussionVotes) * 100;
+                    if (indexPath.section == 2) result = (score.score/totalAllAgePercussionVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
                     barWidth = 2.5 * result;
                 }
@@ -1269,6 +1428,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = data.arrayOfWorldClass;
                 if (indexPath.section == 1) array = data.arrayOfOpenClass;
+                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1305,6 +1465,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = self.arrayOfWorldColorguardFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenColorguardFavs;
+                if (indexPath.section == 2) array = self.arrayOfAllAgeColorguardFavs;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1327,6 +1488,7 @@ BOOL isDoneSortingScores = NO;
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldColorguardVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenColorguardVotes) * 100;
+                    if (indexPath.section == 2) result = (score.score/totalAllAgeColorguardVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
                     barWidth = 2.5 * result;
                 }
@@ -1340,6 +1502,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = self.arrayOfWorldLoudestFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenLoudestFavs;
+                if (indexPath.section == 2) array = self.arrayOfAllAgeLoudestFavs;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1362,6 +1525,7 @@ BOOL isDoneSortingScores = NO;
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldLoudestVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenLoudestVotes) * 100;
+                    if (indexPath.section == 2) result = (score.score/totalAllAgeLoudestVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
                     barWidth = 2.5 * result;
                 }
@@ -1375,6 +1539,7 @@ BOOL isDoneSortingScores = NO;
                 
                 if (indexPath.section == 0) array = self.arrayOfWorldFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenFavs;
+                if (indexPath.section == 2) array = self.arrayOfAllAgeFavs;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1397,6 +1562,7 @@ BOOL isDoneSortingScores = NO;
                     float result = 0.0;
                     if (indexPath.section == 0) result = (score.score/totalWorldFavoriteCorpsVotes) * 100;
                     if (indexPath.section == 1) result = (score.score/totalOpenFavoriteCorpsVotes) * 100;
+                    if (indexPath.section == 2) result = (score.score/totalAllAgeFavoriteCorpsVotes) * 100;
                     lblPercent.text = [NSString stringWithFormat:@"%.2f%@", result, @"%"];
                     barWidth = 2.5 * result;
                 }
@@ -1551,6 +1717,7 @@ BOOL isDoneSortingScores = NO;
 #pragma mark - Properties
 
 -(NSMutableArray *)arrayOfWorldFavs {
+    
     if (!_arrayOfWorldFavs) {
         _arrayOfWorldFavs = [[NSMutableArray alloc] init];
     }
@@ -1558,15 +1725,25 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(NSMutableArray *)arrayOfOpenFavs {
+    
     if (!_arrayOfOpenFavs) {
         _arrayOfOpenFavs = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenFavs;
 }
 
+-(NSMutableArray *)arrayOfAllAgeFavs {
+    
+    if (!_arrayOfAllAgeFavs) {
+        _arrayOfAllAgeFavs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeFavs;
+}
+
 
 
 -(NSMutableArray *)arrayOfWorldHornlineFavs {
+    
     if (!_arrayOfWorldHornlineFavs) {
         _arrayOfWorldHornlineFavs = [[NSMutableArray alloc] init];
     }
@@ -1574,15 +1751,25 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(NSMutableArray *)arrayOfOpenHornlineFavs {
+    
     if (!_arrayOfOpenHornlineFavs) {
         _arrayOfOpenHornlineFavs = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenHornlineFavs;
 }
 
+-(NSMutableArray *)arrayOfAllAgeHornlineFavs {
+    
+    if (!_arrayOfAllAgeHornlineFavs) {
+        _arrayOfAllAgeHornlineFavs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeHornlineFavs;
+}
+
 
 
 -(NSMutableArray *)arrayOfWorldPercussionFavs {
+    
     if (!_arrayOfWorldPercussionFavs) {
         _arrayOfWorldPercussionFavs = [[NSMutableArray alloc] init];
     }
@@ -1590,15 +1777,25 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(NSMutableArray *)arrayOfOpenPercussionFavs {
+    
     if (!_arrayOfOpenPercussionFavs) {
         _arrayOfOpenPercussionFavs = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenPercussionFavs;
 }
 
+-(NSMutableArray *)arrayOfAllAgePercussionFavs {
+    
+    if (!_arrayOfAllAgePercussionFavs) {
+        _arrayOfAllAgePercussionFavs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgePercussionFavs;
+}
+
 
 
 -(NSMutableArray *)arrayOfWorldColorguardFavs {
+    
     if (!_arrayOfWorldColorguardFavs) {
         _arrayOfWorldColorguardFavs = [[NSMutableArray alloc] init];
     }
@@ -1606,16 +1803,26 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(NSMutableArray *)arrayOfOpenColorguardFavs {
+    
     if (!_arrayOfOpenColorguardFavs) {
         _arrayOfOpenColorguardFavs = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenColorguardFavs;
 }
 
+-(NSMutableArray *)arrayOfAllAgeColorguardFavs {
+    
+    if (!_arrayOfAllAgeColorguardFavs) {
+        _arrayOfAllAgeColorguardFavs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeColorguardFavs;
+}
+
 
 
 
 -(NSMutableArray *)arrayOfWorldLoudestFavs {
+    
     if (!_arrayOfWorldLoudestFavs) {
         _arrayOfWorldLoudestFavs = [[NSMutableArray alloc] init];
     }
@@ -1623,11 +1830,21 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(NSMutableArray *)arrayOfOpenLoudestFavs {
+    
     if (!_arrayOfOpenLoudestFavs) {
         _arrayOfOpenLoudestFavs = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenLoudestFavs;
 }
+
+-(NSMutableArray *)arrayOfAllAgeLoudestFavs {
+    
+    if (!_arrayOfAllAgeLoudestFavs) {
+        _arrayOfAllAgeLoudestFavs = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeLoudestFavs;
+}
+
 - (IBAction)btnInfo_clicked:(id)sender {
     
     CBRankingsInfoView *myCustomXIBViewObj =
@@ -1647,6 +1864,7 @@ BOOL isDoneSortingScores = NO;
 }
 
 -(void)viewDidClose {
+    
     for (UIView *sub in self.view.subviews) {
         if (![sub isKindOfClass: [CBRankingsInfoView class]]) {
             sub.userInteractionEnabled = YES;

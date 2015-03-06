@@ -25,6 +25,7 @@ int votedFavorites;
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
 @property (strong, nonatomic) NSMutableArray *arrayOfOpenClassScores;
+@property (strong, nonatomic) NSMutableArray *arrayOfAllAgeClassScores;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblShowDate;
 @property (weak, nonatomic) IBOutlet UILabel *lblShowName;
@@ -229,7 +230,7 @@ int votedFavorites;
 
 -(void)getScoresForShow {
 
-    if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count]) {
+    if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count] ) {
         
         PFQuery *query = [PFQuery queryWithClassName:@"scores"];
         [query whereKey:@"show" equalTo:self.show];
@@ -254,11 +255,19 @@ int votedFavorites;
                 if ([objects count]) {
                     for (PFObject *score in objects) {
                         PFObject *corps = score[@"corps"];
-                        BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-                        if (isWorld) {
+                        
+                        if ([corps[@"class"] isEqualToString:@"World"]) {
+                            
                             [self.arrayOfWorldClassScores addObject:score];
-                        } else {
+                            
+                        } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                            
                             [self.arrayOfOpenClassScores addObject:score];
+                            
+                        } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                            
+                            [self.arrayOfAllAgeClassScores addObject:score];
+                            
                         }
                     }
                 } else {
@@ -266,7 +275,6 @@ int votedFavorites;
                 }
                 [self showUIAfterLoad];
             } else {
-                // Log details of the failure
                 NSLog(@"Error getting official scores: %@ %@", error, [error userInfo]);
             }
         }];
@@ -293,7 +301,7 @@ int votedFavorites;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -301,6 +309,7 @@ int votedFavorites;
     switch (section) {
         case 0: return @"World Class";
         case 1: return @"Open Class";
+        case 2: return @"All Age Class";
         default: return @"Error";
     }
 }
@@ -325,6 +334,9 @@ int votedFavorites;
             case 1:
                 if ([self.arrayOfOpenClassScores count]) return [self.arrayOfOpenClassScores count];
                 else return 0;
+            case 2:
+                if ([self.arrayOfAllAgeClassScores count]) return [self.arrayOfAllAgeClassScores count];
+                else return 0;
             default: return 0;
         }
 }
@@ -344,10 +356,19 @@ int votedFavorites;
     PFObject *corps;
     PFObject *score;
     
-    if ([indexPath section] == 0) {
-        if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
-    } else {
-        if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
+    switch (indexPath.section) {
+        case 0: //world
+            if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
+            break;
+        case 1: //open
+            if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
+            break;
+        case 2: //all age
+            if ([self.arrayOfAllAgeClassScores count]) score = [self.arrayOfAllAgeClassScores objectAtIndex:[indexPath row]];
+            break;
+            
+        default:
+            break;
     }
     
     NSString *exc = score[@"exception"];
@@ -375,7 +396,6 @@ int votedFavorites;
     }
    
     imgLogo = (PFImageView *)[cell viewWithTag:4];
-
 
     if (score) {
         corps = score[@"corps"];
@@ -417,6 +437,14 @@ int votedFavorites;
         _arrayOfOpenClassScores = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenClassScores;
+}
+
+-(NSMutableArray *)arrayOfAllAgeClassScores {
+    
+    if (!_arrayOfAllAgeClassScores) {
+        _arrayOfAllAgeClassScores = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeClassScores;
 }
 
 - (IBAction)btnEndShow_tapped:(id)sender {
@@ -462,12 +490,15 @@ int votedFavorites;
         vc.show = self.show;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
+        vc.arrayOfAllAgeClassScores = self.arrayOfAllAgeClassScores;
+        
     } else if ([segue.identifier isEqualToString:@"endShow"]) {
         
         CBEndShowViewController *vc = [segue destinationViewController];
         vc.show = self.show;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
+        vc.arrayOfAllAgeClassScores = self.arrayOfAllAgeClassScores;
         
     }
 }

@@ -19,6 +19,7 @@
 @property (nonatomic, strong) PFObject *show;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClassScores;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClassScores;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeClassScores;
 
 @property (nonatomic, weak) id <CBJudgeViewControllerDelegate> delegate;
 
