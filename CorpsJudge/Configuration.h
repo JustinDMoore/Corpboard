@@ -11,6 +11,7 @@
 #import "JustinHelper.h"
 
 @interface Configuration : NSObject
+
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpsObjects;
 
 -(void)createAllCorps;
