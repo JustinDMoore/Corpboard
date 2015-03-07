@@ -928,12 +928,11 @@ NSString *const KILTIES = @"Kilties";
     [score saveInBackground];
 }
 
--(void)addCorps:(NSString *)corpsName corpClass:(NSString *)corpClass {
+-(void)addCorps:(NSString *)corpsName class:(NSString *)corpsClass {
     
     PFObject *newCorps = [PFObject objectWithClassName:@"corps"];
     newCorps[@"corpsName"] = corpsName;
-    newCorps[@"class"] = corpClass;
-    newCorps[@"isActive"] = [NSNumber numberWithBool:YES];
+    newCorps[@"class"] = corpsClass;
     [newCorps saveInBackground];
 }
 
