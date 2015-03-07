@@ -3563,10 +3563,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="00.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-zg-7v8">
-                                                    <rect key="frame" x="533" y="7" width="59" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="00.000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-zg-7v8">
+                                                    <rect key="frame" x="528" y="7" width="64" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="59" id="7T7-12-RQh"/>
+                                                        <constraint firstAttribute="width" constant="64" id="7T7-12-RQh"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES"/>
@@ -3575,7 +3575,7 @@
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gak-j3-pbv">
-                                                    <rect key="frame" x="16" y="13" width="504" height="20"/>
+                                                    <rect key="frame" x="16" y="14" width="504" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3584,8 +3584,8 @@
                                             <constraints>
                                                 <constraint firstItem="VH9-zg-7v8" firstAttribute="trailing" secondItem="HId-O2-5xw" secondAttribute="trailingMargin" id="4ct-so-fBe"/>
                                                 <constraint firstItem="gak-j3-pbv" firstAttribute="leading" secondItem="HId-O2-5xw" secondAttribute="leadingMargin" constant="8" id="S2e-dl-Efy"/>
-                                                <constraint firstItem="VH9-zg-7v8" firstAttribute="leading" secondItem="gak-j3-pbv" secondAttribute="trailing" constant="13" id="ceu-ch-P7D"/>
-                                                <constraint firstAttribute="centerY" secondItem="gak-j3-pbv" secondAttribute="centerY" constant="-1" id="ihX-Ns-d7T"/>
+                                                <constraint firstItem="VH9-zg-7v8" firstAttribute="leading" secondItem="gak-j3-pbv" secondAttribute="trailing" constant="8" id="ceu-ch-P7D"/>
+                                                <constraint firstAttribute="centerY" secondItem="gak-j3-pbv" secondAttribute="centerY" constant="-2" id="ihX-Ns-d7T"/>
                                                 <constraint firstAttribute="centerY" secondItem="VH9-zg-7v8" secondAttribute="centerY" constant="-0.5" id="vTk-o8-gDb"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3781,7 +3781,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6j-0q-52g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3792" y="-224"/>
+            <point key="canvasLocation" x="3792" y="-225"/>
         </scene>
         <!--End Show View Controller-->
         <scene sceneID="anT-CT-UK4">

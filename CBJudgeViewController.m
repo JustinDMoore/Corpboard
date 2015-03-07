@@ -247,7 +247,7 @@ bool backspaced;
     }
     
     if (theTextField.text) {
-        NSString *regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,2}$";
+        NSString *regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,3}$";
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
         if (![pred evaluateWithObject:theTextField.text])
         { // Error, input not matching! Remove last added character.
