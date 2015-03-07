@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfAllCorps;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClass;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClass;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeClass;
 
 //shows
 @property (nonatomic, strong) NSMutableArray *arrayOfAllShows;
@@ -44,24 +45,30 @@
 
 @property (nonatomic, strong) NSMutableArray *arrayOfUserWorldClassRankings;
 @property (nonatomic, strong) NSMutableArray *arrayOfUserOpenClassRankings;
+@property (nonatomic, strong) NSMutableArray *arrayOfUserAllAgeClassRankings;
 
 //user votes
 @property (nonatomic, strong) NSMutableArray *arrayOfAllFavorites;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldHornlineVotes;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenHornlineVotes;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgeHornlineVotes;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldPercussionVotes;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenPercussionVotes;
+@property (nonatomic, strong) NSMutableArray *arrayOfAllAgePercussionVotes;
 
 @property (nonatomic, strong) NSMutableArray *arrayofWorldColorguardVotes;
 @property (nonatomic, strong) NSMutableArray *arrayofOpenColorguardVotes;
+@property (nonatomic, strong) NSMutableArray *arrayofAllAgeColorguardVotes;
 
 @property (nonatomic, strong) NSMutableArray *arrayofWorldLoudestVotes;
 @property (nonatomic, strong) NSMutableArray *arrayofOpenLoudestVotes;
+@property (nonatomic, strong) NSMutableArray *arrayofAllAgeLoudestVotes;
 
 @property (nonatomic, strong) NSMutableArray *arrayofWorldFavorites;
 @property (nonatomic, strong) NSMutableArray *arrayofOpenFavorites;
+@property (nonatomic, strong) NSMutableArray *arrayofAllAgeFavorites;
 
 @property (nonatomic) BOOL dataLoaded;
 

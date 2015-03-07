@@ -105,6 +105,7 @@ NSTimer *timer;
     
     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortCorpsDescriptor];
     if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortCorpsDescriptor];
+    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortCorpsDescriptor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,13 +126,14 @@ NSTimer *timer;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     if (section == 0) return @"World Class";
     else if (section == 1) return @"Open Class";
+    else if (section == 2) return @"All Age Class";
     else return @"Error";
 }
 
@@ -139,6 +141,7 @@ NSTimer *timer;
     
     if (section == 0) return [data.arrayOfWorldClass count];
     else if (section == 1) return [data.arrayOfOpenClass count];
+    else if (section == 2) return [data.arrayOfAllAgeClass count];
     else return 0;
 }
 
@@ -169,7 +172,6 @@ NSTimer *timer;
                 imgCorps.image = nil;
                 NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
             }
-   
         }
     } else if (indexPath.section == 1) {
         if ([data.arrayOfOpenClass count]) {
@@ -191,15 +193,34 @@ NSTimer *timer;
                 imgCorps.image = nil;
                 NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
             }
+        }
+    }  else if (indexPath.section == 2) {
+        if ([data.arrayOfAllAgeClass count]) {
             
+            PFObject *corps;
+            corps = [data.arrayOfAllAgeClass objectAtIndex:indexPath.row];
+            lblcorpsName.text = corps[@"corpsName"];
+            PFFile *imageFile = corps[@"logo"];
+            if (imageFile) {
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
+                    if (!error) {
+                        imgCorps.image = [UIImage imageWithData:data];
+                    } else {
+                        imgCorps.image = nil;
+                        NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+                    }
+                }];
+            } else {
+                imgCorps.image = nil;
+                NSLog(@"Could not display logo for %@", corps[@"corpsName"]);
+            }
         }
     }
     
     return cell;
 }
 
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
 
@@ -209,6 +230,7 @@ NSTimer *timer;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 3, tableView.bounds.size.width - 10, 18)];
     if (section == 0) label.text = @"World Class";
     else if (section == 1) label.text = @"Open Class";
+    else if (section == 2) label.text = @"All Age Class";
     label.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.75];
     label.backgroundColor = [UIColor clearColor];
     [view addSubview:label];
@@ -224,6 +246,8 @@ PFObject *corpsToOpen;
         corpsToOpen = [data.arrayOfWorldClass objectAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
         corpsToOpen = [data.arrayOfOpenClass objectAtIndex:indexPath.row];
+    } else if (indexPath.section == 2) {
+        corpsToOpen = [data.arrayOfAllAgeClass objectAtIndex:indexPath.row];
     }
     
     [self performSegueWithIdentifier:@"corpDetail" sender:self];

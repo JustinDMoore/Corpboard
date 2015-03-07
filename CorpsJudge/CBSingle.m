@@ -99,14 +99,26 @@
             for (PFObject *corps in objects) {
                 BOOL active = [corps[@"active"] boolValue];
                 if (active) {
-                    BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-                    if (isWorld) [self.arrayOfWorldClass addObject:corps];
-                    else [self.arrayOfOpenClass addObject:corps];
+
+                    if ([corps[@"class"] isEqualToString:@"World"]) {
+                        
+                        [self.arrayOfWorldClass addObject:corps];
+                        
+                    } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                        
+                        [self.arrayOfOpenClass addObject:corps];
+                        
+                    } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                        
+                        [self.arrayOfAllAgeClass addObject:corps];
+                        
+                    }
                 }
             }
             
             self.updatedCorps = YES;
             [self didWeFinish];
+            
         } else {
             
             NSLog(@"Error getting all shows: %@ %@", error, [error userInfo]);
@@ -175,14 +187,23 @@
     if ([results count]) {
         NSMutableArray *world = [[NSMutableArray alloc] init];
         NSMutableArray *open = [[NSMutableArray alloc] init];
+        NSMutableArray *allage = [[NSMutableArray alloc] init];
         
         for (PFObject *score in results) {
             PFObject *corps = score[@"corps"];
-            BOOL isWorld = [corps[@"isWorldClass"] boolValue];
-            if (isWorld) {
+            
+            if ([corps[@"class"] isEqualToString:@"World"]) {
+                
                 [world addObject:score];
-            } else {
+                
+            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                
                 [open addObject:score];
+                
+            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                
+                [allage addObject:score];
+                
             }
         }
         
@@ -242,6 +263,14 @@
     return _arrayOfUserOpenClassRankings;
 }
 
+-(NSMutableArray *)arrayOfUserAllAgeClassRankings {
+    
+    if (!_arrayOfUserAllAgeClassRankings) {
+        _arrayOfUserAllAgeClassRankings = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfUserAllAgeClassRankings;
+}
+
 -(NSMutableArray *)arrayOfAllCorps {
     
     if (!_arrayOfAllCorps) {
@@ -274,6 +303,14 @@
     return _arrayOfOpenClass;
 }
 
+-(NSMutableArray *)arrayOfAllAgeClass {
+    
+    if (!_arrayOfAllAgeClass) {
+        _arrayOfAllAgeClass = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeClass;
+}
+
 -(NSMutableArray *)arrayOfWorldHornlineVotes {
     
     if (!_arrayOfWorldHornlineVotes) {
@@ -288,6 +325,14 @@
         _arrayOfOpenHornlineVotes = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenHornlineVotes;
+}
+
+-(NSMutableArray *)arrayOfAllAgeHornlineVotes {
+    
+    if (!_arrayOfAllAgeHornlineVotes) {
+        _arrayOfAllAgeHornlineVotes = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeHornlineVotes;
 }
 
 
@@ -305,6 +350,14 @@
         _arrayOfOpenPercussionVotes = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenPercussionVotes;
+}
+
+-(NSMutableArray *)arrayOfAllAgePercussionVotes {
+    
+    if (!_arrayOfAllAgePercussionVotes) {
+        _arrayOfAllAgePercussionVotes = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgePercussionVotes;
 }
 
 -(NSMutableArray *)arrayOfAllFavorites {
@@ -331,6 +384,14 @@
     return _arrayofOpenColorguardVotes;
 }
 
+-(NSMutableArray *)arrayofAllAgeColorguardVotes {
+    
+    if (!_arrayofAllAgeColorguardVotes) {
+        _arrayofAllAgeColorguardVotes = [[NSMutableArray alloc] init];
+    }
+    return _arrayofAllAgeColorguardVotes;
+}
+
 -(NSMutableArray *)arrayofWorldLoudestVotes {
     
     if (!_arrayofWorldLoudestVotes) {
@@ -345,6 +406,14 @@
         _arrayofOpenLoudestVotes = [[NSMutableArray alloc] init];
     }
     return _arrayofOpenLoudestVotes;
+}
+
+-(NSMutableArray *)arrayofAllAgeLoudestVotes {
+    
+    if (!_arrayofAllAgeLoudestVotes) {
+        _arrayofAllAgeLoudestVotes = [[NSMutableArray alloc] init];
+    }
+    return _arrayofAllAgeLoudestVotes;
 }
 
 -(NSMutableArray *)arrayofWorldFavorites {
@@ -363,5 +432,12 @@
     return _arrayofOpenFavorites;
 }
 
+-(NSMutableArray *)arrayofAllAgeFavorites {
+    
+    if (!_arrayofAllAgeFavorites) {
+        _arrayofAllAgeFavorites = [[NSMutableArray alloc] init];
+    }
+    return _arrayofAllAgeFavorites;
+}
 
 @end

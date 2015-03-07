@@ -151,6 +151,18 @@
         if (![perc length]) return NO;
         if (![brass length]) return NO;
     }
+    
+    for (PFObject *score in self.arrayOfAllAgeClassScores) {
+        total = score[@"score"];
+        guard = score[@"colorguardScore"];
+        perc = score[@"percussionScore"];
+        brass = score[@"hornlineScore"];
+        
+        if (![total length]) return NO;
+        if (![guard length]) return NO;
+        if (![perc length]) return NO;
+        if (![brass length]) return NO;
+    }
     return YES;
 }
 
@@ -166,6 +178,8 @@
             score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
         } else if (indexPath.section == 1) {
             score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        } else if (indexPath.section == 2) {
+            score = [self.arrayOfAllAgeClassScores objectAtIndex:indexPath.row];
         }
         if (score) {
             score[@"colorguardScore"] = @"0";
@@ -193,6 +207,8 @@
             score = [self.arrayOfWorldClassScores objectAtIndex:indexPath.row];
         } else if (indexPath.section == 1) {
             score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        } else if (indexPath.section == 2) {
+            score = [self.arrayOfAllAgeClassScores objectAtIndex:indexPath.row];
         }
         if (score) {
             score[@"colorguardScore"] = @"0";
@@ -253,6 +269,8 @@
     if (!over) {
         [self saveScores:self.arrayOfWorldClassScores];
         [self saveScores:self.arrayOfOpenClassScores];
+        [self saveScores:self.arrayOfAllAgeClassScores];
+        
         [self.show removeObjectForKey:@"exception"];
         self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
         [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -364,6 +382,21 @@
             }];
         }
     }
+    
+    if ([self.arrayOfAllAgeClassScores count]) {
+        for (PFObject *score in self.arrayOfAllAgeClassScores) {
+            
+            score[@"exception"] = @"Rained Out";
+            score[@"score"] = @"0";
+            score[@"colorguardScore"] = @"0";
+            score[@"hornlineScore"] = @"0";
+            score[@"percussionScore"] = @"0";
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+                [self initUI];
+            }];
+        }
+    }
 }
 
 #pragma mark
@@ -379,6 +412,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
     self.currentResponder = textField;
 }
 
@@ -469,6 +503,8 @@ bool backspaced;
             
         } else if (indexPath.section == 1) {
             score = [self.arrayOfOpenClassScores objectAtIndex:indexPath.row];
+        } else if (indexPath.section == 2) {
+            score = [self.arrayOfAllAgeClassScores objectAtIndex:indexPath.row];
         }
         
         switch (textField.tag) {
@@ -507,7 +543,7 @@ bool backspaced;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -517,6 +553,8 @@ bool backspaced;
             return @"World Class";
         case 1:
             return @"Open Class";
+        case 2:
+            return @"All Age Class";
         default:
             return @"Error";
     }
@@ -530,6 +568,9 @@ bool backspaced;
             else return 0;
         case 1:
             if ([self.arrayOfOpenClassScores count]) return [self.arrayOfOpenClassScores count];
+            else return 0;
+        case 2:
+            if ([self.arrayOfAllAgeClassScores count]) return [self.arrayOfAllAgeClassScores count];
             else return 0;
         default: return 0;
     }
@@ -584,9 +625,12 @@ BOOL finished = NO;
     
     if ([indexPath section] == 0) {
         if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
-    } else {
+    } else if ([indexPath section] == 1){
         if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
+    } else if ([indexPath section] == 2){
+        if ([self.arrayOfAllAgeClassScores count]) score = [self.arrayOfAllAgeClassScores objectAtIndex:[indexPath row]];
     }
+    
     if (score) {
         corps = score[@"corps"];
 
@@ -644,6 +688,13 @@ BOOL finished = NO;
         _arrayOfOpenClassScores = [[NSMutableArray alloc] init];
     }
     return _arrayOfOpenClassScores;
+}
+
+-(NSMutableArray *)arrayOfAllAgeClassScores {
+    if (!_arrayOfAllAgeClassScores) {
+        _arrayOfAllAgeClassScores = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeClassScores;
 }
 
 @end

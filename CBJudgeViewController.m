@@ -22,6 +22,12 @@ PFObject *favGuardO;
 PFObject *favCorpsO;
 PFObject *loudHornlineO;
 
+PFObject *favDrumsA;
+PFObject *favHornlineA;
+PFObject *favGuardA;
+PFObject *favCorpsA;
+PFObject *loudHornlineA;
+
 NSInteger currentRowIndex;
 
 CBSingle *data;
@@ -47,6 +53,7 @@ typedef enum : int {
 //WScores and OScores are only to save user scores once they click 'next' and the table cells are lost
 @property (nonatomic, strong) NSMutableArray *WScores;
 @property (nonatomic, strong) NSMutableArray *OScores;
+@property (nonatomic, strong) NSMutableArray *AScores;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
 @property (nonatomic, strong) UITextView *currentTextView;
@@ -104,8 +111,7 @@ typedef enum : int {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     
     [super viewDidLoad];
     
@@ -129,6 +135,7 @@ typedef enum : int {
     
     self.OScores = [[NSMutableArray alloc] init];//WithCapacity:[self.arrayOfOpenClassScores count]];
     self.WScores = [[NSMutableArray alloc] init];//WithCapacity:[self.arrayOfWorldClassScores count]];
+    self.AScores = [[NSMutableArray alloc] init];
     
     if ([self.arrayOfWorldClassScores count]) {
         for (int i = 0; i < [self.arrayOfWorldClassScores count]; i++ ) {
@@ -155,6 +162,19 @@ typedef enum : int {
         }
     }
     
+    if ([self.arrayOfAllAgeClassScores count]) {
+        for (int i = 0; i < [self.arrayOfAllAgeClassScores count]; i++ ) {
+            
+            PFObject *score = [self.arrayOfAllAgeClassScores objectAtIndex:i];
+            UserScore *us = [[UserScore alloc] init];
+            us.corps = score[@"corps"];
+            us.score = 0;
+            [self.AScores addObject:us];
+            
+            //[self.OScores addObject:@"0"];
+        }
+    }
+    
     
      favDrumsW = nil;
      favHornlineW = nil;
@@ -168,6 +188,12 @@ typedef enum : int {
      favCorpsO = nil;
      loudHornlineO = nil;
     
+    favDrumsA = nil;
+    favHornlineA = nil;
+    favGuardA = nil;
+    favCorpsA = nil;
+    loudHornlineA = nil;
+    
     self.tableCorps.allowsSelection = YES;
     self.scorePhase = phaseScore;
     self.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -176,8 +202,6 @@ typedef enum : int {
     //self.tableCorps.hidden = YES;
     //[self.activity startAnimating];
    
-    
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignOnTap:)];
     [singleTap setNumberOfTapsRequired:1];
     [singleTap setNumberOfTouchesRequired:1];
@@ -273,6 +297,11 @@ bool backspaced;
         score.score = [textField.text doubleValue];
         //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
         //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
+    } else if (indexPath.section == 2) {
+        UserScore *score = [self.AScores objectAtIndex:indexPath.row];
+        score.score = [textField.text doubleValue];
+        //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+        //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
     }
 }
 
@@ -337,14 +366,16 @@ bool backspaced;
     }
 }
 
--(void)submitFavorite:(category)cat forWorldClass:(BOOL)isWorld forCorps:(PFObject *)corp {
+-(void)submitFavorite:(category)cat forClass:(NSString *)corpClass forCorps:(PFObject *)corp {
     
     if (corp) {
         NSMutableArray *classArray;
-        if (isWorld) {
+        if ([corpClass isEqualToString:@"World"]) {
             classArray = self.arrayOfWorldClassScores;
-        } else {
+        } else if ([corpClass isEqualToString:@"Open"]) {
             classArray = self.arrayOfOpenClassScores;
+        } else if ([corpClass isEqualToString:@"All Age"]) {
+            classArray = self.arrayOfAllAgeClassScores;
         }
         
         PFObject *favorite = [PFObject objectWithClassName:@"favorites"];
@@ -356,7 +387,7 @@ bool backspaced;
         //PFObject *corps = score[@"corps"];
         favorite[@"corpsName"] = corp[@"corpsName"];
         favorite[@"corps"] = corp;
-        favorite[@"isWorldClass"] = [NSNumber numberWithBool:isWorld];
+        favorite[@"class"] = corpClass;
         [favorite saveInBackground];
     }
 }
@@ -364,20 +395,23 @@ bool backspaced;
 -(void)submitUserFavorites {
 
     
-    [self submitFavorite:catdrums
-           forWorldClass:YES
-                forCorps:favDrumsW];
+    [self submitFavorite:catdrums forClass:@"World" forCorps:favDrumsW];
+    [self submitFavorite:cathornline forClass:@"World" forCorps:favHornlineW];
+    [self submitFavorite:catguard forClass:@"World" forCorps:favGuardW];
+    [self submitFavorite:catcorps forClass:@"World" forCorps:favCorpsW];
+    [self submitFavorite:catloud forClass:@"World" forCorps:loudHornlineW];
     
-    [self submitFavorite:cathornline forWorldClass:YES forCorps:favHornlineW];
-    [self submitFavorite:catguard forWorldClass:YES forCorps:favGuardW];
-    [self submitFavorite:catcorps forWorldClass:YES forCorps:favCorpsW];
-    [self submitFavorite:catloud forWorldClass:YES forCorps:loudHornlineW];
+    [self submitFavorite:catdrums forClass:@"Open" forCorps:favDrumsO];
+    [self submitFavorite:cathornline forClass:@"Open" forCorps:favHornlineO];
+    [self submitFavorite:catguard forClass:@"Open" forCorps:favGuardO];
+    [self submitFavorite:catcorps forClass:@"Open" forCorps:favCorpsO];
+    [self submitFavorite:catloud forClass:@"Open" forCorps:loudHornlineO];
     
-    [self submitFavorite:catdrums forWorldClass:NO forCorps:favDrumsO];
-    [self submitFavorite:cathornline forWorldClass:NO forCorps:favHornlineO];
-    [self submitFavorite:catguard forWorldClass:NO forCorps:favGuardO];
-    [self submitFavorite:catcorps forWorldClass:NO forCorps:favCorpsO];
-    [self submitFavorite:catloud forWorldClass:NO forCorps:loudHornlineO];
+    [self submitFavorite:catdrums forClass:@"All Age" forCorps:favDrumsA];
+    [self submitFavorite:cathornline forClass:@"All Age" forCorps:favHornlineA];
+    [self submitFavorite:catguard forClass:@"All Age" forCorps:favGuardA];
+    [self submitFavorite:catcorps forClass:@"All Age" forCorps:favCorpsA];
+    [self submitFavorite:catloud forClass:@"All Age" forCorps:loudHornlineA];
     
 }
 
@@ -393,7 +427,7 @@ bool backspaced;
             score[@"corpsName"] = us.corps[@"corpsName"];
             score[@"isOfficial"] = [NSNumber numberWithBool:NO];
             score[@"user"] = [PFUser currentUser];
-            score[@"isWorldClass"] = [NSNumber numberWithBool:YES];
+            score[@"class"] = @"World";
             score[@"showDate"] = self.show[@"showDate"];
             
             [score saveInBackground];
@@ -410,26 +444,29 @@ bool backspaced;
             score[@"corpsName"] = us.corps[@"corpsName"];
             score[@"isOfficial"] = [NSNumber numberWithBool:NO];
             score[@"user"] = [PFUser currentUser];
-            score[@"isWorldClass"] = [NSNumber numberWithBool:NO];
+            score[@"class"] = @"Open";
             score[@"showDate"] = self.show[@"showDate"];
             
             [score saveInBackground];
         }
     }
-//    
-//    PFObject *score = [PFObject objectWithClassName:@"scores"];
-//    
-//    [score setObject:corpsForScore forKey:@"corps"];
-//    [score setObject:self.show forKey:@"show"];
-//    score[@"score"] = corpsScore;
-//    score[@"corpsName"] = corpsForScore[@"corpsName"];
-//    score[@"isOfficial"] = [NSNumber numberWithBool:NO];
-//    score[@"user"] = [PFUser currentUser];
-//    score[@"isWorldClass"] = corpsForScore[@"isWorldClass"];
-//    score[@"showDate"] = self.show[@"showDate"];
-//    
-//    [score saveInBackground];
-
+    
+    for (UserScore *us in self.AScores) {
+        
+        if (us.score > 0) {
+            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            score[@"corps"] = us.corps;
+            score[@"score"] = us.scoreString;
+            score[@"show"] = self.show;
+            score[@"corpsName"] = us.corps[@"corpsName"];
+            score[@"isOfficial"] = [NSNumber numberWithBool:NO];
+            score[@"user"] = [PFUser currentUser];
+            score[@"class"] = @"Open";
+            score[@"showDate"] = self.show[@"showDate"];
+            
+            [score saveInBackground];
+        }
+    }
 }
 
 - (IBAction)previousPhase:(id)sender {
@@ -448,7 +485,7 @@ bool backspaced;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -456,6 +493,7 @@ bool backspaced;
     switch (section) {
         case 0: return @"World Class";
         case 1: return @"Open Class";
+        case 2: return @"All Age Class";
         default: return @"Error";
     }
 }
@@ -480,6 +518,15 @@ bool backspaced;
                     return [self.arrayOfOpenClassScores count] + 5;
                 } else {
                     return [self.arrayOfOpenClassScores count];
+                }
+            } else return 0;
+        case 2:
+            if ([self.arrayOfAllAgeClassScores count]) {
+                
+                if (self.scorePhase == phaseSummary) {
+                    return [self.arrayOfAllAgeClassScores count] + 5;
+                } else {
+                    return [self.arrayOfAllAgeClassScores count];
                 }
             } else return 0;
         default: return 0;
@@ -514,6 +561,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     favDrumsO = us.corps;
                 }
             }
+            
+            if (indexPath.section == 2) {
+                UserScore *us = [self.AScores objectAtIndex:indexPath.row];
+                if (favDrumsA == us.corps) {
+                    favDrumsA = nil;
+                } else {
+                    favDrumsA = us.corps;
+                }
+            }
 
             break;
         case phaseBestguard:
@@ -532,6 +588,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     favGuardO = nil;
                 } else {
                     favGuardO = us.corps;
+                }
+            }
+            
+            if (indexPath.section == 2) {
+                UserScore *us = [self.AScores objectAtIndex:indexPath.row];
+                if (favGuardA == us.corps) {
+                    favGuardA = nil;
+                } else {
+                    favGuardA = us.corps;
                 }
             }
             break;
@@ -553,6 +618,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     favHornlineO = us.corps;
                 }
             }
+            
+            if (indexPath.section == 2) {
+                UserScore *us = [self.AScores objectAtIndex:indexPath.row];
+                if (favHornlineA == us.corps) {
+                    favHornlineA = nil;
+                } else {
+                    favHornlineA = us.corps;
+                }
+            }
             break;
         case phaseFavorite:
             if (indexPath.section == 0) {
@@ -572,6 +646,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     favCorpsO = us.corps;
                 }
             }
+            
+            if (indexPath.section == 2) {
+                UserScore *us = [self.AScores objectAtIndex:indexPath.row];
+                if (favCorpsA == us.corps) {
+                    favCorpsA = nil;
+                } else {
+                    favCorpsA = us.corps;
+                }
+            }
             break;
         case phaseLoudesthornline:
             if (indexPath.section == 0) {
@@ -589,6 +672,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     loudHornlineO = nil;
                 } else {
                     loudHornlineO = us.corps;
+                }
+            }
+            
+            if (indexPath.section == 2) {
+                UserScore *us = [self.AScores objectAtIndex:indexPath.row];
+                if (loudHornlineA == us.corps) {
+                    loudHornlineA = nil;
+                } else {
+                    loudHornlineA = us.corps;
                 }
             }
             break;
@@ -619,7 +711,14 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                 if ([self.OScores count]) score = [self.OScores objectAtIndex:[indexPath row]];
             }
         }
+    } else if ([indexPath section] == 2) {
+        if ([self.AScores count]) {
+            if (indexPath.row < [self.AScores count]) {
+                if ([self.AScores count]) score = [self.AScores objectAtIndex:[indexPath row]];
+            }
+        }
     }
+
     
         if (score) corps = score.corps;
     
@@ -662,6 +761,16 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     } else text.text = scoreString;
                 }
                 break;
+            case 2:
+                if ([self.AScores count]) {
+                    UserScore *score = [self.AScores objectAtIndex:indexPath.row];
+                    scoreString = score.scoreString;
+                    //scoreString = [self.OScores objectAtIndex:indexPath.row];
+                    if (score.score == 0)  {
+                        text.text = @"";
+                    } else text.text = scoreString;
+                }
+                break;
             default:
                 text.text = @"Error";
                 break;
@@ -678,6 +787,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
             }
         } else if (indexPath.section == 1) {
             if (indexPath.row + 1 <= [self.OScores count]) {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"favorite"];
+            } else {
+                cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"caption"];
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row + 1 <= [self.AScores count]) {
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"favorite"];
             } else {
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"caption"];
@@ -747,8 +862,8 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                             detailText = blank;
                         }
                     } else {
-//                        //cell.detailTextLabel.text = [self.WScores objectForKey:[NSString stringWithFormat:@"%d", (int)indexPath.row]];
-//                        detailText = [self.WScores objectAtIndex:indexPath.row];
+                        //                        //cell.detailTextLabel.text = [self.WScores objectForKey:[NSString stringWithFormat:@"%d", (int)indexPath.row]];
+                        //                        detailText = [self.WScores objectAtIndex:indexPath.row];
                     }
                     break;
                 }
@@ -810,12 +925,72 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                     }
                     
                     break;
-                default:
-                    mainText = @"Main Error";
-                    detailText =  @"Detail Error";
+                }
+                
+            case 2: // all age class
+                if ([self.arrayOfAllAgeClassScores count]) {
+                    if (indexPath.row < [self.arrayOfAllAgeClassScores count]) {
+                        mainText = corps[@"corpsName"];
+                        UserScore *score = [self.AScores objectAtIndex:indexPath.row];
+                        detailText = score.scoreString;
+                        //detailText = [self.OScores objectAtIndex:indexPath.row];
+                        NSString *s;
+                        //s = [self.OScores objectAtIndex:indexPath.row];
+                        s = detailText;
+                        if (s) {
+                            if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
+                                detailText = @"Not Scored";
+                        } else detailText = s;
+                    } else if (indexPath.row == [self.arrayOfAllAgeClassScores count]) {
+                        mainText = @"Best Percussion";
+                        img.image = [UIImage imageNamed:@"drum"];
+                        if (favDrumsA) {
+                            detailText = favDrumsA[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
+                    } else if (indexPath.row == [self.arrayOfAllAgeClassScores count] + 1) {
+                        mainText = @"Best Brass";
+                        img.image = [UIImage imageNamed:@"horn"];
+                        if (favHornlineA) {
+                            detailText = favHornlineA[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
+                    } else if (indexPath.row == [self.arrayOfAllAgeClassScores count] + 2) {
+                        mainText = @"Best Color Guard";
+                        img.image = [UIImage imageNamed:@"flag"];
+                        if (favGuardA) {
+                            detailText = favGuardA[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
+                    } else if (indexPath.row == [self.arrayOfAllAgeClassScores count] + 3) {
+                        mainText = @"Loudest Brass";
+                        img.image = [UIImage imageNamed:@"volume"];
+                        if (loudHornlineA) {
+                            detailText = loudHornlineA[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
+                    } else if (indexPath.row == [self.arrayOfAllAgeClassScores count] + 4) {
+                        mainText = @"Favorite Show";
+                        img.image = [UIImage imageNamed:@"heart"];
+                        if (favCorpsA) {
+                            detailText = favCorpsA[@"corpsName"];
+                        } else {
+                            detailText = blank;
+                        }
+                    }
+                    
                     break;
                 }
-           }
+            default:
+                mainText = @"Main Error";
+                detailText =  @"Detail Error";
+                break;
+        }
+    
         // for phase Summary only
         UILabel *lblPlacement = (UILabel *)[cell viewWithTag:5];
         UILabel *lblCorpName = (UILabel *)[cell viewWithTag:6];
@@ -828,6 +1003,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
             }
         } else if (indexPath.section == 1) {
             if (indexPath.row + 1 <= [self.OScores count]) {
+                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+            } else {
+                lblPlacement.text = @"";
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row + 1 <= [self.AScores count]) {
                 lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
             } else {
                 lblPlacement.text = @"";
@@ -946,6 +1127,61 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         cell.accessoryType = UITableViewCellAccessoryNone;
                     }
                     break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
+        //check the checkmarks for all age class
+        if (indexPath.section == 2) {
+            us = [self.AScores objectAtIndex:indexPath.row];
+            switch (self.scorePhase) {
+                case phaseScore:
+                    //nothing
+                    break;
+                case phaseLoudesthornline:
+                    if (loudHornlineA == us.corps) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    }
+                    else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+                case phaseFavorite:
+                    if (favCorpsA == us.corps) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    }
+                    else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+                case phaseBesthornline:
+                    if (favHornlineA == us.corps) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    }
+                    else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+                case phaseBestguard:
+                    if (favGuardA == us.corps) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    }
+                    else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+                case phaseBestdrums:
+                    if (favDrumsA == us.corps) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    }
+                    else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+                    
                 default:
                     break;
             }
@@ -953,32 +1189,6 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         }
         
     }
-//
-//    
-//    
-//    PFObject *score;
-//    if ([indexPath section] == 0) {
-//        if (indexPath.row < [self.arrayOfWorldClassScores count]) {
-//            if ([self.arrayOfWorldClassScores count]) score = [self.arrayOfWorldClassScores objectAtIndex:[indexPath row]];
-//        }
-//        
-//    } else if ([indexPath section] == 1) {
-//        if (indexPath.row < [self.arrayOfOpenClassScores count]) {
-//            if ([self.arrayOfOpenClassScores count]) score = [self.arrayOfOpenClassScores objectAtIndex:[indexPath row]];
-//        }
-//    }
-//    
-//    if (score) {
-//        PFObject *corps = score[@"corps"];
-//        cell.textLabel.text = corps[@"corpsName"];
-//        NSNumber *totalscore = score[@"score_Total"];
-//        if (totalscore) {
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", totalscore];
-//        } else {
-//            //cell.detailTextLabel.text = @"";
-//        }
-//    }
-    
     
     return cell;
 }
@@ -1088,19 +1298,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     return _arrayOfWorldClassScores;
 }
-//
-//-(NSMutableArray *)WScores {
-//    if (!_WScores) {
-//        _WScores = [[NSMutableArray alloc] init];
-//    }
-//    return _WScores;
-//}
-//
-//-(NSMutableArray *)OScores {
-//    if (!_OScores) {
-//        _OScores = [[NSMutableArray alloc] init];
-//    }
-//    return _OScores;
-//}
+
+-(NSMutableArray *)arrayOfAllAgeClassScores {
+    if (!_arrayOfAllAgeClassScores) {
+        _arrayOfAllAgeClassScores = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllAgeClassScores;
+}
 
 @end
