@@ -17,5 +17,6 @@
 -(void)launchToSpace;
 -(void)startRaining;
 -(void)stopRaining;
-
+-(void)growGrass;
+-(void)killGrass;
 @end

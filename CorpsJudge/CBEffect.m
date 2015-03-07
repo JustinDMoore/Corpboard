@@ -37,7 +37,12 @@ SKEmitterNode *snowFlakeEmitter;
 //wet
 BOOL isRaining = NO;
 
+//grass
+BOOL hasGrass = NO;
+SKSpriteNode *spriteGrass;
+
 -(id)initWithSize:(CGSize)size {
+    
     if (self = [super initWithSize:size]) {
        
         self.backgroundColor = [SKColor blackColor];
@@ -52,6 +57,7 @@ BOOL isRaining = NO;
     if (coldOutside) [self stopSnowing];
     if (isChristmas) [self stopCadetSnowing];
     if (isRaining) [self stopRaining];
+    if (hasGrass) [self killGrass];
 }
 
 #pragma mark
@@ -102,6 +108,43 @@ BOOL isRaining = NO;
     self.rainEmitter.particleLifetime = 0;
     self.rainEmitter.particleLifetimeRange = 0;
     isRaining = NO;
+}
+
+#pragma mark
+#pragma mark - Always Greener
+#pragma mark
+
+-(void)growGrass {
+    
+    if (!hasGrass) {
+        [self stop];
+        hasGrass = YES;
+        
+        
+        spriteGrass = [SKSpriteNode spriteNodeWithImageNamed:@"grass"];
+        spriteGrass.size = CGSizeMake(self.size.width, 100);
+
+        spriteGrass.position = CGPointMake(CGRectGetMidX(self.frame), 0 - spriteGrass.size.height);
+        
+        spriteGrass.alpha = 0;
+        [self addChild:spriteGrass];
+        SKAction *show = [SKAction fadeAlphaTo:1 duration:.5];
+        SKAction *move = [SKAction moveToY:0 + (spriteGrass.size.height / 2) duration:.5];
+        SKAction *group = [SKAction group:@[show, move]];
+        [spriteGrass runAction:group];
+    }
+}
+
+-(void)killGrass {
+    
+    hasGrass = NO;
+    SKAction *kill = [SKAction fadeAlphaTo:0 duration:3];
+    SKAction *kill2 = [SKAction colorizeWithColor:[UIColor redColor] colorBlendFactor:1 duration:2];
+    SKAction *move = [SKAction moveToY:0 duration:3];
+    SKAction *group = [SKAction group:@[kill, kill2, move]];
+    [spriteGrass runAction:group completion:^{
+        [spriteGrass removeFromParent];
+    }];
 }
 
 #pragma mark

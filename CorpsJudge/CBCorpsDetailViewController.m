@@ -450,6 +450,8 @@ NSMutableArray *arrayOfRows;
         lblShowTitle.text = [NSString stringWithFormat:@"E = MC%@", superscript2];
     } else if ([lblShowTitle.text isEqualToString:@"Out Of This World"]) {
         [self.scene launchToSpace];
+    } else if ([lblShowTitle.text isEqualToString:@"The Grass is Always Greener"]) {
+        [self.scene growGrass];
     } else {
         lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
         [self.scene stop];
