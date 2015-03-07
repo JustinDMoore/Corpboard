@@ -928,7 +928,7 @@ NSString *const KILTIES = @"Kilties";
     [score saveInBackground];
 }
 
--(void)addCorps:(NSString *)corpsName class:(NSString *)corpsClass {
+-(void)addCorps:(NSString *)corpsName corpClass:(NSString *)corpsClass {
     
     PFObject *newCorps = [PFObject objectWithClassName:@"corps"];
     newCorps[@"corpsName"] = corpsName;
