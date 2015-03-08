@@ -168,10 +168,10 @@ SKSpriteNode *spriteJupiter;
     
     SKAction *show = [SKAction fadeAlphaTo:1 duration:.5];
     
-    SKAction *moveleft = [SKAction moveToX:85 duration:3];
+    SKAction *moveleft = [SKAction moveToX:85 duration:4];
     moveleft.timingMode = SKActionTimingEaseOut;
     
-    SKAction *moveright = [SKAction moveToX:230 duration:4];
+    SKAction *moveright = [SKAction moveToX:230 duration:2];
     moveright.timingMode = SKActionTimingEaseIn;
     
     SKAction *moveGroup = [SKAction sequence:@[moveleft, moveright]];
