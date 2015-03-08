@@ -41,6 +41,11 @@ BOOL isRaining = NO;
 BOOL hasGrass = NO;
 SKSpriteNode *spriteGrass;
 
+//machine
+BOOL machineOn = NO;
+SKSpriteNode *spriteGearLarge;
+SKSpriteNode *spriteGearSmall;
+
 -(id)initWithSize:(CGSize)size {
     
     if (self = [super initWithSize:size]) {
@@ -58,6 +63,7 @@ SKSpriteNode *spriteGrass;
     if (isChristmas) [self stopCadetSnowing];
     if (isRaining) [self stopRaining];
     if (hasGrass) [self killGrass];
+    if (machineOn) [self killTheMachine];
 }
 
 #pragma mark
@@ -120,7 +126,6 @@ SKSpriteNode *spriteGrass;
         [self stop];
         hasGrass = YES;
         
-        
         spriteGrass = [SKSpriteNode spriteNodeWithImageNamed:@"grass"];
         spriteGrass.size = CGSizeMake(self.size.width, 100);
 
@@ -144,6 +149,61 @@ SKSpriteNode *spriteGrass;
     SKAction *group = [SKAction group:@[kill, kill2, move]];
     [spriteGrass runAction:group completion:^{
         [spriteGrass removeFromParent];
+    }];
+}
+
+#pragma mark
+#pragma mark - Machine
+#pragma mark
+
+-(void)startTheMachine {
+    
+    if (!machineOn) {
+        [self stop];
+        machineOn = YES;
+        
+        spriteGearLarge = [SKSpriteNode spriteNodeWithImageNamed:@"gear_large"];
+        spriteGearSmall = [SKSpriteNode spriteNodeWithImageNamed:@"gear_small"];
+        
+        spriteGearLarge.size = CGSizeMake(100, 100);
+        spriteGearSmall.size = CGSizeMake(75, 75);
+        spriteGearLarge.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        spriteGearSmall.position = CGPointMake(CGRectGetMidX(self.frame) + 60, CGRectGetMidY(self.frame) - 55);
+        
+        spriteGearLarge.alpha = 0;
+        spriteGearSmall.alpha = 0;
+        
+        [self addChild:spriteGearSmall];
+        [self addChild:spriteGearLarge];
+        
+        SKAction *show = [SKAction fadeAlphaTo:.2 duration:2];
+        
+        SKAction *oneRevolutionLarge = [SKAction rotateByAngle:-M_PI*2 duration: 7.0];
+        SKAction *repeatLarge = [SKAction repeatActionForever:oneRevolutionLarge];
+        
+        SKAction *oneRevolutionSmall = [SKAction rotateByAngle:M_PI*2 duration: 4.44];
+        SKAction *repeatSmall = [SKAction repeatActionForever:oneRevolutionSmall];
+        
+        [spriteGearLarge runAction:repeatLarge];
+        [spriteGearSmall runAction:repeatSmall];
+        
+        [spriteGearLarge runAction:show];
+        [spriteGearSmall runAction:show];
+    }
+}
+
+-(void)killTheMachine {
+    
+    machineOn = NO;
+    SKAction *kill = [SKAction fadeAlphaTo:0 duration:3];
+
+    [spriteGearLarge runAction:kill completion:^{
+        if (!machineOn) [spriteGearLarge removeAllActions];
+        if (!machineOn) [spriteGearLarge removeFromParent];
+    }];
+    [spriteGearSmall runAction:kill completion:^{
+        if (!machineOn) [spriteGearSmall removeAllActions];
+        if (!machineOn) [spriteGearSmall removeFromParent];
     }];
 }
 

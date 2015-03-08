@@ -452,12 +452,49 @@ NSMutableArray *arrayOfRows;
         [self.scene launchToSpace];
     } else if ([lblShowTitle.text isEqualToString:@"The Grass is Always Greener"]) {
         [self.scene growGrass];
+    } else if ([lblShowTitle.text isEqualToString:@"XtradorinarY"]) {
+        [self flipCavalier:YES];
+    } else if ([lblShowTitle.text isEqualToString:@"Machine"]) {
+        [self.scene startTheMachine];
     } else {
         lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
         [self.scene stop];
+        if ([self.corps[@"corpsName"] isEqualToString:@"The Cavaliers"]) [self flipCavalier:NO];
     }
     
     return cell;
+}
+
+BOOL upsideDownCavalier = NO;
+-(void)flipCavalier:(BOOL)on {
+    
+    if (on) {
+        if (upsideDownCavalier) {
+            return;
+        } else {
+            upsideDownCavalier = YES;
+            [UIView animateWithDuration:1
+                             animations:^{
+                                 CGFloat radians = atan2f(self.imgCorps.transform.b, self.imgCorps.transform.a);
+                                 CGFloat degrees = radians * (180 / M_PI);
+                                 CGAffineTransform transform = CGAffineTransformMakeRotation((180 + degrees) * M_PI/180);
+                                 self.imgCorps.transform = transform;
+                             }];
+        }
+    } else {
+        if (!upsideDownCavalier) {
+            return;
+        } else {
+            upsideDownCavalier = NO;
+            [UIView animateWithDuration:1
+                             animations:^{
+                                 CGFloat radians = atan2f(self.imgCorps.transform.b, self.imgCorps.transform.a);
+                                 CGFloat degrees = radians * (180 / M_PI);
+                                 CGAffineTransform transform = CGAffineTransformMakeRotation((180 + degrees) * M_PI/180);
+                                 self.imgCorps.transform = transform;
+                             }];
+        }
+    }
 }
 
 -(UITableViewCell *)getRepertoireCell {

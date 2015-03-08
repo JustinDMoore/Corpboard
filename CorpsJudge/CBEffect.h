@@ -19,4 +19,6 @@
 -(void)stopRaining;
 -(void)growGrass;
 -(void)killGrass;
+-(void)startTheMachine;
+-(void)killTheMachine;
 @end

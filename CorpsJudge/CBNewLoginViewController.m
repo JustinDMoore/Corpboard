@@ -50,7 +50,7 @@
     //Configuration *config = [[Configuration alloc] init];
     
     // ****************************************************
-
+    
     if ([PFUser currentUser]) {
         //[KVNProgress showProgress:0 status:@"Signing In"];
         //[KVNProgress updateProgress:.75 animated:YES];
