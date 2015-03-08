@@ -438,6 +438,12 @@ NSMutableArray *arrayOfRows;
         [self TILT:NO];
     }
     
+    if ([lblShowTitle.text isEqualToString:@"XtradorinarY"]) {
+        if (!upsideDownCavalier) [self flipCavalier:YES];
+    } else {
+        if (upsideDownCavalier) if ([self.corps[@"corpsName"] isEqualToString:@"The Cavaliers"]) [self flipCavalier:NO];
+    }
+    
     if ([lblShowTitle.text isEqualToString:@"12.25"]) {
         [self.scene startCadetSnowing];
     } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
@@ -452,14 +458,13 @@ NSMutableArray *arrayOfRows;
         [self.scene launchToSpace];
     } else if ([lblShowTitle.text isEqualToString:@"The Grass is Always Greener"]) {
         [self.scene growGrass];
-    } else if ([lblShowTitle.text isEqualToString:@"XtradorinarY"]) {
-        [self flipCavalier:YES];
     } else if ([lblShowTitle.text isEqualToString:@"Machine"]) {
         [self.scene startTheMachine];
+    } else if ([lblShowTitle.text isEqualToString:@"The Planets"]) {
+        [self.scene showPlanets];
     } else {
         lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
         [self.scene stop];
-        if ([self.corps[@"corpsName"] isEqualToString:@"The Cavaliers"]) [self flipCavalier:NO];
     }
     
     return cell;

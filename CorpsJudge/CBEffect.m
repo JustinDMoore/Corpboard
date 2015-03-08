@@ -46,6 +46,13 @@ BOOL machineOn = NO;
 SKSpriteNode *spriteGearLarge;
 SKSpriteNode *spriteGearSmall;
 
+//planets
+BOOL planetsOn = NO;
+SKSpriteNode *spriteMars;
+SKSpriteNode *spriteMercury;
+SKSpriteNode *spriteVenus;
+SKSpriteNode *spriteJupiter;
+
 -(id)initWithSize:(CGSize)size {
     
     if (self = [super initWithSize:size]) {
@@ -64,6 +71,7 @@ SKSpriteNode *spriteGearSmall;
     if (isRaining) [self stopRaining];
     if (hasGrass) [self killGrass];
     if (machineOn) [self killTheMachine];
+    if (planetsOn) [self hidePlanets];
 }
 
 #pragma mark
@@ -114,6 +122,104 @@ SKSpriteNode *spriteGearSmall;
     self.rainEmitter.particleLifetime = 0;
     self.rainEmitter.particleLifetimeRange = 0;
     isRaining = NO;
+}
+
+#pragma mark
+#pragma mark - Planets
+#pragma mark
+
+-(void)showPlanets {
+    
+    if (!planetsOn) {
+        [self stop];
+        planetsOn = YES;
+        
+        spriteMars = [SKSpriteNode spriteNodeWithImageNamed:@"mars"];
+        spriteMars.size = CGSizeMake(50, 50);
+        spriteMars.position = CGPointMake(300, 400);
+        spriteMars.alpha = 0;
+        spriteMars.name = @"Mars";
+        
+        spriteMercury = [SKSpriteNode spriteNodeWithImageNamed:@"mercury1"];
+        spriteMercury.size = CGSizeMake(20, 20);
+        spriteMercury.position = CGPointMake(300, 400);
+        spriteMercury.alpha = 0;
+        spriteMercury.name = @"Mercury";
+        
+        spriteVenus = [SKSpriteNode spriteNodeWithImageNamed:@"venus"];
+        spriteVenus.size = CGSizeMake(30, 30);
+        spriteVenus.position = CGPointMake(300, 400);
+        spriteVenus.alpha = 0;
+        spriteVenus.name = @"Venus";
+        
+        spriteJupiter = [SKSpriteNode spriteNodeWithImageNamed:@"jupiter"];
+        spriteJupiter.size = CGSizeMake(65, 65);
+        spriteJupiter.position = CGPointMake(300, 400);
+        spriteJupiter.alpha = 0;
+        spriteJupiter.name = @"Jupiter";
+        
+        if (planetsOn) [self rotatePlanet:spriteMars];
+    }
+}
+
+-(void)rotatePlanet:(SKSpriteNode *)planet {
+    
+    [self addChild:planet];
+    
+    SKAction *show = [SKAction fadeAlphaTo:1 duration:.5];
+    
+    SKAction *moveleft = [SKAction moveToX:85 duration:3];
+    moveleft.timingMode = SKActionTimingEaseOut;
+    
+    SKAction *moveright = [SKAction moveToX:230 duration:4];
+    moveright.timingMode = SKActionTimingEaseIn;
+    
+    SKAction *moveGroup = [SKAction sequence:@[moveleft, moveright]];
+    
+    SKAction *movedown;
+    if ([planet.name isEqualToString:@"Jupiter"]) {
+        movedown = [SKAction moveToY:-400 duration:6]; //has to move more because she's bigger
+    } else {
+        movedown = [SKAction moveToY:-200 duration:6];
+    }
+
+    SKAction *grow = [SKAction scaleBy:10 duration:6];
+    SKAction *group = [SKAction group:@[show, moveGroup, movedown, grow]];
+
+    [planet runAction:group completion:^{
+        [planet removeFromParent];
+        if (planetsOn) {
+            if ([planet.name isEqualToString:@"Mars"]) [self rotatePlanet:spriteVenus];
+            if ([planet.name isEqualToString:@"Venus"]) [self rotatePlanet:spriteMercury];
+            if ([planet.name isEqualToString:@"Mercury"]) [self rotatePlanet:spriteJupiter];
+        }
+    }];
+}
+
+-(void)hidePlanets {
+    
+    planetsOn = NO;
+    SKAction *kill = [SKAction fadeAlphaTo:0 duration:1.5];
+    
+    [spriteMars runAction:kill
+               completion:^{
+                   [spriteMars removeFromParent];
+               }];
+    
+    [spriteMercury runAction:kill
+               completion:^{
+                   [spriteMercury removeFromParent];
+               }];
+    
+    [spriteVenus runAction:kill
+               completion:^{
+                   [spriteVenus removeFromParent];
+               }];
+    
+    [spriteJupiter runAction:kill
+               completion:^{
+                   [spriteJupiter removeFromParent];
+               }];
 }
 
 #pragma mark

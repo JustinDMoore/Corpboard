@@ -21,4 +21,6 @@
 -(void)killGrass;
 -(void)startTheMachine;
 -(void)killTheMachine;
+-(void)showPlanets;
+-(void)hidePlanets;
 @end
