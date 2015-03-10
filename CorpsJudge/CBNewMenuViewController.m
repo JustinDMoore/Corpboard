@@ -27,7 +27,7 @@
 CBSingle *data;
 CBNewsSingleton *news;
 
-NSTimer *timerCheckForShows, *timerCheckForCorps, *timerHeadshot, *timerCheckForNews;
+NSTimer *timerCheckForShows, *timerCheckForCorps, *timerBanners, *timerCheckForNews;
 NSString *lastShowString;
 NSString *nextShowString;
 
@@ -94,8 +94,12 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, strong) IBOutlet UIView *viewFeedback;
 
 
-//headshots
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollHeadshots;
+//banners
+@property (nonatomic, retain) NSMutableArray *arrayOfBanners;
+@property (nonatomic, retain) UIImageView *pageOneDoc;
+@property (nonatomic, retain) UIImageView *pageTwoDoc;
+@property (nonatomic, retain) UIImageView *pageThreeDoc;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollBanners;
 
 
 @property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
@@ -168,13 +172,12 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 {
     [super viewDidLoad];
     
+    [self initBanners];
     [self initVariables];
     [self initUI];
 
     [self startTimerForCorps];
-    [self startTimerForHeadshots];
     [self startTimerForNews];
-    
 }
 
 -(void)setupShows {
@@ -206,7 +209,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     news = [CBNewsSingleton news];
     
     [self.collectionNews registerClass:[CBNewsCell class] forCellWithReuseIdentifier:@"CBNewsCell"];
-    [self initHeadshots];
     
     self.navigationItem.backBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:@"    "
@@ -215,16 +217,30 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
                                      action:nil];
 }
 
--(void)initHeadshots {
+-(void)initBanners {
     
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard1"]];
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Santa Clara Vanguard2"]];
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Blue Devils1"]];
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets1"]];
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"The Cadets2"]];
-    [self.arrayOfHeadshots addObject:[UIImage imageNamed:@"Phantom Regiment1"]];
-
-    [self.arrayOfHeadshots shuffle];
+    PFQuery *query = [PFQuery queryWithClassName:@"banners"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+       BOOL shuffle = ([data.objAdmin[@"shuffleBanners"] boolValue]);
+        // do your thing with text
+        if (!error) {
+            for (PFObject *obj in objects) {
+                PFFile *imageFile = [obj objectForKey:@"image"];
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        [self.arrayOfBanners addObject:image];
+                        if ([self.arrayOfBanners count] == [objects count]) {
+        
+                            if (shuffle) [self.arrayOfBanners shuffle];
+                            [self startTimerForBanners];
+                        }
+                        
+                    }
+                }];
+            }
+        }
+    }];
 }
 
 -(void)loadProfile {
@@ -276,7 +292,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.6 );
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.5);
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
@@ -322,22 +338,22 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     self.contentViewShows.exclusiveTouch = YES;
     
     
-    //headshots
+    //banners
     pageOneImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 135)];
     pageTwoImage = [[UIImageView alloc] initWithFrame:CGRectMake(320, 0, 320, 135)];
     pageThreeImage = [[UIImageView alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
 
 
-    [self loadPageWithId:(int)[self.arrayOfHeadshots count] - 1 onPage:0];
+    [self loadPageWithId:(int)[self.arrayOfBanners count] - 1 onPage:0];
 	[self loadPageWithId:0 onPage:1];
 	[self loadPageWithId:1 onPage:2];
     
-    [self.scrollHeadshots addSubview:pageOneImage];
-	[self.scrollHeadshots addSubview:pageTwoImage];
-	[self.scrollHeadshots addSubview:pageThreeImage];
+    [self.scrollBanners addSubview:pageOneImage];
+	[self.scrollBanners addSubview:pageTwoImage];
+	[self.scrollBanners addSubview:pageThreeImage];
     
-    self.scrollHeadshots.contentSize = CGSizeMake(960, 135);
-	[self.scrollHeadshots scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
+    self.scrollBanners.contentSize = CGSizeMake(960, 135);
+	[self.scrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
     
     self.viewAboutTheCorps.layer.cornerRadius = 8;
     self.viewAboutTheCorps.layer.borderColor = [UIColor blackColor].CGColor;
@@ -404,26 +420,29 @@ int newsContentWidth = 0;
 //    }
 }
 
-- (void)loadPageWithId:(int)index onPage:(int)page {
-	// load data for page
-	switch (page) {
-		case 0:
-			pageOneImage.image = [self.arrayOfHeadshots objectAtIndex:index];
-			break;
-		case 1:
-			pageTwoImage.image = [self.arrayOfHeadshots objectAtIndex:index];
-			break;
-		case 2:
-			pageThreeImage.image = [self.arrayOfHeadshots objectAtIndex:index];
-			break;
-	}
+-(void)loadPageWithId:(int)index onPage:(int)page {
+    
+    if ([self.arrayOfBanners count]) {
+        // load data for page
+        switch (page) {
+            case 0:
+                pageOneImage.image = [self.arrayOfBanners objectAtIndex:index];
+                break;
+            case 1:
+                pageTwoImage.image = [self.arrayOfBanners objectAtIndex:index];
+                break;
+            case 2:
+                pageThreeImage.image = [self.arrayOfBanners objectAtIndex:index];
+                break;
+        }
+    }
 }
 
--(void)startTimerForHeadshots {
+-(void)startTimerForBanners {
     
-    timerHeadshot = [NSTimer scheduledTimerWithTimeInterval:1
+    timerBanners = [NSTimer scheduledTimerWithTimeInterval:1
                                                      target:self
-                                                   selector:@selector(scrollToNextHeadshot)
+                                                   selector:@selector(scrollToNextBanner)
                                                    userInfo:nil
                                                     repeats:YES];
 }
@@ -447,12 +466,12 @@ int newsContentWidth = 0;
 }
 
 int counter = 0;
--(void)scrollToNextHeadshot {
+-(void)scrollToNextBanner {
     counter ++;
     if (counter == 5) {
         counter = 0;
         
-       [self.scrollHeadshots scrollRectToVisible:CGRectMake(640,0,320,416) animated:YES];
+       [self.scrollBanners scrollRectToVisible:CGRectMake(640,0,320,416) animated:YES];
     }
 }
 
@@ -461,16 +480,16 @@ int counter = 0;
     // We are moving forward. Load the current doc data on the first page.
     [self loadPageWithId:self.currIndex onPage:0];
     // Add one to the currentIndex or reset to 0 if we have reached the end.
-    self.currIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+    self.currIndex = (self.currIndex >= [self.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
     [self loadPageWithId:self.currIndex onPage:1];
     // Load content on the last page. This is either from the next item in the array
     // or the first if we have reached the end.
-    self.nextIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+    self.nextIndex = (self.currIndex >= [self.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
     [self loadPageWithId:self.nextIndex onPage:2];
     
     
     // Reset offset back to middle page
-    [self.scrollHeadshots scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
+    [self.scrollBanners scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
     
     
 }
@@ -1037,7 +1056,7 @@ bool isScrolling = NO;
         self.newsPage = page;
     }
     
-    if (scrollView == self.scrollHeadshots) {
+    if (scrollView == self.scrollBanners) {
         // the user scrolled manually, so reset the counter
         counter = 0;
     }
@@ -1088,7 +1107,7 @@ CGFloat previousScroll;
         else self.lblShowsHeader.text = nextShowString;
     }
     
-    if (scrollView == self.scrollHeadshots) {
+    if (scrollView == self.scrollBanners) {
      
         // All data for the documents are stored in an array (documentTitles).
         // We keep track of the index that we are scrolling to so that we
@@ -1097,22 +1116,22 @@ CGFloat previousScroll;
             // We are moving forward. Load the current doc data on the first page.
             [self loadPageWithId:self.currIndex onPage:0];
             // Add one to the currentIndex or reset to 0 if we have reached the end.
-            self.currIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+            self.currIndex = (self.currIndex >= [self.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
             [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the last page. This is either from the next item in the array
             // or the first if we have reached the end.
-            self.nextIndex = (self.currIndex >= [self.arrayOfHeadshots count]-1) ? 0 : self.currIndex + 1;
+            self.nextIndex = (self.currIndex >= [self.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
             [self loadPageWithId:self.nextIndex onPage:2];
         }
         if(scrollView.contentOffset.x < scrollView.frame.size.width) {
             // We are moving backward. Load the current doc data on the last page.
             [self loadPageWithId:self.currIndex onPage:2];
             // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-            self.currIndex = (self.currIndex == 0) ? (int)[self.arrayOfHeadshots count]-1 : self.currIndex - 1;
+            self.currIndex = (self.currIndex == 0) ? (int)[self.arrayOfBanners count]-1 : self.currIndex - 1;
             [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the first page. This is either from the prev item in the array
             // or the last if we have reached the beginning.
-            self.prevIndex = (self.currIndex == 0) ? (int)[self.arrayOfHeadshots count]-1 : self.currIndex - 1;
+            self.prevIndex = (self.currIndex == 0) ? (int)[self.arrayOfBanners count]-1 : self.currIndex - 1;
             [self loadPageWithId:self.prevIndex onPage:0];
         }     
         
@@ -1262,11 +1281,11 @@ CGFloat previousScroll;
     return _arrayOfShowsForTable2;
 }
 
--(NSMutableArray *)arrayOfHeadshots {
-    if (!_arrayOfHeadshots) {
-        _arrayOfHeadshots = [[NSMutableArray alloc] init];
+-(NSMutableArray *)arrayOfBanners {
+    if (!_arrayOfBanners) {
+        _arrayOfBanners = [[NSMutableArray alloc] init];
     }
-    return _arrayOfHeadshots;
+    return _arrayOfBanners;
 }
 
 - (IBAction)btnProfile_clicked:(id)sender {

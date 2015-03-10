@@ -14,11 +14,6 @@
 
 }
 
-@property (nonatomic, retain) NSMutableArray *arrayOfHeadshots;
-@property (nonatomic, retain) UIImageView *pageOneDoc;
-@property (nonatomic, retain) UIImageView *pageTwoDoc;
-@property (nonatomic, retain) UIImageView *pageThreeDoc;
-
-- (void)loadPageWithId:(int)index onPage:(int)page;
+-(void)loadPageWithId:(int)index onPage:(int)page;
 
 @end

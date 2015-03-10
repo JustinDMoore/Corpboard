@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -2148,7 +2148,7 @@
                                                     <outlet property="scrollview" destination="SeT-vl-b91" id="8tb-eb-Jqq"/>
                                                 </connections>
                                             </view>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI" userLabel="scrollBanners">
                                                 <rect key="frame" x="0.0" y="34" width="320" height="135"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="603-gO-u9Q" id="jC0-b4-rR7"/>
@@ -2572,7 +2572,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-Bm-tJU">
-                                                <rect key="frame" x="0.0" y="1072" width="320" height="228"/>
+                                                <rect key="frame" x="0.0" y="1072" width="320" height="113"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="© 2015 Drum Corps International" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvc-oY-ZGh">
                                                         <rect key="frame" x="33" y="9" width="255" height="21"/>
@@ -2586,70 +2586,48 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsF-gI-tiR">
-                                                        <rect key="frame" x="111" y="188" width="40" height="40"/>
-                                                        <state key="normal" image="Facebook Logo">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="pvt-la-kJj"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-J5-KOL">
-                                                        <rect key="frame" x="111" y="147" width="40" height="31"/>
-                                                        <state key="normal" image="Twitter Logo">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="Kqr-PD-sAf"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVX-a2-sjg">
-                                                        <rect key="frame" x="105" y="97" width="51" height="42"/>
-                                                        <state key="normal" image="YouTube Logo">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="QRs-6E-9Ua"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7h-uy-mN8">
-                                                        <rect key="frame" x="104" y="50" width="51" height="38"/>
-                                                        <state key="normal" image="DCI Logo">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="hkE-jq-ZHc"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3IP-Z2-HKH">
-                                                        <rect key="frame" x="163" y="103" width="59" height="30"/>
-                                                        <state key="normal" title="YouTube">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAO-ei-cAY">
-                                                        <rect key="frame" x="163" y="58" width="53" height="30"/>
-                                                        <state key="normal" title="DCI.org">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRb-FK-PKS">
-                                                        <rect key="frame" x="164" y="193" width="68" height="30"/>
-                                                        <state key="normal" title="Facebook">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xiz-UW-1Oc">
-                                                        <rect key="frame" x="163" y="148" width="46" height="30"/>
-                                                        <state key="normal" title="Twitter">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GLh-qo-UO0">
+                                                        <rect key="frame" x="55" y="43" width="210" height="70"/>
+                                                        <subviews>
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsF-gI-tiR">
+                                                                <rect key="frame" x="113" y="20" width="30" height="30"/>
+                                                                <state key="normal" image="facebook_lightGrayColor">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="pvt-la-kJj"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7h-uy-mN8">
+                                                                <rect key="frame" x="20" y="20" width="40" height="30"/>
+                                                                <state key="normal" image="dci_lightGrayColor">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="hkE-jq-ZHc"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-J5-KOL">
+                                                                <rect key="frame" x="70" y="20" width="30" height="30"/>
+                                                                <state key="normal" image="twitter_lightGrayColor">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="Kqr-PD-sAf"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVX-a2-sjg">
+                                                                <rect key="frame" x="160" y="20" width="30" height="30"/>
+                                                                <state key="normal" image="youtube_lightGrayColor">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="QRs-6E-9Ua"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
@@ -2688,7 +2666,7 @@
                         <outlet property="lblUserName" destination="TOb-fT-uke" id="zmq-Sa-cKm"/>
                         <outlet property="pageShows" destination="nv4-lc-iVb" id="XVo-Y5-DWr"/>
                         <outlet property="pageTopTwelve" destination="OX4-Y7-p0h" id="YHw-VP-Qdp"/>
-                        <outlet property="scrollHeadshots" destination="pww-Gk-PAI" id="qHF-8b-3gs"/>
+                        <outlet property="scrollBanners" destination="pww-Gk-PAI" id="Q6C-Kr-OWM"/>
                         <outlet property="scrollMain" destination="vWd-nN-xbR" id="Dtv-kZ-Se9"/>
                         <outlet property="scrollTopTwelve" destination="DvV-nE-dui" id="hz7-yf-hSK"/>
                         <outlet property="scrollViewShows" destination="SeT-vl-b91" id="jGM-Aq-xLJ"/>
@@ -4225,16 +4203,12 @@
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
         <image name="Contact" width="450" height="255"/>
-        <image name="DCI Logo" width="1280" height="920"/>
         <image name="DCI_CorpBoard1" width="600" height="600"/>
-        <image name="Facebook Logo" width="1600" height="1600"/>
         <image name="Message" width="48" height="48"/>
         <image name="Santa Clara Vanguard1.png" width="640" height="261"/>
-        <image name="Twitter Logo" width="1139" height="926"/>
         <image name="Upload" width="48" height="48"/>
         <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>
-        <image name="YouTube Logo" width="1024" height="721"/>
         <image name="admin_" width="100" height="72"/>
         <image name="admin_admin" width="48" height="48"/>
         <image name="admin_cancel" width="48" height="48"/>
@@ -4246,9 +4220,11 @@
         <image name="broken" width="48" height="48"/>
         <image name="bug" width="48" height="48"/>
         <image name="close" width="48" height="48"/>
+        <image name="dci_lightGrayColor" width="160" height="107"/>
         <image name="delete" width="48" height="48"/>
         <image name="drum_tab" width="48" height="48"/>
         <image name="edit2" width="48" height="48"/>
+        <image name="facebook_lightGrayColor" width="48" height="48"/>
         <image name="favorite_tab" width="48" height="48"/>
         <image name="flag_tab" width="48" height="48"/>
         <image name="horn_tab" width="48" height="48"/>
@@ -4265,6 +4241,8 @@
         <image name="star_circle" width="64" height="64"/>
         <image name="star_selected.png" width="63" height="63"/>
         <image name="star_unselected.png" width="64" height="62"/>
+        <image name="twitter_lightGrayColor" width="48" height="48"/>
+        <image name="youtube_lightGrayColor" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5XH-ng-dQw"/>
