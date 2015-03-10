@@ -24,6 +24,7 @@
 @property (nonatomic) BOOL updatedAdmin;
 @property (nonatomic) BOOL updatedCorps;
 @property (nonatomic) BOOL updatedShows;
+@property (nonatomic) BOOL updatedBanners;
 
 @property (nonatomic, strong) PFObject *objAdmin;
 @property (nonatomic) int numberOfMessages;
@@ -33,6 +34,7 @@
 
 @property (nonatomic, strong) UIColor *systemColor;
 
+@property (nonatomic, strong) NSMutableArray *arrayOfBanners;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllCorps;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClass;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClass;

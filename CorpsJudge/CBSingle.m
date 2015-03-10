@@ -9,6 +9,7 @@
 #import "CBSingle.h"
 #import "JustinHelper.h"
 #import "AppConstant.h"
+#import "NSMutableArray+Shuffling.h"
 
 @implementation CBSingle
 
@@ -28,6 +29,7 @@
         self.updatedAdmin = NO;
         self.updatedShows = NO;
         self.updatedCorps = NO;
+        self.updatedBanners = NO;
         //self.currentDate = [NSDate date];
         self.currentDate = [JustinHelper dateWithMonth:1 day:1 year:2015];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -79,6 +81,7 @@
     }
     [self getAllCorpsFromServer];
     [self getAllShowsFromServer];
+    [self getBanners];
 }
 
 -(void)getAllCorpsFromServer {
@@ -154,7 +157,8 @@
 
 -(void)didWeFinish {
     
-    if ((self.updatedCorps) && (self.updatedShows) && (self.updatedAdmin)) {
+    if ((self.updatedCorps) && (self.updatedShows) && (self.updatedAdmin) && (self.updatedBanners)) {
+        
         self.dataLoaded = YES;
         if ([delegate respondsToSelector:@selector(dataDidLoad)]) {
             [delegate dataDidLoad];
@@ -257,6 +261,33 @@
         } else {
             
             NSLog(@"Error getting new messages.");
+        }
+    }];
+}
+
+-(void)getBanners {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"banners"];
+    [query whereKey:@"hidden" equalTo:[NSNumber numberWithBool:NO]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        BOOL shuffle = ([self.objAdmin[@"shuffleBanners"] boolValue]);
+        // do your thing with text
+        if (!error) {
+            for (PFObject *obj in objects) {
+                PFFile *imageFile = [obj objectForKey:@"image"];
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        [self.arrayOfBanners addObject:image];
+                        if ([self.arrayOfBanners count] == [objects count]) {
+                            
+                            if (shuffle) [self.arrayOfBanners shuffle];
+                            self.updatedBanners = YES;
+                            [self didWeFinish];
+                        }
+                    }
+                }];
+            }
         }
     }];
 }
@@ -458,6 +489,13 @@
         _arrayofAllAgeFavorites = [[NSMutableArray alloc] init];
     }
     return _arrayofAllAgeFavorites;
+}
+
+-(NSMutableArray *)arrayOfBanners {
+    if (!_arrayOfBanners) {
+        _arrayOfBanners = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfBanners;
 }
 
 @end

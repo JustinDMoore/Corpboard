@@ -142,7 +142,6 @@
         data.updatedAdmin = YES;
     }
     [data refreshCorpsAndShows];
-    
 }
 
 -(void)getFactCount {
