@@ -22,6 +22,7 @@
 #import "JSBadgeView.h"
 #import "CBUserProfileViewController.h"
 #import "CBNewsCell.h"
+#import "CBWebViewController.h"
 
 CBSingle *data;
 CBNewsSingleton *news;
@@ -121,7 +122,9 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 -(IBAction)feedback_clicked:(id)sender;
 -(IBAction)finalsContest_clicked:(id)sender;
 -(IBAction)aboutTheCorps_clicked:(id)sender;
-- (IBAction)seeAllNews_clicked:(id)sender;
+-(IBAction)seeAllNews_clicked:(id)sender;
+-(IBAction)btnLink_tapped:(UIButton *)sender;
+
 
 @end
 
@@ -273,7 +276,7 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.4 );
+    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.6 );
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
@@ -1153,6 +1156,47 @@ CGFloat previousScroll;
 
 - (IBAction)seeAllNews_clicked:(id)sender {
     [self performSegueWithIdentifier:@"news" sender:self];
+}
+
+- (IBAction)btnLink_tapped:(UIButton *)sender {
+
+    if (sender.tag == 1) { // DCI
+        NSString * storyboardName = @"Main";
+        NSString * viewControllerID = @"web";
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+        CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+        web.webURL = @"http://dci.org";
+        web.websiteTitle = @"Drum Corps International";
+        web.websiteSubTitle = @"Marching Music's Major League";
+        
+        [self presentViewController:web animated:YES completion:nil];
+        
+    } else if (sender.tag == 2) { // YouTube
+        
+        NSString *channelName = @"DCIFanNetwork";
+
+        if (![[UIApplication sharedApplication] openURL: [NSURL URLWithString: [NSString stringWithFormat:@"youtube://www.youtube.com/user/%@", channelName]]]) {
+            NSURL *webURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/user/%@", channelName]];
+            [[UIApplication sharedApplication] openURL: webURL];
+        }
+        
+    } else if (sender.tag == 3) { // Facebook
+
+        if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fb://profile/6451869171"]]) {
+            
+            NSURL *webURL = [NSURL URLWithString:@"http://facebook.com/6451869171"];
+            [[UIApplication sharedApplication] openURL: webURL];
+        }
+        
+    } else if (sender.tag == 4) { // Twitter
+    
+        NSString *channelName = @"DCI";
+        
+        if (![[UIApplication sharedApplication] openURL: [NSURL URLWithString: [NSString stringWithFormat:@"twitter://user?screen_name=%@", channelName]]]) {
+            NSURL *webURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://twitter.com/%@", channelName]];
+            [[UIApplication sharedApplication] openURL: webURL];
+        }
+    }
 }
 
 -(NSMutableDictionary *)dateIndex {
