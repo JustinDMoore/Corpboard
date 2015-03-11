@@ -165,21 +165,21 @@
         }
         
         
-//        //for creating new repertoires
+////        //for creating new repertoires
 //        PFObject *corps;
 //        for (PFObject *obj in self.arrayOfAllCorps) {
-//            if ([obj[@"corpsName"] isEqualToString:@"Troopers"]) {
+//            if ([obj[@"corpsName"] isEqualToString:@"Vanguard Cadets"]) {
 //                corps = obj;
 //            }
 //        }
 //        
-//        for (int x = 1972; x < 2015; x++) {
+//        for (int x = 1982; x < 2015; x++) {
 //            PFObject *rep = [PFObject objectWithClassName:@"repertoires"];
 //            [rep setObject:corps[@"corpsName"] forKey:@"corpsName"];
 //            [rep setObject:[NSNumber numberWithInt:x] forKey:@"year"];
-//            if (x < 1992) [rep setObject:@"Open Class" forKey:@"class"];
-//            if (x > 1991) [rep setObject:@"Division I" forKey:@"class"];
-//            if (x > 2007) [rep setObject:@"World Class" forKey:@"class"];
+//            //if (x < 1992) [rep setObject:@"Open Class" forKey:@"class"];
+//            //if (x > 1991) [rep setObject:@"Division II" forKey:@"class"];
+//            if (x > 2007) [rep setObject:@"Open Class" forKey:@"class"];
 //            [rep setObject:corps forKey:@"corps"];
 //            [rep saveInBackground];
 //        }
