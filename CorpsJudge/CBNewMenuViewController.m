@@ -1282,7 +1282,7 @@ CGFloat previousScroll;
     
     CBNewsCell *cell = (CBNewsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    MWFeedItem *item = [news.itemsToDisplay objectAtIndex:indexPath.row];
+    MWFeedItem *item = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
 
     
     //date
@@ -1356,7 +1356,17 @@ CGFloat previousScroll;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"tapped %li", indexPath.row);
+    MWFeedItem *itemForWeb = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = itemForWeb.link;
+    web.websiteTitle = @"Drum Corps International";
+    web.websiteSubTitle = itemForWeb.title;
+    
+    [self presentViewController:web animated:YES completion:nil];
 }
 
 // NOTE: This delegate method requires you to disable UICollectionView's `pagingEnabled` property.

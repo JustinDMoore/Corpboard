@@ -13,6 +13,7 @@
 #import "IQKeyboardManager.h"
 #import "CBSingle.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "DTCoreText.h"
 
 @implementation CBAppDelegate
 
@@ -89,6 +90,12 @@ CBSingle *data;
 //    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
 //    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
 
+    NSString *html = @"<p>Some Text</p>";
+    NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithHTMLData:data documentAttributes:NULL];
+    NSLog(@"%@", attrString);
+    
     return YES;
 }
 

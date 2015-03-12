@@ -24,7 +24,7 @@
     id delegate;
 }
 
-@property (nonatomic, strong) NSArray *itemsToDisplay;
+@property (nonatomic, strong) NSArray *arrayOfNewsItemsToDisplay;
 @property (nonatomic) BOOL newsLoaded;
 @property (nonatomic, strong) NSMutableArray *arrayOfColors;
 

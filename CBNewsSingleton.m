@@ -38,7 +38,7 @@
         [formatter setDateStyle:NSDateFormatterShortStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         parsedItems = [[NSMutableArray alloc] init];
-        self.itemsToDisplay = [NSArray array];
+        self.arrayOfNewsItemsToDisplay = [NSArray array];
         
         
         self.newsLoaded = NO;
@@ -69,7 +69,7 @@
 
 - (void)updateTableWithParsedItems {
     
-    self.itemsToDisplay = [parsedItems sortedArrayUsingDescriptors:
+    self.arrayOfNewsItemsToDisplay = [parsedItems sortedArrayUsingDescriptors:
                            [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date"
                                                                                 ascending:NO]]];
 }

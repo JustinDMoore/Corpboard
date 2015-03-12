@@ -12,6 +12,7 @@
 #import "NSDate+Utilities.h"
 #import "JSQMessagesTimestampFormatter.h"
 #import "CBWebViewController.h"
+#import "DTCoreText.h"
 
 CBNewsSingleton *news;
 
@@ -75,7 +76,7 @@ MWFeedItem *itemForWeb;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return [news.itemsToDisplay count];
+    return [news.arrayOfNewsItemsToDisplay count];
 }
 
 
@@ -86,14 +87,28 @@ MWFeedItem *itemForWeb;
     UILabel *desc = (UILabel *)[cell viewWithTag:2];
     UILabel *by = (UILabel *)[cell viewWithTag:3];
     
-    MWFeedItem *item = [news.itemsToDisplay objectAtIndex:indexPath.row];
+    MWFeedItem *item = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
+    
+    NSData *data = [item.summary dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithHTMLData:data documentAttributes:NULL];
+    
+    //NSLog(@"%@", attrString.string);
+    
     title.text = item.title;
+    
+    NSString *trimmedString = [attrString.string stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
+    
+    
     if ([item.title isEqualToString:@"Corps news and announcements"]) {
         desc.text = @"The latest news and notes from Drum Corps International's World and Open Class corps";
     } else {
-        desc.text = item.summary;
+        desc.text = trimmedString;
     }
    
+    NSLog(@"%@", trimmedString);
+    
     NSString *dateString = @"";
     int diff = (int)[item.date minutesBeforeDate:[NSDate date]];
     if (diff < 5) {
@@ -120,7 +135,7 @@ MWFeedItem *itemForWeb;
     }
     
     by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", dateString];
-    
+    [desc sizeToFit];
     return cell;
 }
 
@@ -128,7 +143,7 @@ MWFeedItem *itemForWeb;
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    itemForWeb = [news.itemsToDisplay objectAtIndex:indexPath.row];
+    itemForWeb = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
     
     NSString * storyboardName = @"Main";
     NSString * viewControllerID = @"web";

@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-DTCoreText.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-DTFoundation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,47 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1F620A8CC3FE7C6CDB74776E</key>
+		<key>158344F012DB85DA67567895</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5CDFAF1EA4DCC24B1FFE53CD</key>
+		<key>22D629177323C06DD5B05712</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>662C00CA58B80530556A540B</key>
+		<key>434F1A4C6019D0AA775139C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>684153F75F2ED5D1E13EF71F</key>
+		<key>6CD82C4B2FF5B203AFBF54AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9239866AB62C13DA92406668</key>
+		<key>783184B10D032BC80820E064</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1FF29FB285B1E278C649DA2</key>
+		<key>9D7E897485EB9F5C39CDA4C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC54A797AE18D65E679192F7</key>
+		<key>A35C4A90C565246B5277EAC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA73CF2FA3A3810CE9608113</key>
+		<key>A6B02A0640BDD27A2D4A0D1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F382F72BB914AFBE37A78CB1</key>
+		<key>C996E09C36E7213A8EE39B05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDE7823FFAD76EBC118BF9E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5629EA0AA472A5D47DB7021</key>
 		<dict>
 			<key>primary</key>
 			<true/>
