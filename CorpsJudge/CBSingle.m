@@ -271,7 +271,6 @@
     PFQuery *query = [PFQuery queryWithClassName:@"banners"];
     [query whereKey:@"hidden" equalTo:[NSNumber numberWithBool:NO]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        BOOL shuffle = ([self.objAdmin[@"shuffleBanners"] boolValue]);
         // do your thing with text
         if (!error) {
             for (PFObject *obj in objects) {
@@ -279,10 +278,10 @@
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
                         UIImage *image = [UIImage imageWithData:data];
-                        [self.arrayOfBanners addObject:image];
-                        if ([self.arrayOfBanners count] == [objects count]) {
+                        [self.arrayOfBannerImages addObject:image];
+                        [self.arrayOfBannerObjects addObject:obj];
+                        if ([self.arrayOfBannerImages count] == [objects count]) {
                             
-                            if (shuffle) [self.arrayOfBanners shuffle];
                             self.updatedBanners = YES;
                             [self didWeFinish];
                         }
@@ -492,11 +491,18 @@
     return _arrayofAllAgeFavorites;
 }
 
--(NSMutableArray *)arrayOfBanners {
-    if (!_arrayOfBanners) {
-        _arrayOfBanners = [[NSMutableArray alloc] init];
+-(NSMutableArray *)arrayOfBannerImages {
+    if (!_arrayOfBannerImages) {
+        _arrayOfBannerImages = [[NSMutableArray alloc] init];
     }
-    return _arrayOfBanners;
+    return _arrayOfBannerImages;
+}
+
+-(NSMutableArray *)arrayOfBannerObjects {
+    if (!_arrayOfBannerObjects) {
+        _arrayOfBannerObjects = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfBannerObjects;
 }
 
 @end

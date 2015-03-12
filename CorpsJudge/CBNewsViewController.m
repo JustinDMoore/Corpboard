@@ -79,6 +79,14 @@ MWFeedItem *itemForWeb;
     return [news.arrayOfNewsItemsToDisplay count];
 }
 
+- (NSString *)trimWhitespace:(NSString *)str {
+    NSMutableString *mStr = [str mutableCopy];
+    CFStringTrimWhitespace((CFMutableStringRef)mStr);
+    
+    NSString *result = [mStr copy];
+    
+    return result;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"news" forIndexPath:indexPath];
@@ -97,17 +105,15 @@ MWFeedItem *itemForWeb;
     
     title.text = item.title;
     
-    NSString *trimmedString = [attrString.string stringByTrimmingCharactersInSet:
-                               [NSCharacterSet whitespaceCharacterSet]];
-    
+    NSString *x = [self trimWhitespace:attrString.string];
     
     if ([item.title isEqualToString:@"Corps news and announcements"]) {
         desc.text = @"The latest news and notes from Drum Corps International's World and Open Class corps";
     } else {
-        desc.text = trimmedString;
+        desc.text = x;
     }
    
-    NSLog(@"%@", trimmedString);
+    NSLog(@"%@", x);
     
     NSString *dateString = @"";
     int diff = (int)[item.date minutesBeforeDate:[NSDate date]];
@@ -135,7 +141,7 @@ MWFeedItem *itemForWeb;
     }
     
     by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", dateString];
-    [desc sizeToFit];
+
     return cell;
 }
 

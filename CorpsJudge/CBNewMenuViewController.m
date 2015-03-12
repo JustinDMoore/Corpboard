@@ -31,7 +31,7 @@ NSTimer *timerCheckForShows, *timerCheckForCorps, *timerBanners, *timerCheckForN
 NSString *lastShowString;
 NSString *nextShowString;
 
-UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
+UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 
 @interface CBNewMenuViewController ()
 
@@ -99,7 +99,6 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
 @property (nonatomic, retain) UIImageView *pageTwoDoc;
 @property (nonatomic, retain) UIImageView *pageThreeDoc;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollBanners;
-
 
 @property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageTopTwelve;
@@ -312,18 +311,27 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     
     
     //banners
-    pageOneImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 135)];
-    pageTwoImage = [[UIImageView alloc] initWithFrame:CGRectMake(320, 0, 320, 135)];
-    pageThreeImage = [[UIImageView alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
-
-
-    [self loadPageWithId:(int)[data.arrayOfBanners count] - 1 onPage:0];
+    btnBanner1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 135)];
+    btnBanner2 = [[UIButton alloc] initWithFrame:CGRectMake(320, 0, 320, 135)];
+    btnBanner3 = [[UIButton alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
+    
+    [btnBanner1 addTarget:self
+               action:@selector(bannerTapped:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [btnBanner2 addTarget:self
+                   action:@selector(bannerTapped:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [btnBanner3 addTarget:self
+                   action:@selector(bannerTapped:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self loadPageWithId:(int)[data.arrayOfBannerImages count] - 1 onPage:0];
 	[self loadPageWithId:0 onPage:1];
 	[self loadPageWithId:1 onPage:2];
     
-    [self.scrollBanners addSubview:pageOneImage];
-	[self.scrollBanners addSubview:pageTwoImage];
-	[self.scrollBanners addSubview:pageThreeImage];
+    [self.scrollBanners addSubview:btnBanner1];
+	[self.scrollBanners addSubview:btnBanner2];
+	[self.scrollBanners addSubview:btnBanner3];
     
     self.scrollBanners.contentSize = CGSizeMake(960, 135);
 	[self.scrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
@@ -339,6 +347,29 @@ UIImageView *pageOneImage, *pageTwoImage, *pageThreeImage;
     
     //news
     self.collectionNews.backgroundColor = [UIColor clearColor];
+}
+
+-(void)bannerTapped:(UIButton *)sender {
+
+    PFObject *bannerObj = data.arrayOfBannerObjects[sender.tag];
+    
+    if ([bannerObj[@"link"] length]) {
+        
+        [self openWebViewWithLink:bannerObj[@"link"] title:bannerObj[@"desc"] subTitle:bannerObj[@"link"]];
+    }
+}
+
+-(void)openWebViewWithLink:(NSString *)link title:(NSString *)title subTitle:(NSString *)subTitle {
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = link;
+    web.websiteTitle = title;
+    web.websiteSubTitle = subTitle;
+    
+    [self presentViewController:web animated:YES completion:nil];
 }
 
 -(void)pulse {
@@ -395,19 +426,24 @@ int newsContentWidth = 0;
 
 -(void)loadPageWithId:(int)index onPage:(int)page {
     
-    if ([data.arrayOfBanners count]) {
+    UIButton *btnForBanner;
+    
+    if ([data.arrayOfBannerImages count]) {
         // load data for page
         switch (page) {
             case 0:
-                pageOneImage.image = [data.arrayOfBanners objectAtIndex:index];
+                btnForBanner = btnBanner1;
                 break;
             case 1:
-                pageTwoImage.image = [data.arrayOfBanners objectAtIndex:index];
+                btnForBanner = btnBanner2;
                 break;
             case 2:
-                pageThreeImage.image = [data.arrayOfBanners objectAtIndex:index];
+                btnForBanner = btnBanner3;
                 break;
         }
+        
+        [btnForBanner setBackgroundImage:[data.arrayOfBannerImages objectAtIndex:index] forState:UIControlStateNormal];
+        btnForBanner.tag = index;
     }
 }
 
@@ -453,11 +489,11 @@ int counter = 0;
     // We are moving forward. Load the current doc data on the first page.
     [self loadPageWithId:self.currIndex onPage:0];
     // Add one to the currentIndex or reset to 0 if we have reached the end.
-    self.currIndex = (self.currIndex >= [data.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
+    self.currIndex = (self.currIndex >= [data.arrayOfBannerImages count]-1) ? 0 : self.currIndex + 1;
     [self loadPageWithId:self.currIndex onPage:1];
     // Load content on the last page. This is either from the next item in the array
     // or the first if we have reached the end.
-    self.nextIndex = (self.currIndex >= [data.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
+    self.nextIndex = (self.currIndex >= [data.arrayOfBannerImages count]-1) ? 0 : self.currIndex + 1;
     [self loadPageWithId:self.nextIndex onPage:2];
     
     
@@ -1087,22 +1123,22 @@ CGFloat previousScroll;
             // We are moving forward. Load the current doc data on the first page.
             [self loadPageWithId:self.currIndex onPage:0];
             // Add one to the currentIndex or reset to 0 if we have reached the end.
-            self.currIndex = (self.currIndex >= [data.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
+            self.currIndex = (self.currIndex >= [data.arrayOfBannerImages count]-1) ? 0 : self.currIndex + 1;
             [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the last page. This is either from the next item in the array
             // or the first if we have reached the end.
-            self.nextIndex = (self.currIndex >= [data.arrayOfBanners count]-1) ? 0 : self.currIndex + 1;
+            self.nextIndex = (self.currIndex >= [data.arrayOfBannerImages count]-1) ? 0 : self.currIndex + 1;
             [self loadPageWithId:self.nextIndex onPage:2];
         }
         if(scrollView.contentOffset.x < scrollView.frame.size.width) {
             // We are moving backward. Load the current doc data on the last page.
             [self loadPageWithId:self.currIndex onPage:2];
             // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-            self.currIndex = (self.currIndex == 0) ? (int)[data.arrayOfBanners count]-1 : self.currIndex - 1;
+            self.currIndex = (self.currIndex == 0) ? (int)[data.arrayOfBannerImages count]-1 : self.currIndex - 1;
             [self loadPageWithId:self.currIndex onPage:1];
             // Load content on the first page. This is either from the prev item in the array
             // or the last if we have reached the beginning.
-            self.prevIndex = (self.currIndex == 0) ? (int)[data.arrayOfBanners count]-1 : self.currIndex - 1;
+            self.prevIndex = (self.currIndex == 0) ? (int)[data.arrayOfBannerImages count]-1 : self.currIndex - 1;
             [self loadPageWithId:self.prevIndex onPage:0];
         }     
         
@@ -1151,15 +1187,8 @@ CGFloat previousScroll;
 - (IBAction)btnLink_tapped:(UIButton *)sender {
 
     if (sender.tag == 1) { // DCI
-        NSString * storyboardName = @"Main";
-        NSString * viewControllerID = @"web";
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-        CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
-        web.webURL = @"http://dci.org";
-        web.websiteTitle = @"Drum Corps International";
-        web.websiteSubTitle = @"Marching Music's Major League";
         
-        [self presentViewController:web animated:YES completion:nil];
+        [self openWebViewWithLink:@"http://dci.org" title:@"Drum Corps International" subTitle:@"Marching Music's Major League"];
         
     } else if (sender.tag == 2) { // YouTube
         
@@ -1357,16 +1386,7 @@ CGFloat previousScroll;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     MWFeedItem *itemForWeb = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
-    
-    NSString * storyboardName = @"Main";
-    NSString * viewControllerID = @"web";
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
-    web.webURL = itemForWeb.link;
-    web.websiteTitle = @"Drum Corps International";
-    web.websiteSubTitle = itemForWeb.title;
-    
-    [self presentViewController:web animated:YES completion:nil];
+    [self openWebViewWithLink:itemForWeb.link title:@"Drum Corps International" subTitle:itemForWeb.title];
 }
 
 // NOTE: This delegate method requires you to disable UICollectionView's `pagingEnabled` property.

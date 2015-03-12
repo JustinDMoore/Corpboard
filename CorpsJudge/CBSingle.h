@@ -34,7 +34,8 @@
 
 @property (nonatomic, strong) UIColor *systemColor;
 
-@property (nonatomic, strong) NSMutableArray *arrayOfBanners;
+@property (nonatomic, strong) NSMutableArray *arrayOfBannerImages;
+@property (nonatomic, strong) NSMutableArray *arrayOfBannerObjects;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllCorps;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClass;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClass;

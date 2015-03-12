@@ -2148,7 +2148,7 @@
                                                     <outlet property="scrollview" destination="SeT-vl-b91" id="8tb-eb-Jqq"/>
                                                 </connections>
                                             </view>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI" userLabel="scrollBanners">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI" userLabel="scrollBanners">
                                                 <rect key="frame" x="0.0" y="34" width="320" height="135"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="603-gO-u9Q" id="jC0-b4-rR7"/>
