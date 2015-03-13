@@ -154,6 +154,8 @@
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
 		D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */; };
+		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
+		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
@@ -404,6 +406,9 @@
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
 		D0DE78D6195E05A9001BDB36 /* CBContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBContactViewController.h; path = ../CBContactViewController.h; sourceTree = "<group>"; };
 		D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBContactViewController.m; path = ../CBContactViewController.m; sourceTree = "<group>"; };
+		D0DF7FDC1AB360360095BA4E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTourMapViewController.h; sourceTree = "<group>"; };
+		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
 		D0E37A191959178B00AE4215 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
 		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
@@ -423,6 +428,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */,
 				92FE95371A74E10900D4A7D9 /* libsqlite3.dylib in Frameworks */,
 				92FE95351A74E0F500D4A7D9 /* libstdc++.6.dylib in Frameworks */,
 				92FE952B1A74E06200D4A7D9 /* ParseUI.framework in Frameworks */,
@@ -594,6 +600,7 @@
 		9253347D194FD5D70004D16F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0DF7FDC1AB360360095BA4E /* MapKit.framework */,
 				92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */,
 				92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */,
 				D0AEF3A01A1312E10059368B /* Parse */,
@@ -712,6 +719,7 @@
 				92EA0B851A93BF7700894C98 /* CBImageViewController.m */,
 				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
 				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
+				D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -784,6 +792,7 @@
 				92EA0B841A93BF7700894C98 /* CBImageViewController.h */,
 				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
 				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
+				D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1243,6 +1252,7 @@
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
+				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
 				9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,

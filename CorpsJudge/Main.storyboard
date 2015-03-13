@@ -2568,6 +2568,23 @@
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ro-Wz-Ti8">
+                                                        <rect key="frame" x="205" y="0.0" width="35" height="35"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
+                                                        <state key="normal" image="map">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <segue destination="yG7-Vq-JyB" kind="show" id="h6p-GQ-yKn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tour Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Du-23-6Ya">
+                                                        <rect key="frame" x="191" y="34" width="63" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
@@ -3604,6 +3621,37 @@
             </objects>
             <point key="canvasLocation" x="3074" y="90"/>
         </scene>
+        <!--Tour Map View Controller-->
+        <scene sceneID="JvE-E0-c3T">
+            <objects>
+                <viewController id="yG7-Vq-JyB" customClass="CBTourMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I4b-ik-3dO"/>
+                        <viewControllerLayoutGuide type="bottom" id="48l-be-DlV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ds9-QR-bkB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzL-RY-itt">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="yG7-Vq-JyB" id="vFD-bV-Uyk"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="mapView" destination="EzL-RY-itt" id="iCC-MS-xVT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3806" y="-1116"/>
+        </scene>
         <!--Judge-->
         <scene sceneID="R7h-fW-N8h">
             <objects>
@@ -4230,6 +4278,7 @@
         <image name="horn_tab" width="48" height="48"/>
         <image name="info" width="256" height="256"/>
         <image name="loudest_tab" width="48" height="48"/>
+        <image name="map" width="48" height="48"/>
         <image name="medal_gold" width="48" height="48"/>
         <image name="picture" width="48" height="48"/>
         <image name="recap" width="48" height="48"/>
