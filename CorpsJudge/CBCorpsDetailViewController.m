@@ -260,6 +260,7 @@ NSMutableArray *arrayOfRows;
     }
     
     [self.tableRepertoire reloadData];
+    [self showEffect];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -322,6 +323,7 @@ NSMutableArray *arrayOfRows;
     
     if (indexPath.row <= [arrayOfRows count]) {
         NSString *str = [arrayOfRows objectAtIndex:indexPath.row];
+        
         if ([str isEqualToString:@"champs"]) {
             
             return [self getChampsCell];
@@ -432,42 +434,68 @@ NSMutableArray *arrayOfRows;
     lblShowTitle.text = self.currentYear[@"showTitle"];
     
     if ([lblShowTitle.text isEqualToString:@"TILT"]) {
-        [self TILT:YES];
+        
         lblShowTitle.font = [UIFont fontWithName:@"Helvetica-BoldOblique" size:16];
-    } else {
-        [self TILT:NO];
-    }
-    
-    if ([lblShowTitle.text isEqualToString:@"XtradorinarY"]) {
-        if (!upsideDownCavalier) [self flipCavalier:YES];
-    } else {
-        if (upsideDownCavalier) if ([self.corps[@"corpsName"] isEqualToString:@"The Cavaliers"]) [self flipCavalier:NO];
-    }
-    
-    if ([lblShowTitle.text isEqualToString:@"12.25"]) {
-        [self.scene startCadetSnowing];
-    } else if ([lblShowTitle.text isEqualToString:@"Shiver: A Winter in Colorado"]) {
-        [self.scene startSnowing];
-    } else if ([lblShowTitle.text isEqualToString:@"To Tame the Perilous Skies"]) {
-        [self.scene perilousSkies:self.tableRepertoire.frame];
-    } else if ([lblShowTitle.text isEqualToString:@"Music of the Starry Night"]) {
+        
     } else if ([lblShowTitle.text isEqualToString:@"E = MC2"]){
+        
         NSString *superscript2 = @"\u00B2";
         lblShowTitle.text = [NSString stringWithFormat:@"E = MC%@", superscript2];
-    } else if ([lblShowTitle.text isEqualToString:@"Out Of This World"]) {
-        [self.scene launchToSpace];
-    } else if ([lblShowTitle.text isEqualToString:@"The Grass is Always Greener"]) {
-        [self.scene growGrass];
-    } else if ([lblShowTitle.text isEqualToString:@"Machine"]) {
-        [self.scene startTheMachine];
-    } else if ([lblShowTitle.text isEqualToString:@"The Planets"]) {
-        [self.scene showPlanets];
+        
     } else {
+        
         lblShowTitle.font = [UIFont boldSystemFontOfSize:16];
-        [self.scene stop];
     }
     
     return cell;
+}
+
+-(void)showEffect {
+    
+    //reset the current effects
+    [self.scene stop];
+    if (upsideDownCavalier) if ([self.corps[@"corpsName"] isEqualToString:@"The Cavaliers"]) [self flipCavalier:NO];
+    [self TILT:NO];
+    
+    //get the new effect, if any
+    int year = [self.currentYear[@"year"] intValue];
+    NSString *corpsName = self.currentYear[@"corpsName"];
+    
+    if ([corpsName isEqualToString:@"Bluecoats"]) {
+        switch (year) {
+            case 2014: [self TILT:YES];
+                break;
+        }
+    } else if ([corpsName isEqualToString:@"Blue Knights"]) {
+        switch (year) {
+            case 2009: [self.scene startSnowing];
+                break;
+        }
+    } else if ([corpsName isEqualToString:@"Carolina Crown"]) {
+        switch (year) {
+            case 2014: [self.scene launchToSpace];
+                break;
+            case 2009: [self.scene growGrass];
+                break;
+        }
+    } else if ([corpsName isEqualToString:@"The Cadets"]) {
+        switch (year) {
+            case 1992: [self.scene perilousSkies:self.tableRepertoire.frame];
+                break;
+            case 2012: [self.scene startCadetSnowing];
+                break;
+                
+        }
+    } else if ([corpsName isEqualToString:@"The Cavaliers"]) {
+        switch (year) {
+            case 1995: [self.scene showPlanets];
+                break;
+            case 2006: [self.scene startTheMachine];
+                break;
+            case 2011: if (!upsideDownCavalier) [self flipCavalier:YES];
+                break;
+        }
+    }
 }
 
 BOOL upsideDownCavalier = NO;
