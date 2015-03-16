@@ -137,6 +137,7 @@
     self.updatedShows = NO;
     self.arrayOfAllShows = nil;
     PFQuery *query = [PFQuery queryWithClassName:@"shows"];
+    [query includeKey:@"stadium"];
     [query setLimit:1000];
     [query orderByAscending:@"showDate"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

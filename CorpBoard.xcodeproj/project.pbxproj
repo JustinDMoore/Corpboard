@@ -151,6 +151,7 @@
 		D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */; };
 		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
+		D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AAD1701AB68619002CAACC /* CBAnnotation.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
 		D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */; };
@@ -399,6 +400,8 @@
 		D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBCorpExperienceList.xib; sourceTree = "<group>"; };
 		D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpExperienceList.h; sourceTree = "<group>"; };
 		D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpExperienceList.m; sourceTree = "<group>"; };
+		D0AAD16F1AB68619002CAACC /* CBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnnotation.h; sourceTree = "<group>"; };
+		D0AAD1701AB68619002CAACC /* CBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAnnotation.m; sourceTree = "<group>"; };
 		D0AEF3BE1A13325C0059368B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AEF3BF1A13325C0059368B /* NewsViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewTests.m; sourceTree = "<group>"; };
 		D0BDD53319500C4300CA9668 /* JustinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustinHelper.h; sourceTree = "<group>"; };
@@ -903,6 +906,8 @@
 				D01012481A800F810040BFFD /* CBNewsCell.m */,
 				D0681E161A8048A70084EB42 /* CBCollectionFlowLayout.h */,
 				D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */,
+				D0AAD16F1AB68619002CAACC /* CBAnnotation.h */,
+				D0AAD1701AB68619002CAACC /* CBAnnotation.m */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1240,6 +1245,7 @@
 				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
+				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,

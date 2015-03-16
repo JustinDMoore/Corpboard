@@ -3348,7 +3348,7 @@
         <!--Details-->
         <scene sceneID="GZl-gV-OHb">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="kuq-xU-myI" customClass="CBShowDetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showDetails" automaticallyAdjustsScrollViewInsets="NO" id="kuq-xU-myI" customClass="CBShowDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v6Q-Zz-hqd"/>
                         <viewControllerLayoutGuide type="bottom" id="rAi-55-tzf"/>
@@ -3650,7 +3650,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3806" y="-1116"/>
+            <point key="canvasLocation" x="3758" y="-829"/>
         </scene>
         <!--Judge-->
         <scene sceneID="R7h-fW-N8h">
@@ -4294,8 +4294,8 @@
         <image name="youtube_lightGrayColor" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
+        <segue reference="5XH-ng-dQw"/>
         <segue reference="5Fi-Lt-Ok5"/>
     </inferredMetricsTieBreakers>
 </document>
