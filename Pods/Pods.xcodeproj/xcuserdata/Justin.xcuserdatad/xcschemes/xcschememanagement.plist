@@ -54,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-iOS-Slide-Menu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>158344F012DB85DA67567895</key>
+		<key>02E3560D4C853D8B8B1415CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>22D629177323C06DD5B05712</key>
+		<key>1B5EDDE15890E3EB0D5FCF00</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>434F1A4C6019D0AA775139C1</key>
+		<key>38780F66B5D5844B3C268F34</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6CD82C4B2FF5B203AFBF54AB</key>
+		<key>4043CE138CF951776B6DC98F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>783184B10D032BC80820E064</key>
+		<key>4419488ABA89C1A6304DC836</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D7E897485EB9F5C39CDA4C6</key>
+		<key>4768ADD53E62364478A61F11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A35C4A90C565246B5277EAC2</key>
+		<key>5484A15F55D9B0446371955D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6B02A0640BDD27A2D4A0D1F</key>
+		<key>612AEF0C91958E58C2691021</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C996E09C36E7213A8EE39B05</key>
+		<key>799137B3C371FCFCF25C72BC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CDE7823FFAD76EBC118BF9E2</key>
+		<key>85EFE5D791EECA28BE645F9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E5629EA0AA472A5D47DB7021</key>
+		<key>BF371E679E734C77B152CA48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E15BD4EA543C2F0BBF7F6CFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

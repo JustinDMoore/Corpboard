@@ -888,14 +888,14 @@ NSString *const KILTIES = @"Kilties";
 
 }
 
+
 -(void)addShowWithName:(NSString *)showName
             atLocation:(NSString *)showLocation
-               forMonth:(NSInteger)month
+              forMonth:(NSInteger)month
                 forDay:(NSInteger)day
    withPerformingCorps:(NSArray *)corpsArray {
     
     PFObject *newShow = [PFObject objectWithClassName:@"shows"];
-    PFRelation *performingCorps = [newShow relationForKey:@"performingCorps"];
     
     newShow[@"isShowOver"] = [NSNumber numberWithBool:NO];
     newShow[@"showName"] = showName;
@@ -906,9 +906,9 @@ NSString *const KILTIES = @"Kilties";
                                                   year:2015];
     
     for (NSString *corps in corpsArray) {
-        [performingCorps addObject:[self getCorpsByName:corps]];
+        [newShow addUniqueObject:corps forKey:@"arrayOfCorps"];
     }
-
+    
     [newShow saveInBackground];
     
     for (NSString *corps in corpsArray) {

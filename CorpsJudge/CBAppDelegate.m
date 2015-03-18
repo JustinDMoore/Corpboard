@@ -14,6 +14,8 @@
 #import "CBSingle.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "DTCoreText.h"
+#import "SlideNavigationController.h"
+#import "CBTourMapMenuViewController.h"
 
 @implementation CBAppDelegate
 
@@ -76,6 +78,13 @@ CBSingle *data;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
+    //iOS-Slide-Menu
+    NSString * storyboardName = @"Main";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBTourMapMenuViewController *rightMenu = (CBTourMapMenuViewController *)[storyboard
+                                                                    instantiateViewControllerWithIdentifier: @"CBTourMapMenuViewController"];
+    [SlideNavigationController sharedInstance].rightMenu = rightMenu;
+
     
 //    BOOL isLoggedIn = false;
 //    
@@ -89,12 +98,6 @@ CBSingle *data;
 //    
 //    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
 //    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
-
-    NSString *html = @"<p>Some Text</p>";
-    NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithHTMLData:data documentAttributes:NULL];
-    NSLog(@"%@", attrString);
     
     return YES;
 }

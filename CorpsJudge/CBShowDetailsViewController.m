@@ -224,14 +224,14 @@ int votedFavorites;
     
     NSString *exc = self.show[@"exception"];
     if ([exc isEqualToString:@"Rained Out"]) {
-        //[self.scene startRaining];
+        [self.scene startRaining];
     }
 }
 
 -(void)getScoresForShow {
-
+    
     if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count] ) {
-        
+
         PFQuery *query = [PFQuery queryWithClassName:@"scores"];
         [query whereKey:@"show" equalTo:self.show];
         [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
@@ -399,7 +399,6 @@ int votedFavorites;
 
     if (score) {
         corps = score[@"corps"];
-
         if (isOver) {
             lblCorpsName.text = corps[@"corpsName"];
             if ([exc length]) {

@@ -24,6 +24,8 @@ CBSingle *data;
     [super viewDidLoad];
     
     data = [CBSingle data];
+    CBTourMapMenuViewController *menu = (CBTourMapMenuViewController *)[SlideNavigationController sharedInstance].rightMenu;
+    menu.delegate = self;
     self.mapView.delegate = self;
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -40,8 +42,38 @@ CBSingle *data;
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
 
-    [self plotAllShows];
+    [self plotAllShowsForCorps:nil];
+    
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"BackArrow"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIButton *btnMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *menuButtonImage = [UIImage imageNamed:@"menu"];
+    [btnMenu setBackgroundImage:menuButtonImage forState:UIControlStateNormal];
+    [btnMenu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    btnMenu.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:btnMenu] ;
+    self.navigationItem.rightBarButtonItem = menuButton;
+
+}
+
+-(void)showMenu {
+
+    
+    
+}
+
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
@@ -116,23 +148,45 @@ CBSingle *data;
     return [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
 }
 
--(void)plotAllShows {
-    //remove all existing objects on map first....
+-(void)plotAllShowsForCorps:(PFObject *)corps {
     
-    for (PFObject *show in data.arrayOfAllShows) {
-        PFObject *stadium = show[@"stadium"];
-        
-        PFGeoPoint *location = stadium[@"coordinates"];
-        if (location.longitude && location.latitude) {
+    [self.arrayOfShowsToDisplay removeAllObjects];
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    if (corps) { //add only the shows for the corps passed in
+        for (PFObject *show in data.arrayOfAllShows) {
             
-            CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
-            CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
-            custom.show = show;
-            [self.mapView addAnnotation:custom];
+            for (NSString *name in show[@"arrayOfCorps"]) {
+                if ([name isEqualToString:corps[@"corpsName"]]) {
+                    [self plotShow:show];
+                    break;
+                }
+            }
+        }
+    } else { // add all the shows
+        for (PFObject *show in data.arrayOfAllShows) {
+            [self plotShow:show];
         }
     }
 }
 
+-(void)plotShow:(PFObject *)show {
+    
+    PFObject *stadium = show[@"stadium"];
+    PFGeoPoint *location = stadium[@"coordinates"];
+    if (location.longitude && location.latitude) {
+        
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
+        custom.show = show;
+        [self.mapView addAnnotation:custom];
+    }
+}
+
+- (void)goback {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 //-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
 //    
 //        CBAnnotation *ann = (CBAnnotation *)view;
@@ -145,6 +199,30 @@ CBSingle *data;
 //    
 //        [self presentViewController:showDetails animated:YES completion:nil];
 //}
+
+#pragma mark
+#pragma mark - MapMenu Delegates
+#pragma mark
+
+-(void)toggleSatellite:(BOOL)on {
+    
+    if (on) self.mapView.mapType = MKMapTypeSatellite;
+    else self.mapView.mapType = MKMapTypeStandard;
+}
+
+-(void)filterShowByCorps:(PFObject *)corps {
+    
+    [self plotAllShowsForCorps:corps];
+}
+
+#pragma mark
+#pragma mark - Slide Delegates
+#pragma mark
+
+-(BOOL)slideNavigationControllerShouldDisplayRightMenu {
+    
+    return YES;
+}
 
 -(NSMutableArray *)arrayOfShowsToDisplay {
     if (!_arrayOfShowsToDisplay) {

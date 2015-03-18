@@ -3621,6 +3621,67 @@
             </objects>
             <point key="canvasLocation" x="3074" y="90"/>
         </scene>
+        <!--Tour Map Menu View Controller-->
+        <scene sceneID="MY6-7W-8XN">
+            <objects>
+                <viewController storyboardIdentifier="CBTourMapMenuViewController" id="8PH-hP-Fnw" customClass="CBTourMapMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x3a-o9-xi3"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gf5-aZ-YqM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xtS-Df-hSe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="32" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ify-rg-ffo">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rightMenuCell" rowHeight="32" id="zcX-En-NTZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zcX-En-NTZ" id="1wR-hS-Bd8">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ek-VJ-nPf">
+                                                    <rect key="frame" x="8" y="7" width="584" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="leading" secondItem="1wR-hS-Bd8" secondAttribute="leadingMargin" id="hQ7-t6-f3K"/>
+                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="trailing" secondItem="1wR-hS-Bd8" secondAttribute="trailingMargin" id="t15-su-lmu"/>
+                                                <constraint firstAttribute="centerY" secondItem="7Ek-VJ-nPf" secondAttribute="centerY" constant="-0.5" id="uw4-wX-gfh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8PH-hP-Fnw" id="bze-4B-m8p"/>
+                                    <outlet property="delegate" destination="8PH-hP-Fnw" id="0cv-rn-BFt"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gf5-aZ-YqM" firstAttribute="top" secondItem="Ify-rg-ffo" secondAttribute="bottom" id="5rX-yT-c86"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ify-rg-ffo" secondAttribute="trailing" constant="-16" id="F2A-JJ-lb9"/>
+                            <constraint firstItem="Ify-rg-ffo" firstAttribute="leading" secondItem="xtS-Df-hSe" secondAttribute="leadingMargin" constant="-16" id="Rxu-u3-MUP"/>
+                            <constraint firstItem="Ify-rg-ffo" firstAttribute="top" secondItem="x3a-o9-xi3" secondAttribute="bottom" constant="-20" id="STf-rj-e8V"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableMenu" destination="Ify-rg-ffo" id="osK-md-c3z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fFN-9M-l3A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4407" y="-833"/>
+        </scene>
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">
             <objects>
@@ -4208,10 +4269,10 @@
             </objects>
             <point key="canvasLocation" x="3792" y="426"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Slide Navigation Controller-->
         <scene sceneID="qk1-3e-3Ai">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="qur-W5-86c" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="qur-W5-86c" customClass="SlideNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="ZZF-3z-dNM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

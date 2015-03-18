@@ -71,6 +71,8 @@ install_resource()
                     install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
                     install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
                     install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
+                    install_resource "iOS-Slide-Menu/SlideMenu/Source/Assets/menu-button.png"
+                    install_resource "iOS-Slide-Menu/SlideMenu/Source/Assets/menu-button@2x.png"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then
