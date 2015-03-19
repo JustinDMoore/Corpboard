@@ -15,6 +15,7 @@
 #import "SlideNavigationContorllerAnimatorScaleAndFade.h"
 #import "SlideNavigationContorllerAnimatorSlideAndFade.h"
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 @protocol mapMenuProtocol <NSObject>
 @required

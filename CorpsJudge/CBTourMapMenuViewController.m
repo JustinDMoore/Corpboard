@@ -25,7 +25,7 @@ CBSingle *data;
     del = [UIApplication sharedApplication].delegate;
     data = [CBSingle data];
     self.tableMenu.separatorColor = [UIColor lightGrayColor];
-    [SlideNavigationController sharedInstance].portraitSlideOffset = 165;
+    [SlideNavigationController sharedInstance].portraitSlideOffset = 125;
 }
 
 -(void)refreshMenu {
@@ -65,19 +65,28 @@ CBSingle *data;
     UITableViewCell *cell = [self.tableMenu dequeueReusableCellWithIdentifier:@"rightMenuCell"];
 
     UILabel *lblMenuTitle = (UILabel *)[cell viewWithTag:1];
+    PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:2];
     
     switch (indexPath.section) {
         case 0:
             lblMenuTitle.text = @"Satellite";
+            imgLogo.image = nil;
             break;
         case 1:
-            if (indexPath.row == 0) lblMenuTitle.text = @"All Shows";
-            else {
+            if (indexPath.row == 0) {
+                lblMenuTitle.text = @"All Shows";
+                imgLogo.image = nil;
+            } else {
                 PFObject *corps = data.arrayOfAllCorps[indexPath.row - 1];
                 lblMenuTitle.text = corps[@"corpsName"];
+                PFFile *imgFile = corps[@"logo"];
+                [imgLogo setFile:imgFile];
+                [imgLogo loadInBackground];
             }
             break;
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 
     return cell;
 }
@@ -88,16 +97,13 @@ CBSingle *data;
         if (indexPath.row == 0) { //satellite
             if (!self.satellite) {
                 self.satellite = YES;
-                [self selectCell:YES AtIndexPath:indexPath];
                 [self.delegate toggleSatellite:YES];
             } else {
                 self.satellite = NO;
-                [self selectCell:NO AtIndexPath:indexPath];
                 [self.delegate toggleSatellite:NO];
             }
         }
     } else {
-        [self selectCell:YES AtIndexPath:indexPath];
         if (indexPath.row == 0) { //all shows
             [self.delegate filterShowByCorps:nil];
         } else {
@@ -106,17 +112,6 @@ CBSingle *data;
         }
     }
     [self closeMenu];
-}
-
--(void)selectCell:(BOOL)select AtIndexPath:(NSIndexPath *)indexPath; {
-    
-    UITableViewCell *cell = [self.tableMenu cellForRowAtIndexPath:indexPath];
-    UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-    if (select) lbl.textColor = del.appTintColor;
-    else {
-        lbl.textColor = [UIColor whiteColor];
-        [self.tableMenu deselectRowAtIndexPath:indexPath animated:YES];
-    }
 }
 
 -(void)closeMenu {

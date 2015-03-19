@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "Shape-Star2-48-2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Shape-Star2-128-2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "champs.png"
+      "filename" : "Shape-Star2-256-2.png"
     }
   ],
   "info" : {

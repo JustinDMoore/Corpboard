@@ -3645,16 +3645,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ek-VJ-nPf">
-                                                    <rect key="frame" x="8" y="7" width="584" height="17"/>
+                                                    <rect key="frame" x="8" y="8" width="544" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="24k-tX-Wvy" customClass="PFImageView">
+                                                    <rect key="frame" x="560" y="-1" width="32" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="MNO-8s-4WZ"/>
+                                                        <constraint firstAttribute="width" constant="32" id="NrX-Pd-vi2"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="leading" secondItem="1wR-hS-Bd8" secondAttribute="leadingMargin" id="hQ7-t6-f3K"/>
-                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="trailing" secondItem="1wR-hS-Bd8" secondAttribute="trailingMargin" id="t15-su-lmu"/>
-                                                <constraint firstAttribute="centerY" secondItem="7Ek-VJ-nPf" secondAttribute="centerY" constant="-0.5" id="uw4-wX-gfh"/>
+                                                <constraint firstAttribute="centerY" secondItem="24k-tX-Wvy" secondAttribute="centerY" id="Izm-kt-GMg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="24k-tX-Wvy" secondAttribute="trailing" id="VCb-jb-Uqd"/>
+                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="leading" secondItem="1wR-hS-Bd8" secondAttribute="leadingMargin" id="kIq-rx-Mqm"/>
+                                                <constraint firstItem="24k-tX-Wvy" firstAttribute="leading" secondItem="7Ek-VJ-nPf" secondAttribute="trailing" constant="8" id="q6K-CC-ipf"/>
+                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="centerY" secondItem="24k-tX-Wvy" secondAttribute="centerY" constant="0.5" id="wN9-r9-9BK"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -3680,7 +3689,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fFN-9M-l3A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4407" y="-833"/>
+            <point key="canvasLocation" x="4407" y="-835"/>
         </scene>
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">

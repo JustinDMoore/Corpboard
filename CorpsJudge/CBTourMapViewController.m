@@ -16,14 +16,14 @@
 @end
 
 
-CBSingle *data;
+CBSingle *datas;
 
 @implementation CBTourMapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    data = [CBSingle data];
+    datas = [CBSingle data];
     CBTourMapMenuViewController *menu = (CBTourMapMenuViewController *)[SlideNavigationController sharedInstance].rightMenu;
     menu.delegate = self;
     self.mapView.delegate = self;
@@ -153,9 +153,8 @@ CBSingle *data;
     [self.arrayOfShowsToDisplay removeAllObjects];
     [self.mapView removeAnnotations:self.mapView.annotations];
     
-    if (corps) { //add only the shows for the corps passed in
-        for (PFObject *show in data.arrayOfAllShows) {
-            
+    if (corps) { // ONLY SHOWING SHOWS FOR A CORPS
+        for (PFObject *show in datas.arrayOfAllShows) {
             for (NSString *name in show[@"arrayOfCorps"]) {
                 if ([name isEqualToString:corps[@"corpsName"]]) {
                     [self plotShow:show];
@@ -163,8 +162,9 @@ CBSingle *data;
                 }
             }
         }
-    } else { // add all the shows
-        for (PFObject *show in data.arrayOfAllShows) {
+        
+    } else { // ALL SHOWS
+        for (PFObject *show in datas.arrayOfAllShows) {
             [self plotShow:show];
         }
     }
@@ -177,7 +177,7 @@ CBSingle *data;
     if (location.longitude && location.latitude) {
         
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
-        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
+        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord andShowName:show[@"showName"]];
         custom.show = show;
         [self.mapView addAnnotation:custom];
     }
@@ -199,6 +199,31 @@ CBSingle *data;
 //    
 //        [self presentViewController:showDetails animated:YES completion:nil];
 //}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {
+    
+    for (MKAnnotationView *annView in annotationViews) {
+        
+        CGRect endFrame = annView.frame;
+//        annView.frame = CGRectOffset(endFrame, 0, -500);
+//        [UIView animateWithDuration:0.5
+//                         animations:^{ annView.frame = endFrame; }];
+        
+        
+        annView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        
+        [UIView animateWithDuration:.2
+                              delay:.5
+             usingSpringWithDamping:6
+              initialSpringVelocity:10
+                            options:0
+                         animations:^{
+                             annView.transform = CGAffineTransformIdentity;
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    }
+}
 
 #pragma mark
 #pragma mark - MapMenu Delegates
