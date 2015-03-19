@@ -10,6 +10,8 @@
 #import "CBSingle.h"
 #import "CBAnnotation.h"
 #import "CBShowDetailsViewController.h"
+#import "MKMapView+ZoomLevel.h"
+#import "NSMutableArray+Shuffling.h"
 
 @interface CBTourMapViewController ()
 
@@ -42,6 +44,11 @@ CBSingle *datas;
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
 
+    
+    CLLocationCoordinate2D centerCoord = {39.8282, -98.5795};
+    [self.mapView setCenterCoordinate:centerCoord zoomLevel:3 animated:NO];
+    
+    
     [self plotAllShowsForCorps:nil];
     
 }
@@ -66,43 +73,6 @@ CBSingle *datas;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:btnMenu] ;
     self.navigationItem.rightBarButtonItem = menuButton;
 
-}
-
--(void)showMenu {
-
-    
-    
-}
-
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
-    NSLog(@"%@", [self deviceLocation]);
-    
-//    // define span for map: how much area will be shown
-//    MKCoordinateSpan span;
-//    span.latitudeDelta = 0.2;
-//    span.longitudeDelta = 0.2;
-//    
-//    // define starting point for map
-//    CLLocationCoordinate2D start;
-//    start.latitude = 39.828328;
-//    start.longitude = -98.579416;
-//    
-//    // create region, consisting of span and location
-//    MKCoordinateRegion region;
-//    region.span = span;
-//    region.center = start;
-//    
-//    // move the map to our location
-//    [self.mapView setRegion:region animated:YES];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -177,7 +147,7 @@ CBSingle *datas;
     if (location.longitude && location.latitude) {
         
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
-        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord andShowName:show[@"showName"]];
+        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
         custom.show = show;
         [self.mapView addAnnotation:custom];
     }
@@ -200,21 +170,20 @@ CBSingle *datas;
 //        [self presentViewController:showDetails animated:YES completion:nil];
 //}
 
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {
     
-    for (MKAnnotationView *annView in annotationViews) {
-        
-        CGRect endFrame = annView.frame;
-//        annView.frame = CGRectOffset(endFrame, 0, -500);
-//        [UIView animateWithDuration:0.5
-//                         animations:^{ annView.frame = endFrame; }];
-        
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:annotationViews];
+    [arr shuffle];
+    
+    float delay = .5;
+    
+    for (MKAnnotationView *annView in arr) {
         
         annView.transform = CGAffineTransformMakeScale(0.01, 0.01);
         
-        [UIView animateWithDuration:.2
-                              delay:.5
-             usingSpringWithDamping:6
+        [UIView animateWithDuration:.3
+                              delay:delay
+             usingSpringWithDamping:.3
               initialSpringVelocity:10
                             options:0
                          animations:^{
@@ -222,6 +191,7 @@ CBSingle *datas;
                          } completion:^(BOOL finished) {
                              
                          }];
+        delay += .03;
     }
 }
 

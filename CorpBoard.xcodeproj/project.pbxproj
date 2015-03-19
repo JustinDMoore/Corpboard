@@ -152,6 +152,7 @@
 		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AAD1701AB68619002CAACC /* CBAnnotation.m */; };
+		D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
 		D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */; };
@@ -405,6 +406,8 @@
 		D0AAD1701AB68619002CAACC /* CBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAnnotation.m; sourceTree = "<group>"; };
 		D0AEF3BE1A13325C0059368B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AEF3BF1A13325C0059368B /* NewsViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewTests.m; sourceTree = "<group>"; };
+		D0BA4FC51ABB13E40051310E /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		D0BDD53319500C4300CA9668 /* JustinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustinHelper.h; sourceTree = "<group>"; };
 		D0BDD53419500C4300CA9668 /* JustinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JustinHelper.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
@@ -652,6 +655,7 @@
 		92533487194FD5D70004D16F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0BA4FC81ABB149F0051310E /* Categories */,
 				9253348F194FD5D70004D16F /* CBAppDelegate.h */,
 				92533490194FD5D70004D16F /* CBAppDelegate.m */,
 				92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */,
@@ -659,14 +663,8 @@
 				D02B39EB1969EB91005E14AC /* ILTranslucentView.m */,
 				D0067A6619690AB300C372D0 /* Math.h */,
 				D0067A6719690AB300C372D0 /* Math.m */,
-				D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */,
-				D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */,
-				924E93B2195904380006DB81 /* UINavigationController+Orientation.h */,
-				924E93B3195904380006DB81 /* UINavigationController+Orientation.m */,
 				D096D050195A7B6000835612 /* CBSingle.h */,
 				D096D051195A7B6000835612 /* CBSingle.m */,
-				D0E37A191959178B00AE4215 /* NSDate+Utilities.h */,
-				D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */,
 				D0A8146A19523A8200F4EC53 /* Configuration.h */,
 				D0A8146B19523A8200F4EC53 /* Configuration.m */,
 				D0BDD53319500C4300CA9668 /* JustinHelper.h */,
@@ -980,6 +978,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D0BA4FC81ABB149F0051310E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */,
+				D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */,
+				D0BA4FC51ABB13E40051310E /* MKMapView+ZoomLevel.h */,
+				D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */,
+				924E93B2195904380006DB81 /* UINavigationController+Orientation.h */,
+				924E93B3195904380006DB81 /* UINavigationController+Orientation.m */,
+				D0E37A191959178B00AE4215 /* NSDate+Utilities.h */,
+				D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1219,6 +1232,7 @@
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
+				D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */,
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
 				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,

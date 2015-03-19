@@ -10,14 +10,13 @@
 
 @implementation CBAnnotation
 
--(id)initWithTitle:(NSString *)newTitle Location:(CLLocationCoordinate2D)location andShowName:(NSString *)showName {
+-(id)initWithTitle:(NSString *)newTitle Location:(CLLocationCoordinate2D)location {
     
     self = [super init];
     
     if (self) {
         _title = newTitle;
         _coordinate = location;
-        _showName = showName;
     }
     
     return self;
@@ -30,10 +29,10 @@
     annotationView.enabled = YES;
     annotationView.canShowCallout = YES;
     
-    if ([self.showName isEqualToString:@"Tour of Champions"]) {
+    if ([self.title isEqualToString:@"Tour of Champions"]) {
         annotationView.image = [UIImage imageNamed:@"goldstar"];
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 40, 40);
-    } else if ([self.showName containsString:@"World Championship"]) {
+    } else if ([self.title containsString:@"World Championship"]) {
         annotationView.image = [UIImage imageNamed:@"champs"];
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 55, 45);
     } else {
