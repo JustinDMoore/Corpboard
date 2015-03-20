@@ -258,7 +258,7 @@ bool isDoneSortingFavorites = NO;
                     totalAllAgePercussionVotes++;
                     [data.arrayOfAllAgePercussionVotes addObject:fav];
                 }
-            } else if ([fav[@"category"] isEqualToString:@"Favorite Colorguard"]) {
+            } else if ([fav[@"category"] isEqualToString:@"Favorite Color Guard"]) {
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldColorguardVotes++;
