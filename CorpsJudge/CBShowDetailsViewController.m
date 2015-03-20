@@ -13,7 +13,6 @@
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
 #import <ParseUI/ParseUI.h>
-#import "CBEndShowViewController.h"
 #import <SpriteKit/SpriteKit.h>
 #import "CBEffect.h"
 
@@ -125,6 +124,9 @@ int votedFavorites;
 
 -(void)initVariables {
     
+    [self.arrayOfWorldClassScores removeAllObjects];
+    [self.arrayOfOpenClassScores removeAllObjects];
+    [self.arrayOfAllAgeClassScores removeAllObjects];
     self.title = @"Show Details";
    
 }
@@ -457,6 +459,8 @@ int votedFavorites;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Recap Link" message:@"Tap to paste the full web link for show recap." delegate:self
                                           cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField* textField = [alert textFieldAtIndex:0];
+    textField.text = self.show[@"recapURL"];
     [alert show];
 
 }
@@ -499,7 +503,7 @@ int votedFavorites;
         vc.arrayOfWorldClassScores = self.arrayOfWorldClassScores;
         vc.arrayOfOpenClassScores = self.arrayOfOpenClassScores;
         vc.arrayOfAllAgeClassScores = self.arrayOfAllAgeClassScores;
-        
+        vc.delegate = self;
     }
 }
 
@@ -522,6 +526,16 @@ int votedFavorites;
         _scene.backgroundColor = [UIColor blackColor];
     }
     return _scene;
+}
+
+
+#pragma mark
+#pragma mark - End Show Delegate Methods
+#pragma mark
+
+-(void)showCompleted {
+
+    [self setup];
 }
 
 @end

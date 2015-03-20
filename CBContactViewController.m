@@ -10,11 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Parse/Parse.h>
 #import "CBProblemTableViewController.h"
+#import "CBSingle.h"
 
 @interface CBContactViewController ()
 @property (nonatomic, strong) IBOutlet UITableView *tableFeedback;
 
 @end
+
+CBSingle *data;
 
 @implementation CBContactViewController
 
@@ -49,7 +52,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    data = [CBSingle data];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableFeedback.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -110,14 +113,13 @@
     return cell;
 }
 
-#define YOUR_APP_STORE_ID 545174222 //Change this one to your ID
-
-static NSString *const iOS7AppStoreURLFormat = @"itms-apps://itunes.apple.com/app/id%d";
-static NSString *const iOSAppStoreURLFormat = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d";
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSURL *theUrl;
+    NSString *ios7;
+    NSString *ios;
+    NSString *appId;
+    
     switch (indexPath.row) {
         case 0:
             [self performSegueWithIdentifier:@"feedback" sender:self];
@@ -132,7 +134,10 @@ static NSString *const iOSAppStoreURLFormat = @"itms-apps://itunes.apple.com/Web
             break;
         case 3:
 
-            theUrl = [NSURL URLWithString:[NSString stringWithFormat:([[UIDevice currentDevice].systemVersion floatValue] >= 7.0f)? iOS7AppStoreURLFormat: iOSAppStoreURLFormat, YOUR_APP_STORE_ID]];
+            ios7 = data.objAdmin[@"iOS7AppStoreLink"];
+            ios = data.objAdmin[@"iOSAppStoreLink"];
+            appId = data.objAdmin[@"appStoreID"];
+            theUrl = [NSURL URLWithString:[NSString stringWithFormat:([[UIDevice currentDevice].systemVersion floatValue] >= 7.0f)? ios7: ios, appId]];
             [[UIApplication sharedApplication] openURL:theUrl];
             
             break;

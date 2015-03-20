@@ -70,6 +70,11 @@
 
 - (IBAction)btnCancel_tapped:(id)sender {
     
+    [self close];
+}
+
+-(void)close {
+
     [self.currentResponder resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -109,8 +114,9 @@
         }
         
 
-        alert.tag = 2;
+        
         alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        alert.tag = 2;
         [alert show];
         
     } else {
@@ -239,6 +245,7 @@
             case 2: [self completeShow];
                 break;
             case 3: [self sendPush];
+            default: NSLog(@"Alert error");
         }
     }
 }
@@ -275,8 +282,21 @@
         self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
         [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
-            if (error) [self.show saveEventually];
+            if (error) {
+                [self.show saveEventually];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error"
+                                                                message:@"Could not connect to server. The scores will automatically save the next time a connection is established."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
             else {
+                [self initUI];
+                if ([self.delegate respondsToSelector:@selector(showCompleted)]) {
+                    [self.delegate showCompleted];
+                }
+                [self close];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notification"
                                                                 message:@"Send push notification to users notifying them scores are up?"
                                                                delegate:self
@@ -293,52 +313,52 @@
     
     if ([array count]) {
         
-        for (PFObject *score in array) {
+        for (PFObject *s in array) {
             
-            PFObject *corps = score[@"corps"];
-            NSString *total = score[@"score"];
-            NSString *guard = score[@"colorguardScore"];
-            NSString *perc = score[@"percussionScore"];
-            NSString *brass = score[@"hornlineScore"];
+            PFObject *c = s[@"corps"];
+            NSString *total = s[@"score"];
+            NSString *guard = s[@"colorguardScore"];
+            NSString *perc = s[@"percussionScore"];
+            NSString *brass = s[@"hornlineScore"];
             
             if ([total length]) {
                 if (![total isEqualToString:@"0"]) {
-                    corps[@"olderScore"] = corps[@"lastScore"];
-                    corps[@"lastScore"] = score[@"score"];
-                    corps[@"lastScoreDate"] = self.show[@"showDate"];
+                    if (c[@"lastScore"]) c[@"olderScore"] = c[@"lastScore"];
+                    if (c[@"score"]) c[@"lastScore"] = c[@"score"];
+                    if (self.show[@"showDate"]) c[@"lastScoreDate"] = self.show[@"showDate"];
                 }
             }
             if ([brass length]) {
-                if (![brass isEqualToString:@"0"]) corps[@"lastBrass"] = score[@"hornlineScore"];
+                if (![brass isEqualToString:@"0"]) c[@"lastBrass"] = s[@"hornlineScore"];
             }
             if ([guard length]) {
-                if (![guard isEqualToString:@"0"]) corps[@"lastColorguard"] = score[@"colorguardScore"];
+                if (![guard isEqualToString:@"0"]) c[@"lastColorguard"] = s[@"colorguardScore"];
             }
             
             if ([perc length]) {
-                if (![perc isEqualToString:@"0"]) corps[@"lastPercussion"] = score[@"percussionScore"];
+                if (![perc isEqualToString:@"0"]) c[@"lastPercussion"] = c[@"percussionScore"];
             }
             
-            [corps saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error) [corps saveEventually];
+            [c saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [c saveEventually];
             }];
             
             int x = 0;
-            x += [score[@"score"] intValue];
-            x += [score[@"colorguardScore"] intValue];
-            x += [score[@"hornlineScore"] intValue];
-            x += [score[@"percussionScore"] intValue];
+            x += [s[@"score"] intValue];
+            x += [s[@"colorguardScore"] intValue];
+            x += [s[@"hornlineScore"] intValue];
+            x += [s[@"percussionScore"] intValue];
             
             if (x == 0) {
                 
-                score[@"exception"] = @"Rained Out";
+                s[@"exception"] = @"Rained Out";
             } else {
                 
-                [score removeObjectForKey:@"exception"];
+                [s removeObjectForKey:@"exception"];
             }
             
-            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error) [score saveEventually];
+            [s saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [s saveEventually];
                 [self initUI];
             }];
         }
@@ -346,12 +366,6 @@
 }
 
 -(void)weather {
-    
-    self.show[@"exception"] = @"Rained Out";
-    self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
-    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) [self.show saveEventually];
-    }];
     
     if ([self.arrayOfWorldClassScores count]) {
         for (PFObject *score in self.arrayOfWorldClassScores) {
@@ -397,6 +411,16 @@
             }];
         }
     }
+    
+    self.show[@"exception"] = @"Rained Out";
+    self.show[@"isShowOver"] = [NSNumber numberWithBool:YES];
+    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) [self.show saveEventually];
+        if ([self.delegate respondsToSelector:@selector(showCompleted)]) {
+            [self.delegate showCompleted];
+            [self close];
+        }
+    }];
 }
 
 #pragma mark

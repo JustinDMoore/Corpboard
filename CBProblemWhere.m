@@ -18,7 +18,16 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // CUSTOM INITIALIZATION HERE
-        self.arrayOfProblemAreas = @[@"About the Corps", @"Ads", @"Chat or Messages", @"Corp Rankings", @"Friends or Profiles", @"News", @"Shows", @"Show Reviews", @"Other"];
+        self.arrayOfProblemAreas = @[@"About the Corps",
+                                     @"Friends or Profiles",
+                                     @"Live Chat",
+                                     @"News",
+                                     @"Private Messages",
+                                     @"Rankings",
+                                     @"Scores",
+                                     @"Show Information",
+                                     @"Show Reviews",
+                                     @"Other"];
         
         self.layer.cornerRadius = 8;
         
