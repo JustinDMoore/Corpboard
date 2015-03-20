@@ -14,9 +14,10 @@
 //27 open class
 //49 corps
 
-NSInteger const JUNE = 1;
-NSInteger const JULY = 2;
-NSInteger const AUGUST = 3;
+NSInteger const JUNE = 6;
+NSInteger const JULY = 7;
+NSInteger const AUGUST = 8;
+NSInteger const YEAR = 2014;
 
 // World Class - 22 Corps
 NSString *const THE_CADETS = @"The Cadets";
@@ -579,7 +580,7 @@ NSString *const KILTIES = @"Kilties";
                    forDay:13
       withPerformingCorps:@[COLTS, BOSTON_CRUSADERS, SPIRIT_OF_ATLANTA, PIONEER, COLT_CADETS, LEGENDS, LOUISIANA_STARS]];
     
-    [self addShowWithName:@"So Cal Classic Open Class Championship"
+    [self addShowWithName:@"So Cal Classic Open Class Championships"
                atLocation:@"Cerritos, CA"
                  forMonth:JULY
                    forDay:13
@@ -645,7 +646,7 @@ NSString *const KILTIES = @"Kilties";
                    forDay:18
       withPerformingCorps:@[BLUE_DEVILS, BLUE_KNIGHTS, BLUECOATS, CAROLINA_CROWN, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, THE_CAVALIERS]];
     
-    [self addShowWithName:@"DCI Southwestern Championship"
+    [self addShowWithName:@"DCI Southwestern Championships"
                atLocation:@"San Antonio, TX"
                  forMonth:JULY
                    forDay:19
@@ -717,7 +718,7 @@ NSString *const KILTIES = @"Kilties";
                    forDay:25
       withPerformingCorps:@[BLUE_DEVILS, BLUECOATS, BOSTON_CRUSADERS, CAROLINA_CROWN, MUSIC_CITY, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, THE_CADETS, THE_CAVALIERS]];
     
-    [self addShowWithName:@"DCI Southeastern Championship"
+    [self addShowWithName:@"DCI Southeastern Championships"
                atLocation:@"Atlanta, GA"
                  forMonth:JULY
                    forDay:26
@@ -868,19 +869,19 @@ NSString *const KILTIES = @"Kilties";
                    forDay:5
       withPerformingCorps:@[]];
     
-    [self addShowWithName:@"DCI World Championship Prelims"
+    [self addShowWithName:@"DCI World Championships Prelims"
                atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
                    forDay:JULY
       withPerformingCorps:@[]];
     
-    [self addShowWithName:@"DCI World Championship Semifinals"
+    [self addShowWithName:@"DCI World Championships Semifinals"
                atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
                    forDay:AUGUST
       withPerformingCorps:@[]];
     
-    [self addShowWithName:@"DCI World Championship Finals"
+    [self addShowWithName:@"DCI World Championships Finals"
                atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
                    forDay:9
@@ -900,16 +901,18 @@ NSString *const KILTIES = @"Kilties";
     newShow[@"isShowOver"] = [NSNumber numberWithBool:NO];
     newShow[@"showName"] = showName;
     newShow[@"showLocation"] = showLocation;
-    newShow[@"showDate"] = [NSDate dateWithTimeInterval:60*60*50 sinceDate:[JustinHelper dateWithMonth:month day:day year:2015]];
+    newShow[@"showDate"] = [NSDate dateWithTimeInterval:60*60*50 sinceDate:[JustinHelper dateWithMonth:month day:day year:YEAR]];
     newShow[@"showDate"] = [JustinHelper dateWithMonth:month
                                                    day:day
-                                                  year:2015];
+                                                  year:YEAR];
     
     for (NSString *corps in corpsArray) {
         [newShow addUniqueObject:corps forKey:@"arrayOfCorps"];
     }
     
-    [newShow saveInBackground];
+    [newShow saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) NSLog(@"Show created: %@", newShow[@"showName"]);
+    }];
     
     for (NSString *corps in corpsArray) {
         [self createEmptyScoreForCorps:[self getCorpsByName:corps] atShow:newShow];
@@ -925,7 +928,9 @@ NSString *const KILTIES = @"Kilties";
     score[@"isOfficial"] = [NSNumber numberWithBool:YES];
     score[@"class"] = corps[@"class"];
     score[@"showDate"] = show[@"showDate"];
-    [score saveInBackground];
+    [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) NSLog(@"Empty score created for %@                      %@", corps[@"corpsName"], show[@"showLocation"]);
+    }];
 }
 
 -(void)addCorps:(NSString *)corpsName corpClass:(NSString *)corpsClass {

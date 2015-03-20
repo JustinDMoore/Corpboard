@@ -622,7 +622,6 @@ NSDate *nearestDate;
     
         //if today is after finals, just get the last four shows
     if ([lastShowDate isInPast]) {
-        NSLog(@"in the past");
         NSUInteger i = [data.arrayOfAllShows indexOfObject:[data.arrayOfAllShows lastObject]];
         int x = 0;
         while (x < 4) {

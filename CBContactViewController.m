@@ -114,12 +114,7 @@ CBSingle *data;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSURL *theUrl;
-    NSString *ios7;
-    NSString *ios;
-    NSString *appId;
-    
+
     switch (indexPath.row) {
         case 0:
             [self performSegueWithIdentifier:@"feedback" sender:self];
@@ -133,13 +128,8 @@ CBSingle *data;
             [self performSegueWithIdentifier:@"problem" sender:self];
             break;
         case 3:
-
-            ios7 = data.objAdmin[@"iOS7AppStoreLink"];
-            ios = data.objAdmin[@"iOSAppStoreLink"];
-            appId = data.objAdmin[@"appStoreID"];
-            theUrl = [NSURL URLWithString:[NSString stringWithFormat:([[UIDevice currentDevice].systemVersion floatValue] >= 7.0f)? ios7: ios, appId]];
-            [[UIApplication sharedApplication] openURL:theUrl];
             
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
             break;
         default:
             break;
