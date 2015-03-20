@@ -15,14 +15,13 @@
 CBSingle *data;
 CBAppDelegate *del;
 BOOL firstLoad = YES;
-BOOL refreshing = NO;
 
 @interface CBShowsViewController ()
 @property (nonatomic, weak) IBOutlet UITableView *tableShows;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 @property (nonatomic, strong) PFObject *currentSelectedShow; //only updated when the user selects a show
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation CBShowsViewController
@@ -63,8 +62,8 @@ BOOL refreshing = NO;
     [self.tableShows reloadData];
 }
 
-- (void)goback
-{
+- (void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -87,20 +86,17 @@ BOOL refreshing = NO;
 -(void)initUI {
     
     self.tableShows.hidden = YES;
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshAll:) forControlEvents:UIControlEventValueChanged];
-    [self.tableShows addSubview:self.refreshControl];
 }
 
 -(void)checkForShows {
     
+    
     if (data.dataLoaded) {
         
         if ([data.arrayOfAllShows count]) {
-
+            
             self.tableShows.hidden = NO;
             self.tableShows.userInteractionEnabled = YES;
-            [self.refreshControl endRefreshing];
             [self displayShows];
             if (firstLoad) {
                 [self scrollToDate];
@@ -111,14 +107,7 @@ BOOL refreshing = NO;
     } else {
         NSLog(@"Not loaded");
     }
-}
-
-- (void)refreshAll:(UIRefreshControl *)refreshControl {
     
-    self.tableShows.userInteractionEnabled = NO;
-    self.dateIndex = nil;
-    self.datesArray = nil;
-    [data refreshCorpsAndShows];
 }
 
 -(void)displayShows {
@@ -330,11 +319,6 @@ BOOL refreshing = NO;
         //vc.didUserVote = [data didUserVoteForShow:self.currentSelectedShow];
         vc.show = self.currentSelectedShow;
     }
-}
-
--(void)dataDidLoad {
-    
-    [self checkForShows];
 }
 
 #pragma mark - Properties

@@ -84,6 +84,9 @@ int votedFavorites;
 
 - (void)goback {
     
+    [self.scene stop];
+    [self.scene removeAllActions];
+    [self.scene removeAllChildren];
     self.scene = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -97,12 +100,10 @@ int votedFavorites;
     SKView * skView = _skView;
     
     // Create and configure the scene.
-    self.scene = [CBEffect sceneWithSize:[[UIScreen mainScreen] bounds].size];
-    self.scene.scaleMode = SKSceneScaleModeAspectFill;
+
     
     // Present the scene.
     skView.allowsTransparency = YES;
-    self.scene.backgroundColor = [UIColor blackColor];
     [skView presentScene:self.scene];
     self.tableCorps.backgroundColor = [UIColor clearColor];
     
@@ -514,4 +515,13 @@ int votedFavorites;
     
     [self presentViewController:web animated:YES completion:nil];
 }
+-(CBEffect *)scene {
+    if (!_scene) {
+        _scene = [CBEffect sceneWithSize:[[UIScreen mainScreen] bounds].size];
+        _scene.scaleMode = SKSceneScaleModeAspectFill;
+        _scene.backgroundColor = [UIColor blackColor];
+    }
+    return _scene;
+}
+
 @end
