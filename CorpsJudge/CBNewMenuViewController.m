@@ -613,144 +613,166 @@ NSDate *nearestDate;
     self.arrayOfShowsForTable1 = nil;
     self.arrayOfShowsForTable2 = nil;
     
-    // get shows for yesterday, today, and tomorrow
-    for (PFObject *show in data.arrayOfAllShows) {
-        
-        // adds all shows for yesterday
-        if ([show[@"showDate"] isYesterday]) {
-            [self.arrayOfShowsYesterday addObject:show];
-        }
-        
-        // adds all shows for today
-        if ([show[@"showDate"] isToday]) {
-            [self.arrayOfShowsToday addObject:show];
-        }
-        
-        if ([show[@"showDate"] isTomorrow]) {
-            [self.arrayOfShowsTomorrow addObject:show];
-        }
-    }
+
+    NSSortDescriptor *sortShowDescriptor = [[NSSortDescriptor alloc] initWithKey:@"showDate" ascending:YES];
+    NSArray *sortShows = [NSArray arrayWithObject: sortShowDescriptor];
+    if ([data.arrayOfAllShows count]) [data.arrayOfAllShows sortUsingDescriptors:sortShows];
+    PFObject *lastShow = [data.arrayOfAllShows lastObject];
+    NSDate *lastShowDate = lastShow[@"showDate"];
     
-    //get latest show prior to yesterday
-    if (![self.arrayOfLastShows count]) {
-        
-        NSMutableArray *arrayForLast;
-        if (![self.arrayOfShowsYesterday count]) { //if yesterday is empty, use it
-            arrayForLast = self.arrayOfShowsYesterday;
-        } else { // otherwise, use last shows
-            arrayForLast = self.arrayOfLastShows;
+        //if today is after finals, just get the last four shows
+    if ([lastShowDate isInPast]) {
+        NSLog(@"in the past");
+        NSUInteger i = [data.arrayOfAllShows indexOfObject:[data.arrayOfAllShows lastObject]];
+        int x = 0;
+        while (x < 4) {
+            [self.arrayOfShowsYesterday addObject:data.arrayOfAllShows[i-x]];
+            x++;
         }
         
-        int numberOfDays = 2;
-        bool foundLastDate = NO;
-        while (!foundLastDate) {
-            NSDate *days = [NSDate dateWithDaysBeforeNow:numberOfDays];
-            for (PFObject *show in data.arrayOfAllShows) {
-                if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
-                    [arrayForLast addObject:show];
-                    foundLastDate = YES;
-                }
-            }
-            numberOfDays++;
-            if (numberOfDays > 60) break;
-        }
-    }
-    
-    //get the next show after tomorrow
-    if (![self.arrayOfNextShows count]) {
-        NSMutableArray *arrayForNext;
-        if (![self.arrayOfShowsTomorrow count]) { // if tomorrow is empty, use it
-            arrayForNext = self.arrayOfShowsTomorrow;
-        } else { // otherwise, use next shows
-            arrayForNext = self.arrayOfNextShows;
-        }
-        
-        int numberOfDays = 2;
-        BOOL foundNextDate = NO;
-        while (!foundNextDate) {
-            NSDate *days = [NSDate dateWithDaysFromNow:numberOfDays];
-            for (PFObject *show in data.arrayOfAllShows) {
-                if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
-                    [arrayForNext addObject:show];
-                        foundNextDate = YES;
-                }
-            }
-            numberOfDays++;
-            if (numberOfDays > 60) break;
-        }
-    }
-    
-    //now see what we have and assign the tables
-    if ([self.arrayOfShowsToday count]) {
-        self.arrayOfShowsForTable1 = self.arrayOfShowsToday;
-        
-        if ([self.arrayOfShowsTomorrow count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
-        } else if ([self.arrayOfNextShows count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
-        }
-        
-    } else if ([self.arrayOfShowsYesterday count]) {
         self.arrayOfShowsForTable1 = self.arrayOfShowsYesterday;
+        lastShowString = @"Latest Shows";
         
-        if ([self.arrayOfShowsTomorrow count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
-        } else if ([self.arrayOfNextShows count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
-        }
-    
-    
-    } else if ([self.arrayOfLastShows count]) {
-        self.arrayOfShowsForTable1 = self.arrayOfLastShows;
-        
-        if ([self.arrayOfShowsTomorrow count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
-        } else if ([self.arrayOfNextShows count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
-        }
-        
-        
-    } else if ([self.arrayOfShowsTomorrow count]){
-        self.arrayOfShowsForTable1 = self.arrayOfShowsTomorrow;
-        
-        if ([self.arrayOfNextShows count]) {
-            self.arrayOfShowsForTable2 = self.arrayOfNextShows;
-        }
-    }
-
-    // set the date label for table 1 shows
-    if ([self.arrayOfShowsForTable1 count]) {
-
-        PFObject *show = [self.arrayOfShowsForTable1 objectAtIndex:0];
-        
-        if ([show[@"showDate"] isToday]) {
-            lastShowString = @"Today";
-        } else if ([show[@"showDate"] isYesterday]) {
-            lastShowString = @"Yesterday";
-        } else if ([show[@"showDate"] isTomorrow]) {
-            lastShowString = @"Tomorrow";
-        } else {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"EEEE M/dd"];
+    } else { //otherwise, proceed as normal:
+        // get shows for yesterday, today, and tomorrow
+        for (PFObject *show in data.arrayOfAllShows) {
             
-            lastShowString = [formatter stringFromDate:show[@"showDate"]];
-        }
-    }
-
-    // set the date label for table 2 shows
-    if ([self.arrayOfShowsForTable2 count]) {
-        //set the date string for the next shows table
-        PFObject *show2 = [self.arrayOfShowsForTable2 objectAtIndex:0];
-        
-        if ([show2[@"showDate"] isToday]) {
-            nextShowString = @"Today";
-        } else if ([show2[@"showDate"] isTomorrow]) {
-            nextShowString = @"Tomorrow";
-        } else {
-            NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-            [formatter2 setDateFormat:@"EEEE M/dd"];
+            // adds all shows for yesterday
+            if ([show[@"showDate"] isYesterday]) {
+                [self.arrayOfShowsYesterday addObject:show];
+            }
             
-            nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+            // adds all shows for today
+            if ([show[@"showDate"] isToday]) {
+                [self.arrayOfShowsToday addObject:show];
+            }
+            
+            if ([show[@"showDate"] isTomorrow]) {
+                [self.arrayOfShowsTomorrow addObject:show];
+            }
+        }
+        
+        //get latest show prior to yesterday
+        if (![self.arrayOfLastShows count]) {
+            
+            NSMutableArray *arrayForLast;
+            if (![self.arrayOfShowsYesterday count]) { //if yesterday is empty, use it
+                arrayForLast = self.arrayOfShowsYesterday;
+            } else { // otherwise, use last shows
+                arrayForLast = self.arrayOfLastShows;
+            }
+            
+            int numberOfDays = 2;
+            bool foundLastDate = NO;
+            while (!foundLastDate) {
+                NSDate *days = [NSDate dateWithDaysBeforeNow:numberOfDays];
+                for (PFObject *show in data.arrayOfAllShows) {
+                    if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
+                        [arrayForLast addObject:show];
+                        foundLastDate = YES;
+                    }
+                }
+                numberOfDays++;
+                if (numberOfDays > 60) break;
+            }
+        }
+        
+        //get the next show after tomorrow
+        if (![self.arrayOfNextShows count]) {
+            NSMutableArray *arrayForNext;
+            if (![self.arrayOfShowsTomorrow count]) { // if tomorrow is empty, use it
+                arrayForNext = self.arrayOfShowsTomorrow;
+            } else { // otherwise, use next shows
+                arrayForNext = self.arrayOfNextShows;
+            }
+            
+            int numberOfDays = 2;
+            BOOL foundNextDate = NO;
+            while (!foundNextDate) {
+                NSDate *days = [NSDate dateWithDaysFromNow:numberOfDays];
+                for (PFObject *show in data.arrayOfAllShows) {
+                    if ([show[@"showDate"] isEqualToDateIgnoringTime:days]) {
+                        [arrayForNext addObject:show];
+                        foundNextDate = YES;
+                    }
+                }
+                numberOfDays++;
+                if (numberOfDays > 60) break;
+            }
+        }
+        
+        //now see what we have and assign the tables
+        if ([self.arrayOfShowsToday count]) {
+            self.arrayOfShowsForTable1 = self.arrayOfShowsToday;
+            
+            if ([self.arrayOfShowsTomorrow count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+            } else if ([self.arrayOfNextShows count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+            }
+            
+        } else if ([self.arrayOfShowsYesterday count]) {
+            self.arrayOfShowsForTable1 = self.arrayOfShowsYesterday;
+            
+            if ([self.arrayOfShowsTomorrow count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+            } else if ([self.arrayOfNextShows count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+            }
+            
+            
+        } else if ([self.arrayOfLastShows count]) {
+            self.arrayOfShowsForTable1 = self.arrayOfLastShows;
+            
+            if ([self.arrayOfShowsTomorrow count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfShowsTomorrow;
+            } else if ([self.arrayOfNextShows count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+            }
+            
+            
+        } else if ([self.arrayOfShowsTomorrow count]){
+            self.arrayOfShowsForTable1 = self.arrayOfShowsTomorrow;
+            
+            if ([self.arrayOfNextShows count]) {
+                self.arrayOfShowsForTable2 = self.arrayOfNextShows;
+            }
+        }
+        
+        // set the date label for table 1 shows
+        if ([self.arrayOfShowsForTable1 count]) {
+            
+            PFObject *show = [self.arrayOfShowsForTable1 objectAtIndex:0];
+            
+            if ([show[@"showDate"] isToday]) {
+                lastShowString = @"Today";
+            } else if ([show[@"showDate"] isYesterday]) {
+                lastShowString = @"Yesterday";
+            } else if ([show[@"showDate"] isTomorrow]) {
+                lastShowString = @"Tomorrow";
+            } else {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"EEEE M/dd"];
+                
+                lastShowString = [formatter stringFromDate:show[@"showDate"]];
+            }
+        }
+        
+        // set the date label for table 2 shows
+        if ([self.arrayOfShowsForTable2 count]) {
+            //set the date string for the next shows table
+            PFObject *show2 = [self.arrayOfShowsForTable2 objectAtIndex:0];
+            
+            if ([show2[@"showDate"] isToday]) {
+                nextShowString = @"Today";
+            } else if ([show2[@"showDate"] isTomorrow]) {
+                nextShowString = @"Tomorrow";
+            } else {
+                NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+                [formatter2 setDateFormat:@"EEEE M/dd"];
+                
+                nextShowString = [formatter2 stringFromDate:show2[@"showDate"]];
+            }
         }
     }
     
