@@ -39,15 +39,14 @@ CBSingle *datas;
 #endif
     [self.locationManager startUpdatingLocation];
     
-    self.mapView.showsUserLocation = YES;
+    self.mapView.showsUserLocation = NO;
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
 
     
-    CLLocationCoordinate2D centerCoord = {39.8282, -98.5795};
-    [self.mapView setCenterCoordinate:centerCoord zoomLevel:3 animated:NO];
-    
+    CLLocationCoordinate2D centerCoord = {41.7627, -72.6743};
+    [self.mapView setCenterCoordinate:centerCoord zoomLevel:2 animated:YES];
     
     [self plotAllShowsForCorps:nil];
     
@@ -91,8 +90,21 @@ CBSingle *datas;
         
         CBAnnotation *myLocation = (CBAnnotation *)annotation;
         
+        MKAnnotationView *annotationView;
         
-        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"MyCustomAnnotation"];
+        if ([myLocation.show[@"showName"] isEqualToString:@"Tour of Champions"]) {
+
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"TOC"];
+            
+        } else if ([myLocation.show[@"showName"] containsString:@"World Championship"]) {
+
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"champs"];
+            
+        } else {
+
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"standard"];
+            
+        }
         
         if (annotationView == nil) {
             annotationView = myLocation.annotationView;
@@ -122,6 +134,7 @@ CBSingle *datas;
     
     [self.arrayOfShowsToDisplay removeAllObjects];
     [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.arrayOfCoordinates removeAllObjects];
     
     if (corps) { // ONLY SHOWING SHOWS FOR A CORPS
         for (PFObject *show in datas.arrayOfAllShows) {
@@ -149,6 +162,7 @@ CBSingle *datas;
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
         CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
         custom.show = show;
+        
         [self.mapView addAnnotation:custom];
     }
 }
@@ -170,28 +184,71 @@ CBSingle *datas;
 //        [self presentViewController:showDetails animated:YES completion:nil];
 //}
 
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    NSLog(@"tapped view");
+    UITapGestureRecognizer *tapGesture =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(calloutTapped:)];
+    [view addGestureRecognizer:tapGesture];
+}
+
+-(void)calloutTapped:(id)sender {
+    NSLog(@"callout tapped");
+}
+
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:annotationViews];
     [arr shuffle];
     
-    float delay = .5;
+    float delay = .3;
     
     for (MKAnnotationView *annView in arr) {
+
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:annView.annotation.coordinate.latitude longitude:annView.annotation.coordinate.longitude];
         
-        annView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        CBAnnotation *a = (CBAnnotation *)annView.annotation;
         
-        [UIView animateWithDuration:.3
-                              delay:delay
-             usingSpringWithDamping:.3
-              initialSpringVelocity:10
-                            options:0
-                         animations:^{
-                             annView.transform = CGAffineTransformIdentity;
-                         } completion:^(BOOL finished) {
-                             
-                         }];
-        delay += .03;
+        if (![self doesCoordinateAlreadyExist:loc]) {
+            
+            if (a.champs || a.TOC) {
+                [annView.superview bringSubviewToFront:annView];
+            } else {
+                [annView.superview sendSubviewToBack:annView];
+            }
+            
+            [self.arrayOfCoordinates addObject:loc];
+            annView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+            
+            [UIView animateWithDuration:.3
+                                  delay:delay
+                 usingSpringWithDamping:.3
+                  initialSpringVelocity:10
+                                options:0
+                             animations:^{
+                                 annView.transform = CGAffineTransformIdentity;
+                                 
+                             } completion:^(BOOL finished) {
+                                 
+                             }];
+            delay += .02;
+        } else {
+            annView.hidden = YES;
+        }
+    }
+}
+
+-(BOOL)doesCoordinateAlreadyExist:(CLLocation*)coordinate {
+    
+    if (![self.arrayOfCoordinates count]) return NO;
+    else {
+        for (CLLocation *coord in self.arrayOfCoordinates) {
+            if (coord.coordinate.latitude == coordinate.coordinate.latitude &&
+                coord.coordinate.longitude == coordinate.coordinate.longitude) {
+                return YES;
+            }
+        }
+        return NO;
     }
 }
 
@@ -224,6 +281,63 @@ CBSingle *datas;
         _arrayOfShowsToDisplay = [[NSMutableArray alloc] init];
     }
     return _arrayOfShowsToDisplay;
+}
+
+
+-(NSMutableArray *)arrayOfCoordinates {
+    if (!_arrayOfCoordinates) {
+        _arrayOfCoordinates = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfCoordinates;
+}
+
+//custom callout
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    if (view.annotation == self.customAnnotation) {
+        if (self.calloutAnnotation == nil) {
+            self.calloutAnnotation = [[CalloutMapAnnotation alloc]
+                                      initWithLatitude:view.annotation.coordinate.latitude
+                                      andLongitude:view.annotation.coordinate.longitude];
+        } else {
+            self.calloutAnnotation.latitude = view.annotation.coordinate.latitude;
+            self.calloutAnnotation.longitude = view.annotation.coordinate.longitude;
+        }
+        [self.mapView addAnnotation:self.calloutAnnotation];
+        self.selectedAnnotationView = view;
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    if (self.calloutAnnotation && view.annotation == self.customAnnotation) {
+        [self.mapView removeAnnotation: self.calloutAnnotation];
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if (annotation == self.calloutAnnotation) {
+        CalloutMapAnnotationView *calloutMapAnnotationView = (CalloutMapAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CalloutAnnotation"];
+        if (!calloutMapAnnotationView) {
+            calloutMapAnnotationView = [[[CalloutMapAnnotationView alloc] initWithAnnotation:annotation
+                                                                             reuseIdentifier:@"CalloutAnnotation"] autorelease];
+        }
+        calloutMapAnnotationView.parentAnnotationView = self.selectedAnnotationView;
+        calloutMapAnnotationView.mapView = self.mapView;
+        return calloutMapAnnotationView;
+    } else if (annotation == self.customAnnotation) {
+        MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                                               reuseIdentifier:@"CustomAnnotation"] autorelease];
+        annotationView.canShowCallout = NO;
+        annotationView.pinColor = MKPinAnnotationColorGreen;
+        return annotationView;
+    } else if (annotation == self.normalAnnotation) {
+        MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                                               reuseIdentifier:@"NormalAnnotation"] autorelease];
+        annotationView.canShowCallout = YES;
+        annotationView.pinColor = MKPinAnnotationColorPurple;
+        return annotationView;
+    }
+    
+    return nil;
 }
 
 @end

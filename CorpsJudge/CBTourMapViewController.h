@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property(nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSMutableArray *arrayOfShowsToDisplay;
+@property (nonatomic, strong) NSMutableArray *arrayOfCoordinates;
 
 @end
