@@ -323,12 +323,12 @@ Parse.Cloud.afterSave("problems", function(request, response) {
                       
                       });
 
+
 Parse.Cloud.afterSave("users", function(request, response) {
                       Parse.Cloud.useMasterKey();
                       
                       if (request.object.existed()) { // it existed before
                       } else { // it is new
-
                       Parse.Push.send({
                                       channels: [ "admin" ],
                                       data: {
