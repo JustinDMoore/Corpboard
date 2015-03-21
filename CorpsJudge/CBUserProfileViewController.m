@@ -1004,7 +1004,8 @@ UIPickerView *corpPicker;
         if (indexPath.row == 0) {
 
             cell.textLabel.text = @"    Add Experience";
-            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(5, (CGRectGetMidY(cell.frame) / 2) - (15 / 2), 15, 15)];
+            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(5, cell.textLabel.frame.origin.y, 15, 15)];
+            //UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(5, (CGRectGetMidY(cell.frame) / 2) - (15 / 2), 15, 15)];
             imageView.backgroundColor=[UIColor clearColor];
             [imageView setImage:[UIImage imageNamed:@"Add"]];
             [cell addSubview:imageView];

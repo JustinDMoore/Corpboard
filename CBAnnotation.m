@@ -10,13 +10,14 @@
 
 @implementation CBAnnotation
 
--(id)initWithTitle:(NSString *)newTitle Location:(CLLocationCoordinate2D)location {
+-(id)initWithTitle:(NSString *)newTitle andSubTitle:(NSString *)subtitle atLocation:(CLLocationCoordinate2D)location {
     
     self = [super init];
     
     if (self) {
         _title = newTitle;
         _coordinate = location;
+        _subtitle = subtitle;
     }
     
     return self;
@@ -46,14 +47,14 @@
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     [btn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
     
-    UITableViewCell *showArrow = [[UITableViewCell alloc] init];
-    [btn addSubview:showArrow];
-    showArrow.frame = btn.bounds;
-    showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    showArrow.userInteractionEnabled = NO;
-    showArrow.tintColor = [UIColor redColor];
+//    UITableViewCell *showArrow = [[UITableViewCell alloc] init];
+//    [btn addSubview:showArrow];
+//    showArrow.frame = btn.bounds;
+//    showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    showArrow.userInteractionEnabled = NO;
+//    showArrow.tintColor = [UIColor redColor];
     
-    annotationView.rightCalloutAccessoryView = btn;
+    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     
     return annotationView;
 }

@@ -25,6 +25,7 @@ CBSingle *datas;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Tour Map";
     datas = [CBSingle data];
     CBTourMapMenuViewController *menu = (CBTourMapMenuViewController *)[SlideNavigationController sharedInstance].rightMenu;
     menu.delegate = self;
@@ -111,7 +112,7 @@ CBSingle *datas;
         } else {
             annotationView.annotation = annotation;
         }
-    
+        annotationView.canShowCallout = YES;
         return annotationView;
     }
     else return nil;
@@ -158,11 +159,14 @@ CBSingle *datas;
     PFObject *stadium = show[@"stadium"];
     PFGeoPoint *location = stadium[@"coordinates"];
     if (location.longitude && location.latitude) {
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"MMMM d"];
+        NSString *dateString = [format stringFromDate:show[@"showDate"]];
         
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(location.latitude, location.longitude);
-        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] Location:coord];
+        CBAnnotation *custom = [[CBAnnotation alloc] initWithTitle:show[@"showName"] andSubTitle:dateString atLocation:coord];
         custom.show = show;
-        
+        custom.showObjectId = show.objectId;
         [self.mapView addAnnotation:custom];
     }
 }
@@ -171,29 +175,30 @@ CBSingle *datas;
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-//-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-//    
-//        CBAnnotation *ann = (CBAnnotation *)view;
-//    
-//        NSString * storyboardName = @"Main";
-//        NSString * viewControllerID = @"showDetails";
-//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-//        CBShowDetailsViewController * showDetails = (CBShowDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
-//        showDetails.show = ann.show;
-//    
-//        [self presentViewController:showDetails animated:YES completion:nil];
-//}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    
+    CBAnnotation *ann = (CBAnnotation *)view.annotation;
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"showDetails";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBShowDetailsViewController * showDetails = (CBShowDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    showDetails.show = ann.show;
+    [self.navigationController pushViewController:showDetails animated:YES];
+}
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"tapped view");
-    UITapGestureRecognizer *tapGesture =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(calloutTapped:)];
-    [view addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture =
+//    [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                            action:@selector(calloutTapped:)];
+//    [view addGestureRecognizer:tapGesture];
 }
 
 -(void)calloutTapped:(id)sender {
-    NSLog(@"callout tapped");
+
+//    CBAnnotation *ann = (CBAnnotation *)sender;
+//    NSLog(@"%@", ann.show[@"showName"]);
 }
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {

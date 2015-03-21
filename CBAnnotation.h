@@ -14,11 +14,13 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, strong) PFObject *show;
 @property (nonatomic) BOOL champs;
 @property (nonatomic) BOOL TOC;
+@property (nonatomic, strong) NSString *showObjectId;
 
--(id)initWithTitle:(NSString *)newTitle Location:(CLLocationCoordinate2D)location;
+-(id)initWithTitle:(NSString *)newTitle andSubTitle:(NSString *)subtitle atLocation:(CLLocationCoordinate2D)location;
 -(MKAnnotationView *)annotationView;
 
 @end
