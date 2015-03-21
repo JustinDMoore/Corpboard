@@ -649,8 +649,22 @@ BOOL coverPhoto = NO;
     
     [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
+   
+    
+    //Have the image draw itself in the correct orientation if necessary
+    if(!(photo.imageOrientation == UIImageOrientationUp ||
+         photo.imageOrientation == UIImageOrientationUpMirrored))
+    {
+        CGSize imgsize = photo.size;
+        UIGraphicsBeginImageContext(imgsize);
+        [photo drawInRect:CGRectMake(0.0, 0.0, imgsize.width, imgsize.height)];
+        photo = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
     
     NSData *imageData = UIImagePNGRepresentation(photo);
+    
+    //NSData *imageData = UIImagePNGRepresentation(photo);
     //make sure the image isn't too big
     NSInteger size = imageData.length;
     if (size < 10485760) {
