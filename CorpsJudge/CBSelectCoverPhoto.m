@@ -8,8 +8,11 @@
 
 #import "CBSelectCoverPhoto.h"
 #import "KVNProgress.h"
+#import "Configuration.h"
 
-@interface CBSelectCoverPhoto ()
+@interface CBSelectCoverPhoto () {
+
+}
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentAlbum;
 @property (strong, nonatomic) IBOutlet UITableView *tablePhotos;
@@ -39,6 +42,8 @@
 -(void)viewDidLoad {
     
     [super viewDidLoad];
+
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     self.tablePhotos.hidden = YES;
     [self getPhotos];

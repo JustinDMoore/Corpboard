@@ -18,6 +18,7 @@
 
 #import "PrivateView.h"
 #import "ChatView.h"
+#import "Configuration.h"
 
 @interface PrivateView() {
     
@@ -130,7 +131,7 @@ BOOL isLoading = NO;
         if (isLoading == NO) {
             
             isLoading = YES;
-            
+            [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
             [KVNProgress show];
             [arrayOfChatsForCurrentUser removeAllObjects];
             [arrayOfChatsForOtherUsers removeAllObjects];
@@ -159,6 +160,7 @@ BOOL isLoading = NO;
                         
                     }
                 } else {
+                    [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                     [KVNProgress showErrorWithStatus:@"Network error"];
                 }
                 
@@ -185,7 +187,10 @@ BOOL isLoading = NO;
 			[users addObjectsFromArray:objects];
 			[self.tableView reloadData];
 		}
-		else [KVNProgress showErrorWithStatus:@"Network error"];
+        else {
+            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+            [KVNProgress showErrorWithStatus:@"Network error"];
+        }
 	}];
 }
 

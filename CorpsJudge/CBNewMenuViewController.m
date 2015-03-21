@@ -1365,9 +1365,9 @@ CGFloat previousScroll;
     }
     
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
-    dateLabel.font = [UIFont boldSystemFontOfSize:12];
+    dateLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     dateLabel.text = dateString;
-    dateLabel.textColor = [UIColor lightGrayColor];
+    dateLabel.textColor = [UIColor whiteColor];
     [dateLabel sizeToFit];
     [cell addSubview:dateLabel];
     

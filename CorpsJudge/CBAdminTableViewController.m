@@ -12,8 +12,12 @@
 #import "NSDate+Utilities.h"
 #import "CBUserProfileViewController.h"
 #import <ParseUI/ParseUI.h>
+#import "Configuration.h"
 
-@interface CBAdminTableViewController ()
+@interface CBAdminTableViewController () {
+
+}
+
 @property (nonatomic, strong) NSMutableArray *arrayOfData;
 @property (nonatomic, strong) CBPhoto *photoBrowser;
 
@@ -23,7 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -85,6 +88,7 @@
 
 -(void)getFeedback {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"feedback"];
@@ -103,6 +107,7 @@
 
 -(void)getBugs {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"problems"];
@@ -121,6 +126,7 @@
 
 -(void)getPhotos {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"photos"];
@@ -141,6 +147,7 @@
 
 -(void)getReports {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"reportUsers"];

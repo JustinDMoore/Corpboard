@@ -25,6 +25,8 @@
 #import "IQKeyboardManager.h"
 #import "CBImageViewController.h"
 
+#import "Configuration.h"
+
 @interface ChatView() {
     
 	NSTimer *timer;
@@ -42,7 +44,6 @@
 	JSQMessagesAvatarImage *placeholderImageData;
     
     CBAppDelegate *del;
-    
 }
 @end
 
@@ -152,7 +153,10 @@
 				}
 				if ([objects count] != 0) [self finishReceivingMessage];
 			}
-			else [KVNProgress showErrorWithStatus:@"Network error"];
+            else  {
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Network error"];
+            }
 			isLoading = NO;
 		}];
 	}
@@ -223,7 +227,10 @@
             [JSQSystemSoundPlayer jsq_playMessageSentSound];
             [self loadMessages];
         }
-        else [KVNProgress showErrorWithStatus:@"Network error"];;
+        else {
+            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+            [KVNProgress showErrorWithStatus:@"Network error"];
+        }
     }];
     
     if (self.isPrivate) {
@@ -236,7 +243,10 @@
         if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     
-            if (error) [KVNProgress showErrorWithStatus:@"Network error"];;
+            if (error) {
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Network error"];
+            }
         }];
     }
 

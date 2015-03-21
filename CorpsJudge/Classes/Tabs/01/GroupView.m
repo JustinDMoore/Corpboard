@@ -24,12 +24,12 @@
 
 #import "KVNProgress.h"
 #import "IQKeyboardManager.h"
+#import "Configuration.h"
 
 @interface GroupView() {
     
 	NSMutableArray *chatrooms;
     UIRefreshControl *refreshControl;
-    
 }
 @end
 
@@ -97,6 +97,7 @@
 
 - (void)goback {
     
+    [KVNProgress dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -130,6 +131,7 @@
 
 - (void)refreshTableAndOpenRecent:(BOOL)open {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
@@ -154,7 +156,10 @@
                     [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             }
 		}
-        else [KVNProgress showErrorWithStatus:@"Network error"];
+        else {
+            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+            [KVNProgress showErrorWithStatus:@"Network error"];
+        }
 	}];
 }
 
@@ -351,7 +356,10 @@ NSString *msg;
              
              [self refreshTableAndOpenRecent:YES];
          }
-         else [KVNProgress showErrorWithStatus:@"Network error"];
+         else {
+             [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+             [KVNProgress showErrorWithStatus:@"Network error"];
+         }
      }];
 }
 

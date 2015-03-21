@@ -20,6 +20,7 @@
 #import "MessagesCell.h"
 #import "ChatView.h"
 #import "IQKeyboardManager.h"
+#import "Configuration.h"
 
 @interface MessagesView() {
     
@@ -51,6 +52,7 @@
 - (void)viewDidLoad {
     
 	[super viewDidLoad];
+    
 	self.title = @"Messages";
 
     NSLog(@"haaaa");
@@ -105,7 +107,10 @@
 				[self updateEmptyView];
 				[self updateTabCounter];
 			}
-			else [KVNProgress showErrorWithStatus:@"Network error"];
+            else {
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Network error"];
+            }
 			[refreshControl endRefreshing];
 		}];
 	}

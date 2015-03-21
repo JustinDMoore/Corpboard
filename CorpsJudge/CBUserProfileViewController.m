@@ -15,6 +15,7 @@
 #import "messages.h"
 #import "ChatView.h"
 #import "IQKeyboardManager.h"
+#import "Configuration.h"
 
 @interface CBUserProfileViewController () {
     CBSingle *_data;
@@ -122,11 +123,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     
     _data = [CBSingle data];
-    
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
     
@@ -552,7 +552,7 @@ BOOL coverPhoto = NO;
 }
 
 -(void)submitPhotoForReview:(UIImage *)photo {
-    
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     
     NSData *imageData = UIImagePNGRepresentation(photo);
@@ -574,20 +574,24 @@ BOOL coverPhoto = NO;
 
                     [photoForReview saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
-
+                            [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
                             [KVNProgress showSuccess];
                         }
                         else {
+                            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                             [KVNProgress showErrorWithStatus:@"Could not upload photo"];
                         }
                     }];
                 }
             } else {
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                 [KVNProgress showErrorWithStatus:@"Could not upload photo"];
             }
         }];
         
     } else {
+        [KVNProgress dismiss];
+        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
         [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
     }
 
@@ -619,14 +623,17 @@ BOOL coverPhoto = NO;
                         self.userProfile[@"coverPointer"] = coverPhoto.objectId;
                         [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
+                                [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
                                 [KVNProgress showSuccess];
                             } else {
-                                [KVNProgress showErrorWithStatus:@"ha"];
+                                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                                [KVNProgress showErrorWithStatus:@"Error"];
                             }
                         }];
                         
                     }
                     else {
+                        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                         [KVNProgress showErrorWithStatus:@"Could not upload photo"];
                     }
                 }];
@@ -640,6 +647,7 @@ BOOL coverPhoto = NO;
 
 -(void)saveProfileImage:(UIImage *)photo {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     
     NSData *imageData = UIImagePNGRepresentation(photo);
@@ -660,20 +668,24 @@ BOOL coverPhoto = NO;
                         if (succeeded) {
                             
                             [self initUI];
+                            [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
                             [KVNProgress showSuccess];
                         }
                         else {
-                            
+                            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                             [KVNProgress showErrorWithStatus:@"Could not update photo"];
                         }
                     }];
                 }
             } else {
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                 [KVNProgress showErrorWithStatus:@"Could not update photo"];
             }
         }];
 
     } else {
+        [KVNProgress dismiss];
+        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
         [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
     }
 }
@@ -891,6 +903,7 @@ UIPickerView *corpPicker;
 
 -(void)coverPhotoObject:(PFObject *)photoObject {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     //either a default cover photo or user submitted cover photo
     //just set the pointer and clear the profile cover photo
@@ -899,12 +912,14 @@ UIPickerView *corpPicker;
     self.userProfile[@"coverPointer"] = photoObject;
     [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self initUI];
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress showSuccess];
     }];
 }
 
 -(void)coverImage:(UIImage *)image {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     
     //new cover image from camera roll
@@ -925,18 +940,22 @@ UIPickerView *corpPicker;
                 [self.userProfile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         [self initUI];
+                        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
                         [KVNProgress showSuccess];
                     } else {
+                        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                         [KVNProgress showErrorWithStatus:@"Could not update photo"];
                     }
                 }];
             } else {
-                
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
                 [KVNProgress showErrorWithStatus:@"Could not update photo"];
             }
         }];
         
     } else {
+        [KVNProgress dismiss];
+        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
         [KVNProgress showErrorWithStatus:@"Image must be less than 10mb"];
     }
 }

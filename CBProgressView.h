@@ -20,7 +20,6 @@
     CBAppDelegate *del;
 }
 @property (nonatomic, strong) IBOutlet UIView *viewProgress;
-@property (nonatomic) KVNProgressConfiguration *customConfiguration;
 @property (nonatomic, strong) IBOutlet UILabel *lblFactHeader;
 @property (nonatomic, strong) IBOutlet UILabel *lblFact;
 @property (nonatomic, weak) NSTimer *tmrProgress;

@@ -91,9 +91,13 @@ NSString *const KILTIES = @"Kilties";
 -(id)init {
     self = [super init];
     if (self) {
-        [self getAllCorps];
+        
     }
     return self;
+}
+
+-(void)createAllShowsAndEmptyScores {
+    [self getAllCorps];
 }
 
 -(void)createAllCorps {
@@ -950,6 +954,69 @@ NSString *const KILTIES = @"Kilties";
     }
     NSLog(@"couldnt find %@", name);
     return nil;
+}
+
+#pragma mark
+#pragma mark - KVNProgress Configurations
+#pragma mark
++(KVNProgressConfiguration *)standardProgressConfig {
+    [KVNProgress dismiss];
+    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
+    configuration.backgroundType = KVNProgressBackgroundTypeSolid;
+    configuration.statusColor = [UIColor whiteColor];
+    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+    configuration.circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
+    configuration.circleStrokeBackgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
+    configuration.circleFillBackgroundColor = [UIColor clearColor];
+    configuration.backgroundFillColor = [UIColor clearColor];
+    configuration.backgroundTintColor = [UIColor clearColor];
+    configuration.successColor = [UIColor greenColor];
+    configuration.errorColor = [UIColor redColor];
+    configuration.circleSize = 75.0f;
+    configuration.lineWidth = 2.0f;
+    configuration.fullScreen = NO;
+    configuration.minimumSuccessDisplayTime = .5;
+    configuration.minimumErrorDisplayTime = 5;
+    configuration.allowUserInteraction = YES;
+    
+    return configuration;
+}
+
++(KVNProgressConfiguration *)errorProgressConfig {
+    [KVNProgress dismiss];
+    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
+    configuration.backgroundType = KVNProgressBackgroundTypeBlurred;
+    configuration.statusColor = [UIColor whiteColor];
+    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+    //configuration.backgroundFillColor = [UIColor blackColor];
+    configuration.backgroundTintColor = [UIColor blackColor];
+    configuration.errorColor = [UIColor redColor];
+    configuration.circleSize = 75.0f;
+    configuration.lineWidth = 2.0f;
+    configuration.fullScreen = NO;
+    configuration.minimumSuccessDisplayTime = .5;
+    configuration.minimumErrorDisplayTime = 4;
+
+    // See the documentation of KVNProgressConfiguration
+//    configuration.statusColor = [UIColor whiteColor];
+//    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+//    configuration.circleStrokeForegroundColor = [UIColor whiteColor];
+//    configuration.circleStrokeBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
+//    configuration.circleFillBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+//    configuration.backgroundFillColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.9f];
+//    configuration.backgroundTintColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.4f];
+//    configuration.successColor = [UIColor whiteColor];
+//    configuration.errorColor = [UIColor whiteColor];
+//    configuration.circleSize = 110.0f;
+//    configuration.lineWidth = 1.0f;
+//    configuration.backgroundType = KVNProgressBackgroundTypeBlurred;
+    configuration.allowUserInteraction = NO;
+    configuration.fullScreen = YES;
+    configuration.tapBlock = ^(KVNProgress *progressView) {
+        KVNProgress.configuration.tapBlock = nil;
+        [KVNProgress dismiss];
+    };
+    return configuration;
 }
 
 -(NSMutableArray *)arrayOfCorpsObjects {

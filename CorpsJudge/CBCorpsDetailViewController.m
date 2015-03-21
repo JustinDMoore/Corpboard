@@ -12,8 +12,11 @@
 #import "KVNProgress.h"
 #import <SpriteKit/SpriteKit.h>
 #import "CBEffect.h"
+#import "Configuration.h"
 
-@interface CBCorpsDetailViewController ()
+@interface CBCorpsDetailViewController () {
+
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAbout;
 @property (weak, nonatomic) IBOutlet UITableView *tableRepertoire;
@@ -45,7 +48,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self initUI];
     [self getRepertoiresForCorps];
@@ -157,8 +161,7 @@
             [KVNProgress dismiss];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
-            [KVNProgress configuration].minimumErrorDisplayTime = 3;
-            [KVNProgress configuration].backgroundType = KVNProgressBackgroundTypeBlurred;
+            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
             [KVNProgress showErrorWithStatus:@"Could not load the corp's history"];
         }
     }];

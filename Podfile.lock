@@ -96,7 +96,7 @@ DEPENDENCIES:
   - AFNetworking (= 2.5.0)
   - DTCoreText (= 1.6.15)
   - DTFoundation (= 1.7.5)
-  - iOS-Slide-Menu
+  - iOS-Slide-Menu (= 1.4.5)
   - IQKeyboardManager (= 3.2.1.1)
   - JSBadgeView (= 1.3.2)
   - JSQMessagesViewController (= 6.1.3)

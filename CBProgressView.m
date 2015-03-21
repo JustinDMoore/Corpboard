@@ -7,9 +7,10 @@
 //
 
 #import "CBProgressView.h"
+#import "Configuration.h"
 
 @implementation CBProgressView {
-    
+
 }
 
 float minimumLoadTime = 3; //seconds
@@ -21,6 +22,7 @@ float minimumLoadTime = 3; //seconds
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
+
     }
     return self;
 }
@@ -44,39 +46,15 @@ int x = 0;
 }
 
 -(void)awakeFromNib {
-    self.customConfiguration = [self customKVNProgressUIConfiguration];
-    [KVNProgress setConfiguration:self.customConfiguration];
+    
     self.backgroundColor = [UIColor blackColor];
     self.viewProgress.backgroundColor = [UIColor blackColor];
     //[self progress];
 }
 
-- (KVNProgressConfiguration *)customKVNProgressUIConfiguration {
-    
-    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
-    
-    // See the documentation of KVNProgressConfiguration
-    configuration.statusColor = [UIColor whiteColor];
-    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
-    configuration.circleStrokeForegroundColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1];
-    configuration.circleStrokeBackgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
-    configuration.circleFillBackgroundColor = [UIColor clearColor];
-    configuration.backgroundFillColor = [UIColor clearColor];
-    configuration.backgroundTintColor = [UIColor clearColor];
-    configuration.successColor = [UIColor greenColor];
-    configuration.errorColor = [UIColor redColor];
-    configuration.circleSize = 75.0f;
-    configuration.lineWidth = 2.0f;
-    configuration.backgroundType = KVNProgressBackgroundTypeSolid;
-    configuration.fullScreen = NO;
-    configuration.minimumSuccessDisplayTime = .5;
-    configuration.minimumErrorDisplayTime = 5;
-
-    return configuration;
-}
-
 -(void)progress {
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress showProgress:0
                        status:nil
                        onView:self.viewProgress];
@@ -85,7 +63,8 @@ int x = 0;
 }
 
 -(void)showSuccess {
-    
+    //[self errorProgress:@"Test"];
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress showSuccessWithStatus:nil
                                 onView:self.viewProgress
                             completion:^{
@@ -190,6 +169,7 @@ BOOL isComplete = NO;
 
 -(void)errorProgress:(NSString *)error {
 
+    [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
     [KVNProgress showErrorWithStatus:error
                               onView:self];
     [self.tmrProgress invalidate];

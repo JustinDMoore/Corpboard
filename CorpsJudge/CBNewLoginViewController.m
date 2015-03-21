@@ -47,8 +47,8 @@
     
     // THE FOLLOWING LINE WILL CREATE ALL SHOWS AND SCORES
     
-    //Configuration *config = [[Configuration alloc] init];
-    
+//    Configuration *config = [[Configuration alloc] init];
+//    [config createAllShows];
     // ****************************************************
     
     if ([PFUser currentUser]) {

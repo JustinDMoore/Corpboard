@@ -11,6 +11,7 @@
 #import "CBShowDetailsViewController.h"
 #import "NSDate+Utilities.h"
 #import "KVNProgress.h"
+#import "Configuration.h"
 
 CBSingle *data;
 CBAppDelegate *del;
@@ -24,7 +25,9 @@ BOOL firstLoad = YES;
 
 @end
 
-@implementation CBShowsViewController
+@implementation CBShowsViewController {
+
+}
 
 - (BOOL)shouldAutorotate
 {
@@ -70,6 +73,8 @@ BOOL firstLoad = YES;
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self initVariables];
     [self initUI];

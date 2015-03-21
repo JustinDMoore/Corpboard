@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import "JustinHelper.h"
+#import "KVNProgress.h"
 
 @interface Configuration : NSObject
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpsObjects;
-
+-(void)createAllShowsAndEmptyScores;
 -(void)createAllCorps;
++(KVNProgressConfiguration *)standardProgressConfig;
++(KVNProgressConfiguration *)errorProgressConfig;
 
 @end

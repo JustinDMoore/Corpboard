@@ -14,6 +14,7 @@
 #import "CBSingle.h"
 #import "CBAppDelegate.h"
 #import "KVNProgress.h"
+#import "Configuration.h"
 
 CBAppDelegate *appDel;
 CBSingle *data;
@@ -41,7 +42,10 @@ typedef enum : int {
     phaseFavorite = 5
 } phase;
 
-@interface CBStatsViewController ()
+@interface CBStatsViewController () {
+
+}
+
 - (IBAction)btnInfo_clicked:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
@@ -110,6 +114,7 @@ typedef enum : int {
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self initVariables];
     [self initUI];

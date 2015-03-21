@@ -15,12 +15,15 @@
 #import <ParseUI/ParseUI.h>
 #import <SpriteKit/SpriteKit.h>
 #import "CBEffect.h"
+#import "Configuration.h"
 
 CBSingle *data;
 int votedScore;
 int votedFavorites;
 
-@interface CBShowDetailsViewController() <CBJudgeViewControllerDelegate>
+@interface CBShowDetailsViewController() <CBJudgeViewControllerDelegate> {
+
+}
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
 @property (strong, nonatomic) NSMutableArray *arrayOfOpenClassScores;
@@ -94,7 +97,6 @@ int votedFavorites;
 
     [super viewDidLoad];
     
-    
     // Configure the SKView
     SKView * skView = _skView;
     
@@ -108,6 +110,7 @@ int votedFavorites;
     
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
     [KVNProgress show];
     [self setup];
     
