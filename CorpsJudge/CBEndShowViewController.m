@@ -313,52 +313,52 @@
     
     if ([array count]) {
         
-        for (PFObject *s in array) {
+        for (PFObject *score in array) {
             
-            PFObject *c = s[@"corps"];
-            NSString *total = s[@"score"];
-            NSString *guard = s[@"colorguardScore"];
-            NSString *perc = s[@"percussionScore"];
-            NSString *brass = s[@"hornlineScore"];
+            PFObject *corp = score[@"corps"];
+            NSString *total = score[@"score"];
+            NSString *guard = score[@"colorguardScore"];
+            NSString *perc = score[@"percussionScore"];
+            NSString *brass = score[@"hornlineScore"];
             
             if ([total length]) {
                 if (![total isEqualToString:@"0"]) {
-                    if (c[@"lastScore"]) c[@"olderScore"] = c[@"lastScore"];
-                    if (c[@"score"]) c[@"lastScore"] = c[@"score"];
-                    if (self.show[@"showDate"]) c[@"lastScoreDate"] = self.show[@"showDate"];
+                    if (corp[@"lastScore"]) corp[@"olderScore"] = corp[@"lastScore"];
+                    if (score[@"score"]) corp[@"lastScore"] = score[@"score"];
+                    if (self.show[@"showDate"]) corp[@"lastScoreDate"] = self.show[@"showDate"];
                 }
             }
             if ([brass length]) {
-                if (![brass isEqualToString:@"0"]) c[@"lastBrass"] = s[@"hornlineScore"];
+                if (![brass isEqualToString:@"0"]) corp[@"lastBrass"] = score[@"hornlineScore"];
             }
             if ([guard length]) {
-                if (![guard isEqualToString:@"0"]) c[@"lastColorguard"] = s[@"colorguardScore"];
+                if (![guard isEqualToString:@"0"]) corp[@"lastColorguard"] = score[@"colorguardScore"];
             }
             
             if ([perc length]) {
-                if (![perc isEqualToString:@"0"]) c[@"lastPercussion"] = c[@"percussionScore"];
+                if (![perc isEqualToString:@"0"]) corp[@"lastPercussion"] = score[@"percussionScore"];
             }
             
-            [c saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error) [c saveEventually];
+            [corp saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [corp saveEventually];
             }];
             
             int x = 0;
-            x += [s[@"score"] intValue];
-            x += [s[@"colorguardScore"] intValue];
-            x += [s[@"hornlineScore"] intValue];
-            x += [s[@"percussionScore"] intValue];
+            x += [score[@"score"] intValue];
+            x += [score[@"colorguardScore"] intValue];
+            x += [score[@"hornlineScore"] intValue];
+            x += [score[@"percussionScore"] intValue];
             
             if (x == 0) {
                 
-                s[@"exception"] = @"Rained Out";
+                score[@"exception"] = @"Rained Out";
             } else {
                 
-                [s removeObjectForKey:@"exception"];
+                [score removeObjectForKey:@"exception"];
             }
             
-            [s saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (error) [s saveEventually];
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
                 [self initUI];
             }];
         }

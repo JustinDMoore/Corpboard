@@ -182,6 +182,7 @@ typedef enum : int {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+int fetchCount = 0;
 -(void)viewDidLoad {
     
     [super viewDidLoad];
@@ -248,14 +249,7 @@ typedef enum : int {
 }
 
 -(void)getAllCorps {
-    //
-    //    //all votes for best caption
-    //    if ([data.arrayOfAllFavorites count]) {
-    //        [self sortAllFavorites];
-    //    } else {
-    //        [self getAllFavorites];
-    //    }
-    
+
     //for user rankings
     [data.arrayOfUserWorldClassRankings removeAllObjects];
     [data.arrayOfUserOpenClassRankings removeAllObjects];
@@ -263,6 +257,7 @@ typedef enum : int {
     
     for (PFObject *corps in data.arrayOfAllCorps) {
         numC++;
+        [corps fetchInBackground];
         [self getUserRankForCorps:corps];
         
     }
