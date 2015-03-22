@@ -80,7 +80,7 @@ PODS:
   - JSQMessagesViewController (6.1.3):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - KVNProgress (2.1.7)
+  - KVNProgress (2.2.1)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
     - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
@@ -101,7 +101,7 @@ DEPENDENCIES:
   - JSBadgeView (= 1.3.2)
   - JSQMessagesViewController (= 6.1.3)
   - JSQSystemSoundPlayer (= 2.0.1)
-  - KVNProgress (= 2.1.7)
+  - KVNProgress
   - MWFeedParser (= 1.0.1)
   - PulsingHalo (= 0.0.1)
 
@@ -114,7 +114,7 @@ SPEC CHECKSUMS:
   JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
   JSQMessagesViewController: e93a288a9662d4519c95a28a8c0eec10beae1bfc
   JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
-  KVNProgress: 4667d21831831f92e5877e123f98f75a205939b0
+  KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   MWFeedParser: 003cbf5398e99a7f2057fbe9583054fd1b84be72
   PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
 

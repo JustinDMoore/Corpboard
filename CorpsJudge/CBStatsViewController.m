@@ -178,7 +178,10 @@ typedef enum : int {
 
 -(void)goback {
     
-    [KVNProgress dismiss];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -186,8 +189,10 @@ int fetchCount = 0;
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress showWithStatus:@"Connecting"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress showWithStatus:@"Connecting"];
+    });
     
     // reset bools for loading
     favoritesComplete = NO;
@@ -195,7 +200,7 @@ int fetchCount = 0;
     
     [self initVariables];
     [self initUI];
-
+    
     [self getAllCorps];
     // get all the favorites from server, then sort them and tally the votes
     [self getAllFavorites];
@@ -209,7 +214,7 @@ int fetchCount = 0;
     self.scorePhase = phaseScore;
     self.segmentOfficial.userInteractionEnabled = NO;
     self.tabBar.userInteractionEnabled = NO;
-
+    
 }
 
 -(void)initUI {
@@ -249,7 +254,7 @@ int fetchCount = 0;
 }
 
 -(void)getAllCorps {
-
+    
     //for user rankings
     [data.arrayOfUserWorldClassRankings removeAllObjects];
     [data.arrayOfUserOpenClassRankings removeAllObjects];
@@ -629,16 +634,31 @@ int numberOfRanks = 0;
     [queryUserRanks orderByDescending:@"showDate"];
     [queryUserRanks setLimit:100];
     [queryUserRanks includeKey:@"corps"];
-
+    
     
     [queryUserRanks findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         rank++;
         NSLog(@"ranking %i", rank);
         
         
-        if (rank == 10) [KVNProgress updateStatus:@"Getting official scores"];
-        if (rank == 30) [KVNProgress updateStatus:@"Getting caption scores"];
-        if (rank == 50) [KVNProgress updateStatus:@"Calculating"];
+        if (rank == 10) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress updateStatus:@"Getting official scores"];
+            });
+            
+        }
+        if (rank == 30) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress updateStatus:@"Getting caption scores"];
+            });
+            
+        }
+        if (rank == 50) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress updateStatus:@"Calculating"];
+            });
+            
+        }
         
         if ([array count]) {
             numberOfRanks++;
@@ -679,7 +699,7 @@ int numC = 0;
 
 int sort;
 -(void)sortScores {
-
+    
     sort++;
     NSLog(@"sorting %i", sort);
     switch (self.scorePhase) {
@@ -706,13 +726,13 @@ int sort;
                     if ([data.arrayOfUserAllAgeClassRankings count]) [data.arrayOfUserAllAgeClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
                 }
             }
-
+            
             break;}
             
         {case phaseBesthornline:
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) {
-
+                
                 {
                     NSSortDescriptor *sortOfficialBrass = [[NSSortDescriptor alloc] initWithKey:@"lastBrass" ascending:NO];
                     NSArray *sortDescriptorsForOfficialBrass = [NSArray arrayWithObject: sortOfficialBrass];
@@ -759,7 +779,7 @@ int sort;
                     if ([self.arrayOfAllAgePercussionFavs count]) [self.arrayOfAllAgePercussionFavs sortUsingDescriptors:sortDescriptorForUserPercussion];
                 }
             }
-    
+            
             break;}
             
             
@@ -802,7 +822,7 @@ int sort;
                     if ([self.arrayOfAllAgeLoudestFavs count]) [self.arrayOfAllAgeLoudestFavs sortUsingDescriptors:sortDescriptorsForLoudestHornline];
                 }
             }
-        break;}
+            break;}
             
         {case phaseFavorite:
             
@@ -820,7 +840,7 @@ int sort;
             }
             
             break;}
-    
+            
         default:
             break;
     }
@@ -910,7 +930,7 @@ int sort;
                 } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
@@ -923,7 +943,7 @@ int sort;
                 } else if (section == 1) {
                     
                     if ([self.arrayOfOpenHornlineFavs count]) return [self.arrayOfOpenHornlineFavs count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([self.arrayOfAllAgeHornlineFavs count]) return [self.arrayOfAllAgeHornlineFavs count];
@@ -941,7 +961,7 @@ int sort;
                 } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
@@ -975,7 +995,7 @@ int sort;
                 } else if (section == 1) {
                     
                     if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
@@ -989,13 +1009,13 @@ int sort;
                 } else if (section == 1) {
                     
                     if ([self.arrayOfOpenColorguardFavs count]) return [self.arrayOfOpenColorguardFavs count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([self.arrayOfAllAgeColorguardFavs count]) return [self.arrayOfAllAgeColorguardFavs count];
                 }
             }
-
+            
             break;
             
         case phaseLoudesthornline:
@@ -1012,16 +1032,16 @@ int sort;
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldLoudestFavs count]) return [self.arrayOfWorldLoudestFavs count];
-                
+                    
                 } else if (section == 1) {
                     
                     if ([self.arrayOfOpenLoudestFavs count]) return [self.arrayOfOpenLoudestFavs count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([self.arrayOfAllAgeLoudestFavs count]) return [self.arrayOfAllAgeLoudestFavs count];
                 }
-
+                
             }
             
             break;
@@ -1040,11 +1060,11 @@ int sort;
                 if (section == 0) {
                     
                     if ([self.arrayOfWorldFavs count]) return [self.arrayOfWorldFavs count];
-                
+                    
                 } else if (section == 1) {
                     
                     if ([self.arrayOfOpenFavs count]) return [self.arrayOfOpenFavs count];
-                
+                    
                 } else if (section == 2) {
                     
                     if ([self.arrayOfAllAgeFavs count]) return [self.arrayOfAllAgeFavs count];
@@ -1060,7 +1080,7 @@ int sort;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     UITableViewCell *blankCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"blank"];
     blankCell.backgroundColor = [UIColor blackColor];
     blankCell.textLabel.font = [UIFont systemFontOfSize:12];
@@ -1075,7 +1095,7 @@ int sort;
     UIView *bar;
     UILabel *lbldiff;
     PFImageView *imgLogo;
-
+    
     int barWidth = 0;
     NSMutableArray *array;
     switch (self.scorePhase) {
@@ -1221,7 +1241,7 @@ int sort;
                     }
                 }
             } else { // USER REVIEWS
-            
+                
                 if (indexPath.section == 0) array = self.arrayOfWorldHornlineFavs;
                 if (indexPath.section == 1) array = self.arrayOfOpenHornlineFavs;
                 if (indexPath.section == 2) array = self.arrayOfAllAgeHornlineFavs;
@@ -1253,7 +1273,7 @@ int sort;
             }
             
             break;
-  
+            
         case phaseBestdrums:
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
@@ -1435,7 +1455,7 @@ int sort;
                     barWidth = 2.5 * result;
                 }
             }
-        
+            
             break;
             
         case phaseFavorite:
@@ -1477,7 +1497,7 @@ int sort;
         default:
             break;
     }
-
+    
     UIView *oldBar = (UIView *)[cell viewWithTag:10];
     int oldWidth = 1;
     if (oldBar) {
@@ -1515,9 +1535,12 @@ int sort;
 }
 
 -(void)reloadTable {
-
+    
     self.tableCorps.hidden = NO;
-    [KVNProgress dismiss];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
+    
     [self.tableCorps reloadData];
 }
 
@@ -1528,33 +1551,33 @@ int sort;
     
     switch (item.tag) {
         case 0: //rank
-        self.scorePhase = phaseScore;
-        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseScore;
+            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+            break;
         case 1: //hornline
-        self.scorePhase = phaseBesthornline;
-        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseBesthornline;
+            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+            break;
         case 2: //Percussion
-        self.scorePhase = phaseBestdrums;
-        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseBestdrums;
+            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+            break;
         case 3: //Colorguard
-        self.scorePhase = phaseBestguard;
-        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseBestguard;
+            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+            break;
         case 4: //Loudest
-        self.scorePhase = phaseLoudesthornline;
-        self.segmentOfficial.selectedSegmentIndex = 1;
-        [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseLoudesthornline;
+            self.segmentOfficial.selectedSegmentIndex = 1;
+            [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
+            break;
         case 5: //Favorite
-        self.scorePhase = phaseFavorite;
-        self.segmentOfficial.selectedSegmentIndex = 1;
-        [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
-        break;
+            self.scorePhase = phaseFavorite;
+            self.segmentOfficial.selectedSegmentIndex = 1;
+            [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
+            break;
         default: NSLog(@"Error setting score phase");
-        break;
+            break;
     }
     [self sortScores];
 }
@@ -1734,51 +1757,51 @@ int sort;
         
         switch (self.scorePhase) {
             case phaseScore:
-            self.title = @"Official Rankings";
-            break;
+                self.title = @"Official Rankings";
+                break;
             case phaseFavorite:
-            self.title = @"Error";
-            break;
+                self.title = @"Error";
+                break;
             case phaseLoudesthornline:
-            self.title = @"Error";
-            break;
+                self.title = @"Error";
+                break;
             case phaseBestdrums:
-            self.title = @"High Percussion";
-            break;
+                self.title = @"High Percussion";
+                break;
             case phaseBestguard:
-            self.title = @"High Color Guard";
-            break;
+                self.title = @"High Color Guard";
+                break;
             case phaseBesthornline:
-            self.title = @"High Brass";
-            break;
-            
+                self.title = @"High Brass";
+                break;
+                
             default:
-            break;
+                break;
         }
     } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
         
         switch (self.scorePhase) {
             case phaseScore:
-            //self.navTitle.title = @"User Rankings";
-            break;
+                //self.navTitle.title = @"User Rankings";
+                break;
             case phaseFavorite:
-            self.title = @"User Favorite Show";
-            break;
+                self.title = @"User Favorite Show";
+                break;
             case phaseLoudesthornline:
-            self.title = @"User Loudest Brass";
-            break;
+                self.title = @"User Loudest Brass";
+                break;
             case phaseBestdrums:
-            self.title = @"User Favorite Percussion";
-            break;
+                self.title = @"User Favorite Percussion";
+                break;
             case phaseBestguard:
-            self.title = @"User Favorite Color Guard";
-            break;
+                self.title = @"User Favorite Color Guard";
+                break;
             case phaseBesthornline:
-            self.title = @"User Favorite Brass";
-            break;
-            
+                self.title = @"User Favorite Brass";
+                break;
+                
             default:
-            break;
+                break;
         }
     }
 }
@@ -1787,10 +1810,10 @@ int sort;
     
     CGFloat r, g, b, a;
     if ([c getRed:&r green:&g blue:&b alpha:&a])
-    return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
-                           green:MAX(g - 0.2, 0.0)
-                            blue:MAX(b - 0.2, 0.0)
-                           alpha:a];
+        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                               green:MAX(g - 0.2, 0.0)
+                                blue:MAX(b - 0.2, 0.0)
+                               alpha:a];
     return nil;
 }
 

@@ -24,8 +24,8 @@
 
 @interface MessagesView() {
     
-	NSMutableArray *messages;
-	UIRefreshControl *refreshControl;
+    NSMutableArray *messages;
+    UIRefreshControl *refreshControl;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableMessages;
@@ -39,46 +39,46 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	{
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_messages"]];
-		self.tabBarItem.title = @"Messages";
-
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
-	}
-	return self;
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    {
+        [self.tabBarItem setImage:[UIImage imageNamed:@"tab_messages"]];
+        self.tabBarItem.title = @"Messages";
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     
-	[super viewDidLoad];
+    [super viewDidLoad];
     
-	self.title = @"Messages";
-
+    self.title = @"Messages";
+    
     NSLog(@"haaaa");
     
-	[tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
-	tableMessages.tableFooterView = [[UIView alloc] init];
-
-	refreshControl = [[UIRefreshControl alloc] init];
-	[refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
-	[tableMessages addSubview:refreshControl];
-
-	messages = [[NSMutableArray alloc] init];
-
-	viewEmpty.hidden = YES;
+    [tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
+    tableMessages.tableFooterView = [[UIView alloc] init];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
+    [tableMessages addSubview:refreshControl];
+    
+    messages = [[NSMutableArray alloc] init];
+    
+    viewEmpty.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-	[super viewDidAppear:animated];
+    [super viewDidAppear:animated];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
-
-	if ([PFUser currentUser] != nil) {
+    
+    if ([PFUser currentUser] != nil) {
         
-		[self loadMessages];
-	}
-	else LoginUser(self);
+        [self loadMessages];
+    }
+    else LoginUser(self);
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -91,104 +91,107 @@
 
 - (void)loadMessages {
     
-	if ([PFUser currentUser] != nil) {
+    if ([PFUser currentUser] != nil) {
         
-		PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
-		[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
-		[query includeKey:PF_MESSAGES_LASTUSER];
-		[query orderByDescending:PF_MESSAGES_UPDATEDACTION];
-		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
+        [query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
+        [query includeKey:PF_MESSAGES_LASTUSER];
+        [query orderByDescending:PF_MESSAGES_UPDATEDACTION];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
-			if (error == nil) {
+            if (error == nil) {
                 
-				[messages removeAllObjects];
-				[messages addObjectsFromArray:objects];
-				[tableMessages reloadData];
-				[self updateEmptyView];
-				[self updateTabCounter];
-			}
-            else {
-                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-                [KVNProgress showErrorWithStatus:@"Network error"];
+                [messages removeAllObjects];
+                [messages addObjectsFromArray:objects];
+                [tableMessages reloadData];
+                [self updateEmptyView];
+                [self updateTabCounter];
             }
-			[refreshControl endRefreshing];
-		}];
-	}
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                    [KVNProgress showErrorWithStatus:@"Network error"];
+                });
+                
+            }
+            [refreshControl endRefreshing];
+        }];
+    }
 }
 
 #pragma mark - Helper methods
 
 - (void)updateEmptyView {
     
-	viewEmpty.hidden = ([messages count] != 0);
+    viewEmpty.hidden = ([messages count] != 0);
 }
 
 - (void)updateTabCounter {
     
-	int total = 0;
-	for (PFObject *message in messages) {
+    int total = 0;
+    for (PFObject *message in messages) {
         
-		total += [message[PF_MESSAGES_COUNTER] intValue];
-	}
-	UITabBarItem *item = self.tabBarController.tabBar.items[2];
-	item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+        total += [message[PF_MESSAGES_COUNTER] intValue];
+    }
+    UITabBarItem *item = self.tabBarController.tabBar.items[2];
+    item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
 }
 
 #pragma mark - User actions
 
 - (void)actionCleanup {
     
-	[messages removeAllObjects];
-	[tableMessages reloadData];
-
-	UITabBarItem *item = self.tabBarController.tabBar.items[2];
-	item.badgeValue = nil;
+    [messages removeAllObjects];
+    [tableMessages reloadData];
+    
+    UITabBarItem *item = self.tabBarController.tabBar.items[2];
+    item.badgeValue = nil;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-	return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	return [messages count];
+    return [messages count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	MessagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagesCell" forIndexPath:indexPath];
+    MessagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagesCell" forIndexPath:indexPath];
     NSLog(@"message cell");
-	[cell bindData:messages[indexPath.row]];
-	return cell;
+    [cell bindData:messages[indexPath.row]];
+    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	return YES;
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	DeleteMessageItem(messages[indexPath.row]);
-	[messages removeObjectAtIndex:indexPath.row];
-	[tableMessages deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	[self updateEmptyView];
-	[self updateTabCounter];
+    DeleteMessageItem(messages[indexPath.row]);
+    [messages removeObjectAtIndex:indexPath.row];
+    [tableMessages deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self updateEmptyView];
+    [self updateTabCounter];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	PFObject *message = messages[indexPath.row];
-	ChatView *chatView = [[ChatView alloc] initWith:message[PF_MESSAGES_ROOMID]];
-	chatView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:chatView animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    PFObject *message = messages[indexPath.row];
+    ChatView *chatView = [[ChatView alloc] initWith:message[PF_MESSAGES_ROOMID]];
+    chatView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatView animated:YES];
 }
 
 @end

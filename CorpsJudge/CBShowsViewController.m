@@ -26,7 +26,7 @@ BOOL firstLoad = YES;
 @end
 
 @implementation CBShowsViewController {
-
+    
 }
 
 - (BOOL)shouldAutorotate
@@ -46,7 +46,7 @@ BOOL firstLoad = YES;
         // Custom initialization
     }
     return self;
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -71,11 +71,14 @@ BOOL firstLoad = YES;
 }
 
 - (void)viewDidLoad {
-
+    
     [super viewDidLoad];
-
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
     [self initVariables];
     [self initUI];
     [self checkForShows];
@@ -108,7 +111,10 @@ BOOL firstLoad = YES;
                 firstLoad = NO;
             }
         }
-        [KVNProgress dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress dismiss];
+        });
+        
     } else {
         NSLog(@"Not loaded");
     }
@@ -138,7 +144,7 @@ BOOL firstLoad = YES;
 }
 
 -(NSInteger)getIndexOfNearestDateFromDateArray {
-
+    
     NSDate *testDate = [NSDate date];
     
     NSTimeInterval closestInterval = DBL_MAX;
@@ -155,7 +161,7 @@ BOOL firstLoad = YES;
         }
         index++;
     }
-
+    
     return 0;
 }
 
@@ -170,7 +176,7 @@ BOOL firstLoad = YES;
         } else {
             [self.dateIndex setObject:[NSNumber numberWithInt:[[self.dateIndex objectForKey:show[@"showDate"]] intValue] + 1] forKey:show[@"showDate"]];
         }
-    }   
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -205,7 +211,7 @@ BOOL firstLoad = YES;
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMMM d"];
-
+    
     NSString *dateString = [format stringFromDate:showDate];
     return dateString;
 }
@@ -277,7 +283,7 @@ BOOL firstLoad = YES;
             btnScores.hidden = YES;
             lblException.hidden = YES;
         }
-
+        
     }
     
     
@@ -286,10 +292,10 @@ BOOL firstLoad = YES;
 
 
 -(void)openShows:(UIButton *)sender {
-
+    
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableShows];
     NSIndexPath *indPath = [self.tableShows indexPathForRowAtPoint:buttonPosition];
-
+    
     [self openShowAtIndex:indPath];
 }
 
@@ -313,7 +319,7 @@ BOOL firstLoad = YES;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- 
+    
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"showDetails"])
     {

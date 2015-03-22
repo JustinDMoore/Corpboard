@@ -15,7 +15,7 @@
 #import "Configuration.h"
 
 @interface CBCorpsDetailViewController () {
-
+    
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAbout;
@@ -49,8 +49,11 @@
 {
     [super viewDidLoad];
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
     [self initUI];
     [self getRepertoiresForCorps];
     
@@ -83,16 +86,16 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-
+    
 }
 
 -(void)goback {
-
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)initUI {
-
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     selectedCell = 0;
     self.tableYears.hidden = YES;
@@ -110,7 +113,7 @@
     
     self.corpsName.text = self.corps[@"corpsName"];
     self.corpsFrom.text = self.corps[@"from"];
-
+    
     
     PFFile *imageFile = self.corps[@"logo"];
     if (imageFile) {
@@ -134,10 +137,10 @@
     
     self.tableYears.estimatedRowHeight = 20.0;
     self.tableYears.rowHeight = UITableViewAutomaticDimension;
-
+    
     self.tableRepertoire.estimatedRowHeight = 122.0;
     self.tableRepertoire.rowHeight = UITableViewAutomaticDimension;
-
+    
     self.tableRepertoire.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableYears.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -158,11 +161,16 @@
                 self.tableRepertoire.hidden = NO;
                 [self setUpRepertoire];
             }
-            [KVNProgress dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress dismiss];
+            });
+            
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
-            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-            [KVNProgress showErrorWithStatus:@"Could not load the corp's history"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Could not load the corp's history"];
+            });
         }
     }];
 }
@@ -189,7 +197,7 @@
 #pragma mark - Table View
 
 //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
+//
 //    if (tableView == self.tableYears) return 20;
 //    else {
 //        switch (indexPath.row) {
@@ -216,7 +224,7 @@
 }
 
 -(NSString *)getPlacement:(NSString *)placement {
-
+    
     NSRange stringRange = {0, MIN([placement length], 3)};
     stringRange = [placement rangeOfComposedCharacterSequencesForRange:stringRange];
     return [placement substringWithRange:stringRange];
@@ -247,7 +255,7 @@ NSMutableArray *arrayOfRows;
     
     NSString *place = [self getPlacement:self.currentYear[@"placement"]];
     
-         if ([place isEqualToString:@"1st"] || [place isEqualToString:@"2nd"] || [place isEqualToString:@"3rd"]) {
+    if ([place isEqualToString:@"1st"] || [place isEqualToString:@"2nd"] || [place isEqualToString:@"3rd"]) {
         rows++;
         [arrayOfRows addObject:@"medal"];
     }
@@ -275,7 +283,7 @@ NSMutableArray *arrayOfRows;
 }
 
 //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
+//
 //    if (tableView == self.tableYears) {
 //        return 20;
 //    } else if (tableView == self.tableRepertoire) {
@@ -292,7 +300,7 @@ NSMutableArray *arrayOfRows;
 //            UITextView *txt = [self getRepertoire];
 //            return 120 + txt.frame.size.height;
 //        }
-//        
+//
 //    } else return 0;
 //}
 
@@ -337,7 +345,7 @@ NSMutableArray *arrayOfRows;
             
         } else if ([str isEqualToString:@"score"]) {
             
-           return [self getScoreCell];
+            return [self getScoreCell];
             
         } else if ([str isEqualToString:@"medal"]) {
             
@@ -345,7 +353,7 @@ NSMutableArray *arrayOfRows;
             
         } else if ([str isEqualToString:@"title"]) {
             
-           return [self getTitleCell];
+            return [self getTitleCell];
             
         } else if ([str isEqualToString:@"repertoire"]) {
             
@@ -425,7 +433,7 @@ NSMutableArray *arrayOfRows;
         lblMedal.text = @"BRONZE";
         
     }
-
+    
     return cell;
 }
 
@@ -548,7 +556,7 @@ BOOL upsideDownCavalier = NO;
 }
 
 -(void)TILT:(BOOL)tilt {
-
+    
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
     double rads;
     if (tilt) {
@@ -569,7 +577,7 @@ BOOL upsideDownCavalier = NO;
 
 int selectedCell = 0;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
+    
     if (tableView == self.tableYears) {
         UILabel *lblYear;
         for (UITableViewCell *cell in self.tableYears.visibleCells) {

@@ -22,7 +22,7 @@
 
 @interface PrivateView() {
     
-	NSMutableArray *users;
+    NSMutableArray *users;
     NSMutableArray *arrayOfChatsForCurrentUser;
     NSMutableArray *arrayOfChatsForOtherUsers;
     CBAppDelegate *del;
@@ -39,37 +39,37 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
         
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
-		self.tabBarItem.title = @"Messages";
-	}
-	return self;
+        [self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
+        self.tabBarItem.title = @"Messages";
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     
-	[super viewDidLoad];
+    [super viewDidLoad];
     
     del = [UIApplication sharedApplication].delegate;
     [del setDelegate:self];
     
-	self.title = @"Private";
-
+    self.title = @"Private";
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-	self.tableView.tableHeaderView = viewHeader;
-	self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.tableHeaderView = viewHeader;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
-	users = [[NSMutableArray alloc] init];
+    users = [[NSMutableArray alloc] init];
     arrayOfChatsForCurrentUser = [[NSMutableArray alloc] init];
     arrayOfChatsForOtherUsers = [[NSMutableArray alloc] init];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -96,28 +96,28 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     
-	[super viewDidAppear:animated];
-
-	if ([PFUser currentUser] != nil) {
+    [super viewDidAppear:animated];
+    
+    if ([PFUser currentUser] != nil) {
         
-		[self loadMessages];
-	}
-	else LoginUser(self);
+        [self loadMessages];
+    }
+    else LoginUser(self);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
-	[super viewWillDisappear:animated];
-
-	[self searchBarCancelled];
+    [super viewWillDisappear:animated];
+    
+    [self searchBarCancelled];
 }
 
 #pragma mark - User actions
 
 - (void)actionCleanup {
     
-	[users removeAllObjects];
-	[self.tableView reloadData];
+    [users removeAllObjects];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Backend methods
@@ -131,8 +131,11 @@ BOOL isLoading = NO;
         if (isLoading == NO) {
             
             isLoading = YES;
-            [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-            [KVNProgress show];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+                [KVNProgress show];
+            });
+            
             [arrayOfChatsForCurrentUser removeAllObjects];
             [arrayOfChatsForOtherUsers removeAllObjects];
             
@@ -160,13 +163,18 @@ BOOL isLoading = NO;
                         
                     }
                 } else {
-                    [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-                    [KVNProgress showErrorWithStatus:@"Network error"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                        [KVNProgress showErrorWithStatus:@"Network error"];
+                    });
                 }
                 
                 isLoading = NO;
                 [self.tableView reloadData];
-                [KVNProgress dismiss];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [KVNProgress dismiss];
+                });
+                
             }];
         }
     }
@@ -174,42 +182,44 @@ BOOL isLoading = NO;
 
 - (void)searchUsers:(NSString *)search_lower {
     
-	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-	[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
-	[query whereKey:PF_USER_FULLNAME_LOWER containsString:search_lower];
-	[query orderByAscending:PF_USER_FULLNAME];
-	[query setLimit:1000];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+    [query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
+    [query whereKey:PF_USER_FULLNAME_LOWER containsString:search_lower];
+    [query orderByAscending:PF_USER_FULLNAME];
+    [query setLimit:1000];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-		if (error == nil) {
+        if (error == nil) {
             
-			[users removeAllObjects];
-			[users addObjectsFromArray:objects];
-			[self.tableView reloadData];
-		}
-        else {
-            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-            [KVNProgress showErrorWithStatus:@"Network error"];
+            [users removeAllObjects];
+            [users addObjectsFromArray:objects];
+            [self.tableView reloadData];
         }
-	}];
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Network error"];
+            });
+        }
+    }];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-	return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if ([arrayOfChatsForCurrentUser count]) return [arrayOfChatsForCurrentUser count];
     else return 0;
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"privateCell"];
     if (cell == nil) {
         // Load the top-level objects from the custom cell XIB.
@@ -217,7 +227,7 @@ BOOL isLoading = NO;
         // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).
         cell = [topLevelObjects objectAtIndex:0];
     }
-
+    
     PFObject *lastMessage = arrayOfChatsForCurrentUser[indexPath.row];
     
     UIImageView *imgNew = (UIImageView *)[cell viewWithTag:2];
@@ -225,14 +235,14 @@ BOOL isLoading = NO;
     UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
     UILabel *lblLastMessageHidden = (UILabel *)[cell viewWithTag:5];
     lblLastMessageHidden.hidden = YES;
-
+    
     int numOfUnreadMessages = [lastMessage[@"counter"] intValue];
     if (numOfUnreadMessages == 0) {
         imgNew.hidden = YES;
     } else {
         imgNew.hidden = NO;
     }
-   
+    
     PFUser *user = lastMessage[@"user"];
     lblUser.text = user[@"nickname"];
     [lblUser sizeToFit];
@@ -252,21 +262,21 @@ BOOL isLoading = NO;
     lblLastMessage.numberOfLines = 2;
     [lblLastMessage sizeToFit];
     [cell addSubview:lblLastMessage];
-	return cell;
+    return cell;
 }
 
 #pragma mark - Table view delegate
 PFObject *chatForOtherUser;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     chat = arrayOfChatsForCurrentUser[indexPath.row];
     
     if ([arrayOfChatsForOtherUsers count] > 0) {
         chatForOtherUser = arrayOfChatsForOtherUsers[indexPath.row];
     }
-
+    
     user2 = chat[@"user"];
     
     PFObject *lastMessage = arrayOfChatsForCurrentUser[indexPath.row];
@@ -306,7 +316,7 @@ NSString *roomIdForChat;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-     
+        
         if ([arrayOfChatsForCurrentUser count] > 0) {
             
             PFObject *chat = arrayOfChatsForCurrentUser[indexPath.row];
@@ -337,40 +347,40 @@ NSString *roomIdForChat;
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
-	if ([searchText length] > 0) {
+    if ([searchText length] > 0) {
         
-		[self searchUsers:[searchText lowercaseString]];
-	}
-	//else [self loadUsers];
+        [self searchUsers:[searchText lowercaseString]];
+    }
+    //else [self loadUsers];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar_ {
     
-	[searchBar_ setShowsCancelButton:YES animated:YES];
+    [searchBar_ setShowsCancelButton:YES animated:YES];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar_ {
     
-	[searchBar_ setShowsCancelButton:NO animated:YES];
+    [searchBar_ setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
-	[self searchBarCancelled];
+    [self searchBarCancelled];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar_ {
     
-	[searchBar_ resignFirstResponder];
+    [searchBar_ resignFirstResponder];
 }
 
 - (void)searchBarCancelled {
     
-	searchBar.text = @"";
-	[searchBar resignFirstResponder];
-
+    searchBar.text = @"";
+    [searchBar resignFirstResponder];
     
-	//[self loadUsers];
+    
+    //[self loadUsers];
 }
 
 -(void)messageReceived {

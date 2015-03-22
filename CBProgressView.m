@@ -10,7 +10,7 @@
 #import "Configuration.h"
 
 @implementation CBProgressView {
-
+    
 }
 
 float minimumLoadTime = 3; //seconds
@@ -22,7 +22,7 @@ float minimumLoadTime = 3; //seconds
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-
+        
     }
     return self;
 }
@@ -38,10 +38,12 @@ int x = 0;
         x = 0;
         [self.tmrProgress invalidate];
         self.tmrProgress = nil;
-        [KVNProgress updateProgress:1.0f
-                           animated:YES];
-        [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress updateProgress:1.0f
+                               animated:YES];
+            [self performSelector:@selector(showSuccess) withObject:self afterDelay:.4];
+        });
     }
 }
 
@@ -54,22 +56,25 @@ int x = 0;
 
 -(void)progress {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress showProgress:0
-                       status:nil
-                       onView:self.viewProgress];
-    [self updateProgress];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress showProgress:0
+                           status:nil
+                           onView:self.viewProgress];
+        [self updateProgress];
+    });
 }
 
 -(void)showSuccess {
-    //[self errorProgress:@"Test"];
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress showSuccessWithStatus:nil
-                                onView:self.viewProgress
-                            completion:^{
-                                [self complete];
-                            }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress showSuccessWithStatus:nil
+                                    onView:self.viewProgress
+                                completion:^{
+                                    [self complete];
+                                }];
+    });
 }
 
 -(void)complete {
@@ -79,7 +84,7 @@ int x = 0;
 #define ARC4RANDOM_MAX 0x100000000
 float currentProgress = 0;
 -(double)getRandomProgressWithMin {
-
+    
     double val = ((double)arc4random() / ARC4RANDOM_MAX)
     * ((currentProgress + .25) - currentProgress)
     + currentProgress;
@@ -111,9 +116,10 @@ float currentProgress = 0;
 
 -(void)updateWithProgress:(double)progress {
     
+    dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress updateProgress:progress
                            animated:YES];
-    
+    });
 }
 
 -(void)setDelegate:(id)newDelegate {
@@ -138,7 +144,7 @@ float currentProgress = 0;
 
 BOOL isComplete = NO;
 -(void)completeProgress {
-
+    
     isComplete = YES;
 }
 
@@ -168,11 +174,13 @@ BOOL isComplete = NO;
 }
 
 -(void)errorProgress:(NSString *)error {
-
-    [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-    [KVNProgress showErrorWithStatus:error
-                              onView:self];
-    [self.tmrProgress invalidate];
-    self.tmrProgress = nil;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+        [KVNProgress showErrorWithStatus:error
+                                  onView:self];
+        [self.tmrProgress invalidate];
+        self.tmrProgress = nil;
+    });
 }
 @end

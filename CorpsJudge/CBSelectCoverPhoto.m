@@ -11,7 +11,7 @@
 #import "Configuration.h"
 
 @interface CBSelectCoverPhoto () {
-
+    
 }
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentAlbum;
@@ -42,14 +42,17 @@
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
     self.tablePhotos.hidden = YES;
     [self getPhotos];
     [self.segmentAlbum addTarget:self
-                         action:@selector(segmentChanged)
-               forControlEvents:UIControlEventValueChanged];
+                          action:@selector(segmentChanged)
+                forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)goback
@@ -87,7 +90,7 @@ int progress = 1;
                     self.tablePhotos.hidden = NO;
                     [self reload];
                 }
-
+                
             }];
         }
     }];
@@ -96,7 +99,9 @@ int progress = 1;
 -(void)reload {
     
     [self.tablePhotos reloadData];
-    [KVNProgress dismiss];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
 }
 
 -(void)segmentChanged {
@@ -139,54 +144,54 @@ int progress = 1;
     
     UITableViewCell *cell;
     
+    
+    if (indexPath.row == 0) {
         
-        if (indexPath.row == 0) {
-            
-            cell = [tableView dequeueReusableCellWithIdentifier:@"custom"];
-            
-            UIButton *btnCamera = (UIButton *)[cell viewWithTag:1];
-            UIButton *btnUpload = (UIButton *)[cell viewWithTag:2];
-            UIButton *btnCamera2 = (UIButton *)[cell viewWithTag:3];
-            UIButton *btnUpload2 = (UIButton *)[cell viewWithTag:4];
-            
-            [btnCamera addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
-            [btnUpload addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
-            [btnCamera2 addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
-            [btnUpload2 addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
-            
+        cell = [tableView dequeueReusableCellWithIdentifier:@"custom"];
+        
+        UIButton *btnCamera = (UIButton *)[cell viewWithTag:1];
+        UIButton *btnUpload = (UIButton *)[cell viewWithTag:2];
+        UIButton *btnCamera2 = (UIButton *)[cell viewWithTag:3];
+        UIButton *btnUpload2 = (UIButton *)[cell viewWithTag:4];
+        
+        [btnCamera addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
+        [btnUpload addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
+        [btnCamera2 addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
+        [btnUpload2 addTarget:self action:@selector(upload) forControlEvents:UIControlEventTouchUpInside];
+        
+    } else {
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"photoCell"];
+        cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+        PFObject *obj;
+        
+        if (self.segmentAlbum.selectedSegmentIndex == 0) {
+            obj = [self.arrayOfDefaultPhotoObjects objectAtIndex:indexPath.row - 1];
         } else {
-            
-            cell = [tableView dequeueReusableCellWithIdentifier:@"photoCell"];
-            cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
-            PFObject *obj;
-            
-            if (self.segmentAlbum.selectedSegmentIndex == 0) {
-                obj = [self.arrayOfDefaultPhotoObjects objectAtIndex:indexPath.row - 1];
-            } else {
-                if ([self.arrayOfUserPhotoObjects count]) {
-                    obj = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
-                } else { //no user pictures yet
-                    obj = nil;
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"blank"];
-                    cell.textLabel.text = @"No user submitted cover images yet. Be the first to submit yours!";
-                    cell.textLabel.font = [UIFont systemFontOfSize:12];
-                    cell.textLabel.textColor = [UIColor lightGrayColor];
-                    cell.backgroundColor = [UIColor blackColor];
-                    cell.textLabel.numberOfLines = 0;
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                    [cell.textLabel sizeToFit];
-                }
+            if ([self.arrayOfUserPhotoObjects count]) {
+                obj = [self.arrayOfUserPhotoObjects objectAtIndex:indexPath.row - 1];
+            } else { //no user pictures yet
+                obj = nil;
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"blank"];
+                cell.textLabel.text = @"No user submitted cover images yet. Be the first to submit yours!";
+                cell.textLabel.font = [UIFont systemFontOfSize:12];
+                cell.textLabel.textColor = [UIColor lightGrayColor];
+                cell.backgroundColor = [UIColor blackColor];
+                cell.textLabel.numberOfLines = 0;
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                [cell.textLabel sizeToFit];
             }
-            
-            if (obj) {
-                PFFile *imgFile = obj[@"photo"];
-                PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
-                [imgView setFile:imgFile];
-                [imgView loadInBackground];
-                imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
-            }
+        }
+        
+        if (obj) {
+            PFFile *imgFile = obj[@"photo"];
+            PFImageView *imgView = (PFImageView *)[cell viewWithTag:1];
+            [imgView setFile:imgFile];
+            [imgView loadInBackground];
+            imgView.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height);
+        }
     }
-
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -232,12 +237,12 @@ int progress = 1;
 
 BOOL upload = NO;
 -(void)upload {
-
+    
     upload = YES;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Image" message:@"\rHave a corp themed cover image that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
     alert.delegate = self;
     [alert show];
-
+    
 }
 
 -(void)submitCoverPhotoForApproval {
@@ -280,48 +285,48 @@ BOOL upload = NO;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 -(NSMutableArray *)arrayOfDefaultPhotoObjects {
     if (!_arrayOfDefaultPhotoObjects) {

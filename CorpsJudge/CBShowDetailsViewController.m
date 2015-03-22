@@ -22,7 +22,7 @@ int votedScore;
 int votedFavorites;
 
 @interface CBShowDetailsViewController() <CBJudgeViewControllerDelegate> {
-
+    
 }
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
@@ -81,7 +81,7 @@ int votedFavorites;
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-
+    
 }
 
 - (void)goback {
@@ -94,14 +94,14 @@ int votedFavorites;
 }
 
 - (void)viewDidLoad {
-
+    
     [super viewDidLoad];
     
     // Configure the SKView
     SKView * skView = _skView;
     
     // Create and configure the scene.
-
+    
     
     // Present the scene.
     skView.allowsTransparency = YES;
@@ -110,11 +110,13 @@ int votedFavorites;
     
     [self setAutomaticallyAdjustsScrollViewInsets:YES];
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
     [self setup];
     
-
+    
 }
 
 -(void)setup {
@@ -131,7 +133,7 @@ int votedFavorites;
     [self.arrayOfOpenClassScores removeAllObjects];
     [self.arrayOfAllAgeClassScores removeAllObjects];
     self.title = @"Show Details";
-   
+    
 }
 
 -(void)initUI {
@@ -161,7 +163,7 @@ int votedFavorites;
 }
 
 -(void)votedScore:(NSNumber *)result error:(NSError *)error {
-
+    
     votedScore = [result intValue];
     [self checkVote];
 }
@@ -170,7 +172,7 @@ int votedFavorites;
     
     if ((votedScore > 0) || (votedFavorites > 0)) {
         self.btnReviewShow.enabled = NO;
-
+        
     } else {
         NSDate *showD = self.show[@"showDate"];
         if ([showD isInFuture]) {
@@ -191,7 +193,7 @@ int votedFavorites;
 }
 
 -(void)didUserVoteForShow {
-
+    
     PFQuery *query = [PFQuery queryWithClassName:@"scores"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
     [query whereKey:@"show" equalTo:self.show];
@@ -213,7 +215,9 @@ int votedFavorites;
     
     [self.tableCorps reloadData];
     self.tableCorps.hidden = NO;
-    [KVNProgress dismiss];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
 }
 
 
@@ -237,7 +241,7 @@ int votedFavorites;
 -(void)getScoresForShow {
     
     if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count] ) {
-
+        
         PFQuery *query = [PFQuery queryWithClassName:@"scores"];
         [query whereKey:@"show" equalTo:self.show];
         [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
@@ -333,24 +337,24 @@ int votedFavorites;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-        switch (section) {
-            case 0:
-                if ([self.arrayOfWorldClassScores count]) return [self.arrayOfWorldClassScores count];
-                else return 0;
-            case 1:
-                if ([self.arrayOfOpenClassScores count]) return [self.arrayOfOpenClassScores count];
-                else return 0;
-            case 2:
-                if ([self.arrayOfAllAgeClassScores count]) return [self.arrayOfAllAgeClassScores count];
-                else return 0;
-            default: return 0;
-        }
+    switch (section) {
+        case 0:
+            if ([self.arrayOfWorldClassScores count]) return [self.arrayOfWorldClassScores count];
+            else return 0;
+        case 1:
+            if ([self.arrayOfOpenClassScores count]) return [self.arrayOfOpenClassScores count];
+            else return 0;
+        case 2:
+            if ([self.arrayOfAllAgeClassScores count]) return [self.arrayOfAllAgeClassScores count];
+            else return 0;
+        default: return 0;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     BOOL isOver = [self.show[@"isShowOver"] boolValue];
-
+    
     UITableViewCell *cell;
     
     UILabel *lblCorpsName;
@@ -393,16 +397,16 @@ int votedFavorites;
             lblScore = (UILabel *)[cell viewWithTag:3];
             lblCorpsName = (UILabel *)[cell viewWithTag:1];
         }
-
+        
     } else {
-         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"time"];
+        cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"time"];
         
         lblCorpsName = (UILabel *)[cell viewWithTag:1];
         lblTime = (UILabel *)[cell viewWithTag:2];
     }
-   
+    
     imgLogo = (PFImageView *)[cell viewWithTag:4];
-
+    
     if (score) {
         corps = score[@"corps"];
         if (isOver) {
@@ -465,7 +469,7 @@ int votedFavorites;
     UITextField* textField = [alert textFieldAtIndex:0];
     textField.text = self.show[@"recapURL"];
     [alert show];
-
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -537,7 +541,7 @@ int votedFavorites;
 #pragma mark
 
 -(void)showCompleted {
-
+    
     [self setup];
 }
 

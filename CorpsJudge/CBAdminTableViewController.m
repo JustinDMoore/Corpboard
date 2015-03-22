@@ -88,14 +88,21 @@
 
 -(void)getFeedback {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+
+    
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"feedback"];
     [query includeKey:@"user"];
     [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [KVNProgress dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress dismiss];
+        });
+
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];
@@ -107,14 +114,20 @@
 
 -(void)getBugs {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"problems"];
     [query includeKey:@"user"];
     [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [KVNProgress dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress dismiss];
+        });
+
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];
@@ -126,8 +139,11 @@
 
 -(void)getPhotos {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"photos"];
     [query includeKey:@"user"];
@@ -135,7 +151,10 @@
     [query whereKey:@"approved" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [KVNProgress dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress dismiss];
+        });
+
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];
@@ -147,15 +166,21 @@
 
 -(void)getReports {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+
     [self.arrayOfData removeAllObjects];
     PFQuery *query = [PFQuery queryWithClassName:@"reportUsers"];
     [query includeKey:@"userReporting"];
     [query includeKey:@"userBeingReported"];
     [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [KVNProgress dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [KVNProgress dismiss];
+        });
+
         if (!error) {
             if ([objects count]) {
                 [self.arrayOfData addObjectsFromArray:objects];

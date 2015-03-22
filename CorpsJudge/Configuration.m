@@ -960,6 +960,7 @@ NSString *const KILTIES = @"Kilties";
 #pragma mark - KVNProgress Configurations
 #pragma mark
 +(KVNProgressConfiguration *)standardProgressConfig {
+
     [KVNProgress dismiss];
     KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
     configuration.backgroundType = KVNProgressBackgroundTypeSolid;

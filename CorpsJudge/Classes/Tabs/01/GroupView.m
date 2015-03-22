@@ -28,7 +28,7 @@
 
 @interface GroupView() {
     
-	NSMutableArray *chatrooms;
+    NSMutableArray *chatrooms;
     UIRefreshControl *refreshControl;
 }
 @end
@@ -37,18 +37,18 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self)
-	{
-		//[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
-		self.tabBarItem.title = @"Live Chat";
-	}
-	return self;
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        //[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
+        self.tabBarItem.title = @"Live Chat";
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     
-	[super viewDidLoad];
+    [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatNameCell"
                                                bundle:[NSBundle mainBundle]]
@@ -60,11 +60,11 @@
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     
-	self.title = @"Live Chat";
-
-	self.tableView.separatorInset = UIEdgeInsetsZero;
-
-	chatrooms = [[NSMutableArray alloc] init];
+    self.title = @"Live Chat";
+    
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    
+    chatrooms = [[NSMutableArray alloc] init];
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
@@ -97,27 +97,30 @@
 
 - (void)goback {
     
-    [KVNProgress dismiss];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
-	[super viewDidAppear:animated];
+    [super viewDidAppear:animated];
     
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
-
-	if ([PFUser currentUser] != nil) {
+    
+    if ([PFUser currentUser] != nil) {
         
-		[self refreshTableAndOpenRecent:NO];
-	}
-	else LoginUser(self);
+        [self refreshTableAndOpenRecent:NO];
+    }
+    else LoginUser(self);
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-        [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
 }
 
 #pragma mark - User actions
@@ -131,47 +134,55 @@
 
 - (void)refreshTableAndOpenRecent:(BOOL)open {
     
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
     
-	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
+    PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
     [query includeKey:@"lastUser"];
     [query includeKey:@"user"];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-	{
-		if (error == nil) {
-            
-			[chatrooms removeAllObjects];
-			for (PFObject *object in objects) {
-                
-				[chatrooms addObject:object];
-			}
-            [KVNProgress dismiss];
-            [refreshControl endRefreshing];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-			//[self.tableView reloadData];
-            if (open) {
-                if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
-                    [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            }
-		}
-        else {
-            [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-            [KVNProgress showErrorWithStatus:@"Network error"];
-        }
-	}];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (error == nil) {
+             
+             [chatrooms removeAllObjects];
+             for (PFObject *object in objects) {
+                 
+                 [chatrooms addObject:object];
+             }
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [KVNProgress dismiss];
+             });
+             
+             [refreshControl endRefreshing];
+             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+             //[self.tableView reloadData];
+             if (open) {
+                 if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
+                     [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+             }
+         }
+         else {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                 [KVNProgress showErrorWithStatus:@"Network error"];
+             });
+             
+         }
+     }];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-	return [chatrooms count];
+    return [chatrooms count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -187,7 +198,7 @@
     PFObject *chatroom = chatrooms[indexPath.row];
     PFUser *lastUser = chatroom[@"lastUser"];
     PFUser *userWhoStartedChat = chatroom[@"user"];
-
+    
     NSString *d = [[JSQMessagesTimestampFormatter sharedFormatter] timeForDate:chatroom[@"lastMessageDate"]];
     NSDate *updated = chatroom[@"lastMessageDate"];
     
@@ -207,7 +218,7 @@
         } else if ([updated daysBeforeDate:[NSDate date]] == 2) {
             timeDiff = @"2 days ago";
         } else if ([updated isToday]) {
-                timeDiff = d;
+            timeDiff = d;
         } else {
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"MMMM d"];
@@ -217,7 +228,7 @@
     }
     
     cell.lblLastUserHowLongAgo.text = timeDiff;
-   
+    
     [lastUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             PFFile *imgFile = lastUser[@"picture"];
@@ -247,12 +258,12 @@
     }
     
     cell.lblNumberOfMessagesAndViews.text = [NSString stringWithFormat:@"%i %@ - %i %@", views, v, messages, m];
-
+    
     cell.lblChatName.text = chatroom[PF_CHATROOMS_NAME];
     cell.lblChatName.numberOfLines = 3;
     [cell.lblChatName sizeToFit];
     
-	return cell;
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -269,27 +280,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	PFObject *chatroom = chatrooms[indexPath.row];
-	NSString *roomId = chatroom.objectId;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    PFObject *chatroom = chatrooms[indexPath.row];
+    NSString *roomId = chatroom.objectId;
     PFUser *userWhoStartedChat = chatroom[@"user"];
     
     if (![[PFUser currentUser].objectId isEqualToString: userWhoStartedChat.objectId]) {
-       
+        
         int numViews = [chatroom[@"numberOfViews"] intValue];
         numViews++;
         chatroom[@"numberOfViews"] = [NSNumber numberWithInt:numViews];
         [chatroom saveInBackground];
     }
-
-	CreateMessageItem([PFUser currentUser], nil, roomId, chatroom[PF_CHATROOMS_NAME], nil);
-
+    
+    CreateMessageItem([PFUser currentUser], nil, roomId, chatroom[PF_CHATROOMS_NAME], nil);
+    
     roomIdForChat = roomId;
-//  ChatView *chatView = [[ChatView alloc] initWith:roomId];
-//  chatView.hidesBottomBarWhenPushed = YES;
+    //  ChatView *chatView = [[ChatView alloc] initWith:roomId];
+    //  chatView.hidesBottomBarWhenPushed = YES;
     [self performSegueWithIdentifier:@"chat" sender:self];
-//  [self.navigationController pushViewController:chatView animated:YES];
+    //  [self.navigationController pushViewController:chatView animated:YES];
 }
 
 NSString *roomIdForChat;
@@ -352,15 +363,18 @@ NSString *msg;
     object[@"lastMessageDate"] = [NSDate date];
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-         if (error == nil) {
-             
-             [self refreshTableAndOpenRecent:YES];
-         }
-         else {
-             [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
-             [KVNProgress showErrorWithStatus:@"Network error"];
-         }
-     }];
+        if (error == nil) {
+            
+            [self refreshTableAndOpenRecent:YES];
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Network error"];
+            });
+            
+        }
+    }];
 }
 
 @end
