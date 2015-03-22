@@ -87,6 +87,12 @@
 	[self loadMessages];
 
 	ClearMessageCounter(roomId);
+
+    // custom camera button for chat
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, -2, 38, 35)];
+    [btn setImage:[UIImage imageNamed:@"chatCamera"] forState:UIControlStateNormal];
+    self.inputToolbar.contentView.leftBarButtonItem = btn;
+
 }
 
 
