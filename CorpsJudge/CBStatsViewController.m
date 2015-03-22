@@ -18,7 +18,6 @@
 
 CBAppDelegate *appDel;
 CBSingle *data;
-NSTimer *timer;
 PFQuery *queryUserRanks;
 PFQuery *queryOfficialHornlineScores;
 PFQuery *queryUserHornlineRanks;
@@ -43,21 +42,17 @@ typedef enum : int {
 } phase;
 
 @interface CBStatsViewController () {
-
+    BOOL favoritesComplete;
+    BOOL scoresComplete;
 }
 
 - (IBAction)btnInfo_clicked:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
-@property (weak, nonatomic) IBOutlet UILabel *lblactivity;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableCorps;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
-@property (nonatomic, strong) NSMutableArray *arrayOfOpenClass;
 @property (weak, nonatomic) IBOutlet UIButton *btnInfo;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentOfficial;
 @property (nonatomic) phase scorePhase;
-@property (weak, nonatomic) IBOutlet UILabel *lblActivity2;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenFavs;
@@ -83,6 +78,10 @@ typedef enum : int {
 
 @implementation CBStatsViewController
 
+#pragma mark
+#pragma mark - View Lifecycle
+#pragma mark
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -106,63 +105,119 @@ typedef enum : int {
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
--(void)goback {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)viewDidLoad
-{
-    [super viewDidLoad];
-    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-    [KVNProgress show];
-    [self initVariables];
-    [self initUI];
-
-    [self startTimer];
-}
-
 -(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
     
     [queryUserRanks cancel];
     [queryOfficialHornlineScores cancel];
     [queryUserHornlineRanks cancel];
+    
+    [data.arrayOfAllFavorites removeAllObjects];
+    
+    [self.arrayOfWorldColorguardFavs removeAllObjects];
+    [self.arrayOfWorldFavs removeAllObjects];
+    [self.arrayOfWorldHornlineFavs removeAllObjects];
+    [self.arrayOfWorldLoudestFavs removeAllObjects];
+    [self.arrayOfWorldPercussionFavs removeAllObjects];
+    
+    [self.arrayOfOpenColorguardFavs removeAllObjects];
+    [self.arrayOfOpenFavs removeAllObjects];
+    [self.arrayOfOpenHornlineFavs removeAllObjects];
+    [self.arrayOfOpenLoudestFavs removeAllObjects];
+    [self.arrayOfOpenPercussionFavs removeAllObjects];
+    
+    [self.arrayOfAllAgeColorguardFavs removeAllObjects];
+    [self.arrayOfAllAgeFavs removeAllObjects];
+    [self.arrayOfAllAgeHornlineFavs removeAllObjects];
+    [self.arrayOfAllAgeLoudestFavs removeAllObjects];
+    [self.arrayOfAllAgePercussionFavs removeAllObjects];
+    
+    [data.arrayofWorldColorguardVotes removeAllObjects];
+    [data.arrayofWorldFavorites removeAllObjects];
+    [data.arrayOfWorldHornlineVotes removeAllObjects];
+    [data.arrayofWorldLoudestVotes removeAllObjects];
+    [data.arrayOfWorldPercussionVotes removeAllObjects];
+    
+    [data.arrayofOpenColorguardVotes removeAllObjects];
+    [data.arrayofOpenFavorites removeAllObjects];
+    [data.arrayOfOpenHornlineVotes removeAllObjects];
+    [data.arrayofOpenLoudestVotes removeAllObjects];
+    [data.arrayOfOpenPercussionVotes removeAllObjects];
+    
+    [data.arrayofAllAgeColorguardVotes removeAllObjects];
+    [data.arrayofAllAgeFavorites removeAllObjects];
+    [data.arrayOfAllAgeHornlineVotes removeAllObjects];
+    [data.arrayofAllAgeLoudestVotes removeAllObjects];
+    [data.arrayOfAllAgePercussionVotes removeAllObjects];
+    
+    rank = 0;
+    sort = 0;
+    
+    self.tableCorps.hidden = YES;
+    self.tabBar.userInteractionEnabled = NO;
+    self.segmentOfficial.userInteractionEnabled = NO;
+    
+    totalWorldHornlineVotes = 0;
+    totalOpenHornlineVotes = 0;
+    totalAllAgeHornlineVotes = 0;
+    totalWorldPercussionVotes = 0;
+    totalOpenPercussionVotes = 0;
+    totalAllAgePercussionVotes = 0;
+    totalWorldColorguardVotes = 0;
+    totalOpenColorguardVotes = 0;
+    totalAllAgeColorguardVotes = 0;
+    totalWorldLoudestVotes = 0;
+    totalOpenLoudestVotes = 0;
+    totalAllAgeLoudestVotes = 0;
+    totalWorldFavoriteCorpsVotes = 0;
+    totalOpenFavoriteCorpsVotes = 0;
+    totalAllAgeFavoriteCorpsVotes = 0;
 }
 
--(void)checkForCorps {
+
+-(void)goback {
     
-    if (data.dataLoaded) {
-        [timer invalidate];
-        [self getAllCorps];
-    }
+    [KVNProgress dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)startTimer {
+-(void)viewDidLoad {
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:.5
-                                             target:self
-                                           selector:@selector(checkForCorps)
-                                           userInfo:nil
-                                            repeats:YES];
+    [super viewDidLoad];
+    [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+    [KVNProgress showWithStatus:@"Connecting"];
+    
+    // reset bools for loading
+    favoritesComplete = NO;
+    scoresComplete = NO;
+    
+    [self initVariables];
+    [self initUI];
+
+    [self getAllCorps];
+    // get all the favorites from server, then sort them and tally the votes
+    [self getAllFavorites];
 }
 
 -(void)initVariables {
     
+    data = [CBSingle data];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableCorps.hidden = YES;
     self.scorePhase = phaseScore;
     self.segmentOfficial.userInteractionEnabled = NO;
     self.tabBar.userInteractionEnabled = NO;
-    self.lblactivity.hidden = NO;
-    self.lblActivity2.hidden = NO;
-    self.activity.hidden = NO;
+
 }
 
 -(void)initUI {
     
+    self.tableCorps.hidden = YES;
+    self.tabBar.userInteractionEnabled = NO;
+    self.segmentOfficial.userInteractionEnabled = NO;
     self.segmentOfficial.tintColor = appDel.appTintColor;
     self.btnInfo.tintColor = appDel.appTintColor;
-    [self.activity startAnimating];
     [self.segmentOfficial addTarget:self
                              action:@selector(officialChanged)
                    forControlEvents:UIControlEventValueChanged];
@@ -171,71 +226,77 @@ typedef enum : int {
     [self.tabBar setSelectedItem:item];
 }
 
--(void)officialChanged {
-    if (!isDoneSortingFavorites) {
-        self.tableCorps.hidden = YES;
-        self.activity.hidden = NO;
-        [self.activity startAnimating];
-        self.lblactivity.hidden = NO;
-        self.lblActivity2.hidden = NO;
-    }
-    [self sortScores];
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark
+#pragma mark - Loading Data
+#pragma mark
+
+-(void)getAllFavorites {
+    
+    PFQuery *allFavorites = [PFQuery queryWithClassName:@"favorites"];
+    [allFavorites includeKey:@"corps"];
+    [allFavorites findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if ([objects count]) {
+                [data.arrayOfAllFavorites removeAllObjects];
+                [data.arrayOfAllFavorites addObjectsFromArray:objects];
+                [self sortAllFavorites];
+            }
+        } else {
+            NSLog(@"Could not get user favorites.");
+        }
+    }];
 }
 
 -(void)getAllCorps {
+    //
+    //    //all votes for best caption
+    //    if ([data.arrayOfAllFavorites count]) {
+    //        [self sortAllFavorites];
+    //    } else {
+    //        [self getAllFavorites];
+    //    }
     
-    //all votes for best caption
-    if ([data.arrayOfAllFavorites count]) {
-        [self sortAllFavorites];
-    } else {
-        [self getAllFavorites];
-    }
-        
     //for user rankings
     [data.arrayOfUserWorldClassRankings removeAllObjects];
     [data.arrayOfUserOpenClassRankings removeAllObjects];
     [data.arrayOfUserAllAgeClassRankings removeAllObjects];
     
     for (PFObject *corps in data.arrayOfAllCorps) {
-        
+        numC++;
         [self getUserRankForCorps:corps];
         
     }
-    
-    [self sortScores];
 }
 
--(void)getAllFavorites {
-    
-    PFQuery *allFavorites = [PFQuery queryWithClassName:@"favorites"];
-    [allFavorites includeKey:@"corps"];
-    [allFavorites findObjectsInBackgroundWithTarget:self selector:@selector(sortAllFavorites:error:)];
-}
-
--(void)sortAllFavorites:(NSArray *)objects error:(NSError *)error {
-    
-    if ([objects count]) {
-        [data.arrayOfAllFavorites addObjectsFromArray:objects];
-        
-    } else {
-        
-        NSLog(@"Error getting user votes: %@ %@", error, [error userInfo]);
-    }
-    [self sortAllFavorites];
-}
-
-bool isDoneSortingFavorites = NO;
 -(void)sortAllFavorites {
     
+    // clear all of the votes
+    [data.arrayOfWorldHornlineVotes removeAllObjects];
+    [data.arrayOfOpenHornlineVotes removeAllObjects];
+    [data.arrayOfAllAgeHornlineVotes removeAllObjects];
+    
+    [data.arrayOfWorldPercussionVotes removeAllObjects];
+    [data.arrayOfOpenPercussionVotes removeAllObjects];
+    [data.arrayOfAllAgePercussionVotes removeAllObjects];
+    
+    [data.arrayofWorldColorguardVotes removeAllObjects];
+    [data.arrayofOpenColorguardVotes removeAllObjects];
+    [data.arrayofAllAgeColorguardVotes removeAllObjects];
+    
+    [data.arrayofWorldLoudestVotes removeAllObjects];
+    [data.arrayofOpenLoudestVotes removeAllObjects];
+    [data.arrayofAllAgeLoudestVotes removeAllObjects];
+    
+    [data.arrayofWorldFavorites removeAllObjects];
+    [data.arrayofOpenFavorites removeAllObjects];
+    [data.arrayofAllAgeFavorites removeAllObjects];
+    
+    // loop through each vote and sort it by category and class
+    // keep a tally of the number of votes per category and class to get an average later
     if ([data.arrayOfAllFavorites count]) {
         
         for (PFObject *fav in data.arrayOfAllFavorites) {
-
+            
             NSString *corpClass = fav[@"class"];
             
             if ([fav[@"category"] isEqualToString:@"Favorite Brass"]) {
@@ -304,27 +365,27 @@ bool isDoneSortingFavorites = NO;
             }
         }
         
-        //now we have the favorites seperated into arrays by category
-        //now go through each corps and count the votes
-      
+        // now we have the favorites seperated into arrays by category
+        // now go through each corps and count the votes
+        
         for (PFObject *corps in data.arrayOfWorldClass) {
             
             //world favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofWorldFavorites) {
-                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
-                        score++;
+                for (PFObject *fav in data.arrayofWorldFavorites) { // get a corps
+                    if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) { // see if the fav is for that corps
+                        score++;  // if so, increment
                     }
                 }
-                if (score > 0) {
+                if (score > 0) { // if the final score > 0 (some votes for that corp), create a final score for that corps and that category
                     UserScore *uc = [[UserScore alloc] init];
                     uc.corps = corps;
                     uc.score = score;
                     [self.arrayOfWorldFavs addObject:uc];
                 }
             }
-        
+            
             //world hornline favs
             {
                 int score = 0;
@@ -391,7 +452,7 @@ bool isDoneSortingFavorites = NO;
         }
         
         for (PFObject *corps in data.arrayOfOpenClass) {
-         
+            
             
             //open favs
             {
@@ -559,33 +620,10 @@ bool isDoneSortingFavorites = NO;
         }
     }
     
-    [self.activity stopAnimating];
-    self.activity.hidden = YES;
-    self.lblactivity.hidden = YES;
-    self.lblActivity2.hidden = YES;
-    self.tableCorps.hidden = NO;
-    [self sortScores];
-    isDoneSortingFavorites = YES;
-    [self areWeDoneLoading];
+    favoritesComplete = YES;
 }
 
--(void)areWeDoneLoading {
-    if (isDoneSortingFavorites && isDoneSortingScores) {
-        [self reloadTable];
-        [KVNProgress dismiss];
-    }
-}
-
--(int)getNumberOfFavoritesForCorps:(PFObject *)corps forArray:(NSMutableArray *)array {
-    
-    int results;
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"corps == %@", corps]];
-    [array filterUsingPredicate:predicate];
-    results = (int)[data.arrayOfAllFavorites count];
-    return results;
-}
-
+int rank;
 int numberOfRanks = 0;
 -(void)getUserRankForCorps:(PFObject *)corps {
     
@@ -596,185 +634,59 @@ int numberOfRanks = 0;
     [queryUserRanks orderByDescending:@"showDate"];
     [queryUserRanks setLimit:100];
     [queryUserRanks includeKey:@"corps"];
+
     
     [queryUserRanks findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
-        if (![array count]) return ;
-        numberOfRanks++;
-        double scoresTotal = 0;
-        for (PFObject *obj in array) {
-            double i = [obj[@"score"] doubleValue];
-            scoresTotal += i;
-        }
-        double grand = scoresTotal / [array count];
-        PFObject *score = [array objectAtIndex:0];
-        UserScore *us = [[UserScore alloc] init];
-        us.corps = score[@"corps"];
-        us.score = grand;
-
-        if ([score[@"class"] isEqualToString:@"World"]) {
-         
-            [data.arrayOfUserWorldClassRankings addObject:us];
-            
-        } else if ([score[@"class"] isEqualToString:@"Open"]) {
-            
-            [data.arrayOfUserOpenClassRankings addObject:us];
-            
-        } else if ([score[@"class"] isEqualToString:@"All Age"]) {
-            
-            [data.arrayOfUserAllAgeClassRankings addObject:us];
-            
-        }
-    }];
-}
-
--(void)getUserHornlineRankForCorps:(PFObject *)corps {
-    
-    queryUserHornlineRanks = [PFQuery queryWithClassName:@"favorites"];
-    [queryUserHornlineRanks whereKey:@"corps" equalTo:corps];
-    [queryUserHornlineRanks whereKey:@"category" equalTo:@"Favorite Brass"];
-    [queryUserHornlineRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] > 0) {
+        rank++;
+        NSLog(@"ranking %i", rank);
+        
+        
+        if (rank == 10) [KVNProgress updateStatus:@"Getting official scores"];
+        if (rank == 30) [KVNProgress updateStatus:@"Getting caption scores"];
+        if (rank == 50) [KVNProgress updateStatus:@"Calculating"];
+        
+        if ([array count]) {
+            numberOfRanks++;
+            double scoresTotal = 0;
+            for (PFObject *obj in array) {
+                double i = [obj[@"score"] doubleValue];
+                scoresTotal += i;
+            }
+            double grand = scoresTotal / [array count];
+            PFObject *score = [array objectAtIndex:0];
             UserScore *us = [[UserScore alloc] init];
-            us.corps = corps[@"corps"];
-            us.score = [objects count];
-
-            if ([corps[@"class"] isEqualToString:@"World"]) {
+            us.corps = score[@"corps"];
+            us.score = grand;
+            
+            if ([score[@"class"] isEqualToString:@"World"]) {
                 
-                [data.arrayOfWorldHornlineVotes addObject:us];
+                [data.arrayOfUserWorldClassRankings addObject:us];
                 
-            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+            } else if ([score[@"class"] isEqualToString:@"Open"]) {
                 
-                [data.arrayOfOpenHornlineVotes addObject:us];
+                [data.arrayOfUserOpenClassRankings addObject:us];
                 
-            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+            } else if ([score[@"class"] isEqualToString:@"All Age"]) {
                 
-                [data.arrayOfAllAgeHornlineVotes addObject:us];
+                [data.arrayOfUserAllAgeClassRankings addObject:us];
                 
             }
         }
-    }];
-}
-
--(void)getUserPercussionRankForCorps:(PFObject *)corps {
-    
-    queryUserPercussionRanks = [PFQuery queryWithClassName:@"favorites"];
-    [queryUserPercussionRanks whereKey:@"corps" equalTo:corps];
-    [queryUserPercussionRanks whereKey:@"category" equalTo:@"Favorite Drums"];
-    [queryUserPercussionRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] > 0) {
-            UserScore *us = [[UserScore alloc] init];
-            us.corps = corps[@"corps"];
-            us.score = [objects count];
-
-            if ([corps[@"class"] isEqualToString:@"World"]) {
-                
-                [data.arrayOfWorldPercussionVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
-                
-                [data.arrayOfOpenPercussionVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
-                
-                [data.arrayOfAllAgePercussionVotes addObject:us];
-                
-            }
+        
+        if (rank >= 57) {
+            [self sortScores];
+            [self reloadTable];
         }
     }];
 }
 
--(void)getUserColorguardRankForCorps:(PFObject *)corps {
-    
-    queryUserColorguardRanks = [PFQuery queryWithClassName:@"favorites"];
-    [queryUserColorguardRanks whereKey:@"corps" equalTo:corps];
-    [queryUserColorguardRanks whereKey:@"category" equalTo:@"Favorite Colorguard"];
-    [queryUserColorguardRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] > 0) {
-            UserScore *us = [[UserScore alloc] init];
-            us.corps = corps[@"corps"];
-            us.score = [objects count];
-            
-            if ([corps[@"class"] isEqualToString:@"World"]) {
-                
-                [data.arrayofWorldColorguardVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
-                
-                [data.arrayofOpenColorguardVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
-                
-                [data.arrayofAllAgeColorguardVotes addObject:us];
-                
-            }
-        }
-    }];
-}
+int numC = 0;
 
--(void)getUserLoudestRankForCorps:(PFObject *)corps {
-    
-    queryUserLoudestRanks = [PFQuery queryWithClassName:@"favorites"];
-    [queryUserLoudestRanks whereKey:@"corps" equalTo:corps];
-    [queryUserLoudestRanks whereKey:@"category" equalTo:@"Loudest Brass"];
-    [queryUserLoudestRanks findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] > 0) {
-            UserScore *us = [[UserScore alloc] init];
-            us.corps = corps[@"corps"];
-            us.score = [objects count];
-            
-            if ([corps[@"class"] isEqualToString:@"World"]) {
-                
-                [data.arrayofWorldLoudestVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
-                
-                [data.arrayofOpenLoudestVotes addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
-                
-                 [data.arrayofAllAgeLoudestVotes addObject:us];
-                
-            }
-        }
-    }];
-}
-
--(void)getUserFavoritesForCorps:(PFObject *)corps {
-    
-    queryUserFavorites = [PFQuery queryWithClassName:@"favorites"];
-    [queryUserFavorites whereKey:@"corps" equalTo:corps];
-    [queryUserFavorites whereKey:@"category" equalTo:@"Favorite Corps"];
-    [queryUserFavorites findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] > 0) {
-            UserScore *us = [[UserScore alloc] init];
-            us.corps = corps[@"corps"];
-            us.score = [objects count];
-            
-            if ([corps[@"class"] isEqualToString:@"World"]) {
-                
-                [data.arrayofWorldFavorites addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
-                
-                [data.arrayofOpenFavorites addObject:us];
-                
-            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
-                
-                [data.arrayofAllAgeFavorites addObject:us];
-                
-            }
-        }
-    }];
-}
-
--(BOOL)canWeSort {
-    if ([data.arrayOfWorldClass count] > 17) return YES;
-    else return NO;
-}
-
+int sort;
 -(void)sortScores {
 
-    isDoneSortingScores = NO;
+    sort++;
+    NSLog(@"sorting %i", sort);
     switch (self.scorePhase) {
         {case phaseScore:
             
@@ -920,19 +832,12 @@ int numberOfRanks = 0;
     
     self.segmentOfficial.userInteractionEnabled = YES;
     self.tabBar.userInteractionEnabled = YES;
-    self.tableCorps.hidden = NO;
-    self.lblactivity.hidden = YES;
-    self.lblActivity2.hidden = YES;
-    self.activity.hidden = YES;
-    [self.activity stopAnimating];
-    isDoneSortingScores = YES;
-    [self areWeDoneLoading];
-
+    [self reloadTable];
 }
 
-BOOL isDoneSortingScores = NO;
-
-#pragma mark - TableView
+#pragma mark
+#pragma mark - UITableView Methods
+#pragma mark
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
@@ -1614,112 +1519,54 @@ BOOL isDoneSortingScores = NO;
     }
 }
 
-- (UIColor *)darkerColorForColor:(UIColor *)c
-{
-    CGFloat r, g, b, a;
-    if ([c getRed:&r green:&g blue:&b alpha:&a])
-        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
-                               green:MAX(g - 0.2, 0.0)
-                                blue:MAX(b - 0.2, 0.0)
-                               alpha:a];
-    return nil;
+-(void)reloadTable {
+
+    self.tableCorps.hidden = NO;
+    [KVNProgress dismiss];
+    [self.tableCorps reloadData];
 }
 
--(void)settitle {
-    
-    if (self.segmentOfficial.selectedSegmentIndex == 0) {
-        
-        switch (self.scorePhase) {
-            case phaseScore:
-                self.title = @"Official Rankings";
-                break;
-            case phaseFavorite:
-                self.title = @"Error";
-                break;
-            case phaseLoudesthornline:
-                self.title = @"Error";
-                break;
-            case phaseBestdrums:
-                self.title = @"High Percussion";
-                break;
-            case phaseBestguard:
-                self.title = @"High Color Guard";
-                break;
-            case phaseBesthornline:
-                self.title = @"High Brass";
-                break;
-                
-            default:
-                break;
-        }
-    } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
-     
-        switch (self.scorePhase) {
-            case phaseScore:
-                //self.navTitle.title = @"User Rankings";
-                break;
-            case phaseFavorite:
-                self.title = @"User Favorite Show";
-                break;
-            case phaseLoudesthornline:
-                self.title = @"User Loudest Brass";
-                break;
-            case phaseBestdrums:
-                self.title = @"User Favorite Percussion";
-                break;
-            case phaseBestguard:
-                self.title = @"User Favorite Color Guard";
-                break;
-            case phaseBesthornline:
-                self.title = @"User Favorite Brass";
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
+#pragma mark
+#pragma mark - UITabBar Methods
+#pragma mark
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-
+    
     switch (item.tag) {
         case 0: //rank
-            self.scorePhase = phaseScore;
-            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseScore;
+        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+        break;
         case 1: //hornline
-            self.scorePhase = phaseBesthornline;
-            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseBesthornline;
+        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+        break;
         case 2: //Percussion
-            self.scorePhase = phaseBestdrums;
-            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseBestdrums;
+        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+        break;
         case 3: //Colorguard
-            self.scorePhase = phaseBestguard;
-            [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseBestguard;
+        [self.segmentOfficial setEnabled:YES forSegmentAtIndex:0];
+        break;
         case 4: //Loudest
-            self.scorePhase = phaseLoudesthornline;
-            self.segmentOfficial.selectedSegmentIndex = 1;
-            [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseLoudesthornline;
+        self.segmentOfficial.selectedSegmentIndex = 1;
+        [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
+        break;
         case 5: //Favorite
-            self.scorePhase = phaseFavorite;
-            self.segmentOfficial.selectedSegmentIndex = 1;
-            [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
-            break;
+        self.scorePhase = phaseFavorite;
+        self.segmentOfficial.selectedSegmentIndex = 1;
+        [self.segmentOfficial setEnabled:NO forSegmentAtIndex:0];
+        break;
         default: NSLog(@"Error setting score phase");
-            break;
+        break;
     }
     [self sortScores];
 }
 
--(void)reloadTable {
-    [self.tableCorps reloadData];
-}
-
+#pragma mark
 #pragma mark - Properties
+#pragma mark
 
 -(NSMutableArray *)arrayOfWorldFavs {
     
@@ -1850,6 +1697,10 @@ BOOL isDoneSortingScores = NO;
     return _arrayOfAllAgeLoudestFavs;
 }
 
+#pragma mark
+#pragma mark - Actions & Helpers
+#pragma mark
+
 - (IBAction)btnInfo_clicked:(id)sender {
     
     CBRankingsInfoView *myCustomXIBViewObj =
@@ -1875,6 +1726,77 @@ BOOL isDoneSortingScores = NO;
             sub.userInteractionEnabled = YES;
         }
     }
+}
+
+-(void)officialChanged {
+    
+    [self sortScores];
+}
+
+-(void)settitle {
+    
+    if (self.segmentOfficial.selectedSegmentIndex == 0) {
+        
+        switch (self.scorePhase) {
+            case phaseScore:
+            self.title = @"Official Rankings";
+            break;
+            case phaseFavorite:
+            self.title = @"Error";
+            break;
+            case phaseLoudesthornline:
+            self.title = @"Error";
+            break;
+            case phaseBestdrums:
+            self.title = @"High Percussion";
+            break;
+            case phaseBestguard:
+            self.title = @"High Color Guard";
+            break;
+            case phaseBesthornline:
+            self.title = @"High Brass";
+            break;
+            
+            default:
+            break;
+        }
+    } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
+        
+        switch (self.scorePhase) {
+            case phaseScore:
+            //self.navTitle.title = @"User Rankings";
+            break;
+            case phaseFavorite:
+            self.title = @"User Favorite Show";
+            break;
+            case phaseLoudesthornline:
+            self.title = @"User Loudest Brass";
+            break;
+            case phaseBestdrums:
+            self.title = @"User Favorite Percussion";
+            break;
+            case phaseBestguard:
+            self.title = @"User Favorite Color Guard";
+            break;
+            case phaseBesthornline:
+            self.title = @"User Favorite Brass";
+            break;
+            
+            default:
+            break;
+        }
+    }
+}
+
+-(UIColor *)darkerColorForColor:(UIColor *)c {
+    
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+    return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                           green:MAX(g - 0.2, 0.0)
+                            blue:MAX(b - 0.2, 0.0)
+                           alpha:a];
+    return nil;
 }
 
 @end
