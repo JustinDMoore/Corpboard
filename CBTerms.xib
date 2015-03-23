@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view tag="1" contentMode="scaleToFill" id="bSn-a4-jT6" userLabel="termsInfo" customClass="CBTerms">
+            <rect key="frame" x="0.0" y="0.0" width="285" height="304"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms and Conditions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wT-He-md5">
+                    <rect key="frame" x="58" y="8" width="153" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="153" id="1N6-lf-aS9"/>
+                        <constraint firstAttribute="height" constant="21" id="sJu-W6-cvf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wai-4O-Zky">
+                    <rect key="frame" x="0.0" y="260" width="300" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="7WU-RO-Afp"/>
+                        <constraint firstAttribute="height" constant="1" id="qwZ-Pc-KIN"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVw-Gi-Mib">
+                    <rect key="frame" x="0.0" y="266" width="285" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Ok">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnOK_clicked:" destination="bSn-a4-jT6" eventType="touchUpInside" id="jTh-ya-ntg"/>
+                    </connections>
+                </button>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUJ-g7-VbV">
+                    <rect key="frame" x="0.0" y="37" width="285" height="221"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </webView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="wVw-Gi-Mib" firstAttribute="top" secondItem="wai-4O-Zky" secondAttribute="bottom" constant="5" id="321-IB-LRg"/>
+                <constraint firstItem="wVw-Gi-Mib" firstAttribute="leading" secondItem="bSn-a4-jT6" secondAttribute="leading" id="4my-Fn-O0Z"/>
+                <constraint firstItem="wai-4O-Zky" firstAttribute="leading" secondItem="bSn-a4-jT6" secondAttribute="leading" id="9tk-oX-YqX"/>
+                <constraint firstItem="8wT-He-md5" firstAttribute="top" secondItem="bSn-a4-jT6" secondAttribute="top" constant="8" id="P9o-3K-ptA"/>
+                <constraint firstItem="wVw-Gi-Mib" firstAttribute="top" secondItem="oUJ-g7-VbV" secondAttribute="bottom" constant="8" id="VJF-bB-feO"/>
+                <constraint firstAttribute="centerX" secondItem="8wT-He-md5" secondAttribute="centerX" constant="8" id="coH-BH-AsY"/>
+                <constraint firstAttribute="trailing" secondItem="oUJ-g7-VbV" secondAttribute="trailing" id="dUY-zn-E1p"/>
+                <constraint firstItem="oUJ-g7-VbV" firstAttribute="top" secondItem="8wT-He-md5" secondAttribute="bottom" constant="8" id="i2v-mK-X1v"/>
+                <constraint firstAttribute="bottom" secondItem="wVw-Gi-Mib" secondAttribute="bottom" constant="8" id="pv8-j9-yXs"/>
+                <constraint firstItem="oUJ-g7-VbV" firstAttribute="leading" secondItem="bSn-a4-jT6" secondAttribute="leading" id="vOM-h1-hmc"/>
+                <constraint firstAttribute="trailing" secondItem="wVw-Gi-Mib" secondAttribute="trailing" id="x2g-Ae-Db4"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="web" destination="oUJ-g7-VbV" id="v6G-4r-6nA"/>
+            </connections>
+            <point key="canvasLocation" x="250.5" y="296"/>
+        </view>
+    </objects>
+</document>

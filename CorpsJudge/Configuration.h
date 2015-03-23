@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpsObjects;
 -(void)createAllShowsAndEmptyScores;
 -(void)createAllCorps;
+-(PFObject *)getCorpsByName:(NSString *)name;
 +(KVNProgressConfiguration *)standardProgressConfig;
 +(KVNProgressConfiguration *)errorProgressConfig;
 

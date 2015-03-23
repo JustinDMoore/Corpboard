@@ -112,7 +112,7 @@ CBSingle *data;
     
     [SlideNavigationController sharedInstance].menuRevealAnimationDuration = animationDuration;
     [SlideNavigationController sharedInstance].menuRevealAnimator = revealAnimator;
-    
+    [SlideNavigationController sharedInstance].enableSwipeGesture = NO;
 //    BOOL isLoggedIn = false;
 //    
 //    

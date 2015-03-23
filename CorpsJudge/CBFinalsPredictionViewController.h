@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBFinalsPredictionViewController : UIViewController
+@interface CBFinalsPredictionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableCorps;
+@property (nonatomic, strong) NSMutableArray *arrayOfCorps;
+@property (nonatomic, strong) NSMutableArray *arrayOfIndexes;
+@property (nonatomic, strong) NSString *phase; //pick, order, score
+@property (nonatomic, strong) NSMutableDictionary *dictOfCorps;
+@property (nonatomic, assign) UITextField *currentResponder;
 @end
