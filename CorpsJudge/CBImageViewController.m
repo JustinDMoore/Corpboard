@@ -16,8 +16,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.imgViewPicture.image = self.imgPicture;
-    // Do any additional setup after loading the view.
+    NSLog(@"%@", [self.imgPicture class]);
+    self.imgViewPicture.image = (UIImage *)self.imgPicture;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageNamed:@"arrowLeft"];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    UIBarButtonItem *btnAction = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action)];
+    self.navigationItem.rightBarButtonItem = btnAction;
+}
+
+-(void)action {
+    
+    NSString *actionSheetTitle = nil; //Action Sheet Title
+    NSString *other1 = @"Save Image";
+    NSString *cancelTitle = @"Cancel";
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:nil
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:other1, nil];
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.view];
+}
+
+- (void)goback {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,14 +62,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark
+#pragma mark - UIActionSheet
+#pragma mark
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            UIImageWriteToSavedPhotosAlbum(self.imgPicture, nil, nil, nil);
+            break;
+
+        default:
+            break;
+    }
 }
-*/
 
 @end

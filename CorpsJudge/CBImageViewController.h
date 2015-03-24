@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBImageViewController : UIViewController
+@interface CBImageViewController : UIViewController <UIActionSheetDelegate>
 
 @property (weak, nonatomic) UIImage *imgPicture;
 

@@ -34,7 +34,7 @@
 #import "UIImage+JSQMessages.h"
 
 
-const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 0.0f;
+const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 
@@ -71,6 +71,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 @implementation JSQMessagesCollectionViewFlowLayout
 
+@dynamic collectionView;
+
 #pragma mark - Initialization
 
 - (void)jsq_configureFlowLayout
@@ -95,7 +97,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     }
     
     _messageBubbleTextViewFrameInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 6.0f);
-    _messageBubbleTextViewTextContainerInsets = UIEdgeInsetsMake(5.0f, 10.0f, 5.0f, 10.0f);
+    _messageBubbleTextViewTextContainerInsets = UIEdgeInsetsMake(7.0f, 14.0f, 7.0f, 14.0f);
     
     CGSize defaultAvatarSize = CGSizeMake(kJSQMessagesCollectionViewAvatarSizeDefault, kJSQMessagesCollectionViewAvatarSizeDefault);
     _incomingAvatarViewSize = defaultAvatarSize;
@@ -281,7 +283,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         [self jsq_resetDynamicAnimator];
     }
     
-    if (context.emptyCache) {
+    if (context.invalidateFlowLayoutMessagesCache) {
         [self jsq_resetLayout];
     }
     
@@ -433,7 +435,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 {
     id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:indexPath];
     
-    NSValue *cachedSize = [self.messageBubbleCache objectForKey:@(messageItem.hash)];
+    NSValue *cachedSize = [self.messageBubbleCache objectForKey:@([messageItem messageHash])];
     if (cachedSize != nil) {
         return [cachedSize CGSizeValue];
     }
@@ -474,7 +476,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
     }
     
-    [self.messageBubbleCache setObject:[NSValue valueWithCGSize:finalSize] forKey:@(messageItem.hash)];
+    [self.messageBubbleCache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageItem messageHash])];
     
     return finalSize;
 }
@@ -590,7 +592,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     //  if touch is not (0,0) -- adjust item center "in flight"
     if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
-        CGFloat distanceFromTouch = fabsf(touchLocation.y - springBehavior.anchorPoint.y);
+        CGFloat distanceFromTouch = fabs(touchLocation.y - springBehavior.anchorPoint.y);
         CGFloat scrollResistance = distanceFromTouch / self.springResistanceFactor;
         
         if (self.latestDelta < 0.0f) {

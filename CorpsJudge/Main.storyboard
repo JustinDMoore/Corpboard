@@ -1028,15 +1028,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRC-eY-WT0">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1l-78-yRu">
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Y1l-78-yRu" firstAttribute="leading" secondItem="Zbg-Cj-e9F" secondAttribute="leadingMargin" constant="-16" id="1lq-8f-4jL"/>
+                            <constraint firstItem="Y1l-78-yRu" firstAttribute="top" secondItem="yHg-n8-X4B" secondAttribute="bottom" id="4U2-aM-ssE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Y1l-78-yRu" secondAttribute="trailing" constant="-16" id="kxC-bL-PDN"/>
+                            <constraint firstItem="FXM-ui-xMB" firstAttribute="top" secondItem="Y1l-78-yRu" secondAttribute="bottom" id="uD1-nn-b4e"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="imgPicture" destination="RRC-eY-WT0" id="wiL-v9-yS1"/>
-                        <outlet property="imgViewPicture" destination="RRC-eY-WT0" id="gpz-il-x4W"/>
+                        <outlet property="imgViewPicture" destination="Y1l-78-yRu" id="zAY-bF-QdT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSM-i2-L2V" userLabel="First Responder" sceneMemberID="firstResponder"/>

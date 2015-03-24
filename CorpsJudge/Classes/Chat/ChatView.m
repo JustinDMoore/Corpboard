@@ -121,7 +121,7 @@
     [super viewDidAppear:animated];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
-    self.collectionView.collectionViewLayout.springinessEnabled = YES;
+    self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -448,8 +448,9 @@ PFUser *userForProfile;
         
         JSQPhotoMediaItem *pic = (JSQPhotoMediaItem *)messageToView.media;
         NSLog(@"%@", pic);
+        UIImage *p = (UIImage *)pic.image;
+        NSLog(@"%@", [p class]);
         vc.imgPicture = pic.image;
-        
     }
 }
 
