@@ -17,7 +17,7 @@ Parse.Cloud.define("getRandomFact", function(request, response)
                                               response.success(result);
                                               },
                                               error: function() {
-                                              response.error("movie lookup failed");
+                                              response.error("Cloud: Error getting random fact");
                                               }
                                               });
                                    

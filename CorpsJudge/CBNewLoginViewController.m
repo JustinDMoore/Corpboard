@@ -152,7 +152,7 @@
                                         }
                                         
                                     } else {
-                                        NSLog(@"big error");
+                                        NSLog(@"Could not call cloud function for fact.");
                                     }
                                 }];
     

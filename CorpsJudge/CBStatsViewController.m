@@ -624,7 +624,7 @@ int fetchCount = 0;
 }
 
 int rank;
-int numberOfRanks = 0;
+
 -(void)getUserRankForCorps:(PFObject *)corps {
     
     queryUserRanks = [PFQuery queryWithClassName:@"scores"];
@@ -661,7 +661,7 @@ int numberOfRanks = 0;
         }
         
         if ([array count]) {
-            numberOfRanks++;
+
             double scoresTotal = 0;
             for (PFObject *obj in array) {
                 double i = [obj[@"score"] doubleValue];
@@ -1136,10 +1136,10 @@ int sort;
                         
                         if (difference > 0) {
                             [lbldiff setTextColor:[self darkerColorForColor:[UIColor greenColor]]];
-                            lbldiff.text = [NSString stringWithFormat:@"+%.2f", difference];
+                            lbldiff.text = [NSString stringWithFormat:@"+%.3f", difference];
                         } else if (difference < 0) {
                             [lbldiff setTextColor:[UIColor redColor]];
-                            lbldiff.text = [NSString stringWithFormat:@"%.2f", difference];
+                            lbldiff.text = [NSString stringWithFormat:@"%.3f", difference];
                         } else {
                             [lbldiff setTextColor:[UIColor lightGrayColor]];
                             lbldiff.text = @"";
@@ -1198,7 +1198,7 @@ int sort;
                     }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = us.corps[@"corpsName"];
-                    lblScore.text = [NSString stringWithFormat:@"%.2f", us.score];
+                    lblScore.text = [NSString stringWithFormat:@"%.3f", us.score];
                 }
             }
             break;

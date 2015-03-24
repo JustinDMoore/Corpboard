@@ -16,6 +16,11 @@
 @interface CBFinalsPredictionViewController () {
     Configuration *config;
 }
+
+- (IBAction)btnNext_tapped:(id)sender;
+- (IBAction)btnClose_tapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnNext;
+@property (nonatomic, strong) UIDynamicAnimator *animator;
 @end
 
 
@@ -33,62 +38,60 @@
     return self;
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationItem setHidesBackButton:NO animated:NO];
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backBtnImage = [UIImage imageNamed:@"arrowLeft"];
-    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.frame = CGRectMake(0, 0, 30, 30);
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    self.navigationItem.rightBarButtonItem = nil;
-
-}
-
--(void)showRightButton:(BOOL)done {
-    
-    UIButton *btnNext = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (done) {
-        UIImage *nextImage = [UIImage imageNamed:@"admin_done"];
-        [btnNext setBackgroundImage:nextImage forState:UIControlStateNormal];
-    } else {
-        UIImage *nextImage = [UIImage imageNamed:@"arrowRight"];
-        [btnNext setBackgroundImage:nextImage forState:UIControlStateNormal];
-    }
-    
-    [btnNext addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
-    btnNext.frame = CGRectMake(0, 0, 30, 30);
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithCustomView:btnNext] ;
-    self.navigationItem.rightBarButtonItem = nextButton;
-}
-
 -(void)next {
     
     if ([self.phase isEqualToString:@"pick"]) {
 
         self.tableCorps.allowsSelection = NO;
         self.phase = @"order";
-        self.title = @"Order Finalists";
+        [self changeText:@"Order Finalists" forLabel:self.lblInstructions];
         [self.tableCorps setEditing:YES animated:YES];
-        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableCorps scrollToRowAtIndexPath:path
-                               atScrollPosition:UITableViewScrollPositionTop
-                                       animated:YES];
         [self.tableCorps reloadData];
         
     } else if ([self.phase isEqualToString:@"order"]) {
         self.phase = @"score";
-        self.title = @"Score Finalists";
+        [self changeText:@"Score Finalists" forLabel:self.lblInstructions];
         [self showRightButton:YES];
         [self.tableCorps setEditing:NO animated:YES];
         [self.tableCorps reloadData];
         
+        [self.arrayOfScores removeAllObjects];
+        
+        for (int i = 0; i < 12; i++) {
+            NSString *str = @"0";
+            [self.arrayOfScores addObject:str];
+        }
+        
     } else if ([self.phase isEqualToString:@"score"]) {
         
+        //check to make sure all scores are entered
+        if ([self areAllScoresEntered]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit Prediction"
+                                                            message:@"Are you sure you want to submit this prediction? You will not be able to edit it or resubmit another one."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"NO"
+                                                  otherButtonTitles:@"YES", nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Scores"
+                                                            message:@"Not all scores have been entered."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     };
+}
+
+-(BOOL)areAllScoresEntered {
+    
+    if ([self.arrayOfScores count] != 12) return NO;
+    
+    for (NSString *score in self.arrayOfScores) {
+        if ([score isEqualToString:@"0"]) return NO;
+    }
+    
+    return YES;
 }
 
 - (void)goback {
@@ -104,7 +107,8 @@
     data = [CBSingle data];
     config = [[Configuration alloc] init];
     
-    self.title = @"Select 12 Finalists";
+    self.title = @"Finals Prediction";
+    [self changeText:@"Select 12 Finalists" forLabel:self.lblInstructions];
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     
@@ -123,6 +127,7 @@
     [self.view addGestureRecognizer:singleTap];
     
     self.automaticallyAdjustsScrollViewInsets = YES;
+    self.btnNext.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -230,6 +235,7 @@ bool backspaced;
         if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
         if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
 
+        [self.arrayOfScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
     }
 }
 
@@ -395,6 +401,121 @@ bool backspaced;
     return NO;
 }
 
+-(void)checkSelectedCorps {
+    
+    if ([self.phase isEqualToString:@"pick"]) {
+        int count = (int)[self.arrayOfIndexes count];
+        if (count < 12) {
+            self.btnNext.hidden = YES;
+            int needs = 12 - count;
+            if (needs == 1) [self changeText:@"Select 1 Finalist" forLabel:self.lblInstructions];
+            else [self changeText:[NSString stringWithFormat:@"Select %i Finalists", needs] forLabel:self.lblInstructions];
+            self.navigationItem.rightBarButtonItem = nil;
+        } else if (count == 12) {
+            [self changeText:@"Select Next" forLabel:self.lblInstructions];
+            [self showRightButton:NO];
+        }
+    }
+}
+
+-(void)showRightButton:(BOOL)done {
+ 
+    if (self.btnNext.hidden) {
+        self.btnNext.hidden = NO;
+        
+        self.btnNext.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        
+        [UIView animateWithDuration:.3
+                              delay:0
+             usingSpringWithDamping:.3
+              initialSpringVelocity:10
+                            options:0
+                         animations:^{
+                             self.btnNext.transform = CGAffineTransformIdentity;
+                             
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+        
+    }
+    
+    if (done) {
+        [self.btnNext setImage:[UIImage imageNamed:@"admin_done"]
+                      forState:UIControlStateNormal];
+    } else {
+        [self.btnNext setImage:[UIImage imageNamed:@"arrowRight"]
+                      forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark
+#pragma mark - Actions
+#pragma mark
+
+- (IBAction)btnNext_tapped:(id)sender {
+    
+    [self next];
+}
+
+- (IBAction)btnClose_tapped:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark
+#pragma mark - UIAlertView Delegate
+#pragma mark
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) { //submit prediction and close
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+                [KVNProgress showSuccess];
+                if ([self.delegate respondsToSelector:@selector(predictionMade)]) {
+                    [self.delegate predictionMade];
+                }
+            });
+        }];
+        
+        PFUser *user = [PFUser currentUser];
+        [user setObject:[NSNumber numberWithBool:YES] forKey:@"predictionEntered"];
+        [user saveEventually];
+        
+        for (int i = 0; i < 12; i++) {
+            PFObject *corps = self.arrayOfIndexes[i];
+            NSString *score = self.arrayOfScores[i];
+            
+            PFObject *predictionScore = [PFObject objectWithClassName:@"predictions"];
+            [predictionScore setObject:corps forKey:@"corp"];
+            [predictionScore setObject:score forKey:@"score"];
+            [predictionScore setObject:[NSNumber numberWithInt:i+1] forKey:@"placement"];
+            [predictionScore setObject:[PFUser currentUser] forKey:@"user"];
+            [predictionScore setObject:corps[@"corpsName"] forKey:@"corpName"];
+            [predictionScore saveEventually];
+
+        }
+    }
+}
+
+#pragma mark
+#pragma mark - Helpers
+#pragma mark
+
+-(void)changeText:(NSString *)text forLabel:(UILabel *)label {
+    
+    CATransition *animation = [CATransition animation];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.35;
+    [label.layer addAnimation:animation forKey:@"kCATransitionFade"];
+    
+    // This will fade:
+    label.text = text;
+}
+
 #pragma mark
 #pragma mark - Properties
 #pragma mark
@@ -413,24 +534,18 @@ bool backspaced;
     return _arrayOfIndexes;
 }
 
+-(NSMutableArray *)arrayOfScores {
+    if (!_arrayOfScores) {
+        _arrayOfScores = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfScores;
+}
+
 -(NSMutableDictionary *)dictOfCorps {
     if (!_dictOfCorps) {
         _dictOfCorps = [[NSMutableDictionary alloc] init];
     }
     return _dictOfCorps;
-}
-
--(void)checkSelectedCorps {
-    int count = (int)[self.arrayOfIndexes count];
-    if (count < 12) {
-        int needs = 12 - count;
-        if (needs == 1) self.title = @"Select 1 Finalist";
-        else self.title = [NSString stringWithFormat:@"Select %i Finalists", needs];
-        self.navigationItem.rightBarButtonItem = nil;
-    } else if (count == 12) {
-        self.title = @"Select Next";
-        [self showRightButton:NO];
-    }
 }
 
 @end
