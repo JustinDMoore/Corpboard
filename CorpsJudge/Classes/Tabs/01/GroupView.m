@@ -30,6 +30,7 @@
     
     NSMutableArray *chatrooms;
     UIRefreshControl *refreshControl;
+    PFQuery *query;
 }
 @end
 
@@ -101,6 +102,7 @@
         [KVNProgress dismiss];
     });
     
+    [query cancel];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -139,7 +141,7 @@
         [KVNProgress show];
     });
     
-    PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
+    query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
     [query orderByDescending:@"lastMessageDate"];
     [query includeKey:@"lastUser"];
     [query includeKey:@"user"];
