@@ -8,6 +8,8 @@
 
 #import "CBUserCategories.h"
 #import <Parse/Parse.h>
+#import "KVNProgress.h"
+#import "Configuration.h"
 
 @implementation CBUserCategories {
     
@@ -84,6 +86,15 @@
 
 - (IBAction)btnSave_clicked:(id)sender {
     
+    [self closeView:NO];
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+
+    
     PFUser *user = [PFUser currentUser];
     
     NSMutableArray *mArr = [NSMutableArray array];
@@ -101,7 +112,7 @@
 }
 
 -(void)saved {
-    [self closeView:NO];
+    
     [delegate savedCategories];
 }
 

@@ -20,6 +20,9 @@
 @interface CBUserProfileViewController () {
     CBSingle *_data;
     BOOL profileLoaded;
+    
+    //queries
+    PFQuery *queryExperience;
 }
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
@@ -149,10 +152,11 @@
 -(void)getUserCorpExperiences {
     
     [self.arrayOfCorpExperience removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"userCorpExperience"];
-    [query whereKey:@"user" equalTo:self.userProfile];
-    [query orderByDescending:@"year"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryExperience = [PFQuery queryWithClassName:@"userCorpExperience"];
+    [queryExperience whereKey:@"user" equalTo:self.userProfile];
+    [queryExperience includeKey:@"corps"];
+    [queryExperience orderByDescending:@"year"];
+    [queryExperience findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ([objects count]) {
             [self.arrayOfCorpExperience addObjectsFromArray:objects];
             [self.viewExperienceList.tableExperience reloadData];
@@ -258,240 +262,397 @@
     self.scrollCoverPhoto.hidden = YES;
     
     [self.userProfile fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-        PFFile *imgFile = self.userProfile[@"picture"];
-        if (imgFile) {
-            [self.imgUser setFile:imgFile];
-            [self.imgUser loadInBackground];
-        } else {
-            [self.imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
-        }
-        
-        PFFile *coverFile = self.userProfile[@"coverImage"];
-        PFObject *coverPointer = self.userProfile[@"coverPointer"];
-        if (coverFile) {
-            [self.imgCoverPhoto setFile:coverFile];
-            [self.imgCoverPhoto loadInBackground];
-        } else {
-            if (coverPointer) {
-                [coverPointer fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                    PFFile *coverFile = coverPointer[@"photo"];
-                    [self.imgCoverPhoto setFile:coverFile];
-                    [self.imgCoverPhoto loadInBackground];
-                }];
+        if (!error) {
+            PFFile *imgFile = self.userProfile[@"picture"];
+            if (imgFile) {
+                [self.imgUser setFile:imgFile];
+                [self.imgUser loadInBackground];
             } else {
-                [self.imgCoverPhoto setImage:[UIImage imageNamed:@"defaultCoverPicture"]];
+                [self.imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
             }
-        }
-        
-        self.lblUserNickname.text = self.userProfile[@"nickname"];
-        if ([self.userProfile[@"location"] length]) {
-            self.lblUserLocation.hidden = NO;
-            self.lblUserLocation.text = [NSString stringWithFormat:@"Lives in %@", self.userProfile[@"location"]];
-        } else {
-            self.lblUserLocation.hidden = YES;
-        }
-        
-        // joined date
-        NSString *dd = [self.userProfile.createdAt stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-        
-        // profile views
-        NSString *views;
-        int profileViews = [self.userProfile[@"profileViews"] intValue];
-        if (profileViews == 1) {
-            views = @"1 View";
-        } else {
-            NSNumberFormatter *formatter = [NSNumberFormatter new];
-            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-            NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:profileViews]];
             
-            views = [NSString stringWithFormat:@"%@ Views", formatted];
-        }
-        
-        //show reviews
-        NSString *reviews;
-        int showReviews = [self.userProfile[@"showReviews"] intValue];
-        if (showReviews == 1) {
-            reviews = @"1 Show Review";
-        } else {
-            NSNumberFormatter *formatter = [NSNumberFormatter new];
-            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-            NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:showReviews]];
-            reviews = [NSString stringWithFormat:@"%@ Show Reviews", formatted];
-        }
-        
-        self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  %@", dd, views, reviews];
-        
-        //clear the current badges
-        for (UILabel *badge in self.arrayOfBadges) {
-            [badge removeFromSuperview];
-        }
-        [self.arrayOfBadges removeAllObjects];
-        
-        //clear the current section labels
-        for (UILabel *lbl in self.arrayOfSectionLabels) {
-            [lbl removeFromSuperview];
-        }
-        [self.arrayOfSectionLabels removeAllObjects];
-        [self.lblBackground removeFromSuperview];
-        self.lblBackground = nil;
-        [self.lblCorpExperience removeFromSuperview];
-        self.lblCorpExperience = nil;
-        [self.lblUserBackground removeFromSuperview];
-        self.lblUserBackground = nil;
-        [self.lblBackground removeFromSuperview];
-        self.lblBackground = nil;
-        
-        //clear the current experiences
-        
-        for (UILabel *lbl in self.arrayOfCorpExperienceLabels) {
-            [lbl removeFromSuperview];
-        }
-        [self.arrayOfCorpExperienceLabels removeAllObjects];
-        
-        
-        //user badges
-        int y = self.lblMyBadges.frame.origin.y + 30;
-        
-        if ([self.userProfile[@"arrayOfCategories"] count]) {
-            for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
+            PFFile *coverFile = self.userProfile[@"coverImage"];
+            PFObject *coverPointer = self.userProfile[@"coverPointer"];
+            if (coverFile) {
+                [self.imgCoverPhoto setFile:coverFile];
+                [self.imgCoverPhoto loadInBackground];
+            } else {
+                if (coverPointer) {
+                    [coverPointer fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        PFFile *coverFile = coverPointer[@"photo"];
+                        [self.imgCoverPhoto setFile:coverFile];
+                        [self.imgCoverPhoto loadInBackground];
+                    }];
+                } else {
+                    [self.imgCoverPhoto setImage:[UIImage imageNamed:@"defaultCoverPicture"]];
+                }
+            }
+            
+            self.lblUserNickname.text = self.userProfile[@"nickname"];
+            if ([self.userProfile[@"location"] length]) {
+                self.lblUserLocation.hidden = NO;
+                self.lblUserLocation.text = [NSString stringWithFormat:@"Lives in %@", self.userProfile[@"location"]];
+            } else {
+                self.lblUserLocation.hidden = YES;
+            }
+            
+            // joined date
+            NSString *dd = [self.userProfile.createdAt stringWithDateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+            
+            // profile views
+            NSString *views;
+            int profileViews = [self.userProfile[@"profileViews"] intValue];
+            if (profileViews == 1) {
+                views = @"1 View";
+            } else {
+                NSNumberFormatter *formatter = [NSNumberFormatter new];
+                [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:profileViews]];
                 
+                views = [NSString stringWithFormat:@"%@ Views", formatted];
+            }
+            
+            //show reviews
+            NSString *reviews;
+            int showReviews = [self.userProfile[@"showReviews"] intValue];
+            if (showReviews == 1) {
+                reviews = @"1 Show Review";
+            } else {
+                NSNumberFormatter *formatter = [NSNumberFormatter new];
+                [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSString *formatted = [formatter stringFromNumber:[NSNumber numberWithInt:showReviews]];
+                reviews = [NSString stringWithFormat:@"%@ Show Reviews", formatted];
+            }
+            
+            self.lblViews.text = [NSString stringWithFormat:@"Joined %@  |  %@  |  %@", dd, views, reviews];
+            
+            //clear the current badges
+            for (UILabel *badge in self.arrayOfBadges) {
+                [badge removeFromSuperview];
+            }
+            [self.arrayOfBadges removeAllObjects];
+            
+            //clear the current section labels
+            for (UILabel *lbl in self.arrayOfSectionLabels) {
+                [lbl removeFromSuperview];
+            }
+            [self.arrayOfSectionLabels removeAllObjects];
+            [self.lblBackground removeFromSuperview];
+            self.lblBackground = nil;
+            [self.lblCorpExperience removeFromSuperview];
+            self.lblCorpExperience = nil;
+            [self.lblUserBackground removeFromSuperview];
+            self.lblUserBackground = nil;
+            [self.lblBackground removeFromSuperview];
+            self.lblBackground = nil;
+            
+            //clear the current experiences
+            
+            for (UILabel *lbl in self.arrayOfCorpExperienceLabels) {
+                [lbl removeFromSuperview];
+            }
+            [self.arrayOfCorpExperienceLabels removeAllObjects];
+            
+            
+            //user badges
+            int y = self.lblMyBadges.frame.origin.y + 30;
+            
+            if ([self.userProfile[@"arrayOfCategories"] count]) {
+                for(int i = 0; i < [self.userProfile[@"arrayOfCategories"] count]; i++) {
+                    
+                    
+                    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
+                    
+                    [[btn layer] setBorderWidth:1];
+                    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+                    NSString *category = [self.userProfile[@"arrayOfCategories"] objectAtIndex:i];
+                    [btn setTitle:[NSString stringWithFormat:@"         %@  "  , category] forState:UIControlStateNormal];
+                    [btn sizeToFit];
+                    
+                    
+                    //UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(btn.frame.size.width - 35, -5, 40, 40)];
+                    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, 40, 40)];
+                    
+                    UIColor *buttonColor;
+                    
+                    
+                    // red f5542c     Alumni
+                    // purple 9a5fad  Volunteer
+                    // green 3ac251   Staff
+                    //                Former Staff
+                    // blue 02abde    Family of Member
+                    // yellow f7c82d  Percussionist
+                    // silver ffffff  Brass Player
+                    // lime c3de7e    Color Guard
+                    // torqoise 85a6abActive Member
+                    //                Fan
+                    
+                    
+                    
+                    if ([category isEqualToString:@"Alumni"]) {  // red
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeAlumni"];
+                        buttonColor = [self colorFromHexString:@"f5542c"];
+                        
+                    } else if ([category isEqualToString:@"Volunteer"]) {  // purple
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeVolunteer"];
+                        buttonColor = [self colorFromHexString:@"9a5fad"];
+                        
+                    } else if ([category isEqualToString:@"Staff"]) {  // green
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeStaff"];
+                        buttonColor = [self colorFromHexString:@"3ac251"];
+                        
+                    } else if ([category isEqualToString:@"Former Staff"]) { // green
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeStaff"];
+                        buttonColor = [self colorFromHexString:@"3ac251"];
+                        
+                    } else if ([category isEqualToString:@"Family of Member"]) {  // blue
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeFamily"];
+                        buttonColor = [self colorFromHexString:@"02abde"];
+                        
+                    } else if ([category isEqualToString:@"Percussionist"]) { // yellow
+                        
+                        imgv.image = [UIImage imageNamed:@"badgePercussionist"];
+                        buttonColor = [self colorFromHexString:@"f7c82d"];
+                        
+                    } else if ([category isEqualToString:@"Brass Player"]) { // silver
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeBrassPlayer"];
+                        buttonColor = [self colorFromHexString:@"C0C0C0"];
+                        
+                    } else if ([category isEqualToString:@"Color Guard"]) { // lime
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeColorGuard"];
+                        buttonColor = [self colorFromHexString:@"c3de7e"];
+                        
+                    } else if ([category isEqualToString:@"Active Member"]) {
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeActiveMember"];
+                        buttonColor = [self colorFromHexString:@"85a6ab"];
+                        imgv.frame = CGRectMake(13, 2,
+                                                13, btn.frame.size.height - 4);
+                        
+                    } else if ([category isEqualToString:@"Fan"]) {
+                        
+                        imgv.image = [UIImage imageNamed:@"badgeFan"];
+                        buttonColor = [self colorFromHexString:@"B83535"];
+                        
+                    }
+                    
+                    if (!buttonColor) buttonColor = [UIColor lightGrayColor];
+                    [[btn layer] setBorderColor:buttonColor.CGColor];
+                    [btn setTitleColor:buttonColor forState:UIControlStateNormal];
+                    
+                    [btn addSubview:imgv];
+                    
+                    [[self viewProfile] addSubview:btn];
+                    [self.arrayOfBadges addObject:btn];
+                    y+= 5 + btn.frame.size.height;
+                    //
+                    //                UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
+                    //                [myLabel setBackgroundColor:[UIColor clearColor]];
+                    //                [myLabel setTextColor:[UIColor lightGrayColor]];
+                    //                [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
+                    //                [[myLabel layer] setBorderWidth:1];
+                    //                [myLabel setText:[NSString stringWithFormat:@" %@ ",[self.userProfile[@"arrayOfCategories"] objectAtIndex:i]]];
+                    //                [myLabel setFont:[UIFont systemFontOfSize:14]];
+                    //                [myLabel sizeToFit];
+                    //                [[self viewProfile] addSubview:myLabel];
+                    //                [self.arrayOfBadges addObject:myLabel];
+                    //                y+= 5 + myLabel.frame.size.height;
+                }
+            } else {
                 UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
                 [myLabel setBackgroundColor:[UIColor clearColor]];
                 [myLabel setTextColor:[UIColor lightGrayColor]];
                 [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
                 [[myLabel layer] setBorderWidth:1];
-                [myLabel setText:[NSString stringWithFormat:@" %@ ",[self.userProfile[@"arrayOfCategories"] objectAtIndex:i]]];
+                [myLabel setText:@" New User "];
                 [myLabel setFont:[UIFont systemFontOfSize:14]];
                 [myLabel sizeToFit];
                 [[self viewProfile] addSubview:myLabel];
                 [self.arrayOfBadges addObject:myLabel];
                 y+= 5 + myLabel.frame.size.height;
             }
-        } else {
-            UILabel *myLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 50)];
-            [myLabel setBackgroundColor:[UIColor clearColor]];
-            [myLabel setTextColor:[UIColor lightGrayColor]];
-            [[myLabel layer] setBorderColor:[UIColor lightGrayColor].CGColor];
-            [[myLabel layer] setBorderWidth:1];
-            [myLabel setText:@" New User "];
-            [myLabel setFont:[UIFont systemFontOfSize:14]];
-            [myLabel sizeToFit];
-            [[self viewProfile] addSubview:myLabel];
-            [self.arrayOfBadges addObject:myLabel];
-            y+= 5 + myLabel.frame.size.height;
-        }
-        
-        // corp experience
-        y+= 20;
-        
-        self.lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
-        self.lblCorpExperience.text = @"Corp Experience";
-        self.lblCorpExperience.font = self.lblMyBadges.font;
-        self.lblCorpExperience.textColor = self.lblMyBadges.textColor;
-        [self.lblCorpExperience sizeToFit];
-        [self.lblCorpExperience sizeToFit];
-        [self.viewProfile addSubview:self.lblCorpExperience];
-        [self.arrayOfSectionLabels addObject:self.lblCorpExperience];
-        y = self.lblCorpExperience.frame.origin.y;
-        
-        if ([self.arrayOfCorpExperience count]) { //we have experience
             
-            for (PFObject *exp in self.arrayOfCorpExperience) {
-                NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
-                UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y+30, 200, 40)];
-                lbl.text = str;
+            // corp experience
+            y+= 20;
+            
+            self.lblCorpExperience = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, 200, 40)];
+            self.lblCorpExperience.text = @"Corp Experience";
+            self.lblCorpExperience.font = self.lblMyBadges.font;
+            self.lblCorpExperience.textColor = self.lblMyBadges.textColor;
+            [self.lblCorpExperience sizeToFit];
+            [self.lblCorpExperience sizeToFit];
+            [self.viewProfile addSubview:self.lblCorpExperience];
+            [self.arrayOfSectionLabels addObject:self.lblCorpExperience];
+            y = self.lblCorpExperience.frame.origin.y;
+            
+            if ([self.arrayOfCorpExperience count]) { //we have experience
+                
+                for (PFObject *exp in self.arrayOfCorpExperience) {
+                    
+                    
+                    PFObject *corp = exp[@"corps"];
+                    PFFile *imgLogo;
+                    if (corp) imgLogo = corp[@"logo"];
+                    NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
+                    
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x + 38, y+30, 200, 40)];
+                    lbl.numberOfLines = 0;
+                    
+                    PFImageView *imgV = [[PFImageView alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y+34, 27, 27)];
+                    
+                    if (imgLogo) {
+                        [imgV setFile:imgLogo];
+                        [imgV loadInBackground];
+                    }
+                    
+                    lbl.text = str;
+                    lbl.backgroundColor = [UIColor clearColor];
+                    lbl.textColor = [UIColor lightGrayColor];
+                    [lbl setFont:[UIFont systemFontOfSize:14]];
+                    [lbl sizeToFit];
+                    if (imgLogo) [self.viewProfile addSubview:imgV];
+                    [self.viewProfile addSubview:lbl];
+                    [self.arrayOfCorpExperienceLabels addObject:lbl];
+                    y+=5 + 40; // 40 = PFImageView frame height
+                }
+                
+            } else { //we have no experience
+                y+=30;
+                UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
+                lbl.text = @"No corp experience listed";
                 lbl.backgroundColor = [UIColor clearColor];
                 lbl.textColor = [UIColor lightGrayColor];
                 [lbl setFont:[UIFont systemFontOfSize:12]];
                 [lbl sizeToFit];
                 [self.viewProfile addSubview:lbl];
                 [self.arrayOfCorpExperienceLabels addObject:lbl];
-                y+=5 + lbl.frame.size.height;
             }
             
-        } else { //we have no experience
-            y+=30;
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
-            lbl.text = @"No corp experience listed";
-            lbl.backgroundColor = [UIColor clearColor];
-            lbl.textColor = [UIColor lightGrayColor];
-            [lbl setFont:[UIFont systemFontOfSize:12]];
-            [lbl sizeToFit];
-            [self.viewProfile addSubview:lbl];
-            [self.arrayOfCorpExperienceLabels addObject:lbl];
+            //user background
+            y+= 40;
+            self.lblUserBackground = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, self.view.frame.size.width, 40)];
+            self.lblUserBackground.text = @"Background";
+            self.lblUserBackground.font = self.lblMyBadges.font;
+            self.lblUserBackground.textColor = self.lblMyBadges.textColor;
+            [self.lblUserBackground sizeToFit];
+            [self.viewProfile addSubview:self.lblUserBackground];
+            [self.arrayOfSectionLabels addObject:self.lblUserBackground];
+            y = self.lblUserBackground.frame.origin.y;
+            
+            
+            
+            y+= 30;
+            if ([self.userProfile[@"background"] length]) { // we have a background
+                
+                self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, self.view.frame.size.width - self.lblCorpExperience.frame.origin.x, 40)];
+                self.lblBackground.text = self.userProfile[@"background"];
+                self.lblBackground.backgroundColor = [UIColor clearColor];
+                self.lblBackground.textColor = [UIColor lightGrayColor];
+                [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
+                self.lblBackground.numberOfLines = 0;
+                self.lblBackground.lineBreakMode = NSLineBreakByWordWrapping;
+                [self.lblBackground sizeToFit];
+                [self.viewProfile addSubview:self.lblBackground];
+                
+            } else { // we don't have a background
+                
+                self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
+                self.lblBackground.text = @"No background listed";
+                self.lblBackground.backgroundColor = [UIColor clearColor];
+                self.lblBackground.textColor = [UIColor lightGrayColor];
+                [self.lblBackground sizeToFit];
+                [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
+                [self.lblBackground sizeToFit];
+                [self.viewProfile addSubview:self.lblBackground];
+                
+            }
+            
+            //profile scrollview
+            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
+            [self.view bringSubviewToFront:self.scrollProfile];
+            
+            //cover photo scrollview
+            self.imgCoverPhoto.frame = CGRectMake(self.imgCoverPhoto.frame.origin.x, self.imgCoverPhoto.frame.origin.y, self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height + 100);
+            self.scrollCoverPhoto.contentSize = CGSizeMake(self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height);
+            
+            ht = self.scrollCoverPhoto.frame.size.height;
+            
+            
+            //recalculate the scrollview content height
+            
+            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, 980 + self.lblBackground.frame.size.height);
+            
+            //needed to set the content offset of the cover picture
+            [self scrollViewDidScroll:self.scrollProfile];
+            
+            editingProfile = NO;
+            self.btnEditProfile.enabled = YES;
+            profileLoaded = YES;
+            self.scrollProfile.hidden = NO;
+            self.scrollCoverPhoto.hidden = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress dismiss];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+                [KVNProgress showErrorWithStatus:@"Unable to load profile."];
+            });
         }
-        
-        //user background
-        y+= 40;
-        self.lblUserBackground = [[UILabel alloc]initWithFrame:CGRectMake(self.lblMyBadges.frame.origin.x, y, self.view.frame.size.width, 40)];
-        self.lblUserBackground.text = @"Background";
-        self.lblUserBackground.font = self.lblMyBadges.font;
-        self.lblUserBackground.textColor = self.lblMyBadges.textColor;
-        [self.lblUserBackground sizeToFit];
-        [self.viewProfile addSubview:self.lblUserBackground];
-        [self.arrayOfSectionLabels addObject:self.lblUserBackground];
-        y = self.lblUserBackground.frame.origin.y;
-        
-        
-        
-        y+= 30;
-        if ([self.userProfile[@"background"] length]) { // we have a background
-            
-            self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, self.view.frame.size.width - self.lblCorpExperience.frame.origin.x, 40)];
-            self.lblBackground.text = self.userProfile[@"background"];
-            self.lblBackground.backgroundColor = [UIColor clearColor];
-            self.lblBackground.textColor = [UIColor lightGrayColor];
-            [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
-            self.lblBackground.numberOfLines = 0;
-            self.lblBackground.lineBreakMode = NSLineBreakByWordWrapping;
-            [self.lblBackground sizeToFit];
-            [self.viewProfile addSubview:self.lblBackground];
-            
-        } else { // we don't have a background
-            
-            self.lblBackground = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y, 200, 40)];
-            self.lblBackground.text = @"No background listed";
-            self.lblBackground.backgroundColor = [UIColor clearColor];
-            self.lblBackground.textColor = [UIColor lightGrayColor];
-            [self.lblBackground sizeToFit];
-            [self.lblBackground setFont:[UIFont systemFontOfSize:12]];
-            [self.lblBackground sizeToFit];
-            [self.viewProfile addSubview:self.lblBackground];
-            
-        }
-        
-        //profile scrollview
-        self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.scrollProfile.frame.size.height + 200);
-        [self.view bringSubviewToFront:self.scrollProfile];
-        
-        //cover photo scrollview
-        self.imgCoverPhoto.frame = CGRectMake(self.imgCoverPhoto.frame.origin.x, self.imgCoverPhoto.frame.origin.y, self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height + 100);
-        self.scrollCoverPhoto.contentSize = CGSizeMake(self.imgCoverPhoto.frame.size.width, self.imgCoverPhoto.frame.size.height);
-        
-        ht = self.scrollCoverPhoto.frame.size.height;
-        
-        
-        //recalculate the scrollview content height
-        
-        self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, 980 + self.lblBackground.frame.size.height);
-        
-        //needed to set the content offset of the cover picture
-        [self scrollViewDidScroll:self.scrollProfile];
-        
-        editingProfile = NO;
-        self.btnEditProfile.enabled = YES;
-        profileLoaded = YES;
-        self.scrollProfile.hidden = NO;
-        self.scrollCoverPhoto.hidden = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [KVNProgress dismiss];
-        });
-        
     }];
 }
 
+-(UIColor*)colorFromHexString:(NSString*)hex {
+    
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
 -(void)goback {
+    
+    [queryExperience cancel];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
     [self.navigationController popViewControllerAnimated:YES];
 }
 

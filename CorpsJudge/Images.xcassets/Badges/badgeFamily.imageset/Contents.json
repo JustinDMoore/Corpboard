@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "colorguard.png"
+      "filename" : "User-Group-48-3.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "colorguard@2x.png"
+      "filename" : "User-Group-128-3.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "User-Group-256-3.png"
     }
   ],
   "info" : {
