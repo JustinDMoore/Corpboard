@@ -11,7 +11,7 @@
 #import "Configuration.h"
 
 @interface CBSelectCoverPhoto () {
-    
+    PFQuery *queryPhotos;
 }
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentAlbum;
@@ -55,18 +55,24 @@
                 forControlEvents:UIControlEventValueChanged];
 }
 
--(void)goback
-{
+-(void)goback {
+    
+    [queryPhotos cancel];
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 int progress = 1;
 -(void)getPhotos {
-    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
-    [query whereKey:@"type" equalTo:@"Cover"];
-    [query whereKey:@"approved" equalTo:[NSNumber numberWithBool:YES]];
-    [query orderByAscending:@"name"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    queryPhotos = [PFQuery queryWithClassName:@"photos"];
+    [queryPhotos whereKey:@"type" equalTo:@"Cover"];
+    [queryPhotos whereKey:@"approved" equalTo:[NSNumber numberWithBool:YES]];
+    [queryPhotos orderByAscending:@"name"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject *obj in objects) {
             BOOL isUserSubmitted = [obj[@"isUserSubmitted"] boolValue];
             if (isUserSubmitted) {

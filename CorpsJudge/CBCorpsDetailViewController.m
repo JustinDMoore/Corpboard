@@ -15,7 +15,7 @@
 #import "Configuration.h"
 
 @interface CBCorpsDetailViewController () {
-    
+    PFQuery *queryRepertoire;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAbout;
@@ -91,7 +91,12 @@
 
 -(void)goback {
     
+    [queryRepertoire cancel];
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 -(void)initUI {
@@ -147,10 +152,10 @@
 
 -(void)getRepertoiresForCorps {
     
-    PFQuery *query = [PFQuery queryWithClassName:@"repertoires"];
-    [query whereKey:@"corps" equalTo:self.corps];
-    [query orderByDescending:@"year"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryRepertoire = [PFQuery queryWithClassName:@"repertoires"];
+    [queryRepertoire whereKey:@"corps" equalTo:self.corps];
+    [queryRepertoire orderByDescending:@"year"];
+    [queryRepertoire findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [self.arrayOfRepertoires addObjectsFromArray:objects];
             if ([self.arrayOfRepertoires count]) {

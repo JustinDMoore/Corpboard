@@ -10,6 +10,8 @@
 #import "CBSingle.h"
 #import "CBCorpsDetailViewController.h"
 #import "ILTranslucentView.h"
+#import "KVNProgress.h"
+#import "Configuration.h"
 
 CBSingle *data;
 NSTimer *timer;
@@ -50,7 +52,12 @@ NSTimer *timer;
 
 - (void)goback
 {
+    
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 - (void)viewDidLoad

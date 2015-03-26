@@ -22,7 +22,8 @@ int votedScore;
 int votedFavorites;
 
 @interface CBShowDetailsViewController() <CBJudgeViewControllerDelegate> {
-    
+    PFQuery *queryVoteScores, *queryVoteFavorites;
+    PFQuery *queryScores;
 }
 
 @property (strong, nonatomic) NSMutableArray *arrayOfWorldClassScores;
@@ -86,11 +87,18 @@ int votedFavorites;
 
 - (void)goback {
     
+    [queryScores cancel];
+    [queryVoteFavorites cancel];
+    [queryVoteScores cancel];
     [self.scene stop];
     [self.scene removeAllActions];
     [self.scene removeAllChildren];
     self.scene = nil;
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 - (void)viewDidLoad {
@@ -194,16 +202,16 @@ int votedFavorites;
 
 -(void)didUserVoteForShow {
     
-    PFQuery *query = [PFQuery queryWithClassName:@"scores"];
-    [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query whereKey:@"show" equalTo:self.show];
-    [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
-    [query countObjectsInBackgroundWithTarget:self selector:@selector(votedScore:error:)];
+    queryVoteFavorites = [PFQuery queryWithClassName:@"scores"];
+    [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
+    [queryVoteFavorites whereKey:@"show" equalTo:self.show];
+    [queryVoteFavorites whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
+    [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedScore:error:)];
     
-    PFQuery *query1 = [PFQuery queryWithClassName:@"favorites"];
-    [query1 whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query1 whereKey:@"show" equalTo:self.show];
-    [query1 countObjectsInBackgroundWithTarget:self selector:@selector(votedFavorites:error:)];
+    queryVoteFavorites = [PFQuery queryWithClassName:@"favorites"];
+    [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
+    [queryVoteFavorites whereKey:@"show" equalTo:self.show];
+    [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedFavorites:error:)];
 }
 
 -(void)voted {
@@ -242,25 +250,25 @@ int votedFavorites;
     
     if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count] ) {
         
-        PFQuery *query = [PFQuery queryWithClassName:@"scores"];
-        [query whereKey:@"show" equalTo:self.show];
-        [query whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
-        [query setLimit:1000];
-        [query includeKey:@"corps"];
+        queryScores = [PFQuery queryWithClassName:@"scores"];
+        [queryScores whereKey:@"show" equalTo:self.show];
+        [queryScores whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
+        [queryScores setLimit:1000];
+        [queryScores includeKey:@"corps"];
         
         BOOL isShowOver = [self.show[@"isShowOver"] boolValue];
         NSString *exc = self.show[@"exception"];
         if (isShowOver) {
             if (![exc length]) {
-                [query orderByDescending:@"score"]; //order by score if show complete, and no exception (rain)
+                [queryScores orderByDescending:@"score"]; //order by score if show complete, and no exception (rain)
             }
         } else {
             NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
             NSSortDescriptor *name = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
-            [query orderBySortDescriptors:@[desc, name]];
+            [queryScores orderBySortDescriptors:@[desc, name]];
         }
         
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [queryScores findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 if ([objects count]) {
                     for (PFObject *score in objects) {

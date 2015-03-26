@@ -9,6 +9,8 @@
 #import "CBJudgeViewController.h"
 #import "CBSingle.h"
 #import "UserScore.h"
+#import "KVNProgress.h"
+#import "Configuration.h"
 
 PFObject *favDrumsW;
 PFObject *favHornlineW;
@@ -109,6 +111,10 @@ typedef enum : int {
 - (void)goback
 {
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 - (void)viewDidLoad {

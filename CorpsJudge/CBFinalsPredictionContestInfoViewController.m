@@ -17,6 +17,7 @@
 @interface CBFinalsPredictionContestInfoViewController () {
     CBSingle *data;
     Configuration *config;
+    PFQuery *queryPredictions;
 }
 
 - (IBAction)btnTerms_tapped:(id)sender;
@@ -96,11 +97,11 @@ int loop = 0;
 
 -(void)getRankForCorps:(PFObject *)corp {
     
-    PFQuery *predQuery = [PFQuery queryWithClassName:@"predictions"];
-    [predQuery whereKey:@"corp" equalTo:corp];
-    [predQuery includeKey:@"corp"];
+    queryPredictions = [PFQuery queryWithClassName:@"predictions"];
+    [queryPredictions whereKey:@"corp" equalTo:corp];
+    [queryPredictions includeKey:@"corp"];
     
-    [predQuery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    [queryPredictions findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         loop++;
         if ([array count]) {
             
@@ -146,7 +147,12 @@ int loop = 0;
 
 - (void)goback {
     
+    [queryPredictions cancel];
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 - (void)didReceiveMemoryWarning

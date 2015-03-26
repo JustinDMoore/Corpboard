@@ -15,7 +15,7 @@
 #import "Configuration.h"
 
 @interface CBAdminTableViewController () {
-
+    PFQuery *queryFeedback, *queryProblems, *queryPhotos, *queryReports, *queryInner, *queryOuter;
 }
 
 @property (nonatomic, strong) NSMutableArray *arrayOfData;
@@ -83,7 +83,18 @@
 
 - (void)goback {
     
+    [queryInner cancel];
+    [queryOuter cancel];
+    [queryFeedback cancel];
+    [queryPhotos cancel];
+    [queryProblems cancel];
+    [queryReports cancel];
+    
     [self.navigationController popViewControllerAnimated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 -(void)getFeedback {
@@ -95,10 +106,10 @@
 
     
     [self.arrayOfData removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"feedback"];
-    [query includeKey:@"user"];
-    [query orderByDescending:@"createdAt"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryFeedback = [PFQuery queryWithClassName:@"feedback"];
+    [queryFeedback includeKey:@"user"];
+    [queryFeedback orderByDescending:@"createdAt"];
+    [queryFeedback findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [KVNProgress dismiss];
         });
@@ -120,10 +131,10 @@
     });
 
     [self.arrayOfData removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"problems"];
-    [query includeKey:@"user"];
-    [query orderByDescending:@"createdAt"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryProblems = [PFQuery queryWithClassName:@"problems"];
+    [queryProblems includeKey:@"user"];
+    [queryProblems orderByDescending:@"createdAt"];
+    [queryProblems findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [KVNProgress dismiss];
         });
@@ -145,12 +156,12 @@
     });
     
     [self.arrayOfData removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"photos"];
-    [query includeKey:@"user"];
-    [query whereKey:@"isUserSubmitted" equalTo:[NSNumber numberWithBool:YES]];
-    [query whereKey:@"approved" equalTo:[NSNumber numberWithBool:NO]];
-    [query orderByDescending:@"createdAt"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryPhotos = [PFQuery queryWithClassName:@"photos"];
+    [queryPhotos includeKey:@"user"];
+    [queryPhotos whereKey:@"isUserSubmitted" equalTo:[NSNumber numberWithBool:YES]];
+    [queryPhotos whereKey:@"approved" equalTo:[NSNumber numberWithBool:NO]];
+    [queryPhotos orderByDescending:@"createdAt"];
+    [queryPhotos findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [KVNProgress dismiss];
         });
@@ -172,11 +183,11 @@
     });
 
     [self.arrayOfData removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"reportUsers"];
-    [query includeKey:@"userReporting"];
-    [query includeKey:@"userBeingReported"];
-    [query orderByDescending:@"createdAt"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    queryReports = [PFQuery queryWithClassName:@"reportUsers"];
+    [queryReports includeKey:@"userReporting"];
+    [queryReports includeKey:@"userBeingReported"];
+    [queryReports orderByDescending:@"createdAt"];
+    [queryReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [KVNProgress dismiss];
         });
@@ -209,22 +220,22 @@
     PFObject *objPhoto = self.arrayOfData[indexPath.row];
     PFUser *objUser = objPhoto[@"user"];
 
-    PFQuery *innerQuery = [PFUser query];
-    [innerQuery whereKey:@"objectId" equalTo:objUser.objectId];
-    PFQuery *query1 = [PFInstallation query];
-    [query1 whereKey:@"user" matchesQuery:innerQuery];
+    queryInner = [PFUser query];
+    [queryInner whereKey:@"objectId" equalTo:objUser.objectId];
+    queryOuter = [PFInstallation query];
+    [queryOuter whereKey:@"user" matchesQuery:queryInner];
     
     PFPush *push = [[PFPush alloc] init];
     switch (btn.tag) {
         case 1:
             objPhoto[@"approved"] = [NSNumber numberWithBool:YES];
             [objPhoto saveEventually];
-            [push setQuery:query1];
+            [push setQuery:queryOuter];
             [push setMessage:@"A cover photo you submitted has been approved."];
             [push sendPushInBackground];
             break;
         case 2:
-            [push setQuery:query1];
+            [push setQuery:queryOuter];
             [push setMessage:@"A cover photo you submitted was not approved."];
             [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                [objPhoto deleteEventually];

@@ -97,7 +97,10 @@
 - (void)goback {
     
     [self.navigationController popViewControllerAnimated:YES];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 - (void)viewDidLoad

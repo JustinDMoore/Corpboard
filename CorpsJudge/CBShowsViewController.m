@@ -67,6 +67,10 @@ BOOL firstLoad = YES;
 
 - (void)goback {
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
     [self.navigationController popViewControllerAnimated:YES];
 }
 
