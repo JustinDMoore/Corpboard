@@ -92,7 +92,7 @@ static NSDateFormatter *_internetDateTimeFormatter = nil;
                     date = [dateFormatter dateFromString:RFC822String];
                 }
             }
-            if (!date) NSLog(@"Could not parse RFC822 date: \"%@\" Possible invalid format.", dateString);
+            //if (!date) NSLog(@"Could not parse RFC822 date: \"%@\" Possible invalid format.", dateString);
             
         }
     }

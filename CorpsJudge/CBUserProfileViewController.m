@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperience;
 @property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLabels;
+@property (nonatomic, strong) NSMutableArray *arrayOfCorpExperienceLogos;
 @property (nonatomic, strong) UILabel *lblBackground;
 
 @property (nonatomic, strong) UIBarButtonItem *btnEditProfile;
@@ -347,12 +348,16 @@
             self.lblBackground = nil;
             
             //clear the current experiences
-            
             for (UILabel *lbl in self.arrayOfCorpExperienceLabels) {
                 [lbl removeFromSuperview];
             }
-            [self.arrayOfCorpExperienceLabels removeAllObjects];
             
+            for (PFImageView *img in self.arrayOfCorpExperienceLogos) {
+                [img removeFromSuperview];
+            }
+            
+            [self.arrayOfCorpExperienceLabels removeAllObjects];
+            [self.arrayOfCorpExperienceLogos removeAllObjects];
             
             //user badges
             int y = self.lblMyBadges.frame.origin.y + 30;
@@ -500,27 +505,29 @@
                     PFObject *corp = exp[@"corps"];
                     PFFile *imgLogo;
                     if (corp) imgLogo = corp[@"logo"];
-                    NSString *str = [NSString stringWithFormat:@"%@, %@ - %@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
+                    NSString *str = [NSString stringWithFormat:@"%@, %@\n%@", exp[@"corpsName"], exp[@"year"], exp[@"position"]];
                     
-                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x + 38, y+30, 200, 40)];
-                    lbl.numberOfLines = 0;
-                    
-                    PFImageView *imgV = [[PFImageView alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y+34, 27, 27)];
+                    PFImageView *imgV = [[PFImageView alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x, y+30, 27, 27)];
                     
                     if (imgLogo) {
                         [imgV setFile:imgLogo];
                         [imgV loadInBackground];
+                        imgV.contentMode = UIViewContentModeScaleAspectFit;
                     }
+                    
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.lblCorpExperience.frame.origin.x + 38, imgV.frame.origin.y, 200, imgV.frame.size.height)];
+                    lbl.numberOfLines = 0;
                     
                     lbl.text = str;
                     lbl.backgroundColor = [UIColor clearColor];
                     lbl.textColor = [UIColor lightGrayColor];
-                    [lbl setFont:[UIFont systemFontOfSize:14]];
+                    [lbl setFont:[UIFont systemFontOfSize:12]];
                     [lbl sizeToFit];
                     if (imgLogo) [self.viewProfile addSubview:imgV];
                     [self.viewProfile addSubview:lbl];
                     [self.arrayOfCorpExperienceLabels addObject:lbl];
-                    y+=5 + 40; // 40 = PFImageView frame height
+                    [self.arrayOfCorpExperienceLogos addObject:imgV];
+                    y+=5 + 30;
                 }
                 
             } else { //we have no experience
@@ -587,7 +594,7 @@
             
             //recalculate the scrollview content height
             
-            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, 980 + self.lblBackground.frame.size.height);
+            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.view.frame.size.height + y + self.lblBackground.frame.size.height);
             
             //needed to set the content offset of the cover picture
             [self scrollViewDidScroll:self.scrollProfile];
@@ -1267,6 +1274,19 @@ UIPickerView *corpPicker;
         if ([self.userCat.dict objectForKey:cell.textLabel.text]) {
             [self.userCat.dict setObject:@"YES" forKey:cell.textLabel.text];
         }
+        
+        //check to see if it's staff or former staff and deselect the opposite one
+        if ([cell.textLabel.text isEqualToString:@"Staff"]) {
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:path.row+1 inSection:0];
+            UITableViewCell *c = [self.userCat.tableCategories cellForRowAtIndexPath:ip];
+            [self selectCell:c atIndexPath:ip onOrOff:NO fromMethod:NO];
+        } else if ([cell.textLabel.text isEqualToString:@"Former Staff"]) {
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:path.row-1 inSection:0];
+            UITableViewCell *c = [self.userCat.tableCategories cellForRowAtIndexPath:ip];
+            [self selectCell:c atIndexPath:ip onOrOff:NO fromMethod:NO];
+        }
+        
+        
     } else {
         if (!method) [self.userCat.tableCategories deselectRowAtIndexPath:path animated:NO];
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -1414,6 +1434,13 @@ float ht;
         _arrayOfCorpExperienceLabels = [[NSMutableArray alloc] init];
     }
     return _arrayOfCorpExperienceLabels;
+}
+
+-(NSMutableArray *)arrayOfCorpExperienceLogos {
+    if (!_arrayOfCorpExperienceLogos) {
+        _arrayOfCorpExperienceLogos = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfCorpExperienceLogos;
 }
 
 -(NSMutableArray *)arrayOfPhotos {

@@ -108,7 +108,6 @@
 
     user[@"arrayOfCategories"] = mArr;
     [user saveInBackgroundWithTarget:self selector:@selector(saved)];
-    
 }
 
 -(void)saved {
@@ -117,6 +116,7 @@
 }
 
 -(void)closeView:(BOOL)cancelled {
+    
     [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
         
         self.transform = CGAffineTransformScale(self.transform, 1.1, 1.1);
