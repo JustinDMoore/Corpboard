@@ -8,7 +8,8 @@
 
 #import "CBAppDelegate.h"
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import "IQKeyboardManager.h"
 #import "CBSingle.h"
@@ -42,10 +43,10 @@ CBSingle *data;
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
-    [PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:nil];
     
     //facebook
-    [FBLoginView class];
+    //[FBLoginView class];
     
     //twitter
     [PFTwitterUtils initializeWithConsumerKey:@"ffPvSlH1BQ4Y9GSYMbmgkkG0Q"
@@ -126,7 +127,8 @@ CBSingle *data;
 //    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
 //    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 
 
@@ -142,9 +144,10 @@ CBSingle *data;
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
 
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:[PFFacebookUtils session]];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 //for push notifications with parse
@@ -176,7 +179,9 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    [FBSDKAppEvents activateApp];
+    
+    //[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     if (currentInstallation.badge != 0) {

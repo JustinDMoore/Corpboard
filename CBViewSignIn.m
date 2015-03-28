@@ -11,7 +11,9 @@
 
 #import "AFNetworking.h"
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "KVNProgress.h"
 
 #import "AppConstant.h"
@@ -51,7 +53,7 @@
 - (IBAction)btnFacebook_clicked:(id)sender {
     
     [delegate loggingIn];
-    [PFFacebookUtils logInWithPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
         if (user != nil) {
             if (user[PF_USER_FACEBOOKID] == nil) {
                 [self requestFacebook:user];
@@ -67,9 +69,10 @@
 }
 
 - (void)requestFacebook:(PFUser *)user {
+
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
     
-    FBRequest *request = [FBRequest requestForMe];
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error == nil) {
             NSDictionary *userData = (NSDictionary *)result;
             [self processFacebook:user UserData:userData];

@@ -8,7 +8,7 @@
 
 #import "CBNewLoginViewController.h"
 #import <Parse/Parse.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+//#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ParseErrors.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
