@@ -56,77 +56,90 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 @property (nonatomic, strong) NSMutableArray *datesArray; //of NSString
 @property (nonatomic, strong) NSMutableDictionary *dateIndex;
 
-// Profile View
+#pragma mark
+#pragma mark - Cavalier
+#pragma mark
+@property (nonatomic, strong) IBOutlet UIImageView *imgUpsideDownCavalier;
+
+#pragma mark
+#pragma mark - Banners
+#pragma mark
+@property (nonatomic, retain) UIImageView *pageOneDoc;
+@property (nonatomic, retain) UIImageView *pageTwoDoc;
+@property (nonatomic, retain) UIImageView *pageThreeDoc;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollBanners;
+
+#pragma mark
+#pragma mark - Menu
+#pragma mark
 @property (weak, nonatomic) IBOutlet UIControl *viewProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnLiveChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnAdmin;
 @property (weak, nonatomic) IBOutlet UILabel *lblAdmin;
+@property (weak, nonatomic) IBOutlet UIButton *btnMessages;
 @property (nonatomic, strong) JSBadgeView *badgeMessages;
 @property (nonatomic, strong) JSBadgeView *badgeAdmin;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblUserName;
 - (IBAction)btnProfile_clicked:(id)sender;
 - (IBAction)btnAdmin_clicked:(id)sender;
 
-// Recent Shows
+#pragma mark
+#pragma mark - Recent Shows
+#pragma mark
+@property (weak, nonatomic) IBOutlet ClipView *viewRecentShows;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollViewShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableLastShows;
 @property (nonatomic, strong) IBOutlet UITableView *tableNextShows;
 @property (nonatomic, strong) IBOutlet UIView *contentViewShows;
-@property (weak, nonatomic) IBOutlet UIButton *btnMessages;
-
-
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *showsActivity;
 @property (nonatomic, strong) IBOutlet UILabel *lblShowsHeader;
 @property (nonatomic, strong) IBOutlet UIButton *btnSeeAll;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
+-(IBAction)seeAllShows_clicked:(id)sender;
 
-// Current Top 12
+#pragma mark
+#pragma mark - Middle Banner (Finals Prediction)
+#pragma mark
+@property (weak, nonatomic) IBOutlet UIImageView *imgBannerMiddle;
+-(IBAction)finalsContest_clicked:(id)sender;
+
+#pragma mark
+#pragma mark - Rankings
+#pragma mark
+
+@property (weak, nonatomic) IBOutlet ClipView *viewRankings;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollTopTwelve;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityTopTwelve;
 @property (nonatomic, strong) IBOutlet UITableView *tableTopFour;
 @property (nonatomic, strong) IBOutlet UITableView *tableTopEight;
 @property (nonatomic, strong) IBOutlet UITableView *tableTopTwelve;
 @property (nonatomic, strong) IBOutlet UILabel *lblTopTwelveHeader;
 @property (nonatomic, strong) IBOutlet UIButton *btnSeeAllRankings;
 @property (nonatomic, strong) IBOutlet UIView *contentViewTopTwelve;
-
-@property (nonatomic, strong) IBOutlet UIView *viewFeedback;
-
-
-//banners
-@property (nonatomic, retain) UIImageView *pageOneDoc;
-@property (nonatomic, retain) UIImageView *pageTwoDoc;
-@property (nonatomic, retain) UIImageView *pageThreeDoc;
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollBanners;
-
-@property (nonatomic, strong) IBOutlet UIPageControl *pageShows;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageTopTwelve;
-
-
-@property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
-
-@property (nonatomic, strong) IBOutlet UIImageView *imgUpsideDownCavalier;
-
-// News
-@property (weak, nonatomic) IBOutlet UIButton *btnSeeAllNews;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollNews;
-@property (weak, nonatomic) IBOutlet ClipView *clipviewNews;
-@property (weak, nonatomic) IBOutlet ClipView *viewNews;
-@property (nonatomic) NSInteger newsPage;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionNews;
-
-// Extras
-@property (weak, nonatomic) IBOutlet UIView *viewExtras;
-
--(IBAction)seeAllShows_clicked:(id)sender;
 -(IBAction)seeAllRankings_clicked:(id)sender;
--(IBAction)feedback_clicked:(id)sender;
--(IBAction)finalsContest_clicked:(id)sender;
--(IBAction)aboutTheCorps_clicked:(id)sender;
--(IBAction)seeAllNews_clicked:(id)sender;
--(IBAction)btnLink_tapped:(UIButton *)sender;
 
+#pragma mark
+#pragma mark - News
+#pragma mark
+@property (weak, nonatomic) IBOutlet UIButton *btnSeeAllNews;
+@property (weak, nonatomic) IBOutlet ClipView *viewNews;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionNews;
+-(IBAction)seeAllNews_clicked:(id)sender;
+
+#pragma mark
+#pragma mark - Extras
+#pragma mark
+@property (nonatomic, strong) IBOutlet UIView *viewFeedback;
+@property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
+@property (weak, nonatomic) IBOutlet UIView *viewExtras;
+-(IBAction)feedback_clicked:(id)sender;
+-(IBAction)aboutTheCorps_clicked:(id)sender;
+
+#pragma mark
+#pragma mark - Links
+#pragma mark
+@property (weak, nonatomic) IBOutlet UIView *viewLinks;
+-(IBAction)btnLink_tapped:(UIButton *)sender;
 
 @end
 
@@ -183,10 +196,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     if ([data.arrayOfAllShows count]) {
         
         [self prepareShowsForTable];
-        
-        [self.showsActivity stopAnimating];
         self.pageShows.hidden = NO;
-        self.showsActivity.hidden = YES;
         self.scrollViewShows.hidden = NO;
         self.lblShowsHeader.hidden = NO;
         self.btnSeeAll.hidden = NO;
@@ -258,22 +268,25 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     
     //
-    self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, 568);
+    self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, [UIScreen mainScreen].bounds.size.height);
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-    self.scrollMain.contentSize = CGSizeMake(320, self.contentMainView.frame.size.height * 1.5);
+
+    
+    // for scrollMain content size (per the docs)
+    for (UIView *view in [self.contentMainView subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+
     self.scrollMain.canCancelContentTouches = YES;
     self.scrollMain.delaysContentTouches = YES;
     self.scrollMain.userInteractionEnabled = YES;
     self.scrollMain.exclusiveTouch = YES;
     
     // Current Top 12
-    
-    [self.activityTopTwelve startAnimating];
-    
     self.pageTopTwelve.hidden = YES;
     
     self.lblTopTwelveHeader.hidden = YES;
@@ -291,9 +304,6 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     self.contentViewTopTwelve.exclusiveTouch = YES;
     
     // Recent Shows
-    
-    [self.showsActivity startAnimating];
-    
     self.pageShows.hidden = YES;
     
     self.lblShowsHeader.hidden = YES;
@@ -390,38 +400,6 @@ int newsContentWidth = 0;
 -(void)initNewsFeed {
     
     [self.collectionNews reloadData];
-    
-//    self.clipviewNews.backgroundColor = [UIColor clearColor];
-//    
-//    if ([news.itemsToDisplay count]) {
-//        self.viewNews.hidden = NO;
-//        if (numOfNewsItems > [news.itemsToDisplay count]) {
-//            numOfNewsItems = (int)[news.itemsToDisplay count];
-//        }
-//        for (int i = 0; i < numOfNewsItems; i++) {
-//            //CBNewsItem *item = [news.itemsToDisplay objectAtIndex:i];
-//            MWFeedItem *item = [news.itemsToDisplay objectAtIndex:i];
-//            CBNewsView *nv = [[CBNewsView alloc] initWithDate:item.date title:item.title link:item.link];
-//            nv.frame = CGRectMake((0 + (nv.frame.size.width * i) + (8 * i)), 7, nv.frame.size.width, nv.frame.size.height);
-//            nv.colorNumber = [news.arrayOfColors objectAtIndex:i];
-//            [nv createBackground];
-//            [self.scrollNews addSubview:nv];
-//            newsContentWidth += nv.frame.size.width + 8;
-//            newsScrollWidth = nv.frame.size.width;
-//        }
-//        self.scrollNews.contentSize = CGSizeMake(newsContentWidth, self.scrollNews.frame.size.height);
-//    } else {
-//        self.scrollNews.hidden = YES;
-//        UILabel *error = [[UILabel alloc] init];
-//        error.frame = CGRectMake(0, 0, self.clipviewNews.frame.size.width, self.clipviewNews.frame.size.height);
-//        error.text = @"Could Not Load News Feed";
-//        error.numberOfLines = 0;
-//        error.textColor = [UIColor lightGrayColor];
-//        error.font = [UIFont systemFontOfSize:14];
-//        error.textAlignment = NSTextAlignmentCenter;
-//        [self.clipviewNews addSubview: error];
-//        self.btnSeeAllNews.enabled = NO;
-//    }
 }
 
 -(void)loadPageWithId:(int)index onPage:(int)page {
@@ -554,11 +532,8 @@ int counter = 0;
     NSArray *sortOfficialScoresDescriptor = [NSArray arrayWithObject: sortOfficialScores];
         
     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
-    
-    
-    [self.activityTopTwelve stopAnimating];
+
     self.pageTopTwelve.hidden = NO;
-    self.activityTopTwelve.hidden = YES;
     self.scrollTopTwelve.hidden = NO;
     self.lblTopTwelveHeader.hidden = NO;
     self.btnSeeAllRankings.hidden = NO;
@@ -784,7 +759,9 @@ NSDate *nearestDate;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - TableView Delegates
+#pragma mark
+#pragma mark - UITableView
+#pragma mark
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
@@ -1015,7 +992,9 @@ PFObject *showToOpen;
     }
 }
 
-#pragma mark - Scrollview Delegates
+#pragma mark
+#pragma mark - UIScrollView
+#pragma mark
 CGFloat lastContentOffset;
 
 typedef enum ScrollDirection {
@@ -1028,20 +1007,6 @@ typedef enum ScrollDirection {
 } ScrollDirection;
 
 ScrollDirection scrollDirection = ScrollDirectionNone;
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-//    if (scrollView == self.scrollNews) {
-//        if (self.scrollNews.contentOffset.x < previousScroll) {
-//            NSLog(@"finished going backward");
-//            if (newsPage > 1) newsPage--;
-//        } else if (self.scrollNews.contentOffset.x > previousScroll) {
-//            NSLog(@"finished going forward");
-//            if (newsPage < numOfNewsItems) newsPage++;
-//        }
-//        NSLog(@"page %i", newsPage);
-//        previousScroll = self.scrollNews.contentOffset.x;
-//    }
-}
 
 bool isScrolling = NO;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1076,60 +1041,14 @@ bool isScrolling = NO;
         self.pageTopTwelve.currentPage = page;
     }
     
-    if (scrollView == self.scrollNews) {
-
-        CGFloat pageWidth = self.scrollNews.frame.size.width;
-        float fractionalPage = self.scrollNews.contentOffset.x / pageWidth;
-        NSInteger page = lround(fractionalPage);
-        self.newsPage = page;
-    }
-    
     if (scrollView == self.scrollBanners) {
         // the user scrolled manually, so reset the counter
         counter = 0;
     }
 }
 
-int lastPage;
--(void)setNewsPage:(NSInteger)newsPage {
-
-    if (lastPage != (int)newsPage) {
-        
-        int dist = self.view.frame.size.width - newsScrollWidth - 16;
-        
-        // going to last page
-        if (newsPage == numOfNewsItems - 1) {
-            self.scrollNews.frame = CGRectMake(self.scrollNews.frame.origin.x + dist, self.scrollNews.frame.origin.y, self.scrollNews.frame.size.width, self.scrollNews.frame.size.height);
-        }
-        
-        // going from last page to 2nd to last page
-        if ((lastPage == numOfNewsItems - 1) && ((int)newsPage == numOfNewsItems - 2)) {
-            self.scrollNews.frame = CGRectMake(self.scrollNews.frame.origin.x - dist, self.scrollNews.frame.origin.y, self.scrollNews.frame.size.width, self.scrollNews.frame.size.height);
-        }
-        lastPage = (int)newsPage;
-    }
-}
-
-CGFloat previousScroll;
-
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 
-
- 
-//    if (scrollView == self.scrollNews) {
-//        if (self.pageNews.currentPage == numOfNewsItems - 2) {
-//            // 2ND TO LAST PAGE
-//            NSLog(@"2nd to last page");
-//            self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, self.view.frame.size.width, self.scrollNews.frame.size.height);
-//        } else if (self.pageNews.currentPage == numOfNewsItems - 1) {
-//            // LAST PAGE
-//            NSLog(@"on last page");
-//            self.scrollNews.frame = CGRectMake(0, self.scrollNews.frame.origin.y, self.view.frame.size.width - newsScrollWidth, self.scrollNews.frame.size.height);
-//        } else {
-//            self.scrollNews.frame = CGRectMake(8, self.scrollNews.frame.origin.y, newsScrollWidth, self.scrollNews.frame.size.height);
-//        }
-//    }
-    
     if (scrollView == self.scrollViewShows) {
         if (self.pageShows.currentPage == 0) self.lblShowsHeader.text = lastShowString;
         else self.lblShowsHeader.text = nextShowString;

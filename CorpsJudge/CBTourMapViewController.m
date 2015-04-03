@@ -68,7 +68,6 @@ CBSingle *datas;
     UIButton *btnMenu = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *menuButtonImage = [UIImage imageNamed:@"menu"];
     [btnMenu setBackgroundImage:menuButtonImage forState:UIControlStateNormal];
-    [btnMenu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     btnMenu.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:btnMenu] ;
     self.navigationItem.rightBarButtonItem = menuButton;

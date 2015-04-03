@@ -1968,13 +1968,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="1346"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-nN-xbR" userLabel="Scroll View Main (vertical)">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-nN-xbR" userLabel="Scroll View Main (vertical)">
                                 <rect key="frame" x="-40" y="30" width="960" height="1308"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB3-aG-t40" userLabel="MainContentView">
-                                        <rect key="frame" x="40" y="0.0" width="920" height="1300"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OB3-aG-t40" userLabel="MainContentView">
+                                        <rect key="frame" x="40" y="-20" width="320" height="1190"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-8V-rLy" userLabel="ClipView" customClass="ClipView">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-8V-rLy" userLabel="viewRecentShows" customClass="ClipView">
                                                 <rect key="frame" x="0.0" y="224" width="320" height="230"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Kn-Ngj">
@@ -1994,9 +1994,6 @@
                                                             <action selector="seeAllShows_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="bYC-n0-Jnw"/>
                                                         </connections>
                                                     </button>
-                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-u9-4Sb">
-                                                        <rect key="frame" x="132" y="66" width="37" height="37"/>
-                                                    </activityIndicatorView>
                                                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-vl-b91">
                                                         <rect key="frame" x="45" y="29" width="253" height="181"/>
                                                         <subviews>
@@ -2171,7 +2168,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="retreat.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
                                                 <rect key="frame" x="0.0" y="454" width="320" height="150"/>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="ClipView" customClass="ClipView">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="viewRankings" customClass="ClipView">
                                                 <rect key="frame" x="0.0" y="588" width="320" height="235"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Top 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJO-74-Y3m">
@@ -2191,9 +2188,6 @@
                                                             <action selector="seeAllRankings_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="PFi-s9-7LL"/>
                                                         </connections>
                                                     </button>
-                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ddi-1v-YUw">
-                                                        <rect key="frame" x="132" y="66" width="37" height="37"/>
-                                                    </activityIndicatorView>
                                                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvV-nE-dui">
                                                         <rect key="frame" x="45" y="29" width="253" height="181"/>
                                                         <subviews>
@@ -2373,7 +2367,7 @@
                                                 <rect key="frame" x="40" y="-100" width="240" height="128"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5i3-q8-WYf" userLabel="NewsView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="823" width="700" height="145"/>
+                                                <rect key="frame" x="0.0" y="823" width="320" height="145"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99L-WD-I9t">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -2464,7 +2458,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6" userLabel="viewExtras">
                                                 <rect key="frame" x="0.0" y="968" width="320" height="105"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="088-5I-tcI">
@@ -2593,7 +2587,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-Bm-tJU">
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-Bm-tJU" userLabel="viewLinks">
                                                 <rect key="frame" x="0.0" y="1072" width="320" height="113"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="© 2015 Drum Corps International" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvc-oY-ZGh">
@@ -2655,21 +2649,36 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.047058828179999998" green="0.69019609689999994" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1190" id="Ijy-lY-gwh"/>
+                                            <constraint firstAttribute="width" constant="320" id="y6V-SP-7HR"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstItem="OB3-aG-t40" firstAttribute="top" secondItem="vWd-nN-xbR" secondAttribute="top" constant="-20" id="EWd-Nk-G0R"/>
+                                    <constraint firstItem="OB3-aG-t40" firstAttribute="leading" secondItem="vWd-nN-xbR" secondAttribute="leading" constant="40" id="JCb-eV-EPl"/>
+                                    <constraint firstAttribute="trailing" secondItem="OB3-aG-t40" secondAttribute="trailing" constant="600" id="eYx-pz-OqC"/>
+                                    <constraint firstAttribute="bottom" secondItem="OB3-aG-t40" secondAttribute="bottom" constant="138" id="pZb-3W-kxq"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="603-gO-u9Q" id="BHf-TW-9Ht"/>
                                 </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="vWd-nN-xbR" firstAttribute="leading" secondItem="vUs-jE-6r0" secondAttribute="leadingMargin" constant="-56" id="5f6-bx-e7h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vWd-nN-xbR" secondAttribute="trailing" constant="-136" id="TJJ-8E-cUZ"/>
+                            <constraint firstItem="MB2-nc-JuE" firstAttribute="top" secondItem="vWd-nN-xbR" secondAttribute="bottom" constant="8" id="kTv-br-9F8"/>
+                            <constraint firstItem="vWd-nN-xbR" firstAttribute="top" secondItem="9WX-Uk-k75" secondAttribute="bottom" constant="-14" id="vrp-ek-dJx"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CorpBoard" id="hhB-0p-LGq"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="1390"/>
                     <connections>
-                        <outlet property="activityTopTwelve" destination="Ddi-1v-YUw" id="MYk-ya-t9m"/>
                         <outlet property="btnAdmin" destination="Kw4-Ch-b6M" id="n0w-Fu-xWf"/>
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
                         <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
@@ -2681,6 +2690,7 @@
                         <outlet property="contentMainView" destination="OB3-aG-t40" id="tdl-bS-njf"/>
                         <outlet property="contentViewShows" destination="Pri-nq-ON5" id="vW4-a5-TEi"/>
                         <outlet property="contentViewTopTwelve" destination="q2N-Ya-IY1" id="Jkl-WH-P0R"/>
+                        <outlet property="imgBannerMiddle" destination="BpO-h5-BES" id="Uuf-e0-eG7"/>
                         <outlet property="imgUpsideDownCavalier" destination="DId-Yi-xbI" id="smI-Y5-r43"/>
                         <outlet property="lblAdmin" destination="z1P-xz-XrR" id="oZh-XW-2O7"/>
                         <outlet property="lblShowsHeader" destination="oPe-Kn-Ngj" id="rSz-Pu-Qvj"/>
@@ -2692,7 +2702,6 @@
                         <outlet property="scrollMain" destination="vWd-nN-xbR" id="Dtv-kZ-Se9"/>
                         <outlet property="scrollTopTwelve" destination="DvV-nE-dui" id="hz7-yf-hSK"/>
                         <outlet property="scrollViewShows" destination="SeT-vl-b91" id="jGM-Aq-xLJ"/>
-                        <outlet property="showsActivity" destination="Ce6-u9-4Sb" id="5uF-ZC-OVR"/>
                         <outlet property="tableLastShows" destination="Igp-34-lY2" id="UyF-yf-Pej"/>
                         <outlet property="tableNextShows" destination="hw8-uu-Azi" id="C0A-hx-klI"/>
                         <outlet property="tableTopEight" destination="otz-5a-azt" id="4gy-fG-WjO"/>
@@ -2701,8 +2710,11 @@
                         <outlet property="viewAboutTheCorps" destination="Z15-Uh-jtu" id="xHT-HH-CDd"/>
                         <outlet property="viewExtras" destination="slv-vG-kN6" id="hHH-7p-7hm"/>
                         <outlet property="viewFeedback" destination="ia3-0E-Vl4" id="qkw-Fo-JGG"/>
+                        <outlet property="viewLinks" destination="Gdw-Bm-tJU" id="QJx-HN-Na3"/>
                         <outlet property="viewNews" destination="5i3-q8-WYf" id="fbe-Yv-0Bj"/>
                         <outlet property="viewProfile" destination="5CV-vg-CGX" id="1vG-LV-zzK"/>
+                        <outlet property="viewRankings" destination="TuJ-UA-uqz" id="mBw-rf-2sE"/>
+                        <outlet property="viewRecentShows" destination="ljf-8V-rLy" id="VEc-nF-dsU"/>
                         <segue destination="a3o-sb-0qX" kind="show" identifier="shows" id="o99-aO-U0e"/>
                         <segue destination="kuq-xU-myI" kind="show" identifier="openShow" id="yHE-cF-ijy"/>
                         <segue destination="8XX-OR-XBf" kind="show" identifier="rankings" id="oaA-Is-4o3"/>
