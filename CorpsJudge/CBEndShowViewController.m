@@ -22,6 +22,7 @@
 - (IBAction)btnCancel_tapped:(id)sender;
 - (IBAction)btnShowRainedOut_tapped:(id)sender;
 - (IBAction)btnShowComplete_tapped:(id)sender;
+- (IBAction)btnDeleteScores_tapped:(id)sender;
 
 @end
 
@@ -129,6 +130,14 @@
         alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+- (IBAction)btnDeleteScores_tapped:(id)sender {
+    
+    UIAlertView *alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"Delete Scores"    message:@"Are you sure you want to delete all scores? The show will be marked as not complete." delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alert.tag = 4;
+    [alert show];
 }
 
 -(BOOL)areAllScoresEntered {
@@ -250,9 +259,40 @@
             case 2: [self completeShow];
                 break;
             case 3: [self sendPush];
+            case 4: [self deleteAllScores];
             default: NSLog(@"Alert error");
         }
     }
+}
+
+-(void)deleteAllScores {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
+    [self deleteScores:self.arrayOfWorldClassScores];
+    [self deleteScores:self.arrayOfOpenClassScores];
+    [self deleteScores:self.arrayOfAllAgeClassScores];
+    
+    [self.show removeObjectForKey:@"exception"];
+    self.show[@"isShowOver"] = [NSNumber numberWithBool:NO];
+    [self.show saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (error) {
+            [self.show saveEventually];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error"
+                                                            message:@"Could not connect to server. The scores will automatically delete the next time a connection is established."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        else {
+            [self initUI];
+        }
+    }];
 }
 
 -(void)sendPush {
@@ -368,6 +408,26 @@
                 
                 [score removeObjectForKey:@"exception"];
             }
+            
+            [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (error) [score saveEventually];
+                [self initUI];
+            }];
+        }
+    }
+}
+
+-(void)deleteScores:(NSMutableArray *)array {
+    
+    if ([array count]) {
+        
+        for (PFObject *score in array) {
+
+            [score removeObjectForKey:@"score"];
+            [score removeObjectForKey:@"colorGuardScore"];
+            [score removeObjectForKey:@"hornlineScore"];
+            [score removeObjectForKey:@"percussionScore"];
+            [score removeObjectForKey:@"exception"];
             
             [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error) [score saveEventually];

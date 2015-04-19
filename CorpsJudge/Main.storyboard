@@ -4249,10 +4249,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPU-rx-AZm">
-                                <rect key="frame" x="8" y="8" width="20" height="20"/>
+                                <rect key="frame" x="8" y="8" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Pyb-pi-pzR"/>
-                                    <constraint firstAttribute="width" constant="20" id="Zha-sB-96b"/>
+                                    <constraint firstAttribute="height" constant="30" id="Pyb-pi-pzR"/>
+                                    <constraint firstAttribute="width" constant="30" id="Zha-sB-96b"/>
                                 </constraints>
                                 <state key="normal" image="admin_cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -4330,6 +4330,19 @@
                                     <action selector="btnShowComplete_tapped:" destination="rez-Pv-91E" eventType="touchUpInside" id="e2i-KY-0mh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YeV-Xh-8Xv">
+                                <rect key="frame" x="562" y="8" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="HKp-i5-PMr"/>
+                                    <constraint firstAttribute="height" constant="30" id="OZB-G7-ATb"/>
+                                </constraints>
+                                <state key="normal" image="admin_trash">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnDeleteScores_tapped:" destination="rez-Pv-91E" eventType="touchUpInside" id="LVY-cy-Gnl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -4351,7 +4364,9 @@
                             <constraint firstItem="kNA-6X-hn0" firstAttribute="centerX" secondItem="JDW-Jp-9Fu" secondAttribute="centerX" id="eFr-vj-DBl"/>
                             <constraint firstItem="5ws-Ct-kqw" firstAttribute="leading" secondItem="kNA-6X-hn0" secondAttribute="trailing" constant="3" id="eYE-3F-dWl"/>
                             <constraint firstItem="tY4-aZ-eLI" firstAttribute="top" secondItem="2hW-4O-OTb" secondAttribute="bottom" id="gJa-qp-pJh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YeV-Xh-8Xv" secondAttribute="trailing" constant="-8" id="gau-TX-lNt"/>
                             <constraint firstItem="CEA-lE-yTf" firstAttribute="top" secondItem="zSo-jU-rKN" secondAttribute="bottom" constant="-3" id="ofy-tl-0op"/>
+                            <constraint firstItem="YeV-Xh-8Xv" firstAttribute="top" secondItem="boG-gj-MA1" secondAttribute="bottom" constant="8" id="soh-AH-aeo"/>
                             <constraint firstItem="V9n-ic-0bh" firstAttribute="centerX" secondItem="CEA-lE-yTf" secondAttribute="centerX" constant="0.5" id="tG3-UZ-4IR"/>
                             <constraint firstItem="kNA-6X-hn0" firstAttribute="top" secondItem="JDW-Jp-9Fu" secondAttribute="bottom" constant="15" id="tbo-M4-rAa"/>
                             <constraint firstItem="CEA-lE-yTf" firstAttribute="centerX" secondItem="zSo-jU-rKN" secondAttribute="centerX" id="wHZ-mM-BeS"/>
@@ -4655,6 +4670,7 @@
         <image name="admin_exhibition" width="64" height="64"/>
         <image name="admin_rain" width="48" height="48"/>
         <image name="admin_recapURL" width="48" height="48"/>
+        <image name="admin_trash" width="48" height="48"/>
         <image name="appstore2" width="120" height="115"/>
         <image name="arrowRight" width="128" height="128"/>
         <image name="broken" width="48" height="48"/>
