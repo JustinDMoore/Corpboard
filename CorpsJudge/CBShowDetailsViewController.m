@@ -500,8 +500,8 @@ int votedFavorites;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"judge"])
-    {
+    if ([[segue identifier] isEqualToString:@"judge"]) {
+        
         // Get reference to the destination view controller
         CBJudgeViewController *vc = [segue destinationViewController];
         vc.delegate = self;
@@ -534,6 +534,7 @@ int votedFavorites;
     
     [self presentViewController:web animated:YES completion:nil];
 }
+
 -(CBEffect *)scene {
     if (!_scene) {
         _scene = [CBEffect sceneWithSize:[[UIScreen mainScreen] bounds].size];
@@ -551,6 +552,10 @@ int votedFavorites;
 -(void)showCompleted {
     
     [self setup];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress dismiss];
+    });
 }
 
 @end

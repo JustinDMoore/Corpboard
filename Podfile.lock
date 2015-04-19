@@ -106,16 +106,16 @@ DEPENDENCIES:
   - PulsingHalo (= 0.0.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  DTCoreText: d446600133d01214758ff45004b1b8109e5b8c9f
-  DTFoundation: bea4e07459f0f88a5aa3b8258fab1576bbe2e58c
-  iOS-Slide-Menu: 3037b28b483ad0191b2a8b0644dec57995631c1d
-  IQKeyboardManager: 4e83eef847c6f5edbd670284e50c7e3d643ebdb5
-  JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
+  AFNetworking: 96ac9bf3eda33582701cb1fcc5b896aa1e20311e
+  DTCoreText: 13ce06e63204a3b47c9db974e3d9be982bb0b1ed
+  DTFoundation: 1d28080c20c3da041706545363f8238ab53a6204
+  iOS-Slide-Menu: 8f4b77cd2e153275e0e7d5b9cfe94f2abc7e0594
+  IQKeyboardManager: 6aeae6a2014d66461c48f6753dd693e92eaf6524
+  JSBadgeView: 08284afc9d0eb60069674e517cac2d37d4319208
   JSQMessagesViewController: 9fd7e9ac96e9fc91f2deca86928e2cc916aeebaa
-  JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
-  MWFeedParser: 003cbf5398e99a7f2057fbe9583054fd1b84be72
-  PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
+  MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
+  PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
 
 COCOAPODS: 0.35.0

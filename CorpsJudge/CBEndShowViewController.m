@@ -8,6 +8,8 @@
 
 #import "CBEndShowViewController.h"
 #import "AppConstant.h"
+#import "KVNProgress.h"
+#import "Configuration.h"
 
 @interface CBEndShowViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblShowName;
@@ -75,7 +77,9 @@
 
 -(void)close {
 
-    [self.currentResponder resignFirstResponder];
+    if ([self.currentResponder respondsToSelector:@selector(resignFirstResponder)]) {
+        if (self.currentResponder) [self.currentResponder resignFirstResponder];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -272,6 +276,11 @@
 
 -(void)completeShow {
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
+    
     BOOL over = [self.show[@"isShowOver"] boolValue];
     if (!over) {
         [self saveScores:self.arrayOfWorldClassScores];
@@ -366,6 +375,11 @@
 }
 
 -(void)weather {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
+        [KVNProgress show];
+    });
     
     if ([self.arrayOfWorldClassScores count]) {
         for (PFObject *score in self.arrayOfWorldClassScores) {
