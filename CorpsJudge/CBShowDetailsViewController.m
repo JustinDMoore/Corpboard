@@ -186,7 +186,12 @@ int votedFavorites;
         if ([showD isInFuture]) {
             self.btnReviewShow.enabled = NO;
         } else {
-            self.btnReviewShow.enabled = YES;
+            NSString *exception = self.show[@"exception"];
+            if ([exception length]) {
+                self.btnReviewShow.enabled = NO;
+            } else {
+                self.btnReviewShow.enabled = YES;
+            }
         }
     }
     
