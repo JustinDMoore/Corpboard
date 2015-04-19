@@ -160,7 +160,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"copperplate-bold" size:30],
+      [UIFont fontWithName:@"copperplate-bold" size:28],
       NSFontAttributeName, nil]];
     self.title = @"Corpboard";
     
@@ -268,23 +268,12 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     
     //
-    self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, [UIScreen mainScreen].bounds.size.height);
+    //self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, [UIScreen mainScreen].bounds.size.height);
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     // Main Content
     self.view.backgroundColor = self.viewAppTitle.backgroundColor;
     self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor;
-
-    
-    // for scrollMain content size (per the docs)
-    for (UIView *view in [self.contentMainView subviews]) {
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-
-    self.scrollMain.canCancelContentTouches = YES;
-    self.scrollMain.delaysContentTouches = YES;
-    self.scrollMain.userInteractionEnabled = YES;
-    self.scrollMain.exclusiveTouch = YES;
     
     // Current Top 12
     self.pageTopTwelve.hidden = YES;
@@ -357,6 +346,23 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     //news
     self.collectionNews.backgroundColor = [UIColor clearColor];
+    
+    
+    // calculate scroll content
+    
+//    // for scrollMain content size (per the docs)
+    for (UIView *view in [self.contentMainView subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    self.scrollMain.canCancelContentTouches = YES;
+    self.scrollMain.delaysContentTouches = YES;
+    self.scrollMain.userInteractionEnabled = YES;
+    self.scrollMain.exclusiveTouch = YES;
+    
+    //self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.scrollMain.contentSize.height);
+    
+    self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
 }
 
 -(void)bannerTapped:(UIButton *)sender {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1965,14 +1965,14 @@
                         <viewControllerLayoutGuide type="bottom" id="MB2-nc-JuE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vUs-jE-6r0">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="1346"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1196"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-nN-xbR" userLabel="Scroll View Main (vertical)">
-                                <rect key="frame" x="-40" y="30" width="960" height="1308"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="1170"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OB3-aG-t40" userLabel="MainContentView">
-                                        <rect key="frame" x="40" y="-20" width="320" height="1190"/>
+                                        <rect key="frame" x="0.0" y="-20" width="320" height="1190"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljf-8V-rLy" userLabel="viewRecentShows" customClass="ClipView">
                                                 <rect key="frame" x="0.0" y="224" width="320" height="230"/>
@@ -2354,7 +2354,7 @@
                                                         <rect key="frame" x="141" y="200" width="39" height="37"/>
                                                     </pageControl>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9x-fv-CfJ">
-                                                        <rect key="frame" x="8" y="234" width="350" height="1"/>
+                                                        <rect key="frame" x="10" y="234" width="310" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
@@ -2387,7 +2387,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAe-SO-2Ge">
-                                                        <rect key="frame" x="8" y="143" width="350" height="1"/>
+                                                        <rect key="frame" x="10" y="143" width="310" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XT8-Z9-AJg">
@@ -2462,7 +2462,7 @@
                                                 <rect key="frame" x="0.0" y="968" width="320" height="105"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="088-5I-tcI">
-                                                        <rect key="frame" x="8" y="103" width="350" height="1"/>
+                                                        <rect key="frame" x="10" y="103" width="310" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
@@ -2519,7 +2519,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVZ-Ww-3bC">
-                                                        <rect key="frame" x="10" y="54" width="500" height="1"/>
+                                                        <rect key="frame" x="10" y="54" width="310" height="1"/>
                                                         <color key="backgroundColor" red="0.47629381613756616" green="0.47629381613756616" blue="0.47629381613756616" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNu-IM-EjK">
@@ -2651,16 +2651,19 @@
                                         <color key="backgroundColor" red="0.047058828179999998" green="0.69019609689999994" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1190" id="Ijy-lY-gwh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="Shz-aR-lYQ"/>
                                             <constraint firstAttribute="width" constant="320" id="y6V-SP-7HR"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="1170" id="42A-pG-u6j"/>
                                     <constraint firstItem="OB3-aG-t40" firstAttribute="top" secondItem="vWd-nN-xbR" secondAttribute="top" constant="-20" id="EWd-Nk-G0R"/>
-                                    <constraint firstItem="OB3-aG-t40" firstAttribute="leading" secondItem="vWd-nN-xbR" secondAttribute="leading" constant="40" id="JCb-eV-EPl"/>
-                                    <constraint firstAttribute="trailing" secondItem="OB3-aG-t40" secondAttribute="trailing" constant="600" id="eYx-pz-OqC"/>
-                                    <constraint firstAttribute="bottom" secondItem="OB3-aG-t40" secondAttribute="bottom" constant="138" id="pZb-3W-kxq"/>
+                                    <constraint firstAttribute="width" constant="320" id="Ir4-mx-1Mq"/>
+                                    <constraint firstItem="OB3-aG-t40" firstAttribute="leading" secondItem="vWd-nN-xbR" secondAttribute="leading" id="JCb-eV-EPl"/>
+                                    <constraint firstAttribute="trailing" secondItem="OB3-aG-t40" secondAttribute="trailing" id="eYx-pz-OqC"/>
+                                    <constraint firstAttribute="bottom" secondItem="OB3-aG-t40" secondAttribute="bottom" id="pZb-3W-kxq"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="603-gO-u9Q" id="BHf-TW-9Ht"/>
@@ -2669,15 +2672,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstItem="vWd-nN-xbR" firstAttribute="leading" secondItem="vUs-jE-6r0" secondAttribute="leadingMargin" constant="-56" id="5f6-bx-e7h"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vWd-nN-xbR" secondAttribute="trailing" constant="-136" id="TJJ-8E-cUZ"/>
-                            <constraint firstItem="MB2-nc-JuE" firstAttribute="top" secondItem="vWd-nN-xbR" secondAttribute="bottom" constant="8" id="kTv-br-9F8"/>
+                            <constraint firstItem="vWd-nN-xbR" firstAttribute="leading" secondItem="vUs-jE-6r0" secondAttribute="leadingMargin" constant="-16" id="5f6-bx-e7h"/>
+                            <constraint firstItem="MB2-nc-JuE" firstAttribute="top" secondItem="vWd-nN-xbR" secondAttribute="bottom" constant="-4" id="kTv-br-9F8"/>
                             <constraint firstItem="vWd-nN-xbR" firstAttribute="top" secondItem="9WX-Uk-k75" secondAttribute="bottom" constant="-14" id="vrp-ek-dJx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CorpBoard" id="hhB-0p-LGq"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="800" height="1390"/>
+                    <size key="freeformSize" width="600" height="1240"/>
                     <connections>
                         <outlet property="btnAdmin" destination="Kw4-Ch-b6M" id="n0w-Fu-xWf"/>
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
