@@ -242,6 +242,7 @@
     
     if (buttonIndex == 0) {
         //cancelled
+        if (alertView.tag == 3) [self close];
     } else {
         switch (alertView.tag) {
             case 1: [self weather];
@@ -272,6 +273,8 @@
     [pushQuery whereKey:@"deviceType" equalTo:@"ios"];
     [PFPush sendPushMessageToQueryInBackground:pushQuery
                                    withMessage:text];
+    
+    [self close];
 }
 
 -(void)completeShow {
@@ -305,7 +308,7 @@
                 if ([self.delegate respondsToSelector:@selector(showCompleted)]) {
                     [self.delegate showCompleted];
                 }
-                [self close];
+                
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notification"
                                                                 message:@"Send push notification to users notifying them scores are up?"
                                                                delegate:self
