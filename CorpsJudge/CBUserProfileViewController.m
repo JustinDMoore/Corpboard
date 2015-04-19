@@ -594,7 +594,7 @@
             
             //recalculate the scrollview content height
             
-            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.view.frame.size.height + y + self.lblBackground.frame.size.height);
+            self.scrollProfile.contentSize = CGSizeMake(self.scrollProfile.frame.size.width, self.view.frame.size.height + y + self.lblBackground.frame.size.height + 20);
             
             //needed to set the content offset of the cover picture
             [self scrollViewDidScroll:self.scrollProfile];
