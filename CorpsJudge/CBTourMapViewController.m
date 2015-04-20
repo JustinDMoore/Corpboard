@@ -12,6 +12,7 @@
 #import "CBShowDetailsViewController.h"
 #import "MKMapView+ZoomLevel.h"
 #import "NSMutableArray+Shuffling.h"
+#import "SlideNavigationController.h"
 
 @interface CBTourMapViewController ()
 
@@ -44,13 +45,30 @@ CBSingle *datas;
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
+    
+    if (!self.individualShow) {
+        
+        CLLocationCoordinate2D centerCoord = {41.7627, -72.6743};
+        [self.mapView setCenterCoordinate:centerCoord zoomLevel:2 animated:YES];
+    }
+}
 
+-(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
     
-    CLLocationCoordinate2D centerCoord = {41.7627, -72.6743};
-    [self.mapView setCenterCoordinate:centerCoord zoomLevel:2 animated:YES];
+    if (!self.individualShow) {
+        if (!showsPlotted) [self plotAllShowsForCorps:nil];
+    } else {
+        if (!showPlotted) [self plotShow:self.show];
+    }
+}
+
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
     
-    [self plotAllShowsForCorps:nil];
-    
+    if (!self.individualShow) {
+        if (!showsPlotted) [self plotAllShowsForCorps:nil];
+    } else {
+        if (!showPlotted) [self plotShow:self.show];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -71,7 +89,20 @@ CBSingle *datas;
     btnMenu.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:btnMenu] ;
     self.navigationItem.rightBarButtonItem = menuButton;
+    
+    if (self.individualShow) {
+        [SlideNavigationController sharedInstance].rightBarButtonItem = [[UIBarButtonItem alloc] init];
+        self.mapView.mapType = MKMapTypeSatellite;
+    } else {
+        [SlideNavigationController sharedInstance].rightBarButtonItem = menuButton;
+        self.mapView.mapType = MKMapTypeStandard;
+    }
+}
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    showsPlotted = NO;
+    showPlotted = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +161,7 @@ CBSingle *datas;
     return [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
 }
 
+BOOL showsPlotted;
 -(void)plotAllShowsForCorps:(PFObject *)corps {
     
     [self.arrayOfShowsToDisplay removeAllObjects];
@@ -151,8 +183,11 @@ CBSingle *datas;
             [self plotShow:show];
         }
     }
+    
+    showsPlotted = YES;
 }
 
+BOOL showPlotted;
 -(void)plotShow:(PFObject *)show {
     
     PFObject *stadium = show[@"stadium"];
@@ -167,6 +202,18 @@ CBSingle *datas;
         custom.show = show;
         custom.showObjectId = show.objectId;
         [self.mapView addAnnotation:custom];
+        
+        if (self.individualShow) {
+            //zoom into it
+            showPlotted = YES;
+            MKCoordinateRegion mapRegion;
+            mapRegion.center = coord;
+            mapRegion.span.latitudeDelta = 0.005;
+            mapRegion.span.longitudeDelta = 0.005;
+            
+            [self.mapView setRegion:mapRegion animated: YES];
+            [self.mapView regionThatFits:mapRegion];
+        }
     }
 }
 
@@ -183,6 +230,7 @@ CBSingle *datas;
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     CBShowDetailsViewController * showDetails = (CBShowDetailsViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
     showDetails.show = ann.show;
+    showDetails.fromMaps = YES;
     [self.navigationController pushViewController:showDetails animated:YES];
 }
 

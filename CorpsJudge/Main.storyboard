@@ -3505,8 +3505,23 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFt-bX-8Wr">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2d7-3p-UEj">
                                         <rect key="frame" x="127" y="80" width="40" height="40"/>
+                                        <state key="normal" image="map">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnViewMap_tapped:" destination="kuq-xU-myI" eventType="touchUpInside" id="uqF-YZ-9eP"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View Map" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcU-9w-Lkc">
+                                        <rect key="frame" x="122" y="118" width="50" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFt-bX-8Wr">
+                                        <rect key="frame" x="180" y="80" width="40" height="40"/>
                                         <state key="normal" image="admin_done">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3515,13 +3530,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Show" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xco-Ev-dSl">
-                                        <rect key="frame" x="122" y="118" width="50" height="42"/>
+                                        <rect key="frame" x="175" y="118" width="50" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVj-sW-yPl">
-                                        <rect key="frame" x="180" y="80" width="40" height="40"/>
+                                        <rect key="frame" x="233" y="80" width="40" height="40"/>
                                         <state key="normal" image="admin_recapURL">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3530,7 +3545,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recap Link" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNO-GH-p6T">
-                                        <rect key="frame" x="175" y="118" width="50" height="42"/>
+                                        <rect key="frame" x="228" y="118" width="50" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -3698,12 +3713,14 @@
                         <outlet property="btnEndShow" destination="qFt-bX-8Wr" id="mNr-5y-dLZ"/>
                         <outlet property="btnRecapLink" destination="yVj-sW-yPl" id="jnY-M8-R8a"/>
                         <outlet property="btnReviewShow" destination="tQl-pY-U32" id="cC3-zh-HgW"/>
+                        <outlet property="btnViewMap" destination="2d7-3p-UEj" id="kUT-ks-Ixq"/>
                         <outlet property="btnViewRecap" destination="Jn8-kO-VA1" id="bUc-nB-EFN"/>
                         <outlet property="lblEndShow" destination="xco-Ev-dSl" id="gn3-LP-wPc"/>
                         <outlet property="lblRecapLink" destination="UNO-GH-p6T" id="XZb-i4-yHk"/>
                         <outlet property="lblShowDate" destination="5CJ-Ra-9uz" id="AQg-QS-iKT"/>
                         <outlet property="lblShowLocation" destination="2mZ-DY-Lao" id="laz-TT-A3c"/>
                         <outlet property="lblShowName" destination="qjb-f2-Csq" id="cxb-sf-6YZ"/>
+                        <outlet property="lblViewMap" destination="xcU-9w-Lkc" id="jYo-2K-IWe"/>
                         <outlet property="skView" destination="ZyV-7h-8kj" id="dYY-IF-63F"/>
                         <outlet property="tableCorps" destination="ruf-xh-MgI" id="ggq-7M-jGL"/>
                         <segue destination="cmp-61-Ykg" kind="presentation" identifier="judge" id="knG-bh-Dgc"/>
@@ -3787,7 +3804,7 @@
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">
             <objects>
-                <viewController id="yG7-Vq-JyB" customClass="CBTourMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="map" id="yG7-Vq-JyB" customClass="CBTourMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I4b-ik-3dO"/>
                         <viewControllerLayoutGuide type="bottom" id="48l-be-DlV"/>

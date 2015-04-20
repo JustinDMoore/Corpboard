@@ -13,5 +13,5 @@
 @interface CBShowDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, endShowProtocol>
 
 @property (nonatomic, strong) PFObject *show;
-
+@property (nonatomic) BOOL fromMaps;
 @end

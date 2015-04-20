@@ -16,6 +16,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "CBEffect.h"
 #import "Configuration.h"
+#import "CBTourMapViewController.h"
 
 CBSingle *data;
 int votedScore;
@@ -40,6 +41,9 @@ int votedFavorites;
 @property (weak, nonatomic) IBOutlet UIButton *btnEndShow;
 @property (weak, nonatomic) IBOutlet UIButton *btnRecapLink;
 @property (weak, nonatomic) IBOutlet UILabel *lblRecapLink;
+@property (weak, nonatomic) IBOutlet UIButton *btnViewMap;
+@property (weak, nonatomic) IBOutlet UILabel *lblViewMap;
+
 @property IBOutlet SKView *skView;
 @property (nonatomic, strong) CBEffect *scene;
 
@@ -47,6 +51,7 @@ int votedFavorites;
 - (IBAction)btnReviewShow_tapped:(id)sender;
 - (IBAction)btnEndShow_tapped:(id)sender;
 - (IBAction)btnRecapLink_tapped:(id)sender;
+- (IBAction)btnViewMap_tapped:(id)sender;
 
 @end
 
@@ -87,6 +92,7 @@ int votedFavorites;
 
 - (void)goback {
     
+    self.fromMaps = NO;
     [queryScores cancel];
     [queryVoteFavorites cancel];
     [queryVoteScores cancel];
@@ -156,6 +162,11 @@ int votedFavorites;
         self.lblEndShow.hidden = YES;
         self.btnRecapLink.hidden = YES;
         self.lblRecapLink.hidden = YES;
+    }
+    
+    if (self.fromMaps) {
+        self.btnViewMap.hidden = YES;
+        self.lblViewMap.hidden = YES;
     }
     
     self.btnViewRecap.enabled = NO;
@@ -483,6 +494,17 @@ int votedFavorites;
     textField.text = self.show[@"recapURL"];
     [alert show];
     
+}
+
+- (IBAction)btnViewMap_tapped:(id)sender {
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"map";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBTourMapViewController * map = (CBTourMapViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    map.individualShow = YES;
+    map.show = self.show;
+    [self showViewController:map sender:self];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

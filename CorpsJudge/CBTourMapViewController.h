@@ -23,4 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfShowsToDisplay;
 @property (nonatomic, strong) NSMutableArray *arrayOfCoordinates;
 
+@property (nonatomic) BOOL individualShow;
+@property (nonatomic, strong) PFObject *show;
+
 @end
