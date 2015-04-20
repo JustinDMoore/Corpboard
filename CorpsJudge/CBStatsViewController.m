@@ -1198,7 +1198,8 @@ int sort;
                     }
                     lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
                     lblCorpsName.text = us.corps[@"corpsName"];
-                    lblScore.text = [NSString stringWithFormat:@"%.3f", us.score];
+                    float score = (float)us.score;
+                    lblScore.text = [NSString stringWithFormat:@"%.3f", score];
                 }
             }
             break;

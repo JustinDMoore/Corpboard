@@ -268,9 +268,9 @@ int votedFavorites;
                 [queryScores orderByDescending:@"score"]; //order by score if show complete, and no exception (rain)
             }
         } else {
-            NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
+            NSSortDescriptor *time = [[NSSortDescriptor alloc] initWithKey:@"performanceTime" ascending:YES];
             NSSortDescriptor *name = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
-            [queryScores orderBySortDescriptors:@[desc, name]];
+            [queryScores orderBySortDescriptors:@[time, name]];
         }
         
         [queryScores findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

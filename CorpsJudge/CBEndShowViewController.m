@@ -63,6 +63,16 @@
         self.lblShowStatus.text = @"Show complete. Scores available to the public.";
         self.lblShowStatus.textColor = [UIColor greenColor];
     }
+    
+    //sort the arrays by score
+    NSSortDescriptor *sortScore = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+    NSSortDescriptor *sortName = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
+    NSArray *sortCorpsDescriptor = @[sortScore, sortName];
+    
+    if ([self.arrayOfWorldClassScores count]) [self.arrayOfWorldClassScores sortUsingDescriptors:sortCorpsDescriptor];
+    if ([self.arrayOfOpenClassScores count]) [self.arrayOfOpenClassScores sortUsingDescriptors:sortCorpsDescriptor];
+    if ([self.arrayOfAllAgeClassScores count]) [self.arrayOfAllAgeClassScores sortUsingDescriptors:sortCorpsDescriptor];
+    
     [self.tableCorps reloadData];
 }
 
@@ -117,8 +127,6 @@
             title = @"Missing Scores";
             msg = @"Are you sure you want to complete the show with missing scores? \n\n All scores will be available to the public.";
         }
-        
-
         
         alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         alert.tag = 2;
@@ -431,9 +439,9 @@
             
             [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error) [score saveEventually];
-                [self initUI];
             }];
         }
+        [self initUI];
     }
 }
 
