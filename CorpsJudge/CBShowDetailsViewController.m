@@ -143,6 +143,7 @@ int votedFavorites;
 
 -(void)initVariables {
     
+    self.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.arrayOfWorldClassScores removeAllObjects];
     [self.arrayOfOpenClassScores removeAllObjects];
     [self.arrayOfAllAgeClassScores removeAllObjects];
@@ -335,16 +336,22 @@ int votedFavorites;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count]) {
+        return 1;
+    } else return 3;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    switch (section) {
-        case 0: return @"World Class";
-        case 1: return @"Open Class";
-        case 2: return @"All Age Class";
-        default: return @"Error";
+    if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count]) {
+        return @"Performing corps to be announced"; //if no corps are listed for the show, display one row for a message
+    } else {
+        switch (section) {
+            case 0: return @"World Class";
+            case 1: return @"Open Class";
+            case 2: return @"All Age Class";
+            default: return @"Error";
+        }
     }
 }
 

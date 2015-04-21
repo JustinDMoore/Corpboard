@@ -437,26 +437,6 @@ BOOL showPlotted;
     return cell;
 }
 
--(void)animateCells {
-    
-    for (int i = 0; i > 5; i++) {
-        UITableViewCell *cell = [self.mapMenu.tableCorps cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
-        UIView *viewCell = (UIView *)[cell viewWithTag:1];
-        viewCell.frame = CGRectMake(200, viewCell.frame.origin.y, viewCell.frame.size.width, viewCell.frame.size.height);
-        
-        [UIView animateWithDuration:1
-                              delay:0
-             usingSpringWithDamping:.9
-              initialSpringVelocity:1
-                            options:0
-                         animations:^{
-                             viewCell.frame = CGRectMake(0, viewCell.frame.origin.y, viewCell.frame.size.width, viewCell.frame.size.height);
-                         } completion:^(BOOL finished) {
-                             
-                         }];
-    }
-}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
@@ -484,7 +464,6 @@ BOOL mapOpen;
                          animations:^{
                              self.mapView.transform = CGAffineTransformScale(self.view.transform, 0.85, 0.85);
                              self.segmentMapType.alpha = 0;
-                             [self animateCells];
                          }];
     }
 }

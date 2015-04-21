@@ -34,7 +34,7 @@
         annotationView.image = [UIImage imageNamed:@"goldstar"];
         self.TOC = YES;
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 30, 30);
-    } else if ([self.title isEqualToString:@"DCI World Championship Finals"] || [self.title isEqualToString:@"DCI World Championship Semifinals"] || [self.title isEqualToString:@"DCI World Championship Prelims"]) {
+    } else if ([self.title isEqualToString:@"DCI World Championships Finals"] || [self.title isEqualToString:@"DCI World Championships Semifinals"] || [self.title isEqualToString:@"DCI World Championships Prelims"]) {
         self.title = @"DCI World Championships";
         annotationView.image = [UIImage imageNamed:@"champs"];
         self.champs = YES;
