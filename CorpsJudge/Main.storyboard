@@ -3731,79 +3731,10 @@
             </objects>
             <point key="canvasLocation" x="3074" y="89"/>
         </scene>
-        <!--Tour Map Menu View Controller-->
-        <scene sceneID="MY6-7W-8XN">
-            <objects>
-                <viewController storyboardIdentifier="CBTourMapMenuViewController" id="8PH-hP-Fnw" customClass="CBTourMapMenuViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="x3a-o9-xi3"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gf5-aZ-YqM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xtS-Df-hSe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="32" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ify-rg-ffo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rightMenuCell" rowHeight="32" id="zcX-En-NTZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zcX-En-NTZ" id="1wR-hS-Bd8">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ek-VJ-nPf">
-                                                    <rect key="frame" x="8" y="8" width="544" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="24k-tX-Wvy" customClass="PFImageView">
-                                                    <rect key="frame" x="560" y="-1" width="32" height="33"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="MNO-8s-4WZ"/>
-                                                        <constraint firstAttribute="width" constant="32" id="NrX-Pd-vi2"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="24k-tX-Wvy" secondAttribute="centerY" id="Izm-kt-GMg"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="24k-tX-Wvy" secondAttribute="trailing" id="VCb-jb-Uqd"/>
-                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="leading" secondItem="1wR-hS-Bd8" secondAttribute="leadingMargin" id="kIq-rx-Mqm"/>
-                                                <constraint firstItem="24k-tX-Wvy" firstAttribute="leading" secondItem="7Ek-VJ-nPf" secondAttribute="trailing" constant="8" id="q6K-CC-ipf"/>
-                                                <constraint firstItem="7Ek-VJ-nPf" firstAttribute="centerY" secondItem="24k-tX-Wvy" secondAttribute="centerY" constant="0.5" id="wN9-r9-9BK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="8PH-hP-Fnw" id="bze-4B-m8p"/>
-                                    <outlet property="delegate" destination="8PH-hP-Fnw" id="0cv-rn-BFt"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Gf5-aZ-YqM" firstAttribute="top" secondItem="Ify-rg-ffo" secondAttribute="bottom" id="5rX-yT-c86"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ify-rg-ffo" secondAttribute="trailing" constant="-16" id="F2A-JJ-lb9"/>
-                            <constraint firstItem="Ify-rg-ffo" firstAttribute="leading" secondItem="xtS-Df-hSe" secondAttribute="leadingMargin" constant="-16" id="Rxu-u3-MUP"/>
-                            <constraint firstItem="Ify-rg-ffo" firstAttribute="top" secondItem="x3a-o9-xi3" secondAttribute="bottom" constant="-20" id="STf-rj-e8V"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableMenu" destination="Ify-rg-ffo" id="osK-md-c3z"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fFN-9M-l3A" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4407" y="-835"/>
-        </scene>
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="map" id="yG7-Vq-JyB" customClass="CBTourMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I4b-ik-3dO"/>
@@ -3813,24 +3744,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzL-RY-itt">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzL-RY-itt">
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                                 <connections>
                                     <outlet property="delegate" destination="yG7-Vq-JyB" id="vFD-bV-Uyk"/>
                                 </connections>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EeH-K0-qkp">
+                                <rect key="frame" x="191" y="514" width="219" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="219" id="4a0-OO-MdF"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Hybrid"/>
+                                    <segment title="Satellite"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentMapType_changed:" destination="yG7-Vq-JyB" eventType="valueChanged" id="oHH-Uu-BNn"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EzL-RY-itt" firstAttribute="leading" secondItem="Ds9-QR-bkB" secondAttribute="leadingMargin" constant="-16" id="5tS-lG-Eqo"/>
+                            <constraint firstItem="EzL-RY-itt" firstAttribute="top" secondItem="I4b-ik-3dO" secondAttribute="bottom" id="H1K-H8-sg3"/>
+                            <constraint firstItem="48l-be-DlV" firstAttribute="top" secondItem="EeH-K0-qkp" secondAttribute="bottom" constant="14" id="W19-kE-EFn"/>
+                            <constraint firstItem="48l-be-DlV" firstAttribute="top" secondItem="EzL-RY-itt" secondAttribute="bottom" id="hbb-H8-bqY"/>
+                            <constraint firstAttribute="centerX" secondItem="EeH-K0-qkp" secondAttribute="centerX" constant="-0.5" id="iqV-gA-iAL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EzL-RY-itt" secondAttribute="trailing" constant="-16" id="l27-Gb-Ixf"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
                         <outlet property="mapView" destination="EzL-RY-itt" id="iCC-MS-xVT"/>
+                        <outlet property="segmentMapType" destination="EeH-K0-qkp" id="TWN-g6-fqA"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3758" y="-829"/>
+            <point key="canvasLocation" x="3792" y="-886"/>
         </scene>
         <!--Judge-->
         <scene sceneID="R7h-fW-N8h">
@@ -4674,7 +4628,7 @@
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
-        <image name="Close" width="63" height="63"/>
+        <image name="Close" width="100" height="72"/>
         <image name="Contact" width="450" height="255"/>
         <image name="DCI_CorpBoard1" width="600" height="600"/>
         <image name="Message" width="48" height="48"/>

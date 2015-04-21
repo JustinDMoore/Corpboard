@@ -223,9 +223,3 @@
 #define COCOAPODS_VERSION_MINOR_PulsingHalo 0
 #define COCOAPODS_VERSION_PATCH_PulsingHalo 1
 
-// iOS-Slide-Menu
-#define COCOAPODS_POD_AVAILABLE_iOS_Slide_Menu
-#define COCOAPODS_VERSION_MAJOR_iOS_Slide_Menu 1
-#define COCOAPODS_VERSION_MINOR_iOS_Slide_Menu 4
-#define COCOAPODS_VERSION_PATCH_iOS_Slide_Menu 5
-

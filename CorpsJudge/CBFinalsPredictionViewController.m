@@ -10,7 +10,6 @@
 #import "CBSingle.h"
 #import <ParseUI/ParseUI.h>
 #import "Configuration.h"
-#import "SlideNavigationController.h"
 #import "IQKeyBoardManager.h"
 
 @interface CBFinalsPredictionViewController () {

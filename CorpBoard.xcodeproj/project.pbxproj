@@ -93,6 +93,10 @@
 		D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D011894D1A6B0D8A00D77EA9 /* spark.png */; };
 		D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = D01189511A6B12BE00D77EA9 /* CBEffect.m */; };
 		D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D01189531A6B1E6400D77EA9 /* CadetSnow.sks */; };
+		D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D025CE3E1AE6B0D6000021A6 /* CBMapMenu.xib */; };
+		D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D025CE411AE6B10A000021A6 /* CBMapMenu.m */; };
+		D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D025CE431AE6BC98000021A6 /* CBMapCell.xib */; };
+		D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D025CE461AE6BD35000021A6 /* CBMapCell.m */; };
 		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -160,7 +164,6 @@
 		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
 		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
-		D0EB22571AB7D37E007BA1AD /* CBTourMapMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB22561AB7D37E007BA1AD /* CBTourMapMenuViewController.m */; };
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBEmailLogin.m */; };
@@ -319,6 +322,12 @@
 		D01189501A6B12BE00D77EA9 /* CBEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEffect.h; sourceTree = "<group>"; };
 		D01189511A6B12BE00D77EA9 /* CBEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEffect.m; sourceTree = "<group>"; };
 		D01189531A6B1E6400D77EA9 /* CadetSnow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CadetSnow.sks; sourceTree = "<group>"; };
+		D025CE3E1AE6B0D6000021A6 /* CBMapMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMapMenu.xib; sourceTree = "<group>"; };
+		D025CE401AE6B10A000021A6 /* CBMapMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMapMenu.h; sourceTree = "<group>"; };
+		D025CE411AE6B10A000021A6 /* CBMapMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMapMenu.m; sourceTree = "<group>"; };
+		D025CE431AE6BC98000021A6 /* CBMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMapCell.xib; sourceTree = "<group>"; };
+		D025CE451AE6BD35000021A6 /* CBMapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMapCell.h; sourceTree = "<group>"; };
+		D025CE461AE6BD35000021A6 /* CBMapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMapCell.m; sourceTree = "<group>"; };
 		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
 		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
@@ -421,8 +430,6 @@
 		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
 		D0E37A191959178B00AE4215 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
-		D0EB22551AB7D37E007BA1AD /* CBTourMapMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTourMapMenuViewController.h; sourceTree = "<group>"; };
-		D0EB22561AB7D37E007BA1AD /* CBTourMapMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapMenuViewController.m; sourceTree = "<group>"; };
 		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
 		D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewLoginViewController.m; sourceTree = "<group>"; };
 		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
@@ -729,7 +736,6 @@
 				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
 				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
 				D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */,
-				D0EB22561AB7D37E007BA1AD /* CBTourMapMenuViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -774,6 +780,10 @@
 				D05F44E51ABF8B00003F9A96 /* CBTerms.xib */,
 				D05F44E71ABF8BE5003F9A96 /* CBTerms.h */,
 				D05F44E81ABF8BE5003F9A96 /* CBTerms.m */,
+				D025CE3E1AE6B0D6000021A6 /* CBMapMenu.xib */,
+				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
+				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
+				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -806,7 +816,6 @@
 				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
 				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
 				D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */,
-				D0EB22551AB7D37E007BA1AD /* CBTourMapMenuViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -814,6 +823,8 @@
 		92D01F371A30F14800929F35 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				D025CE451AE6BD35000021A6 /* CBMapCell.h */,
+				D025CE401AE6B10A000021A6 /* CBMapMenu.h */,
 				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
 				9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */,
 				D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */,
@@ -1119,6 +1130,7 @@
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
+				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
@@ -1128,6 +1140,7 @@
 				D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
+				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
 				D05F44E61ABF8B00003F9A96 /* CBTerms.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1208,6 +1221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
@@ -1234,6 +1248,7 @@
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
+				D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
@@ -1246,7 +1261,6 @@
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,
 				D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */,
-				D0EB22571AB7D37E007BA1AD /* CBTourMapMenuViewController.m in Sources */,
 				D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */,
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,

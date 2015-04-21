@@ -15,8 +15,6 @@
 #import "CBSingle.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "DTCoreText.h"
-#import "SlideNavigationController.h"
-#import "CBTourMapMenuViewController.h"
 
 @implementation CBAppDelegate
 
@@ -79,41 +77,6 @@ CBSingle *data;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
-    //iOS-Slide-Menu
-    NSString * storyboardName = @"Main";
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    CBTourMapMenuViewController *rightMenu = (CBTourMapMenuViewController *)[storyboard
-                                                                    instantiateViewControllerWithIdentifier: @"CBTourMapMenuViewController"];
-    [SlideNavigationController sharedInstance].rightMenu = rightMenu;
-    
-    
-    CGFloat animationDuration = 0;
-    id <SlideNavigationContorllerAnimator> revealAnimator;
-    
-//    // SLIDE
-//    revealAnimator = [[SlideNavigationContorllerAnimatorSlide alloc] init];
-//    animationDuration = .19;
-//    
-//    // FADE
-//    revealAnimator = [[SlideNavigationContorllerAnimatorFade alloc] init];
-//    animationDuration = .18;
-//    
-    // SLIDE AND FADE
-    revealAnimator = [[SlideNavigationContorllerAnimatorSlideAndFade alloc] initWithMaximumFadeAlpha:.8 fadeColor:[UIColor blackColor] andSlideMovement:100];
-    animationDuration = .19;
-//
-//    // SCALE
-//    revealAnimator = [[SlideNavigationContorllerAnimatorScale alloc] init];
-//    animationDuration = .22;
-//    
-//    // SCALE AND FADE
-//    revealAnimator = [[SlideNavigationContorllerAnimatorScaleAndFade alloc] initWithMaximumFadeAlpha:.6 fadeColor:[UIColor blackColor] andMinimumScale:.8];
-//    animationDuration = .22;
-    
-    
-    [SlideNavigationController sharedInstance].menuRevealAnimationDuration = animationDuration;
-    [SlideNavigationController sharedInstance].menuRevealAnimator = revealAnimator;
-    [SlideNavigationController sharedInstance].enableSwipeGesture = NO;
 //    BOOL isLoggedIn = false;
 //    
 //    

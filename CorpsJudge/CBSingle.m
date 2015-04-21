@@ -10,8 +10,6 @@
 #import "JustinHelper.h"
 #import "AppConstant.h"
 #import "NSMutableArray+Shuffling.h"
-#import "SlideNavigationController.h"
-#import "CBTourMapMenuViewController.h"
 
 @implementation CBSingle
 
@@ -165,8 +163,6 @@
         self.dataLoaded = YES;
         if ([delegate respondsToSelector:@selector(dataDidLoad)]) {
 
-            CBTourMapMenuViewController *menu = (CBTourMapMenuViewController *)[SlideNavigationController sharedInstance].rightMenu;
-            [menu refreshMenu];
             [delegate dataDidLoad];
         }
         
