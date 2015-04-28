@@ -606,26 +606,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="90.125" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lal-S1-YnN">
+                                                    <rect key="frame" x="539" y="0.0" width="47" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxJ-Sw-zoB">
+                                                    <rect key="frame" x="519" y="29" width="67" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1.05" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5r-Mj-sdz">
+                                                    <rect key="frame" x="554" y="17" width="32" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.24230600259999999" green="0.81568627449999997" blue="0.23500997039999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Clara Vanguard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kY5-wp-cHD">
-                                                    <rect key="frame" x="76" y="14" width="164" height="20"/>
+                                                    <rect key="frame" x="76" y="12" width="164" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="efs-nV-Stf"/>
                                                         <constraint firstAttribute="width" constant="164" id="mXv-bt-onb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="90.125" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lal-S1-YnN">
-                                                    <rect key="frame" x="539" y="6" width="47" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxJ-Sw-zoB">
-                                                    <rect key="frame" x="519" y="20" width="67" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="49" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8CH-fB-7ga">
@@ -635,7 +641,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" tag="8" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xcT-fC-R13" customClass="PFImageView">
-                                                    <rect key="frame" x="33" y="6" width="35" height="35"/>
+                                                    <rect key="frame" x="33" y="4" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="8ok-gJ-LiS"/>
                                                         <constraint firstAttribute="width" constant="35" id="bsx-UQ-viS"/>
@@ -644,27 +650,20 @@
                                                         <rect key="frame" x="39" y="5" width="35" height="35"/>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1.05" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5r-Mj-sdz">
-                                                    <rect key="frame" x="496" y="7" width="35" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.24230600259999999" green="0.81568627449999997" blue="0.23500997039999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lal-S1-YnN" firstAttribute="leading" secondItem="P5r-Mj-sdz" secondAttribute="trailing" constant="8" id="7OC-sD-cGG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="lal-S1-YnN" secondAttribute="trailing" constant="6" id="7l3-Gu-fIJ"/>
+                                                <constraint firstItem="lal-S1-YnN" firstAttribute="top" secondItem="gw5-ZQ-TUA" secondAttribute="topMargin" constant="-8" id="8dN-f4-PI9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="oxJ-Sw-zoB" secondAttribute="trailing" constant="6" id="AjN-Nb-rYi"/>
                                                 <constraint firstItem="xcT-fC-R13" firstAttribute="leading" secondItem="8CH-fB-7ga" secondAttribute="trailing" constant="8" id="C1U-ls-c9B"/>
                                                 <constraint firstItem="kY5-wp-cHD" firstAttribute="centerY" secondItem="xcT-fC-R13" secondAttribute="centerY" constant="0.5" id="F3P-Z7-UCA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="oxJ-Sw-zoB" secondAttribute="bottom" constant="-8" id="Mgg-1U-RCe"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="oxJ-Sw-zoB" secondAttribute="trailing" constant="6" id="Upp-JK-x1u"/>
+                                                <constraint firstItem="kY5-wp-cHD" firstAttribute="centerY" secondItem="P5r-Mj-sdz" secondAttribute="centerY" constant="-2.5" id="Td5-Mj-FKF"/>
                                                 <constraint firstItem="8CH-fB-7ga" firstAttribute="leading" secondItem="gw5-ZQ-TUA" secondAttribute="leadingMargin" id="WzM-ou-Vi9"/>
-                                                <constraint firstItem="lal-S1-YnN" firstAttribute="top" secondItem="gw5-ZQ-TUA" secondAttribute="topMargin" constant="-2" id="h5A-vu-jdU"/>
-                                                <constraint firstAttribute="centerY" secondItem="xcT-fC-R13" secondAttribute="centerY" constant="-2" id="i0O-iD-dqH"/>
-                                                <constraint firstItem="oxJ-Sw-zoB" firstAttribute="top" secondItem="lal-S1-YnN" secondAttribute="bottom" constant="-4" id="jkH-1t-6qI"/>
+                                                <constraint firstItem="oxJ-Sw-zoB" firstAttribute="top" secondItem="P5r-Mj-sdz" secondAttribute="bottom" constant="-3" id="aIw-P2-ehX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="P5r-Mj-sdz" secondAttribute="trailing" constant="6" id="gG8-RU-lTM"/>
+                                                <constraint firstAttribute="centerY" secondItem="xcT-fC-R13" secondAttribute="centerY" id="i0O-iD-dqH"/>
                                                 <constraint firstItem="kY5-wp-cHD" firstAttribute="leading" secondItem="xcT-fC-R13" secondAttribute="trailing" constant="8" id="kAg-SW-Wfl"/>
                                                 <constraint firstAttribute="centerY" secondItem="8CH-fB-7ga" secondAttribute="centerY" constant="-0.5" id="nfR-tC-WYy"/>
-                                                <constraint firstItem="P5r-Mj-sdz" firstAttribute="centerY" secondItem="lal-S1-YnN" secondAttribute="centerY" id="vat-Be-Vfi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lal-S1-YnN" secondAttribute="trailing" constant="6" id="tMh-cq-bRS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -2165,7 +2164,7 @@
                                                     <action selector="finalsContest_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="zN3-QR-OJd"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="retreat.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="finals6.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
                                                 <rect key="frame" x="0.0" y="454" width="320" height="150"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="viewRankings" customClass="ClipView">
@@ -2180,7 +2179,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKi-fi-4Hc">
                                                         <rect key="frame" x="180" y="0.0" width="133" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                        <state key="normal" title="See All Rankngs">
+                                                        <state key="normal" title="See All Rankings">
                                                             <color key="titleColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -3291,10 +3290,10 @@
             </objects>
             <point key="canvasLocation" x="999" y="838"/>
         </scene>
-        <!--Finals Prediction Contest-->
+        <!--Finals Prediction-->
         <scene sceneID="Zr4-kg-FJq">
             <objects>
-                <viewController id="gt5-Bv-vKN" customClass="CBFinalsPredictionContestInfoViewController" sceneMemberID="viewController">
+                <viewController id="gt5-Bv-vKN" userLabel="Finals Prediction" customClass="CBFinalsPredictionContestInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pYN-Tc-uPh"/>
                         <viewControllerLayoutGuide type="bottom" id="hXS-O7-ZsV"/>
@@ -3303,7 +3302,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="World Championships Prediction Contest" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-18-DCf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="World Championships Finals Prediction" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-18-DCf">
                                 <rect key="frame" x="180" y="135" width="240" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="HZ5-MN-qV8"/>
@@ -3320,17 +3319,8 @@
                                     <constraint firstAttribute="width" constant="162" id="mVF-h8-7wI"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-fi-yFi">
-                                <rect key="frame" x="225" y="191" width="150" height="30"/>
-                                <state key="normal" title="Terms and Conditions">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnTerms_tapped:" destination="gt5-Bv-vKN" eventType="touchUpInside" id="Bie-En-azR"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0n-F6-82s">
-                                <rect key="frame" x="256" y="229" width="89" height="30"/>
+                                <rect key="frame" x="256" y="195" width="89" height="30"/>
                                 <state key="normal" title="Submit Entry">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -3409,23 +3399,21 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KsN-fi-yFi" firstAttribute="centerX" secondItem="CAK-IZ-gET" secondAttribute="centerX" id="7h9-IJ-lch"/>
-                            <constraint firstItem="KsN-fi-yFi" firstAttribute="centerX" secondItem="syD-18-DCf" secondAttribute="centerX" id="8QJ-5d-Ico"/>
-                            <constraint firstItem="x8m-7i-Zj1" firstAttribute="top" secondItem="I0n-F6-82s" secondAttribute="bottom" constant="8" id="Fdt-Ib-TQw"/>
+                            <constraint firstItem="I0n-F6-82s" firstAttribute="top" secondItem="syD-18-DCf" secondAttribute="bottom" constant="2" id="87d-Yr-h1i"/>
                             <constraint firstItem="6rK-q3-Qe6" firstAttribute="centerX" secondItem="syD-18-DCf" secondAttribute="centerX" id="S1I-qc-ZaT"/>
-                            <constraint firstItem="I0n-F6-82s" firstAttribute="centerX" secondItem="KsN-fi-yFi" secondAttribute="centerX" constant="0.5" id="Vpg-rs-2G7"/>
-                            <constraint firstItem="I0n-F6-82s" firstAttribute="top" secondItem="KsN-fi-yFi" secondAttribute="bottom" constant="8" id="XDe-xn-XsF"/>
+                            <constraint firstItem="CAK-IZ-gET" firstAttribute="centerX" secondItem="I0n-F6-82s" secondAttribute="centerX" constant="-0.5" id="UNx-18-S6R"/>
                             <constraint firstAttribute="centerX" secondItem="6rK-q3-Qe6" secondAttribute="centerX" id="YBd-GJ-yBn"/>
                             <constraint firstItem="hXS-O7-ZsV" firstAttribute="top" secondItem="x8m-7i-Zj1" secondAttribute="bottom" id="cJb-Es-ik0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x8m-7i-Zj1" secondAttribute="trailing" constant="-16" id="co9-9v-g99"/>
+                            <constraint firstItem="syD-18-DCf" firstAttribute="centerX" secondItem="I0n-F6-82s" secondAttribute="centerX" constant="-0.5" id="jbs-FA-9hf"/>
+                            <constraint firstItem="CAK-IZ-gET" firstAttribute="top" secondItem="I0n-F6-82s" secondAttribute="bottom" constant="4" id="lI1-6q-XlN"/>
                             <constraint firstItem="syD-18-DCf" firstAttribute="top" secondItem="6rK-q3-Qe6" secondAttribute="bottom" constant="-5" id="lIZ-yz-1qh"/>
                             <constraint firstItem="x8m-7i-Zj1" firstAttribute="leading" secondItem="L7v-HZ-3lH" secondAttribute="leadingMargin" constant="-16" id="lx5-qn-Unm"/>
                             <constraint firstItem="6rK-q3-Qe6" firstAttribute="top" secondItem="pYN-Tc-uPh" secondAttribute="bottom" constant="8" id="uCa-PY-qn9"/>
-                            <constraint firstItem="CAK-IZ-gET" firstAttribute="top" secondItem="KsN-fi-yFi" secondAttribute="bottom" constant="8" id="w2f-gj-AUA"/>
-                            <constraint firstItem="KsN-fi-yFi" firstAttribute="top" secondItem="syD-18-DCf" secondAttribute="bottom" constant="-2" id="za0-Qr-n28"/>
+                            <constraint firstItem="x8m-7i-Zj1" firstAttribute="top" secondItem="CAK-IZ-gET" secondAttribute="bottom" constant="16" id="vZX-Ns-2hS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Finals Prediction Contest" id="dB0-xG-dyB"/>
+                    <navigationItem key="navigationItem" title="Finals Prediction" id="dB0-xG-dyB" userLabel="Finals Prediction"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
@@ -3734,7 +3722,6 @@
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="map" id="yG7-Vq-JyB" customClass="CBTourMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I4b-ik-3dO"/>
@@ -3783,6 +3770,7 @@
                         <outlet property="segmentMapType" destination="EeH-K0-qkp" id="TWN-g6-fqA"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3792" y="-886"/>
         </scene>
@@ -4656,6 +4644,7 @@
         <image name="edit2" width="48" height="48"/>
         <image name="facebook_lightGrayColor" width="48" height="48"/>
         <image name="favorite_tab" width="48" height="48"/>
+        <image name="finals6.png" width="640" height="298"/>
         <image name="flag_tab" width="48" height="48"/>
         <image name="horn_tab" width="48" height="48"/>
         <image name="info" width="256" height="256"/>
@@ -4664,7 +4653,6 @@
         <image name="medal_gold" width="48" height="48"/>
         <image name="picture" width="48" height="48"/>
         <image name="recap" width="48" height="48"/>
-        <image name="retreat.png" width="640" height="298"/>
         <image name="review" width="48" height="48"/>
         <image name="score_tab" width="48" height="48"/>
         <image name="screenshot" width="183" height="275"/>

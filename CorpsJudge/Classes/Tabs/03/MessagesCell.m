@@ -43,8 +43,14 @@
 	imageUser.layer.masksToBounds = YES;
 
 	PFUser *lastUser = message[PF_MESSAGES_LASTUSER];
-	[imageUser setFile:lastUser[PF_USER_PICTURE]];
-	[imageUser loadInBackground];
+    
+    PFFile *imgFile = lastUser[@"picture"];
+    if (imgFile) {
+        [imageUser setFile:imgFile];
+        [imageUser loadInBackground];
+    } else {
+        [imageUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
+    }
 
 	labelDescription.text = message[PF_MESSAGES_DESCRIPTION];
 	labelLastMessage.text = message[PF_MESSAGES_LASTMESSAGE];

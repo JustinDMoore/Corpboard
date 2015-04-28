@@ -234,8 +234,12 @@
     [lastUser fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             PFFile *imgFile = lastUser[@"picture"];
-            [cell.imgLastUser setFile:imgFile];
-            [cell.imgLastUser loadInBackground];
+            if (imgFile) {
+                [cell.imgLastUser setFile:imgFile];
+                [cell.imgLastUser loadInBackground];
+            } else {
+                [cell.imgLastUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
+            }
             cell.lblLastUser.text = lastUser[@"nickname"];
             cell.lblStartedByUserAndWhen.text = [NSString stringWithFormat:@"by %@", userWhoStartedChat[@"nickname"]];
         } else {

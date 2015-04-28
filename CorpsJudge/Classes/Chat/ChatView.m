@@ -81,7 +81,7 @@
     incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:del.appTintColor];
     
-    placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"blank_avatar"] diameter:30.0];
+    placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"defaultProfilePicture"] diameter:30.0];
     
     isLoading = NO;
     [self loadMessages];
@@ -306,8 +306,9 @@
     
     PFUser *user = users[indexPath.item];
     if (avatars[user.objectId] == nil) {
-        
+        NSLog(@"yes");
         PFFile *fileThumbnail = user[PF_USER_THUMBNAIL];
+        
         [fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
             
             if (error == nil) {
@@ -318,7 +319,10 @@
         }];
         return placeholderImageData;
     }
-    else return avatars[user.objectId];
+    else {
+        NSLog(@"no");
+        return avatars[user.objectId];
+    }
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {

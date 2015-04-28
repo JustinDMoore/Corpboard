@@ -82,9 +82,9 @@
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
-		D0067A621968FFC500C372D0 /* retreat.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A611968FFC500C372D0 /* retreat.png */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
+		D00E41541AE9DB0D00199974 /* finals6.png in Resources */ = {isa = PBXBuildFile; fileRef = D00E41531AE9DB0D00199974 /* finals6.png */; };
 		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
 		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
 		D01012491A800F810040BFFD /* CBNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012481A800F810040BFFD /* CBNewsCell.m */; };
@@ -144,7 +144,6 @@
 		D0A8146119521D5B00F4EC53 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146019521D5B00F4EC53 /* MobileCoreServices.framework */; };
 		D0A8146319521D6900F4EC53 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146219521D6900F4EC53 /* QuartzCore.framework */; };
 		D0A8146519521D7000F4EC53 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146419521D7000F4EC53 /* Security.framework */; };
-		D0A8146719521D7800F4EC53 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146619521D7800F4EC53 /* StoreKit.framework */; };
 		D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */; };
 		D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A8146B19523A8200F4EC53 /* Configuration.m */; };
 		D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */; };
@@ -306,10 +305,10 @@
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
-		D0067A611968FFC500C372D0 /* retreat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retreat.png; sourceTree = "<group>"; };
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		D00E41531AE9DB0D00199974 /* finals6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finals6.png; sourceTree = "<group>"; };
 		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
 		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
 		D01012451A7F40170040BFFD /* CBNewChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewChatView.m; sourceTree = "<group>"; };
@@ -398,7 +397,6 @@
 		D0A8146019521D5B00F4EC53 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D0A8146219521D6900F4EC53 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D0A8146419521D7000F4EC53 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		D0A8146619521D7800F4EC53 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D0A8146A19523A8200F4EC53 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		D0A8146B19523A8200F4EC53 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
@@ -453,7 +451,6 @@
 				D04702DB195790B40004A0EF /* Social.framework in Frameworks */,
 				D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */,
 				D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */,
-				D0A8146719521D7800F4EC53 /* StoreKit.framework in Frameworks */,
 				D0DEFC161AE2DDCD0029AB58 /* ParseCrashReporting.framework in Frameworks */,
 				D0A8146519521D7000F4EC53 /* Security.framework in Frameworks */,
 				D0A8146319521D6900F4EC53 /* QuartzCore.framework in Frameworks */,
@@ -629,7 +626,6 @@
 				D04702DA195790B40004A0EF /* Social.framework */,
 				D04702D8195790AC0004A0EF /* Accounts.framework */,
 				D0A8146819521D8000F4EC53 /* SystemConfiguration.framework */,
-				D0A8146619521D7800F4EC53 /* StoreKit.framework */,
 				D0A8146419521D7000F4EC53 /* Security.framework */,
 				D0A8146219521D6900F4EC53 /* QuartzCore.framework */,
 				D0A8146019521D5B00F4EC53 /* MobileCoreServices.framework */,
@@ -859,8 +855,8 @@
 			children = (
 				D047A34A196A096700F5F5BC /* star_selected.png */,
 				D047A348196A095F00F5F5BC /* star_unselected.png */,
+				D00E41531AE9DB0D00199974 /* finals6.png */,
 				D0C7755D196A0590006525AE /* CavsUpsideDown.png */,
-				D0067A611968FFC500C372D0 /* retreat.png */,
 				D0067A6919691E5100C372D0 /* About.png */,
 			);
 			name = "Corps Head Shots";
@@ -1065,6 +1061,11 @@
 				TargetAttributes = {
 					9253347A194FD5D70004D16F = {
 						DevelopmentTeam = 9S3528P93B;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					9253349A194FD5D70004D16F = {
 						TestTargetID = 9253347A194FD5D70004D16F;
@@ -1149,11 +1150,11 @@
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
-				D0067A621968FFC500C372D0 /* retreat.png in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
 				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
+				D00E41541AE9DB0D00199974 /* finals6.png in Resources */,
 				923D4FC91A2C6DCF00E16B64 /* MessagesCell.xib in Resources */,
 				D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */,
 				923D4FDC1A2C6DCF00E16B64 /* tab_private@2x.png in Resources */,
@@ -1359,8 +1360,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1378,6 +1379,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1399,8 +1401,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1411,6 +1413,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1425,7 +1428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1453,7 +1456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1512,6 +1515,86 @@
 			};
 			name = Release;
 		};
+		D00E41551AEC2AF000199974 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
+		D00E41561AEC2AF000199974 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A4219440C800AE5E982027 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
+				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = CorpBoard;
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Distribution;
+		};
+		D00E41571AEC2AF000199974 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CorpsJudge.app/CorpsJudge";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CorpsJudge/CorpsJudge-Prefix.pch";
+				INFOPLIST_FILE = "CorpsJudgeTests/CorpBoardTests-Info.plist";
+				PRODUCT_NAME = CorpBoardTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Distribution;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1520,6 +1603,7 @@
 			buildConfigurations = (
 				925334AB194FD5D70004D16F /* Debug */,
 				925334AC194FD5D70004D16F /* Release */,
+				D00E41551AEC2AF000199974 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1529,6 +1613,7 @@
 			buildConfigurations = (
 				925334AE194FD5D70004D16F /* Debug */,
 				925334AF194FD5D70004D16F /* Release */,
+				D00E41561AEC2AF000199974 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1538,6 +1623,7 @@
 			buildConfigurations = (
 				925334B1194FD5D70004D16F /* Debug */,
 				925334B2194FD5D70004D16F /* Release */,
+				D00E41571AEC2AF000199974 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
