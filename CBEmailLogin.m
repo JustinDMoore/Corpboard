@@ -16,7 +16,7 @@
 
 
 @implementation CBEmailLogin {
-    
+    UIView *parent;
     IBOutlet UITextField *txtName;
     IBOutlet UITextField *txtEmail;
     IBOutlet UITextField *txtPassword;
@@ -34,17 +34,51 @@
         // CUSTOM INITIALIZATION HERE
         //[self initUI];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(keyboardWillShow:)
+//                                                     name:UIKeyboardWillShowNotification
+//                                                   object:nil];
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(keyboardWillHide:)
+//                                                     name:UIKeyboardWillHideNotification
+//                                                   object:nil];
+
+        self.backgroundColor = [UIColor clearColor];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        
+        UIVisualEffectView *visualEffectView;
+        visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        
+        visualEffectView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        [self addSubview:visualEffectView];
+        [self sendSubviewToBack:visualEffectView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        [self addGestureRecognizer:tap];
+    
     }
     return self;
+}
+
+-(void)close {
+    
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         parent.transform = CGAffineTransformIdentity;
+                     }];
+    
+    [txtEmail resignFirstResponder];
+    [txtName resignFirstResponder];
+    [txtPassword resignFirstResponder];
+    [UIView animateWithDuration:.5
+                     animations:^{
+                         self.alpha = 0;
+                     } completion:^(BOOL finished) {
+                         [self removeFromSuperview];
+                     }];
 }
 
 -(void)initUI {
@@ -144,6 +178,7 @@ BOOL cancelled;
 }
 
 -(void)signIntoAccountWithEmail:(NSString *)email andPassword:(NSString *)pw {
+    
     [delegate loggingIn];
 //    [PFUser logInWithUsernameInBackground:email password:pw
 //                                    block:^(PFUser *user, NSError *error) {
@@ -262,33 +297,57 @@ BOOL cancelled;
 #pragma mark - Keyboard Notifications
 #pragma mark
 
--(void)keyboardWillShow:(NSNotification*)aNotification {
-
-    self.viewToScroll.frame = CGRectMake(0, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+-(void)showInParent:(UIView *)par {
+    parent = par;
+    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.alpha = 0;
     
-    NSDictionary *userInfo = [aNotification userInfo];
-    
-    CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
-    
-    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
-        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / (newUser ? 1.3 : 1.7)), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
-    } completion:nil];
-    
+    [UIView animateWithDuration:.5
+                     animations:^{
+                         self.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:.3
+                                          animations:^{
+                                              parent.transform = CGAffineTransformScale(parent.transform, 1.30, 1.30);
+                                          }];
+                     }];
 }
 
--(void)keyboardWillHide:(NSNotification*)aNotification {
-
-    
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
-    
-    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
-        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
-    } completion:nil];
-}
+//BOOL keyboardVis;
+//
+//-(void)keyboardWillShow:(NSNotification*)aNotification {
+//
+//    if (!keyboardVis) {
+//     
+//        keyboardVis = YES;
+//        //self.viewToScroll = self;
+//        self.viewToScroll.frame = CGRectMake(0, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+//        
+//        NSDictionary *userInfo = [aNotification userInfo];
+//        
+//        CGRect rect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//        NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//        NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+//        
+//        [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+//            self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - rect.size.height, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+//            //self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / (newUser ? 1.3 : 1.7)), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+//        } completion:nil];
+//    }
+//}
+//
+//-(void)keyboardWillHide:(NSNotification*)aNotification {
+//
+//    keyboardVis = NO;
+//    
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
+//    
+//    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
+//        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
+//    } completion:nil];
+//}
 
 - (IBAction)btnForgotPassword_clicked:(id)sender {
     

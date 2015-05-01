@@ -23,9 +23,9 @@
 }
 
 @property (nonatomic, strong) IBOutlet UILabel *lblTitle;
-@property (nonatomic, strong) UIView *viewToScroll;
 
 -(void)setIsNewUser:(BOOL)isNewUser;
 -(void)setDelegate:(id)newDelegate;
+-(void)showInParent:(UIView *)par;
 
 @end

@@ -12,7 +12,7 @@
 #import "ParseErrors.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
-
+#import "IQKeyboardManager.h"
 
 @interface CBNewLoginViewController () {
     //NSTimer *timerCountdown;
@@ -50,6 +50,8 @@
     //Configuration *config = [[Configuration alloc] init];
     //[config getAllCorps]; //automatically calls createAllShows
     // ****************************************************
+    
+    //[[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
     if ([PFUser currentUser]) {
         [self addView:self.viewProgress andScroll:NO];
@@ -227,16 +229,18 @@ bool removeProgressView = NO;
 }
 
 -(void)emailSelected {
-    
+    self.navigationController.view.backgroundColor = [UIColor blackColor];
     if (self.isNewUser) {
-       [self addView:self.viewNewUser andScroll:YES];
+        self.viewNewUser.alpha = 0;
+        [self.navigationController.view addSubview:self.viewNewUser];
+        [self.viewNewUser showInParent:self.view];
         self.viewNewUser.isNewUser = self.isNewUser;
     } else {
-        [self addView:self.viewEmailLogin andScroll:YES];
+        self.viewEmailLogin.alpha = 0;
+        [self.navigationController.view addSubview:self.viewEmailLogin];
+        [self.viewEmailLogin showInParent:self.view];
         self.viewEmailLogin.isNewUser = self.isNewUser;
     }
-    
-    
 }
 
 -(void)emailCancelled {
@@ -384,7 +388,6 @@ bool removeProgressView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewSignIn setDelegate:self];
-        
     }
     return _viewSignIn;
 }
@@ -397,7 +400,6 @@ bool removeProgressView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewEmailLogin setDelegate:self];
-        _viewEmailLogin.viewToScroll = self.view;
     }
     return _viewEmailLogin;
 }
@@ -421,7 +423,6 @@ bool removeProgressView = NO;
                                      options:nil]
          objectAtIndex:0];
         [_viewNewUser setDelegate:self];
-        _viewNewUser.viewToScroll = self.view;
     }
     return _viewNewUser;
 }
