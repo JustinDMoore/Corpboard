@@ -34,15 +34,15 @@
         // CUSTOM INITIALIZATION HERE
         //[self initUI];
         
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(keyboardWillShow:)
-//                                                     name:UIKeyboardWillShowNotification
-//                                                   object:nil];
-//        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(keyboardWillHide:)
-//                                                     name:UIKeyboardWillHideNotification
-//                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
 
         self.backgroundColor = [UIColor clearColor];
         
@@ -56,29 +56,34 @@
         [self addSubview:visualEffectView];
         [self sendSubviewToBack:visualEffectView];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close:)];
         [self addGestureRecognizer:tap];
     
     }
     return self;
 }
 
--(void)close {
+-(void)close:(BOOL)overRideKeyboard {
     
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         parent.transform = CGAffineTransformIdentity;
-                     }];
-    
+    BOOL check = keyboardVis;
     [txtEmail resignFirstResponder];
     [txtName resignFirstResponder];
     [txtPassword resignFirstResponder];
-    [UIView animateWithDuration:.5
-                     animations:^{
-                         self.alpha = 0;
-                     } completion:^(BOOL finished) {
-                         [self removeFromSuperview];
-                     }];
+    
+    if (!check || overRideKeyboard) {
+        [UIView animateWithDuration:.3
+                         animations:^{
+                             parent.transform = CGAffineTransformIdentity;
+                         }];
+        
+        
+        [UIView animateWithDuration:.5
+                         animations:^{
+                             self.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             [self removeFromSuperview];
+                         }];
+    }
 }
 
 -(void)initUI {
@@ -155,6 +160,7 @@ BOOL cancelled;
     NSString *password	= txtPassword.text;
     NSString *email		= [txtEmail.text lowercaseString];
     
+    [self close:YES];
 
         
         PFUser *user = [PFUser user];
@@ -196,6 +202,8 @@ BOOL cancelled;
 
     NSString *username = txtEmail.text;
     NSString *password = txtPassword.text;
+    
+    [self close:YES];
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
      {
@@ -306,21 +314,27 @@ BOOL cancelled;
                      animations:^{
                          self.alpha = 1;
                      } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:.3
-                                          animations:^{
-                                              parent.transform = CGAffineTransformScale(parent.transform, 1.30, 1.30);
-                                          }];
+
                      }];
+    
+//    [UIView animateWithDuration:.3
+//                          delay:.2
+//                        options:0
+//                     animations:^{
+//                         parent.transform = CGAffineTransformScale(parent.transform, 1.30, 1.30);
+//                     } completion:^(BOOL finished) {
+//                         
+//                     }];
 }
 
-//BOOL keyboardVis;
-//
-//-(void)keyboardWillShow:(NSNotification*)aNotification {
-//
-//    if (!keyboardVis) {
-//     
-//        keyboardVis = YES;
-//        //self.viewToScroll = self;
+BOOL keyboardVis;
+
+-(void)keyboardWillShow:(NSNotification*)aNotification {
+
+    if (!keyboardVis) {
+     
+        keyboardVis = YES;
+        //self.viewToScroll = self;
 //        self.viewToScroll.frame = CGRectMake(0, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
 //        
 //        NSDictionary *userInfo = [aNotification userInfo];
@@ -333,13 +347,13 @@ BOOL cancelled;
 //            self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - rect.size.height, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
 //            //self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, self.viewToScroll.frame.origin.y - (rect.size.height / (newUser ? 1.3 : 1.7)), self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
 //        } completion:nil];
-//    }
-//}
-//
-//-(void)keyboardWillHide:(NSNotification*)aNotification {
-//
-//    keyboardVis = NO;
-//    
+    }
+}
+
+-(void)keyboardWillHide:(NSNotification*)aNotification {
+
+    keyboardVis = NO;
+    
 //    NSDictionary *userInfo = [aNotification userInfo];
 //    NSTimeInterval animationDuration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 //    NSInteger curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue] << 16;
@@ -347,7 +361,7 @@ BOOL cancelled;
 //    [UIView animateWithDuration:animationDuration delay:0.0 options:curve animations:^{
 //        self.viewToScroll.frame = CGRectMake(self.viewToScroll.frame.origin.x, 0, self.viewToScroll.frame.size.width, self.viewToScroll.frame.size.height);
 //    } completion:nil];
-//}
+}
 
 - (IBAction)btnForgotPassword_clicked:(id)sender {
     

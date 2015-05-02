@@ -84,6 +84,12 @@
 		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
+		D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */; };
+		D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */; };
+		D00B71711AF44DAF00403A12 /* CBFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71701AF44DAF00403A12 /* CBFeedback.xib */; };
+		D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */; };
+		D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */; };
+		D00B71791AF4531900403A12 /* CBFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71781AF4531900403A12 /* CBFeedback.m */; };
 		D00E41541AE9DB0D00199974 /* finals6.png in Resources */ = {isa = PBXBuildFile; fileRef = D00E41531AE9DB0D00199974 /* finals6.png */; };
 		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
 		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
@@ -308,6 +314,16 @@
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		D00B716A1AF4488400403A12 /* CBNewFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewFeedbackViewController.h; sourceTree = "<group>"; };
+		D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewFeedbackViewController.m; sourceTree = "<group>"; };
+		D00B716D1AF44C6B00403A12 /* CBSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSegueNoAnimation.h; sourceTree = "<group>"; };
+		D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSegueNoAnimation.m; sourceTree = "<group>"; };
+		D00B71701AF44DAF00403A12 /* CBFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedback.xib; sourceTree = "<group>"; };
+		D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedbackCell.xib; sourceTree = "<group>"; };
+		D00B71741AF44E6A00403A12 /* CBFeedbackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackCell.h; sourceTree = "<group>"; };
+		D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackCell.m; sourceTree = "<group>"; };
+		D00B71771AF4531900403A12 /* CBFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedback.h; sourceTree = "<group>"; };
+		D00B71781AF4531900403A12 /* CBFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedback.m; sourceTree = "<group>"; };
 		D00E41531AE9DB0D00199974 /* finals6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finals6.png; sourceTree = "<group>"; };
 		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
 		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
@@ -732,6 +748,7 @@
 				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
 				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
 				D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */,
+				D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -780,6 +797,10 @@
 				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
+				D00B71701AF44DAF00403A12 /* CBFeedback.xib */,
+				D00B71781AF4531900403A12 /* CBFeedback.m */,
+				D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */,
+				D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -812,6 +833,7 @@
 				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
 				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
 				D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */,
+				D00B716A1AF4488400403A12 /* CBNewFeedbackViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -836,6 +858,8 @@
 				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
 				D01012441A7F40170040BFFD /* CBNewChatView.h */,
 				D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */,
+				D00B71771AF4531900403A12 /* CBFeedback.h */,
+				D00B71741AF44E6A00403A12 /* CBFeedbackCell.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -887,6 +911,8 @@
 				D094AFAA1A1584A9003557AF /* CBNewsView.h */,
 				D094AFAB1A1584A9003557AF /* CBNewsView.m */,
 				D0606BBE1A3D8619002A1F48 /* SubClasses */,
+				D00B716D1AF44C6B00403A12 /* CBSegueNoAnimation.h */,
+				D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */,
 			);
 			name = Classes;
 			path = ..;
@@ -1110,6 +1136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
+				D00B71711AF44DAF00403A12 /* CBFeedback.xib in Resources */,
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */,
@@ -1151,6 +1178,7 @@
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
+				D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
 				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
@@ -1231,6 +1259,7 @@
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
+				D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
 				D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */,
@@ -1286,6 +1315,7 @@
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
+				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
@@ -1294,12 +1324,14 @@
 				D05F44E91ABF8BE5003F9A96 /* CBTerms.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
+				D00B71791AF4531900403A12 /* CBFeedback.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
+				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
 				9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,

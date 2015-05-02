@@ -16,21 +16,14 @@ int noOfStars = 0;
 @interface CBFeedbackViewController ()
 
 @property (nonatomic, strong) IBOutlet CBTextViewPlaceHolder *txtFeedback;
-@property (nonatomic, strong) IBOutlet UIView *viewFeedback;
 -(IBAction)btnCancelFeedback_clicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
+@property (weak, nonatomic) IBOutlet UIButton *btnSubmit;
+@property (weak, nonatomic) IBOutlet UILabel *lblFeedback;
 
 @end
 
 @implementation CBFeedbackViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 -(void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = NO;
@@ -53,6 +46,12 @@ int noOfStars = 0;
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
     
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
@@ -78,7 +77,10 @@ int noOfStars = 0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.viewFeedback.hidden = YES;
+//    self.btnCancel.hidden = YES;
+//    self.btnSubmit.hidden = YES;
+//    self.lblFeedback.hidden = YES;
+//    self.txtFeedback.hidden = YES;
     
     self.txtFeedback.placeholder = @"How can we improve?";
     self.txtFeedback.placeholderColor = [UIColor lightGrayColor];
@@ -94,9 +96,11 @@ int noOfStars = 0;
 
 -(void)showFeedback {
     
-    self.viewFeedback.hidden = NO;
-    self.viewFeedback.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20);
-    self.txtFeedback.frame = CGRectMake(self.txtFeedback.frame.origin.x, self.txtFeedback.frame.origin.y, self.txtFeedback.frame.size.width, self.viewFeedback.frame.size.height - 216 - 40);
+    self.btnCancel.hidden = NO;
+    self.btnSubmit.hidden = NO;
+    self.lblFeedback.hidden = NO;
+    self.txtFeedback.hidden = NO;
+
     [self.txtFeedback becomeFirstResponder];
 }
 
@@ -119,6 +123,7 @@ int noOfStars = 0;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -141,5 +146,17 @@ int noOfStars = 0;
         
     }];
 }
+
+-(void)keyboardWillShow:(NSNotification *)aNotification {
+
+//    CGFloat h = [[aNotification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+//    
+//    CGFloat sizeH = [UIScreen mainScreen].bounds.size.height;
+//    
+//    self.txtFeedback.frame = CGRectMake(self.txtFeedback.frame.origin.x, self.txtFeedback.frame.origin.y, self.txtFeedback.frame.size.width, sizeH - self.txtFeedback.frame.origin.y - h - 10);
+    //[self.view layoutIfNeeded];
+    //[self.view layoutSubviews];
+}
+
 
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -35,28 +35,44 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dor-b8-Lr3">
-                    <rect key="frame" x="8" y="138" width="304" height="58"/>
+                    <rect key="frame" x="8" y="130" width="304" height="58"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="58" id="JLe-uP-CPa"/>
+                        <constraint firstAttribute="height" constant="58" id="u7Q-g3-Se9"/>
                     </constraints>
                     <string key="text">CorpBoard allows you to review shows you attend, vote for your favorite corps, and live chat during events. An account is necessary to ensure fair and accurate reporting. Your information is private and not used for any other purpose.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTh-zO-QbR">
+                    <rect key="frame" x="94" y="184" width="133" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="133" id="koo-Zm-hKF"/>
+                        <constraint firstAttribute="height" constant="18" id="ygE-Pm-hab"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <state key="normal" title="View Privacy Policy">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnPrivacyPolicy_tapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="BwT-1O-eTF"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="VaI-Xb-cTZ" secondAttribute="centerX" id="0fM-0A-9tb"/>
-                <constraint firstAttribute="bottom" secondItem="dor-b8-Lr3" secondAttribute="bottom" constant="8" id="4Ya-bV-XJO"/>
+                <constraint firstAttribute="centerX" secondItem="mTh-zO-QbR" secondAttribute="centerX" constant="-0.5" id="6Gf-08-wuS"/>
+                <constraint firstAttribute="bottom" secondItem="mTh-zO-QbR" secondAttribute="bottom" constant="2" id="GWb-L0-8dj"/>
+                <constraint firstItem="dor-b8-Lr3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="O5t-FH-zYm"/>
+                <constraint firstItem="mTh-zO-QbR" firstAttribute="top" secondItem="dor-b8-Lr3" secondAttribute="bottom" constant="-4" id="bFE-YY-Gze"/>
+                <constraint firstAttribute="trailing" secondItem="dor-b8-Lr3" secondAttribute="trailing" constant="8" id="dc2-Zy-dKd"/>
                 <constraint firstItem="VaI-Xb-cTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="fzI-Rj-Pgz"/>
                 <constraint firstItem="VaI-Xb-cTZ" firstAttribute="centerX" secondItem="nfv-j1-J2K" secondAttribute="centerX" constant="-0.5" id="q1o-sL-Pw4"/>
                 <constraint firstItem="nfv-j1-J2K" firstAttribute="top" secondItem="VaI-Xb-cTZ" secondAttribute="bottom" constant="8" id="rYT-S7-17b"/>
-                <constraint firstAttribute="trailing" secondItem="dor-b8-Lr3" secondAttribute="trailing" constant="8" id="sR8-Tb-2t9"/>
-                <constraint firstItem="dor-b8-Lr3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="xcs-fK-uKw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="191" y="140.5"/>
+            <point key="canvasLocation" x="191" y="140"/>
         </view>
     </objects>
 </document>

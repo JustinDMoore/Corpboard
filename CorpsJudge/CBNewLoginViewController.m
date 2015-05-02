@@ -375,6 +375,7 @@ bool removeProgressView = NO;
                                        owner:self
                                      options:nil]
          objectAtIndex:0];
+        _viewIsNewUser.parent = self;
         [_viewIsNewUser setDelegate:self];
     }
     return _viewIsNewUser;

@@ -17,6 +17,7 @@
     id delegate;
 }
 
+@property (nonatomic, strong) UIViewController *parent;
 -(void)setDelegate:(id)newDelegate;
 
 @end

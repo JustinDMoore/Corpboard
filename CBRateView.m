@@ -70,7 +70,6 @@ UIImageView *currentStar;
 
 -(void)tapStar:(UITapGestureRecognizer *)recog {
     
-    NSLog(@"tap tap");
     btnSubmit.enabled = YES;
     lblRating.alpha = 1;
     UIImageView *imgView = (UIImageView*)recog.view;
