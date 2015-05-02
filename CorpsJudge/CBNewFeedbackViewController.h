@@ -13,5 +13,5 @@
 @interface CBNewFeedbackViewController : UIViewController <feedbackProtocol, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) CBFeedback *viewFeedback;
-
+@property (nonatomic, strong) NSMutableArray *arrayOfFeedbackItems;
 @end
