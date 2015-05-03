@@ -38,32 +38,11 @@ UIImageView *currentStar;
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-        self.layer.cornerRadius = 8;
         
-        
-        
-        // Set vertical effect
-        UIInterpolatingMotionEffect *verticalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.y"
-         type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        verticalMotionEffect.minimumRelativeValue = @(-10);
-        verticalMotionEffect.maximumRelativeValue = @(10);
-        
-        // Set horizontal effect
-        UIInterpolatingMotionEffect *horizontalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.x"
-         type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        horizontalMotionEffect.minimumRelativeValue = @(-10);
-        horizontalMotionEffect.maximumRelativeValue = @(10);
-        
-        // Create group to combine both
-        UIMotionEffectGroup *group = [UIMotionEffectGroup new];
-        group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
-        
-        // Add both effects to your view
-        [self addMotionEffect:group];
+        for (UIView *view in self.subviews) {
+            view.alpha = 0;
+            view.hidden = YES;
+        }
     }
     return self;
 }
@@ -140,9 +119,10 @@ UIImageView *currentStar;
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
+
 - (IBAction)btnCancelled_clicked:(id)sender {
-    
-    [self closeView: YES];
+    [delegate rateCancelled];
+    //[self closeView: YES];
 }
 
 - (IBAction)btnSubmit_clicked:(id)sender {
@@ -153,8 +133,6 @@ UIImageView *currentStar;
 -(void)initUI {
     
     self.userInteractionEnabled = YES;
-    
-    lblRating.alpha = 0;
     
     star1.image = [UIImage imageNamed:@"star_unselected"];
     star2.image = [UIImage imageNamed:@"star_unselected"];
@@ -182,22 +160,25 @@ UIImageView *currentStar;
     
     UITapGestureRecognizer *tap5 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapStar:)];
     [star5 addGestureRecognizer:tap5];
+    
+    lblRating.text = @"     ";
+    
+    [UIView animateWithDuration:.25
+                          delay:0
+                        options:0
+                     animations:^{
+                         for (UIView *view in self.subviews) {
+                             view.hidden = NO;
+                             view.alpha = 1;
+                         }
+                     } completion:^(BOOL finished) {
+                         
+                     }];
 }
--(void)showInParent:(CGRect)parent {
+
+-(void)showInParent {
     
     [self initUI];
-    
-    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2), CGRectGetMidY(parent) - (self.frame.size.height / 2), self.frame.size.width, self.frame.size.height);
-    self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
-    
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-        
-        self.transform = CGAffineTransformIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        
-    }];
 }
 
 -(void)closeView:(BOOL)cancelled {

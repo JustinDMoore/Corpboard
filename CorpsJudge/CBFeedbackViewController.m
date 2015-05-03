@@ -61,7 +61,7 @@ int noOfStars = 0;
                                  options:nil]
      objectAtIndex:0];
     [self.view addSubview:myCustomXIBViewObj];
-    [myCustomXIBViewObj showInParent:self.view.frame];
+    [myCustomXIBViewObj showInParent];
     
     [myCustomXIBViewObj setDelegate:self];
 }

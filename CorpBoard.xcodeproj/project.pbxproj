@@ -86,10 +86,10 @@
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */; };
 		D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */; };
-		D00B71711AF44DAF00403A12 /* CBFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71701AF44DAF00403A12 /* CBFeedback.xib */; };
+		D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71701AF44DAF00403A12 /* CBContactUs.xib */; };
 		D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */; };
 		D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */; };
-		D00B71791AF4531900403A12 /* CBFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71781AF4531900403A12 /* CBFeedback.m */; };
+		D00B71791AF4531900403A12 /* CBContactUs.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71781AF4531900403A12 /* CBContactUs.m */; };
 		D00E41541AE9DB0D00199974 /* finals6.png in Resources */ = {isa = PBXBuildFile; fileRef = D00E41531AE9DB0D00199974 /* finals6.png */; };
 		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
 		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
@@ -128,6 +128,12 @@
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
 		D064F3B21A36ECA1007455E2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AF1A36ECA1007455E2 /* index.html */; };
+		D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D066C2001AF5756100C84609 /* CBFeedbackView.xib */; };
+		D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = D066C2031AF576DC00C84609 /* CBFeedbackView.m */; };
+		D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */ = {isa = PBXBuildFile; fileRef = D066C2051AF5C4A100C84609 /* CBThankYou.xib */; };
+		D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */ = {isa = PBXBuildFile; fileRef = D066C2081AF5C6B500C84609 /* CBThankYou.m */; };
+		D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D066C20B1AF5CD0600C84609 /* CBProblemWhereCell.xib */; };
+		D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D066C20E1AF5CD4A00C84609 /* CBProblemWhereCell.m */; };
 		D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0681E141A8010080084EB42 /* CBNewsCell.xib */; };
 		D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */; };
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
@@ -318,12 +324,12 @@
 		D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewFeedbackViewController.m; sourceTree = "<group>"; };
 		D00B716D1AF44C6B00403A12 /* CBSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSegueNoAnimation.h; sourceTree = "<group>"; };
 		D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSegueNoAnimation.m; sourceTree = "<group>"; };
-		D00B71701AF44DAF00403A12 /* CBFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedback.xib; sourceTree = "<group>"; };
+		D00B71701AF44DAF00403A12 /* CBContactUs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBContactUs.xib; sourceTree = "<group>"; };
 		D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedbackCell.xib; sourceTree = "<group>"; };
 		D00B71741AF44E6A00403A12 /* CBFeedbackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackCell.h; sourceTree = "<group>"; };
 		D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackCell.m; sourceTree = "<group>"; };
-		D00B71771AF4531900403A12 /* CBFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedback.h; sourceTree = "<group>"; };
-		D00B71781AF4531900403A12 /* CBFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedback.m; sourceTree = "<group>"; };
+		D00B71771AF4531900403A12 /* CBContactUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactUs.h; sourceTree = "<group>"; };
+		D00B71781AF4531900403A12 /* CBContactUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactUs.m; sourceTree = "<group>"; };
 		D00E41531AE9DB0D00199974 /* finals6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finals6.png; sourceTree = "<group>"; };
 		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
 		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
@@ -381,6 +387,15 @@
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		D064F3AD1A36ECA1007455E2 /* global.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = global.json; sourceTree = "<group>"; };
 		D064F3AF1A36ECA1007455E2 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		D066C2001AF5756100C84609 /* CBFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedbackView.xib; sourceTree = "<group>"; };
+		D066C2021AF576DC00C84609 /* CBFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackView.h; sourceTree = "<group>"; };
+		D066C2031AF576DC00C84609 /* CBFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackView.m; sourceTree = "<group>"; };
+		D066C2051AF5C4A100C84609 /* CBThankYou.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBThankYou.xib; sourceTree = "<group>"; };
+		D066C2071AF5C6B500C84609 /* CBThankYou.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBThankYou.h; sourceTree = "<group>"; };
+		D066C2081AF5C6B500C84609 /* CBThankYou.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBThankYou.m; sourceTree = "<group>"; };
+		D066C20B1AF5CD0600C84609 /* CBProblemWhereCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhereCell.xib; sourceTree = "<group>"; };
+		D066C20D1AF5CD4A00C84609 /* CBProblemWhereCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhereCell.h; sourceTree = "<group>"; };
+		D066C20E1AF5CD4A00C84609 /* CBProblemWhereCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhereCell.m; sourceTree = "<group>"; };
 		D0681E141A8010080084EB42 /* CBNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewsCell.xib; sourceTree = "<group>"; };
 		D0681E161A8048A70084EB42 /* CBCollectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCollectionFlowLayout.h; sourceTree = "<group>"; };
 		D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCollectionFlowLayout.m; sourceTree = "<group>"; };
@@ -769,8 +784,6 @@
 				92620E371A21A302003EC5D8 /* CBNicknameView.m */,
 				927F4DF41A212B79008CC143 /* CBProgressView.xib */,
 				927F4DF71A212BF5008CC143 /* CBProgressView.m */,
-				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
-				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 				926CC2711A39A146006E315F /* CBUserCategories.xib */,
@@ -783,8 +796,6 @@
 				D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */,
 				D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */,
 				D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */,
-				92393F261A59B5DE00020C6A /* CBProblemWhere.xib */,
-				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
 				D01012421A7F3C950040BFFD /* CBNewChatView.xib */,
 				D01012451A7F40170040BFFD /* CBNewChatView.m */,
 				D0681E141A8010080084EB42 /* CBNewsCell.xib */,
@@ -797,10 +808,7 @@
 				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
-				D00B71701AF44DAF00403A12 /* CBFeedback.xib */,
-				D00B71781AF4531900403A12 /* CBFeedback.m */,
-				D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */,
-				D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */,
+				D066C20A1AF5CCEA00C84609 /* Contact Us */,
 			);
 			name = Xibs;
 			path = ..;
@@ -858,8 +866,11 @@
 				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
 				D01012441A7F40170040BFFD /* CBNewChatView.h */,
 				D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */,
-				D00B71771AF4531900403A12 /* CBFeedback.h */,
+				D00B71771AF4531900403A12 /* CBContactUs.h */,
 				D00B71741AF44E6A00403A12 /* CBFeedbackCell.h */,
+				D066C2021AF576DC00C84609 /* CBFeedbackView.h */,
+				D066C2071AF5C6B500C84609 /* CBThankYou.h */,
+				D066C20D1AF5CD4A00C84609 /* CBProblemWhereCell.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -987,6 +998,27 @@
 				D064F3AF1A36ECA1007455E2 /* index.html */,
 			);
 			path = public;
+			sourceTree = "<group>";
+		};
+		D066C20A1AF5CCEA00C84609 /* Contact Us */ = {
+			isa = PBXGroup;
+			children = (
+				D00B71701AF44DAF00403A12 /* CBContactUs.xib */,
+				D00B71781AF4531900403A12 /* CBContactUs.m */,
+				D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */,
+				D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */,
+				928CE8791A1EB88B009CE39E /* CBRateView.xib */,
+				928CE87C1A1EBA62009CE39E /* CBRateView.m */,
+				D066C2001AF5756100C84609 /* CBFeedbackView.xib */,
+				D066C2031AF576DC00C84609 /* CBFeedbackView.m */,
+				D066C2051AF5C4A100C84609 /* CBThankYou.xib */,
+				D066C2081AF5C6B500C84609 /* CBThankYou.m */,
+				92393F261A59B5DE00020C6A /* CBProblemWhere.xib */,
+				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
+				D066C20B1AF5CD0600C84609 /* CBProblemWhereCell.xib */,
+				D066C20E1AF5CD4A00C84609 /* CBProblemWhereCell.m */,
+			);
+			name = "Contact Us";
 			sourceTree = "<group>";
 		};
 		D0AEF3A01A1312E10059368B /* Parse */ = {
@@ -1136,7 +1168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
-				D00B71711AF44DAF00403A12 /* CBFeedback.xib in Resources */,
+				D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */,
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */,
@@ -1151,6 +1183,7 @@
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
 				D064F3B11A36ECA1007455E2 /* global.json in Resources */,
+				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
 				92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */,
 				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
 				D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */,
@@ -1159,6 +1192,7 @@
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
 				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
+				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
@@ -1177,6 +1211,7 @@
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
+				D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
@@ -1241,7 +1276,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/corpboard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1258,6 +1293,7 @@
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
+				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
@@ -1268,6 +1304,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
+				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
 				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,
@@ -1298,6 +1335,7 @@
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */,
 				923D4FD71A2C6DCF00E16B64 /* utilities.m in Sources */,
+				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
 				D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */,
 				923D4FC51A2C6DCF00E16B64 /* GroupView.m in Sources */,
@@ -1324,7 +1362,7 @@
 				D05F44E91ABF8BE5003F9A96 /* CBTerms.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
-				D00B71791AF4531900403A12 /* CBFeedback.m in Sources */,
+				D00B71791AF4531900403A12 /* CBContactUs.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,

@@ -18,7 +18,8 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *tableProblem;
 @property (nonatomic, strong) NSArray *arrayOfProblemAreas;
--(void)showInParent:(CGRect)parent;
+@property (nonatomic, strong) NSArray *arrayOfProblemImages;
+-(void)showInParent;
 -(void)closeView:(BOOL)cancelled;
 -(void)setDelegate:(id)newDelegate;
 @end

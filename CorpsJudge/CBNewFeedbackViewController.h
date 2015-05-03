@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBFeedback.h"
+#import "CBContactUs.h"
 #import "CBFeedbackCell.h"
+#import "CBRateView.h"
+#import "CBFeedbackView.h"
+#import <Parse/Parse.h>
+#import "CBThankYou.h"
+#import "CBProblemWhere.h"
+#import "CBProblemWhereCell.h"
 
-@interface CBNewFeedbackViewController : UIViewController <feedbackProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface CBNewFeedbackViewController : UIViewController <contactUsProtocol, UITableViewDataSource, UITableViewDelegate, RateProtocol, feedbackProtocol, thankYouProtocol>
 
-@property (nonatomic, strong) CBFeedback *viewFeedback;
+@property (nonatomic, strong) CBContactUs *viewContactUs;
+@property (nonatomic, strong) CBRateView *viewRate;
+@property (nonatomic, strong) CBFeedbackView *viewFeedback;
+@property (nonatomic, strong) CBThankYou *viewThankYou;
+@property (nonatomic, strong) CBProblemWhere *viewProblemWhere;
 @property (nonatomic, strong) NSMutableArray *arrayOfFeedbackItems;
 @end

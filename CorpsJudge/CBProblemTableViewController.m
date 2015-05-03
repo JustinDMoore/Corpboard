@@ -151,7 +151,7 @@
 -(void)showWhereTable {
     [self.navigationController.view addSubview:self.viewProblemWhere];
     [self.view.superview addSubview:self.viewProblemWhere];
-    [self.viewProblemWhere showInParent:self.view.frame];
+    [self.viewProblemWhere showInParent];
     [self.view.superview bringSubviewToFront:self.viewProblemWhere];
 }
 

@@ -28,6 +28,17 @@
                                      @"Show Information",
                                      @"Show Reviews",
                                      @"Other"];
+
+        self.arrayOfProblemAreas = @[[UIImage imageNamed:@"problemAbout"],
+                                     [UIImage imageNamed:@"problemFriends"],
+                                     [UIImage imageNamed:@"problemLiveChat"],
+                                     [UIImage imageNamed:@"problemNews"],
+                                     [UIImage imageNamed:@"problemMessages"],
+                                     [UIImage imageNamed:@"problemRankings"],
+                                     [UIImage imageNamed:@"problemScores"],
+                                     [UIImage imageNamed:@"problemScores"],
+                                     [UIImage imageNamed:@"problemScores"],
+                                     [UIImage imageNamed:@"problemOther"]];
         
         self.layer.cornerRadius = 8;
         
@@ -61,22 +72,8 @@
     delegate = newDelegate;
 }
 
--(void)showInParent:(CGRect)parent {
-    parentRect = parent;
-    self.frame = CGRectMake(CGRectGetMidX(parent) - (self.frame.size.width / 2),
-                            CGRectGetMidY(parent) - (self.frame.size.height / 1.5),
-                            self.frame.size.width,
-                            self.frame.size.height);
-    self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
+-(void)showInParent {
 
-    
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-        
-        self.transform = CGAffineTransformIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-    }];
 }
 
 - (IBAction)btnCancel_clicked:(id)sender {
@@ -113,5 +110,12 @@
         _arrayOfProblemAreas = [NSArray array];
     }
                                 return _arrayOfProblemAreas;
+}
+
+-(NSArray *)arrayOfProblemImages {
+    if (!_arrayOfProblemImages) {
+        _arrayOfProblemImages = [NSArray array];
+    }
+    return _arrayOfProblemImages;
 }
 @end
