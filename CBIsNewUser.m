@@ -36,8 +36,7 @@
 - (IBAction)btnExistingUser_clicked:(id)sender {
     [delegate isNewUser:NO];
 }
-- (IBAction)btnPrivacyPolicy_tapped:(id)sender {
- 
+- (IBAction)btnPrivacyPolicy_tapped:(id)sender { 
     
     NSString * storyboardName = @"Main";
     NSString * viewControllerID = @"web";

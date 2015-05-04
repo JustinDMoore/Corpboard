@@ -18,52 +18,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // CUSTOM INITIALIZATION HERE
-        self.arrayOfProblemAreas = @[@"About the Corps",
-                                     @"Friends or Profiles",
-                                     @"Live Chat",
-                                     @"News",
-                                     @"Private Messages",
-                                     @"Rankings",
-                                     @"Scores",
-                                     @"Show Information",
-                                     @"Show Reviews",
-                                     @"Other"];
-
-        self.arrayOfProblemAreas = @[[UIImage imageNamed:@"problemAbout"],
-                                     [UIImage imageNamed:@"problemFriends"],
-                                     [UIImage imageNamed:@"problemLiveChat"],
-                                     [UIImage imageNamed:@"problemNews"],
-                                     [UIImage imageNamed:@"problemMessages"],
-                                     [UIImage imageNamed:@"problemRankings"],
-                                     [UIImage imageNamed:@"problemScores"],
-                                     [UIImage imageNamed:@"problemScores"],
-                                     [UIImage imageNamed:@"problemScores"],
-                                     [UIImage imageNamed:@"problemOther"]];
         
-        self.layer.cornerRadius = 8;
-        
-        // Set vertical effect
-        UIInterpolatingMotionEffect *verticalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.y"
-         type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-        verticalMotionEffect.minimumRelativeValue = @(-10);
-        verticalMotionEffect.maximumRelativeValue = @(10);
-        
-        // Set horizontal effect
-        UIInterpolatingMotionEffect *horizontalMotionEffect =
-        [[UIInterpolatingMotionEffect alloc]
-         initWithKeyPath:@"center.x"
-         type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        horizontalMotionEffect.minimumRelativeValue = @(-10);
-        horizontalMotionEffect.maximumRelativeValue = @(10);
-        
-        // Create group to combine both
-        UIMotionEffectGroup *group = [UIMotionEffectGroup new];
-        group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
-        
-        // Add both effects to your view
-        [self addMotionEffect:group];
     }
     return self;
 }
@@ -74,35 +29,45 @@
 
 -(void)showInParent {
 
+    self.arrayOfProblemAreas = @[@"About the Corps",
+                                 @"Friends or Profiles",
+                                 @"Live Chat",
+                                 @"News",
+                                 @"Private Messages",
+                                 @"Rankings",
+                                 @"Scores",
+                                 @"Show Information",
+                                 @"Show Reviews",
+                                 @"Other"];
+    
+    self.arrayOfProblemImages = @[[UIImage imageNamed:@"problemAbout"],
+                                  [UIImage imageNamed:@"problemFriends"],
+                                  [UIImage imageNamed:@"problemLiveChat"],
+                                  [UIImage imageNamed:@"problemNews"],
+                                  [UIImage imageNamed:@"problemMessages"],
+                                  [UIImage imageNamed:@"problemRankings"],
+                                  [UIImage imageNamed:@"problemScores"],
+                                  [UIImage imageNamed:@"problemScores"],
+                                  [UIImage imageNamed:@"problemScores"],
+                                  [UIImage imageNamed:@"problemOther"]];
+    self.tableProblem.alpha = 0;
+    [self.tableProblem reloadData];
+    [self.tableProblem scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]
+                     atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
+    [UIView animateWithDuration:.15 animations:^{
+        self.tableProblem.alpha = 1;
+        [self.tableProblem scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                 atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (IBAction)btnCancel_clicked:(id)sender {
-    [self closeView:YES];
-}
-
--(void)closeView:(BOOL)cancelled {
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
-        
-        self.transform = CGAffineTransformScale(self.transform, 1.1, 1.1);
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.2
-                              delay:0
-             usingSpringWithDamping:1
-              initialSpringVelocity:8
-                            options:0
-                         animations:^{
-                             self.transform = CGAffineTransformScale(self.transform, 0.1f, 0.1f);
-                             self.alpha = 0;
-                         }
-                         completion:^(BOOL finished) {
-                             [self removeFromSuperview];
-                             if ([delegate respondsToSelector:@selector(problemWhereCanceled)]) {
-                                 [delegate problemWhereCanceled];
-                             }
-                         }];
-    }];
-    
+    if ([delegate respondsToSelector:@selector(problemWhereCanceled)]) {
+        [delegate problemWhereCanceled];
+    }
 }
 
 -(NSArray *)arrayOfProblemAreas {

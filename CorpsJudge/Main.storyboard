@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -3423,9 +3423,44 @@
                     <view key="view" contentMode="scaleToFill" id="S9U-Vh-ZCY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6u-TN-svv">
+                                <rect key="frame" x="252" y="571" width="96" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="5np-VN-RzY"/>
+                                    <constraint firstAttribute="width" constant="96" id="yLZ-1x-e2M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" title="Privacy Policy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPrivacyPolicy_tapped:" destination="671-6y-8zX" eventType="touchUpInside" id="9ci-cM-Gfe"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-Pj-MpW">
+                                <rect key="frame" x="145" y="532" width="310" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="310" id="Mhb-tr-Phf"/>
+                                    <constraint firstAttribute="height" constant="44" id="fD1-Wa-GZh"/>
+                                </constraints>
+                                <string key="text">Information about your device, account and this app will be automatically included in this report. To learn more about how your information is used, please see our</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="r6u-TN-svv" secondAttribute="centerX" id="GQk-Hf-lHH"/>
+                            <constraint firstItem="SPk-QO-swv" firstAttribute="top" secondItem="r6u-TN-svv" secondAttribute="bottom" constant="14" id="WOh-1E-Cag"/>
+                            <constraint firstItem="r6u-TN-svv" firstAttribute="top" secondItem="Pco-Pj-MpW" secondAttribute="bottom" constant="-5" id="c9m-ye-O5d"/>
+                            <constraint firstItem="Pco-Pj-MpW" firstAttribute="centerX" secondItem="r6u-TN-svv" secondAttribute="centerX" id="hml-2X-Pa3"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnPrivacyPolicy" destination="r6u-TN-svv" id="kvH-fR-ESJ"/>
+                        <outlet property="lblPrivacyPolicy" destination="Pco-Pj-MpW" id="3UX-uR-bUd"/>
                         <segue destination="ukc-q2-rrc" kind="presentation" identifier="problem" id="OFN-kf-UvP"/>
                         <segue destination="Rje-aq-gI0" kind="presentation" identifier="feedback" id="uaj-DZ-mlU"/>
                     </connections>

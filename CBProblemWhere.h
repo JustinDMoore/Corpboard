@@ -17,6 +17,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *tableProblem;
+
 @property (nonatomic, strong) NSArray *arrayOfProblemAreas;
 @property (nonatomic, strong) NSArray *arrayOfProblemImages;
 -(void)showInParent;

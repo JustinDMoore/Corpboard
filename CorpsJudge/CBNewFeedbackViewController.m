@@ -10,12 +10,14 @@
 #import "CBSingle.h"
 #import "CBProblemTableViewController.h"
 #import "IQKeyboardManager.h"
+#import "CBWebViewController.h"
 
 @interface CBNewFeedbackViewController ()
 
 @end
 
 CBSingle *data;
+NSString *currentView;
 
 @implementation CBNewFeedbackViewController
 
@@ -24,6 +26,19 @@ CBSingle *data;
     
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
+    self.arrayOfFeedbackItems = [[NSMutableArray alloc] init];
+    [self.arrayOfFeedbackItems addObject:@"General Feedback"];
+    [self.arrayOfFeedbackItems addObject:@"Something Isn't Working"];
+    [self.arrayOfFeedbackItems addObject:@"Report Incorrect Information"];
+    [self.arrayOfFeedbackItems addObject:@"Rate Corpboard"];
+    
+    self.btnPrivacyPolicy.alpha = 0;
+    self.lblPrivacyPolicy.alpha = 0;
+    [self.btnPrivacyPolicy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
@@ -31,35 +46,50 @@ CBSingle *data;
     visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     
     visualEffectView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:visualEffectView];
     [self.view sendSubviewToBack:visualEffectView];
-    
-    self.arrayOfFeedbackItems = [[NSMutableArray alloc] init];
-    [self.arrayOfFeedbackItems addObject:@"General Feedback"];
-    [self.arrayOfFeedbackItems addObject:@"Something Isn't Working"];
-    [self.arrayOfFeedbackItems addObject:@"Report Incorrect Information"];
-    [self.arrayOfFeedbackItems addObject:@"Rate Corpboard"];
-
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    self.viewContactUs =
-    [[[NSBundle mainBundle] loadNibNamed:@"CBContactUs"
-                                   owner:self
-                                 options:nil]
-     objectAtIndex:0];
-    [self.view addSubview:self.viewContactUs];
-    [self.viewContactUs showInParent:self.view.frame];
-    [self.viewContactUs setDelegate:self];
-    self.viewContactUs.tableFeedback.delegate = self;
-    self.viewContactUs.tableFeedback.dataSource = self;
-    self.viewContactUs.tableFeedback.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    
+    if (!currentView) {
+        self.viewContactUs =
+        [[[NSBundle mainBundle] loadNibNamed:@"CBContactUs"
+                                       owner:self
+                                     options:nil]
+         objectAtIndex:0];
+        [self.view addSubview:self.viewContactUs];
+        [self.viewContactUs showInParent:self.view.frame];
+        [self.viewContactUs setDelegate:self];
+        self.viewContactUs.tableFeedback.delegate = self;
+        self.viewContactUs.tableFeedback.dataSource = self;
+        self.viewContactUs.tableFeedback.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
 }
 
 -(void)cancelled {
+    currentView = nil;
     [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+#pragma mark
+#pragma mark - Actions
+#pragma mark
+- (IBAction)btnPrivacyPolicy_tapped:(id)sender {
+    
+    NSString * storyboardName = @"Main";
+    NSString * viewControllerID = @"web";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = @"http://www.dci.org/about/legal/privacy.cfm";
+    web.websiteTitle = @"Drum Corps International";
+    web.websiteSubTitle = @"Privacy Policy";
+    
+    [self presentViewController:web animated:YES completion:nil];
 }
 
 #pragma mark
@@ -146,11 +176,11 @@ CBSingle *data;
                 [self showRateView];
                 //[self performSegueWithIdentifier:@"feedback" sender:self];
                 break;
-            case 2:
+            case 1:
                 isProblem = YES;
                 [self showProblemView];
                 break;
-            case 1:
+            case 2:
                 isProblem = NO;
                 [self performSegueWithIdentifier:@"problem" sender:self];
                 break;
@@ -177,6 +207,7 @@ BOOL isProblem;
 
 -(void)showRateView {
     
+    currentView = @"Rate";
     self.viewRate =
     [[[NSBundle mainBundle] loadNibNamed:@"CBRateView"
                                    owner:self
@@ -202,6 +233,7 @@ BOOL isProblem;
 
 -(void)showFeedbackView:(int)numberOfStars {
     
+    currentView = @"Feedback";
     self.viewFeedback =
     [[[NSBundle mainBundle] loadNibNamed:@"CBFeedbackView"
                                    owner:self
@@ -233,6 +265,7 @@ BOOL isProblem;
 
 -(void)showThankYou {
     
+    currentView = @"Thank You";
     self.viewThankYou =
     [[[NSBundle mainBundle] loadNibNamed:@"CBThankYou"
                                    owner:self
@@ -256,7 +289,8 @@ BOOL isProblem;
 
 -(void)showProblemView {
     
-    self.viewThankYou =
+    currentView = @"Problem";
+    self.viewProblemWhere =
     [[[NSBundle mainBundle] loadNibNamed:@"CBProblemWhere"
                                    owner:self
                                  options:nil]
@@ -268,8 +302,12 @@ BOOL isProblem;
                           delay:0
                         options:0
                      animations:^{
-                         self.viewContactUs.frame = CGRectMake(self.viewContactUs.frame.origin.x, self.viewContactUs.frame.origin.y, self.viewProblemWhere.frame.size.width, self.viewProblemWhere.frame.size.height);
-                         self.viewContactUs.center = [self.view convertPoint:self.view.center fromView:self.view.superview];
+                         
+                         self.viewProblemWhere.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 100);
+                         self.viewContactUs.frame = CGRectMake(0, 30, self.viewProblemWhere.frame.size.width, self.viewProblemWhere.frame.size.height);
+                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
+                         self.lblPrivacyPolicy.alpha = 1;
+                         self.btnPrivacyPolicy.alpha = 1;
                      } completion:^(BOOL finished) {
                          [self.viewProblemWhere showInParent];
                      }];
@@ -277,6 +315,8 @@ BOOL isProblem;
     [self.viewProblemWhere setDelegate:self];
     self.viewProblemWhere.tableProblem.delegate = self;
     self.viewProblemWhere.tableProblem.dataSource = self;
+    self.viewProblemWhere.tableProblem.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
 }
 
 #pragma mark
@@ -338,9 +378,17 @@ BOOL isProblem;
                          }
                          completion:^(BOOL finished) {
                              [self.viewContactUs removeFromSuperview];
-                             [self dismissViewControllerAnimated:NO completion:nil];
+                             [self cancelled];
                          }];
     }];
+}
+
+#pragma mark
+#pragma mark - Problem Where Protocol
+#pragma mark
+
+-(void)problemWhereCanceled {
+    [self thankYou];
 }
 
 @end
