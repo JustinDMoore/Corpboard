@@ -84,6 +84,8 @@
 		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
+		D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */ = {isa = PBXBuildFile; fileRef = D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */; };
+		D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = D009FD611AF9C58400FCA018 /* CBProblemWhat.m */; };
 		D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */; };
 		D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */; };
 		D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71701AF44DAF00403A12 /* CBContactUs.xib */; };
@@ -320,6 +322,9 @@
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhat.xib; sourceTree = "<group>"; };
+		D009FD601AF9C58400FCA018 /* CBProblemWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhat.h; sourceTree = "<group>"; };
+		D009FD611AF9C58400FCA018 /* CBProblemWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhat.m; sourceTree = "<group>"; };
 		D00B716A1AF4488400403A12 /* CBNewFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewFeedbackViewController.h; sourceTree = "<group>"; };
 		D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewFeedbackViewController.m; sourceTree = "<group>"; };
 		D00B716D1AF44C6B00403A12 /* CBSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSegueNoAnimation.h; sourceTree = "<group>"; };
@@ -871,6 +876,7 @@
 				D066C2021AF576DC00C84609 /* CBFeedbackView.h */,
 				D066C2071AF5C6B500C84609 /* CBThankYou.h */,
 				D066C20D1AF5CD4A00C84609 /* CBProblemWhereCell.h */,
+				D009FD601AF9C58400FCA018 /* CBProblemWhat.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1017,6 +1023,8 @@
 				926123611A59B9E200A6B755 /* CBProblemWhere.m */,
 				D066C20B1AF5CD0600C84609 /* CBProblemWhereCell.xib */,
 				D066C20E1AF5CD4A00C84609 /* CBProblemWhereCell.m */,
+				D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */,
+				D009FD611AF9C58400FCA018 /* CBProblemWhat.m */,
 			);
 			name = "Contact Us";
 			sourceTree = "<group>";
@@ -1208,6 +1216,7 @@
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */,
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
+				D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
@@ -1366,6 +1375,7 @@
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
+				D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,

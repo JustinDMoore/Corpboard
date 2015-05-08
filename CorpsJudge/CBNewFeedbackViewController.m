@@ -18,6 +18,7 @@
 
 CBSingle *data;
 NSString *currentView;
+int keyboardHeight = 210;
 
 @implementation CBNewFeedbackViewController
 
@@ -178,7 +179,7 @@ NSString *currentView;
                 break;
             case 1:
                 isProblem = YES;
-                [self showProblemView];
+                [self showProblemWhereView];
                 break;
             case 2:
                 isProblem = NO;
@@ -190,6 +191,9 @@ NSString *currentView;
             default:
                 break;
         }
+    } else if (tableView == self.viewProblemWhere.tableProblem) {
+        NSString *where = self.viewProblemWhere.arrayOfProblemAreas[indexPath.row];
+        [self showProblemWhatView:where];
     }
 }
 
@@ -242,8 +246,6 @@ BOOL isProblem;
     for (UIView *view in [self.viewContactUs subviews]) {
         [view removeFromSuperview];
     }
-
-    int keyboardHeight = 210;
     
     [UIView animateWithDuration:.25
                           delay:0
@@ -253,7 +255,7 @@ BOOL isProblem;
                          self.viewFeedback.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
                          self.viewContactUs.frame = CGRectMake(0, 30, self.viewFeedback.frame.size.width, self.viewFeedback.frame.size.height);
                          self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
-                         [self.viewFeedback showInParent];
+
                      } completion:^(BOOL finished) {
                          [self.viewFeedback showInParent];
                      }];
@@ -287,9 +289,9 @@ BOOL isProblem;
     [self.viewThankYou setDelegate:self];
 }
 
--(void)showProblemView {
+-(void)showProblemWhereView {
     
-    currentView = @"Problem";
+    currentView = @"Problem Where";
     self.viewProblemWhere =
     [[[NSBundle mainBundle] loadNibNamed:@"CBProblemWhere"
                                    owner:self
@@ -317,6 +319,35 @@ BOOL isProblem;
     self.viewProblemWhere.tableProblem.dataSource = self;
     self.viewProblemWhere.tableProblem.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+}
+
+-(void)showProblemWhatView:(NSString *)where {
+    
+    currentView = @"Problem What";
+    self.viewProblemWhat =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBProblemWhat"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    for (UIView *view in [self.viewContactUs subviews]) {
+        [view removeFromSuperview];
+    }
+    [UIView animateWithDuration:.25
+                          delay:0
+                        options:0
+                     animations:^{
+                         
+                         self.viewProblemWhat.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
+                         self.viewContactUs.frame = CGRectMake(0, 30, self.viewProblemWhat.frame.size.width, self.viewProblemWhat.frame.size.height);
+                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
+                     } completion:^(BOOL finished) {
+                         [self.viewProblemWhat showInParent];
+                     }];
+    [self.viewContactUs addSubview:self.viewProblemWhat];
+    [self.viewProblemWhat setDelegate:self];
+    self.viewProblemWhat.where = where;
+    self.viewProblemWhat.parent = self;
+    NSLog(@"Where: %@", where);
 }
 
 #pragma mark
@@ -389,6 +420,18 @@ BOOL isProblem;
 
 -(void)problemWhereCanceled {
     [self thankYou];
+}
+
+#pragma mark
+#pragma mark - Problem What Protocol
+#pragma mark
+-(void)backFromProblemWhat {
+    
+    [self showProblemWhereView];
+}
+
+-(void)sendProblem:(NSString *)report withImages:(NSMutableArray *)arrayOfImages {
+    
 }
 
 @end

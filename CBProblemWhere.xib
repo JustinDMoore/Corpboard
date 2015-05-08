@@ -53,6 +53,7 @@
                 <constraint firstItem="F2Y-gY-frH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="pFm-Tg-AKZ"/>
                 <constraint firstItem="QIT-Xf-UEN" firstAttribute="top" secondItem="F2Y-gY-frH" secondAttribute="bottom" constant="8" id="pqQ-6d-0kX"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="tableProblem" destination="QIT-Xf-UEN" id="W6O-B8-SoI"/>

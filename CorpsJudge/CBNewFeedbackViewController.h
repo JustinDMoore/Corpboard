@@ -15,14 +15,16 @@
 #import "CBThankYou.h"
 #import "CBProblemWhere.h"
 #import "CBProblemWhereCell.h"
+#import "CBProblemWhat.h"
 
-@interface CBNewFeedbackViewController : UIViewController <contactUsProtocol, UITableViewDataSource, UITableViewDelegate, RateProtocol, feedbackProtocol, thankYouProtocol, problemWhereProtocol>
+@interface CBNewFeedbackViewController : UIViewController <contactUsProtocol, UITableViewDataSource, UITableViewDelegate, RateProtocol, feedbackProtocol, thankYouProtocol, problemWhereProtocol, problemWhatProtocol>
 
 @property (nonatomic, strong) CBContactUs *viewContactUs;
 @property (nonatomic, strong) CBRateView *viewRate;
 @property (nonatomic, strong) CBFeedbackView *viewFeedback;
 @property (nonatomic, strong) CBThankYou *viewThankYou;
 @property (nonatomic, strong) CBProblemWhere *viewProblemWhere;
+@property (nonatomic, strong) CBProblemWhat *viewProblemWhat;
 @property (nonatomic, strong) NSMutableArray *arrayOfFeedbackItems;
 @property (weak, nonatomic) IBOutlet UILabel *lblPrivacyPolicy;
 @property (weak, nonatomic) IBOutlet UIButton *btnPrivacyPolicy;
