@@ -16,6 +16,7 @@
 #import "ChatView.h"
 #import "IQKeyboardManager.h"
 #import "Configuration.h"
+#import "PulsingHaloLayer.h"
 
 @interface CBUserProfileViewController () {
     CBSingle *_data;
@@ -55,6 +56,8 @@
 
 //UI
 @property (weak, nonatomic) IBOutlet PFImageView *imgUser;
+@property (weak, nonatomic) IBOutlet UIImageView *imgOnline;
+@property (weak, nonatomic) IBOutlet UIView *viewOnline;
 @property (weak, nonatomic) IBOutlet UILabel *lblUserNickname;
 @property (weak, nonatomic) IBOutlet UILabel *lblUserLocation;
 @property (weak, nonatomic) IBOutlet UILabel *lblViews;
@@ -111,6 +114,7 @@
         [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
     }
     
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -136,6 +140,8 @@
     _data = [CBSingle data];
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
+    self.imgUser.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imgUser.layer.borderWidth = 2;
     
     editingProfile = NO;
     
@@ -148,6 +154,7 @@
     self.lblUserLocation.text = @"";
     self.scrollCoverPhoto.hidden = YES;
     self.scrollProfile.hidden = YES;
+
 }
 
 -(void)getUserCorpExperiences {
@@ -270,6 +277,31 @@
                 [self.imgUser loadInBackground];
             } else {
                 [self.imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
+            }
+            
+            for (CALayer *layer in self.scrollProfile.layer.sublayers) {
+                if ([layer isKindOfClass:[PulsingHaloLayer class]]) {
+                    [layer removeFromSuperlayer];
+                }
+            }
+            
+            NSDate *dateLastLogin = self.userProfile[@"lastLogin"];
+            NSInteger diff = [dateLastLogin minutesBeforeDate:[NSDate date]];
+            if (diff <= 10) { // online
+                self.viewOnline.hidden = NO;
+                PulsingHaloLayer *halo = [PulsingHaloLayer layer];
+                halo.position = self.imgOnline.center;
+                halo.radius = 10;
+                halo.animationDuration = 2;
+                halo.backgroundColor = [UIColor whiteColor].CGColor;
+                [self.viewOnline.layer addSublayer:halo];
+                self.imgOnline.layer.cornerRadius = self.imgOnline.frame.size.height / 2;
+                self.imgOnline.layer.borderWidth = 2;
+                self.imgOnline.layer.borderColor = [UIColor whiteColor].CGColor;
+                [self.viewOnline sendSubviewToBack:self.imgOnline];
+                //[self.viewOnline bringSubviewToFront:self.imgOnline];
+            } else {
+                self.viewOnline.hidden = YES;
             }
             
             PFFile *coverFile = self.userProfile[@"coverImage"];

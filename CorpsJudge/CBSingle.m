@@ -56,7 +56,24 @@
     delegate = newDelegate;
 }
 
-
+-(void)updateUserLocationAndLastLogin {
+    
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+        
+        PFUser *user = [PFUser currentUser];
+        
+        if (!error) {
+            // do something with the new geoPoint
+            user[@"geo"] = geoPoint;
+            user[@"lastLogin"] = [NSDate date];
+            [user saveEventually];
+        } else {
+            user[@"lastLogin"] = [NSDate date];
+            [user saveEventually];
+            NSLog(@"Error getting user location.");
+        }
+    }];
+}
 #pragma mark -
 #pragma mark - Data Methods
 #pragma mark -

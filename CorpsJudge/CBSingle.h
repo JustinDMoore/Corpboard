@@ -81,5 +81,5 @@
 -(void)refreshCorpsAndShows;
 -(NSArray *)getOfficialScoresForShow:(PFObject *)show;
 -(void)getUnreadMessagesForUser;
-
+-(void)updateUserLocationAndLastLogin;
 @end

@@ -83,6 +83,7 @@
     
     self.currentUser = [PFUser currentUser];
     if (self.currentUser) {
+        [data updateUserLocationAndLastLogin];
         [self.currentUser fetchInBackgroundWithTarget:self selector:@selector(callbackWithResult:error:)];
     } else {
         // NEW USER, SHOW THE NEW USER DIALOG
