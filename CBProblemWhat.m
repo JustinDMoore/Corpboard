@@ -30,11 +30,16 @@
     self.txtReport.text = @"";
     //self.txtReport.placeholder = @"Add an explanation";
     //self.txtReport.placeholderColor = [UIColor lightGrayColor];
-    self.txtReport.delegate = self;
+    //self.txtReport.delegate = self;
     self.btnSend.enabled = NO;
-    [self.txtReport sizeToFit];
-    [self.txtReport becomeFirstResponder];
+
     
+    
+    self.txtReport = [[HPGrowingTextView alloc] initWithFrame:self.txtReportHolder.frame];
+    self.txtReportHolder.hidden = YES;
+    self.txtReport.minNumberOfLines = 1;
+    [self.scrollProblemWhat addSubview:self.txtReport];
+    [self.txtReport becomeFirstResponder];
     
     
     NSMutableAttributedString *strAddAnExplanation = [[NSMutableAttributedString alloc] initWithString:@"Add an explanation"];
@@ -56,6 +61,17 @@
     
     self.lblPlaceholder.attributedText = strfinal;
     [self.lblPlaceholder sizeToFit];
+    
+    [self setViews];
+}
+
+-(void)setViews {
+    
+    self.txtReport.frame = CGRectMake(self.txtReport.frame.origin.x, self.lblPlaceholder.frame.origin.y + self.lblPlaceholder.frame.size.height + 5, self.txtReport.frame.size.width, newHeight);
+    
+    self.viewScreenshots.frame = CGRectMake(self.viewScreenshots.frame.origin.x, self.txtReport.frame.origin.y + self.txtReport.frame.size.height + 5, self.viewScreenshots.frame.size.width, self.viewScreenshots.frame.size.height);
+    
+    self.scrollProblemWhat.contentSize = CGSizeMake(self.scrollProblemWhat.frame.size.width, self.lblPlaceholder.frame.size.height + self.txtReport.frame.size.height + self.viewScreenshots.frame.size.height + 20);
 }
 
 #pragma mark
@@ -112,6 +128,7 @@
 #pragma mark
 #pragma mark - UITextView Delegate
 #pragma mark
+CGFloat newHeight;
 -(void)textViewDidChange:(UITextView *)textView {
     
     //self.lblPlaceholder.hidden = ([self.txtReport.text length] > 0);
@@ -122,21 +139,15 @@
         self.btnSend.enabled = NO;
     }
     
-//  
-//    CGFloat fixedWidth = textView.frame.size.width;
-//    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
-//    CGRect newFrame = textView.frame;
-//    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
-//    textView.frame = newFrame;
-}
-
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
-    CGSize maximumSize = CGSizeMake(280,999); //specify width of textView  and maximum height for text to fit in width of textView
-    CGSize txtSize = [textView.text sizeWithFont:[UIFont fontWithName:@"Arial" size:16] constrainedToSize:maximumSize lineBreakMode:UILineBreakModeCharacterWrap]; //calulate size of text by specifying font here
-    //Add UIViewAnimation here if needed
-    [textView setFrame:CGRectMake(textView.frame.origin.x,textView.frame.origin.y,txtSize.width+10,txtSize.height+10)]; // change accordingly
-    return YES;
+    CGFloat fixedWidth = textView.frame.size.width;
+    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = textView.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    textView.frame = newFrame;
+    newHeight = newFrame.size.height;
+    //self.viewScreenshots.frame = CGRectMake(self.viewScreenshots.frame.origin.x, textView.frame.origin.y + textView.frame.size.height + 5, self.viewScreenshots.frame.size.width, self.viewScreenshots.frame.size.height);
+    textView.scrollEnabled = NO;
+    [self setViews];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {

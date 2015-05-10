@@ -162,6 +162,12 @@
 #define COCOAPODS_VERSION_MINOR_DTFoundation_UIKit_BlocksAdditions 7
 #define COCOAPODS_VERSION_PATCH_DTFoundation_UIKit_BlocksAdditions 5
 
+// HPGrowingTextView
+#define COCOAPODS_POD_AVAILABLE_HPGrowingTextView
+#define COCOAPODS_VERSION_MAJOR_HPGrowingTextView 1
+#define COCOAPODS_VERSION_MINOR_HPGrowingTextView 1
+#define COCOAPODS_VERSION_PATCH_HPGrowingTextView 0
+
 // IQKeyboardManager
 #define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
 #define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3

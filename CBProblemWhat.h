@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CBTextViewPlaceHolder.h"
+#import "HPGrowingTextView.h"
 
 @protocol problemWhatProtocol <NSObject>
 @required
@@ -20,7 +21,7 @@
 }
 
 @property (nonatomic, strong) UIScrollView *scrollProblemWhat;
-@property (nonatomic, strong) IBOutlet CBTextViewPlaceHolder *txtReport;
+@property (nonatomic, strong) IBOutlet CBTextViewPlaceHolder *txtReportHolder;
 @property (nonatomic, strong) NSString *where;
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
@@ -37,6 +38,8 @@
 @property (nonatomic) BOOL isAProblem;
 @property (nonatomic, strong) UIViewController *parent;
 @property (nonatomic, strong) IBOutlet UILabel *lblPlaceholder;
+@property (weak, nonatomic) IBOutlet UIView *viewScreenshots;
+@property (nonatomic, strong) HPGrowingTextView *txtReport;
 
 -(void)showInParent;
 -(void)setDelegate:(id)newDelegate;
