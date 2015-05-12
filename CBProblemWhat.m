@@ -26,52 +26,27 @@
 
 -(void)showInParent {
 
-    //self.txtReport.backgroundColor = [UIColor whiteColor];
-    self.txtReport.text = @"";
-    //self.txtReport.placeholder = @"Add an explanation";
-    //self.txtReport.placeholderColor = [UIColor lightGrayColor];
-    //self.txtReport.delegate = self;
     self.btnSend.enabled = NO;
 
-    
-    
-    self.txtReport = [[HPGrowingTextView alloc] initWithFrame:self.txtReportHolder.frame];
-    self.txtReportHolder.hidden = YES;
-    self.txtReport.minNumberOfLines = 1;
-    [self.scrollProblemWhat addSubview:self.txtReport];
-    [self.txtReport becomeFirstResponder];
-    
-    
-    NSMutableAttributedString *strAddAnExplanation = [[NSMutableAttributedString alloc] initWithString:@"Add an explanation"];
-    [strAddAnExplanation addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0,[strAddAnExplanation length])];
-    [strAddAnExplanation addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, [strAddAnExplanation length])];
 
+    [self.txtReportHolder becomeFirstResponder];
     
-    NSMutableAttributedString *strHyphen = [[NSMutableAttributedString alloc] initWithString:@" –– in "];
-    [strHyphen addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,[strHyphen length])];
-    [strHyphen addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, [strHyphen length])];
+    self.lblPlaceholder.text = self.where;
+    self.txtReportHolder.placeholder = @"Add an explanation...";
+    self.txtReportHolder.placeholderColor = [UIColor darkGrayColor];
     
-    NSMutableAttributedString *strWhere = [[NSMutableAttributedString alloc] initWithString:self.where];
-    [strWhere addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,[strWhere length])];
-    [strWhere addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(0, [strWhere length])];
-
-    NSMutableAttributedString *strfinal = [[NSMutableAttributedString alloc] initWithAttributedString:strAddAnExplanation];
-    [strfinal appendAttributedString:strHyphen];
-    [strfinal appendAttributedString:strWhere];
-    
-    self.lblPlaceholder.attributedText = strfinal;
-    [self.lblPlaceholder sizeToFit];
+    self.txtReportHolder.delegate = self;
     
     [self setViews];
 }
 
 -(void)setViews {
     
-    self.txtReport.frame = CGRectMake(self.txtReport.frame.origin.x, self.lblPlaceholder.frame.origin.y + self.lblPlaceholder.frame.size.height + 5, self.txtReport.frame.size.width, newHeight);
-    
-    self.viewScreenshots.frame = CGRectMake(self.viewScreenshots.frame.origin.x, self.txtReport.frame.origin.y + self.txtReport.frame.size.height + 5, self.viewScreenshots.frame.size.width, self.viewScreenshots.frame.size.height);
-    
-    self.scrollProblemWhat.contentSize = CGSizeMake(self.scrollProblemWhat.frame.size.width, self.lblPlaceholder.frame.size.height + self.txtReport.frame.size.height + self.viewScreenshots.frame.size.height + 20);
+//    self.txtReportHolder.frame = CGRectMake(self.txtReportHolder.frame.origin.x, self.lblPlaceholder.frame.origin.y + self.lblPlaceholder.frame.size.height + 5, self.txtReportHolder.frame.size.width, newHeight);
+//    
+//    self.viewScreenshots.frame = CGRectMake(self.viewScreenshots.frame.origin.x, self.txtReportHolder.frame.origin.y + self.txtReportHolder.frame.size.height + 5, self.viewScreenshots.frame.size.width, self.viewScreenshots.frame.size.height);
+//    
+//    self.scrollProblemWhat.contentSize = CGSizeMake(self.scrollProblemWhat.frame.size.width, self.lblPlaceholder.frame.size.height + self.txtReportHolder.frame.size.height + self.viewScreenshots.frame.size.height + 20);
 }
 
 #pragma mark

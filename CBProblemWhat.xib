@@ -10,12 +10,8 @@
             <rect key="frame" x="0.0" y="0.0" width="279" height="431"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-bn-dPc">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-bn-dPc">
                     <rect key="frame" x="226" y="10" width="45" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="45" id="NOW-z3-DxV"/>
-                        <constraint firstAttribute="height" constant="20" id="chx-QH-oXR"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Send">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,10 +27,9 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iM-gB-pef">
                     <rect key="frame" x="0.0" y="38" width="279" height="393"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add an explanation -- in Private Messages" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNE-6l-SDj">
-                            <rect key="frame" x="8" y="6" width="261" height="39"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friends or Profiles" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNE-6l-SDj">
+                            <rect key="frame" x="8" y="6" width="261" height="26"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -124,12 +119,8 @@
                         </view>
                     </subviews>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqz-1G-aw6">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqz-1G-aw6">
                     <rect key="frame" x="8" y="10" width="50" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="liC-OU-sTJ"/>
-                        <constraint firstAttribute="height" constant="20" id="p2f-2E-m3m"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="Cancel">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,32 +129,20 @@
                         <action selector="btnBack_tapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Axc-2t-Pga"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJw-Vj-0PH">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJw-Vj-0PH">
                     <rect key="frame" x="52" y="10" width="174" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="174" id="G8q-rs-Oac"/>
-                        <constraint firstAttribute="height" constant="23" id="QJV-zy-MPM"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="4Pv-bn-dPc" secondAttribute="trailing" constant="8" id="1hD-RL-C9B"/>
-                <constraint firstAttribute="centerX" secondItem="nJw-Vj-0PH" secondAttribute="centerX" constant="0.5" id="A1T-KC-2oD"/>
-                <constraint firstItem="4Pv-bn-dPc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="DrR-p3-x66"/>
-                <constraint firstItem="lqz-1G-aw6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="d4W-s7-kqP"/>
-                <constraint firstItem="nJw-Vj-0PH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="rb0-jD-qB2"/>
-                <constraint firstItem="lqz-1G-aw6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="rvr-Ug-PBd"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btnBack" destination="lqz-1G-aw6" id="VD2-sM-pVC"/>
                 <outlet property="btnSend" destination="4Pv-bn-dPc" id="MnQ-jx-ajR"/>
                 <outlet property="lblPlaceholder" destination="WNE-6l-SDj" id="1eS-iT-Z57"/>
-                <outlet property="txtReportHolder" destination="thm-ip-47w" id="lht-pU-0kJ"/>
+                <outlet property="txtReportHolder" destination="thm-ip-47w" id="759-W5-J8q"/>
                 <outlet property="viewScreenshots" destination="yLk-fo-601" id="BTt-bV-VJf"/>
             </connections>
             <point key="canvasLocation" x="398.5" y="545.5"/>
