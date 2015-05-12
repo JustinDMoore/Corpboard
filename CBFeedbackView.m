@@ -21,9 +21,8 @@
 
 -(void)showInParent {
     
+    self.txtFeedback.backgroundColor = [UIColor clearColor];
     self.txtFeedback.placeholder = @"How can we improve?";
-    self.txtFeedback.placeholderColor = [UIColor lightGrayColor];
-    self.txtFeedback.textColor = [UIColor blackColor];
     self.txtFeedback.delegate = self;
     [self.txtFeedback becomeFirstResponder];
 }

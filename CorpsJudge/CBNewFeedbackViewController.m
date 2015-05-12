@@ -178,12 +178,12 @@ int keyboardHeight = 210;
                 //[self performSegueWithIdentifier:@"feedback" sender:self];
                 break;
             case 1:
-                isProblem = YES;
+                self.bug = YES;
                 [self showProblemWhereView];
                 break;
             case 2:
-                isProblem = NO;
-                [self performSegueWithIdentifier:@"problem" sender:self];
+                self.bug = NO;
+                [self showProblemWhereView];
                 break;
             case 3:
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
@@ -194,18 +194,6 @@ int keyboardHeight = 210;
     } else if (tableView == self.viewProblemWhere.tableProblem) {
         NSString *where = self.viewProblemWhere.arrayOfProblemAreas[indexPath.row];
         [self showProblemWhatView:where];
-    }
-}
-
-BOOL isProblem;
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    [self.viewContactUs closeView:NO];
-    
-    if ([[segue identifier] isEqualToString:@"problem"]) {
-        
-        CBProblemTableViewController *vc = (CBProblemTableViewController *)[[segue destinationViewController] topViewController];
-        vc.isAProblem = isProblem;
     }
 }
 
@@ -317,6 +305,7 @@ BOOL isProblem;
     [self.viewProblemWhere setDelegate:self];
     self.viewProblemWhere.tableProblem.delegate = self;
     self.viewProblemWhere.tableProblem.dataSource = self;
+    
     self.viewProblemWhere.tableProblem.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
 }
@@ -332,22 +321,27 @@ BOOL isProblem;
     for (UIView *view in [self.viewContactUs subviews]) {
         [view removeFromSuperview];
     }
+    
+    self.viewProblemWhat.frame = CGRectMake(0 + [UIScreen mainScreen].bounds.size.width, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
+    
     [UIView animateWithDuration:.25
                           delay:0
                         options:0
                      animations:^{
                          
                          self.viewProblemWhat.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
+                         
                          self.viewContactUs.frame = CGRectMake(0, 30, self.viewProblemWhat.frame.size.width, self.viewProblemWhat.frame.size.height);
                          self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
                      } completion:^(BOOL finished) {
-                         [self.viewProblemWhat showInParent];
+                         [self.viewProblemWhat showMenu];
                      }];
     [self.viewContactUs addSubview:self.viewProblemWhat];
     [self.viewProblemWhat setDelegate:self];
     self.viewProblemWhat.where = where;
     self.viewProblemWhat.parent = self;
-    NSLog(@"Where: %@", where);
+    self.viewProblemWhat.isProblem = self.bug;
+    [self.viewProblemWhat showInParent];
 }
 
 #pragma mark
@@ -430,8 +424,54 @@ BOOL isProblem;
     [self showProblemWhereView];
 }
 
--(void)sendProblem:(NSString *)report withImages:(NSMutableArray *)arrayOfImages {
+-(void)sendProblem:(NSString *)report withImages:(NSMutableArray *)arrayOfImages whereAt:(NSString *)whereat {
     
+    PFObject *problem = [PFObject objectWithClassName:@"problems"];
+    if (self.bug) {
+        problem[@"type"] = @"Problem";
+    } else {
+        problem[@"type"] = @"Incorrect Information";
+    }
+    
+    problem[@"user"] = [PFUser currentUser];
+    problem[@"whereAt"] = whereat;
+    problem[@"whatHappened"] = report;
+    [problem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            for (int i = 0; i <= [arrayOfImages count]; i++)  {
+                
+                NSData *imageData = UIImagePNGRepresentation((UIImage *)[arrayOfImages objectAtIndex:i]);
+                //make sure the image isn't too big
+                NSInteger size = imageData.length;
+                if (size < 10485760) {
+                    
+                    PFFile *imageFile = [PFFile fileWithName:@"screenshot.png" data:imageData];
+                    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            switch (i) {
+                                case 0:
+                                    problem[@"screenshot1"] = imageFile;
+                                    [problem saveEventually];
+                                    break;
+                                case 1:
+                                    problem[@"screenshot2"] = imageFile;
+                                    [problem saveEventually];
+                                    break;
+                                case 2:
+                                    problem[@"screenshot3"] = imageFile;
+                                    [problem saveEventually];
+                                    break;
+                            }
+                        }
+                    }];
+                } else {
+                    NSLog(@"image too big");
+                }
+            }
+        }
+    }];
+    
+    [self showThankYou];
 }
 
 @end

@@ -28,5 +28,5 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfFeedbackItems;
 @property (weak, nonatomic) IBOutlet UILabel *lblPrivacyPolicy;
 @property (weak, nonatomic) IBOutlet UIButton *btnPrivacyPolicy;
-
+@property (nonatomic) BOOL bug;
 @end
