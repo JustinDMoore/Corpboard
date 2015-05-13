@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "CBShowDetailsViewController.h"
+#import <ParseUI/ParseUI.h>
 
 @protocol CBJudgeViewControllerDelegate <NSObject>
 - (void)voted;

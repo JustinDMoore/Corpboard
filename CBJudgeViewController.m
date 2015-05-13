@@ -1027,7 +1027,8 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     } else { //end of phase summary, handles everything other than summary and score
         
         cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"vote"];
-        cell.textLabel.text = corps[@"corpsName"];
+        UILabel *lblcorpname = (UILabel *)[cell viewWithTag:1];
+        lblcorpname.text = corps[@"corpsName"];
         UserScore *us;
         // set the checkmarks for world class
         if (indexPath.section == 0) {
@@ -1196,6 +1197,15 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         
     }
     
+    PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
+    if (imgLogo) {
+        PFFile *imgFile = corps[@"logo"];
+        if (imgFile) {
+            [imgLogo setFile:imgFile];
+            [imgLogo loadInBackground];
+        }
+    }
+    
     return cell;
 }
 
@@ -1204,30 +1214,30 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     if (scorePhase < 0) scorePhase = 0;
     if (scorePhase > 6) scorePhase = 6;
     _scorePhase = scorePhase;
-
+    
     switch (scorePhase) {
         case phaseScore:
-            self.lblInstructions.text = @"What would you score the corps?";
+            self.lblInstructions.text = @"Scores";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestdrums:
-            self.lblInstructions.text = @"Who had the best percussion?";
+            self.lblInstructions.text = @"Best Percussion";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBesthornline:
-            self.lblInstructions.text = @"Who had the best brass?";
+            self.lblInstructions.text = @"Best Brass";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseBestguard:
-            self.lblInstructions.text = @"Who had the best color guard?";
+            self.lblInstructions.text = @"Best Color Guard";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseLoudesthornline:
-            self.lblInstructions.text = @"Who had the loudest brass?";
+            self.lblInstructions.text = @"Loudest Brass";
             //self.btnNext.titleLabel.text = @"Next";
             break;
         case phaseFavorite:
-            self.lblInstructions.text = @"What was your favorite show?";
+            self.lblInstructions.text = @"Favorite Show";
             //self.btnNext.titleLabel.text = @"Submit";
             break;
         case phaseSummary:
@@ -1239,30 +1249,45 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
     }
     
+    [self.view sendSubviewToBack:self.lblInstructions];
+    
+    CGPoint center = self.lblInstructions.center;
+    
+        [UIView animateWithDuration:0.5f
+                              delay:0
+             usingSpringWithDamping:0.5 //stength
+              initialSpringVelocity:-0.5
+                            options:0
+                         animations:^{
+                             self.lblInstructions.frame = CGRectMake(self.lblInstructions.frame.origin.x, self.lblInstructions.frame.origin.y + 50, self.lblInstructions.frame.size.width, self.lblInstructions.frame.size.height);
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    
     [self.tableCorps reloadData];
   
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-   [self.btnSubmit setTitle:@"Review" forState:UIControlStateNormal];
+
     switch (item.tag) {
         case 0: //score
-            self.scorePhase = phaseScore;
+            if (self.scorePhase != phaseScore) self.scorePhase = phaseScore;
             break;
         case 1: //hornline
-            self.scorePhase = phaseBesthornline;
+            if (self.scorePhase != phaseBesthornline) self.scorePhase = phaseBesthornline;
             break;
         case 2: //Percussion
-            self.scorePhase = phaseBestdrums;
+            if (self.scorePhase != phaseBestdrums) self.scorePhase = phaseBestdrums;
             break;
         case 3: //Colorguard
-            self.scorePhase = phaseBestguard;
+            if (self.scorePhase != phaseBestguard) self.scorePhase = phaseBestguard;
             break;
         case 4: //Loudest
-            self.scorePhase = phaseLoudesthornline;
+            if (self.scorePhase != phaseLoudesthornline) self.scorePhase = phaseLoudesthornline;
             break;
         case 5: //Favorite
-            self.scorePhase = phaseFavorite;
+            if (self.scorePhase != phaseFavorite) self.scorePhase = phaseFavorite;
             break;
         default: NSLog(@"Error setting score phase");
             break;
@@ -1271,10 +1296,10 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (IBAction)Submit:(id)sender {
     
-    if ([self.btnSubmit.titleLabel.text isEqualToString:@"Submit"]) {
+    if ([self.btnSubmit.titleLabel.text isEqualToString:@"****"]) {
         self.scorePhase = phaseScore;
         [self prepareAndSubmitScores];
-    } else if ([self.btnSubmit.titleLabel.text isEqualToString:@"Review"]) {
+    } else if ([self.btnSubmit.titleLabel.text isEqualToString:@"Send"]) {
         self.tabBar.selectedItem = nil;
         [self.btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];;
         

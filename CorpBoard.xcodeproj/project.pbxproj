@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920962C81B02DF08006D8B27 /* CBReviewShow.xib */; };
 		92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CBStatsViewController.m */; };
 		92275B3C1A4042BC006E8E8E /* CBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92275B3B1A4042BC006E8E8E /* CBView.m */; };
 		92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92393F261A59B5DE00020C6A /* CBProblemWhere.xib */; };
@@ -207,6 +208,7 @@
 
 /* Begin PBXFileReference section */
 		15A4219440C800AE5E982027 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		920962C81B02DF08006D8B27 /* CBReviewShow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewShow.xib; sourceTree = "<group>"; };
 		92120A8E195945B600FFB9A8 /* CBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStatsViewController.h; sourceTree = "<group>"; };
 		92120A8F195945B600FFB9A8 /* CBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStatsViewController.m; sourceTree = "<group>"; };
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
+				920962C81B02DF08006D8B27 /* CBReviewShow.xib */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
 			);
 			name = Xibs;
@@ -1193,6 +1196,7 @@
 				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
+				920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
 				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
