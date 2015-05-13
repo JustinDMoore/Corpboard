@@ -86,7 +86,7 @@
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
 		D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */ = {isa = PBXBuildFile; fileRef = D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */; };
 		D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = D009FD611AF9C58400FCA018 /* CBProblemWhat.m */; };
-		D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */; };
+		D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBFeedbackViewController.m */; };
 		D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */; };
 		D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71701AF44DAF00403A12 /* CBContactUs.xib */; };
 		D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00B71721AF44E0900403A12 /* CBFeedbackCell.xib */; };
@@ -105,7 +105,6 @@
 		D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D025CE411AE6B10A000021A6 /* CBMapMenu.m */; };
 		D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D025CE431AE6BC98000021A6 /* CBMapCell.xib */; };
 		D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D025CE461AE6BD35000021A6 /* CBMapCell.m */; };
-		D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */; };
 		D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D02B39EB1969EB91005E14AC /* ILTranslucentView.m */; };
 		D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02BB6D81AFC59F000721426 /* CBConnectViewController.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
@@ -120,7 +119,6 @@
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
 		D047A349196A095F00F5F5BC /* star_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A348196A095F00F5F5BC /* star_unselected.png */; };
 		D047A34B196A096700F5F5BC /* star_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A34A196A096700F5F5BC /* star_selected.png */; };
-		D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
 		D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */; };
@@ -169,7 +167,6 @@
 		D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
-		D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */; };
 		D0DEFC141AE2DDCD0029AB58 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */; };
 		D0DEFC151AE2DDCD0029AB58 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC101AE2DDCD0029AB58 /* Parse.framework */; };
 		D0DEFC161AE2DDCD0029AB58 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC111AE2DDCD0029AB58 /* ParseCrashReporting.framework */; };
@@ -326,8 +323,8 @@
 		D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhat.xib; sourceTree = "<group>"; };
 		D009FD601AF9C58400FCA018 /* CBProblemWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhat.h; sourceTree = "<group>"; };
 		D009FD611AF9C58400FCA018 /* CBProblemWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhat.m; sourceTree = "<group>"; };
-		D00B716A1AF4488400403A12 /* CBNewFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewFeedbackViewController.h; sourceTree = "<group>"; };
-		D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewFeedbackViewController.m; sourceTree = "<group>"; };
+		D00B716A1AF4488400403A12 /* CBFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackViewController.h; sourceTree = "<group>"; };
+		D00B716B1AF4488400403A12 /* CBFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackViewController.m; sourceTree = "<group>"; };
 		D00B716D1AF44C6B00403A12 /* CBSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSegueNoAnimation.h; sourceTree = "<group>"; };
 		D00B716E1AF44C6B00403A12 /* CBSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSegueNoAnimation.m; sourceTree = "<group>"; };
 		D00B71701AF44DAF00403A12 /* CBContactUs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBContactUs.xib; sourceTree = "<group>"; };
@@ -355,8 +352,6 @@
 		D025CE431AE6BC98000021A6 /* CBMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMapCell.xib; sourceTree = "<group>"; };
 		D025CE451AE6BD35000021A6 /* CBMapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMapCell.h; sourceTree = "<group>"; };
 		D025CE461AE6BD35000021A6 /* CBMapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMapCell.m; sourceTree = "<group>"; };
-		D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemTableViewController.h; sourceTree = "<group>"; };
-		D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemTableViewController.m; sourceTree = "<group>"; };
 		D02B39EA1969EB91005E14AC /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
 		D02B39EB1969EB91005E14AC /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		D02BB6D71AFC59F000721426 /* CBConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBConnectViewController.h; sourceTree = "<group>"; };
@@ -377,8 +372,6 @@
 		D04702DA195790B40004A0EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D047A348196A095F00F5F5BC /* star_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_unselected.png; sourceTree = "<group>"; };
 		D047A34A196A096700F5F5BC /* star_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_selected.png; sourceTree = "<group>"; };
-		D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackViewController.h; sourceTree = "<group>"; };
-		D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackViewController.m; sourceTree = "<group>"; };
 		D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextViewPlaceHolder.h; sourceTree = "<group>"; };
 		D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextViewPlaceHolder.m; sourceTree = "<group>"; };
 		D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsViewController.h; sourceTree = "<group>"; };
@@ -455,8 +448,6 @@
 		D0BDD53319500C4300CA9668 /* JustinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustinHelper.h; sourceTree = "<group>"; };
 		D0BDD53419500C4300CA9668 /* JustinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JustinHelper.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
-		D0DE78D6195E05A9001BDB36 /* CBContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBContactViewController.h; path = ../CBContactViewController.h; sourceTree = "<group>"; };
-		D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBContactViewController.m; path = ../CBContactViewController.m; sourceTree = "<group>"; };
 		D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		D0DEFC101AE2DDCD0029AB58 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		D0DEFC111AE2DDCD0029AB58 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -754,15 +745,12 @@
 				92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */,
 				92120A8F195945B600FFB9A8 /* CBStatsViewController.m */,
 				D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */,
-				D0DE78D7195E05A9001BDB36 /* CBContactViewController.m */,
 				92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */,
 				92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */,
 				924280E11963A573006E8240 /* CBCorpsViewController.m */,
 				927254FC1963B12000275511 /* CBCorpsDetailViewController.m */,
 				D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */,
 				D097A21E1A04125300C9FF72 /* CBWebViewController.m */,
-				D047A34D196A0A5400F5F5BC /* CBFeedbackViewController.m */,
-				D0281E8B1A0F556F00565EB8 /* CBProblemTableViewController.m */,
 				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
 				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
@@ -771,7 +759,7 @@
 				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
 				D0A88B671A9A656800A20441 /* CBAdminTableViewController.m */,
 				D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */,
-				D00B716B1AF4488400403A12 /* CBNewFeedbackViewController.m */,
+				D00B716B1AF4488400403A12 /* CBFeedbackViewController.m */,
 				D02BB6D81AFC59F000721426 /* CBConnectViewController.m */,
 			);
 			name = ViewControllers;
@@ -833,15 +821,12 @@
 				92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */,
 				92120A8E195945B600FFB9A8 /* CBStatsViewController.h */,
 				D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */,
-				D0DE78D6195E05A9001BDB36 /* CBContactViewController.h */,
 				92CF4C6319627EBC00BE98D5 /* CBFinalsPredictionViewController.h */,
 				92CF4C6619627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.h */,
 				924280E01963A573006E8240 /* CBCorpsViewController.h */,
 				927254FB1963B12000275511 /* CBCorpsDetailViewController.h */,
 				D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */,
-				D047A34C196A0A5400F5F5BC /* CBFeedbackViewController.h */,
 				D097A21D1A04125300C9FF72 /* CBWebViewController.h */,
-				D0281E8A1A0F556F00565EB8 /* CBProblemTableViewController.h */,
 				D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */,
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
 				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
@@ -850,7 +835,7 @@
 				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
 				D0A88B661A9A656800A20441 /* CBAdminTableViewController.h */,
 				D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */,
-				D00B716A1AF4488400403A12 /* CBNewFeedbackViewController.h */,
+				D00B716A1AF4488400403A12 /* CBFeedbackViewController.h */,
 				D02BB6D71AFC59F000721426 /* CBConnectViewController.h */,
 			);
 			name = Headers;
@@ -1309,7 +1294,7 @@
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
-				D00B716C1AF4488400403A12 /* CBNewFeedbackViewController.m in Sources */,
+				D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
 				D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */,
@@ -1323,7 +1308,6 @@
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,
 				D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */,
-				D047A34E196A0A5400F5F5BC /* CBFeedbackViewController.m in Sources */,
 				92275B3C1A4042BC006E8E8E /* CBView.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
@@ -1332,7 +1316,6 @@
 				D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
-				D0281E8C1A0F556F00565EB8 /* CBProblemTableViewController.m in Sources */,
 				D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */,
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
@@ -1348,7 +1331,6 @@
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
 				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
-				D0DE78D8195E05A9001BDB36 /* CBContactViewController.m in Sources */,
 				923D4FD71A2C6DCF00E16B64 /* utilities.m in Sources */,
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
