@@ -1,14 +1,14 @@
 //
-//  CBContactUs.m
+//  CBReviewShow.m
 //  CorpBoard
 //
-//  Created by Justin Moore on 5/1/15.
+//  Created by Justin Moore on 5/12/15.
 //  Copyright (c) 2015 Justin Moore. All rights reserved.
 //
 
-#import "CBContactUs.h"
+#import "CBReviewShow.h"
 
-@implementation CBContactUs
+@implementation CBReviewShow
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -17,9 +17,7 @@
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 6;
-        self.tableFeedback.canCancelContentTouches = YES;
-        self.tableFeedback.delegate = self;
-        self.tableFeedback.dataSource = self;
+        self.tableRecap.canCancelContentTouches = YES;
         
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =
@@ -49,18 +47,12 @@
     return self;
 }
 
-- (IBAction)btnCancel_tapped:(id)sender {
-    
-    [self closeView:YES];
-}
-
-
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
 
 -(void)showInParent:(CGRect)parent {
-
+    
     self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
     self.alpha = 0;
     
@@ -76,7 +68,14 @@
     }];
 }
 
--(void)closeView:(BOOL)completely {
+-(IBAction)btnYes_tapped:(id)sender {
+    
+    if ([delegate respondsToSelector:@selector(submitReview)]) {
+        [delegate submitReview];
+    }
+}
+
+-(IBAction)btnNo_tapped:(id)sender {
     
     [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
         
@@ -93,12 +92,12 @@
                              self.alpha = 0;
                          }
                          completion:^(BOOL finished) {
-                             if (completely) {
-                                 [self removeFromSuperview];
-                                 if ([delegate respondsToSelector:@selector(cancelled)]) {
-                                     [delegate cancelled];
-                                 }
+                             
+                             [self removeFromSuperview];
+                             if ([delegate respondsToSelector:@selector(cancelSubmitReview)]) {
+                                 [delegate cancelSubmitReview];
                              }
+                             
                          }];
     }];
 }

@@ -165,6 +165,9 @@
 		D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AA71481A42B4DB00875237 /* CBCorpExperienceList.xib */; };
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AAD1701AB68619002CAACC /* CBAnnotation.m */; };
+		D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */; };
+		D0AEA6BB1B031CF40080D7F5 /* CBPermissions.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */; };
+		D0AEA6BE1B031F920080D7F5 /* CBPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */; };
 		D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
@@ -443,6 +446,11 @@
 		D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpExperienceList.m; sourceTree = "<group>"; };
 		D0AAD16F1AB68619002CAACC /* CBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnnotation.h; sourceTree = "<group>"; };
 		D0AAD1701AB68619002CAACC /* CBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAnnotation.m; sourceTree = "<group>"; };
+		D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewShow.h; sourceTree = "<group>"; };
+		D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewShow.m; sourceTree = "<group>"; };
+		D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPermissions.xib; sourceTree = "<group>"; };
+		D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPermissions.h; sourceTree = "<group>"; };
+		D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPermissions.m; sourceTree = "<group>"; };
 		D0AEF3BE1A13325C0059368B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AEF3BF1A13325C0059368B /* NewsViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewTests.m; sourceTree = "<group>"; };
 		D0BA4FC51ABB13E40051310E /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
@@ -808,6 +816,9 @@
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 				920962C81B02DF08006D8B27 /* CBReviewShow.xib */,
+				D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */,
+				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
+				D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
 			);
 			name = Xibs;
@@ -870,6 +881,8 @@
 				D066C2071AF5C6B500C84609 /* CBThankYou.h */,
 				D066C20D1AF5CD4A00C84609 /* CBProblemWhereCell.h */,
 				D009FD601AF9C58400FCA018 /* CBProblemWhat.h */,
+				D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */,
+				D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1205,6 +1218,7 @@
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
+				D0AEA6BB1B031CF40080D7F5 /* CBPermissions.xib in Resources */,
 				D05F44E61ABF8B00003F9A96 /* CBTerms.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1279,7 +1293,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/CorpBoard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/CorpBoard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1289,6 +1303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */,
+				D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
@@ -1298,6 +1313,7 @@
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
+				D0AEA6BE1B031F920080D7F5 /* CBPermissions.m in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,

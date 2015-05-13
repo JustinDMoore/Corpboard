@@ -108,8 +108,26 @@ typedef enum : int {
     
 }
 
-- (void)goback
-{
+-(void)blur {
+    
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    
+    self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    
+    self.visualEffectView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.view.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.visualEffectView];
+    [self.view bringSubviewToFront:self.visualEffectView];
+}
+
+-(void)unBlur {
+    [self.visualEffectView removeFromSuperview];
+    self.visualEffectView = nil;
+}
+
+-(void)goback {
+    
     [self.navigationController popViewControllerAnimated:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
@@ -117,7 +135,22 @@ typedef enum : int {
     });
 }
 
-- (void)viewDidLoad {
+-(void)showRecap {
+    
+    self.viewRecap =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBReviewShow"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    [self.view addSubview:self.viewRecap];
+    [self.viewRecap showInParent:self.view.frame];
+    [self.viewRecap setDelegate:self];
+    self.viewRecap.tableRecap.delegate = self;
+    self.viewRecap.tableRecap.dataSource = self;
+    self.viewRecap.tableRecap.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+-(void)viewDidLoad {
     
     [super viewDidLoad];
     
@@ -1294,26 +1327,23 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-- (IBAction)Submit:(id)sender {
+-(IBAction)Submit:(id)sender {
     
-    if ([self.btnSubmit.titleLabel.text isEqualToString:@"****"]) {
-        self.scorePhase = phaseScore;
-        [self prepareAndSubmitScores];
-    } else if ([self.btnSubmit.titleLabel.text isEqualToString:@"Send"]) {
-        self.tabBar.selectedItem = nil;
-        [self.btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];;
-        
-        //sort the scores for display in summary
-        NSSortDescriptor *sortScores = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
-        NSArray *sortCorpsDescriptor = [NSArray arrayWithObject: sortScores];
-        
-        if ([self.WScores count]) [self.WScores sortUsingDescriptors:sortCorpsDescriptor];
-        if ([self.OScores count]) [self.OScores sortUsingDescriptors:sortCorpsDescriptor];
-
-        self.scorePhase = phaseSummary;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review" message:@"You can only review this show once. \n\n After you're satisfied with your review, tap submit." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+    
+    self.tabBar.selectedItem = nil;
+    
+    //sort the scores for display in summary
+    NSSortDescriptor *sortScores = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+    NSArray *sortCorpsDescriptor = [NSArray arrayWithObject: sortScores];
+    
+    if ([self.WScores count]) [self.WScores sortUsingDescriptors:sortCorpsDescriptor];
+    if ([self.OScores count]) [self.OScores sortUsingDescriptors:sortCorpsDescriptor];
+    
+    self.scorePhase = phaseSummary;
+    
+    [self blur];
+    [self showRecap];
+    
 }
 
 -(NSMutableArray *)arrayOfOpenClassScores {
@@ -1335,6 +1365,27 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         _arrayOfAllAgeClassScores = [[NSMutableArray alloc] init];
     }
     return _arrayOfAllAgeClassScores;
+}
+
+#pragma mark
+#pragma mark - Review Show Protocol
+#pragma mark
+
+-(void)submitReview {
+    
+    self.scorePhase = phaseScore;
+    [self prepareAndSubmitScores];
+}
+
+-(void)cancelSubmitReview {
+    
+    [self unBlur];
+    [self.tabBar setSelectedItem:0];
+    
+    self.scorePhase = phaseScore;
+    [self.btnSubmit setTitle:@"Send" forState:UIControlStateNormal];
+    [self.tableCorps reloadData];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 @end
