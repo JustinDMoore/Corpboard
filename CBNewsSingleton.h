@@ -30,5 +30,6 @@
 
 +(id)news;
 -(void)setDelegate:(id)newDelegate;
++(NSString *)dateForNews:(NSDate *)newsDate;
 
 @end

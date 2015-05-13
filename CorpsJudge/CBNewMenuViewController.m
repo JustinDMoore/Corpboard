@@ -1259,39 +1259,9 @@ bool isScrolling = NO;
     
     MWFeedItem *item = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
 
-    
-    //date
-    NSString *dateString = @"";
-    NSDate *date = item.date;
-    int diff = (int)[date minutesBeforeDate:[NSDate date]];
-    if (diff < 5) {
-        dateString = @"Just Now";
-    } else if (diff <= 50) {
-        dateString = [NSString stringWithFormat:@"%i min ago", diff];
-    } else if ((diff > 50) && (diff < 65)) {
-        dateString = @"An hour ago";
-    } else {
-        if ([date isYesterday]) {
-            dateString = @"Yesterday";
-        }
-        if ([date daysBeforeDate:[NSDate date]] == 2) {
-            dateString = @"2 days ago";
-        } else {
-            if ([date isToday]) {
-                int hours = (int)[date hoursBeforeDate:[NSDate date]];
-                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
-            } else {
-                NSDateFormatter *format = [[NSDateFormatter alloc] init];
-                [format setDateFormat:@"MMMM d"];
-                
-                dateString = [format stringFromDate:date];
-            }
-        }
-    }
-    
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
     dateLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
-    dateLabel.text = dateString;
+    dateLabel.text = [CBNewsSingleton dateForNews:item.date];
     dateLabel.textColor = [UIColor whiteColor];
     [dateLabel sizeToFit];
     [cell addSubview:dateLabel];
@@ -1327,7 +1297,6 @@ bool isScrolling = NO;
     return cell;
     
 }
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     

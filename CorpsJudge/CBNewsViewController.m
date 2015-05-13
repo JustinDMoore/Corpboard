@@ -112,35 +112,8 @@ MWFeedItem *itemForWeb;
     } else {
         desc.text = x;
     }
-   
-    NSLog(@"%@", x);
     
-    NSString *dateString = @"";
-    int diff = (int)[item.date minutesBeforeDate:[NSDate date]];
-    if (diff < 5) {
-        dateString = @"Just Now";
-    } else if (diff <= 50) {
-        dateString = [NSString stringWithFormat:@"%i min ago", diff];
-    } else if ((diff > 50) && (diff < 65)) {
-        dateString = @"An hour ago";
-    } else {
-        if ([item.date isYesterday]) dateString = @"Yesterday";
-        if ([item.date daysBeforeDate:[NSDate date]] == 2) {
-            dateString = @"2 days ago";
-        } else {
-            if ([item.date isToday]) {
-                int hours = (int)[item.date hoursBeforeDate:[NSDate date]];
-                dateString = [NSString stringWithFormat:@"%i hours ago", hours];
-            } else {
-                NSDateFormatter *format = [[NSDateFormatter alloc] init];
-                [format setDateFormat:@"MMMM d"];
-                
-                dateString = [format stringFromDate:item.date];
-            }
-        }
-    }
-    
-    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", dateString];
+    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", [CBNewsSingleton dateForNews:item.date]];
 
     return cell;
 }

@@ -10,6 +10,7 @@
 #import "CBNewsItem.h"
 #import "NSDate+InternetDateTime.h"
 #import "NSString+HTML.h"
+#import "NSDate+Utilities.h"
 
 @implementation CBNewsSingleton {
    
@@ -89,6 +90,7 @@
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
     //NSLog(@"Parsed Feed Item: “%@”", item.title);
     if (item) [parsedItems addObject:item];
+    NSLog(@"%@", item.description);
 }
 
 -(void)feedParserDidFinish:(MWFeedParser *)parser {
@@ -127,5 +129,39 @@
     }
 }
 
++(NSString *)dateForNews:(NSDate *)newsDate {
+    
+    NSString *result = @"";
+    
+    if (newsDate) {
+        int diff = (int)[newsDate minutesBeforeDate:[NSDate date]];
+        if (diff < 5) {
+            return @"Just Now";
+        } else if (diff <= 50) {
+            return [NSString stringWithFormat:@"%i min ago", diff];
+        } else if ((diff > 50) && (diff < 65)) {
+            return @"An hour ago";
+        } else {
+            if ([newsDate isYesterday]) {
+                return @"Yesterday";
+            }
+            if ([newsDate daysBeforeDate:[NSDate date]] == 2) {
+                return @"2 days ago";
+            } else {
+                if ([newsDate isToday]) {
+                    int hours = (int)[newsDate hoursBeforeDate:[NSDate date]];
+                    return [NSString stringWithFormat:@"%i hours ago", hours];
+                } else {
+                    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+                    [format setDateFormat:@"MMMM d"];
+                    
+                    return [format stringFromDate:newsDate];
+                }
+            }
+        }
+    }
+    
+    return result;
+}
 
 @end
