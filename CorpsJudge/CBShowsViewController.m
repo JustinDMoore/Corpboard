@@ -240,6 +240,7 @@ BOOL firstLoad = YES;
         
         PFObject *show = [filteredArray objectAtIndex:[indexPath row]];
         NSString *exc = show[@"exception"];
+        BOOL isOver = [show[@"isShowOver"] boolValue];
         
         UILabel *lblException;
         UIButton *btnScores;
@@ -250,8 +251,12 @@ BOOL firstLoad = YES;
             btnScores.hidden = YES;
             lblException.hidden = NO;
         } else {
+            if (isOver) {
+                cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show1"];
+            } else {
+                cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show3"];
+            }
             
-            cell = [self.tableShows dequeueReusableCellWithIdentifier:@"show1"];
             btnScores = (UIButton *)[cell viewWithTag:3];
             lblException.hidden = YES;
             btnScores.hidden = NO;
@@ -262,7 +267,7 @@ BOOL firstLoad = YES;
         
         lblShowTitle.text = show[@"showName"];
         lblShowLocation.text = show[@"showLocation"];
-        BOOL isOver = [show[@"isShowOver"] boolValue];
+        
         
         if (isOver) {
             if ([exc length]) {
