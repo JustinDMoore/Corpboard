@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="fbG-VI-eiG" customClass="CBReviewSubmitted">
+            <rect key="frame" x="0.0" y="0.0" width="266" height="158"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="judge" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-M9-gnb">
+                    <rect key="frame" x="0.0" y="32" width="100" height="94"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="SLC-aI-Flg"/>
+                        <constraint firstAttribute="height" constant="94" id="qwa-FW-SOg"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXo-yp-faT">
+                    <rect key="frame" x="-26" y="30" width="330" height="1"/>
+                    <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJM-Bd-slR">
+                    <rect key="frame" x="48" y="4" width="171" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="171" id="VzR-rw-dYk"/>
+                        <constraint firstAttribute="height" constant="23" id="oAB-MP-RIh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T95-yX-5fi">
+                    <rect key="frame" x="-8" y="121" width="330" height="1"/>
+                    <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rN-4n-vBW">
+                    <rect key="frame" x="8" y="128" width="250" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="BfC-6k-SbL"/>
+                        <constraint firstAttribute="width" constant="250" id="PEU-9E-eT5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="OK">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnOK_tapped:" destination="fbG-VI-eiG" eventType="touchUpInside" id="hDy-2O-Vps"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your review of the show has been submitted. Check out rankings to see who's on top." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHs-CH-fbY">
+                    <rect key="frame" x="99" y="48" width="152" height="62"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="62" id="1v4-QN-LVx"/>
+                        <constraint firstAttribute="width" constant="152" id="lYM-4Y-rVx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NJM-Bd-slR" firstAttribute="top" secondItem="fbG-VI-eiG" secondAttribute="top" constant="4" id="245-Qp-50b"/>
+                <constraint firstItem="CHs-CH-fbY" firstAttribute="leading" secondItem="kfG-M9-gnb" secondAttribute="trailing" constant="-1" id="AcF-Cu-yoM"/>
+                <constraint firstItem="kfG-M9-gnb" firstAttribute="top" secondItem="fbG-VI-eiG" secondAttribute="top" constant="32" id="Ffn-4A-h6Q"/>
+                <constraint firstAttribute="bottom" secondItem="2rN-4n-vBW" secondAttribute="bottom" id="FmK-XU-hhm"/>
+                <constraint firstAttribute="centerX" secondItem="2rN-4n-vBW" secondAttribute="centerX" id="TaM-JE-qfV"/>
+                <constraint firstAttribute="centerX" secondItem="NJM-Bd-slR" secondAttribute="centerX" constant="-0.5" id="XgJ-rA-7xf"/>
+                <constraint firstItem="kfG-M9-gnb" firstAttribute="leading" secondItem="fbG-VI-eiG" secondAttribute="leading" id="pU2-Jg-Ii1"/>
+                <constraint firstItem="CHs-CH-fbY" firstAttribute="centerY" secondItem="kfG-M9-gnb" secondAttribute="centerY" id="x9P-Gv-8dR"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="202" y="315"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="judge" width="256" height="256"/>
+    </resources>
+</document>

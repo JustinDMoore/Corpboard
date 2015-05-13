@@ -1,14 +1,14 @@
 //
-//  CBThankYou.m
+//  CBReviewSubmitted.m
 //  CorpBoard
 //
-//  Created by Justin Moore on 5/2/15.
+//  Created by Justin Moore on 5/13/15.
 //  Copyright (c) 2015 Justin Moore. All rights reserved.
 //
 
-#import "CBThankYou.h"
+#import "CBReviewSubmitted.h"
 
-@implementation CBThankYou
+@implementation CBReviewSubmitted
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -42,10 +42,11 @@
     delegate = newDelegate;
 }
 
+
 - (IBAction)btnOK_tapped:(id)sender {
     
-    if ([delegate respondsToSelector:@selector(thankYou)]) {
-        [delegate thankYou];
+    if ([delegate respondsToSelector:@selector(thankYouDone)]) {
+        [delegate thankYouDone];
     }
 }
 

@@ -377,10 +377,40 @@ bool backspaced;
     [self submitUserFavorites];
     [self voted];
     
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks!" message:@"Your vote has been submitted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+    [self thankYou];
     
+}
+
+-(void)thankYou {
+    
+    self.viewReviewSubmitted =
+    [[[NSBundle mainBundle] loadNibNamed:@"CBReviewSubmitted"
+                                   owner:self
+                                 options:nil]
+     objectAtIndex:0];
+    for (UIView *view in [self.viewRecap subviews]) {
+        [view removeFromSuperview];
+    }
+    [UIView animateWithDuration:.25
+                          delay:0
+                        options:0
+                     animations:^{
+                         self.viewRecap.frame = CGRectMake(self.viewRecap.frame.origin.x, self.viewRecap.frame.origin.y, self.viewReviewSubmitted.frame.size.width, self.viewReviewSubmitted.frame.size.height);
+                         self.viewRecap.center = [self.view convertPoint:self.view.center fromView:self.view.superview];
+                     } completion:^(BOOL finished) {
+                         [self.viewReviewSubmitted showInParent];
+                     }];
+    [self.viewRecap addSubview:self.viewReviewSubmitted];
+    [self.viewReviewSubmitted setDelegate:self];
+}
+
+#pragma mark
+#pragma mark - Show Review Protocol (thank you)
+#pragma mark
+
+-(void)thankYouDone {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)voted {
@@ -838,7 +868,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
             }
         }
         
-        NSString *blank = @"None selected";
+        NSString *blank = @"Not selected";
         NSString *mainText;
         NSString *detailText;
         
@@ -856,8 +886,8 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         //s = [self.WScores objectAtIndex:indexPath.row];
                         s = detailText;
                         if (s) {
-                            if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
-                                detailText = @"Not Scored";
+                            if ([s isEqualToString:@"0"] || [s isEqualToString:@""] || [s isEqualToString:@"0.00"])
+                                detailText = @"No Score";
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfWorldClassScores count]) { //                       best drums
                         mainText = @"Best Percussion";
@@ -918,8 +948,8 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         //s = [self.OScores objectAtIndex:indexPath.row];
                         s = detailText;
                         if (s) {
-                            if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
-                                detailText = @"Not Scored";
+                            if ([s isEqualToString:@"0"] || [s isEqualToString:@""] || [s isEqualToString:@"0.00"])
+                                detailText = @"No Score";
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfOpenClassScores count]) {
                         mainText = @"Best Percussion";
@@ -977,8 +1007,8 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
                         //s = [self.OScores objectAtIndex:indexPath.row];
                         s = detailText;
                         if (s) {
-                            if ([s isEqualToString:@"0"] || ([s isEqualToString:@""]))
-                                detailText = @"Not Scored";
+                            if ([s isEqualToString:@"0"] || [s isEqualToString:@""] || [s isEqualToString:@"0.00"])
+                                detailText = @"No Score";
                         } else detailText = s;
                     } else if (indexPath.row == [self.arrayOfAllAgeClassScores count]) {
                         mainText = @"Best Percussion";
@@ -1381,6 +1411,7 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self unBlur];
     [self.tabBar setSelectedItem:0];
+    
     
     self.scorePhase = phaseScore;
     [self.btnSubmit setTitle:@"Send" forState:UIControlStateNormal];
