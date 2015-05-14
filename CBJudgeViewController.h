@@ -12,12 +12,13 @@
 #import <ParseUI/ParseUI.h>
 #import "CBReviewShow.h"
 #import "CBReviewSubmitted.h"
+#import "CBAlertView.h"
 
 @protocol CBJudgeViewControllerDelegate <NSObject>
 - (void)voted;
 @end
 
-@interface CBJudgeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITabBarDelegate, reviewShowProtocol, showReviewProtocol>
+@interface CBJudgeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITabBarDelegate, reviewShowProtocol, showReviewProtocol, CBAlertDelegate>
 
 @property (nonatomic, strong) PFObject *show;
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClassScores;

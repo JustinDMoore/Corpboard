@@ -150,6 +150,22 @@ typedef enum : int {
     self.viewRecap.tableRecap.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    CBAlertView *viewAlert = [[[NSBundle mainBundle] loadNibNamed:@"CBAlertView"
+                                                            owner:self
+                                                          options:nil]
+                              objectAtIndex:0];
+    [self.view addSubview:viewAlert];
+
+    [viewAlert showAlertWithTitle:@"Review Show"
+                      withMessage:@"To keep votes accurate, do not review this show if you did not attend."
+                     forAlertType:CBAlertTypeOKOnly withCBAlertImage:CBAlertImageCheck];
+    
+    [viewAlert setDelegate:self];
+}
+
 -(void)viewDidLoad {
     
     [super viewDidLoad];
@@ -161,16 +177,18 @@ typedef enum : int {
     UITabBarItem *item = [self.tabBar.items objectAtIndex:0];
     [self.tabBar setSelectedItem:item];
     
-    NSString *mystring1 = @"To keep votes accurate, do not review this show if you did not attend.";
-    NSString *mystring2 = @"Corps that are not scored will not be included.";
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review Show"
-                                                    message:[NSString stringWithFormat:@"\n%@\n\n%@", mystring1,mystring2]
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
- 
-    [alert show];
+//    NSString *mystring1 = @"To keep votes accurate, do not review this show if you did not attend.";
+//    NSString *mystring2 = @"Corps that are not scored will not be included.";
+//    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Review Show"
+//                                                    message:[NSString stringWithFormat:@"\n%@\n\n%@", mystring1,mystring2]
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:nil, nil];
+// 
+//    [alert show];
+
+
     
     self.OScores = [[NSMutableArray alloc] init];//WithCapacity:[self.arrayOfOpenClassScores count]];
     self.WScores = [[NSMutableArray alloc] init];//WithCapacity:[self.arrayOfWorldClassScores count]];
@@ -1417,6 +1435,14 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.btnSubmit setTitle:@"Send" forState:UIControlStateNormal];
     [self.tableCorps reloadData];
     self.view.backgroundColor = [UIColor blackColor];
+}
+
+#pragma mark
+#pragma mark - CBAlertView Delegate
+#pragma mark
+
+-(void)didAcknowledgeCBAlert {
+    
 }
 
 @end

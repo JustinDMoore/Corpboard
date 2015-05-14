@@ -69,6 +69,8 @@
 		928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
+		92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE651B053586000E2F55 /* CBAlertView.xib */; };
+		92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE681B053598000E2F55 /* CBAlertView.m */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */; };
@@ -304,6 +306,9 @@
 		928CE8791A1EB88B009CE39E /* CBRateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRateView.xib; sourceTree = "<group>"; };
 		928CE87B1A1EBA62009CE39E /* CBRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRateView.h; sourceTree = "<group>"; };
 		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
+		92A6AE651B053586000E2F55 /* CBAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBAlertView.xib; sourceTree = "<group>"; };
+		92A6AE671B053598000E2F55 /* CBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAlertView.h; sourceTree = "<group>"; };
+		92A6AE681B053598000E2F55 /* CBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAlertView.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
 		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
@@ -820,6 +825,8 @@
 				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
+				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
+				92A6AE681B053598000E2F55 /* CBAlertView.m */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
 				D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */,
@@ -888,6 +895,7 @@
 				D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */,
 				D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */,
 				D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */,
+				92A6AE671B053598000E2F55 /* CBAlertView.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1222,6 +1230,7 @@
 				923D4FD91A2C6DCF00E16B64 /* blank_profile@2x.png in Resources */,
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
+				92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */,
 				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
 				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
@@ -1310,7 +1319,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/CorpBoard/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/developer/develop/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1387,6 +1396,7 @@
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
+				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
