@@ -65,21 +65,18 @@
     } else {
         [self makePrediction];
     }
-}
-
--(void)viewDidAppear:(BOOL)animated {
     
-    [super viewDidAppear:animated];
-    CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+        CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
                                                                          owner:self
                                                                        options:nil]
                                            objectAtIndex:0];
     
     
-    [self.navigationController.view addSubview:viewPredict];
+    viewPredict.parentNav = self.navigationController;
     [viewPredict show];
     [viewPredict setDelegate:self];
 }
+
 
 -(void)makePrediction {
     
@@ -258,7 +255,7 @@ int loop = 0;
 
 -(void)predictionDismissed {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self goback];
 }
 
 @end

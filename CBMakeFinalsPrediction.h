@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UIVisualEffectView *viewBlur;
 @property (nonatomic, strong) IBOutlet UIButton *btnMakePrediction;
+@property (nonatomic, strong) UINavigationController *parentNav;
 
 -(void)show;
 -(void)setDelegate:(id)newDelegate;

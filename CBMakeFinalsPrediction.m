@@ -39,10 +39,10 @@
     
     self.viewBlur.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
-    [self.superview addSubview:self.viewBlur];
-    [self.superview bringSubviewToFront:self.viewBlur];
-    [self.superview bringSubviewToFront:self];
-    
+    [self.parentNav.view addSubview:self.viewBlur];
+    [self.parentNav.view bringSubviewToFront:self.viewBlur];
+    [self.viewBlur addSubview:self];
+    [self.parentNav.view bringSubviewToFront:self];
     [UIView animateWithDuration:0.25
                           delay:0
          usingSpringWithDamping:.9
@@ -56,21 +56,23 @@
 
 -(void)dismissView {
     
+    if ([delegate respondsToSelector:@selector(predictionDismissed)]) {
+        [delegate predictionDismissed];
+        
+    }
+    
     [UIView animateWithDuration:0.25
-                          delay:0
-         usingSpringWithDamping:.9
+                          delay:0.09
+         usingSpringWithDamping:1
           initialSpringVelocity:.7
                         options:0
                      animations:^{
-                         self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
+                         self.viewBlur.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
                      } completion:^(BOOL finished){
                          
-                         [self removeFromSuperview];
+                         [self.viewBlur removeFromSuperview];
                          
-                         if ([delegate respondsToSelector:@selector(predictionDismissed)]) {
-                             [delegate predictionDismissed];
-                             
-                         }
+                       
                         
                      }];
 }
