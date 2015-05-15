@@ -54,7 +54,6 @@
     [self closeView:YES];
 }
 
-
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }

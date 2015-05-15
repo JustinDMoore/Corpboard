@@ -40,6 +40,8 @@
     [super viewDidLoad];
     data = [CBSingle data];
     self.tablePredictions.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -63,6 +65,20 @@
     } else {
         [self makePrediction];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+                                                                         owner:self
+                                                                       options:nil]
+                                           objectAtIndex:0];
+    
+    
+    [self.navigationController.view addSubview:viewPredict];
+    [viewPredict show];
+    [viewPredict setDelegate:self];
 }
 
 -(void)makePrediction {
@@ -234,6 +250,15 @@ int loop = 0;
 -(void)predictionMade {
     
     [self showPredictions];
+}
+
+#pragma mark
+#pragma mark - CBMakeFinalsPrediction Delegate
+#pragma mark
+
+-(void)predictionDismissed {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

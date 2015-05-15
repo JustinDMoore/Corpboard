@@ -102,10 +102,11 @@
     });
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
-   
+
+    
     data = [CBSingle data];
     config = [[Configuration alloc] init];
     
@@ -130,6 +131,20 @@
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.btnNext.hidden = YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+                                                                         owner:self
+                                                                       options:nil]
+                                           objectAtIndex:0];
+    [self.view addSubview:viewPredict];
+    
+    [viewPredict show];
+    [viewPredict setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning

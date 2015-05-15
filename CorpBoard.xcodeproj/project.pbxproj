@@ -71,6 +71,8 @@
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE651B053586000E2F55 /* CBAlertView.xib */; };
 		92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE681B053598000E2F55 /* CBAlertView.m */; };
+		92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */; };
+		92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */; };
@@ -309,6 +311,9 @@
 		92A6AE651B053586000E2F55 /* CBAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBAlertView.xib; sourceTree = "<group>"; };
 		92A6AE671B053598000E2F55 /* CBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAlertView.h; sourceTree = "<group>"; };
 		92A6AE681B053598000E2F55 /* CBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAlertView.m; sourceTree = "<group>"; };
+		92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMakeFinalsPrediction.xib; sourceTree = "<group>"; };
+		92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMakeFinalsPrediction.h; sourceTree = "<group>"; };
+		92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMakeFinalsPrediction.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
 		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
@@ -827,6 +832,8 @@
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
 				92A6AE681B053598000E2F55 /* CBAlertView.m */,
+				92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */,
+				92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
 				D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */,
@@ -896,6 +903,7 @@
 				D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */,
 				D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */,
 				92A6AE671B053598000E2F55 /* CBAlertView.h */,
+				92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1237,6 +1245,7 @@
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
+				92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */,
 				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
@@ -1380,6 +1389,7 @@
 				923D4FD71A2C6DCF00E16B64 /* utilities.m in Sources */,
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
+				92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */,
 				D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */,
 				923D4FC51A2C6DCF00E16B64 /* GroupView.m in Sources */,
 				92533491194FD5D70004D16F /* CBAppDelegate.m in Sources */,

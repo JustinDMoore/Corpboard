@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBMakeFinalsPrediction.h"
 
 @protocol predictionProtocol <NSObject>
 @required

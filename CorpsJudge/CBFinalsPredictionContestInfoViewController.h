@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CBFinalsPredictionViewController.h"
 
-@interface CBFinalsPredictionContestInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, predictionProtocol>
+@interface CBFinalsPredictionContestInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, predictionProtocol, CBMakeFinalsPredictionDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *lblAveragePredictions;
 @property (weak, nonatomic) IBOutlet UIButton *btnSubmitPrediction;
