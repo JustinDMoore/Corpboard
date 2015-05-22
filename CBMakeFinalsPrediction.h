@@ -10,7 +10,7 @@
 
 @protocol CBMakeFinalsPredictionDelegate <NSObject>
 @required
--(void)predictionDismissed;
+-(void)makePrediction;
 @end
 
 @interface CBMakeFinalsPrediction : UIView {

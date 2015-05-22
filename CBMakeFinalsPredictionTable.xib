@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Kel-On-fka" customClass="CBMakeFinalsPredictionTable">
+            <rect key="frame" x="0.0" y="0.0" width="279" height="431"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsv-bS-g5B">
+                    <rect key="frame" x="0.0" y="42" width="340" height="1"/>
+                    <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="meI-YB-gzW">
+                    <rect key="frame" x="0.0" y="45" width="279" height="386"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vL1-u7-ZDa">
+                    <rect key="frame" x="8" y="12" width="57" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="57" id="Mh5-uX-WPo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCancel_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="5Rf-UX-fBY"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz8-TC-7a3">
+                    <rect key="frame" x="228" y="12" width="43" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="43" id="2Fz-Fh-PJN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="Send">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSend_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="k3C-1F-O8G"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select 12 Finalists" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcl-HG-hcq">
+                    <rect key="frame" x="52" y="11" width="174" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="174" id="8ZS-1R-TBW"/>
+                        <constraint firstAttribute="height" constant="23" id="N1v-7G-34h"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBt-5y-tF7">
+                    <rect key="frame" x="8" y="7" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="0bK-Ba-ReT"/>
+                        <constraint firstAttribute="height" constant="30" id="CcM-x4-IS3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" backgroundImage="arrowLeft">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCancel_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="vmt-a9-zI8"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vL1-u7-ZDa" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="12" id="3bf-c7-U6s"/>
+                <constraint firstItem="vL1-u7-ZDa" firstAttribute="leading" secondItem="Kel-On-fka" secondAttribute="leading" constant="8" id="6N0-pW-X8r"/>
+                <constraint firstAttribute="centerX" secondItem="fcl-HG-hcq" secondAttribute="centerX" constant="0.5" id="BTj-u6-gZC"/>
+                <constraint firstAttribute="trailing" secondItem="Mz8-TC-7a3" secondAttribute="trailing" constant="8" id="DYZ-gB-qkm"/>
+                <constraint firstItem="fcl-HG-hcq" firstAttribute="centerY" secondItem="vL1-u7-ZDa" secondAttribute="centerY" constant="0.5" id="ETT-2A-bZA"/>
+                <constraint firstItem="Mz8-TC-7a3" firstAttribute="centerY" secondItem="fcl-HG-hcq" secondAttribute="centerY" constant="-0.5" id="FJs-i8-QDz"/>
+                <constraint firstItem="fcl-HG-hcq" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="11" id="RC2-IN-e9B"/>
+                <constraint firstItem="Mz8-TC-7a3" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="12" id="bep-lX-EYL"/>
+                <constraint firstItem="fcl-HG-hcq" firstAttribute="centerY" secondItem="pBt-5y-tF7" secondAttribute="centerY" constant="0.5" id="bsO-9U-P7c"/>
+                <constraint firstItem="pBt-5y-tF7" firstAttribute="leading" secondItem="Kel-On-fka" secondAttribute="leading" constant="8" id="rrA-7n-05m"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnBack" destination="pBt-5y-tF7" id="zMG-sl-kEu"/>
+                <outlet property="btnCancel" destination="vL1-u7-ZDa" id="D0s-Zz-DbM"/>
+                <outlet property="btnSend" destination="Mz8-TC-7a3" id="11o-m7-0rM"/>
+                <outlet property="lblHeader" destination="fcl-HG-hcq" id="vuv-ro-JEU"/>
+                <outlet property="tableCorps" destination="meI-YB-gzW" id="gjN-XA-jH1"/>
+            </connections>
+            <point key="canvasLocation" x="264.5" y="540.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowLeft" width="128" height="128"/>
+    </resources>
+</document>

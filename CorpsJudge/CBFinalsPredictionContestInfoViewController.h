@@ -8,12 +8,32 @@
 
 #import <UIKit/UIKit.h>
 #import "CBFinalsPredictionViewController.h"
+#import "CBMakeFinalsPredictionTable.h"
+#import "CBPredictionSelectCell.h"
+#import "CBPredictionOrderCell.h"
+#import "CBPredictionScoreCell.h"
+#import "CBPredictionSubmitted.h"
 
-@interface CBFinalsPredictionContestInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, predictionProtocol, CBMakeFinalsPredictionDelegate>
+typedef enum : NSUInteger {
+    pick,
+    sort,
+    score,
+} phase;
 
+@interface CBFinalsPredictionContestInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, predictionProtocol, UITextFieldDelegate, makePredictionProtocol, predictionThankYouProtocol>
+
+@property (weak, nonatomic) IBOutlet UIView *viewLine;
+@property (nonatomic, strong) UIVisualEffectView *viewEffect;
+@property (nonatomic) phase currentPhase;
+@property (nonatomic, strong) CBMakeFinalsPredictionTable *viewCorps;
+@property (nonatomic, strong) CBPredictionSubmitted *viewPredictionSubmitted;
 @property (weak, nonatomic) IBOutlet UILabel *lblAveragePredictions;
-@property (weak, nonatomic) IBOutlet UIButton *btnSubmitPrediction;
 @property (weak, nonatomic) IBOutlet UITableView *tablePredictions;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllPredictions;
+@property (nonatomic, strong) NSMutableArray *arrayOfCorps;
+@property (nonatomic, strong) NSMutableArray *arrayOfIndexes;
+@property (nonatomic, strong) NSMutableArray *arrayOfScores;
+@property (nonatomic, strong) NSMutableDictionary *dictOfCorps;
+@property (nonatomic, assign) UITextField *currentResponder;
 
 @end

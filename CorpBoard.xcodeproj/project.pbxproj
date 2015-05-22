@@ -176,6 +176,16 @@
 		D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6C21B03C7140080D7F5 /* CBReviewSubmitted.m */; };
 		D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */; };
 		D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD53419500C4300CA9668 /* JustinHelper.m */; };
+		D0C2EC4D1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC4C1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib */; };
+		D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC4F1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m */; };
+		D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC511B0CEB7500C57017 /* CBPredictionSelectCell.xib */; };
+		D0C2EC541B0CEBAC00C57017 /* CBPredictionOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC531B0CEBAC00C57017 /* CBPredictionOrderCell.xib */; };
+		D0C2EC561B0CEBBC00C57017 /* CBPredictionScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC551B0CEBBC00C57017 /* CBPredictionScoreCell.xib */; };
+		D0C2EC591B0CF05B00C57017 /* CBPredictionScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC581B0CF05B00C57017 /* CBPredictionScoreCell.m */; };
+		D0C2EC5C1B0CF06800C57017 /* CBPredictionOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC5B1B0CF06800C57017 /* CBPredictionOrderCell.m */; };
+		D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC5E1B0CF07700C57017 /* CBPredictionSelectCell.m */; };
+		D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC601B0E771600C57017 /* CBPredictionSubmitted.xib */; };
+		D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
 		D0DEFC141AE2DDCD0029AB58 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */; };
 		D0DEFC151AE2DDCD0029AB58 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC101AE2DDCD0029AB58 /* Parse.framework */; };
@@ -472,6 +482,21 @@
 		D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		D0BDD53319500C4300CA9668 /* JustinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustinHelper.h; sourceTree = "<group>"; };
 		D0BDD53419500C4300CA9668 /* JustinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JustinHelper.m; sourceTree = "<group>"; };
+		D0C2EC4C1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMakeFinalsPredictionTable.xib; sourceTree = "<group>"; };
+		D0C2EC4E1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMakeFinalsPredictionTable.h; sourceTree = "<group>"; };
+		D0C2EC4F1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMakeFinalsPredictionTable.m; sourceTree = "<group>"; };
+		D0C2EC511B0CEB7500C57017 /* CBPredictionSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPredictionSelectCell.xib; sourceTree = "<group>"; };
+		D0C2EC531B0CEBAC00C57017 /* CBPredictionOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPredictionOrderCell.xib; sourceTree = "<group>"; };
+		D0C2EC551B0CEBBC00C57017 /* CBPredictionScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPredictionScoreCell.xib; sourceTree = "<group>"; };
+		D0C2EC571B0CF05B00C57017 /* CBPredictionScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionScoreCell.h; sourceTree = "<group>"; };
+		D0C2EC581B0CF05B00C57017 /* CBPredictionScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionScoreCell.m; sourceTree = "<group>"; };
+		D0C2EC5A1B0CF06800C57017 /* CBPredictionOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionOrderCell.h; sourceTree = "<group>"; };
+		D0C2EC5B1B0CF06800C57017 /* CBPredictionOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionOrderCell.m; sourceTree = "<group>"; };
+		D0C2EC5D1B0CF07700C57017 /* CBPredictionSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionSelectCell.h; sourceTree = "<group>"; };
+		D0C2EC5E1B0CF07700C57017 /* CBPredictionSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionSelectCell.m; sourceTree = "<group>"; };
+		D0C2EC601B0E771600C57017 /* CBPredictionSubmitted.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPredictionSubmitted.xib; sourceTree = "<group>"; };
+		D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionSubmitted.h; sourceTree = "<group>"; };
+		D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionSubmitted.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
 		D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		D0DEFC101AE2DDCD0029AB58 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -832,8 +857,7 @@
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
 				92A6AE681B053598000E2F55 /* CBAlertView.m */,
-				92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */,
-				92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */,
+				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
 				D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */,
@@ -904,6 +928,11 @@
 				D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */,
 				92A6AE671B053598000E2F55 /* CBAlertView.h */,
 				92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */,
+				D0C2EC4E1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.h */,
+				D0C2EC5D1B0CF07700C57017 /* CBPredictionSelectCell.h */,
+				D0C2EC5A1B0CF06800C57017 /* CBPredictionOrderCell.h */,
+				D0C2EC571B0CF05B00C57017 /* CBPredictionScoreCell.h */,
+				D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1111,6 +1140,25 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */ = {
+			isa = PBXGroup;
+			children = (
+				92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */,
+				92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */,
+				D0C2EC4C1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib */,
+				D0C2EC4F1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m */,
+				D0C2EC511B0CEB7500C57017 /* CBPredictionSelectCell.xib */,
+				D0C2EC5E1B0CF07700C57017 /* CBPredictionSelectCell.m */,
+				D0C2EC531B0CEBAC00C57017 /* CBPredictionOrderCell.xib */,
+				D0C2EC5B1B0CF06800C57017 /* CBPredictionOrderCell.m */,
+				D0C2EC551B0CEBBC00C57017 /* CBPredictionScoreCell.xib */,
+				D0C2EC581B0CF05B00C57017 /* CBPredictionScoreCell.m */,
+				D0C2EC601B0E771600C57017 /* CBPredictionSubmitted.xib */,
+				D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */,
+			);
+			name = "Finals Prediction";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1215,9 +1263,11 @@
 			files = (
 				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
 				D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */,
+				D0C2EC4D1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib in Resources */,
 				D0AEA6C01B03C6490080D7F5 /* CBReviewSubmitted.xib in Resources */,
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
+				D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */,
 				92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
@@ -1240,10 +1290,12 @@
 				923D4FC71A2C6DCF00E16B64 /* PrivateView.xib in Resources */,
 				92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */,
 				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
+				D0C2EC561B0CEBBC00C57017 /* CBPredictionScoreCell.xib in Resources */,
 				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */,
+				D0C2EC541B0CEBAC00C57017 /* CBPredictionOrderCell.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
 				92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */,
 				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
@@ -1263,6 +1315,7 @@
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
+				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
 				D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */,
@@ -1358,6 +1411,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
+				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
 				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
 				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
@@ -1370,9 +1424,11 @@
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
+				D0C2EC591B0CF05B00C57017 /* CBPredictionScoreCell.m in Sources */,
 				9253348D194FD5D70004D16F /* main.m in Sources */,
 				D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */,
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
+				D0C2EC5C1B0CF06800C57017 /* CBPredictionOrderCell.m in Sources */,
 				D096D052195A7B6000835612 /* CBSingle.m in Sources */,
 				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,
 				D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */,
@@ -1381,6 +1437,7 @@
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,
 				D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */,
+				D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */,
 				D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */,
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
@@ -1407,6 +1464,7 @@
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
+				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,

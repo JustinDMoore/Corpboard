@@ -1103,7 +1103,25 @@ bool isScrolling = NO;
 
 
 -(IBAction)finalsContest_clicked:(id)sender {
-    [self performSegueWithIdentifier:@"contest" sender:self];
+    
+    //UIViewController *contestViewController = [[UIViewController alloc] init];
+    
+    PFUser *user = [PFUser currentUser];
+    BOOL predicted = [user[@"predictionEntered"] boolValue];
+    if (!predicted) {
+        
+        CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+                                                                             owner:self
+                                                                           options:nil]
+                                               objectAtIndex:0];
+        
+        
+        viewPredict.parentNav = self.navigationController;
+        [viewPredict show];
+        [viewPredict setDelegate:self];
+    } else {
+        [self performSegueWithIdentifier:@"contest" sender:self];
+    }
 }
 
 -(void)feedback_clicked:(id)sender {
@@ -1381,6 +1399,15 @@ bool isScrolling = NO;
         _badgeAdmin = [[JSBadgeView alloc] initWithParentView:self.btnAdmin alignment:JSBadgeViewAlignmentTopRight];
     }
     return _badgeAdmin;
+}
+
+#pragma mark
+#pragma mark - Finals Prediction
+#pragma mark
+
+-(void)makePrediction {
+    
+    [self performSegueWithIdentifier:@"contest" sender:self];
 }
 
 @end

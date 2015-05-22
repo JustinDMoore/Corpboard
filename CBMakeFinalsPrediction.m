@@ -54,12 +54,7 @@
 }
 
 
--(void)dismissView {
-    
-    if ([delegate respondsToSelector:@selector(predictionDismissed)]) {
-        [delegate predictionDismissed];
-        
-    }
+-(void)dismissView:(BOOL)makePrediction {
     
     [UIView animateWithDuration:0.25
                           delay:0.09
@@ -71,9 +66,11 @@
                      } completion:^(BOOL finished){
                          
                          [self.viewBlur removeFromSuperview];
-                         
-                       
-                        
+                         if (makePrediction) {
+                             if ([delegate respondsToSelector:@selector(makePrediction)]) {
+                                 [delegate makePrediction];
+                             }
+                         }
                      }];
 }
 
@@ -83,10 +80,12 @@
 
 - (IBAction)btnNotNow_tapped:(id)sender {
     
-    [self dismissView];
+    [self dismissView:NO];
 }
 
 - (IBAction)btnMakePrediction_tapped:(id)sender {
+    
+    [self dismissView:YES];
 }
 
 @end

@@ -20,7 +20,6 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *tableRecap;
 
-
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(CGRect)parent;
 

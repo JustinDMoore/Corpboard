@@ -20,8 +20,6 @@
     PFQuery *queryPredictions;
 }
 
-- (IBAction)btnTerms_tapped:(id)sender;
-
 @end
 
 @implementation CBFinalsPredictionContestInfoViewController
@@ -40,8 +38,11 @@
     [super viewDidLoad];
     data = [CBSingle data];
     self.tablePredictions.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-
+    for (PFObject *corp in data.arrayOfWorldClass) {
+        [self.dictOfCorps setObject:@"NO" forKey:corp[@"corpsName"]];
+        [self.arrayOfCorps addObject:corp];
+    }
+    self.viewLine.hidden = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -58,44 +59,104 @@
 
     PFUser *user = [PFUser currentUser];
     BOOL predicted = [user[@"predictionEntered"] boolValue];
-    if (predicted) {
-        loop = 0;
-        [self.arrayOfAllPredictions removeAllObjects];
-        [self showPredictions];
+    if (!predicted) {
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        
+        self.viewEffect = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        
+        self.viewEffect.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        self.view.backgroundColor = [UIColor clearColor];
+        [self.navigationController.view addSubview:self.viewEffect];
+        [self.view bringSubviewToFront:self.viewEffect];
     } else {
-        [self makePrediction];
+        [self showPredictions];
     }
-    
-        CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
-                                                                         owner:self
-                                                                       options:nil]
-                                           objectAtIndex:0];
-    
-    
-    viewPredict.parentNav = self.navigationController;
-    [viewPredict show];
-    [viewPredict setDelegate:self];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    PFUser *user = [PFUser currentUser];
+    BOOL predicted = [user[@"predictionEntered"] boolValue];
+    if (!predicted) {
+        self.viewCorps = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPredictionTable"
+                                                        owner:self
+                                                      options:nil]
+                          objectAtIndex:0];
+        
+        
+        [self.navigationController.view addSubview:self.viewCorps];
+        [self.viewCorps show];
+        [self.viewCorps setDelegate:self];
+        self.viewCorps.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.viewCorps.tableCorps.delegate = self;
+        self.viewCorps.tableCorps.dataSource = self;
+        self.viewCorps.btnSend.hidden = YES;
+        self.currentPhase = pick;
+        [self.arrayOfScores removeAllObjects];
+        for (int i = 0; i < 12; i++) {
+            NSString *str = @"0";
+            [self.arrayOfScores addObject:str];
+        }
+    }
+}
+
+-(void)setCurrentPhase:(phase)newPhase {
+
+    _currentPhase = newPhase;
+    switch (self.currentPhase) {
+        case pick:
+            [self.viewCorps.btnSend setTitle:@"Next" forState:UIControlStateNormal];
+            [self changeText:@"Select 12 Finalists" forLabel:self.viewCorps.lblHeader];
+            self.viewCorps.tableCorps.allowsMultipleSelection = YES;
+            self.viewCorps.btnCancel.hidden = NO;
+            self.viewCorps.btnBack.hidden = YES;
+            [self.viewCorps.tableCorps setEditing:NO animated:YES];
+            break;
+        case sort:
+            [self.viewCorps.btnSend setTitle:@"Next" forState:UIControlStateNormal];
+            [self changeText:@"Order Finalists" forLabel:self.viewCorps.lblHeader];
+            //self.viewCorps.tableCorps.allowsSelection = NO;
+            self.viewCorps.btnCancel.hidden = YES;
+            self.viewCorps.btnBack.hidden = NO;
+            [self.viewCorps.tableCorps setEditing:YES animated:YES];
+            break;
+        case score:
+            [self.viewCorps.btnSend setTitle:@"Send" forState:UIControlStateNormal];
+            [self.viewCorps.tableCorps setEditing:NO animated:YES];
+            [self changeText:@"Score Finalists" forLabel:self.viewCorps.lblHeader];
+            //self.viewCorps.tableCorps.allowsSelection = NO;
+            self.viewCorps.btnCancel.hidden = YES;
+            self.viewCorps.btnBack.hidden = NO;
+            break;
+    }
+    
+    [self.viewCorps reload];
+}
 
 -(void)makePrediction {
     
     self.tablePredictions.hidden = YES;
     self.lblAveragePredictions.hidden = YES;
-    self.btnSubmitPrediction.hidden = NO;
+    self.viewLine.hidden = YES;
+
 }
 
 -(void)showPredictions {
-    
-    
+    loop = 0;
+    [self.arrayOfAllPredictions removeAllObjects];
+    self.view.backgroundColor = [UIColor blackColor];
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-        [KVNProgress show];
+        [KVNProgress showWithStatus:@"Getting Current Predictions"];
     });
+    
     [self getPredictions];
     self.tablePredictions.hidden = YES;
     self.lblAveragePredictions.hidden = NO;
-    self.btnSubmitPrediction.hidden = YES;
+    self.lblAveragePredictions.hidden = YES;
 }
 
 
@@ -151,6 +212,8 @@ int loop = 0;
     if ([self.arrayOfAllPredictions count]) [self.arrayOfAllPredictions sortUsingDescriptors:sortUserRankingsDescriptor];
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.viewLine.hidden = NO;
+        self.lblAveragePredictions.hidden = NO;
         self.tablePredictions.hidden = NO;
         [self.tablePredictions reloadData];
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
@@ -166,6 +229,7 @@ int loop = 0;
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress dismiss];
     });
+    [self.viewEffect removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -198,36 +262,403 @@ int loop = 0;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (tableView == self.viewCorps.tableCorps) {
+        switch (self.currentPhase) {
+            case pick: return [self.arrayOfCorps count];
+                break;
+            case sort: return [self.arrayOfIndexes count];
+                break;
+            case score: return [self.arrayOfIndexes count];
+                break;
+        }
+    }
     return 12;
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [self.tablePredictions dequeueReusableCellWithIdentifier:@"rank"];
-    UILabel *lblRank = (UILabel *)[cell viewWithTag:1];
-    UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
-    UILabel *lblScore = (UILabel *)[cell viewWithTag:3];
-    PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
-    UserScore *us;
-    if ([self.arrayOfAllPredictions count]) us = [self.arrayOfAllPredictions objectAtIndex:indexPath.row];
-    if (us) {
-        PFFile *imageFile = us.corps[@"logo"];
-        if (imageFile) {
-            [imgLogo setFile:imageFile];
-            [imgLogo loadInBackground];
+    UITableViewCell *cell;
+    
+    if (tableView == self.viewCorps.tableCorps) {
+        
+        PFObject *corp;
+        NSMutableArray *array;
+        UILabel *lblPlacement;
+        PFImageView *imgLogo;
+        UILabel *lblName;
+        UITextField *txtScore;
+        
+        switch (self.currentPhase) {
+                
+            case pick:
+                
+                cell = (CBPredictionSelectCell *)[self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"selectCell"];
+                if (!cell) {
+                    [self.viewCorps.tableCorps registerNib:[UINib nibWithNibName:@"CBPredictionSelectCell" bundle:nil] forCellReuseIdentifier:@"selectCell"];
+                    cell = [self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"selectCell"];
+                }
+
+                array = self.arrayOfCorps;
+                if ([array count]) corp = array[indexPath.row];
+                lblPlacement = (UILabel *)[cell viewWithTag:1];
+                imgLogo = (PFImageView *)[cell viewWithTag:2];
+                lblName = (UILabel *)[cell viewWithTag:3];
+                
+                break;
+            case sort:
+                
+                cell = (CBPredictionOrderCell *)[self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"orderCell"];
+                if (!cell) {
+                    [self.viewCorps.tableCorps registerNib:[UINib nibWithNibName:@"CBPredictionOrderCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
+                    cell = [self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"orderCell"];
+                }
+                array = self.arrayOfIndexes;
+                if ([array count]) corp = array[indexPath.row];
+                lblPlacement = (UILabel *)[cell viewWithTag:1];
+                imgLogo = (PFImageView *)[cell viewWithTag:2];
+                lblName = (UILabel *)[cell viewWithTag:3];
+
+                
+                break;
+            case score:
+                
+                cell = (CBPredictionScoreCell *)[self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"scoreCell"];
+                if (!cell) {
+                    [self.viewCorps.tableCorps registerNib:[UINib nibWithNibName:@"CBPredictionScoreCell" bundle:nil] forCellReuseIdentifier:@"scoreCell"];
+                    cell = [self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"scoreCell"];
+                }
+                array = self.arrayOfIndexes;
+                if ([array count]) corp = array[indexPath.row];
+                lblPlacement = (UILabel *)[cell viewWithTag:1];
+                imgLogo = (PFImageView *)[cell viewWithTag:2];
+                lblName = (UILabel *)[cell viewWithTag:3];
+                txtScore = (UITextField *)[cell viewWithTag:4];
+                txtScore.delegate = self;
+                [txtScore setUserInteractionEnabled:YES];
+                [txtScore setUserInteractionEnabled:YES];
+                [txtScore addTarget:self
+                             action:@selector(textFieldDidChange:)
+                   forControlEvents:UIControlEventEditingChanged];
+                
+                break;
         }
-        lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-        lblCorpsName.text = us.corps[@"corpsName"];
-        lblScore.text = [NSString stringWithFormat:@"%.3f", us.score];
+        
+     
+            
+            if (corp) {
+              
+                
+                if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%lu", indexPath.row + 1];
+                if (imgLogo) {
+                    PFFile *imageFile = corp[@"logo"];
+                    if (imageFile) {
+                        [imgLogo setFile:imageFile];
+                        [imgLogo loadInBackground];
+                    }
+                }
+    
+                if (lblName) lblName.text = corp[@"corpsName"];
+                
+                if ([self.arrayOfScores count] && txtScore) {
+                    NSString *score = [NSString stringWithFormat:@"%@", self.arrayOfScores[indexPath.row]];
+                    if ([score isEqualToString:@"0"]) score = @"";
+                    if (txtScore) txtScore.text = score;
+                }
+                
+                if (self.currentPhase == pick) {
+                    
+                    NSString *str = [self.dictOfCorps objectForKey:corp[@"corpsName"]];
+                    if ([str isEqualToString:@"YES"]) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        [self.viewCorps.tableCorps selectRowAtIndexPath:indexPath animated:NO scrollPosition: UITableViewScrollPositionNone];
+                        //[self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        [self.viewCorps.tableCorps deselectRowAtIndexPath:indexPath animated:NO];
+                        //[self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
+                    }
+                }
+            }
+    } else {
+        
+        cell = [self.tablePredictions dequeueReusableCellWithIdentifier:@"rank"];
+        UILabel *lblRank = (UILabel *)[cell viewWithTag:1];
+        UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
+        UILabel *lblScore = (UILabel *)[cell viewWithTag:3];
+        PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
+        UserScore *us;
+        if ([self.arrayOfAllPredictions count]) us = [self.arrayOfAllPredictions objectAtIndex:indexPath.row];
+        if (us) {
+            PFFile *imageFile = us.corps[@"logo"];
+            if (imageFile) {
+                [imgLogo setFile:imageFile];
+                [imgLogo loadInBackground];
+            }
+            lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
+            lblCorpsName.text = us.corps[@"corpsName"];
+            lblScore.text = [NSString stringWithFormat:@"%.3f", us.score];
+        }
     }
     
     return cell;
 }
 
+-(void)selectCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)path onOrOff:(BOOL)on fromMethod:(BOOL)method {
+    
+    if (on) {
+        if ([self.arrayOfIndexes count] < 12) {
+            if (!method) [self.viewCorps.tableCorps selectRowAtIndexPath:path animated:NO scrollPosition: UITableViewScrollPositionNone];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            PFObject *corp = self.arrayOfCorps[path.row];
+            if ([self.dictOfCorps objectForKey:corp[@"corpsName"]]) {
+                [self.dictOfCorps setObject:@"YES" forKey:corp[@"corpsName"]];
+                if (self.currentPhase == pick) {
+                    if (![self.arrayOfIndexes containsObject:corp]) {
+                        [self.arrayOfIndexes addObject:corp];
+                    }
+                }
+            }
+        }
+    } else {
+        if (!method) [self.viewCorps.tableCorps deselectRowAtIndexPath:path animated:NO];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        PFObject *corp = self.arrayOfCorps[path.row];
+        if ([self.dictOfCorps objectForKey:corp[@"corpsName"]]) {
+            [self.dictOfCorps setObject:@"NO" forKey:corp[@"corpsName"]];
+            if (self.currentPhase == pick) {
+                if ([self.arrayOfIndexes containsObject:corp]) {
+                    [self.arrayOfIndexes removeObject:corp];
+                }
+            }
+        }
+    }
+    
+    [self checkSelectedCorps];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:YES fromMethod:YES];
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+    [self selectCell:tableViewCell atIndexPath:indexPath onOrOff:NO fromMethod:YES];
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    //move the corp
+    PFObject *corpToMove = [self.arrayOfIndexes objectAtIndex:sourceIndexPath.row];
+    [self.arrayOfIndexes removeObjectAtIndex:sourceIndexPath.row];
+    [self.arrayOfIndexes insertObject:corpToMove atIndex:destinationIndexPath.row];
+    [self.viewCorps.tableCorps reloadData];
+    
+    //move the score associated with the corp
+    NSString *scoreToMove = [self.arrayOfScores objectAtIndex:sourceIndexPath.row];
+    [self.arrayOfScores removeObjectAtIndex:sourceIndexPath.row];
+    [self.arrayOfScores insertObject:scoreToMove atIndex:destinationIndexPath.row];
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+-(BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+#pragma mark
+#pragma mark - Helpers
+#pragma mark
+
+-(void)checkSelectedCorps {
+    
+    if (self.currentPhase == pick) {
+        int count = (int)[self.arrayOfIndexes count];
+        if (count < 12) {
+            self.viewCorps.btnSend.hidden = YES;
+            int needs = 12 - count;
+            if (needs == 1) [self changeText:@"Select 1 Finalist" forLabel:self.viewCorps.lblHeader];
+            else [self changeText:[NSString stringWithFormat:@"Select %i Finalists", needs] forLabel:self.viewCorps.lblHeader];
+            self.navigationItem.rightBarButtonItem = nil;
+        } else if (count == 12) {
+            [self changeText:@"Select Next" forLabel:self.viewCorps.lblHeader];
+            [self showRightButton:NO];
+        }
+    }
+}
+
+-(void)showRightButton:(BOOL)done {
+    
+    if (self.viewCorps.btnSend.hidden) {
+        self.viewCorps.btnSend.hidden = NO;
+        self.viewCorps.btnSend.enabled = YES;
+        self.viewCorps.btnSend.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        
+        [UIView animateWithDuration:.3
+                              delay:0
+             usingSpringWithDamping:.3
+              initialSpringVelocity:10
+                            options:0
+                         animations:^{
+                             self.viewCorps.btnSend.transform = CGAffineTransformIdentity;
+                             
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    }
+    
+    if (done) {
+        [self.viewCorps.btnSend setTitle:@"Send" forState:UIControlStateNormal];
+    } else {
+        [self.viewCorps.btnSend setTitle:@"Next" forState:UIControlStateNormal];
+    }
+}
+
+-(void)changeText:(NSString *)text forLabel:(UILabel *)label {
+    
+    CATransition *animation = [CATransition animation];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.35;
+    [label.layer addAnimation:animation forKey:@"kCATransitionFade"];
+    
+    // This will fade:
+    label.text = text;
+}
+
+-(BOOL)areAllScoresEntered {
+    
+    if ([self.arrayOfScores count] != 12) return NO;
+    
+    for (NSString *score in self.arrayOfScores) {
+        if ([score isEqualToString:@"0"]) return NO;
+    }
+    
+    return YES;
+}
+
+-(void)predictionBackTapped {
+    
+    //this is the back button and cancel button depending on the
+    //current phase
+    
+    switch (self.currentPhase) {
+        case pick: [self.viewCorps closeView];
+            break;
+        case sort: self.currentPhase = pick;
+            break;
+        case score: self.currentPhase = sort;
+            break;
+    }
+    
+}
+
+-(void)predictionClosed {
+    
+    [self goback];
+}
+
+-(void)predictionNext {
+    
+    [self next];
+}
+
+-(void)predictionThankYou {
+    
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
+        
+        self.viewCorps.transform = CGAffineTransformScale(self.viewCorps.transform, 1.1, 1.1);
+        
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.2
+                              delay:0
+             usingSpringWithDamping:1
+              initialSpringVelocity:8
+                            options:0
+                         animations:^{
+                             self.viewCorps.transform = CGAffineTransformScale(self.viewCorps.transform, 0.1f, 0.1f);
+                             self.viewCorps.alpha = 0;
+                         }
+                         completion:^(BOOL finished) {
+                             [self.viewCorps removeFromSuperview];
+                             [self.viewEffect removeFromSuperview];
+                             [self showPredictions];
+                         }];
+    }];
+}
+
+-(void)next {
+    
+    if (self.currentPhase == pick) {
+
+        self.currentPhase = sort;
+        
+    } else if (self.currentPhase == sort) {
+
+        self.currentPhase = score;
+        
+    } else if (self.currentPhase == score) {
+        
+        //check to make sure all scores are entered
+        if ([self areAllScoresEntered]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit Prediction"
+                                                            message:@"Are you happy with your prediction? You will not be able to change it."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"No"
+                                                  otherButtonTitles:@"Yes", nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Scores"
+                                                            message:@"Not all scores have been entered."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    };
+}
+
 #pragma mark
 #pragma mark - Properties
 #pragma mark
+
+-(NSMutableArray *)arrayOfCorps {
+    if (!_arrayOfCorps) {
+        _arrayOfCorps = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfCorps;
+}
+
+-(NSMutableArray *)arrayOfIndexes {
+    if (!_arrayOfIndexes) {
+        _arrayOfIndexes = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfIndexes;
+}
+
+-(NSMutableArray *)arrayOfScores {
+    if (!_arrayOfScores) {
+        _arrayOfScores = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfScores;
+}
+
+-(NSMutableDictionary *)dictOfCorps {
+    if (!_dictOfCorps) {
+        _dictOfCorps = [[NSMutableDictionary alloc] init];
+    }
+    return _dictOfCorps;
+}
 
 -(NSMutableArray *)arrayOfAllPredictions {
     if (!_arrayOfAllPredictions) {
@@ -250,12 +681,155 @@ int loop = 0;
 }
 
 #pragma mark
-#pragma mark - CBMakeFinalsPrediction Delegate
+#pragma mark - UITextField Delegates
 #pragma mark
 
--(void)predictionDismissed {
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    [self goback];
+    NSString *txt = textField.text;
+    textField.text = nil;
+    textField.text = txt;
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    self.currentResponder = textField;
+}
+
+int previouslen;
+bool backspaced;
+
+-(void)textFieldDidChange:(UITextField *)theTextField {
+    
+    if (theTextField) {
+        if (theTextField.text.length < previouslen) {
+            backspaced = YES;
+        }
+        
+        if([theTextField.text hasSuffix:@"."]) {
+            if (theTextField.text.length == 2) {
+                
+                NSRange ran = NSMakeRange(0, 1);
+                NSString *txt = [theTextField.text substringWithRange:ran];
+                theTextField.text = txt;
+                return;
+            }
+        }
+        
+        if (theTextField.text.length == 3) {
+            NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+            NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+            if (range.location == NSNotFound) {
+                NSRange range = NSMakeRange(0, 2);
+                NSRange range2 = NSMakeRange(1, 1);
+                NSString *one = [theTextField.text substringWithRange:range];
+                NSString *two = [theTextField.text substringWithRange:range2];
+                theTextField.text = [NSString stringWithFormat:@"%@.%@", one, two];
+            }
+        }
+        
+        if (theTextField.text) {
+            NSString *regex;
+            if (theTextField.tag == 4) regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,3}$";
+            else regex = @"^[0-9]{0,2}[\\.]{0,1}[0-9]{0,2}$";
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+            if (![pred evaluateWithObject:theTextField.text])
+            { // Error, input not matching! Remove last added character.
+                int len = (int)theTextField.text.length-((theTextField.text.length-1 == 3) ? 2 : 1);
+                theTextField.text = [theTextField.text substringWithRange:NSMakeRange(0, len)];
+                // Now checks if the new length, i.e. the length when the last digit has been deleted is 3, which means that the decimal dot is the last character. If so remove 2 instead of only 1 character!
+            }
+            else
+            { // OKay here, do whatever
+                if (!backspaced) {
+                    if(theTextField.text.length == 2) // Add decimal dot if two digits have been entered!
+                    {
+                        NSCharacterSet *cset = [NSCharacterSet characterSetWithCharactersInString:@"."];
+                        NSRange range = [theTextField.text rangeOfCharacterFromSet:cset];
+                        if (range.location == NSNotFound) {
+                            theTextField.text = [NSString stringWithFormat:@"%@.", theTextField.text];
+                        }
+                    }
+                }
+            }
+        }
+        
+        previouslen = (int)theTextField.text.length;
+        backspaced = NO;
+    }
+}
+
+- (void)resignOnTap:(id)iSender {
+    
+    if (self.currentResponder) {
+        [self.currentResponder resignFirstResponder];
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if (textField) {
+        CGPoint location = [textField.superview convertPoint:textField.center toView:self.viewCorps.tableCorps];
+        
+        NSIndexPath *indexPath = [self.viewCorps.tableCorps indexPathForRowAtPoint:location];
+        
+        if (textField.text.length == 1) textField.text = @"";
+        if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
+        if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
+        if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
+        
+        [self.arrayOfScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+    }
+}
+
+#pragma mark
+#pragma mark - UIAlertView Delegate
+#pragma mark
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) { //submit prediction and close
+        
+        
+        self.viewPredictionSubmitted =
+        [[[NSBundle mainBundle] loadNibNamed:@"CBPredictionSubmitted"
+                                       owner:self
+                                     options:nil]
+         objectAtIndex:0];
+        for (UIView *view in [self.viewCorps subviews]) {
+            [view removeFromSuperview];
+        }
+        [UIView animateWithDuration:.25
+                              delay:0
+                            options:0
+                         animations:^{
+                             self.viewCorps.frame = CGRectMake(self.viewCorps.frame.origin.x, self.viewCorps.frame.origin.y, self.viewPredictionSubmitted.frame.size.width, self.viewPredictionSubmitted.frame.size.height);
+                             self.viewCorps.center = [self.view convertPoint:self.view.center fromView:self.view.superview];
+                         } completion:^(BOOL finished) {
+                             [self.viewPredictionSubmitted show];
+                         }];
+        [self.viewCorps addSubview:self.viewPredictionSubmitted];
+        [self.viewPredictionSubmitted setDelegate:self];
+        
+
+        PFUser *user = [PFUser currentUser];
+        [user setObject:[NSNumber numberWithBool:YES] forKey:@"predictionEntered"];
+        [user saveEventually];
+        
+        for (int i = 0; i < 12; i++) {
+            PFObject *corps = self.arrayOfIndexes[i];
+            NSString *score = self.arrayOfScores[i];
+            
+            PFObject *predictionScore = [PFObject objectWithClassName:@"predictions"];
+            [predictionScore setObject:corps forKey:@"corp"];
+            [predictionScore setObject:score forKey:@"score"];
+            [predictionScore setObject:[NSNumber numberWithInt:i+1] forKey:@"placement"];
+            [predictionScore setObject:[PFUser currentUser] forKey:@"user"];
+            [predictionScore setObject:corps[@"corpsName"] forKey:@"corpName"];
+            [predictionScore saveEventually];
+        }
+    }
 }
 
 @end

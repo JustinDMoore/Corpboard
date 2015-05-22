@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -11,7 +11,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-bn-dPc">
-                    <rect key="frame" x="226" y="10" width="45" height="20"/>
+                    <rect key="frame" x="226" y="8" width="45" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="45" id="Aaj-SR-eO3"/>
                     </constraints>
@@ -140,10 +140,19 @@
                         <constraint firstItem="Yu9-Iv-9vi" firstAttribute="leading" secondItem="5iM-gB-pef" secondAttribute="leading" id="sPm-Hw-swI"/>
                     </constraints>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqz-1G-aw6">
-                    <rect key="frame" x="8" y="10" width="20" height="20"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJw-Vj-0PH">
+                    <rect key="frame" x="117" y="9" width="45" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="20" id="HZn-T8-8gv"/>
+                        <constraint firstAttribute="height" constant="17" id="Mmg-7y-Qgm"/>
+                        <constraint firstAttribute="width" constant="45" id="xj9-nI-Iau"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqz-1G-aw6">
+                    <rect key="frame" x="8" y="3" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="HZn-T8-8gv"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" backgroundImage="arrowLeft">
@@ -153,19 +162,10 @@
                         <action selector="btnBack_tapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Axc-2t-Pga"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJw-Vj-0PH">
-                    <rect key="frame" x="117" y="11" width="45" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="17" id="Mmg-7y-Qgm"/>
-                        <constraint firstAttribute="width" constant="45" id="xj9-nI-Iau"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="4Pv-bn-dPc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="44o-DW-Dim"/>
+                <constraint firstItem="4Pv-bn-dPc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="44o-DW-Dim"/>
                 <constraint firstItem="Iq6-7A-OlL" firstAttribute="leading" secondItem="5iM-gB-pef" secondAttribute="leading" id="GBA-qD-edm"/>
                 <constraint firstItem="Iq6-7A-OlL" firstAttribute="top" secondItem="5iM-gB-pef" secondAttribute="top" constant="-1" id="GVW-ue-HgL"/>
                 <constraint firstItem="Iq6-7A-OlL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="36" id="NSr-sw-O2f"/>
@@ -173,9 +173,9 @@
                 <constraint firstItem="5iM-gB-pef" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="apI-aS-CKB"/>
                 <constraint firstItem="lqz-1G-aw6" firstAttribute="centerY" secondItem="nJw-Vj-0PH" secondAttribute="centerY" constant="0.5" id="eps-Am-7o7"/>
                 <constraint firstItem="Iq6-7A-OlL" firstAttribute="width" secondItem="Yu9-Iv-9vi" secondAttribute="width" constant="39" id="hPE-zz-cbZ"/>
-                <constraint firstItem="nJw-Vj-0PH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="11" id="hZy-Go-vVP"/>
+                <constraint firstItem="nJw-Vj-0PH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="hZy-Go-vVP"/>
                 <constraint firstAttribute="centerX" secondItem="nJw-Vj-0PH" secondAttribute="centerX" constant="0.5" id="iLL-tx-MIL"/>
-                <constraint firstItem="lqz-1G-aw6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="mVS-eH-PKD"/>
+                <constraint firstItem="lqz-1G-aw6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="mVS-eH-PKD"/>
                 <constraint firstItem="nJw-Vj-0PH" firstAttribute="centerY" secondItem="4Pv-bn-dPc" secondAttribute="centerY" constant="-0.5" id="nTn-oU-PJR"/>
                 <constraint firstAttribute="bottom" secondItem="5iM-gB-pef" secondAttribute="bottom" constant="-1" id="pge-2r-jgN"/>
                 <constraint firstItem="5iM-gB-pef" firstAttribute="top" secondItem="Iq6-7A-OlL" secondAttribute="bottom" id="ppl-AG-bfj"/>
