@@ -75,14 +75,11 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 @property (weak, nonatomic) IBOutlet UIControl *viewProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnLiveChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnProfile;
-@property (weak, nonatomic) IBOutlet UIButton *btnAdmin;
-@property (weak, nonatomic) IBOutlet UILabel *lblAdmin;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessages;
 @property (nonatomic, strong) JSBadgeView *badgeMessages;
 @property (nonatomic, strong) JSBadgeView *badgeAdmin;
 @property (weak, nonatomic) IBOutlet UILabel *lblUserName;
 - (IBAction)btnProfile_clicked:(id)sender;
-- (IBAction)btnAdmin_clicked:(id)sender;
 
 #pragma mark
 #pragma mark - Recent Shows
@@ -164,10 +161,22 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
       NSFontAttributeName, nil]];
     self.title = @"Corpboard";
     
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationItem setHidesBackButton:YES animated:NO];
+    //self.navigationController.navigationBarHidden = NO;
+    //[self.navigationItem setHidesBackButton:YES animated:NO];
     [self setupShows];
     [data getUnreadMessagesForUser];
+    
+    //add admin button
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:NO animated:NO];
+    self.btnAdminButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *admImage = [UIImage imageNamed:@"admin_admin"];
+    [self.btnAdminButton setBackgroundImage:admImage forState:UIControlStateNormal];
+    [self.btnAdminButton addTarget:self action:@selector(admin) forControlEvents:UIControlEventTouchUpInside];
+    self.btnAdminButton.frame = CGRectMake(0, 0, 30, 30);
+    [self.btnAdminButton addSubview:self.badgeAdmin];
+    self.btnAdminBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.btnAdminButton] ;
+    self.navigationItem.leftBarButtonItem = self.btnAdminBarButton;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -231,12 +240,10 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     // set admin
     if (data.adminMode) {
-        self.btnAdmin.hidden = NO;
-        self.lblAdmin.hidden = NO;
         [self setAdminBadge];
+        self.btnAdminButton.hidden = NO;
     } else {
-        self.btnAdmin.hidden = YES;
-        self.lblAdmin.hidden = YES;
+        self.btnAdminButton.hidden = YES;
     }
 }
 
@@ -1250,8 +1257,8 @@ bool isScrolling = NO;
     [self performSegueWithIdentifier:@"profile" sender:self];
 }
 
-- (IBAction)btnAdmin_clicked:(id)sender {
-
+-(void)admin {
+    
     [self performSegueWithIdentifier:@"admin" sender:self];
 }
 
@@ -1396,7 +1403,10 @@ bool isScrolling = NO;
 -(JSBadgeView *)badgeAdmin {
     
     if (!_badgeAdmin) {
-        _badgeAdmin = [[JSBadgeView alloc] initWithParentView:self.btnAdmin alignment:JSBadgeViewAlignmentTopRight];
+        _badgeAdmin = [[JSBadgeView alloc] init];
+        //_badgeAdmin = [[JSBadgeView alloc] initWithFrame:CGRectMake(-200, 0, _badgeAdmin.frame.size.width, _badgeAdmin.frame.size.height)];
+//        [self.navigationController.navigationBar addSubview:_badgeAdmin];
+        //[self.btnAdminButton addSubview:_badgeAdmin];
     }
     return _badgeAdmin;
 }

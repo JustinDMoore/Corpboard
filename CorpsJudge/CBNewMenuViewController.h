@@ -14,6 +14,9 @@
 
 }
 
+@property (nonatomic, strong) UIBarButtonItem *btnAdminBarButton;
+@property (nonatomic, strong) UIButton *btnAdminButton;
+
 -(void)loadPageWithId:(int)index onPage:(int)page;
 
 @end
