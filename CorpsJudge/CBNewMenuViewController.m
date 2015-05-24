@@ -1106,6 +1106,53 @@ bool isScrolling = NO;
 #pragma mark - Actions
 #pragma mark
 
+- (IBAction)btnNearMe_tapped:(id)sender {
+
+    if([CLLocationManager locationServicesEnabled]){
+        
+        NSLog(@"Location Services Enabled");
+        
+        switch ([CLLocationManager authorizationStatus]) {
+            case kCLAuthorizationStatusDenied: [self tellUserToEnableLocation];
+                break;
+            case kCLAuthorizationStatusNotDetermined: [self askForLocationPermission];
+                break;
+            case kCLAuthorizationStatusAuthorizedAlways: [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusAuthorizedWhenInUse: [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusRestricted: [self tellUserToEnableLocation];
+                break;
+        }
+    
+    } else {
+        NSLog(@"iOS location services disabled.");
+        [self tellUserToEnableLocation];
+    }
+}
+
+-(void)askForLocationPermission {
+    
+    CBLocationServices *viewLocation = [[[NSBundle mainBundle] loadNibNamed:@"CBLocationServices"
+                                                                      owner:self
+                                                                    options:nil]
+                                        objectAtIndex:0];
+    viewLocation.parentNav = self.navigationController;
+    [viewLocation show];
+    [viewLocation setDelegate:self];
+}
+
+-(void)tellUserToEnableLocation {
+    
+    CBLocationServicesDisabled *viewDisabled = [[[NSBundle mainBundle] loadNibNamed:@"CBLocationServicesDisabled"
+                                                                      owner:self
+                                                                    options:nil]
+                                        objectAtIndex:0];
+    viewDisabled.parentNav = self.navigationController;
+    [viewDisabled show];
+    [viewDisabled setDelegate:self];
+}
+
 - (IBAction)chat_clicked:(id)sender {
     [self performSegueWithIdentifier:@"chat" sender:self];
 }
@@ -1420,6 +1467,38 @@ bool isScrolling = NO;
 -(void)makePrediction {
     
     [self performSegueWithIdentifier:@"contest" sender:self];
+}
+
+#pragma mark
+#pragma mark - Location Services
+#pragma mark
+
+-(void)allowLocation {
+    
+    if([CLLocationManager locationServicesEnabled]){
+        
+        [data updateUserLocationAndLastLogin];
+        
+        switch ([CLLocationManager authorizationStatus]) {
+            case kCLAuthorizationStatusDenied:
+                break;
+            case kCLAuthorizationStatusNotDetermined:
+                break;
+            case kCLAuthorizationStatusAuthorizedAlways:
+                [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusAuthorizedWhenInUse:
+                [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusRestricted:
+                break;
+        }
+    }
+}
+
+-(void)denyLocation {
+
+    [data setParseLocationServices:NO];
 }
 
 @end

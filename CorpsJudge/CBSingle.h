@@ -82,4 +82,6 @@
 -(NSArray *)getOfficialScoresForShow:(PFObject *)show;
 -(void)getUnreadMessagesForUser;
 -(void)updateUserLocationAndLastLogin;
+-(void)setParseLocationServices:(BOOL)on;
+-(void)setParsePush:(BOOL)on;
 @end

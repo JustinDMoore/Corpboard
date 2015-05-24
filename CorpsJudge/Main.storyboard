@@ -1707,7 +1707,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wLa-tA-14k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273" y="-2948"/>
+            <point key="canvasLocation" x="2275" y="-2800"/>
         </scene>
         <!--Admin Table View Controller-->
         <scene sceneID="aCQ-1h-UaO">
@@ -2674,7 +2674,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="u0G-RF-HbE" kind="show" id="azw-KP-TMy"/>
+                                                            <action selector="btnNearMe_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="ywV-Tc-7RR"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Near Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Du-23-6Ya">
@@ -2841,6 +2841,7 @@
                         <segue destination="sQx-yV-WOz" kind="show" identifier="profile" id="5XH-ng-dQw"/>
                         <segue destination="DT4-0M-8gX" kind="show" identifier="admin" id="CLe-5n-rU7"/>
                         <segue destination="671-6y-8zX" kind="custom" identifier="feedback" customClass="CBSegueNoAnimation" id="B9L-RN-ls5"/>
+                        <segue destination="u0G-RF-HbE" kind="show" identifier="find" id="pIH-8i-jUf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4295,8 +4296,8 @@
         <image name="youtube_lightGrayColor" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yHE-cF-ijy"/>
         <segue reference="5XH-ng-dQw"/>
+        <segue reference="yHE-cF-ijy"/>
         <segue reference="5Fi-Lt-Ok5"/>
     </inferredMetricsTieBreakers>
 </document>

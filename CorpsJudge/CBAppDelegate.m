@@ -42,7 +42,7 @@ CBSingle *data;
     
     
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:nil];
-    
+
     //facebook
     //[FBLoginView class];
     
@@ -50,14 +50,16 @@ CBSingle *data;
     [PFTwitterUtils initializeWithConsumerKey:@"ffPvSlH1BQ4Y9GSYMbmgkkG0Q"
                                consumerSecret:@"vr6Fb8nuoohYQsOekGT0UB33sLMwhqWmeedl41ypuixwWF2ZBO"];
     
-    //push notifications
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
-    [application registerUserNotificationSettings:settings];
-    [application registerForRemoteNotifications];
+    
+    
+//    //push notifications
+//    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+//                                                    UIUserNotificationTypeBadge |
+//                                                    UIUserNotificationTypeSound);
+//    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+//                                                                             categories:nil];
+//    [application registerUserNotificationSettings:settings];
+//    [application registerForRemoteNotifications];
     
     
     // Override point for customization after application launch.
@@ -116,10 +118,22 @@ CBSingle *data;
 //for push notifications with parse
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSLog(@"User allowed push notifications.");
     // Store the deviceToken in the current Installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
+    currentInstallation[@"allowsPush"] = [NSNumber numberWithBool:YES];
+    [currentInstallation saveInBackground];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    
+    //user did not allow notifications
+    NSLog(@"User did not allow push notifications.");
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation[@"allowsPush"] = [NSNumber numberWithBool:NO];
     [currentInstallation saveInBackground];
 }
 

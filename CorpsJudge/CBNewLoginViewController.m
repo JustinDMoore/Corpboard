@@ -67,10 +67,10 @@
                 [alert show];
                 BOOL useApp = [obj[@"canUseApp"] boolValue];
                 if (useApp) {
-                    [self continueLoading];
+                    [self checkForPush];
                 }
             } else {
-                [self continueLoading];
+                [self checkForPush];
             }
         } else {
             [self.viewProgress errorProgress:[ParseErrors getErrorStringForCode:error.code]];
@@ -80,11 +80,56 @@
     }];
 }
 
+-(void)checkForPush {
+
+    //check to see if push notifications are enabled
+    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    if (!pushAllowed) {
+        
+        PFInstallation *install = [PFInstallation currentInstallation];
+        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
+        if (parsePushAllowed) {
+            
+            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
+                                                                           owner:self
+                                                                         options:nil]
+                                             objectAtIndex:0];
+            viewPush.parentNav = self.view;
+            [viewPush show];
+            [viewPush setDelegate:self];
+        } else {
+            [self continueLoading];
+        }
+        
+    } else {
+        [self continueLoading];
+        [data setParsePush:YES];
+    }
+}
+
 -(void)continueLoading {
     
     self.currentUser = [PFUser currentUser];
     if (self.currentUser) {
-        [data updateUserLocationAndLastLogin];
+        
+        if([CLLocationManager locationServicesEnabled]){
+            
+            switch ([CLLocationManager authorizationStatus]) {
+                case kCLAuthorizationStatusDenied:
+                    break;
+                case kCLAuthorizationStatusNotDetermined:
+                    break;
+                case kCLAuthorizationStatusAuthorizedAlways:
+                     [data updateUserLocationAndLastLogin];
+                    break;
+                case kCLAuthorizationStatusAuthorizedWhenInUse:
+                     [data updateUserLocationAndLastLogin];
+                    break;
+                case kCLAuthorizationStatusRestricted:
+                    break;
+            }
+        }
+
         [self.currentUser fetchInBackgroundWithTarget:self selector:@selector(callbackWithResult:error:)];
     } else {
         // NEW USER, SHOW THE NEW USER DIALOG
@@ -433,4 +478,32 @@ bool removeProgressView = NO;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.viewProgress = nil;
 }
+
+#pragma mark
+#pragma mark - Push Notification Protocol
+#pragma mark
+
+-(void)allowPush {
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    [self continueLoading];
+    
+    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    [data setParsePush:pushAllowed];
+}
+
+-(void)denyPush {
+    
+    [data setParsePush:NO];
+    [self continueLoading];
+}
+
 @end

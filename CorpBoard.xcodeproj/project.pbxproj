@@ -187,6 +187,12 @@
 		D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC601B0E771600C57017 /* CBPredictionSubmitted.xib */; };
 		D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
+		D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */; };
+		D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */; };
+		D0D777421B116A4D00D4EF6A /* CBLocationServices.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D777411B116A4D00D4EF6A /* CBLocationServices.xib */; };
+		D0D777451B116A6700D4EF6A /* CBLocationServices.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D777441B116A6700D4EF6A /* CBLocationServices.m */; };
+		D0D777471B117BF000D4EF6A /* CBLocationServicesDisabled.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D777461B117BF000D4EF6A /* CBLocationServicesDisabled.xib */; };
+		D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */; };
 		D0DEFC141AE2DDCD0029AB58 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */; };
 		D0DEFC151AE2DDCD0029AB58 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC101AE2DDCD0029AB58 /* Parse.framework */; };
 		D0DEFC161AE2DDCD0029AB58 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DEFC111AE2DDCD0029AB58 /* ParseCrashReporting.framework */; };
@@ -498,6 +504,15 @@
 		D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionSubmitted.h; sourceTree = "<group>"; };
 		D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionSubmitted.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
+		D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPushNotifications.xib; sourceTree = "<group>"; };
+		D0D7773E1B115D7E00D4EF6A /* CBPushNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPushNotifications.h; sourceTree = "<group>"; };
+		D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPushNotifications.m; sourceTree = "<group>"; };
+		D0D777411B116A4D00D4EF6A /* CBLocationServices.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBLocationServices.xib; sourceTree = "<group>"; };
+		D0D777431B116A6700D4EF6A /* CBLocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationServices.h; sourceTree = "<group>"; };
+		D0D777441B116A6700D4EF6A /* CBLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationServices.m; sourceTree = "<group>"; };
+		D0D777461B117BF000D4EF6A /* CBLocationServicesDisabled.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBLocationServicesDisabled.xib; sourceTree = "<group>"; };
+		D0D777481B117C0200D4EF6A /* CBLocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationServicesDisabled.h; sourceTree = "<group>"; };
+		D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationServicesDisabled.m; sourceTree = "<group>"; };
 		D0DEFC0F1AE2DDCD0029AB58 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		D0DEFC101AE2DDCD0029AB58 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		D0DEFC111AE2DDCD0029AB58 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -857,6 +872,12 @@
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
 				92A6AE681B053598000E2F55 /* CBAlertView.m */,
+				D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */,
+				D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */,
+				D0D777411B116A4D00D4EF6A /* CBLocationServices.xib */,
+				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
+				D0D777461B117BF000D4EF6A /* CBLocationServicesDisabled.xib */,
+				D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
@@ -900,6 +921,7 @@
 		92D01F371A30F14800929F35 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				D0D777481B117C0200D4EF6A /* CBLocationServicesDisabled.h */,
 				D025CE451AE6BD35000021A6 /* CBMapCell.h */,
 				D025CE401AE6B10A000021A6 /* CBMapMenu.h */,
 				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
@@ -933,6 +955,8 @@
 				D0C2EC5A1B0CF06800C57017 /* CBPredictionOrderCell.h */,
 				D0C2EC571B0CF05B00C57017 /* CBPredictionScoreCell.h */,
 				D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */,
+				D0D7773E1B115D7E00D4EF6A /* CBPushNotifications.h */,
+				D0D777431B116A6700D4EF6A /* CBLocationServices.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1313,7 +1337,10 @@
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
+				D0D777421B116A4D00D4EF6A /* CBLocationServices.xib in Resources */,
+				D0D777471B117BF000D4EF6A /* CBLocationServicesDisabled.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
+				D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
 				D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */,
@@ -1391,6 +1418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */,
+				D0D777451B116A6700D4EF6A /* CBLocationServices.m in Sources */,
 				D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
@@ -1399,6 +1427,7 @@
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
+				D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D0AEA6BE1B031F920080D7F5 /* CBPermissions.m in Sources */,
@@ -1413,6 +1442,7 @@
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
 				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
+				D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */,
 				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,

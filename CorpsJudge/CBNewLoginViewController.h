@@ -14,7 +14,8 @@
 #import "CBNicknameView.h"
 #import "CBProgressView.h"
 #import "CBNewsSingleton.h"
+#import "CBPushNotifications.h"
 
-@interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate, newsProtocol>
+@interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate, newsProtocol, CBPushNotificationProtocol>
 
 @end

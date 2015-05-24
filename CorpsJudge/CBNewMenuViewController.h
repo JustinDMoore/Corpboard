@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CBSingle.h"
 #import "CBMakeFinalsPrediction.h"
+#import "CBLocationServices.h"
+#import "CBLocationServicesDisabled.h"
 
-@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, dataProtocol, CBMakeFinalsPredictionDelegate> {
+@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, dataProtocol, CBMakeFinalsPredictionDelegate, CBLocationProtocol> {
 
 }
 

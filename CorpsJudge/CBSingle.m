@@ -65,15 +65,25 @@
         if (!error) {
             // do something with the new geoPoint
             user[@"geo"] = geoPoint;
-            user[@"lastLogin"] = [NSDate date];
-            [user saveEventually];
-        } else {
-            user[@"lastLogin"] = [NSDate date];
-            [user saveEventually];
-            NSLog(@"Error getting user location.");
+            [self setParseLocationServices:YES];
         }
+        user[@"lastLogin"] = [NSDate date];
+        [user saveEventually];
     }];
 }
+
+-(void)setParseLocationServices:(BOOL)on {
+    PFInstallation *install = [PFInstallation currentInstallation];
+    install[@"allowsLocation"] = [NSNumber numberWithBool:on];
+    [install saveEventually];
+}
+
+-(void)setParsePush:(BOOL)on {
+    PFInstallation *install = [PFInstallation currentInstallation];
+    install[@"allowsPush"] = [NSNumber numberWithBool:on];
+    [install saveEventually];
+}
+
 #pragma mark -
 #pragma mark - Data Methods
 #pragma mark -
