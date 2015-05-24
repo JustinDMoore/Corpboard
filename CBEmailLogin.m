@@ -161,26 +161,26 @@ BOOL cancelled;
     NSString *email		= [txtEmail.text lowercaseString];
     
     [self close:YES];
-
-        
-        PFUser *user = [PFUser user];
-        user.username = email;
-        user.password = password;
-        user.email = email;
-        user[PF_USER_EMAILCOPY] = email;
-        user[PF_USER_FULLNAME] = name;
-        user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
-        
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-             if (error == nil) {
-                 ParsePushUserAssign();
-                 [delegate newUserCreatedFromEmail];
-             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                [delegate errorLoggingIn];
-             }
-         }];
+    
+    
+    PFUser *user = [PFUser user];
+    user.username = email;
+    user.password = password;
+    user.email = email;
+    user[PF_USER_EMAILCOPY] = email;
+    user[PF_USER_FULLNAME] = name;
+    user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
+    user[@"lastLogin"] = [NSDate date];
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error == nil) {
+            ParsePushUserAssign();
+            [delegate newUserCreatedFromEmail];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            [delegate errorLoggingIn];
+        }
+    }];
 }
 
 -(void)signIntoAccountWithEmail:(NSString *)email andPassword:(NSString *)pw {

@@ -269,19 +269,19 @@
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
 		924E93B2195904380006DB81 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
 		924E93B3195904380006DB81 /* UINavigationController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Orientation.m"; sourceTree = "<group>"; };
-		9253347B194FD5D70004D16F /* CorpBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorpBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9253347B194FD5D70004D16F /* Corpboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Corpboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9253347E194FD5D70004D16F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92533480194FD5D70004D16F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		92533482194FD5D70004D16F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		92533484194FD5D70004D16F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		92533488194FD5D70004D16F /* CorpBoard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorpBoard-Info.plist"; sourceTree = "<group>"; };
+		92533488194FD5D70004D16F /* Corpboard.temp_caseinsensitive_rename-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Corpboard.temp_caseinsensitive_rename-Info.plist"; sourceTree = "<group>"; };
 		9253348A194FD5D70004D16F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9253348C194FD5D70004D16F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9253348E194FD5D70004D16F /* CorpBoard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorpBoard-Prefix.pch"; sourceTree = "<group>"; };
+		9253348E194FD5D70004D16F /* Corpboard.temp_caseinsensitive_rename-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Corpboard.temp_caseinsensitive_rename-Prefix.pch"; sourceTree = "<group>"; };
 		9253348F194FD5D70004D16F /* CBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBAppDelegate.h; sourceTree = "<group>"; };
 		92533490194FD5D70004D16F /* CBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBAppDelegate.m; sourceTree = "<group>"; };
 		92533495194FD5D70004D16F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9253349B194FD5D70004D16F /* CorpBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorpBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9253349B194FD5D70004D16F /* Corpboard.temp_caseinsensitive_renameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Corpboard.temp_caseinsensitive_renameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9253349C194FD5D70004D16F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		925334A5194FD5D70004D16F /* CorpBoardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CorpBoardTests-Info.plist"; sourceTree = "<group>"; };
 		925334A7194FD5D70004D16F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -689,8 +689,8 @@
 		9253347C194FD5D70004D16F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9253347B194FD5D70004D16F /* CorpBoard.app */,
-				9253349B194FD5D70004D16F /* CorpBoardTests.xctest */,
+				9253347B194FD5D70004D16F /* Corpboard.app */,
+				9253349B194FD5D70004D16F /* Corpboard.temp_caseinsensitive_renameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -757,10 +757,10 @@
 				D0A8146B19523A8200F4EC53 /* Configuration.m */,
 				D0BDD53319500C4300CA9668 /* JustinHelper.h */,
 				D0BDD53419500C4300CA9668 /* JustinHelper.m */,
-				92533488194FD5D70004D16F /* CorpBoard-Info.plist */,
+				92533488194FD5D70004D16F /* Corpboard.temp_caseinsensitive_rename-Info.plist */,
 				92533489194FD5D70004D16F /* InfoPlist.strings */,
 				9253348C194FD5D70004D16F /* main.m */,
-				9253348E194FD5D70004D16F /* CorpBoard-Prefix.pch */,
+				9253348E194FD5D70004D16F /* Corpboard.temp_caseinsensitive_rename-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1162,9 +1162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9253347A194FD5D70004D16F /* CorpBoard */ = {
+		9253347A194FD5D70004D16F /* Corpboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 925334AD194FD5D70004D16F /* Build configuration list for PBXNativeTarget "CorpBoard" */;
+			buildConfigurationList = 925334AD194FD5D70004D16F /* Build configuration list for PBXNativeTarget "Corpboard" */;
 			buildPhases = (
 				7B634D24889D7B21D778DFAC /* Check Pods Manifest.lock */,
 				92533477194FD5D70004D16F /* Sources */,
@@ -1178,14 +1178,14 @@
 			);
 			dependencies = (
 			);
-			name = CorpBoard;
+			name = Corpboard;
 			productName = CorpsJudge;
-			productReference = 9253347B194FD5D70004D16F /* CorpBoard.app */;
+			productReference = 9253347B194FD5D70004D16F /* Corpboard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9253349A194FD5D70004D16F /* CorpBoardTests */ = {
+		9253349A194FD5D70004D16F /* Corpboard.temp_caseinsensitive_renameTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 925334B0194FD5D70004D16F /* Build configuration list for PBXNativeTarget "CorpBoardTests" */;
+			buildConfigurationList = 925334B0194FD5D70004D16F /* Build configuration list for PBXNativeTarget "Corpboard.temp_caseinsensitive_renameTests" */;
 			buildPhases = (
 				92533497194FD5D70004D16F /* Sources */,
 				92533498194FD5D70004D16F /* Frameworks */,
@@ -1196,9 +1196,9 @@
 			dependencies = (
 				925334A2194FD5D70004D16F /* PBXTargetDependency */,
 			);
-			name = CorpBoardTests;
+			name = Corpboard.temp_caseinsensitive_renameTests;
 			productName = CorpsJudgeTests;
-			productReference = 9253349B194FD5D70004D16F /* CorpBoardTests.xctest */;
+			productReference = 9253349B194FD5D70004D16F /* Corpboard.temp_caseinsensitive_renameTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1224,7 +1224,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 92533476194FD5D70004D16F /* Build configuration list for PBXProject "CorpBoard" */;
+			buildConfigurationList = 92533476194FD5D70004D16F /* Build configuration list for PBXProject "Corpboard" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1250,8 +1250,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9253347A194FD5D70004D16F /* CorpBoard */,
-				9253349A194FD5D70004D16F /* CorpBoardTests */,
+				9253347A194FD5D70004D16F /* Corpboard */,
+				9253349A194FD5D70004D16F /* Corpboard.temp_caseinsensitive_renameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1503,7 +1503,7 @@
 /* Begin PBXTargetDependency section */
 		925334A2194FD5D70004D16F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9253347A194FD5D70004D16F /* CorpBoard */;
+			target = 9253347A194FD5D70004D16F /* Corpboard */;
 			targetProxy = 925334A1194FD5D70004D16F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1544,7 +1544,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1585,7 +1585,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1612,18 +1612,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
-				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
+				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = CorpBoard;
+				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1640,18 +1640,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
-				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
+				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = CorpBoard;
+				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1675,7 +1675,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CorpsJudgeTests/CorpBoardTests-Info.plist";
-				PRODUCT_NAME = CorpBoardTests;
+				PRODUCT_NAME = Corpboard.temp_caseinsensitive_renameTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1693,7 +1693,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpsJudge-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudgeTests/CorpBoardTests-Info.plist";
-				PRODUCT_NAME = CorpBoardTests;
+				PRODUCT_NAME = Corpboard.temp_caseinsensitive_renameTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1715,8 +1715,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1742,18 +1742,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CorpsJudge/CorpBoard-Prefix.pch";
-				INFOPLIST_FILE = "CorpsJudge/CorpBoard-Info.plist";
+				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
+				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = CorpBoard;
+				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1773,7 +1773,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/CorpsJudge-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudgeTests/CorpBoardTests-Info.plist";
-				PRODUCT_NAME = CorpBoardTests;
+				PRODUCT_NAME = Corpboard.temp_caseinsensitive_renameTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1782,7 +1782,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		92533476194FD5D70004D16F /* Build configuration list for PBXProject "CorpBoard" */ = {
+		92533476194FD5D70004D16F /* Build configuration list for PBXProject "Corpboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				925334AB194FD5D70004D16F /* Debug */,
@@ -1792,7 +1792,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		925334AD194FD5D70004D16F /* Build configuration list for PBXNativeTarget "CorpBoard" */ = {
+		925334AD194FD5D70004D16F /* Build configuration list for PBXNativeTarget "Corpboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				925334AE194FD5D70004D16F /* Debug */,
@@ -1802,7 +1802,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		925334B0194FD5D70004D16F /* Build configuration list for PBXNativeTarget "CorpBoardTests" */ = {
+		925334B0194FD5D70004D16F /* Build configuration list for PBXNativeTarget "Corpboard.temp_caseinsensitive_renameTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				925334B1194FD5D70004D16F /* Debug */,

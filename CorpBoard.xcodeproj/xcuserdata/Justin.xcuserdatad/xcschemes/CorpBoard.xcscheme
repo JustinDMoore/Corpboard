@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9253347A194FD5D70004D16F"
-               BuildableName = "CorpBoard.app"
-               BlueprintName = "CorpBoard"
-               ReferencedContainer = "container:CorpBoard.xcodeproj">
+               BuildableName = "Corpboard.app"
+               BlueprintName = "Corpboard"
+               ReferencedContainer = "container:Corpboard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "D0AEF3B51A13325C0059368B"
                BuildableName = "NewsViewTests.xctest"
                BlueprintName = "NewsViewTests"
-               ReferencedContainer = "container:CorpBoard.xcodeproj">
+               ReferencedContainer = "container:Corpboard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "D0AEF3B51A13325C0059368B"
                BuildableName = "NewsViewTests.xctest"
                BlueprintName = "NewsViewTests"
-               ReferencedContainer = "container:CorpBoard.xcodeproj">
+               ReferencedContainer = "container:Corpboard.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "CorpBoard.app"
-            BlueprintName = "CorpBoard"
-            ReferencedContainer = "container:CorpBoard.xcodeproj">
+            BuildableName = "Corpboard.app"
+            BlueprintName = "Corpboard"
+            ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,13 +72,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "CorpBoard.app"
-            BlueprintName = "CorpBoard"
-            ReferencedContainer = "container:CorpBoard.xcodeproj">
+            BuildableName = "Corpboard.app"
+            BlueprintName = "Corpboard"
+            ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,13 +96,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "CorpBoard.app"
-            BlueprintName = "CorpBoard"
-            ReferencedContainer = "container:CorpBoard.xcodeproj">
+            BuildableName = "Corpboard.app"
+            BlueprintName = "Corpboard"
+            ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

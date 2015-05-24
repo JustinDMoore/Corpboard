@@ -166,17 +166,6 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     [self setupShows];
     [data getUnreadMessagesForUser];
     
-    //add admin button
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationItem setHidesBackButton:NO animated:NO];
-    self.btnAdminButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *admImage = [UIImage imageNamed:@"admin_admin"];
-    [self.btnAdminButton setBackgroundImage:admImage forState:UIControlStateNormal];
-    [self.btnAdminButton addTarget:self action:@selector(admin) forControlEvents:UIControlEventTouchUpInside];
-    self.btnAdminButton.frame = CGRectMake(0, 0, 30, 30);
-    [self.btnAdminButton addSubview:self.badgeAdmin];
-    self.btnAdminBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.btnAdminButton] ;
-    self.navigationItem.leftBarButtonItem = self.btnAdminBarButton;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -240,10 +229,23 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     // set admin
     if (data.adminMode) {
+        //add admin button
+        self.navigationController.navigationBarHidden = NO;
+        [self.navigationItem setHidesBackButton:NO animated:NO];
+        self.btnAdminButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *admImage = [UIImage imageNamed:@"admin_admin"];
+        [self.btnAdminButton setBackgroundImage:admImage forState:UIControlStateNormal];
+        [self.btnAdminButton addTarget:self action:@selector(admin) forControlEvents:UIControlEventTouchUpInside];
+        self.btnAdminButton.frame = CGRectMake(0, 0, 30, 30);
+        [self.btnAdminButton addSubview:self.badgeAdmin];
+        self.btnAdminBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.btnAdminButton] ;
+        self.navigationItem.leftBarButtonItem = self.btnAdminBarButton;
+        
         [self setAdminBadge];
-        self.btnAdminButton.hidden = NO;
+
     } else {
-        self.btnAdminButton.hidden = YES;
+        self.navigationController.navigationBarHidden = NO;
+        [self.navigationItem setHidesBackButton:YES animated:NO];
     }
 }
 

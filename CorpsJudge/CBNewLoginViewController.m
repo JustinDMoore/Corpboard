@@ -43,6 +43,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
+    
     // *****************************************************
     
     // THE FOLLOWING LINE WILL CREATE ALL SHOWS AND SCORES

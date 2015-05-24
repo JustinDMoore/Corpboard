@@ -123,6 +123,7 @@
         user[PF_USER_FACEBOOKID] = userData[@"id"];
         user[PF_USER_PICTURE] = filePicture;
         user[PF_USER_THUMBNAIL] = fileThumbnail;
+        user[@"lastLogin"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error == nil) {
                 dispatch_async(dispatch_get_main_queue(), ^{
