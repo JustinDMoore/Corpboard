@@ -1498,7 +1498,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="9Bd-7h-cL9"/>
                                                 <constraint firstAttribute="width" constant="35" id="eYn-wQ-HbT"/>
                                             </constraints>
-                                            <state key="normal" image="star_circle">
+                                            <state key="normal" image="admin_feedback">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -1533,7 +1533,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="FvC-F1-QrL"/>
                                                 <constraint firstAttribute="width" constant="35" id="MeU-2A-bvj"/>
                                             </constraints>
-                                            <state key="normal" image="bug">
+                                            <state key="normal" image="admin_bug">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -1568,7 +1568,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="Xb2-ko-son"/>
                                                 <constraint firstAttribute="width" constant="35" id="g8z-Zo-16n"/>
                                             </constraints>
-                                            <state key="normal" image="picture">
+                                            <state key="normal" image="admin_picture">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -1603,7 +1603,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="x6J-MZ-Q5O"/>
                                                 <constraint firstAttribute="width" constant="35" id="ydz-sL-p8R"/>
                                             </constraints>
-                                            <state key="normal" image="Warning">
+                                            <state key="normal" image="admin_reportedUsers">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -1623,6 +1623,53 @@
                                         <constraint firstItem="0Sj-eg-PFu" firstAttribute="centerY" secondItem="AEN-Yh-zq5" secondAttribute="centerY" constant="-0.5" id="7le-9a-psg"/>
                                         <constraint firstItem="0Sj-eg-PFu" firstAttribute="top" secondItem="vWs-fC-pK0" secondAttribute="topMargin" id="M6F-lx-Ukm"/>
                                         <constraint firstItem="AEN-Yh-zq5" firstAttribute="leading" secondItem="0Sj-eg-PFu" secondAttribute="trailing" constant="8" id="Uub-f8-zoF"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="users" rowHeight="54" id="2sH-s9-2ar">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2sH-s9-2ar" id="jeb-uF-Hqk">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6r6-Rd-quT">
+                                            <rect key="frame" x="8" y="8" width="35" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="MM2-Kw-Nkp"/>
+                                                <constraint firstAttribute="width" constant="35" id="ilq-k6-Fv9"/>
+                                            </constraints>
+                                            <state key="normal" image="admin_users">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbN-qE-vz2">
+                                            <rect key="frame" x="51" y="3" width="307" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="29" id="cd2-Dm-glT"/>
+                                                <constraint firstAttribute="width" constant="307" id="nkJ-Mc-N90"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Online" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPU-Mm-Vcw">
+                                            <rect key="frame" x="51" y="19" width="307" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="29" id="cKg-x1-f8P"/>
+                                                <constraint firstAttribute="width" constant="307" id="oUc-tH-ZTG"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="AbN-qE-vz2" firstAttribute="top" secondItem="jeb-uF-Hqk" secondAttribute="topMargin" constant="-5" id="486-VI-ckn"/>
+                                        <constraint firstItem="pPU-Mm-Vcw" firstAttribute="top" secondItem="AbN-qE-vz2" secondAttribute="bottom" constant="-13" id="6xE-fF-stC"/>
+                                        <constraint firstItem="6r6-Rd-quT" firstAttribute="top" secondItem="jeb-uF-Hqk" secondAttribute="topMargin" id="HG9-2Y-lJ6"/>
+                                        <constraint firstItem="pPU-Mm-Vcw" firstAttribute="leading" secondItem="6r6-Rd-quT" secondAttribute="trailing" constant="8" id="PNt-1j-5W3"/>
+                                        <constraint firstItem="6r6-Rd-quT" firstAttribute="leading" secondItem="jeb-uF-Hqk" secondAttribute="leadingMargin" id="fRZ-JU-VWn"/>
+                                        <constraint firstItem="AbN-qE-vz2" firstAttribute="leading" secondItem="6r6-Rd-quT" secondAttribute="trailing" constant="8" id="nD2-zk-c4p"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -4260,14 +4307,18 @@
         <image name="Upload" width="48" height="48"/>
         <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>
+        <image name="admin_bug" width="48" height="48"/>
         <image name="admin_cancel" width="48" height="48"/>
         <image name="admin_done" width="48" height="48"/>
         <image name="admin_exhibition" width="64" height="64"/>
+        <image name="admin_feedback" width="48" height="48"/>
+        <image name="admin_picture" width="48" height="48"/>
         <image name="admin_rain" width="48" height="48"/>
         <image name="admin_recapURL" width="48" height="48"/>
+        <image name="admin_reportedUsers" width="48" height="48"/>
         <image name="admin_trash" width="48" height="48"/>
+        <image name="admin_users" width="48" height="48"/>
         <image name="arrowRight" width="128" height="128"/>
-        <image name="bug" width="48" height="48"/>
         <image name="champs" width="426" height="305"/>
         <image name="close" width="48" height="48"/>
         <image name="closeRed" width="48" height="48"/>
@@ -4284,12 +4335,10 @@
         <image name="map" width="48" height="48"/>
         <image name="medal_gold" width="48" height="48"/>
         <image name="online" width="66" height="66"/>
-        <image name="picture" width="48" height="48"/>
         <image name="radar" width="64" height="64"/>
         <image name="recap" width="48" height="48"/>
         <image name="review" width="48" height="48"/>
         <image name="score_tab" width="48" height="48"/>
-        <image name="star_circle" width="64" height="64"/>
         <image name="star_selected.png" width="63" height="63"/>
         <image name="star_unselected.png" width="64" height="62"/>
         <image name="twitter_lightGrayColor" width="48" height="48"/>

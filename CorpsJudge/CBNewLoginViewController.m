@@ -148,6 +148,7 @@
     self.navigationController.toolbarHidden = YES;
     self.scrollLogin.delegate = self;
     [self getFactCount];
+    [PFCloud callFunctionInBackground:@"registerActivity" withParameters:@{}];
 }
 
 -(void)callbackWithResult:(PFObject *)refreshedObject error:(NSError *)error {

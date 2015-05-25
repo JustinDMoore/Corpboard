@@ -64,7 +64,7 @@ CBSingle *data;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 4;
+    return 5;
 }
 
 
@@ -75,6 +75,8 @@ CBSingle *data;
     NSString *category;
     UIImageView *imgIcon;
     JSBadgeView *badgeView;
+    UILabel *lblUsersTotal;
+    UILabel *lblUsersOnline;
     
     switch (indexPath.row) {
         case 0: cell = [tableView dequeueReusableCellWithIdentifier:@"feedback" forIndexPath:indexPath];
@@ -93,6 +95,13 @@ CBSingle *data;
             category = @"usersReported";
             badgeView = self.badgeUsersReported;
             break;
+        case 4: cell = [tableView dequeueReusableCellWithIdentifier:@"users" forIndexPath:indexPath];
+        category = @"users";
+        lblUsersTotal = (UILabel *)[cell viewWithTag:5];
+        lblUsersOnline = (UILabel *)[cell viewWithTag:6];
+        lblUsersTotal.text = [NSString stringWithFormat:@"%i users total", data.usersTotal];
+        lblUsersOnline.text = [NSString stringWithFormat:@"%i users online", data.usersOnline];
+        break;
     }
     
     imgIcon = (UIImageView *)[cell viewWithTag:2];
@@ -120,28 +129,45 @@ NSString *adminCategory;
     
     switch (indexPath.row) {
         case 0:
-            category = @"feedback";
-            badgeView = self.badgeFeedback;
-            break;
+        category = @"feedback";
+        badgeView = self.badgeFeedback;
+        adminCategory = category;
+        badgeView.badgeText = @"";
+        data.objAdmin[category] = [NSNumber numberWithInt:0];
+        [data.objAdmin saveEventually];
+        [self performSegueWithIdentifier:@"adminDetails" sender:self];
+        break;
         case 1:
-            category = @"problems";
-            badgeView = self.badgeBugs;
-            break;
+        category = @"problems";
+        badgeView = self.badgeBugs;
+        adminCategory = category;
+        badgeView.badgeText = @"";
+        data.objAdmin[category] = [NSNumber numberWithInt:0];
+        [data.objAdmin saveEventually];
+        [self performSegueWithIdentifier:@"adminDetails" sender:self];
+        break;
         case 2:
-            category = @"photos";
-            badgeView = self.badgePhotos;
-            break;
+        category = @"photos";
+        badgeView = self.badgePhotos;
+        adminCategory = category;
+        badgeView.badgeText = @"";
+        data.objAdmin[category] = [NSNumber numberWithInt:0];
+        [data.objAdmin saveEventually];
+        [self performSegueWithIdentifier:@"adminDetails" sender:self];
+        break;
         case 3:
-            category = @"usersReported";
-            badgeView = self.badgeUsersReported;
-            break;
+        category = @"usersReported";
+        badgeView = self.badgeUsersReported;
+        adminCategory = category;
+        badgeView.badgeText = @"";
+        data.objAdmin[category] = [NSNumber numberWithInt:0];
+        [data.objAdmin saveEventually];
+        [self performSegueWithIdentifier:@"adminDetails" sender:self];
+        break;
+        case 4:
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        break;
     }
-    
-    adminCategory = category;
-    badgeView.badgeText = @"";
-    data.objAdmin[category] = [NSNumber numberWithInt:0];
-    [data.objAdmin saveEventually];
-    [self performSegueWithIdentifier:@"adminDetails" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

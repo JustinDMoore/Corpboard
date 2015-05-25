@@ -21,10 +21,14 @@
     id delegate;
 }
 
+
 @property (nonatomic) BOOL updatedAdmin;
 @property (nonatomic) BOOL updatedCorps;
 @property (nonatomic) BOOL updatedShows;
 @property (nonatomic) BOOL updatedBanners;
+
+@property (nonatomic) int usersTotal;
+@property (nonatomic) int usersOnline;
 
 @property (nonatomic, strong) PFObject *objAdmin;
 @property (nonatomic) int numberOfMessages;

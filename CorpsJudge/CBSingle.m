@@ -10,6 +10,7 @@
 #import "JustinHelper.h"
 #import "AppConstant.h"
 #import "NSMutableArray+Shuffling.h"
+#import "NSDate+Utilities.h"
 
 @implementation CBSingle
 
@@ -67,7 +68,6 @@
             user[@"geo"] = geoPoint;
             [self setParseLocationServices:YES];
         }
-        user[@"lastLogin"] = [NSDate date];
         [user saveEventually];
     }];
 }
@@ -89,6 +89,7 @@
 #pragma mark -
 -(void)refreshAdmin {
     
+    [self getNumberOfUsers];
     self.updatedAdmin = NO;
     PFQuery *queryAdmin = [PFQuery queryWithClassName:@"admin"];
     [queryAdmin whereKey:@"objectId" equalTo:@"IjplBNRNjj"];
@@ -99,6 +100,27 @@
             [self didWeFinish];
         }
     }];
+}
+
+-(void)getNumberOfUsers {
+    
+    PFQuery *queryUsers = [PFQuery queryWithClassName:@"_User"];
+    [queryUsers countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (error) self.usersTotal = 0;
+        else self.usersTotal = number;
+    }];
+    
+    [PFCloud callFunctionInBackground:@"getOnlineUsers"
+                       withParameters:@{}
+                                block:^(NSArray *userArray, NSError *error) {
+                                    if (!error) {
+                                        if ([userArray count]) {
+                                            self.usersOnline = (int)[userArray count] - 1;
+                                        } else self.usersOnline = 0;
+                                    } else {
+                                        self.usersOnline = 0;
+                                    }
+                                }];
 }
 
 -(void)refreshCorpsAndShows {

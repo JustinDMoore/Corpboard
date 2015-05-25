@@ -344,3 +344,28 @@ Parse.Cloud.afterSave("users", function(request, response) {
                       }
                       
                       });
+
+
+var moment = require("moment");
+
+Parse.Cloud.define("registerActivity", function(request, response) {
+                   var user = request.user;
+                   user.set("lastLogin", new Date());
+                   user.save().then(function (user) {
+                                    response.success();
+                                    }, function (error) {
+                                    console.log(error);
+                                    response.error(error);
+                                    });
+                   });
+
+Parse.Cloud.define("getOnlineUsers", function(request, response) {
+                   var userQuery = new Parse.Query(Parse.User);
+                   var activeSince = moment().subtract("minutes", 10).toDate();
+                   userQuery.greaterThan("lastLogin", activeSince);
+                   userQuery.find().then(function (users) {
+                                         response.success(users);
+                                         }, function (error) {
+                                         response.error(error);
+                                         });
+                   });
