@@ -155,8 +155,25 @@
     
     //set admin
     BOOL admin = [self.currentUser[@"isAdmin"] boolValue];
-    if (admin) data.adminMode = YES;
-    else data.adminMode = NO;
+    
+    if (admin)  {
+        data.adminMode = YES;
+        if (![self adminChannelSubscribed]) {
+            
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            [currentInstallation addUniqueObject:@"admin" forKey:@"channels"];
+            [currentInstallation saveInBackground];
+        }
+    }
+    else {
+        data.adminMode = NO;
+        if ([self adminChannelSubscribed]) {
+            
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            [currentInstallation removeObject:@"admin" forKey:@"channels"];
+            [currentInstallation saveInBackground];
+        }
+    }
     
     NSString *name = self.currentUser[@"nickname"];
     if ([name length]) {
@@ -164,6 +181,17 @@
     } else {
         [self addView:self.viewNickname andScroll:NO];
     }
+}
+
+-(BOOL)adminChannelSubscribed {
+    
+    NSArray *subscribedChannels = [PFInstallation currentInstallation].channels;
+    for (NSString *channel in subscribedChannels) {
+        if ([channel isEqualToString:@"admin"]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void)useApp {

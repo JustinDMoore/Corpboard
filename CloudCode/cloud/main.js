@@ -324,7 +324,7 @@ Parse.Cloud.afterSave("problems", function(request, response) {
                       });
 
 
-Parse.Cloud.afterSave("users", function(request, response) {
+Parse.Cloud.afterSave(Parse.User, function(request, response) {
                       Parse.Cloud.useMasterKey();
                       
                       if (request.object.existed()) { // it existed before
@@ -332,7 +332,7 @@ Parse.Cloud.afterSave("users", function(request, response) {
                       Parse.Push.send({
                                       channels: [ "admin" ],
                                       data: {
-                                      alert: "New user!"
+                                      alert: "New user signed up for Corpboard"
                                       }
                                       }, { success: function() {
                                       // success!
