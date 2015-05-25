@@ -20,7 +20,7 @@ pod 'DTFoundation', '1.7.5'
 
 pod 'MWFeedParser', '1.0.1'
 =begin
-    MWFeedItem.m
+ MWFeedItem.m
  
  - (id)initWithCoder:(NSCoder *)decoder {
 	if ((self = [super init])) {
@@ -38,7 +38,7 @@ pod 'MWFeedParser', '1.0.1'
  }
  
  
-    MWFeedParser.h
+ MWFeedParser.h
  
  // Item
  if (!processed) {
@@ -66,5 +66,5 @@ pod 'MWFeedParser', '1.0.1'
  
  break;
  }
-
-=end
+ 
+ =end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -2670,7 +2670,7 @@
                                                         <rect key="frame" x="205" y="0.0" width="35" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
-                                                        <state key="normal" image="connect">
+                                                        <state key="normal" image="radar">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -4271,7 +4271,6 @@
         <image name="champs" width="426" height="305"/>
         <image name="close" width="48" height="48"/>
         <image name="closeRed" width="48" height="48"/>
-        <image name="connect" width="48" height="48"/>
         <image name="dci_lightGrayColor" width="160" height="107"/>
         <image name="defaultCoverPicture" width="851" height="315"/>
         <image name="drum_tab" width="48" height="48"/>
@@ -4286,6 +4285,7 @@
         <image name="medal_gold" width="48" height="48"/>
         <image name="online" width="66" height="66"/>
         <image name="picture" width="48" height="48"/>
+        <image name="radar" width="64" height="64"/>
         <image name="recap" width="48" height="48"/>
         <image name="review" width="48" height="48"/>
         <image name="score_tab" width="48" height="48"/>
