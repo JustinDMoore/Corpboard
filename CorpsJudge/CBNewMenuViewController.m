@@ -253,28 +253,39 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 
     [self loadProfile];
     
+    UIImageView *showArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
+    showArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    
+    UIImageView *rankArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
+    rankArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    
+    UIImageView *newsArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
+    newsArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    
     //arrows
     UITableViewCell *showArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAll addSubview:showArrow];
-    showArrow.frame = self.btnSeeAll.bounds;
-    showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    showArrow.frame = CGRectMake(25, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height);
+    //showArrow.frame = self.btnSeeAll.bounds;
+    //showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     showArrow.userInteractionEnabled = NO;
-    showArrow.tintColor = [UIColor redColor];
+    showArrow.accessoryView = showArrowImage;
+
     
     UITableViewCell *rankArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAllRankings addSubview:rankArrow];
-    rankArrow.frame = self.btnSeeAllRankings.bounds;
-    rankArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    rankArrow.frame = CGRectMake(25, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height);
+    //rankArrow.frame = self.btnSeeAllRankings.bounds;
     rankArrow.userInteractionEnabled = NO;
-    rankArrow.tintColor = [UIColor redColor];
+    rankArrow.accessoryView = rankArrowImage;
     
     UITableViewCell *newsArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAllNews addSubview:newsArrow];
-    newsArrow.frame = self.btnSeeAllNews.bounds;
-    newsArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    newsArrow.frame = CGRectMake(25, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height);
+    //newsArrow.frame = self.btnSeeAllNews.bounds;
+    //newsArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     newsArrow.userInteractionEnabled = NO;
-    newsArrow.tintColor = [UIColor redColor];
-    
+    newsArrow.accessoryView = newsArrowImage;
     
     //
     //self.scrollMain.frame = CGRectMake(self.scrollMain.frame.origin.x, self.scrollMain.frame.origin.y, self.scrollMain.frame.size.width, [UIScreen mainScreen].bounds.size.height);
