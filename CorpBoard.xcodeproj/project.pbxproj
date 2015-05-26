@@ -145,6 +145,7 @@
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
+		D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC7D51B140AB1000B3C75 /* PodNotes.m */; };
 		D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F01A41467800FF0B62 /* CBEditName.xib */; };
 		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
 		D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F51A41640700FF0B62 /* CBEditDescription.xib */; };
@@ -435,6 +436,7 @@
 		D074E1531A6EEFCB00C1E300 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
+		D08BC7D51B140AB1000B3C75 /* PodNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodNotes.m; sourceTree = "<group>"; };
 		D08E00F01A41467800FF0B62 /* CBEditName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditName.xib; sourceTree = "<group>"; };
 		D08E00F21A4147B700FF0B62 /* CBEditName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditName.h; sourceTree = "<group>"; };
 		D08E00F31A4147B700FF0B62 /* CBEditName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditName.m; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 				92533489194FD5D70004D16F /* InfoPlist.strings */,
 				9253348C194FD5D70004D16F /* main.m */,
 				9253348E194FD5D70004D16F /* Corpboard.temp_caseinsensitive_rename-Prefix.pch */,
+				D08BC7D51B140AB1000B3C75 /* PodNotes.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1435,6 +1438,7 @@
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
 				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
 				D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */,
+				D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */,
 				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,
 				92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */,

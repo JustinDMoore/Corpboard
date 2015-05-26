@@ -254,18 +254,18 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     [self loadProfile];
     
     UIImageView *showArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
-    showArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    showArrowImage.frame = CGRectMake(0, 0, 20, 20);
     
     UIImageView *rankArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
-    rankArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    rankArrowImage.frame = CGRectMake(0, 0, 20, 20);
     
     UIImageView *newsArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
-    newsArrowImage.frame = CGRectMake(0, 0, 25, 25);
+    newsArrowImage.frame = CGRectMake(0, 0, 20, 20);
     
     //arrows
     UITableViewCell *showArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAll addSubview:showArrow];
-    showArrow.frame = CGRectMake(25, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height);
+    showArrow.frame = CGRectMake(24, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height);
     //showArrow.frame = self.btnSeeAll.bounds;
     //showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     showArrow.userInteractionEnabled = NO;
@@ -274,14 +274,14 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     UITableViewCell *rankArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAllRankings addSubview:rankArrow];
-    rankArrow.frame = CGRectMake(25, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height);
+    rankArrow.frame = CGRectMake(24, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height);
     //rankArrow.frame = self.btnSeeAllRankings.bounds;
     rankArrow.userInteractionEnabled = NO;
     rankArrow.accessoryView = rankArrowImage;
     
     UITableViewCell *newsArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAllNews addSubview:newsArrow];
-    newsArrow.frame = CGRectMake(25, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height);
+    newsArrow.frame = CGRectMake(24, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height);
     //newsArrow.frame = self.btnSeeAllNews.bounds;
     //newsArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     newsArrow.userInteractionEnabled = NO;
