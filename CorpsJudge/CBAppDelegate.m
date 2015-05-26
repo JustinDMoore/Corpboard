@@ -41,7 +41,7 @@ CBSingle *data;
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
-    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:nil];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
 
     //facebook
     //[FBLoginView class];

@@ -1084,19 +1084,19 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
         UILabel *lblDetail = (UILabel *)[cell viewWithTag:7];
         if (indexPath.section == 0) {
             if (indexPath.row + 1 <= [self.WScores count]) {
-                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+                lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
             } else {
                 lblPlacement.text = @"";
             }
         } else if (indexPath.section == 1) {
             if (indexPath.row + 1 <= [self.OScores count]) {
-                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+                lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
             } else {
                 lblPlacement.text = @"";
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row + 1 <= [self.AScores count]) {
-                lblPlacement.text = [NSString stringWithFormat:@"%ld", indexPath.row + 1];
+                lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
             } else {
                 lblPlacement.text = @"";
             }
@@ -1332,18 +1332,17 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self.view sendSubviewToBack:self.lblInstructions];
     
-    CGPoint center = self.lblInstructions.center;
     
-        [UIView animateWithDuration:0.5f
-                              delay:0
-             usingSpringWithDamping:0.5 //stength
-              initialSpringVelocity:-0.5
-                            options:0
-                         animations:^{
-                             self.lblInstructions.frame = CGRectMake(self.lblInstructions.frame.origin.x, self.lblInstructions.frame.origin.y + 50, self.lblInstructions.frame.size.width, self.lblInstructions.frame.size.height);
-                         } completion:^(BOOL finished) {
-                             
-                         }];
+    [UIView animateWithDuration:0.5f
+                          delay:0
+         usingSpringWithDamping:0.5 //stength
+          initialSpringVelocity:-0.5
+                        options:0
+                     animations:^{
+                         self.lblInstructions.frame = CGRectMake(self.lblInstructions.frame.origin.x, self.lblInstructions.frame.origin.y + 50, self.lblInstructions.frame.size.width, self.lblInstructions.frame.size.height);
+                     } completion:^(BOOL finished) {
+                         
+                     }];
     
     [self.tableCorps reloadData];
   

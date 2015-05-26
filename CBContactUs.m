@@ -18,8 +18,6 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 6;
         self.tableFeedback.canCancelContentTouches = YES;
-        self.tableFeedback.delegate = self;
-        self.tableFeedback.dataSource = self;
         
         // Set vertical effect
         UIInterpolatingMotionEffect *verticalMotionEffect =

@@ -334,7 +334,7 @@ bool backspaced;
             } else if ([self.phase isEqualToString:@"order"]) {
                 txtScore.hidden = YES;
                 lblPlace.hidden = NO;
-                lblPlace.text = [NSString stringWithFormat:@"%lu", indexPath.row + 1];
+                lblPlace.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
                 [self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
             } else if ([self.phase isEqualToString:@"score"]) {
                 lblPlace.hidden = NO;

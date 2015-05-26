@@ -21,6 +21,5 @@
 @property (nonatomic, strong) NSArray *arrayOfProblemAreas;
 @property (nonatomic, strong) NSArray *arrayOfProblemImages;
 -(void)showInParent;
--(void)closeView:(BOOL)cancelled;
 -(void)setDelegate:(id)newDelegate;
 @end

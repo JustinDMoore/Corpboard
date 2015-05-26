@@ -232,7 +232,6 @@ BOOL isLoading = NO;
     
     UIImageView *imgNew = (UIImageView *)[cell viewWithTag:2];
     UILabel *lblUser = (UILabel *)[cell viewWithTag:3];
-    UILabel *lblTimestamp = (UILabel *)[cell viewWithTag:4];
     UILabel *lblLastMessageHidden = (UILabel *)[cell viewWithTag:5];
     lblLastMessageHidden.hidden = YES;
     

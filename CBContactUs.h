@@ -13,7 +13,7 @@
 @end
 
 
-@interface CBContactUs : UIView <UITableViewDelegate, UITableViewDataSource> {
+@interface CBContactUs : UIView {
     id delegate;
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableFeedback;

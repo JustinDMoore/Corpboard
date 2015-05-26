@@ -748,7 +748,7 @@ BOOL finished = NO;
         lblCorpsName.text = corps[@"corpsName"];
         [lblCorpsName sizeToFit];
         if (finished) {
-            lblPosition.text = [NSString stringWithFormat:@"%li", indexPath.row + 1];
+            lblPosition.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
         } else {
             lblPosition.text = @"-";
         }

@@ -349,7 +349,7 @@ int loop = 0;
             if (corp) {
               
                 
-                if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%lu", indexPath.row + 1];
+                if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
                 if (imgLogo) {
                     PFFile *imageFile = corp[@"logo"];
                     if (imageFile) {

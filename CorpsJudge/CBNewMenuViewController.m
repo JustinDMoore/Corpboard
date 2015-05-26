@@ -1338,7 +1338,7 @@ bool isScrolling = NO;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *cellIdentifier = [NSString stringWithFormat:@"cell%li", indexPath.row];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"cell%lu", (long)indexPath.row];
     
     CBNewsCell *cell = (CBNewsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
