@@ -170,8 +170,6 @@
 		D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */; };
 		D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AAD1701AB68619002CAACC /* CBAnnotation.m */; };
 		D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */; };
-		D0AEA6BB1B031CF40080D7F5 /* CBPermissions.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */; };
-		D0AEA6BE1B031F920080D7F5 /* CBPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */; };
 		D0AEA6C01B03C6490080D7F5 /* CBReviewSubmitted.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0AEA6BF1B03C6490080D7F5 /* CBReviewSubmitted.xib */; };
 		D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AEA6C21B03C7140080D7F5 /* CBReviewSubmitted.m */; };
 		D0BA4FC71ABB13E40051310E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA4FC61ABB13E40051310E /* MKMapView+ZoomLevel.m */; };
@@ -476,9 +474,7 @@
 		D0AAD1701AB68619002CAACC /* CBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAnnotation.m; sourceTree = "<group>"; };
 		D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewShow.h; sourceTree = "<group>"; };
 		D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewShow.m; sourceTree = "<group>"; };
-		D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPermissions.xib; sourceTree = "<group>"; };
 		D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPermissions.h; sourceTree = "<group>"; };
-		D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPermissions.m; sourceTree = "<group>"; };
 		D0AEA6BF1B03C6490080D7F5 /* CBReviewSubmitted.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewSubmitted.xib; sourceTree = "<group>"; };
 		D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewSubmitted.h; sourceTree = "<group>"; };
 		D0AEA6C21B03C7140080D7F5 /* CBReviewSubmitted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewSubmitted.m; sourceTree = "<group>"; };
@@ -880,8 +876,6 @@
 				D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
-				D0AEA6BA1B031CF40080D7F5 /* CBPermissions.xib */,
-				D0AEA6BD1B031F920080D7F5 /* CBPermissions.m */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
 			);
 			name = Xibs;
@@ -1329,7 +1323,6 @@
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
-				D0AEA6BB1B031CF40080D7F5 /* CBPermissions.xib in Resources */,
 				D05F44E61ABF8B00003F9A96 /* CBTerms.xib in Resources */,
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1430,7 +1423,6 @@
 				D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
-				D0AEA6BE1B031F920080D7F5 /* CBPermissions.m in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
