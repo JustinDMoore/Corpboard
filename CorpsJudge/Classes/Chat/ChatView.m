@@ -75,7 +75,7 @@
     
     PFUser *user = [PFUser currentUser];
     self.senderId = user.objectId;
-    self.senderDisplayName = user[PF_USER_FULLNAME];
+    self.senderDisplayName = user[@"nickname"];
     
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
@@ -177,7 +177,7 @@
     
     if (object[PF_CHAT_PICTURE] == nil) {
         
-        JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+        JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[@"nickname"]
                                                               date:object.createdAt text:object[PF_CHAT_TEXT]];
         [messages addObject:message];
     }
@@ -186,7 +186,7 @@
         
         JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
         mediaItem.appliesMediaViewMaskAsOutgoing = [user.objectId isEqualToString:self.senderId];
-        JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+        JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[@"nickname"]
                                                               date:object.createdAt media:mediaItem];
         [messages addObject:message];
         

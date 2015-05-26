@@ -247,6 +247,10 @@
         }
     }];
     
+    cell.imgLastUser.layer.cornerRadius = cell.imgLastUser.frame.size.width / 2;
+    cell.imgLastUser.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.imgLastUser.layer.borderWidth = 1;
+    
     int views = [chatroom[@"numberOfViews"] intValue];
     int messages = [chatroom[@"numberOfMessages"] intValue];
     NSString *m;

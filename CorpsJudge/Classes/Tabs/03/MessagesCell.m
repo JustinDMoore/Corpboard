@@ -41,7 +41,9 @@
 
 	imageUser.layer.cornerRadius = imageUser.frame.size.width/2;
 	imageUser.layer.masksToBounds = YES;
-
+    imageUser.layer.borderColor = [UIColor whiteColor].CGColor;
+    imageUser.layer.borderWidth = 1;
+    
 	PFUser *lastUser = message[PF_MESSAGES_LASTUSER];
     
     PFFile *imgFile = lastUser[@"picture"];
@@ -51,7 +53,7 @@
     } else {
         [imageUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
     }
-
+    
 	labelDescription.text = message[PF_MESSAGES_DESCRIPTION];
 	labelLastMessage.text = message[PF_MESSAGES_LASTMESSAGE];
 

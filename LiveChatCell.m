@@ -14,6 +14,8 @@
 
     self.imgLastUser.layer.cornerRadius = self.imgLastUser.frame.size.width/2;
     self.imgLastUser.layer.masksToBounds = YES;
+    self.imgLastUser.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imgLastUser.layer.borderWidth = 2;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
