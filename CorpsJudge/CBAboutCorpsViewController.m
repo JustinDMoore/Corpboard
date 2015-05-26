@@ -17,9 +17,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.tableView.estimatedRowHeight = 20.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    //self.automaticallyAdjustsScrollViewInsets = NO;
+
 }
 
 
@@ -42,6 +40,10 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
+    [self.lblAbout setText:self.about];
+    [self.lblAbout sizeToFit];
+    self.lblAbout.editable = NO;
+    
 }
 
 -(void)goback {
@@ -49,28 +51,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)viewDidLayoutSubviews {
     
-    UITableViewCell *cell;
-    cell = [self.tableView dequeueReusableCellWithIdentifier:@"about"];
-        
-    UILabel *lblAbout = (UILabel *)[cell viewWithTag:1];
-    lblAbout.text = self.about;
-    [lblAbout sizeToFit];
-    
-    return cell;
+    [self.lblAbout setContentOffset:CGPointZero animated:NO];
 }
 
 @end

@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface CBAboutCorpsViewController : UITableViewController
+@interface CBAboutCorpsViewController : UIViewController
 @property (nonatomic, strong) NSString *about;
+@property (weak, nonatomic) IBOutlet UITextView *lblAbout;
 
 @end
