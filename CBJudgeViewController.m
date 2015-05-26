@@ -1280,9 +1280,12 @@ shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     
     PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
     if (imgLogo) {
-        PFFile *imgFile = corps[@"logo"];
-        if (imgFile) {
-            [imgLogo setFile:imgFile];
+        PFFile *imageFile = corps[@"logo_light"];
+        if (!imageFile) {
+            imageFile = corps[@"logo"];
+        }
+        if (imageFile) {
+            [imgLogo setFile:imageFile];
             [imgLogo loadInBackground];
         }
     }
