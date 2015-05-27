@@ -50,7 +50,7 @@
     if (![self.txtNickname.text length]) {
         return;
     } else {
-        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        PFQuery *query = [PFQuery queryWithClassName:@"_User"];
         [query whereKey:@"nickname" equalTo:self.txtNickname.text];
         [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
             if (!error) {
