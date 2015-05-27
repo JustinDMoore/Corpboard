@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "loudest.png"
+      "filename" : "Trophy-48-3.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "loudest@2x.png"
+      "filename" : "Trophy-128-3.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Trophy-256.png"
     }
   ],
   "info" : {

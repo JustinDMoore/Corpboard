@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CBAppDelegate.h"
-#import "CBJudgeViewController.h"
 #import "CBSingle.h"
 
 @interface CBShowsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, dataProtocol>

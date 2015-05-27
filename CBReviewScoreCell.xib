@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reviewScoreCell" id="0v6-lh-BOD" customClass="CBReviewScoreCell">
+            <rect key="frame" x="0.0" y="0.0" width="358" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0v6-lh-BOD" id="lja-yX-km5">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="00.000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hxG-mu-qN3">
+                        <rect key="frame" x="296" y="8" width="58" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="58" id="o89-xh-9NQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    </textField>
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jPp-7M-Ha0" customClass="PFImageView">
+                        <rect key="frame" x="8" y="10" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="0ms-Ej-gtn"/>
+                            <constraint firstAttribute="width" constant="25" id="5pA-Ba-jCP"/>
+                        </constraints>
+                        <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
+                            <rect key="frame" x="39" y="5" width="35" height="35"/>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="left" horizontalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqP-ZW-n35">
+                        <rect key="frame" x="41" y="15" width="218" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="218" id="d6h-N4-tsc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="pqP-ZW-n35" firstAttribute="leading" secondItem="jPp-7M-Ha0" secondAttribute="trailing" constant="8" id="55k-jb-CBu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="hxG-mu-qN3" secondAttribute="trailing" constant="-4" id="NDm-Pb-o2R"/>
+                    <constraint firstItem="jPp-7M-Ha0" firstAttribute="centerY" secondItem="pqP-ZW-n35" secondAttribute="centerY" constant="-0.5" id="PBK-Eh-AKX"/>
+                    <constraint firstItem="jPp-7M-Ha0" firstAttribute="leading" secondItem="lja-yX-km5" secondAttribute="leadingMargin" id="QvO-lC-bKS"/>
+                    <constraint firstItem="pqP-ZW-n35" firstAttribute="centerY" secondItem="hxG-mu-qN3" secondAttribute="centerY" id="amx-mR-6XI"/>
+                    <constraint firstAttribute="centerY" secondItem="jPp-7M-Ha0" secondAttribute="centerY" constant="-1" id="dfv-ko-v9E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="170" y="545"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -114,7 +114,6 @@
 		D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02BB6D81AFC59F000721426 /* CBConnectViewController.m */; };
 		D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */; };
 		D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DB619537792000849F1 /* CBShowDetailsViewController.m */; };
-		D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */; };
 		D033D1C21A7726180048D80C /* shootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = D033D1C11A7726180048D80C /* shootingStar.sks */; };
 		D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */ = {isa = PBXBuildFile; fileRef = D034437A1A3D064000C410EE /* CBChooseCorp.xib */; };
 		D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */ = {isa = PBXBuildFile; fileRef = D034437D1A3D071000C410EE /* CBChooseCorp.m */; };
@@ -200,6 +199,22 @@
 		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
 		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
+		D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F891B14F62500357663 /* CBStartReview.xib */; };
+		D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19F8C1B14F63900357663 /* CBStartReview.m */; };
+		D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F8E1B14F86000357663 /* CBReviewCell.xib */; };
+		D0F19F921B14F88400357663 /* CBReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19F911B14F88400357663 /* CBReviewCell.m */; };
+		D0F19F941B1502C700357663 /* CBReviewAttendance.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F931B1502C700357663 /* CBReviewAttendance.xib */; };
+		D0F19F971B1502D600357663 /* CBReviewAttendance.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19F961B1502D600357663 /* CBReviewAttendance.m */; };
+		D0F19F991B15281100357663 /* CBPickFavorite.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F981B15281100357663 /* CBPickFavorite.xib */; };
+		D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19F9B1B15281F00357663 /* CBPickFavorite.m */; };
+		D0F19FA01B15368200357663 /* CBReviewScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F9F1B15368200357663 /* CBReviewScoreCell.xib */; };
+		D0F19FA31B15369500357663 /* CBReviewScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FA21B15369500357663 /* CBReviewScoreCell.m */; };
+		D0F19FA51B15499500357663 /* CBReviewFeedback.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19FA41B15499500357663 /* CBReviewFeedback.xib */; };
+		D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FA71B1549A400357663 /* CBReviewFeedback.m */; };
+		D0F19FAA1B1577E600357663 /* CBReviewFavoriteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19FA91B1577E600357663 /* CBReviewFavoriteCell.xib */; };
+		D0F19FAD1B1577FB00357663 /* CBReviewFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FAC1B1577FB00357663 /* CBReviewFavoriteCell.m */; };
+		D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */; };
+		D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */; };
 		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E5201A1F351300AE500E /* CBEmailLogin.m */; };
@@ -392,8 +407,6 @@
 		D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Shuffling.m"; path = "../NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		D0307DB519537792000849F1 /* CBShowDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShowDetailsViewController.h; sourceTree = "<group>"; };
 		D0307DB619537792000849F1 /* CBShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShowDetailsViewController.m; sourceTree = "<group>"; };
-		D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBJudgeViewController.h; path = ../CBJudgeViewController.h; sourceTree = "<group>"; };
-		D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBJudgeViewController.m; path = ../CBJudgeViewController.m; sourceTree = "<group>"; };
 		D033D1C11A7726180048D80C /* shootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = shootingStar.sks; sourceTree = "<group>"; };
 		D034437A1A3D064000C410EE /* CBChooseCorp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBChooseCorp.xib; sourceTree = "<group>"; };
 		D034437C1A3D071000C410EE /* CBChooseCorp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBChooseCorp.h; sourceTree = "<group>"; };
@@ -521,6 +534,31 @@
 		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
 		D0E37A191959178B00AE4215 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
+		D0F19F861B14F44A00357663 /* CBDidAttend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDidAttend.h; sourceTree = "<group>"; };
+		D0F19F891B14F62500357663 /* CBStartReview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBStartReview.xib; sourceTree = "<group>"; };
+		D0F19F8B1B14F63900357663 /* CBStartReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStartReview.h; sourceTree = "<group>"; };
+		D0F19F8C1B14F63900357663 /* CBStartReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStartReview.m; sourceTree = "<group>"; };
+		D0F19F8E1B14F86000357663 /* CBReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewCell.xib; sourceTree = "<group>"; };
+		D0F19F901B14F88400357663 /* CBReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewCell.h; sourceTree = "<group>"; };
+		D0F19F911B14F88400357663 /* CBReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewCell.m; sourceTree = "<group>"; };
+		D0F19F931B1502C700357663 /* CBReviewAttendance.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewAttendance.xib; sourceTree = "<group>"; };
+		D0F19F951B1502D600357663 /* CBReviewAttendance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewAttendance.h; sourceTree = "<group>"; };
+		D0F19F961B1502D600357663 /* CBReviewAttendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewAttendance.m; sourceTree = "<group>"; };
+		D0F19F981B15281100357663 /* CBPickFavorite.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPickFavorite.xib; sourceTree = "<group>"; };
+		D0F19F9A1B15281F00357663 /* CBPickFavorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPickFavorite.h; sourceTree = "<group>"; };
+		D0F19F9B1B15281F00357663 /* CBPickFavorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPickFavorite.m; sourceTree = "<group>"; };
+		D0F19F9F1B15368200357663 /* CBReviewScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewScoreCell.xib; sourceTree = "<group>"; };
+		D0F19FA11B15369500357663 /* CBReviewScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewScoreCell.h; sourceTree = "<group>"; };
+		D0F19FA21B15369500357663 /* CBReviewScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewScoreCell.m; sourceTree = "<group>"; };
+		D0F19FA41B15499500357663 /* CBReviewFeedback.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewFeedback.xib; sourceTree = "<group>"; };
+		D0F19FA61B1549A400357663 /* CBReviewFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewFeedback.h; sourceTree = "<group>"; };
+		D0F19FA71B1549A400357663 /* CBReviewFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewFeedback.m; sourceTree = "<group>"; };
+		D0F19FA91B1577E600357663 /* CBReviewFavoriteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewFavoriteCell.xib; sourceTree = "<group>"; };
+		D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewFavoriteCell.h; sourceTree = "<group>"; };
+		D0F19FAC1B1577FB00357663 /* CBReviewFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewFavoriteCell.m; sourceTree = "<group>"; };
+		D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewCaptionCell.xib; sourceTree = "<group>"; };
+		D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewCaptionCell.h; sourceTree = "<group>"; };
+		D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewCaptionCell.m; sourceTree = "<group>"; };
 		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
 		D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewLoginViewController.m; sourceTree = "<group>"; };
 		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
@@ -808,7 +846,6 @@
 				D0307DB619537792000849F1 /* CBShowDetailsViewController.m */,
 				92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */,
 				92120A8F195945B600FFB9A8 /* CBStatsViewController.m */,
-				D0307DBC1953B5B8000849F1 /* CBJudgeViewController.m */,
 				92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */,
 				92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */,
 				924280E11963A573006E8240 /* CBCorpsViewController.m */,
@@ -894,7 +931,6 @@
 				D0307DB519537792000849F1 /* CBShowDetailsViewController.h */,
 				92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */,
 				92120A8E195945B600FFB9A8 /* CBStatsViewController.h */,
-				D0307DBB1953B5B8000849F1 /* CBJudgeViewController.h */,
 				92CF4C6319627EBC00BE98D5 /* CBFinalsPredictionViewController.h */,
 				92CF4C6619627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.h */,
 				924280E01963A573006E8240 /* CBCorpsViewController.h */,
@@ -954,6 +990,15 @@
 				D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */,
 				D0D7773E1B115D7E00D4EF6A /* CBPushNotifications.h */,
 				D0D777431B116A6700D4EF6A /* CBLocationServices.h */,
+				D0F19F861B14F44A00357663 /* CBDidAttend.h */,
+				D0F19F8B1B14F63900357663 /* CBStartReview.h */,
+				D0F19F901B14F88400357663 /* CBReviewCell.h */,
+				D0F19F951B1502D600357663 /* CBReviewAttendance.h */,
+				D0F19F9A1B15281F00357663 /* CBPickFavorite.h */,
+				D0F19FA11B15369500357663 /* CBReviewScoreCell.h */,
+				D0F19FA61B1549A400357663 /* CBReviewFeedback.h */,
+				D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */,
+				D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1109,10 +1154,26 @@
 		D0AEA6C41B03C7230080D7F5 /* Show Review */ = {
 			isa = PBXGroup;
 			children = (
+				D0F19F931B1502C700357663 /* CBReviewAttendance.xib */,
+				D0F19F961B1502D600357663 /* CBReviewAttendance.m */,
+				D0F19F891B14F62500357663 /* CBStartReview.xib */,
+				D0F19F8C1B14F63900357663 /* CBStartReview.m */,
+				D0F19F981B15281100357663 /* CBPickFavorite.xib */,
+				D0F19F9B1B15281F00357663 /* CBPickFavorite.m */,
 				920962C81B02DF08006D8B27 /* CBReviewShow.xib */,
 				D0AEA6B81B030D920080D7F5 /* CBReviewShow.m */,
+				D0F19F8E1B14F86000357663 /* CBReviewCell.xib */,
+				D0F19F911B14F88400357663 /* CBReviewCell.m */,
 				D0AEA6BF1B03C6490080D7F5 /* CBReviewSubmitted.xib */,
 				D0AEA6C21B03C7140080D7F5 /* CBReviewSubmitted.m */,
+				D0F19F9F1B15368200357663 /* CBReviewScoreCell.xib */,
+				D0F19FA21B15369500357663 /* CBReviewScoreCell.m */,
+				D0F19FA41B15499500357663 /* CBReviewFeedback.xib */,
+				D0F19FA71B1549A400357663 /* CBReviewFeedback.m */,
+				D0F19FA91B1577E600357663 /* CBReviewFavoriteCell.xib */,
+				D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */,
+				D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */,
+				D0F19FAC1B1577FB00357663 /* CBReviewFavoriteCell.m */,
 			);
 			name = "Show Review";
 			sourceTree = "<group>";
@@ -1287,10 +1348,12 @@
 				D0C2EC4D1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib in Resources */,
 				D0AEA6C01B03C6490080D7F5 /* CBReviewSubmitted.xib in Resources */,
 				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
+				D0F19F991B15281100357663 /* CBPickFavorite.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */,
 				92FE953A1A74FB3500D4A7D9 /* MyParticle.sks in Resources */,
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
+				D0F19F941B1502C700357663 /* CBReviewAttendance.xib in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */,
@@ -1299,6 +1362,7 @@
 				923D4FDB1A2C6DCF00E16B64 /* tab_messages@2x.png in Resources */,
 				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
+				D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
 				D064F3B11A36ECA1007455E2 /* global.json in Resources */,
 				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
@@ -1312,8 +1376,10 @@
 				92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */,
 				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
 				D0C2EC561B0CEBBC00C57017 /* CBPredictionScoreCell.xib in Resources */,
+				D0F19FA01B15368200357663 /* CBReviewScoreCell.xib in Resources */,
 				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
 				923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */,
+				D0F19FAA1B1577E600357663 /* CBReviewFavoriteCell.xib in Resources */,
 				923D4FCB1A2C6DCF00E16B64 /* MessagesView.xib in Resources */,
 				920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */,
 				D0C2EC541B0CEBAC00C57017 /* CBPredictionOrderCell.xib in Resources */,
@@ -1323,6 +1389,7 @@
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
 				D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */,
+				D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
 				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
@@ -1333,11 +1400,13 @@
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
+				D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */,
 				D0D777421B116A4D00D4EF6A /* CBLocationServices.xib in Resources */,
 				D0D777471B117BF000D4EF6A /* CBLocationServicesDisabled.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
+				D0F19FA51B15499500357663 /* CBReviewFeedback.xib in Resources */,
 				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
 				D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
@@ -1466,6 +1535,7 @@
 				D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */,
 				D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */,
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
+				D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */,
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
 				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
@@ -1481,25 +1551,31 @@
 				923D4FD51A2C6DCF00E16B64 /* messages.m in Sources */,
 				923D4FC31A2C6DCF00E16B64 /* NavigationController.m in Sources */,
 				D0067A6819690AB300C372D0 /* Math.m in Sources */,
+				D0F19F971B1502D600357663 /* CBReviewAttendance.m in Sources */,
 				923D4FD61A2C6DCF00E16B64 /* pushnotification.m in Sources */,
 				D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */,
-				D0307DBD1953B5B8000849F1 /* CBJudgeViewController.m in Sources */,
 				923D4FC81A2C6DCF00E16B64 /* MessagesCell.m in Sources */,
 				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
+				D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */,
+				D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
+				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
+				D0F19FA31B15369500357663 /* CBReviewScoreCell.m in Sources */,
 				D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */,
 				D05F44E91ABF8BE5003F9A96 /* CBTerms.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,
+				D0F19FAD1B1577FB00357663 /* CBReviewFavoriteCell.m in Sources */,
+				D0F19F921B14F88400357663 /* CBReviewCell.m in Sources */,
 				D00B71791AF4531900403A12 /* CBContactUs.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,

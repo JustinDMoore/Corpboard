@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "favorite.png"
+      "filename" : "Drum-48-6.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "favorite@2x.png"
+      "filename" : "Drum-128-6.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Drum-256-5.png"
     }
   ],
   "info" : {

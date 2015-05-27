@@ -50,6 +50,7 @@
 #pragma mark - UITextView Delegate
 #pragma mark
 -(void)textViewDidChange:(UITextView *)textView {
+    
     if ([textView.text length]) {
         self.btnSend.enabled = YES;
     } else {

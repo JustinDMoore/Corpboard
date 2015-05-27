@@ -1,14 +1,14 @@
 //
-//  CBReviewShow.m
-//  CorpBoard
+//  CBPickFavorite.m
+//  Corpboard
 //
-//  Created by Justin Moore on 5/12/15.
+//  Created by Justin Moore on 5/26/15.
 //  Copyright (c) 2015 Justin Moore. All rights reserved.
 //
 
-#import "CBReviewShow.h"
+#import "CBPickFavorite.h"
 
-@implementation CBReviewShow
+@implementation CBPickFavorite
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -16,19 +16,22 @@
     if (self) {
         // CUSTOM INITIALIZATION HERE
         self.clipsToBounds = YES;
-        self.tableRecap.canCancelContentTouches = YES;
-
+    
+        for (UIView *view in self.subviews) {
+            view.alpha = 0;
+            view.hidden = YES;
+        }
     }
     return self;
 }
 
--(void)setDelegate:(id)newDelegate{
+-(void)setDelegate:(id)newDelegate {
     delegate = newDelegate;
 }
 
--(void)showInParent {
+-(void)showInParent:(NSString *)header {
     
-    [self.tableRecap reloadData];
+    self.lblHeader.text = header;
     
     [UIView animateWithDuration:.25
                           delay:0
@@ -38,24 +41,18 @@
                              view.hidden = NO;
                              view.alpha = 1;
                          }
+
                      } completion:^(BOOL finished) {
-               
-                         [self.tableRecap reloadData];
+
                      }];
 }
 
--(IBAction)btnYes_tapped:(id)sender {
+- (IBAction)btnOK_tapped:(id)sender {
     
-    if ([delegate respondsToSelector:@selector(submitReview)]) {
-        [delegate submitReview];
+    if ([delegate respondsToSelector:@selector(favoritePicked)]) {
+        [delegate favoritePicked];
     }
 }
 
--(IBAction)btnNo_tapped:(id)sender {
-    
-    if ([delegate respondsToSelector:@selector(cancelSubmitReview)]) {
-        [delegate cancelSubmitReview];
-    }
-}
 
 @end
