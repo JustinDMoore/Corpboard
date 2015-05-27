@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -576,21 +576,21 @@
                                                     <rect key="frame" x="51" y="28" width="170" height="10"/>
                                                     <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="10" id="Wpk-fT-RbS"/>
-                                                        <constraint firstAttribute="width" constant="170" id="ZdC-jZ-wXI"/>
+                                                        <constraint firstAttribute="height" constant="10" id="QEg-9Q-vus"/>
+                                                        <constraint firstAttribute="width" constant="170" id="hDs-aQ-i6U"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="y7A-uG-mJi" firstAttribute="leading" secondItem="vs3-Fj-Ejx" secondAttribute="leadingMargin" id="78t-Fw-oGs"/>
-                                                <constraint firstItem="gw2-Ft-ghZ" firstAttribute="leading" secondItem="y7A-uG-mJi" secondAttribute="trailing" constant="8" id="8CU-jc-j6Q"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="eMV-J4-Fgf" secondAttribute="bottom" constant="9" id="DMZ-hS-hKK"/>
-                                                <constraint firstItem="gw2-Ft-ghZ" firstAttribute="top" secondItem="SEr-kX-VSo" secondAttribute="bottom" constant="4" id="KqY-Qq-Lhz"/>
                                                 <constraint firstItem="eMV-J4-Fgf" firstAttribute="top" secondItem="vs3-Fj-Ejx" secondAttribute="topMargin" constant="-3" id="N1m-NK-7JV"/>
                                                 <constraint firstItem="SEr-kX-VSo" firstAttribute="leading" secondItem="y7A-uG-mJi" secondAttribute="trailing" constant="8" id="YVX-HO-zhi"/>
+                                                <constraint firstItem="SEr-kX-VSo" firstAttribute="leading" secondItem="gw2-Ft-ghZ" secondAttribute="leading" id="cdl-QM-FTq"/>
                                                 <constraint firstItem="SEr-kX-VSo" firstAttribute="top" secondItem="vs3-Fj-Ejx" secondAttribute="topMargin" constant="-2" id="gjk-6s-cNm"/>
                                                 <constraint firstAttribute="centerY" secondItem="y7A-uG-mJi" secondAttribute="centerY" constant="-1" id="i21-97-aMD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="eMV-J4-Fgf" secondAttribute="trailing" constant="9" id="jpM-U3-xHn"/>
+                                                <constraint firstItem="gw2-Ft-ghZ" firstAttribute="top" secondItem="SEr-kX-VSo" secondAttribute="bottom" constant="4" id="uFT-vD-gg1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

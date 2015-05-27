@@ -1518,13 +1518,13 @@ int sort;
     //barWidth = barWidth - bar.frame.origin.x;
     
     bar.hidden = YES;
-    UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(bar.frame.origin.x, bar.frame.origin.y, oldWidth, bar.frame.size.height)];
+    UIView *bar1 = [[UIView alloc] initWithFrame:CGRectMake(58, bar.frame.origin.y, oldWidth, bar.frame.size.height)];
     bar1.backgroundColor = self.segmentOfficial.tintColor;
     bar1.tag = 10;
     [cell addSubview:bar1];
     
     [UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:2 options:0 animations:^{
-        bar1.frame = CGRectMake(bar1.frame.origin.x, bar1.frame.origin.y, barWidth, bar1.frame.size.height);
+        bar1.frame = CGRectMake(58, bar1.frame.origin.y, barWidth, bar1.frame.size.height);
     } completion:^(BOOL finished) {
         
     }];
