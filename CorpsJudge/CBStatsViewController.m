@@ -157,6 +157,7 @@ typedef enum : int {
     self.tableCorps.hidden = YES;
     self.tabBar.userInteractionEnabled = NO;
     self.segmentOfficial.userInteractionEnabled = NO;
+    self.btnInfo.userInteractionEnabled = NO;
     
     totalWorldHornlineVotes = 0;
     totalOpenHornlineVotes = 0;
@@ -213,6 +214,7 @@ int fetchCount = 0;
     self.tableCorps.hidden = YES;
     self.scorePhase = phaseScore;
     self.segmentOfficial.userInteractionEnabled = NO;
+    self.btnInfo.userInteractionEnabled = NO;
     self.tabBar.userInteractionEnabled = NO;
     
 }
@@ -222,6 +224,7 @@ int fetchCount = 0;
     self.tableCorps.hidden = YES;
     self.tabBar.userInteractionEnabled = NO;
     self.segmentOfficial.userInteractionEnabled = NO;
+    self.btnInfo.userInteractionEnabled = NO;
     self.segmentOfficial.tintColor = appDel.appTintColor;
     self.btnInfo.tintColor = appDel.appTintColor;
     [self.segmentOfficial addTarget:self
@@ -845,6 +848,7 @@ int sort;
             break;
     }
     
+    self.btnInfo.userInteractionEnabled = YES;
     self.segmentOfficial.userInteractionEnabled = YES;
     self.tabBar.userInteractionEnabled = YES;
     [self reloadTable];
