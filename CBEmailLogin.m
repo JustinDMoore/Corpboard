@@ -128,7 +128,7 @@ BOOL cancelled;
         if (newUser) {
             [self createAccount];
         } else {
-            [self signIntoAccountWithEmail:txtEmail.text andPassword:txtPassword.text];
+            [self signIntoAccountWithEmail:[txtEmail.text lowercaseString] andPassword:txtPassword.text];
         }
     }
 }
@@ -200,7 +200,7 @@ BOOL cancelled;
 //                                    }];
 
 
-    NSString *username = txtEmail.text;
+    NSString *username = [txtEmail.text lowercaseString];
     NSString *password = txtPassword.text;
     
     [self close:YES];
@@ -241,7 +241,7 @@ BOOL cancelled;
 
     if (textField == txtPassword) {
         if ([self checkForEmailAndPassword:textField]) {
-            [self signIntoAccountWithEmail:txtEmail.text andPassword:txtPassword.text];
+            [self signIntoAccountWithEmail:[txtEmail.text lowercaseString] andPassword:txtPassword.text];
         }
     }
     
@@ -275,7 +275,7 @@ BOOL cancelled;
         [alert show];
         return NO;
     } else {
-        if (![JustinHelper StringIsValidEmail:txtEmail.text]) {
+        if (![JustinHelper StringIsValidEmail:[txtEmail.text lowercaseString]]) {
             alert = [[UIAlertView alloc] initWithTitle:@""
                                                message:@"Please enter a valid email address"
                                               delegate:self
@@ -367,16 +367,16 @@ BOOL keyboardVis;
     
     if ([txtEmail.text length]) {
         //make sure it's a valid email
-        if (![JustinHelper StringIsValidEmail:txtEmail.text]) {
+        if (![JustinHelper StringIsValidEmail:[txtEmail.text lowercaseString]]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please enter a valid email address." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
             [txtEmail becomeFirstResponder];
         } else {
             //valid email, check to make sure we have account for it
-            [PFUser requestPasswordResetForEmailInBackground:txtEmail.text block:^(BOOL succeeded, NSError *error) {
+            [PFUser requestPasswordResetForEmailInBackground:[txtEmail.text lowercaseString] block:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     if (succeeded) {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"An email will be sent to %@ with instructions to reset your password.", txtEmail.text] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"An email will be sent to %@ with instructions to reset your password.", [txtEmail.text lowercaseString]                                                       ] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                         [alert show];
                     } else {
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Unable to reset password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -387,7 +387,7 @@ BOOL keyboardVis;
                     [alert show];
                 }
             }];
-            [PFUser requestPasswordResetForEmailInBackground:@"email@example.com"];
+            //[PFUser requestPasswordResetForEmailInBackground:@"email@example.com"];
         }
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Enter your email address to reset your password." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
