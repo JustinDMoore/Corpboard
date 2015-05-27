@@ -114,6 +114,19 @@
 - (void)goback {
     
     [self.navigationController popViewControllerAnimated:YES];
+    
+    //check to see if this is a new chat with no messages on either side. If one side or the other has empty messages (or none), then delete it
+    
+    if (![messages count]) {
+        
+        NSMutableDictionary * params = [NSMutableDictionary new];
+        
+        //NSString *roomId = chat[@"roomId"];
+        params[@"roomId"] = roomId;
+        [PFCloud callFunctionInBackground:@"deleteChat"
+                           withParameters:params];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -203,6 +216,7 @@
 }
 
 - (void)sendMessage:(NSString *)text Picture:(UIImage *)picture {
+    
     
     CreateMessageItem([PFUser currentUser], self.user2, roomId, self.user2[PF_USER_FULLNAME], text);
     CreateMessageItem(self.user2, [PFUser currentUser], roomId, [PFUser currentUser][PF_USER_FULLNAME], text);

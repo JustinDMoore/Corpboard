@@ -1505,10 +1505,10 @@ float ht;
     NSString *id1 = user1.objectId;
     NSString *id2 = user2.objectId;
     NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    CreateMessageItem(user1, user2, roomId, user2[@"nickname"], nil);
-    CreateMessageItem(user2, user1, roomId, user1[@"nickname"], nil);
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+//    //---------------------------------------------------------------------------------------------------------------------------------------------
+//    CreateMessageItem(user1, user2, roomId, user2[@"nickname"], nil);
+//    CreateMessageItem(user2, user1, roomId, user1[@"nickname"], nil);
+//    //---------------------------------------------------------------------------------------------------------------------------------------------
     ChatView *chatView = [[ChatView alloc] initWith:roomId];
     chatView.hidesBottomBarWhenPushed = YES;
     chatView.user2 = user2;
