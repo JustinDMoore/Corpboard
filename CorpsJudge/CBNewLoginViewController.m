@@ -140,6 +140,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.alertParentView = self.navigationController.view;
+    
     data = [CBSingle data];
     news = [CBNewsSingleton news];
     [data setDelegate:self];
@@ -156,24 +160,13 @@
     //set admin
     BOOL admin = [self.currentUser[@"isAdmin"] boolValue];
     
-    if (admin)  {
-        data.adminMode = YES;
-        if (![self adminChannelSubscribed]) {
-            
-            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-            [currentInstallation addUniqueObject:@"admin" forKey:@"channels"];
-            [currentInstallation saveInBackground];
-        }
-    }
-    else {
-        data.adminMode = NO;
-        if ([self adminChannelSubscribed]) {
-            
-            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-            [currentInstallation removeObject:@"admin" forKey:@"channels"];
-            [currentInstallation saveInBackground];
-        }
-    }
+    NSMutableArray *arrayOfChannels = [[NSMutableArray alloc] init];
+    [arrayOfChannels addObject:@"global"];
+    if (admin) [arrayOfChannels addObject:@"admin"];
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation.channels = arrayOfChannels;
+    [currentInstallation saveInBackground];
     
     NSString *name = self.currentUser[@"nickname"];
     if ([name length]) {

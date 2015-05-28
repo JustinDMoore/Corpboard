@@ -119,6 +119,8 @@
 		D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */ = {isa = PBXBuildFile; fileRef = D034437D1A3D071000C410EE /* CBChooseCorp.m */; };
 		D038E7AB1AC64D77002C29C3 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D038E7AA1AC64D77002C29C3 /* FBSDKCoreKit.framework */; };
 		D038E7AE1AC65051002C29C3 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D038E7AD1AC65051002C29C3 /* FBSDKLoginKit.framework */; };
+		D03DCADA1B168A72005D326E /* CBPush.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03DCAD91B168A72005D326E /* CBPush.xib */; };
+		D03DCADD1B168A81005D326E /* CBPush.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DCADC1B168A81005D326E /* CBPush.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
 		D047A349196A095F00F5F5BC /* star_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A348196A095F00F5F5BC /* star_unselected.png */; };
@@ -413,6 +415,9 @@
 		D034437D1A3D071000C410EE /* CBChooseCorp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChooseCorp.m; sourceTree = "<group>"; };
 		D038E7AA1AC64D77002C29C3 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		D038E7AD1AC65051002C29C3 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		D03DCAD91B168A72005D326E /* CBPush.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPush.xib; sourceTree = "<group>"; };
+		D03DCADB1B168A81005D326E /* CBPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPush.h; sourceTree = "<group>"; };
+		D03DCADC1B168A81005D326E /* CBPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPush.m; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D04702DA195790B40004A0EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D047A348196A095F00F5F5BC /* star_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_unselected.png; sourceTree = "<group>"; };
@@ -917,6 +922,8 @@
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
+				D03DCAD91B168A72005D326E /* CBPush.xib */,
+				D03DCADC1B168A81005D326E /* CBPush.m */,
 			);
 			name = Xibs;
 			path = ..;
@@ -999,6 +1006,7 @@
 				D0F19FA61B1549A400357663 /* CBReviewFeedback.h */,
 				D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */,
 				D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */,
+				D03DCADB1B168A81005D326E /* CBPush.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1355,6 +1363,7 @@
 				D0067A6A19691E5100C372D0 /* About.png in Resources */,
 				D0F19F941B1502C700357663 /* CBReviewAttendance.xib in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
+				D03DCADA1B168A72005D326E /* CBPush.xib in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
@@ -1582,6 +1591,7 @@
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
+				D03DCADD1B168A81005D326E /* CBPush.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
 				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
@@ -1632,6 +1642,7 @@
 /* Begin XCBuildConfiguration section */
 		925334AB194FD5D70004D16F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F783FD497928939D583ED5B7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1673,6 +1684,7 @@
 		};
 		925334AC194FD5D70004D16F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A4219440C800AE5E982027 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1763,6 +1775,7 @@
 		};
 		925334B1194FD5D70004D16F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F783FD497928939D583ED5B7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CorpsJudge.app/CorpsJudge";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1785,6 +1798,7 @@
 		};
 		925334B2194FD5D70004D16F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A4219440C800AE5E982027 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CorpsJudge.app/CorpsJudge";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1803,6 +1817,7 @@
 		};
 		D00E41551AEC2AF000199974 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A4219440C800AE5E982027 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1865,6 +1880,7 @@
 		};
 		D00E41571AEC2AF000199974 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A4219440C800AE5E982027 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CorpsJudge.app/CorpsJudge";
 				FRAMEWORK_SEARCH_PATHS = (

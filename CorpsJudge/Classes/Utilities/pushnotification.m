@@ -43,32 +43,66 @@ void ParsePushUserResign(void) {
 
 void SendPushNotification(NSString *roomId, NSString *text, BOOL pvt) {
     
-	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
-	[query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
-	[query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
-	[query includeKey:PF_MESSAGES_USER];
-	[query setLimit:1000];
-
-	PFQuery *queryInstallation = [PFInstallation query];
-	[queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
-
-    NSString *type;
-    type = pvt ? @"Private Message" : @"Live Chat";
-    
-    NSDictionary *data = @{
-                           @"alert" : @"New message received",
-                           @"badge" : @"Increment",
-                           @"sound" : @"default",
-                           @"type" : type
-                           };
-	PFPush *push = [[PFPush alloc] init];
-	[push setQuery:queryInstallation];
-    [push setData:data];
-	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (pvt) {
         
-		if (error != nil) {
+        PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
+        [query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
+        [query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
+        [query includeKey:PF_MESSAGES_USER];
+        [query setLimit:1000];
+        
+        PFQuery *queryInstallation = [PFInstallation query];
+        [queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
+        
+        PFUser *user = [PFUser currentUser];
+        
+        NSDictionary *data = @{
+                               @"alert" : [NSString stringWithFormat:@"New message from %@!", user[@"nickname"]],
+                               @"badge" : @"Increment",
+                               @"sound" : @"default",
+                               @"type" : @"Private Message"
+                               };
+        PFPush *push = [[PFPush alloc] init];
+        [push setQuery:queryInstallation];
+        [push setData:data];
+        [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
-			NSLog(@"SendPushNotification send error.");
-		}
-	}];
+            if (error != nil) {
+                
+                NSLog(@"SendPushNotification send error.");
+            }
+        }];
+        
+    } else {
+//        
+//        PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
+//        [query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
+//        [query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
+//        [query includeKey:PF_MESSAGES_USER];
+//        [query setLimit:1000];
+//        
+//        PFQuery *queryInstallation = [PFInstallation query];
+//        [queryInstallation whereKey:PF_INSTALLATION_USER matchesKey:PF_MESSAGES_USER inQuery:query];
+//        [queryInstallation whereKey:@"channels" containsString:roomId];
+//        
+//        NSDictionary *data = @{
+//                               @"alert" : [NSString stringWithFormat:@"New message from !"],
+//                               @"badge" : @"Increment",
+//                               @"sound" : @"default",
+//                               @"type" : @"Live Chat"
+//                               };
+        PFPush *push = [[PFPush alloc] init];
+        //[push setQuery:queryInstallation];
+        //[push setData:data];
+        [push setChannel:roomId];
+        [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (error != nil) {
+                
+                NSLog(@"SendPushNotification send error.");
+            }
+        }];
+        
+    }
+    
 }

@@ -41,5 +41,5 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) IBOutlet UIImageView *imgView;
 
 -(void)setDelegate:(id)newDelegate;
--(void)showAlertWithTitle:(NSString *)title withMessage:(NSString *)message forAlertType:(CBAlertType)type withCBAlertImage:(CBAlertImage)image;
+-(void)showAlertWithTitle:(NSString *)title withMessage:(NSString *)message forAlertType:(CBAlertType)type withCBAlertImage:(CBAlertImage)image forView:(UIView *)parentView;
 @end

@@ -15,6 +15,8 @@
 #import "CBSingle.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "DTCoreText.h"
+#import "CBAlertView.h"
+#import "CBPush.h"
 
 @implementation CBAppDelegate
 
@@ -141,6 +143,29 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        
+        int count = [currentInstallation[@"badge"] intValue];
+        
+        if (count != 0) {
+            [currentInstallation setValue:[NSNumber numberWithInt:0] forKey:@"badge"];
+            [currentInstallation saveInBackground];
+        }
+        
+        NSDictionary *dict = [userInfo valueForKey:@"aps"];
+        
+        CBPush *pushView = [[[NSBundle mainBundle] loadNibNamed:@"CBPush"
+                                                          owner:self
+                                                        options:nil]
+                            objectAtIndex:0];
+        
+        [pushView showPush:[dict valueForKey:@"alert"] inParent:self.alertParentView];
+        
+    }
+    
     NSString *pvt = [userInfo valueForKey:@"type"];
     
     if ([pvt isEqualToString:@"Private Message"]) {
@@ -161,9 +186,12 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if (currentInstallation.badge != 0) {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
+    
+    int count = [currentInstallation[@"badge"] intValue];
+    
+    if (count != 0) {
+        [currentInstallation setValue:[NSNumber numberWithInt:0] forKey:@"badge"];
+        [currentInstallation saveInBackground];
     }
 }
 

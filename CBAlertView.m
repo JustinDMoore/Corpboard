@@ -98,7 +98,7 @@
     }
 }
 
--(void)showAlertWithTitle:(NSString *)title withMessage:(NSString *)message forAlertType:(CBAlertType)type withCBAlertImage:(CBAlertImage)image {
+-(void)showAlertWithTitle:(NSString *)title withMessage:(NSString *)message forAlertType:(CBAlertType)type withCBAlertImage:(CBAlertImage)image forView:(UIView *)parentView {
     
     [self setAlertType:type];
     [self setAlertImage:image];
@@ -112,18 +112,20 @@
     
     self.viewBlur.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 
-    [self.superview addSubview:self.viewBlur];
-    [self.superview bringSubviewToFront:self];
-    
+    [parentView addSubview:self.viewBlur];
+    [parentView bringSubviewToFront:self];
     self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
     self.alpha = 0;
     
-    self.center = [self.superview convertPoint:self.superview.center fromView:self.superview.superview];
+    [self.viewBlur addSubview:self];
+    [self.viewBlur bringSubviewToFront:self];
+    
+    self.center = [parentView convertPoint:parentView.center fromView:parentView.superview];
     
     [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
         self.alpha = 1;
         self.transform = CGAffineTransformIdentity;
-        self.center = [self.superview convertPoint:self.superview.center fromView:self.superview.superview];
+        self.center = [parentView convertPoint:parentView.center fromView:parentView.superview];
     } completion:^(BOOL finished) {
         
         

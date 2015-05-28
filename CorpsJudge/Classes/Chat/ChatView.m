@@ -109,6 +109,25 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    
+    if (![self isUserSubsribedToChatRoom]) {
+        
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation addUniqueObject:roomId forKey:@"channels"];
+        [currentInstallation saveInBackground];
+    }
+}
+
+-(BOOL)isUserSubsribedToChatRoom {
+    
+    NSArray *subscribedChannels = [PFInstallation currentInstallation].channels;
+    for (NSString *channel in subscribedChannels) {
+        if ([channel isEqualToString:roomId]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)goback {
@@ -142,6 +161,12 @@
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     [timer invalidate];
+    
+    if ([self isUserSubsribedToChatRoom]) {
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation removeObject:roomId forKey:@"channels"];
+        [currentInstallation saveInBackground];
+    }
 }
 
 #pragma mark - Backend methods

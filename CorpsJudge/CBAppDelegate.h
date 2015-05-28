@@ -24,6 +24,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic) BOOL shouldRotate;
+@property (nonatomic, strong) UIView *alertParentView;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
