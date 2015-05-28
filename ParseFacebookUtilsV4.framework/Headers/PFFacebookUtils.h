@@ -39,7 +39,7 @@ PF_ASSUME_NONNULL_BEGIN
  
  @param launchOptions The launchOptions as passed to [UIApplicationDelegate application:didFinishLaunchingWithOptions:].
  */
-+ (void)initializeFacebookWithApplicationLaunchOptions:(NSDictionary *)launchOptions;
++ (void)initializeFacebookWithApplicationLaunchOptions:(PF_NULLABLE NSDictionary *)launchOptions;
 
 /*!
  @abstract `FBSDKLoginManager` provides methods for configuring login behavior, default audience
@@ -144,7 +144,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns The task that will have a `result` set to `@YES` if operation succeeds.
  */
-+ (BFTask *)linkUserInBackground:(PFUser *)user withReadPermissions:(NSArray *)permissions;
++ (BFTask *)linkUserInBackground:(PFUser *)user withReadPermissions:(PF_NULLABLE NSArray *)permissions;
 
 /*!
  @abstract *Asynchronously* links Facebook with read permissions to an existing <PFUser>.
