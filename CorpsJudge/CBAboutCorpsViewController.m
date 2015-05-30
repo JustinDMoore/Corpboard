@@ -43,7 +43,6 @@
     [self.lblAbout setText:self.about];
     [self.lblAbout sizeToFit];
     self.lblAbout.editable = NO;
-    
 }
 
 -(void)goback {
