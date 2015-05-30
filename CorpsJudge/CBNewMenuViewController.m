@@ -1361,8 +1361,8 @@ bool isScrolling = NO;
     [titleLabel sizeToFit];
     [cell addSubview:titleLabel];
     
-    UIImageView *imgFrom = [[UIImageView alloc] initWithFrame:CGRectMake(cell.frame.size.width - 35, cell.frame.size.height - 25, 30, 21)];
-    imgFrom.image = [UIImage imageNamed:@"DCI_small"];
+    UIImageView *imgFrom = [[UIImageView alloc] initWithFrame:CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 26)];
+    imgFrom.image = [UIImage imageNamed:@"DCI_LOGO_Transparent3"];
     [cell addSubview:imgFrom];
     
     UILabel *lblFrom = [[UILabel alloc] initWithFrame:CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21)];
