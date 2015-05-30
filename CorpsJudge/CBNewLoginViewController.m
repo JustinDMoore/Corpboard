@@ -88,7 +88,7 @@
         
         PFInstallation *install = [PFInstallation currentInstallation];
         BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
-        if (parsePushAllowed) {
+        if (!parsePushAllowed) {
             
             CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
                                                                            owner:self
@@ -102,8 +102,7 @@
         }
         
     } else {
-        [self continueLoading];
-        [data setParsePush:YES];
+        [self setUpPush];
     }
 }
 
@@ -191,7 +190,6 @@
 
 -(void)loadData {
     
-    //[self getFactCount];
     [self addView:self.viewProgress andScroll:NO];
     [self.viewProgress startProgress];
     [data refreshAdmin];
@@ -504,13 +502,17 @@ bool removeProgressView = NO;
 #pragma mark
 
 -(void)allowPush {
+    [self setUpPush];
+}
+
+-(void)setUpPush {
     
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
                                                     UIUserNotificationTypeSound);
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
                                                                              categories:nil];
-
+    
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
