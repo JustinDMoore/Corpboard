@@ -63,7 +63,7 @@
         if (!error) {
             if ([objects count]) {
                 PFObject *obj = [objects lastObject];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:obj[@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:obj[@"title"] message:obj[@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
                 BOOL useApp = [obj[@"canUseApp"] boolValue];
                 if (useApp) {
@@ -159,7 +159,7 @@
     
     //set admin
     BOOL admin = [self.currentUser[@"isAdmin"] boolValue];
-    
+    data.adminMode = admin;
     NSMutableArray *arrayOfChannels = [[NSMutableArray alloc] init];
     [arrayOfChannels addObject:@"global"];
     if (admin) [arrayOfChannels addObject:@"admin"];
@@ -174,17 +174,6 @@
     } else {
         [self addView:self.viewNickname andScroll:NO];
     }
-}
-
--(BOOL)adminChannelSubscribed {
-    
-    NSArray *subscribedChannels = [PFInstallation currentInstallation].channels;
-    for (NSString *channel in subscribedChannels) {
-        if ([channel isEqualToString:@"admin"]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 -(void)useApp {
@@ -309,6 +298,9 @@ bool removeProgressView = NO;
         [self.navigationController.view addSubview:self.viewEmailLogin];
         [self.viewEmailLogin showInParent:self.view];
         self.viewEmailLogin.isNewUser = self.isNewUser;
+        self.viewEmailLogin.txtEmail.text = @"";
+        self.viewEmailLogin.txtName.text = @"";
+        self.viewEmailLogin.txtPassword.text = @"";
     }
 }
 
@@ -332,10 +324,16 @@ bool removeProgressView = NO;
     //[self.viewProgress startProgress];
 }
 
--(void)errorLoggingIn {
-    removeProgressView = YES;
-    UIView *previousView = [self.arrayOfSubviews objectAtIndex:[self.arrayOfSubviews count] - 2];
-    [self.scrollLogin scrollRectToVisible:previousView.frame animated:YES];
+-(void)errorLoggingIn:(NSString *)error {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress setConfiguration:[Configuration errorProgressConfig]];
+        [KVNProgress showErrorWithStatus:error];
+    });
+    
+//    removeProgressView = YES;
+//    UIView *previousView = [self.arrayOfSubviews objectAtIndex:[self.arrayOfSubviews count] - 2];
+//    [self.scrollLogin scrollRectToVisible:previousView.frame animated:YES];
 }
 
 -(void)successfulLoginFromEmail {

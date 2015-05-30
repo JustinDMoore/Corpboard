@@ -112,18 +112,19 @@
     
     self.viewBlur.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 
-    [parentView addSubview:self.viewBlur];
+   // [parentView addSubview:self.viewBlur];
+    //[parentView bringSubviewToFront:self];
+    
+    self.alpha = 1;
+    
+    [parentView addSubview:self];
     [parentView bringSubviewToFront:self];
+    
+    //self.center = [parentView convertPoint:parentView.center fromView:parentView.superview];
+    
     self.transform = CGAffineTransformScale(self.transform, 0.8, 0.8);
-    self.alpha = 0;
-    
-    [self.viewBlur addSubview:self];
-    [self.viewBlur bringSubviewToFront:self];
-    
-    self.center = [parentView convertPoint:parentView.center fromView:parentView.superview];
-    
     [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-        self.alpha = 1;
+        //self.alpha = 1;
         self.transform = CGAffineTransformIdentity;
         self.center = [parentView convertPoint:parentView.center fromView:parentView.superview];
     } completion:^(BOOL finished) {

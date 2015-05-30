@@ -180,6 +180,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     [self initVariables];
     [self initUI];

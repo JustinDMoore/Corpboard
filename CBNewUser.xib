@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -64,12 +64,17 @@
                         <action selector="btnSignUp_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="W6n-c4-weu"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="hR5-YL-lvP">
+                    <rect key="frame" x="290" y="316" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="hR5-YL-lvP" firstAttribute="top" secondItem="dHy-nn-4ir" secondAttribute="bottom" constant="8" id="2EV-iH-wgF"/>
                 <constraint firstItem="0f2-1J-Zsc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="3uI-R7-TFO"/>
                 <constraint firstAttribute="centerX" secondItem="0f2-1J-Zsc" secondAttribute="centerX" constant="1" id="B5J-dB-vDP"/>
                 <constraint firstItem="lWA-5h-Hzc" firstAttribute="top" secondItem="Usg-Yz-2gi" secondAttribute="bottom" constant="8" id="FmL-Dx-T72"/>
+                <constraint firstItem="hR5-YL-lvP" firstAttribute="centerX" secondItem="dHy-nn-4ir" secondAttribute="centerX" constant="1" id="KwU-om-iSK"/>
                 <constraint firstItem="Usg-Yz-2gi" firstAttribute="top" secondItem="xwf-Ll-5hm" secondAttribute="bottom" constant="8" id="MYQ-IZ-wtM"/>
                 <constraint firstItem="lWA-5h-Hzc" firstAttribute="centerX" secondItem="Usg-Yz-2gi" secondAttribute="centerX" constant="1" id="TyT-Rh-ag9"/>
                 <constraint firstItem="lWA-5h-Hzc" firstAttribute="centerX" secondItem="dHy-nn-4ir" secondAttribute="centerX" constant="1" id="VQH-Ig-dtp"/>
@@ -82,6 +87,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="activity" destination="hR5-YL-lvP" id="FLI-FV-daG"/>
                 <outlet property="lblTitle" destination="5nc-ub-Hpo" id="zjq-FR-H6h"/>
                 <outlet property="txtEmail" destination="Usg-Yz-2gi" id="zlA-ie-ert"/>
                 <outlet property="txtName" destination="xwf-Ll-5hm" id="awj-IZ-tj7"/>

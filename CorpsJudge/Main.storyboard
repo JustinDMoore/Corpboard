@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qur-W5-86c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -3777,7 +3777,7 @@
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
-        <image name="Close" width="256" height="256"/>
+        <image name="Close" width="128" height="128"/>
         <image name="Contact" width="450" height="255"/>
         <image name="DCI_CorpBoard1" width="600" height="600"/>
         <image name="Message" width="48" height="48"/>

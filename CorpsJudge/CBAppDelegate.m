@@ -94,6 +94,11 @@ CBSingle *data;
 //    NSString *storyboardId = isLoggedIn ? @"mainScreen" : @"loginScreen";
 //    self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    if (![installation.deviceToken length]) {
+        
+    }
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }

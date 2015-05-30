@@ -14,16 +14,18 @@
 -(void)newUserCreatedFromEmail;
 -(void)successfulLoginFromEmail;
 -(void)loggingIn;
--(void)errorLoggingIn;
+-(void)errorLoggingIn:(NSString *)error;
 @end
 
 @interface CBEmailLogin : UIView <UITextFieldDelegate> {
     id delegate;
     BOOL newUser;
 }
-
+@property (nonatomic, strong) IBOutlet UITextField *txtName;
+@property (nonatomic, strong) IBOutlet UITextField *txtEmail;
+@property (nonatomic, strong) IBOutlet UITextField *txtPassword;
 @property (nonatomic, strong) IBOutlet UILabel *lblTitle;
-
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
 -(void)setIsNewUser:(BOOL)isNewUser;
 -(void)setDelegate:(id)newDelegate;
 -(void)showInParent:(UIView *)par;

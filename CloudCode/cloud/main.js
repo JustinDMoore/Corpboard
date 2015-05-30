@@ -328,7 +328,7 @@ Parse.Cloud.afterSave(Parse.User, function(request, response) {
                       Parse.Cloud.useMasterKey();
                       
                       if (request.object.existed()) { // it existed before
-                      } else { // it is new
+                      } else { // it is newaf
                       Parse.Push.send({
                                       channels: [ "admin" ],
                                       data: {

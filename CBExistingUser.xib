@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -77,10 +77,14 @@
                         <constraint firstAttribute="height" constant="70" id="RBp-wF-Scc"/>
                     </constraints>
                 </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-NF-qgn">
+                    <rect key="frame" x="290" y="303" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="xZd-vc-EU1" firstAttribute="centerX" secondItem="dbw-NE-99d" secondAttribute="centerX" constant="-1" id="1VQ-7H-x8Y"/>
+                <constraint firstItem="BQY-8Z-WhZ" firstAttribute="centerX" secondItem="Ubb-NF-qgn" secondAttribute="centerX" id="8We-j4-YKZ"/>
                 <constraint firstItem="JNo-Tm-fEW" firstAttribute="centerX" secondItem="BQY-8Z-WhZ" secondAttribute="centerX" constant="-0.5" id="DSF-i6-PSY"/>
                 <constraint firstItem="JNo-Tm-fEW" firstAttribute="top" secondItem="pHC-CB-APB" secondAttribute="bottom" constant="1" id="GEq-CX-vfa"/>
                 <constraint firstItem="BQY-8Z-WhZ" firstAttribute="top" secondItem="JNo-Tm-fEW" secondAttribute="bottom" constant="2" id="NTP-8l-epf"/>
@@ -88,6 +92,7 @@
                 <constraint firstItem="dbw-NE-99d" firstAttribute="top" secondItem="xZd-vc-EU1" secondAttribute="bottom" constant="-4" id="dfm-GU-Zoo"/>
                 <constraint firstItem="ajy-Ye-pVW" firstAttribute="top" secondItem="dbw-NE-99d" secondAttribute="bottom" constant="-1" id="lFH-bX-izi"/>
                 <constraint firstItem="xZd-vc-EU1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="p5Q-yB-gPZ"/>
+                <constraint firstItem="Ubb-NF-qgn" firstAttribute="top" secondItem="BQY-8Z-WhZ" secondAttribute="bottom" constant="8" id="s3r-16-MlK"/>
                 <constraint firstItem="pHC-CB-APB" firstAttribute="top" secondItem="ajy-Ye-pVW" secondAttribute="bottom" constant="8" id="uY2-tI-J8v"/>
                 <constraint firstAttribute="centerX" secondItem="xZd-vc-EU1" secondAttribute="centerX" constant="1" id="v5Q-MF-s23"/>
                 <constraint firstItem="JNo-Tm-fEW" firstAttribute="centerX" secondItem="pHC-CB-APB" secondAttribute="centerX" constant="-0.5" id="y7X-ja-poS"/>
@@ -95,6 +100,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="activity" destination="Ubb-NF-qgn" id="0GR-0Z-Pur"/>
                 <outlet property="btnSignUp" destination="BQY-8Z-WhZ" id="5z5-9C-dHy"/>
                 <outlet property="lblTitle" destination="dbw-NE-99d" id="9M8-wr-7N6"/>
                 <outlet property="txtEmail" destination="ajy-Ye-pVW" id="9Uo-eM-H4Z"/>
