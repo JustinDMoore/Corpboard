@@ -27,9 +27,18 @@ typedef enum : NSUInteger {
 @property (nonatomic) phase currentPhase;
 @property (nonatomic, strong) CBMakeFinalsPredictionTable *viewCorps;
 @property (nonatomic, strong) CBPredictionSubmitted *viewPredictionSubmitted;
-@property (weak, nonatomic) IBOutlet UILabel *lblAveragePredictions;
+
+@property (nonatomic, strong) IBOutlet UILabel *lblYourPrediction;
+@property (nonatomic, strong) IBOutlet UILabel *lblFansPrediction;
+@property (nonatomic, strong) IBOutlet UILabel *lblActualScores;
+
 @property (weak, nonatomic) IBOutlet UITableView *tablePredictions;
+
+
 @property (nonatomic, strong) NSMutableArray *arrayOfAllPredictions;
+@property (nonatomic, strong) NSMutableArray *arrayOfActualRankings;
+@property (nonatomic, strong) NSMutableArray *arrayOfUserPrediction;
+
 @property (nonatomic, strong) NSMutableArray *arrayOfCorps;
 @property (nonatomic, strong) NSMutableArray *arrayOfIndexes;
 @property (nonatomic, strong) NSMutableArray *arrayOfScores;

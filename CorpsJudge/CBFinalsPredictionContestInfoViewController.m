@@ -18,6 +18,10 @@
     CBSingle *data;
     Configuration *config;
     PFQuery *queryPredictions;
+    PFQuery *queryUserPredictions;
+    BOOL actualDone;
+    BOOL averageDone;
+    BOOL userDone;
 }
 
 @end
@@ -36,6 +40,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    actualDone = NO;
+    averageDone = NO;
+    userDone = NO;
+    
     data = [CBSingle data];
     self.tablePredictions.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     for (PFObject *corp in data.arrayOfWorldClass) {
@@ -43,6 +54,21 @@
         [self.arrayOfCorps addObject:corp];
     }
     self.viewLine.hidden = YES;
+    
+    for (PFObject *corp in data.arrayOfWorldClass) {
+        UserScore *us = [[UserScore alloc] init];
+        us.corps = corp;
+        us.score = [corp[@"lastScore"] doubleValue];
+        [self.arrayOfActualRankings addObject:us];
+    }
+    
+    NSSortDescriptor *sortCorps = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+    NSArray *sortCorpsDescriptor = [NSArray arrayWithObject: sortCorps];
+    
+    if ([self.arrayOfActualRankings count]) [self.arrayOfActualRankings sortUsingDescriptors:sortCorpsDescriptor];
+    
+    actualDone = YES;
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -139,13 +165,16 @@
 -(void)makePrediction {
     
     self.tablePredictions.hidden = YES;
-    self.lblAveragePredictions.hidden = YES;
+    self.lblActualScores.hidden = YES;
+    self.lblYourPrediction.hidden = YES;
+    self.lblFansPrediction.hidden = YES;
     self.viewLine.hidden = YES;
 
 }
 
 -(void)showPredictions {
     loop = 0;
+    [self.arrayOfUserPrediction removeAllObjects];
     [self.arrayOfAllPredictions removeAllObjects];
     self.view.backgroundColor = [UIColor blackColor];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -154,9 +183,11 @@
     });
     
     [self getPredictions];
+    [self getUserPredictions];
     self.tablePredictions.hidden = YES;
-    self.lblAveragePredictions.hidden = NO;
-    self.lblAveragePredictions.hidden = YES;
+    self.lblYourPrediction.hidden = YES;
+    self.lblFansPrediction.hidden = YES;
+    self.lblActualScores.hidden = YES;
 }
 
 
@@ -165,6 +196,36 @@
     for (PFObject *corp in data.arrayOfWorldClass) {
         [self getRankForCorps:corp];
     }
+}
+
+-(void)getUserPredictions {
+    
+    queryUserPredictions = [PFQuery queryWithClassName:@"predictions"];
+    [queryUserPredictions whereKey:@"user" equalTo:[PFUser currentUser]];
+     [queryUserPredictions includeKey:@"corp"];
+    [queryUserPredictions findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        
+        if ([array count]) {
+
+            for (PFObject *obj in array) {
+                
+                UserScore *score = [[UserScore alloc] init];
+                score.corps = obj[@"corp"];
+                score.score = [obj[@"score"] doubleValue];
+                [self.arrayOfUserPrediction addObject:score];
+            }
+            
+            NSSortDescriptor *sortUserRankings = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+            NSArray *sortUserRankingsDescriptor = [NSArray arrayWithObject: sortUserRankings];
+            
+            if ([self.arrayOfUserPrediction count]) [self.arrayOfUserPrediction sortUsingDescriptors:sortUserRankingsDescriptor];
+            
+            userDone = YES;
+            [self areWeDone];
+        }
+        
+    }];
+    
 }
 
 int loop = 0;
@@ -194,14 +255,22 @@ int loop = 0;
            
             if (loop == [data.arrayOfWorldClass count]) {
                 // we're done
-                [self sortPredictions];
+                averageDone = YES;
+                [self areWeDone];
             }
         } else {
             if (loop == [data.arrayOfWorldClass count]) {
-                [self sortPredictions];
+                averageDone = YES;
+                [self areWeDone];
             }
         }
     }];
+}
+
+-(void)areWeDone {
+    if (averageDone && userDone && actualDone) {
+        [self sortPredictions];
+    }
 }
 
 -(void)sortPredictions {
@@ -213,7 +282,9 @@ int loop = 0;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         self.viewLine.hidden = NO;
-        self.lblAveragePredictions.hidden = NO;
+        self.lblActualScores.hidden = NO;
+        self.lblFansPrediction.hidden = NO;
+        self.lblYourPrediction.hidden = NO;
         self.tablePredictions.hidden = NO;
         [self.tablePredictions reloadData];
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
@@ -274,6 +345,7 @@ int loop = 0;
     }
     return 12;
 }
+
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -386,25 +458,85 @@ int loop = 0;
     } else {
         
         cell = [self.tablePredictions dequeueReusableCellWithIdentifier:@"rank"];
-        UILabel *lblRank = (UILabel *)[cell viewWithTag:1];
-        UILabel *lblCorpsName = (UILabel *)[cell viewWithTag:2];
-        UILabel *lblScore = (UILabel *)[cell viewWithTag:3];
-        PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
-        UserScore *us;
-        if ([self.arrayOfAllPredictions count]) us = [self.arrayOfAllPredictions objectAtIndex:indexPath.row];
-        if (us) {
-            PFFile *imageFile = us.corps[@"logo"];
-            if (imageFile) {
-                [imgLogo setFile:imageFile];
-                [imgLogo loadInBackground];
+        
+        UILabel *lblRank = (UILabel *)[cell viewWithTag:20];
+        
+        //average predictions for all users
+        UILabel *lblName1 = (UILabel *)[cell viewWithTag:2];
+        UILabel *lblScore1 = (UILabel *)[cell viewWithTag:3];
+        PFImageView *imgLogo1 = (PFImageView *)[cell viewWithTag:1];
+        
+        //actual current rankings
+        UILabel *lblName2 = (UILabel *)[cell viewWithTag:5];
+        UILabel *lblScore2 = (UILabel *)[cell viewWithTag:6];
+        PFImageView *imgLogo2 = (PFImageView *)[cell viewWithTag:4];
+
+        //user predictions
+        UILabel *lblName3 = (UILabel *)[cell viewWithTag:8];
+        UILabel *lblScore3 = (UILabel *)[cell viewWithTag:9];
+        PFImageView *imgLogo3 = (PFImageView *)[cell viewWithTag:7];
+        
+        
+        lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
+        
+        UserScore *us1;
+        if ([self.arrayOfUserPrediction count]) us1 = [self.arrayOfUserPrediction objectAtIndex:indexPath.row];
+        if (us1) {
+            PFFile *imageFile1 = us1.corps[@"logo"];
+            if (imageFile1) {
+                [imgLogo1 setFile:imageFile1];
+                [imgLogo1 loadInBackground];
             }
-            lblRank.text = [NSString stringWithFormat:@"%li", (long)indexPath.row + 1];
-            lblCorpsName.text = us.corps[@"corpsName"];
-            lblScore.text = [NSString stringWithFormat:@"%.3f", us.score];
+
+            lblName1.text = [self abbreviateName:us1.corps[@"corpsName"]];
+            lblScore1.text = [NSString stringWithFormat:@"%.3f", us1.score];
+        }
+        
+        UserScore *us2;
+        if ([self.arrayOfAllPredictions count]) us2 = [self.arrayOfAllPredictions objectAtIndex:indexPath.row];
+        if (us2) {
+            PFFile *imageFile2 = us2.corps[@"logo"];
+            if (imageFile2) {
+                [imgLogo2 setFile:imageFile2];
+                [imgLogo2 loadInBackground];
+            }
+
+            lblName2.text = [self abbreviateName:us2.corps[@"corpsName"]];
+            lblScore2.text = [NSString stringWithFormat:@"%.3f", us2.score];
+        }
+        
+        UserScore *us3;
+        if ([self.arrayOfActualRankings count]) us3 = [self.arrayOfActualRankings objectAtIndex:indexPath.row];
+        if (us3) {
+            PFFile *imageFile3 = us3.corps[@"logo"];
+            if (imageFile3) {
+                [imgLogo3 setFile:imageFile3];
+                [imgLogo3 loadInBackground];
+            }
+
+            lblName3.text = [self abbreviateName:us3.corps[@"corpsName"]];
+            lblScore3.text = [NSString stringWithFormat:@"%.3f", us3.score];
         }
     }
     
     return cell;
+}
+
+-(NSString *)abbreviateName:(NSString *)name {
+    
+    NSString *newName;
+    
+    if ([name isEqualToString:@"Santa Clara Vanguard"]) newName = @"Santa Clara";
+    else if ([name isEqualToString:@"Phantom Regiment"]) newName = @"Phantom";
+    else if ([name isEqualToString:@"Carolina Crown"]) newName = @"Crown";
+    else if ([name isEqualToString:@"Madison Scouts"]) newName = @"Madison";
+    else if ([name isEqualToString:@"Spirit of Atlanta"]) newName = @"Spirit";
+    else if ([name isEqualToString:@"Oregon Crusaders"]) newName = @"Oregon";
+    else if ([name isEqualToString:@"Boston Crusaders"]) newName = @"Boston";
+    else newName = name;
+    
+    return newName;
+    
 }
 
 -(void)selectCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)path onOrOff:(BOOL)on fromMethod:(BOOL)method {
@@ -663,13 +795,6 @@ int loop = 0;
     return _dictOfCorps;
 }
 
--(NSMutableArray *)arrayOfAllPredictions {
-    if (!_arrayOfAllPredictions) {
-        _arrayOfAllPredictions = [[NSMutableArray alloc] init];
-    }
-    return _arrayOfAllPredictions;
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"prediction"]) {
@@ -833,6 +958,27 @@ bool backspaced;
             [predictionScore saveEventually];
         }
     }
+}
+
+-(NSMutableArray *)arrayOfActualRankings {
+    if (!_arrayOfActualRankings) {
+        _arrayOfActualRankings = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfActualRankings;
+}
+
+-(NSMutableArray *)arrayOfUserPrediction {
+    if (!_arrayOfUserPrediction) {
+        _arrayOfUserPrediction = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfUserPrediction;
+}
+
+-(NSMutableArray *)arrayOfAllPredictions {
+    if (!_arrayOfAllPredictions) {
+        _arrayOfAllPredictions = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfAllPredictions;
 }
 
 @end
