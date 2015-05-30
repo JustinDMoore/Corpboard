@@ -1137,7 +1137,7 @@ int sort;
                         float newScore = [corps[@"lastScore"] floatValue];
                         float oldScore = [corps[@"olderScore"] floatValue];
                         float difference = newScore - oldScore;
-                        
+                        if (difference == newScore) difference = 0;
                         if (difference > 0) {
                             [lbldiff setTextColor:[self darkerColorForColor:[UIColor greenColor]]];
                             lbldiff.text = [NSString stringWithFormat:@"+%.3f", difference];
@@ -1167,6 +1167,7 @@ int sort;
                                 lblDay.text = @"";
                             } else lblDay.text = [NSString stringWithFormat:@"%li day ago", (long)days];
                         }
+                        [lblDay sizeToFit];
                     } else { //no data
                         cell = blankCell;
                         cell.textLabel.text = corps[@"corpsName"];

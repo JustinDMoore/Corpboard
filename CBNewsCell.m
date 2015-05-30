@@ -35,11 +35,13 @@
 
 -(void)setColorNumber:(int)colorNumber {
     
+    //_colorNumber = 16;
     _colorNumber = colorNumber;
     [self createBackground];
 }
 
 -(void)createBackground {
+
     
     switch (self.colorNumber) {
         case 0:
@@ -124,8 +126,8 @@
             break;
         case 16:
             self.backgroundColor = [self getRGB1:255 two:34 three:0];
-            self.lblTitle.textColor = [UIColor blackColor];
-            self.lblDate.textColor = [UIColor lightGrayColor];
+            self.lblTitle.textColor = [UIColor whiteColor];
+            self.lblDate.textColor = [UIColor whiteColor];
             break;
         default:
             break;
