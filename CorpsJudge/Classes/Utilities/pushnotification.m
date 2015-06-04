@@ -91,10 +91,16 @@ void SendPushNotification(NSString *roomId, NSString *text, BOOL pvt) {
 //                               @"sound" : @"default",
 //                               @"type" : @"Live Chat"
 //                               };
+        
+        
+        
+        PFQuery *queryInstallation = [PFInstallation query];
+        [queryInstallation whereKey:@"chatRooms" equalTo:roomId];
+        
+
         PFPush *push = [[PFPush alloc] init];
-        //[push setQuery:queryInstallation];
-        //[push setData:data];
-        [push setChannel:roomId];
+        [push setQuery:queryInstallation];
+
         [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             if (error != nil) {
@@ -102,7 +108,28 @@ void SendPushNotification(NSString *roomId, NSString *text, BOOL pvt) {
                 NSLog(@"SendPushNotification send error.");
             }
         }];
+
         
+        
+        
+        
+        
+        
+        
+        
+//        
+//        PFPush *push = [[PFPush alloc] init];
+//        //[push setQuery:queryInstallation];
+//        //[push setData:data];
+//        [push setChannel:roomId];
+//        [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//            
+//            if (error != nil) {
+//                
+//                NSLog(@"SendPushNotification send error.");
+//            }
+//        }];
+//        
     }
     
 }

@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) UIBarButtonItem *btnAdminBarButton;
 @property (nonatomic, strong) UIButton *btnAdminButton;
+@property (weak, nonatomic) IBOutlet UILabel *lblCopyright;
+@property (weak, nonatomic) IBOutlet UIButton *btnDCI;
 
 -(void)loadPageWithId:(int)index onPage:(int)page;
 

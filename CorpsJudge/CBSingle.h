@@ -21,6 +21,7 @@
     id delegate;
 }
 
+@property (nonatomic, strong) NSMutableArray *arrayOfSubscribedRooms;
 
 @property (nonatomic) BOOL updatedAdmin;
 @property (nonatomic) BOOL updatedCorps;
@@ -88,4 +89,7 @@
 -(void)updateUserLocationAndLastLogin;
 -(void)setParseLocationServices:(BOOL)on;
 -(void)setParsePush:(BOOL)on;
+-(void)subscribeToRoom:(NSString *)roomID;
+-(void)unsubscribeFromRoom:(NSString *)roomID;
+-(void)unsubscribeFromAllRooms;
 @end

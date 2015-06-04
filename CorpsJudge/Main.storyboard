@@ -2835,6 +2835,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1240"/>
                     <connections>
+                        <outlet property="btnDCI" destination="z7h-uy-mN8" id="CfH-PK-gdP"/>
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
                         <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
                         <outlet property="btnProfile" destination="wVQ-HI-UoB" id="pXt-63-uX8"/>
@@ -2847,6 +2848,7 @@
                         <outlet property="contentViewTopTwelve" destination="q2N-Ya-IY1" id="Jkl-WH-P0R"/>
                         <outlet property="imgBannerMiddle" destination="BpO-h5-BES" id="Uuf-e0-eG7"/>
                         <outlet property="imgUpsideDownCavalier" destination="DId-Yi-xbI" id="smI-Y5-r43"/>
+                        <outlet property="lblCopyright" destination="bvc-oY-ZGh" id="MG8-90-IsJ"/>
                         <outlet property="lblShowsHeader" destination="oPe-Kn-Ngj" id="rSz-Pu-Qvj"/>
                         <outlet property="lblTopTwelveHeader" destination="EJO-74-Y3m" id="rDD-I8-SHI"/>
                         <outlet property="lblUserName" destination="TOb-fT-uke" id="zmq-Sa-cKm"/>

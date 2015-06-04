@@ -343,6 +343,71 @@
     }];
 }
 
+#pragma mark
+#pragma mark - Chat Room Subscriptions
+#pragma mark
+
+-(void)subscribeToRoom:(NSString *)roomID {
+    
+    //if they aren't subscribed on parse, makes it so
+    if (![self isUserSubsribedToChatRoomOnParse:roomID]) {
+        
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation addUniqueObject:roomID forKey:@"chatRooms"];
+        [currentInstallation saveInBackground];
+    }
+    
+    // now sync it with corpboard
+    if (![self isUserSubscribedToChatRoomOnCorpboard:roomID]) {
+        [self.arrayOfSubscribedRooms addObject:roomID];
+    }
+
+}
+
+-(void)unsubscribeFromRoom:(NSString *)roomID {
+ 
+    //if they are subscribed on parse, removes it
+    if ([self isUserSubsribedToChatRoomOnParse:roomID]) {
+        
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation removeObject:roomID forKey:@"chatRooms"];
+        [currentInstallation saveInBackground];
+    }
+    
+    // now sync it with corpboard
+    if ([self isUserSubscribedToChatRoomOnCorpboard:roomID]) {
+        [self.arrayOfSubscribedRooms removeObject:roomID];
+    }
+}
+
+-(BOOL)isUserSubscribedToChatRoomOnCorpboard:(NSString *)roomID {
+    
+    for (NSString *room in self.arrayOfSubscribedRooms) {
+        if ([room isEqualToString:roomID]) return YES;
+    }
+    return NO;
+}
+
+-(BOOL)isUserSubsribedToChatRoomOnParse:(NSString *)roomID {
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    NSArray *subscribedChannels = currentInstallation[@"chatRooms"];
+    for (NSString *channel in subscribedChannels) {
+        if ([channel isEqualToString:roomID]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(void)unsubscribeFromAllRooms {
+    
+    [self.arrayOfSubscribedRooms removeAllObjects];
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation[@"chatRooms"] = [NSArray array];
+    [currentInstallation saveInBackground];
+}
+
 #pragma mark - Properites
 
 -(UIColor *)systemColor {
@@ -554,6 +619,13 @@
         _arrayOfBannerObjects = [[NSMutableArray alloc] init];
     }
     return _arrayOfBannerObjects;
+}
+
+-(NSMutableArray *)arrayOfSubscribedRooms {
+    if (!_arrayOfSubscribedRooms) {
+        _arrayOfSubscribedRooms = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfSubscribedRooms;
 }
 
 @end

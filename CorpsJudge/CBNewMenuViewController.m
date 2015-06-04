@@ -207,6 +207,13 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    UITapGestureRecognizer *tapBottom = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollToBottom)];
+
+    [self.lblCopyright addGestureRecognizer:tapBottom];
+    self.lblCopyright.userInteractionEnabled = YES;
+    [self.lblShowsHeader addGestureRecognizer:tapBottom];
+    self.lblShowsHeader.userInteractionEnabled = YES;
 }
 
 -(void)initVariables {
@@ -872,6 +879,20 @@ NSDate *nearestDate;
                     btnScores.layer.masksToBounds = YES;
                     btnScores.titleLabel.text = @" Scores ";
                     btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
+                    
+                    
+//                    
+//                    btnScores.alpha = 0;
+//                    
+//                    btnScores.transform = CGAffineTransformScale(btnScores.transform, 0.4, 0.4);
+//                    
+//                    [UIView animateWithDuration:.2 delay:2 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
+//                        btnScores.alpha = 1;
+//                        btnScores.transform = CGAffineTransformIdentity;
+//                        
+//                    } completion:^(BOOL finished) {
+//                        
+//                    }];
                 }
                 
 
@@ -1511,6 +1532,30 @@ bool isScrolling = NO;
 -(void)denyLocation {
 
     [data setParseLocationServices:NO];
+}
+
+-(void)scrollToBottom {
+    
+//    [UIView animateWithDuration:3.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        
+//        CGPoint bottomOffset = CGPointMake(0, self.scrollMain.contentSize.height - self.scrollMain.bounds.size.height);
+//        [self.scrollMain setContentOffset:bottomOffset animated:NO];
+//        
+//
+//    } completion:^(BOOL finished) {
+//        
+//        [UIView animateWithDuration:3.5f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            
+//            
+//            CGPoint bottomOffset = CGPointMake(0, 0);
+//            [self.scrollMain setContentOffset:bottomOffset animated:NO];
+//            
+//            
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//        
+//    }];
 }
 
 @end

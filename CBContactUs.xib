@@ -23,7 +23,7 @@
                         <constraint firstAttribute="width" constant="87" id="jzU-Ce-T0H"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sSw-wj-h91">
@@ -64,7 +64,7 @@
             <connections>
                 <outlet property="tableFeedback" destination="4YC-Uq-NtH" id="a7m-rw-3YK"/>
             </connections>
-            <point key="canvasLocation" x="320" y="343"/>
+            <point key="canvasLocation" x="283" y="347"/>
         </view>
     </objects>
 </document>

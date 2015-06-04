@@ -219,7 +219,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Saves changes in the application's managed object context before the application terminates.
+    // Saves changes in the application's managed object context before the application terminates
+    [data unsubscribeFromAllRooms];
     [self saveContext];
 }
 

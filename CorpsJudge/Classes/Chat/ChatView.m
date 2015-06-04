@@ -26,6 +26,7 @@
 #import "CBImageViewController.h"
 
 #import "Configuration.h"
+#import "CBSingle.h"
 
 @interface ChatView() {
     
@@ -44,6 +45,7 @@
     JSQMessagesAvatarImage *placeholderImageData;
     
     CBAppDelegate *del;
+    CBSingle *data;
 }
 @end
 
@@ -64,6 +66,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    data = [CBSingle data];
+    [data subscribeToRoom:roomId];
     
     self.collectionView.backgroundColor = [UIColor blackColor];
     self.collectionView.backgroundView.backgroundColor = [UIColor blackColor];
@@ -110,24 +115,6 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
-    
-    if (![self isUserSubsribedToChatRoom]) {
-        
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation addUniqueObject:roomId forKey:@"channels"];
-        [currentInstallation saveInBackground];
-    }
-}
-
--(BOOL)isUserSubsribedToChatRoom {
-    
-    NSArray *subscribedChannels = [PFInstallation currentInstallation].channels;
-    for (NSString *channel in subscribedChannels) {
-        if ([channel isEqualToString:roomId]) {
-            return YES;
-        }
-    }
-    return NO;
 }
 
 - (void)goback {
@@ -162,11 +149,7 @@
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     [timer invalidate];
     
-    if ([self isUserSubsribedToChatRoom]) {
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation removeObject:roomId forKey:@"channels"];
-        [currentInstallation saveInBackground];
-    }
+    [data unsubscribeFromRoom:roomId];
 }
 
 #pragma mark - Backend methods
@@ -345,7 +328,6 @@
     
     PFUser *user = users[indexPath.item];
     if (avatars[user.objectId] == nil) {
-        NSLog(@"yes");
         PFFile *fileThumbnail = user[PF_USER_THUMBNAIL];
         
         [fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
@@ -359,7 +341,6 @@
         return placeholderImageData;
     }
     else {
-        NSLog(@"no");
         return avatars[user.objectId];
     }
 }

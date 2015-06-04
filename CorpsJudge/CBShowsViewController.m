@@ -277,9 +277,11 @@ BOOL firstLoad = YES;
                 lblException.hidden = NO;
             } else {
                 lblException.hidden = YES;
+
                 btnScores.hidden = NO;
                 btnScores.layer.borderWidth = 1.0f;
                 btnScores.layer.borderColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1].CGColor;
+                
                 
                 btnScores.layer.cornerRadius = 4.0f;
                 btnScores.layer.masksToBounds = YES;
