@@ -181,13 +181,13 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 {
     [super viewDidLoad];
 
-    
     [self initVariables];
     [self initUI];
 
     [self startTimerForCorps];
     [self startTimerForNews];
     [self startTimerForBannerRotation];
+    [self checkForNewVersion];
 }
 
 -(void)setupShows {
@@ -260,6 +260,11 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 -(void)initUI {
 
     [self loadProfile];
+    
+    //update version
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
+    self.lblVersion.text = version;
     
     UIImageView *showArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
     showArrowImage.frame = CGRectMake(0, 0, 20, 20);
@@ -1556,6 +1561,40 @@ bool isScrolling = NO;
 //        }];
 //        
 //    }];
+}
+
+-(void)checkForNewVersion {
+    
+    
+    NSString *releasedVersion = data.objAdmin[@"releasedVersion"];
+    
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *userVersion = [info objectForKey:@"CFBundleShortVersionString"];
+    
+    if (![releasedVersion isEqualToString:userVersion]) {
+        [self newVersion];
+    }
+}
+
+-(void)newVersion {
+    
+    self.viewVersion =         [[[NSBundle mainBundle] loadNibNamed:@"CBVersion"
+                                                              owner:self
+                                                            options:nil]
+                                objectAtIndex:0];
+    [self.view addSubview:self.viewVersion];
+    [self.viewVersion showInParent];
+    [self.viewVersion setDelegate:self];
+}
+
+-(void)updateLater {
+    
+    
+}
+
+-(void)updateNow {
+    
+   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
 }
 
 @end

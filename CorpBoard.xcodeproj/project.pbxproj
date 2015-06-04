@@ -89,6 +89,8 @@
 		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
 		D0067A6A19691E5100C372D0 /* About.png in Resources */ = {isa = PBXBuildFile; fileRef = D0067A6919691E5100C372D0 /* About.png */; };
+		D008F8681B20F6D90012D144 /* CBVersion.xib in Resources */ = {isa = PBXBuildFile; fileRef = D008F8671B20F6D90012D144 /* CBVersion.xib */; };
+		D008F86B1B20F6EA0012D144 /* CBVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D008F86A1B20F6EA0012D144 /* CBVersion.m */; };
 		D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */ = {isa = PBXBuildFile; fileRef = D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */; };
 		D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = D009FD611AF9C58400FCA018 /* CBProblemWhat.m */; };
 		D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBFeedbackViewController.m */; };
@@ -369,6 +371,9 @@
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
 		D0067A6919691E5100C372D0 /* About.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = About.png; sourceTree = "<group>"; };
+		D008F8671B20F6D90012D144 /* CBVersion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBVersion.xib; sourceTree = "<group>"; };
+		D008F8691B20F6EA0012D144 /* CBVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBVersion.h; sourceTree = "<group>"; };
+		D008F86A1B20F6EA0012D144 /* CBVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBVersion.m; sourceTree = "<group>"; };
 		D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhat.xib; sourceTree = "<group>"; };
 		D009FD601AF9C58400FCA018 /* CBProblemWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhat.h; sourceTree = "<group>"; };
 		D009FD611AF9C58400FCA018 /* CBProblemWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhat.m; sourceTree = "<group>"; };
@@ -919,6 +924,8 @@
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
 				D0D777461B117BF000D4EF6A /* CBLocationServicesDisabled.xib */,
 				D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */,
+				D008F8671B20F6D90012D144 /* CBVersion.xib */,
+				D008F86A1B20F6EA0012D144 /* CBVersion.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1007,6 +1014,7 @@
 				D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */,
 				D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */,
 				D03DCADB1B168A81005D326E /* CBPush.h */,
+				D008F8691B20F6EA0012D144 /* CBVersion.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1414,6 +1422,7 @@
 				D0D777471B117BF000D4EF6A /* CBLocationServicesDisabled.xib in Resources */,
 				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */,
+				D008F8681B20F6D90012D144 /* CBVersion.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0F19FA51B15499500357663 /* CBReviewFeedback.xib in Resources */,
 				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
@@ -1597,6 +1606,7 @@
 				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
 				D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */,
 				9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */,
+				D008F86B1B20F6EA0012D144 /* CBVersion.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,
 			);

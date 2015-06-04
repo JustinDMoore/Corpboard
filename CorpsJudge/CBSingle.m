@@ -98,6 +98,9 @@
             self.objAdmin = objects[0];
             self.updatedAdmin = YES;
             [self didWeFinish];
+            if ([delegate respondsToSelector:@selector(adminUpdated)]) {
+                [delegate adminUpdated];
+            }
         }
     }];
 }

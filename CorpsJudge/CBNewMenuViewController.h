@@ -11,11 +11,14 @@
 #import "CBMakeFinalsPrediction.h"
 #import "CBLocationServices.h"
 #import "CBLocationServicesDisabled.h"
+#import "CBVersion.h"
 
-@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, dataProtocol, CBMakeFinalsPredictionDelegate, CBLocationProtocol> {
+@interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, dataProtocol, CBMakeFinalsPredictionDelegate, CBLocationProtocol, versionProtocol> {
 
 }
 
+@property (nonatomic, strong) CBVersion *viewVersion;
+@property (weak, nonatomic) IBOutlet UILabel *lblVersion;
 @property (nonatomic, strong) UIBarButtonItem *btnAdminBarButton;
 @property (nonatomic, strong) UIButton *btnAdminButton;
 @property (weak, nonatomic) IBOutlet UILabel *lblCopyright;

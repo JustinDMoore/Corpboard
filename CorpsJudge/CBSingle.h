@@ -15,6 +15,7 @@
 -(void)dataDidLoad;
 -(void)dataFailed;
 -(void)messagesUpdated;
+-(void)adminUpdated;
 @end
 
 @interface CBSingle : NSObject {

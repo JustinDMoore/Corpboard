@@ -2795,6 +2795,12 @@
                                                                     <action selector="btnLink_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="pvt-la-kJj"/>
                                                                 </connections>
                                                             </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idl-iX-zFn">
+                                                                <rect key="frame" x="84" y="49" width="42" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
@@ -2852,6 +2858,7 @@
                         <outlet property="lblShowsHeader" destination="oPe-Kn-Ngj" id="rSz-Pu-Qvj"/>
                         <outlet property="lblTopTwelveHeader" destination="EJO-74-Y3m" id="rDD-I8-SHI"/>
                         <outlet property="lblUserName" destination="TOb-fT-uke" id="zmq-Sa-cKm"/>
+                        <outlet property="lblVersion" destination="idl-iX-zFn" id="K55-Ui-LaV"/>
                         <outlet property="pageShows" destination="nv4-lc-iVb" id="XVo-Y5-DWr"/>
                         <outlet property="pageTopTwelve" destination="OX4-Y7-p0h" id="YHw-VP-Qdp"/>
                         <outlet property="scrollBanners" destination="pww-Gk-PAI" id="Q6C-Kr-OWM"/>
