@@ -1550,6 +1550,25 @@ int sort;
     [self.tableCorps reloadData];
 }
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+    
+    [view setBackgroundColor: [UIColor darkGrayColor]];
+    
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 3, tableView.bounds.size.width - 10, 18)];
+    if (section == 0) label.text = @"World Class";
+    else if (section == 1) label.text = @"Open Class";
+    else if (section == 2) label.text = @"All Age Class";
+    label.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.75];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:14];
+    [view addSubview:label];
+    
+    return view;
+}
+
 #pragma mark
 #pragma mark - UITabBar Methods
 #pragma mark

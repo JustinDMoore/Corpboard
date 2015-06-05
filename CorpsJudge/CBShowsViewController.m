@@ -199,7 +199,7 @@ BOOL firstLoad = YES;
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     [header.textLabel setTextColor:[UIColor lightGrayColor]];
-    [header.textLabel setFont:[UIFont systemFontOfSize:16]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:14]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

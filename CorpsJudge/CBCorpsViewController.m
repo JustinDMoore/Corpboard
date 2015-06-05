@@ -240,6 +240,7 @@ NSTimer *timer;
     else if (section == 2) label.text = @"All Age Class";
     label.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.75];
     label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:14];
     [view addSubview:label];
     
     return view;

@@ -533,8 +533,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="qPr-FD-Heq">
-                                <rect key="frame" x="0.0" y="67" width="600" height="440"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qPr-FD-Heq">
+                                <rect key="frame" x="0.0" y="89" width="600" height="418"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -779,7 +779,7 @@
                             <constraint firstItem="QKw-RK-oBI" firstAttribute="trailing" secondItem="qPr-FD-Heq" secondAttribute="trailing" id="jAx-LA-Wmg"/>
                             <constraint firstItem="qPr-FD-Heq" firstAttribute="leading" secondItem="MhZ-vV-fG9" secondAttribute="leadingMargin" constant="-16" id="m3R-zA-WSX"/>
                             <constraint firstItem="RJK-uN-6uU" firstAttribute="leading" secondItem="MhZ-vV-fG9" secondAttribute="leadingMargin" constant="-16" id="nCr-0t-6yB"/>
-                            <constraint firstItem="qPr-FD-Heq" firstAttribute="top" secondItem="RJK-uN-6uU" secondAttribute="bottom" constant="-19" id="qBc-fV-WKX"/>
+                            <constraint firstItem="qPr-FD-Heq" firstAttribute="top" secondItem="RJK-uN-6uU" secondAttribute="bottom" constant="3" id="qBc-fV-WKX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RJK-uN-6uU" secondAttribute="trailing" constant="-16" id="wM3-hF-Ol5"/>
                             <constraint firstItem="QKw-RK-oBI" firstAttribute="leading" secondItem="qPr-FD-Heq" secondAttribute="leading" id="xoC-75-qAZ"/>
                         </constraints>
@@ -3896,7 +3896,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5XH-ng-dQw"/>
-        <segue reference="yHE-cF-ijy"/>
+        <segue reference="G84-g7-0Ap"/>
         <segue reference="5Fi-Lt-Ok5"/>
     </inferredMetricsTieBreakers>
 </document>
