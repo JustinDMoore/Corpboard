@@ -108,13 +108,11 @@
         self.btnChat.enabled = NO;
     } else {
         self.btnReport.enabled = YES;
-        self.btnChat.enabled = YES;
+        self.btnChat.enabled = !self.fromPrivate; //prevents a loop when opening a profile from private chats, then allowing user to start another private chat
         NSMutableDictionary * params = [NSMutableDictionary new];
         params[@"userObjectId"] = self.userProfile.objectId;
         [PFCloud callFunctionInBackground:@"incrementUserProfileViews" withParameters:params];
     }
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated {

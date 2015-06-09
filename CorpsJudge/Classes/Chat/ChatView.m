@@ -466,6 +466,7 @@ PFUser *userForProfile;
     if ([[segue identifier] isEqualToString:@"profile"]) {
         CBUserProfileViewController *vc = [segue destinationViewController];
         [vc setUser:userForProfile];
+        vc.fromPrivate = self.isPrivate;
     } else if ([[segue identifier] isEqualToString:@"picture"]) {
         
         CBImageViewController *vc = [segue destinationViewController];
