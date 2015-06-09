@@ -64,24 +64,40 @@
         PFUser *user = [PFUser currentUser];
         
         if (!error) {
-            // do something with the new geoPoint
+            CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:geoPoint.latitude longitude:geoPoint.longitude];
+            [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                CLPlacemark *topResult = [placemarks objectAtIndex:0];
+                NSString *loc = [NSString stringWithFormat:@"%@, %@", [topResult locality], [topResult administrativeArea]];
+                user[@"location"] = loc;
+                user[@"geo"] = geoPoint;
+                [user saveEventually];
+                [self setParseLocationServices:YES];
+            }];
+        } else {
             user[@"geo"] = geoPoint;
-            [self setParseLocationServices:YES];
+            [user saveEventually];
         }
-        [user saveEventually];
     }];
 }
 
 -(void)setParseLocationServices:(BOOL)on {
     PFInstallation *install = [PFInstallation currentInstallation];
-    install[@"allowsLocation"] = [NSNumber numberWithBool:on];
-    [install saveEventually];
+    BOOL allowsLocation = [install[@"allowsLocation"] boolValue];
+    if (allowsLocation != on) {
+        install[@"allowsLocation"] = [NSNumber numberWithBool:on];
+        [install saveEventually];
+    }
 }
 
 -(void)setParsePush:(BOOL)on {
+    
     PFInstallation *install = [PFInstallation currentInstallation];
-    install[@"allowsPush"] = [NSNumber numberWithBool:on];
-    [install saveEventually];
+    BOOL allowsPush = [install[@"allowsPush"] boolValue];
+    if (allowsPush != on) {
+        install[@"allowsPush"] = [NSNumber numberWithBool:on];
+        [install saveEventually];
+    }
 }
 
 #pragma mark -

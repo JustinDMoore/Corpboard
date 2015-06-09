@@ -324,7 +324,7 @@
             self.lblUserNickname.text = self.userProfile[@"nickname"];
             if ([self.userProfile[@"location"] length]) {
                 self.lblUserLocation.hidden = NO;
-                self.lblUserLocation.text = [NSString stringWithFormat:@"Lives in %@", self.userProfile[@"location"]];
+                self.lblUserLocation.text = self.userProfile[@"location"];
             } else {
                 self.lblUserLocation.hidden = YES;
             }

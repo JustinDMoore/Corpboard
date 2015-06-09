@@ -110,33 +110,39 @@
     
     if ([self.txtNickname.text length]) {
         
-        PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-        [query whereKey:@"nickname" equalTo:self.txtNickname.text];
-        [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
-            if (!error) {
-                if (count > 0) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"This nickname is already taken." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alert show];
-                } else {
-                    
-                    self.userProfile[@"nickname"] = self.txtNickname.text;
-                    if ([self.txtLocation.text length]) {
-                        self.userProfile[@"location"] = self.txtLocation.text;
+        //make sure the nickname has changed before checking for duplicates
+        if (![self.txtNickname.text isEqualToString:self.userProfile[@"nickname"]]) {
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+            [query whereKey:@"nickname" equalTo:self.txtNickname.text];
+            [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+                if (!error) {
+                    if (count > 0) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"This nickname is already taken." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alert show];
+                    } else {
+                        [self saveInfo];
                     }
-                    [[PFUser currentUser] saveInBackground];
-                    [self closeView:NO];
-                    
                 }
-            } else {
-                // The request failed
-            }
-        }];
-        
+            }];
+        } else {
+            [self saveInfo];
+        }
     } else {
         direction = 1;
         shakes = 0;
         [self shake:self.txtNickname];
     }
+}
+
+-(void)saveInfo {
+    
+    self.userProfile[@"nickname"] = self.txtNickname.text;
+    if ([self.txtLocation.text length]) {
+        self.userProfile[@"location"] = self.txtLocation.text;
+    }
+    [[PFUser currentUser] saveInBackground];
+    [self closeView:NO];
 }
 
 int direction = 1;
