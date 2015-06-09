@@ -82,19 +82,24 @@
     backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
-
+    
     PFUser *user = [PFUser currentUser];
     BOOL predicted = [user[@"predictionEntered"] boolValue];
     if (!predicted) {
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        
-        self.viewEffect = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        
-        self.viewEffect.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-        self.view.backgroundColor = [UIColor clearColor];
-        [self.navigationController.view addSubview:self.viewEffect];
-        [self.view bringSubviewToFront:self.viewEffect];
+        BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
+        if (allowPredictions) {
+            UIVisualEffect *blurEffect;
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            
+            self.viewEffect = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            
+            self.viewEffect.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            self.view.backgroundColor = [UIColor clearColor];
+            [self.navigationController.view addSubview:self.viewEffect];
+            [self.view bringSubviewToFront:self.viewEffect];
+        } else {
+            [self showPredictions];
+        }
     } else {
         [self showPredictions];
     }
@@ -107,24 +112,28 @@
     PFUser *user = [PFUser currentUser];
     BOOL predicted = [user[@"predictionEntered"] boolValue];
     if (!predicted) {
-        self.viewCorps = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPredictionTable"
-                                                        owner:self
-                                                      options:nil]
-                          objectAtIndex:0];
-        
-        
-        [self.navigationController.view addSubview:self.viewCorps];
-        [self.viewCorps show];
-        [self.viewCorps setDelegate:self];
-        self.viewCorps.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.viewCorps.tableCorps.delegate = self;
-        self.viewCorps.tableCorps.dataSource = self;
-        self.viewCorps.btnSend.hidden = YES;
-        self.currentPhase = pick;
-        [self.arrayOfScores removeAllObjects];
-        for (int i = 0; i < 12; i++) {
-            NSString *str = @"0";
-            [self.arrayOfScores addObject:str];
+        BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
+        if (allowPredictions) {
+            
+            self.viewCorps = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPredictionTable"
+                                                            owner:self
+                                                          options:nil]
+                              objectAtIndex:0];
+            
+            
+            [self.navigationController.view addSubview:self.viewCorps];
+            [self.viewCorps show];
+            [self.viewCorps setDelegate:self];
+            self.viewCorps.tableCorps.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            self.viewCorps.tableCorps.delegate = self;
+            self.viewCorps.tableCorps.dataSource = self;
+            self.viewCorps.btnSend.hidden = YES;
+            self.currentPhase = pick;
+            [self.arrayOfScores removeAllObjects];
+            for (int i = 0; i < 12; i++) {
+                NSString *str = @"0";
+                [self.arrayOfScores addObject:str];
+            }
         }
     }
 }
@@ -202,11 +211,11 @@
     
     queryUserPredictions = [PFQuery queryWithClassName:@"predictions"];
     [queryUserPredictions whereKey:@"user" equalTo:[PFUser currentUser]];
-     [queryUserPredictions includeKey:@"corp"];
+    [queryUserPredictions includeKey:@"corp"];
     [queryUserPredictions findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         
         if ([array count]) {
-
+            
             for (PFObject *obj in array) {
                 
                 UserScore *score = [[UserScore alloc] init];
@@ -222,10 +231,11 @@
             
             userDone = YES;
             [self areWeDone];
+        } else {
+            userDone = YES;
+            [self areWeDone];
         }
-        
     }];
-    
 }
 
 int loop = 0;
@@ -346,8 +356,6 @@ int loop = 0;
     return 12;
 }
 
-
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell;
@@ -370,7 +378,7 @@ int loop = 0;
                     [self.viewCorps.tableCorps registerNib:[UINib nibWithNibName:@"CBPredictionSelectCell" bundle:nil] forCellReuseIdentifier:@"selectCell"];
                     cell = [self.viewCorps.tableCorps dequeueReusableCellWithIdentifier:@"selectCell"];
                 }
-
+                
                 array = self.arrayOfCorps;
                 if ([array count]) corp = array[indexPath.row];
                 lblPlacement = (UILabel *)[cell viewWithTag:1];
@@ -390,7 +398,7 @@ int loop = 0;
                 lblPlacement = (UILabel *)[cell viewWithTag:1];
                 imgLogo = (PFImageView *)[cell viewWithTag:2];
                 lblName = (UILabel *)[cell viewWithTag:3];
-
+                
                 
                 break;
             case score:
@@ -416,45 +424,45 @@ int loop = 0;
                 break;
         }
         
-     
+        
+        
+        if (corp) {
             
-            if (corp) {
-              
-                
-                if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
-                if (imgLogo) {
-                    PFFile *imageFile = corp[@"logo_light"];
-                    if (!imageFile) {
-                        imageFile = corp[@"logo"];
-                    }
-                    if (imageFile) {
-                        [imgLogo setFile:imageFile];
-                        [imgLogo loadInBackground];
-                    }
+            
+            if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
+            if (imgLogo) {
+                PFFile *imageFile = corp[@"logo_light"];
+                if (!imageFile) {
+                    imageFile = corp[@"logo"];
                 }
-    
-                if (lblName) lblName.text = corp[@"corpsName"];
-                
-                if ([self.arrayOfScores count] && txtScore) {
-                    NSString *score = [NSString stringWithFormat:@"%@", self.arrayOfScores[indexPath.row]];
-                    if ([score isEqualToString:@"0"]) score = @"";
-                    if (txtScore) txtScore.text = score;
-                }
-                
-                if (self.currentPhase == pick) {
-                    
-                    NSString *str = [self.dictOfCorps objectForKey:corp[@"corpsName"]];
-                    if ([str isEqualToString:@"YES"]) {
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        [self.viewCorps.tableCorps selectRowAtIndexPath:indexPath animated:NO scrollPosition: UITableViewScrollPositionNone];
-                        //[self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
-                    } else {
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                        [self.viewCorps.tableCorps deselectRowAtIndexPath:indexPath animated:NO];
-                        //[self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
-                    }
+                if (imageFile) {
+                    [imgLogo setFile:imageFile];
+                    [imgLogo loadInBackground];
                 }
             }
+            
+            if (lblName) lblName.text = corp[@"corpsName"];
+            
+            if ([self.arrayOfScores count] && txtScore) {
+                NSString *score = [NSString stringWithFormat:@"%@", self.arrayOfScores[indexPath.row]];
+                if ([score isEqualToString:@"0"]) score = @"";
+                if (txtScore) txtScore.text = score;
+            }
+            
+            if (self.currentPhase == pick) {
+                
+                NSString *str = [self.dictOfCorps objectForKey:corp[@"corpsName"]];
+                if ([str isEqualToString:@"YES"]) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    [self.viewCorps.tableCorps selectRowAtIndexPath:indexPath animated:NO scrollPosition: UITableViewScrollPositionNone];
+                    //[self selectCell:cell atIndexPath:indexPath onOrOff:YES fromMethod:NO];
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    [self.viewCorps.tableCorps deselectRowAtIndexPath:indexPath animated:NO];
+                    //[self selectCell:cell atIndexPath:indexPath onOrOff:NO fromMethod:NO];
+                }
+            }
+        }
     } else {
         
         cell = [self.tablePredictions dequeueReusableCellWithIdentifier:@"rank"];
@@ -470,7 +478,7 @@ int loop = 0;
         UILabel *lblName2 = (UILabel *)[cell viewWithTag:5];
         UILabel *lblScore2 = (UILabel *)[cell viewWithTag:6];
         PFImageView *imgLogo2 = (PFImageView *)[cell viewWithTag:4];
-
+        
         //user predictions
         UILabel *lblName3 = (UILabel *)[cell viewWithTag:8];
         UILabel *lblScore3 = (UILabel *)[cell viewWithTag:9];
@@ -487,9 +495,12 @@ int loop = 0;
                 [imgLogo1 setFile:imageFile1];
                 [imgLogo1 loadInBackground];
             }
-
+            
             lblName1.text = [self abbreviateName:us1.corps[@"corpsName"]];
             lblScore1.text = [NSString stringWithFormat:@"%.3f", us1.score];
+        } else {
+            lblName1.text = @"";
+            lblScore1.text = @"";
         }
         
         UserScore *us2;
@@ -500,7 +511,7 @@ int loop = 0;
                 [imgLogo2 setFile:imageFile2];
                 [imgLogo2 loadInBackground];
             }
-
+            
             lblName2.text = [self abbreviateName:us2.corps[@"corpsName"]];
             lblScore2.text = [NSString stringWithFormat:@"%.3f", us2.score];
         }
@@ -513,7 +524,7 @@ int loop = 0;
                 [imgLogo3 setFile:imageFile3];
                 [imgLogo3 loadInBackground];
             }
-
+            
             lblName3.text = [self abbreviateName:us3.corps[@"corpsName"]];
             lblScore3.text = [NSString stringWithFormat:@"%.3f", us3.score];
         }

@@ -70,7 +70,7 @@
     } completion:^(BOOL finished) {
         [self.txtCorpsName becomeFirstResponder];
         
-        self.arrayOfPositions = [NSArray arrayWithObjects:@"Staff", @"Volunteer", @"Drum Major", @"Trumpet", @"Mellophone", @"Baritone", @"Euphonium", @"Tuba"
+        self.arrayOfPositions = [NSArray arrayWithObjects:@"Staff", @"Volunteer", @"Drum Major", @"Trumpet", @"Mellophone", @"Baritone", @"Euphonium", @"Tuba",
                                  @"Snare", @"Tenor", @"Bass", @"Front Ensemble", @"Color Guard", nil];
         int year = 2015;
         while (year > 1971) {

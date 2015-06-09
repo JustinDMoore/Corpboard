@@ -1201,19 +1201,30 @@ bool isScrolling = NO;
     
     //UIViewController *contestViewController = [[UIViewController alloc] init];
     
-    PFUser *user = [PFUser currentUser];
-    BOOL predicted = [user[@"predictionEntered"] boolValue];
-    if (!predicted) {
+    BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
+
+    if (allowPredictions) {
         
-        CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
-                                                                             owner:self
-                                                                           options:nil]
-                                               objectAtIndex:0];
-        
-        
-        viewPredict.parentNav = self.navigationController;
-        [viewPredict show];
-        [viewPredict setDelegate:self];
+        PFUser *user = [PFUser currentUser];
+        BOOL predicted = [user[@"predictionEntered"] boolValue];
+
+        if (!predicted) {
+
+            CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+                                                    
+                                                                                 owner:self
+                                                    
+                                                                               options:nil]
+                                                   
+                                                   objectAtIndex:0];
+            
+            viewPredict.parentNav = self.navigationController;
+            [viewPredict show];
+            [viewPredict setDelegate:self];
+            
+        } else {
+            [self performSegueWithIdentifier:@"contest" sender:self];
+        }
     } else {
         [self performSegueWithIdentifier:@"contest" sender:self];
     }
