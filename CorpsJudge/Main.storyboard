@@ -2844,6 +2844,7 @@
                         <outlet property="btnDCI" destination="z7h-uy-mN8" id="CfH-PK-gdP"/>
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
                         <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
+                        <outlet property="btnNearMe" destination="2ro-Wz-Ti8" id="jmB-h0-6zs"/>
                         <outlet property="btnProfile" destination="wVQ-HI-UoB" id="pXt-63-uX8"/>
                         <outlet property="btnSeeAll" destination="m1j-TQ-WyR" id="QS4-cN-3eb"/>
                         <outlet property="btnSeeAllNews" destination="o1E-bU-OIe" id="GHb-1T-PK2"/>
@@ -3895,8 +3896,8 @@
         <image name="youtube_lightGrayColor" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5XH-ng-dQw"/>
-        <segue reference="G84-g7-0Ap"/>
         <segue reference="5Fi-Lt-Ok5"/>
+        <segue reference="5XH-ng-dQw"/>
+        <segue reference="yHE-cF-ijy"/>
     </inferredMetricsTieBreakers>
 </document>

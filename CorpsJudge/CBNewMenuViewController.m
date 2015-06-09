@@ -72,6 +72,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 #pragma mark
 #pragma mark - Menu
 #pragma mark
+@property (weak, nonatomic) IBOutlet UIButton *btnNearMe;
 @property (weak, nonatomic) IBOutlet UIControl *viewProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnLiveChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnProfile;
@@ -424,12 +425,12 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 -(void)pulse {
     
     PulsingHaloLayer *halo = [PulsingHaloLayer layer];
-    halo.position = self.btnLiveChat.center;
+    halo.position = self.btnNearMe.center;
     halo.radius = 20;
     halo.animationDuration = 2;
     halo.backgroundColor = [UIColor whiteColor].CGColor;
     [self.viewProfile.layer addSublayer:halo];
-    [self.viewProfile bringSubviewToFront:self.btnLiveChat];
+    [self.viewProfile bringSubviewToFront:self.btnNearMe];
 }
 
 int numOfNewsItems = 6;
