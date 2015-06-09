@@ -685,8 +685,14 @@
 }
 
 -(void)goback {
-    
+
     [queryExperience cancel];
+    
+    [self.viewEditName removeFromSuperview];
+    [self.userCat removeFromSuperview];
+    [self.corpExperience removeFromSuperview];
+    [self.viewEditDescription removeFromSuperview];
+    [self.viewExperienceList removeFromSuperview];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
@@ -961,14 +967,14 @@ BOOL coverPhoto = NO;
 
 
 - (IBAction)btnEditName_clicked:(id)sender {
-    [self.view addSubview:self.viewEditName];
+    [self.navigationController.view addSubview:self.viewEditName];
     [self.viewEditName showInParent:self.view.frame];
     [self.viewEditName setDelegate:self];
 }
 
 - (IBAction)btnEditBadges_clicked:(id)sender {
     
-    [self.view addSubview:self.userCat];
+    [self.navigationController.view addSubview:self.userCat];
     [self.userCat showInParent:self.view.frame];
     [self.userCat setCategories:self.userProfile[@"arrayOfCategories"]];
     
@@ -999,7 +1005,7 @@ UIPickerView *positionPicker;
 UIPickerView *corpPicker;
 - (IBAction)btnEditCorpExperience_clicked:(id)sender {
     
-    [self.view addSubview:self.viewExperienceList];
+    [self.navigationController.view addSubview:self.viewExperienceList];
     [self.viewExperienceList showInParent:self.view.frame];
     
     [self.viewExperienceList setDelegate:self];
@@ -1010,9 +1016,9 @@ UIPickerView *corpPicker;
     
     self.viewExperienceList.hidden = YES;
     
-    [self.view addSubview:self.corpExperience];
+    [self.navigationController.view addSubview:self.corpExperience];
     [self.corpExperience showInParent:self.view.frame];
-    [self.view bringSubviewToFront:self.corpExperience];
+    [self.navigationController.view bringSubviewToFront:self.corpExperience];
     [self.corpExperience setDelegate:self];
     
     yearPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 300)];
@@ -1037,7 +1043,7 @@ UIPickerView *corpPicker;
 }
 
 - (IBAction)btnEditDescription_clicked:(id)sender {
-    [self.view addSubview:self.viewEditDescription];
+    [self.navigationController.view addSubview:self.viewEditDescription];
     [self.viewEditDescription showInParent:self.view.frame];
     
     [self.viewEditDescription setDelegate:self];

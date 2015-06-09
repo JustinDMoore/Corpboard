@@ -42,12 +42,16 @@
 -(void)viewDidLoad {
     
     [super viewDidLoad];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated {
     
+    [super viewDidAppear:animated];
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress show];
     });
-    
     self.tablePhotos.hidden = YES;
     [self getPhotos];
     [self.segmentAlbum addTarget:self
@@ -284,6 +288,7 @@ BOOL upload = NO;
     [picker dismissViewControllerAnimated:YES completion:nil];
     if (upload) {
         [self.delegate coverSubmitForApproval:image];
+        [self goback];
     } else {
         [self.delegate coverImage:image];
         [self goback];
