@@ -12,9 +12,13 @@
 #import "NSString+HTML.h"
 #import "NSDate+Utilities.h"
 
+CBSingle *data;
+
 @implementation CBNewsSingleton {
    
 }
+
+
 
 +(id)news {
     static CBNewsSingleton *news = nil;
@@ -28,6 +32,9 @@
 -(id)init {
     self = [super init];
     if (self) {
+        
+        data = [CBSingle data];
+        [data setDelegate:self];
         self.arrayOfColors = [[NSMutableArray alloc] init];
         for (int i = 0; i < 17; i++) {
             [self.arrayOfColors addObject:[NSNumber numberWithInt:i]];
@@ -43,14 +50,13 @@
         
         
         self.newsLoaded = NO;
-        NSURL *feedURL = [NSURL URLWithString:@"http://www.dci.org/news/rss/news_rss.xml"];
+        NSURL *feedURL = [NSURL URLWithString:data.objAdmin[@"DCI_news"]];
         feedParser = [[MWFeedParser alloc] initWithFeedURL:feedURL];
         feedParser.delegate = self;
         feedParser.feedParseType = ParseTypeFull;
         // TODO: play with this synchronous stuff
         feedParser.connectionType = ConnectionTypeAsynchronously;
         [feedParser parse];
-        
     }
     return self;
 }
@@ -79,12 +85,12 @@
 #pragma mark MWFeedParserDelegate
 
 - (void)feedParserDidStart:(MWFeedParser *)parser {
-   // NSLog(@"Started Parsing: %@", parser.url);
+   NSLog(@"Started Parsing: %@", parser.url);
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
     
-    //NSLog(@"Parsed Feed Info: “%@”", info.title);
+    NSLog(@"Parsed Feed Info: “%@”", info.title);
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
@@ -104,7 +110,7 @@
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
-    //NSLog(@"Finished Parsing With Error: %@", error);
+    NSLog(@"Finished Parsing With Error: %@", error);
     if (parsedItems.count == 0) {
          // Show failed message in title
     } else {

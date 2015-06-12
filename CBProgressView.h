@@ -13,6 +13,7 @@
 @protocol ProgressProtocol <NSObject>
 @required
 -(void)progressComplete;
+-(void)tick;
 @end
 
 @interface CBProgressView : UIView {

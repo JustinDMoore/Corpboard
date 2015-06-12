@@ -1371,7 +1371,8 @@ bool isScrolling = NO;
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 6;
+    if ([news.arrayOfNewsItemsToDisplay count] >= 6) return 6;
+    else return [news.arrayOfNewsItemsToDisplay count];
 }
 
 

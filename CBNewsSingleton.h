@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MWFeedParser.h"
+#import "CBSingle.h"
 
 @protocol newsProtocol <NSObject>
 -(void)newsDidLoad;
 @end
 
-@interface CBNewsSingleton : NSObject <MWFeedParserDelegate> {
+@interface CBNewsSingleton : NSObject <MWFeedParserDelegate, dataProtocol> {
     // Parsing
     MWFeedParser *feedParser;
     NSMutableArray *parsedItems;

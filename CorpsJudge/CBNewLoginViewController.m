@@ -94,15 +94,14 @@ CAShapeLayer *pathLayer;
     [animationLayer addSublayer:pathLayer];
     
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 3;
+    pathAnimation.duration = 2.5;
     pathAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.delegate = self;
+    
     //pathAnimation.removedOnCompletion = YES;
 
     [pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
-    
-    
     
     self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
     self.imgArrow2.frame = self.imgArrow1.frame;
@@ -143,8 +142,8 @@ CAShapeLayer *pathLayer;
                          self.imgArrow1.alpha = 1;
                      } completion:^(BOOL finished) {
                          
-                         [UIView animateWithDuration:2.5
-                                               delay:1.5
+                         [UIView animateWithDuration:1.5
+                                               delay:0
                                              options:UIViewAnimationOptionCurveEaseInOut
                                           animations:^{
                                              
@@ -157,7 +156,7 @@ CAShapeLayer *pathLayer;
                          
                          
                          [UIView animateWithDuration:1.5
-                                               delay:1.75
+                                               delay:0.25
                                              options:UIViewAnimationOptionCurveEaseInOut
                                           animations:^{
                                               
@@ -169,6 +168,23 @@ CAShapeLayer *pathLayer;
                                           }];
                          
                      }];
+    
+    //this just moves the 'mask' out of the way so it doesn't flicker
+    dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, 2.15f * NSEC_PER_SEC);
+    dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
+        [UIView animateWithDuration:.0001
+                              delay:0
+                            options:0
+                         animations:^{
+                             pathLayer.strokeColor = [UIColor clearColor].CGColor;
+                             //pathLayer.strokeColor = [UIColor clearColor].CGColor;
+                             pathLayer.bounds = CGRectMake(pathLayer.bounds.origin.x, pathLayer.bounds.origin.y,1,1);
+                             //pathLayer.bounds = CGRectMake(0, 0, 0, 0);
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    });
+
 }
 
 -(void)proceedWithLogin {
@@ -199,36 +215,30 @@ CAShapeLayer *pathLayer;
     }];
 }
 
--(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    pathLayer.hidden = YES;
-}
-
 -(void)checkForPush {
-
-    [self continueLoading];
     
-//    //check to see if push notifications are enabled
-//    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-//    if (!pushAllowed) {
-//        
-//        PFInstallation *install = [PFInstallation currentInstallation];
-//        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
-//        if (!parsePushAllowed) {
-//            
-//            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
-//                                                                           owner:self
-//                                                                         options:nil]
-//                                             objectAtIndex:0];
-//            viewPush.parentNav = self.view;
-//            [viewPush show];
-//            [viewPush setDelegate:self];
-//        } else {
-//            [self continueLoading];
-//        }
-//        
-//    } else {
-//        [self setUpPush];
-//    }
+    //check to see if push notifications are enabled
+    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    if (!pushAllowed) {
+        
+        PFInstallation *install = [PFInstallation currentInstallation];
+        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
+        if (!parsePushAllowed) {
+            
+            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
+                                                                           owner:self
+                                                                         options:nil]
+                                             objectAtIndex:0];
+            viewPush.parentNav = self.view;
+            [viewPush show];
+            [viewPush setDelegate:self];
+        } else {
+            [self continueLoading];
+        }
+        
+    } else {
+        [self setUpPush];
+    }
 }
 
 -(void)continueLoading {
@@ -275,11 +285,8 @@ CAShapeLayer *pathLayer;
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.alertParentView = self.navigationController.view;
-    
     data = [CBSingle data];
-    news = [CBNewsSingleton news];
     [data setDelegate:self];
-    [news setDelegate:self];
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.toolbarHidden = YES;
     self.scrollLogin.delegate = self;
@@ -659,6 +666,15 @@ bool removeProgressView = NO;
     
     [data setParsePush:NO];
     [self continueLoading];
+}
+
+-(void)adminUpdated {
+    news = [CBNewsSingleton news];
+    [news setDelegate:self];
+}
+
+-(void)tick {
+    [self checkAllProgress];
 }
 
 @end

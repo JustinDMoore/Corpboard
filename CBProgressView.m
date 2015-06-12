@@ -28,7 +28,12 @@ float minimumLoadTime = 3; //seconds
 }
 
 int x = 0;
+
 -(void)tickTock:(NSTimer *)timer {
+    
+    if ([delegate respondsToSelector:@selector(tick)]) {
+        [delegate tick];
+    }
     
     x++;
     NSLog(@"%i", x);
