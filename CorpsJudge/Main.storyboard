@@ -1084,43 +1084,76 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Me-ku-fuh">
-                                <rect key="frame" x="0.0" y="298" width="600" height="258"/>
-                            </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQk-zx-3fS">
-                                <rect key="frame" x="350" y="193" width="14" height="21"/>
+                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPd-zD-UhW">
+                                <rect key="frame" x="0.0" y="311" width="600" height="245"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="1oL-3c-Z8i"/>
-                                    <constraint firstAttribute="width" constant="14" id="aAC-ng-QmF"/>
+                                    <constraint firstAttribute="height" constant="245" id="xKS-V8-vuR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.69019607843137254" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard1" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-rd-AQi">
-                                <rect key="frame" x="199" y="87" width="202" height="203"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rA-Gm-Lwu">
+                                <rect key="frame" x="239" y="115" width="123" height="128"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_C_Letter" translatesAutoresizingMaskIntoConstraints="NO" id="u8O-f6-FAm">
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow1" translatesAutoresizingMaskIntoConstraints="NO" id="wHE-5H-YAu">
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="Doy-c6-ysP">
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow3" translatesAutoresizingMaskIntoConstraints="NO" id="P6Y-2O-5z5">
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="202" id="4wp-Co-WAn"/>
-                                    <constraint firstAttribute="height" constant="203" id="KW5-YT-Bvy"/>
+                                    <constraint firstAttribute="height" constant="128" id="KVD-YT-Xb7"/>
+                                    <constraint firstAttribute="width" constant="123" id="wrG-L1-QAD"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cadets_text" translatesAutoresizingMaskIntoConstraints="NO" id="0Aa-D3-xhh">
+                                <rect key="frame" x="216" y="251" width="169" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="169" id="F96-qs-JvE"/>
+                                    <constraint firstAttribute="height" constant="35" id="Tpq-TA-fIN"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corpboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bc9-zR-Jh8">
+                                <rect key="frame" x="191" y="279" width="219" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="219" id="JFQ-6J-1iG"/>
+                                    <constraint firstAttribute="height" constant="38" id="iSF-Dq-32a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="25"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="Ve5-rd-AQi" secondAttribute="centerX" id="731-qx-EEt"/>
-                            <constraint firstItem="GQk-zx-3fS" firstAttribute="leading" secondItem="Ve5-rd-AQi" secondAttribute="trailing" constant="-51" id="BeM-XQ-hf1"/>
-                            <constraint firstItem="6Me-ku-fuh" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" constant="-16" id="Nwd-4r-erK"/>
-                            <constraint firstItem="GQk-zx-3fS" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="-97" id="PxF-hS-xyw"/>
-                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="6Me-ku-fuh" secondAttribute="bottom" id="Roa-GL-6ZB"/>
-                            <constraint firstItem="6Me-ku-fuh" firstAttribute="trailing" secondItem="Pqh-SV-eiA" secondAttribute="trailingMargin" constant="16" id="Zja-ck-Htl"/>
-                            <constraint firstItem="Ve5-rd-AQi" firstAttribute="top" secondItem="fel-Mg-VLu" secondAttribute="bottom" constant="43" id="bJG-5h-630"/>
-                            <constraint firstItem="6Me-ku-fuh" firstAttribute="top" secondItem="Ve5-rd-AQi" secondAttribute="bottom" constant="8" id="v9D-Cc-JEW"/>
+                            <constraint firstItem="SPd-zD-UhW" firstAttribute="top" secondItem="bc9-zR-Jh8" secondAttribute="bottom" constant="-6" id="9VL-Sh-y6O"/>
+                            <constraint firstItem="0Aa-D3-xhh" firstAttribute="top" secondItem="4rA-Gm-Lwu" secondAttribute="bottom" constant="8" id="E1n-xA-CNU"/>
+                            <constraint firstItem="SPd-zD-UhW" firstAttribute="leading" secondItem="Pqh-SV-eiA" secondAttribute="leadingMargin" constant="-16" id="EdV-9O-4BQ"/>
+                            <constraint firstItem="4rA-Gm-Lwu" firstAttribute="centerX" secondItem="0Aa-D3-xhh" secondAttribute="centerX" id="Ou5-yb-mG3"/>
+                            <constraint firstItem="4rA-Gm-Lwu" firstAttribute="top" secondItem="fel-Mg-VLu" secondAttribute="bottom" constant="71" id="YpA-y2-s0a"/>
+                            <constraint firstAttribute="centerX" secondItem="4rA-Gm-Lwu" secondAttribute="centerX" constant="-0.5" id="cVd-qy-slq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SPd-zD-UhW" secondAttribute="trailing" constant="-16" id="rfE-dn-TDE"/>
+                            <constraint firstItem="xJC-Ge-qbx" firstAttribute="top" secondItem="SPd-zD-UhW" secondAttribute="bottom" id="vlH-ZC-o8J"/>
+                            <constraint firstItem="bc9-zR-Jh8" firstAttribute="centerX" secondItem="0Aa-D3-xhh" secondAttribute="centerX" id="wGH-9z-i59"/>
+                            <constraint firstItem="bc9-zR-Jh8" firstAttribute="top" secondItem="0Aa-D3-xhh" secondAttribute="bottom" constant="-7" id="zAP-mO-8V6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zg1-Yk-o0v"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="scrollLogin" destination="6Me-ku-fuh" id="gel-RW-we3"/>
+                        <outlet property="imgArrow1" destination="wHE-5H-YAu" id="OMm-C2-OQi"/>
+                        <outlet property="imgArrow2" destination="Doy-c6-ysP" id="cMW-uw-63Q"/>
+                        <outlet property="imgArrow3" destination="P6Y-2O-5z5" id="6vI-TS-afr"/>
+                        <outlet property="imgCadetsText" destination="0Aa-D3-xhh" id="ULs-xM-po6"/>
+                        <outlet property="lblCorpboard" destination="bc9-zR-Jh8" id="SVn-ZO-54U"/>
+                        <outlet property="scrollLogin" destination="SPd-zD-UhW" id="sFb-iw-Lcf"/>
+                        <outlet property="viewCadets" destination="4rA-Gm-Lwu" id="k2j-o4-66s"/>
                         <segue destination="603-gO-u9Q" kind="show" identifier="menu" id="KZ6-GB-7dJ"/>
                     </connections>
                 </viewController>
@@ -3871,6 +3904,11 @@
         <image name="admin_reportedUsers" width="48" height="48"/>
         <image name="admin_trash" width="48" height="48"/>
         <image name="admin_users" width="48" height="48"/>
+        <image name="cadets_C_Letter" width="212" height="202"/>
+        <image name="cadets_arrow1" width="212" height="202"/>
+        <image name="cadets_arrow2" width="212" height="202"/>
+        <image name="cadets_arrow3" width="212" height="202"/>
+        <image name="cadets_text" width="357" height="61"/>
         <image name="champs" width="426" height="305"/>
         <image name="closeRed" width="48" height="48"/>
         <image name="dci_lightGrayColor" width="160" height="107"/>

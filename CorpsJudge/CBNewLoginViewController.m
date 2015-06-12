@@ -54,6 +54,125 @@
     
     //[[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
+    [self cadets];
+    
+}
+
+#define DEGREES_TO_RADIANS(degrees)((M_PI * degrees)/ 180)
+CAShapeLayer *pathLayer;
+-(void)cadets {
+    
+    [self.view sendSubviewToBack:self.viewCadets];
+    
+    int radius = self.viewCadets.frame.size.width / 2;
+    
+    CALayer *animationLayer = [CALayer layer];
+    animationLayer.frame = CGRectMake(0, 0, self.viewCadets.frame.size.width, self.viewCadets.frame.size.height);
+    
+    [self.viewCadets.layer addSublayer:animationLayer];
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.viewCadets.frame.size.width / 2, self.viewCadets.frame.size.height / 2)
+                                                        radius:radius
+                                                    startAngle:0
+                                                      endAngle:DEGREES_TO_RADIANS(360)
+                                                     clockwise:NO];
+    
+    pathLayer = [CAShapeLayer layer];
+    pathLayer.frame = animationLayer.bounds;
+    pathLayer.bounds = self.viewCadets.bounds;
+    pathLayer.geometryFlipped = NO;
+    pathLayer.path = path.CGPath;
+    pathLayer.strokeColor = [[UIColor blackColor] CGColor];
+    pathLayer.fillColor = nil;
+    pathLayer.lineWidth = 13;
+
+    //    pathLayer.strokeStart = 1.0;
+    //    pathLayer.strokeEnd = 0.0;
+    
+    [path stroke];
+    
+    [animationLayer addSublayer:pathLayer];
+    
+    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    pathAnimation.duration = 3;
+    pathAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+    pathAnimation.toValue = [NSNumber numberWithFloat:0.0f];
+    pathAnimation.delegate = self;
+    //pathAnimation.removedOnCompletion = YES;
+
+    [pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+    
+    
+    
+    self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
+    self.imgArrow2.frame = self.imgArrow1.frame;
+    self.imgArrow3.frame = self.imgArrow1.frame;
+    
+    
+    [self.viewCadets bringSubviewToFront:self.imgArrow3];
+    
+    [UIView animateWithDuration:1
+                          delay:1.5
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.imgArrow3.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
+                         self.imgArrow3.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         
+                         
+                     }];
+    
+    
+    [UIView animateWithDuration:1
+                          delay:1.65
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.imgArrow2.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
+                         self.imgArrow2.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         
+                         
+                     }];
+    
+    
+    [UIView animateWithDuration:1
+                          delay:1.75
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
+                         self.imgArrow1.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         
+                         [UIView animateWithDuration:2.5
+                                               delay:1.5
+                                             options:UIViewAnimationOptionCurveEaseInOut
+                                          animations:^{
+                                             
+                                              self.imgCadetsText.alpha = 1;
+                                          } completion:^(BOOL finished) {
+                                              
+                                              
+                                              
+                                          }];
+                         
+                         
+                         [UIView animateWithDuration:1.5
+                                               delay:1.75
+                                             options:UIViewAnimationOptionCurveEaseInOut
+                                          animations:^{
+                                              
+                                              self.lblCorpboard.alpha = 1;
+                                          } completion:^(BOOL finished) {
+                                              
+                                              [self proceedWithLogin];
+                                              
+                                          }];
+                         
+                     }];
+}
+
+-(void)proceedWithLogin {
+    
     if ([PFUser currentUser]) {
         [self addView:self.viewProgress andScroll:NO];
     }
@@ -80,30 +199,36 @@
     }];
 }
 
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    pathLayer.hidden = YES;
+}
+
 -(void)checkForPush {
 
-    //check to see if push notifications are enabled
-    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-    if (!pushAllowed) {
-        
-        PFInstallation *install = [PFInstallation currentInstallation];
-        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
-        if (!parsePushAllowed) {
-            
-            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
-                                                                           owner:self
-                                                                         options:nil]
-                                             objectAtIndex:0];
-            viewPush.parentNav = self.view;
-            [viewPush show];
-            [viewPush setDelegate:self];
-        } else {
-            [self continueLoading];
-        }
-        
-    } else {
-        [self setUpPush];
-    }
+    [self continueLoading];
+    
+//    //check to see if push notifications are enabled
+//    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+//    if (!pushAllowed) {
+//        
+//        PFInstallation *install = [PFInstallation currentInstallation];
+//        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
+//        if (!parsePushAllowed) {
+//            
+//            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
+//                                                                           owner:self
+//                                                                         options:nil]
+//                                             objectAtIndex:0];
+//            viewPush.parentNav = self.view;
+//            [viewPush show];
+//            [viewPush setDelegate:self];
+//        } else {
+//            [self continueLoading];
+//        }
+//        
+//    } else {
+//        [self setUpPush];
+//    }
 }
 
 -(void)continueLoading {
@@ -139,6 +264,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.lblCorpboard.alpha = 0;
+    self.imgCadetsText.alpha = 0;
+    self.imgArrow1.alpha = 0;
+    self.imgArrow2.alpha = 0;
+    self.imgArrow3.alpha = 0;
+    
+    self.viewCadets.backgroundColor = [UIColor blackColor];
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.alertParentView = self.navigationController.view;

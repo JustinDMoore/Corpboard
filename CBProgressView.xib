@@ -7,11 +7,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="CBProgressView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="332"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fact of the Day" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edr-xq-jQE">
-                    <rect key="frame" x="8" y="283" width="304" height="49"/>
+                    <rect key="frame" x="8" y="206" width="304" height="49"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="49" id="SGy-Vr-g7T"/>
                         <constraint firstAttribute="width" constant="304" id="XQ5-yK-bod"/>
@@ -29,7 +29,7 @@
                     </constraints>
                 </view>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corp Fact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBM-XP-Yvh">
-                    <rect key="frame" x="120" y="254" width="81" height="21"/>
+                    <rect key="frame" x="120" y="177" width="81" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="81" id="3Sa-ps-KwX"/>
                         <constraint firstAttribute="height" constant="21" id="TSB-RB-7hb"/>
@@ -54,7 +54,7 @@
                 <outlet property="lblFactHeader" destination="SBM-XP-Yvh" id="VzC-jB-sd9"/>
                 <outlet property="viewProgress" destination="YUM-nq-hWC" id="zLJ-X4-rOa"/>
             </connections>
-            <point key="canvasLocation" x="239" y="326"/>
+            <point key="canvasLocation" x="239" y="287.5"/>
         </view>
     </objects>
 </document>

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "222C7D01A8596CCD028E6600"
+               BlueprintIdentifier = "7C1C6D6F6A3284565F2F13C1"
                BuildableName = "libPods-MWFeedParser.a"
                BlueprintName = "Pods-MWFeedParser"
                ReferencedContainer = "container:Pods.xcodeproj">
