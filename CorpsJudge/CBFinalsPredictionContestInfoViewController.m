@@ -8,7 +8,6 @@
 
 #import "CBFinalsPredictionContestInfoViewController.h"
 #import "CBSingle.h"
-#import "CBTerms.h"
 #import "UserScore.h"
 #import <ParseUI/ParseUI.h>
 #import "KVNProgress.h"
@@ -317,19 +316,6 @@ int loop = 0;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)btnTerms_tapped:(id)sender {
-    
-    NSString *terms = data.objAdmin[@"contestTerms"];
-
-    CBTerms *termView =
-    [[[NSBundle mainBundle] loadNibNamed:@"CBTerms"
-                                   owner:self
-                                 options:nil]
-     objectAtIndex:0];
-    [self.view addSubview:termView];
-    [termView showInParent:self.view.frame withHTMLString:terms];
 }
 
 #pragma mark

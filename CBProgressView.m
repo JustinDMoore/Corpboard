@@ -54,8 +54,8 @@ int x = 0;
 
 -(void)awakeFromNib {
     
-    self.backgroundColor = [UIColor blackColor];
-    self.viewProgress.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
+    self.viewProgress.backgroundColor = [UIColor clearColor];
     //[self progress];
 }
 

@@ -42,8 +42,8 @@
     NSString * viewControllerID = @"web";
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     CBWebViewController * web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
-    web.webURL = @"http://www.dci.org/about/legal/privacy.cfm";
-    web.websiteTitle = @"Drum Corps International";
+    web.webURL = @"http://yea.org/privacy-general";
+    web.websiteTitle = @"Youth Education in the Arts";
     web.websiteSubTitle = @"Privacy Policy";
     
     [self.parent presentViewController:web animated:YES completion:nil];

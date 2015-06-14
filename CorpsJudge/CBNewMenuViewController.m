@@ -156,17 +156,14 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"copperplate-bold" size:28],
-      NSFontAttributeName, nil]];
-    self.title = @"Corpboard";
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(130, 20, 20,  54)];
+    imageView.image = [UIImage imageNamed:@"corpboard_title.png"];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    //self.navigationController.navigationBarHidden = NO;
-    //[self.navigationItem setHidesBackButton:YES animated:NO];
+    self.navigationItem.titleView = imageView;
+    
     [self setupShows];
     [data getUnreadMessagesForUser];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -1256,35 +1253,30 @@ bool isScrolling = NO;
 
 - (IBAction)btnLink_tapped:(UIButton *)sender {
 
-    if (sender.tag == 1) { // DCI
+    if (sender.tag == 0) { // YEA
         
-        [self openWebViewWithLink:@"http://dci.org" title:@"Drum Corps International" subTitle:@"Marching Music's Major League"];
+        [self openWebViewWithLink:@"http://yea.org" title:@"Yea!" subTitle:@"Youth Education in the Arts"];
         
-    } else if (sender.tag == 2) { // YouTube
+    } else if (sender.tag == 1) { // Cadets
         
-        NSString *channelName = @"DCIFanNetwork";
+        [self openWebViewWithLink:@"http://cadets.org" title:@"The Cadets" subTitle:@"www.cadets.org"];
+        
+    } else if (sender.tag == 2) { // Cadets 2
 
-        if (![[UIApplication sharedApplication] openURL: [NSURL URLWithString: [NSString stringWithFormat:@"youtube://www.youtube.com/user/%@", channelName]]]) {
-            NSURL *webURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/user/%@", channelName]];
-            [[UIApplication sharedApplication] openURL: webURL];
-        }
+        [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets2" title:@"Cadets 2" subTitle:@"http://yea.org/programs/cadets/cadets2"];
         
-    } else if (sender.tag == 3) { // Facebook
+    } else if (sender.tag == 3) { // USBands
 
-        if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fb://profile/6451869171"]]) {
-            
-            NSURL *webURL = [NSURL URLWithString:@"http://facebook.com/6451869171"];
-            [[UIApplication sharedApplication] openURL: webURL];
-        }
+        [self openWebViewWithLink:@"http://usbands.org" title:@"USBands" subTitle:@"www.usbands.org"];
         
-    } else if (sender.tag == 4) { // Twitter
-    
-        NSString *channelName = @"DCI";
+    } else if (sender.tag == 4)  { // Cadets WP
         
-        if (![[UIApplication sharedApplication] openURL: [NSURL URLWithString: [NSString stringWithFormat:@"twitter://user?screen_name=%@", channelName]]]) {
-            NSURL *webURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://twitter.com/%@", channelName]];
-            [[UIApplication sharedApplication] openURL: webURL];
-        }
+        [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets-winter-perc" title:@"Cadets Winter Percussion" subTitle:@"http://yea.org/programs/cadets/cadets-winter-perc"];
+
+        
+    } else if (sender.tag == 5) { // Cadets WG
+     
+        [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets-winter-guard" title:@"Cadets Winter Guard" subTitle:@"http://yea.org/programs/cadets/cadets-winter-guard"];
     }
 }
 

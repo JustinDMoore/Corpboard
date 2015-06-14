@@ -976,7 +976,7 @@ NSString *const KILTIES = @"Kilties";
     configuration.circleStrokeBackgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
     configuration.circleFillBackgroundColor = [UIColor clearColor];
     configuration.backgroundFillColor = [UIColor clearColor];
-    configuration.backgroundTintColor = [UIColor clearColor];
+    configuration.backgroundTintColor = [UIColor blueColor];
     configuration.successColor = [UIColor greenColor];
     configuration.errorColor = [UIColor redColor];
     configuration.circleSize = 75.0f;
@@ -985,6 +985,8 @@ NSString *const KILTIES = @"Kilties";
     configuration.minimumSuccessDisplayTime = .5;
     configuration.minimumErrorDisplayTime = 5;
     configuration.allowUserInteraction = YES;
+    
+
     
     return configuration;
 }

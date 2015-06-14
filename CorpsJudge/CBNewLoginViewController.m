@@ -61,57 +61,28 @@
 #define DEGREES_TO_RADIANS(degrees)((M_PI * degrees)/ 180)
 CAShapeLayer *pathLayer;
 -(void)cadets {
-    
+
     [self.view sendSubviewToBack:self.viewCadets];
     
-    int radius = self.viewCadets.frame.size.width / 2;
-    
-    CALayer *animationLayer = [CALayer layer];
-    animationLayer.frame = CGRectMake(0, 0, self.viewCadets.frame.size.width, self.viewCadets.frame.size.height);
-    
-    [self.viewCadets.layer addSublayer:animationLayer];
-    
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.viewCadets.frame.size.width / 2, self.viewCadets.frame.size.height / 2)
-                                                        radius:radius
-                                                    startAngle:0
-                                                      endAngle:DEGREES_TO_RADIANS(360)
-                                                     clockwise:NO];
-    
-    pathLayer = [CAShapeLayer layer];
-    pathLayer.frame = animationLayer.bounds;
-    pathLayer.bounds = self.viewCadets.bounds;
-    pathLayer.geometryFlipped = NO;
-    pathLayer.path = path.CGPath;
-    pathLayer.strokeColor = [[UIColor blackColor] CGColor];
-    pathLayer.fillColor = nil;
-    pathLayer.lineWidth = 13;
-
-    //    pathLayer.strokeStart = 1.0;
-    //    pathLayer.strokeEnd = 0.0;
-    
-    [path stroke];
-    
-    [animationLayer addSublayer:pathLayer];
-    
-    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 2.5;
-    pathAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-    pathAnimation.toValue = [NSNumber numberWithFloat:0.0f];
-    pathAnimation.delegate = self;
-    
-    //pathAnimation.removedOnCompletion = YES;
-
-    [pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
-    
-    self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
+    self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
     self.imgArrow2.frame = self.imgArrow1.frame;
     self.imgArrow3.frame = self.imgArrow1.frame;
     
     
     [self.viewCadets bringSubviewToFront:self.imgArrow3];
+
+    [UIView animateWithDuration:2
+                          delay:1
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.viewCadets.alpha = 1;
+                     } completion:^(BOOL finished) {
+                         
+                         
+                     }];
     
-    [UIView animateWithDuration:1
-                          delay:1.5
+    [UIView animateWithDuration:1.5
+                          delay:1
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.imgArrow3.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
@@ -122,8 +93,8 @@ CAShapeLayer *pathLayer;
                      }];
     
     
-    [UIView animateWithDuration:1
-                          delay:1.65
+    [UIView animateWithDuration:1.5
+                          delay:1.20
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.imgArrow2.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
@@ -134,8 +105,8 @@ CAShapeLayer *pathLayer;
                      }];
     
     
-    [UIView animateWithDuration:1
-                          delay:1.75
+    [UIView animateWithDuration:1.5
+                          delay:1.40
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
@@ -156,7 +127,7 @@ CAShapeLayer *pathLayer;
                          
                          
                          [UIView animateWithDuration:1.5
-                                               delay:0.25
+                                               delay:1.25
                                              options:UIViewAnimationOptionCurveEaseInOut
                                           animations:^{
                                               
@@ -280,8 +251,9 @@ CAShapeLayer *pathLayer;
     self.imgArrow1.alpha = 0;
     self.imgArrow2.alpha = 0;
     self.imgArrow3.alpha = 0;
+    self.viewCadets.alpha = 0;
     
-    self.viewCadets.backgroundColor = [UIColor blackColor];
+    self.viewCadets.backgroundColor = [UIColor clearColor];
     
     CBAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.alertParentView = self.navigationController.view;
@@ -545,7 +517,7 @@ bool removeProgressView = NO;
 -(void)checkAllProgress {
 
     if (news.newsLoaded && data.dataLoaded) {
-        [self.viewProgress completeProgress];
+        //[self.viewProgress completeProgress];
     }
 }
 
@@ -570,6 +542,7 @@ bool removeProgressView = NO;
         [_viewNickname setDelegate:self];
         _viewNickname.viewToScroll = self.view;
     }
+    _viewNickname.backgroundColor = [UIColor clearColor];
     return _viewNickname;
 }
 
@@ -583,6 +556,7 @@ bool removeProgressView = NO;
         _viewIsNewUser.parent = self;
         [_viewIsNewUser setDelegate:self];
     }
+    _viewIsNewUser.backgroundColor = [UIColor clearColor];
     return _viewIsNewUser;
 }
 
@@ -595,6 +569,7 @@ bool removeProgressView = NO;
          objectAtIndex:0];
         [_viewSignIn setDelegate:self];
     }
+    _viewSignIn.backgroundColor = [UIColor clearColor];
     return _viewSignIn;
 }
 
@@ -607,6 +582,7 @@ bool removeProgressView = NO;
          objectAtIndex:0];
         [_viewEmailLogin setDelegate:self];
     }
+    _viewEmailLogin.backgroundColor = [UIColor clearColor];
     return _viewEmailLogin;
 }
 
@@ -619,6 +595,8 @@ bool removeProgressView = NO;
          objectAtIndex:0];
         [_viewProgress setDelegate:self];
     }
+    _viewProgress.backgroundColor = [UIColor clearColor];
+    _viewProgress.viewProgress.backgroundColor = [UIColor clearColor];
     return _viewProgress;
 }
 
@@ -630,6 +608,7 @@ bool removeProgressView = NO;
          objectAtIndex:0];
         [_viewNewUser setDelegate:self];
     }
+    _viewNewUser.backgroundColor = [UIColor clearColor];
     return _viewNewUser;
 }
 
