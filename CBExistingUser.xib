@@ -34,7 +34,7 @@
                         <outlet property="delegate" destination="-1" id="ToL-Um-pTa"/>
                     </connections>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN INTO EXISTING ACCOUNT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbw-NE-99d">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Into Existing Account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbw-NE-99d">
                     <rect key="frame" x="179" y="101" width="242" height="46"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="242" id="5dv-Bh-uL8"/>
@@ -51,6 +51,7 @@
                         <constraint firstAttribute="height" constant="30" id="YeC-It-WvB"/>
                     </constraints>
                     <state key="normal" title="Forgot Password">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -63,23 +64,23 @@
                         <constraint firstAttribute="width" constant="48" id="2N3-XR-VjQ"/>
                         <constraint firstAttribute="height" constant="48" id="t1e-cY-Kqv"/>
                     </constraints>
-                    <state key="normal" image="Check">
+                    <state key="normal" image="check_white">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="btnSignUp_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="sEq-3W-K7h"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_CorpBoard" translatesAutoresizingMaskIntoConstraints="NO" id="xZd-vc-EU1">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-NF-qgn">
+                    <rect key="frame" x="290" y="303" width="20" height="20"/>
+                </activityIndicatorView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="xZd-vc-EU1">
                     <rect key="frame" x="264" y="35" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="ILZ-Z6-ihj"/>
                         <constraint firstAttribute="height" constant="70" id="RBp-wF-Scc"/>
                     </constraints>
                 </imageView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-NF-qgn">
-                    <rect key="frame" x="290" y="303" width="20" height="20"/>
-                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -110,7 +111,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Check" width="128" height="128"/>
-        <image name="DCI_CorpBoard" width="600" height="600"/>
+        <image name="check_white" width="48" height="48"/>
+        <image name="corpboard_cadets_transparent" width="250" height="250"/>
     </resources>
 </document>

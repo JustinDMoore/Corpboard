@@ -97,9 +97,9 @@
 -(void)setIsNewUser:(BOOL)isNewUser {
     newUser = isNewUser;
     if (isNewUser) {
-        self.lblTitle.text = @"CREATE NEW ACCOUNT";
+        self.lblTitle.text = @"Create New Account";
     } else {
-        self.lblTitle.text = @"SIGN INTO EXISTING ACCOUNT";
+        self.lblTitle.text = @"Sign Into Existing Account";
     }
 }
 

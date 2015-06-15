@@ -155,16 +155,21 @@ BOOL isComplete = NO;
 
 -(void)setFact:(NSString*)fact {
     
-    self.lblFact.alpha = 0;
-    self.lblFactHeader.alpha = 0;
-    self.lblFact.text = fact;
-    self.lblFact.hidden = NO;
-    self.lblFactHeader.hidden = NO;
-    [self.lblFact sizeToFit];
-    [self bringSubviewToFront:self.lblFactHeader];
-    [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
-    
-    [self performSelector:@selector(animateLabel:) withObject:self.lblFact afterDelay:.1];
+    if ([UIScreen mainScreen].bounds.size.height<568)
+    {
+        NSLog(@"3.5 inch screen");
+    } else {
+        self.lblFact.alpha = 0;
+        self.lblFactHeader.alpha = 0;
+        self.lblFact.text = fact;
+        self.lblFact.hidden = NO;
+        self.lblFactHeader.hidden = NO;
+        [self.lblFact sizeToFit];
+        [self bringSubviewToFront:self.lblFactHeader];
+        [self performSelector:@selector(animateLabel:) withObject:self.lblFactHeader afterDelay:0];
+        
+        [self performSelector:@selector(animateLabel:) withObject:self.lblFact afterDelay:.1];
+    }
 }
 
 -(void)animateLabel:(UILabel *)label {

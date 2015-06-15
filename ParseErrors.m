@@ -13,11 +13,11 @@
     NSString *string;
     
     switch (code) {
-        case 1: string = @"The server is temporarily undergoing maintenance. \n Please try again later"; break;
+        case 1: string = @"The server is temporarily undergoing maintenance. \n Please try again later."; break;
         case 101: string = @"Incorrect email address or password."; break;
         case 100: string = @"Unable to connect to the server. \n This could be caused by a network error."; break;
-        case 202: string = @"This username is already taken. If this is you, please select EXISTING ACCOUNT from the main menu."; break;
-        case 203: string = @"This email address is already taken. If this is you, please select EXISTING ACCOUNT from the main menu."; break;
+        case 202: string = @"This username is already taken. If this is you, select Existing Account from the main menu."; break;
+        case 203: string = @"This email address is already taken. If this is you, select Existing Account from the main menu."; break;
         case 205: string = @"No account exists for the provided email address."; break;
         default: string = @"An unknown error has occurred."; break;
     }

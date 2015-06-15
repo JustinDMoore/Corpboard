@@ -71,12 +71,6 @@
     }
 }
 
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-
-}
-
-
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([textField.text length]) {
         [textField resignFirstResponder];

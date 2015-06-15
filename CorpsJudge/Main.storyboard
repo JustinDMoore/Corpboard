@@ -1096,59 +1096,54 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AE5-E1-x0H">
-                                                    <rect key="frame" x="238" y="172" width="123" height="128"/>
+                                                <scrollView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-3c-fGg">
+                                                    <rect key="frame" x="0.0" y="353" width="600" height="247"/>
+                                                </scrollView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISF-qm-vOU">
+                                                    <rect key="frame" x="216" y="159" width="169" height="186"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_C_Letter" translatesAutoresizingMaskIntoConstraints="NO" id="PyO-TN-Qzi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow1" translatesAutoresizingMaskIntoConstraints="NO" id="m9k-rb-kDo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="56s-9c-vya">
-                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow3" translatesAutoresizingMaskIntoConstraints="NO" id="bPZ-to-GBh">
-                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Corpboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsO-aB-1PE">
+                                                            <rect key="frame" x="-24" y="153" width="219" height="38"/>
+                                                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="31"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AE5-E1-x0H">
+                                                            <rect key="frame" x="22" y="0.0" width="123" height="128"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_C_Letter" translatesAutoresizingMaskIntoConstraints="NO" id="PyO-TN-Qzi">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow1" translatesAutoresizingMaskIntoConstraints="NO" id="m9k-rb-kDo">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow2" translatesAutoresizingMaskIntoConstraints="NO" id="56s-9c-vya">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_arrow3" translatesAutoresizingMaskIntoConstraints="NO" id="bPZ-to-GBh">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cadets_text" translatesAutoresizingMaskIntoConstraints="NO" id="dZp-pW-Sl6">
+                                                            <rect key="frame" x="0.0" y="131" width="169" height="35"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="128" id="3hJ-ol-wrd"/>
-                                                        <constraint firstAttribute="width" constant="123" id="uq0-hP-dh2"/>
+                                                        <constraint firstAttribute="height" constant="186" id="MCF-X4-Bfw"/>
+                                                        <constraint firstAttribute="width" constant="169" id="t3m-By-AyE"/>
                                                     </constraints>
                                                 </view>
-                                                <scrollView clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-3c-fGg">
-                                                    <rect key="frame" x="0.0" y="355" width="600" height="245"/>
-                                                </scrollView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corpboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsO-aB-1PE">
-                                                    <rect key="frame" x="192" y="325" width="219" height="38"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="38" id="Vgo-C7-36p"/>
-                                                        <constraint firstAttribute="width" constant="219" id="XOu-Lu-De3"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="31"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cadets_text" translatesAutoresizingMaskIntoConstraints="NO" id="dZp-pW-Sl6">
-                                                    <rect key="frame" x="216" y="303" width="169" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="tpg-Pr-yvQ"/>
-                                                        <constraint firstAttribute="width" constant="169" id="uaL-Fy-Kza"/>
-                                                    </constraints>
-                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="xk2-3c-fGg" secondAttribute="bottom" id="0gy-v3-yrQ"/>
-                                                <constraint firstAttribute="trailing" secondItem="xk2-3c-fGg" secondAttribute="trailing" id="A4u-gy-UuI"/>
-                                                <constraint firstItem="xk2-3c-fGg" firstAttribute="leading" secondItem="289-ex-Aq0" secondAttribute="leading" id="FTM-ni-6pV"/>
-                                                <constraint firstItem="VsO-aB-1PE" firstAttribute="centerX" secondItem="dZp-pW-Sl6" secondAttribute="centerX" constant="1" id="G6u-dK-C62"/>
-                                                <constraint firstItem="xk2-3c-fGg" firstAttribute="top" secondItem="VsO-aB-1PE" secondAttribute="bottom" constant="-8" id="P7L-x9-zoy"/>
-                                                <constraint firstItem="dZp-pW-Sl6" firstAttribute="centerX" secondItem="AE5-E1-x0H" secondAttribute="centerX" constant="1" id="bUu-qz-a4u"/>
-                                                <constraint firstItem="AE5-E1-x0H" firstAttribute="top" secondItem="289-ex-Aq0" secondAttribute="top" constant="172" id="hdz-co-h5k"/>
-                                                <constraint firstItem="VsO-aB-1PE" firstAttribute="top" secondItem="dZp-pW-Sl6" secondAttribute="bottom" constant="-13" id="m3f-GJ-ipQ"/>
-                                                <constraint firstItem="dZp-pW-Sl6" firstAttribute="top" secondItem="AE5-E1-x0H" secondAttribute="bottom" constant="3" id="tgr-6b-Kcs"/>
+                                                <constraint firstItem="xk2-3c-fGg" firstAttribute="top" secondItem="ISF-qm-vOU" secondAttribute="bottom" constant="8" id="4zq-vu-LQl"/>
+                                                <constraint firstAttribute="centerY" secondItem="ISF-qm-vOU" secondAttribute="centerY" constant="48" id="8Ft-hZ-E59"/>
+                                                <constraint firstAttribute="bottom" secondItem="xk2-3c-fGg" secondAttribute="bottom" id="EvR-Dw-r5D"/>
+                                                <constraint firstAttribute="centerX" secondItem="ISF-qm-vOU" secondAttribute="centerX" constant="-0.5" id="Jci-xb-pBG"/>
+                                                <constraint firstItem="xk2-3c-fGg" firstAttribute="leading" secondItem="289-ex-Aq0" secondAttribute="leading" id="sU1-JW-fJu"/>
+                                                <constraint firstAttribute="trailing" secondItem="xk2-3c-fGg" secondAttribute="trailing" id="ve3-f6-F69"/>
                                             </constraints>
                                         </view>
                                         <blurEffect style="dark"/>
@@ -1156,7 +1151,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="AE5-E1-x0H" secondAttribute="centerX" constant="0.5" id="7Hg-sr-fE4"/>
                                     <constraint firstItem="73P-46-JGc" firstAttribute="top" secondItem="UOe-eh-Fva" secondAttribute="top" id="RAu-oi-bBo"/>
                                     <constraint firstItem="73P-46-JGc" firstAttribute="leading" secondItem="UOe-eh-Fva" secondAttribute="leading" id="hor-v9-3Eh"/>
                                     <constraint firstAttribute="bottom" secondItem="73P-46-JGc" secondAttribute="bottom" id="pG5-7G-psw"/>

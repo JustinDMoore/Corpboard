@@ -20,7 +20,8 @@
     CBNewsSingleton *news;
    
 }
-
+@property (nonatomic) BOOL animatedCadets;
+@property (nonatomic) BOOL checkedForPush;
 @property (nonatomic, strong) NSMutableArray *arrayOfSubviews;
 @property (nonatomic, strong) CBIsNewUser *viewIsNewUser;
 @property (nonatomic, strong) CBViewSignIn *viewSignIn;
@@ -54,7 +55,7 @@
     
     //[[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
-    [self cadets];
+    if (!self.animatedCadets) [self cadets];
     
 }
 
@@ -62,6 +63,8 @@
 CAShapeLayer *pathLayer;
 -(void)cadets {
 
+    self.animatedCadets = YES;
+    
     [self.view sendSubviewToBack:self.viewCadets];
     
     self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height);
@@ -173,10 +176,10 @@ CAShapeLayer *pathLayer;
                 [alert show];
                 BOOL useApp = [obj[@"canUseApp"] boolValue];
                 if (useApp) {
-                    [self checkForPush];
+                    if (!self.checkedForPush) [self checkForPush];
                 }
             } else {
-                [self checkForPush];
+                if (!self.checkedForPush) [self checkForPush];
             }
         } else {
             [self.viewProgress errorProgress:[ParseErrors getErrorStringForCode:error.code]];
@@ -188,13 +191,17 @@ CAShapeLayer *pathLayer;
 
 -(void)checkForPush {
     
+    self.checkedForPush = YES;
+    
     //check to see if push notifications are enabled
     BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
     if (!pushAllowed) {
         
         PFInstallation *install = [PFInstallation currentInstallation];
-        BOOL parsePushAllowed = [install[@"allowsPush"] boolValue];
-        if (!parsePushAllowed) {
+//        [install removeObjectForKey:@"allowsPush"];
+//        [install saveInBackground];
+        
+        if (![install objectForKey:@"allowsPush"]) {
             
             CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
                                                                            owner:self
@@ -203,10 +210,10 @@ CAShapeLayer *pathLayer;
             viewPush.parentNav = self.view;
             [viewPush show];
             [viewPush setDelegate:self];
+            
         } else {
             [self continueLoading];
         }
-        
     } else {
         [self setUpPush];
     }
@@ -244,7 +251,11 @@ CAShapeLayer *pathLayer;
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    self.animatedCadets = NO;
+    self.checkedForPush = NO;
     
     self.lblCorpboard.alpha = 0;
     self.imgCadetsText.alpha = 0;
@@ -376,8 +387,8 @@ bool removeProgressView = NO;
     self.isNewUser = newUser;
     [self addView:self.viewSignIn andScroll:YES];
     
-    if (!newUser) [self.viewSignIn setTitleMessage:@"SIGN IN USING"];
-    else [self.viewSignIn setTitleMessage:@"SIGN UP USING"];
+    if (!newUser) [self.viewSignIn setTitleMessage:@"Sign In Using"];
+    else [self.viewSignIn setTitleMessage:@"Sign Up Using"];
 }
 
 //SIGN IN/SIGN UP
@@ -517,7 +528,7 @@ bool removeProgressView = NO;
 -(void)checkAllProgress {
 
     if (news.newsLoaded && data.dataLoaded) {
-        //[self.viewProgress completeProgress];
+        [self.viewProgress completeProgress];
     }
 }
 

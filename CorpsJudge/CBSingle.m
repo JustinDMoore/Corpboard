@@ -93,11 +93,8 @@
 -(void)setParsePush:(BOOL)on {
     
     PFInstallation *install = [PFInstallation currentInstallation];
-    BOOL allowsPush = [install[@"allowsPush"] boolValue];
-    if (allowsPush != on) {
-        install[@"allowsPush"] = [NSNumber numberWithBool:on];
-        [install saveEventually];
-    }
+    install[@"allowsPush"] = [NSNumber numberWithBool:on];
+    [install saveEventually];
 }
 
 #pragma mark -

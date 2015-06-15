@@ -911,9 +911,10 @@ static KVNProgressConfiguration *configuration;
 	}
 	else
 	{
-		self.backgroundImageView.image = [UIImage emptyImage];
+		//self.backgroundImageView.image = [UIImage emptyImage];
+        self.backgroundImageView.image = nil;
 		self.backgroundImageView.backgroundColor = [UIColor colorWithWhite:0.0f
-																	 alpha:0.35f];
+																	 alpha:0.0f];
 		
 		self.contentView.layer.cornerRadius = (self.status) ? KVNContentViewCornerRadius : KVNContentViewWithoutStatusCornerRadius;
 		self.contentView.layer.masksToBounds = YES;

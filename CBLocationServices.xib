@@ -32,7 +32,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="72f-aC-oQt">
                             <rect key="frame" x="80" y="125" width="99" height="65"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DCI_CorpBoard1" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-GI-8fZ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="zsz-GI-8fZ">
                             <rect key="frame" x="69" y="3" width="120" height="85"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nearby Fans" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gq7-cK-Zou">
@@ -80,7 +80,7 @@
         </view>
     </objects>
     <resources>
-        <image name="DCI_CorpBoard1" width="600" height="600"/>
+        <image name="corpboard_cadets_transparent" width="250" height="250"/>
         <image name="location" width="85" height="85"/>
     </resources>
 </document>
