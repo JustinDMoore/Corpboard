@@ -1143,25 +1143,23 @@ bool isScrolling = NO;
 #pragma mark
 
 - (IBAction)btnNearMe_tapped:(id)sender {
-
-    [self askForLocationPermission];
     
     if([CLLocationManager locationServicesEnabled]){
         
         NSLog(@"Location Services Enabled");
         
-//        switch ([CLLocationManager authorizationStatus]) {
-//            case kCLAuthorizationStatusDenied: [self tellUserToEnableLocation];
-//                break;
-//            case kCLAuthorizationStatusNotDetermined: [self askForLocationPermission];
-//                break;
-//            case kCLAuthorizationStatusAuthorizedAlways: [self performSegueWithIdentifier:@"find" sender:self];
-//                break;
-//            case kCLAuthorizationStatusAuthorizedWhenInUse: [self performSegueWithIdentifier:@"find" sender:self];
-//                break;
-//            case kCLAuthorizationStatusRestricted: [self tellUserToEnableLocation];
-//                break;
-//        }
+        switch ([CLLocationManager authorizationStatus]) {
+            case kCLAuthorizationStatusDenied: [self tellUserToEnableLocation];
+                break;
+            case kCLAuthorizationStatusNotDetermined: [self askForLocationPermission];
+                break;
+            case kCLAuthorizationStatusAuthorizedAlways: [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusAuthorizedWhenInUse: [self performSegueWithIdentifier:@"find" sender:self];
+                break;
+            case kCLAuthorizationStatusRestricted: [self tellUserToEnableLocation];
+                break;
+        }
     
     } else {
         NSLog(@"iOS location services disabled.");

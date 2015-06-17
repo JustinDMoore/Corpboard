@@ -1035,5 +1035,671 @@ NSString *const KILTIES = @"Kilties";
     return _arrayOfCorpsObjects;
 }
 
+// **THIS SHOULD NOT BE CALLED DIRECTLY. [SELF GETALLCORPS] IS NECESSARY FIRST AND CALLS CREATEALLSHOWS
+// AUTOMATICALLY
+-(void)createAllShowsFor2015 {
+    
+    
+    //    [self addShowWithName:<#(NSString *)#>
+    //               atLocation:<#(NSString *)#>
+    //                 forMonth:<#(NSInteger *)#>
+    //                   forDay:<#(NSInteger *)#>
+    //      withPerformingCorps:<#(NSMutableArray *)#>];
+    
+    [self addShowWithName:@"DCI Tour Premiere"
+               atLocation:@"Indianpolis, IN"
+                 forMonth:JUNE
+                   forDay:15
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Louisville"
+               atLocation:@"Louisville, KY"
+                 forMonth:JUNE
+                   forDay:19
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"MidCal Champions Showcase"
+               atLocation:@"Fresno, CA"
+                 forMonth:JUNE
+                   forDay:19
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Legends Drum Corps Preview"
+               atLocation:@"Plainwell, MI"
+                 forMonth:JUNE
+                   forDay:20
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Innovations in Brass: Akron"
+               atLocation:@"Akron, OH"
+                 forMonth:JUNE
+                   forDay:20
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI West"
+               atLocation:@"Stanford, CA"
+                 forMonth:JUNE
+                   forDay:20
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Cavalcade of Brass"
+               atLocation:@"Lisle, IL"
+                 forMonth:JUNE
+                   forDay:21
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Moonlight Classic"
+               atLocation:@"Sacramento, CA"
+                 forMonth:JUNE
+                   forDay:21
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Summer Music Games in Cincinnati"
+               atLocation:@"Hamilton, OH"
+                 forMonth:JUNE
+                   forDay:22
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Pacific Procession"
+               atLocation:@"Santa Clara, CA"
+                 forMonth:JUNE
+                   forDay:22
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI St. Louis"
+               atLocation:@"O'Fallon, IL"
+                 forMonth:JUNE
+                   forDay:23
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Innovations in Brass: Pittsburgh"
+               atLocation:@"Pittsburgh, PA"
+                 forMonth:JUNE
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums on the Ohio"
+               atLocation:@"Evansville, IN"
+                 forMonth:JUNE
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Central Indiana"
+               atLocation:@"Muncie, IN"
+                 forMonth:JUNE
+                   forDay:26
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Corps at the Crest San Diego"
+               atLocation:@"Oceanside, CA"
+                 forMonth:JUNE
+                   forDay:26
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums on Parade"
+               atLocation:@"Madison, WI"
+                 forMonth:JUNE
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Pageant of Drums"
+               atLocation:@"Michigan City, IN"
+                 forMonth:JUNE
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Corps at the Crest Los Angeles"
+               atLocation:@"Pasadena, CA"
+                 forMonth:JUNE
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI All Star Review"
+               atLocation:@"Bowling Green, OH"
+                 forMonth:JUNE
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"River City Rhapsody - Rochester"
+               atLocation:@"Rochester, MN"
+                 forMonth:JUNE
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Western Corps Connection"
+               atLocation:@"Riverside, CA"
+                 forMonth:JUNE
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drum Corps: An American Tradition"
+               atLocation:@"Allentown, PA"
+                 forMonth:JUNE
+                   forDay:29
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"The Thunder of Drums"
+               atLocation:@"Mankato, MN"
+                 forMonth:JUNE
+                   forDay:29
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Across the Desert"
+               atLocation:@"Mesa, AZ"
+                 forMonth:JUNE
+                   forDay:29
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Brass Impact"
+               atLocation:@"Olathe, KS"
+                 forMonth:JULY
+                   forDay:1
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Beat of the Rogue"
+               atLocation:@"Medford, OR"
+                 forMonth:JULY
+                   forDay:1
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"East Coast Classic"
+               atLocation:@"Foxboro, MA"
+                 forMonth:JULY
+                   forDay:2
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Celebration in Brass"
+               atLocation:@"Waukee, IA"
+                 forMonth:JULY
+                   forDay:2
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums of Fire"
+               atLocation:@"McMinnville, OR"
+                 forMonth:JULY
+                   forDay:2
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Summer Music Preview"
+               atLocation:@"Bristol, RI"
+                 forMonth:JULY
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Rotary Music Festival"
+               atLocation:@"Cedarburg, WI"
+                 forMonth:JULY
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Show of Shows"
+               atLocation:@"Rockford, IL"
+                 forMonth:JULY
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Seattle Summer Music Games"
+               atLocation:@"Renton, WA"
+                 forMonth:JULY
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"The Beanpot Invitational"
+               atLocation:@"Lynn, MA"
+                 forMonth:JULY
+                   forDay:4
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"The Whitewater Classic"
+               atLocation:@"Whitewater, WI"
+                 forMonth:JULY
+                   forDay:5
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drum Corps: An American Tradition"
+               atLocation:@"Clifton, NJ"
+                 forMonth:JULY
+                   forDay:5
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Capital Classic Corps Show"
+               atLocation:@"Sacramento, CA"
+                 forMonth:JULY
+                   forDay:5
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Columbia"
+               atLocation:@"Tri Cities, WA"
+                 forMonth:JULY
+                   forDay:6
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Music On The March"
+               atLocation:@"Dubuque, IA"
+                 forMonth:JULY
+                   forDay:7
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"River City Rhapsody - Wausau"
+               atLocation:@"Wausau, WI"
+                 forMonth:JULY
+                   forDay:7
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Rockies - Boise Edition"
+               atLocation:@"Boise, ID"
+                 forMonth:JULY
+                   forDay:7
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Ft. Wayne"
+               atLocation:@"Ft. Wayne, IN"
+                 forMonth:JULY
+                   forDay:8
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Show of Shows - Metamora"
+               atLocation:@"Metamora, IL"
+                 forMonth:JULY
+                   forDay:8
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Corps Encore"
+               atLocation:@"Ogden, UT"
+                 forMonth:JULY
+                   forDay:8
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"River City Rhapsody - La Crosse"
+               atLocation:@"La Crosse, WI"
+                 forMonth:JULY
+                   forDay:9
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Rockies - Laramie Edition"
+               atLocation:@"Laramie, WY"
+                 forMonth:JULY
+                   forDay:9
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Rockies - Casper Edition"
+               atLocation:@"Casper, WY"
+                 forMonth:JULY
+                   forDay:10
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Resound"
+               atLocation:@"Bakersfield, CA"
+                 forMonth:JULY
+                   forDay:10
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Minnesota"
+               atLocation:@"Minneapolis, MN"
+                 forMonth:JULY
+                   forDay:11
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Rockies"
+               atLocation:@"Denver, CO"
+                 forMonth:JULY
+                   forDay:11
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Gold Showcase at the Ranch"
+               atLocation:@"San Marcos, CA"
+                 forMonth:JULY
+                   forDay:11
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Percussion on the Pearl"
+               atLocation:@"Muscatine, IA"
+                 forMonth:JULY
+                   forDay:12
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"So Cal Classic Open Class Championship"
+               atLocation:@"Bellflower, CA"
+                 forMonth:JULY
+                   forDay:12
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tour of Champions - Northern Illinois"
+               atLocation:@"DeKalb, IL"
+                 forMonth:JULY
+                   forDay:12
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Across Nebraska"
+               atLocation:@"Fremont, NE"
+                 forMonth:JULY
+                   forDay:13
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tour of Champions - Central Missouri"
+               atLocation:@"Warrensburg, MO"
+                 forMonth:JULY
+                   forDay:13
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"March of Champions"
+               atLocation:@"Great Bend, KS"
+                 forMonth:JULY
+                   forDay:14
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Music on the Move"
+               atLocation:@"Bentonville, AR"
+                 forMonth:JULY
+                   forDay:14
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI in the Heartland"
+               atLocation:@"Mustang, OK"
+                 forMonth:JULY
+                   forDay:15
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Central Texas"
+               atLocation:@"Belton, TX"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Denton"
+               atLocation:@"Denton, TX"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tour of Champions"
+               atLocation:@"Houston, TX"
+                 forMonth:JULY
+                   forDay:17
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Southwestern Championship"
+               atLocation:@"San Antonio, TX"
+                 forMonth:JULY
+                   forDay:18
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Fiesta De Musica"
+               atLocation:@"Manchester, NH"
+                 forMonth:JULY
+                   forDay:18
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Dallas"
+               atLocation:@"Dallas, TX"
+                 forMonth:JULY
+                   forDay:20
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Across Cajun Field"
+               atLocation:@"Lafayette, LA"
+                 forMonth:JULY
+                   forDay:20
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums of Summer"
+               atLocation:@"Broken Arrow, OK"
+                 forMonth:JULY
+                   forDay:21
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Mississippi Sound Spectacular"
+               atLocation:@"Ocean Springs, MS"
+                 forMonth:JULY
+                   forDay:21
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Arkansas"
+               atLocation:@"Little Rock, AR"
+                 forMonth:JULY
+                   forDay:22
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Southern Mississippi"
+               atLocation:@"Hattiesburg, MS"
+                 forMonth:JULY
+                   forDay:22
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Mid-America"
+               atLocation:@"St. Louis, MO"
+                 forMonth:JULY
+                   forDay:22
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI North Alabama"
+               atLocation:@"Huntsville, AL"
+                 forMonth:JULY
+                   forDay:23
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Music on the Mountain"
+               atLocation:@"Sheffield, PA"
+                 forMonth:JULY
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Petunia City Brass"
+               atLocation:@"Dixon, IL"
+                 forMonth:JULY
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"The Masters of the Summer Music Games"
+               atLocation:@"Murfreesboro, TN"
+                 forMonth:JULY
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Alabama Sounds of Summer"
+               atLocation:@"Opelika, AL"
+                 forMonth:JULY
+                   forDay:24
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Atlanta Southeastern Championship"
+               atLocation:@"Atlanta, GA"
+                 forMonth:JULY
+                   forDay:25
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Hamilton Drum Corps Classic"
+               atLocation:@"Hamilton, OH"
+                 forMonth:JULY
+                   forDay:25
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Shadow Showcase"
+               atLocation:@"Oregon, WI"
+                 forMonth:JULY
+                   forDay:25
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"NightBEAT Tour of Champions"
+               atLocation:@"Winston-Salem, NC"
+                 forMonth:JULY
+                   forDay:26
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Emerald City Music Games"
+               atLocation:@"Dublin, OH"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Across the Tri-State"
+               atLocation:@"Charleston, WV"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tournament of Drums"
+               atLocation:@"Cedar Rapids, IA"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Show of Shows - Waukesha"
+               atLocation:@"Waukesha, WI"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Lake Erie Fanfare"
+               atLocation:@"Erie, PA"
+                 forMonth:JULY
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Legends Drum Corps Open"
+               atLocation:@"Kalamazoo, MI"
+                 forMonth:JULY
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Summer Music Games of Southwest Virginia"
+               atLocation:@"Salem, VA"
+                 forMonth:JULY
+                   forDay:28
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drums Along the Mohawk"
+               atLocation:@"Rome, NY"
+                 forMonth:JULY
+                   forDay:29
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Drum Corps: An American Tradition"
+               atLocation:@"Annapolis, MD"
+                 forMonth:JULY
+                   forDay:29
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"A Blast in the Burg"
+               atLocation:@"Johnsonburg, PA"
+                 forMonth:JULY
+                   forDay:30
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"CYO Nationals Tribute"
+               atLocation:@"Quincy, MA"
+                 forMonth:JULY
+                   forDay:30
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tour of Champions: PPL Park"
+               atLocation:@"Chester, PA"
+                 forMonth:JULY
+                   forDay:30
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Eastern Classic"
+               atLocation:@"Allentown, PA"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"A Knight of Music and Motion"
+               atLocation:@"St. Paul, MN"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Shoremen Brass Classic"
+               atLocation:@"Avon Lake, OH"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Eastern Classic"
+               atLocation:@"Allentown, PA"
+                 forMonth:AUGUST
+                   forDay:1
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Legends Drum Corps Invitational"
+               atLocation:@"Troy, MI"
+                 forMonth:AUGUST
+                   forDay:1
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"North Iowa Festival of Brass"
+               atLocation:@"Forest City, IA"
+                 forMonth:AUGUST
+                   forDay:1
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Pittsburgh"
+               atLocation:@"Pittsburgh, PA"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Tour of Champions - Buffalo"
+               atLocation:@"Buffalo, NY"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championships Open Class Prelims"
+               atLocation:@"Michigan City, IN"
+                 forMonth:AUGUST
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"Soaring Sounds 36"
+               atLocation:@"Centerville, OH"
+                 forMonth:AUGUST
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Tour of Champions"
+               atLocation:@"Massillon, OH"
+                 forMonth:AUGUST
+                   forDay:3
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championships Open Class Finals"
+               atLocation:@"Michigan City, IN"
+                 forMonth:AUGUST
+                   forDay:4
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI Performers Showcase"
+               atLocation:@"Indianpolis, IN"
+                 forMonth:AUGUST
+                   forDay:5
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championships Kickoff Party and Hall of Fame Induction"
+               atLocation:@"Indianapolis, IN"
+                 forMonth:AUGUST
+                   forDay:5
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championship Prelims"
+               atLocation:@"Indianpolis, IN"
+                 forMonth:AUGUST
+                   forDay:6
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championship Semifinals"
+               atLocation:@"Indianapolis, IN"
+                 forMonth:AUGUST
+                   forDay:7
+      withPerformingCorps:@[]];
+    
+    [self addShowWithName:@"DCI World Championship Finals"
+               atLocation:@"Indianapolis, IN"
+                 forMonth:AUGUST
+                   forDay:8
+      withPerformingCorps:@[]];
+
+}
 
 @end
