@@ -419,10 +419,11 @@
             
             [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error) [score saveEventually];
-                [self initUI];
             }];
         }
     }
+    
+    [self initUI];
 }
 
 -(void)deleteScores:(NSMutableArray *)array {

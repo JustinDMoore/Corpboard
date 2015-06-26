@@ -186,7 +186,7 @@
             
             self.updatedCorps = YES;
             [self didWeFinish];
-            
+            //[self clearOldScores];
         } else {
             
             NSLog(@"Error getting all shows: %@ %@", error, [error userInfo]);
@@ -195,6 +195,21 @@
             }
         }
     }];
+}
+
+-(void)clearOldScores {
+    
+    for (PFObject *corp in self.arrayOfAllCorps) {
+        [corp removeObjectForKey:@"olderScore"];
+        [corp removeObjectForKey:@"lastScore"];
+        [corp removeObjectForKey:@"lastScoreDate"];
+        [corp removeObjectForKey:@"lastBrass"];
+        [corp removeObjectForKey:@"lastColorguard"];
+        [corp removeObjectForKey:@"lastPercussion"];
+        
+        [corp saveInBackground];
+    }
+    
 }
 
 -(void)getAllShowsFromServer {

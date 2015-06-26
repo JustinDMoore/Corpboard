@@ -16,6 +16,7 @@
 #import "CBEffect.h"
 #import "Configuration.h"
 #import "CBTourMapViewController.h"
+#import "CBAppDelegate.h"
 
 PFObject *favDrumsW;
 PFObject *favHornlineW;
@@ -39,6 +40,7 @@ NSInteger currentRowIndex;
 
 NSString *feedbackString;
 
+CBAppDelegate *del;
 CBSingle *data;
 int votedScore;
 int votedFavorites;
@@ -158,6 +160,9 @@ typedef enum : int {
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    
+    del = [[UIApplication sharedApplication] delegate];
     
     // Configure the SKView
     SKView * skView = _skView;
@@ -390,6 +395,74 @@ typedef enum : int {
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    CGRect frame = tableView.frame;
+
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 100, 30)];
+    title.text = [self tableView:tableView titleForHeaderInSection:section];
+    [title sizeToFit];
+    
+    // create the button object
+    UIButton * headerBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    headerBtn.backgroundColor = [UIColor clearColor];
+    headerBtn.opaque = NO;
+    [headerBtn setTitle:@"View Recap" forState:UIControlStateNormal];
+    [headerBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [headerBtn setTitleColor:del.appTintColor forState:UIControlStateNormal];
+    [headerBtn sizeToFit];
+    headerBtn.frame = CGRectMake(frame.size.width - headerBtn.frame.size.width - 5, -3, headerBtn.frame.size.width, headerBtn.frame.size.height);
+    [headerBtn addTarget:self action:@selector(viewRecap:) forControlEvents:UIControlEventTouchUpInside];
+    headerBtn.tag = section;
+    
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    [headerView addSubview:title];
+
+    
+    
+    NSString *recap;
+    switch (section) {
+        case 0:
+            recap = self.show[@"recapWorld"];
+            if (recap) {
+                if (![recap isEqualToString:@""]){
+                        [headerView addSubview:headerBtn];
+                }
+            }
+            break;
+        case 1:
+            recap = self.show[@"recapOpen"];
+            if (recap) {
+                if (![recap isEqualToString:@""]){
+                        [headerView addSubview:headerBtn];
+                }
+            }
+            break;
+        case 2:
+            recap = self.show[@"recapAllAge"];
+            if (recap) {
+                if (![recap isEqualToString:@""]){
+                       [headerView addSubview:headerBtn];
+                }
+            }
+            break;
+    }
+
+    // Background color
+    if (tableView == self.tableCorps) {
+        headerView.backgroundColor = [UIColor darkGrayColor];
+        [title setTextColor:[UIColor lightGrayColor]];
+        [title setFont:[UIFont systemFontOfSize:14]];
+    } else {
+        headerView.backgroundColor = [UIColor lightGrayColor];
+        [title setTextColor:[UIColor darkGrayColor]];
+        [title setFont:[UIFont systemFontOfSize:14]];
+    }
+    
+    return headerView;
+}
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     if (tableView == self.viewStartReview.tableReview) {
@@ -410,18 +483,7 @@ typedef enum : int {
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     
-    // Background color
-    if (tableView == self.tableCorps) {
-        view.tintColor = [UIColor darkGrayColor];
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        [header.textLabel setTextColor:[UIColor lightGrayColor]];
-        [header.textLabel setFont:[UIFont systemFontOfSize:14]];
-    } else {
-        view.tintColor = [UIColor lightGrayColor];
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        [header.textLabel setTextColor:[UIColor darkGrayColor]];
-        [header.textLabel setFont:[UIFont systemFontOfSize:14]];
-    }
+
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -1523,7 +1585,7 @@ typedef enum : int {
 - (IBAction)btnRecapLink_tapped:(id)sender {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Recap Link" message:@"Tap to paste the full web link for show recap." delegate:self
-                                          cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+                                          cancelButtonTitle:@"Cancel" otherButtonTitles:@"World", @"Open", @"AllAge", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField* textField = [alert textFieldAtIndex:0];
     textField.text = self.show[@"recapURL"];
@@ -1545,10 +1607,28 @@ typedef enum : int {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (buttonIndex != alertView.cancelButtonIndex) {
+        
+        
         UITextField *textField = [alertView textFieldAtIndex:0];
+        
         if ([textField.text length]) {
-            self.show[@"recapURL"] = textField.text;
-            [self.show saveInBackground];
+            
+            switch (buttonIndex) {
+                case 0: NSLog(@"0");
+                    break;
+                case 1:
+                    self.show[@"recapWorld"] = textField.text;
+                    [self.show saveEventually];
+                    break;
+                case 2:
+                    self.show[@"recapOpen"] = textField.text;
+                    [self.show saveEventually];
+                    break;
+                case 3:
+                    self.show[@"recapAllAge"] = textField.text;
+                    [self.show saveEventually];
+                    break;
+            }
         }
     }
 }
@@ -1582,6 +1662,31 @@ typedef enum : int {
     web.websiteSubTitle = web.webURL;
     
     [self presentViewController:web animated:YES completion:nil];
+}
+
+-(void)viewRecap:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    NSString *link;
+    switch (btn.tag) {
+        case 0: link = self.show[@"recapWorld"];
+            break;
+        case 1: link = self.show[@"recapOpen"];
+            break;
+        case 2: link = self.show[@"recapAllAge"];
+            break;
+    }
+    
+    NSString *storyboardName = @"Main";
+    NSString *viewControllerID = @"web";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    CBWebViewController *web = (CBWebViewController *)[storyboard instantiateViewControllerWithIdentifier:viewControllerID];
+    web.webURL = link;
+    web.websiteTitle = [NSString stringWithFormat:@"Recap"];
+    web.websiteSubTitle = self.show[@"showLocation"];
+    
+    [self presentViewController:web animated:YES completion:nil];
+    
 }
 
 -(CBEffect *)scene {
