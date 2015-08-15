@@ -123,11 +123,6 @@
 		D038E7AE1AC65051002C29C3 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D038E7AD1AC65051002C29C3 /* FBSDKLoginKit.framework */; };
 		D03DCADA1B168A72005D326E /* CBPush.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03DCAD91B168A72005D326E /* CBPush.xib */; };
 		D03DCADD1B168A81005D326E /* CBPush.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DCADC1B168A81005D326E /* CBPush.m */; };
-		D03DCAE31B16A3B6005D326E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03DCADE1B16A3B5005D326E /* Bolts.framework */; };
-		D03DCAE41B16A3B6005D326E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03DCADF1B16A3B6005D326E /* Parse.framework */; };
-		D03DCAE51B16A3B6005D326E /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03DCAE01B16A3B6005D326E /* ParseCrashReporting.framework */; };
-		D03DCAE61B16A3B6005D326E /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03DCAE11B16A3B6005D326E /* ParseFacebookUtilsV4.framework */; };
-		D03DCAE71B16A3B6005D326E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03DCAE21B16A3B6005D326E /* ParseUI.framework */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
 		D047A349196A095F00F5F5BC /* star_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A348196A095F00F5F5BC /* star_unselected.png */; };
@@ -156,6 +151,11 @@
 		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
 		D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F51A41640700FF0B62 /* CBEditDescription.xib */; };
 		D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */; };
+		D08F314B1B7ECAB4002C8D7C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F314A1B7ECAB4002C8D7C /* Bolts.framework */; };
+		D08F314D1B7ECAC2002C8D7C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F314C1B7ECAC2002C8D7C /* Parse.framework */; };
+		D08F314F1B7ECAC9002C8D7C /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F314E1B7ECAC9002C8D7C /* ParseCrashReporting.framework */; };
+		D08F31511B7ECAD1002C8D7C /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F31501B7ECAD1002C8D7C /* ParseFacebookUtilsV4.framework */; };
+		D08F31531B7ECADA002C8D7C /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F31521B7ECADA002C8D7C /* ParseUI.framework */; };
 		D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */; };
 		D094AFA61A154FAC003557AF /* CBNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA51A154FAC003557AF /* CBNewsSingleton.m */; };
 		D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA81A157C24003557AF /* CBNewsItem.m */; };
@@ -421,11 +421,6 @@
 		D03DCAD91B168A72005D326E /* CBPush.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPush.xib; sourceTree = "<group>"; };
 		D03DCADB1B168A81005D326E /* CBPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPush.h; sourceTree = "<group>"; };
 		D03DCADC1B168A81005D326E /* CBPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPush.m; sourceTree = "<group>"; };
-		D03DCADE1B16A3B5005D326E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		D03DCADF1B16A3B6005D326E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		D03DCAE01B16A3B6005D326E /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
-		D03DCAE11B16A3B6005D326E /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
-		D03DCAE21B16A3B6005D326E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D04702DA195790B40004A0EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D047A348196A095F00F5F5BC /* star_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_unselected.png; sourceTree = "<group>"; };
@@ -466,6 +461,11 @@
 		D08E00F51A41640700FF0B62 /* CBEditDescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditDescription.xib; sourceTree = "<group>"; };
 		D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditDescription.h; sourceTree = "<group>"; };
 		D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditDescription.m; sourceTree = "<group>"; };
+		D08F314A1B7ECAB4002C8D7C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		D08F314C1B7ECAC2002C8D7C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		D08F314E1B7ECAC9002C8D7C /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		D08F31501B7ECAD1002C8D7C /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		D08F31521B7ECADA002C8D7C /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAboutCorpsViewController.h; sourceTree = "<group>"; };
 		D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAboutCorpsViewController.m; sourceTree = "<group>"; };
 		D094AFA41A154FAC003557AF /* CBNewsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsSingleton.h; sourceTree = "<group>"; };
@@ -583,14 +583,14 @@
 			files = (
 				D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */,
 				92FE95371A74E10900D4A7D9 /* libsqlite3.dylib in Frameworks */,
-				D03DCAE71B16A3B6005D326E /* ParseUI.framework in Frameworks */,
-				D03DCAE61B16A3B6005D326E /* ParseFacebookUtilsV4.framework in Frameworks */,
+				D08F31531B7ECADA002C8D7C /* ParseUI.framework in Frameworks */,
+				D08F31511B7ECAD1002C8D7C /* ParseFacebookUtilsV4.framework in Frameworks */,
 				92FE95351A74E0F500D4A7D9 /* libstdc++.6.dylib in Frameworks */,
 				D04702DB195790B40004A0EF /* Social.framework in Frameworks */,
 				D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */,
 				D0A8146919521D8000F4EC53 /* SystemConfiguration.framework in Frameworks */,
-				D03DCAE41B16A3B6005D326E /* Parse.framework in Frameworks */,
-				D03DCAE31B16A3B6005D326E /* Bolts.framework in Frameworks */,
+				D08F314D1B7ECAC2002C8D7C /* Parse.framework in Frameworks */,
+				D08F314B1B7ECAB4002C8D7C /* Bolts.framework in Frameworks */,
 				D0A8146519521D7000F4EC53 /* Security.framework in Frameworks */,
 				D0A8146319521D6900F4EC53 /* QuartzCore.framework in Frameworks */,
 				D0A8146119521D5B00F4EC53 /* MobileCoreServices.framework in Frameworks */,
@@ -599,7 +599,7 @@
 				92533481194FD5D70004D16F /* CoreGraphics.framework in Frameworks */,
 				D0A8145B19521D2C00F4EC53 /* CFNetwork.framework in Frameworks */,
 				D0A8145919521D2500F4EC53 /* AudioToolbox.framework in Frameworks */,
-				D03DCAE51B16A3B6005D326E /* ParseCrashReporting.framework in Frameworks */,
+				D08F314F1B7ECAC9002C8D7C /* ParseCrashReporting.framework in Frameworks */,
 				92533485194FD5D70004D16F /* CoreData.framework in Frameworks */,
 				D038E7AE1AC65051002C29C3 /* FBSDKLoginKit.framework in Frameworks */,
 				D038E7AB1AC64D77002C29C3 /* FBSDKCoreKit.framework in Frameworks */,
@@ -1189,11 +1189,11 @@
 		D0AEF3A01A1312E10059368B /* Parse */ = {
 			isa = PBXGroup;
 			children = (
-				D03DCADE1B16A3B5005D326E /* Bolts.framework */,
-				D03DCADF1B16A3B6005D326E /* Parse.framework */,
-				D03DCAE01B16A3B6005D326E /* ParseCrashReporting.framework */,
-				D03DCAE11B16A3B6005D326E /* ParseFacebookUtilsV4.framework */,
-				D03DCAE21B16A3B6005D326E /* ParseUI.framework */,
+				D08F31521B7ECADA002C8D7C /* ParseUI.framework */,
+				D08F31501B7ECAD1002C8D7C /* ParseFacebookUtilsV4.framework */,
+				D08F314E1B7ECAC9002C8D7C /* ParseCrashReporting.framework */,
+				D08F314C1B7ECAC2002C8D7C /* Parse.framework */,
+				D08F314A1B7ECAB4002C8D7C /* Bolts.framework */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -1482,7 +1482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/develop/cloudcode\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/develop/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1674,7 +1674,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
@@ -1710,7 +1710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1735,7 +1735,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
@@ -1763,7 +1763,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
@@ -1843,7 +1843,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1868,7 +1868,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";

@@ -1,8 +1,11 @@
-//
-//  PFRelation.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
@@ -27,7 +30,7 @@ PF_ASSUME_NONNULL_BEGIN
 /*!
  @abstract The name of the class of the target child objects.
  */
-@property (nonatomic, strong) NSString *targetClass;
+@property (PF_NULLABLE_PROPERTY nonatomic, copy) NSString *targetClass;
 
 ///--------------------------------------
 /// @name Accessing Objects

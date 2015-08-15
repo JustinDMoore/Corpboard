@@ -47,12 +47,7 @@ CBSingle *data;
 
     //facebook
     //[FBLoginView class];
-    
-    //twitter
-    [PFTwitterUtils initializeWithConsumerKey:@"ffPvSlH1BQ4Y9GSYMbmgkkG0Q"
-                               consumerSecret:@"vr6Fb8nuoohYQsOekGT0UB33sLMwhqWmeedl41ypuixwWF2ZBO"];
-    
-    
+
     
 //    //push notifications
 //    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |

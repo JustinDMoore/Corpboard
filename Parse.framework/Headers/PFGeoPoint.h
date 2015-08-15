@@ -1,8 +1,11 @@
-//
-//  PFGeoPoint.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -60,10 +63,10 @@ typedef void(^PFGeoPointResultBlock)(PFGeoPoint *PF_NULLABLE_S geoPoint, NSError
 /*!
  @abstract Fetches the current device location and executes a block with a new `PFGeoPoint` object.
 
- @param geoPointHandler A block which takes the newly created `PFGeoPoint` as an argument.
+ @param resultBlock A block which takes the newly created `PFGeoPoint` as an argument.
  It should have the following argument signature: `^(PFGeoPoint *geoPoint, NSError *error)`
  */
-+ (void)geoPointForCurrentLocationInBackground:(PF_NULLABLE PFGeoPointResultBlock)geoPointHandler;
++ (void)geoPointForCurrentLocationInBackground:(PF_NULLABLE PFGeoPointResultBlock)resultBlock;
 
 ///--------------------------------------
 /// @name Controlling Position

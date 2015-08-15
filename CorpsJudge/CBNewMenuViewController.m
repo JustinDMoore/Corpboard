@@ -127,11 +127,19 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 #pragma mark
 #pragma mark - Extras
 #pragma mark
+
+@property (weak, nonatomic) IBOutlet UIView *viewShop;
+@property (weak, nonatomic) IBOutlet UIView *viewSupport;
+- (IBAction)support_tapped:(id)sender;
+- (IBAction)shop_tapped:(id)sender;
+
 @property (nonatomic, strong) IBOutlet UIView *viewFeedback;
 @property (nonatomic, strong) IBOutlet UIControl *viewAboutTheCorps;
 @property (weak, nonatomic) IBOutlet UIView *viewExtras;
 -(IBAction)feedback_clicked:(id)sender;
 -(IBAction)aboutTheCorps_clicked:(id)sender;
+
+
 
 #pragma mark
 #pragma mark - Links
@@ -373,6 +381,15 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     self.viewFeedback.layer.cornerRadius = 8;
     self.viewFeedback.layer.borderColor = [UIColor blackColor].CGColor;
     self.viewFeedback.layer.borderWidth = 1;
+    
+    self.viewShop.layer.cornerRadius = 8;
+    self.viewShop.layer.borderColor = [UIColor blackColor].CGColor;
+    self.viewShop.layer.borderWidth = 1;
+    
+    self.viewSupport.layer.cornerRadius = 8;
+    self.viewSupport.layer.borderColor = [UIColor blackColor].CGColor;
+    self.viewSupport.layer.borderWidth = 1;
+    
     [self pulse];
     
     //news
@@ -1602,4 +1619,14 @@ bool isScrolling = NO;
    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
 }
 
+- (IBAction)support_tapped:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Coming soon" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    
+}
+
+- (IBAction)shop_tapped:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Coming soon" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+}
 @end

@@ -2457,20 +2457,8 @@
                                                     <outlet property="delegate" destination="603-gO-u9Q" id="jC0-b4-rR7"/>
                                                 </connections>
                                             </scrollView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEZ-jz-YNE">
-                                                <rect key="frame" x="0.0" y="455" width="320" height="150"/>
-                                                <state key="normal">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="finalsContest_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="zN3-QR-OJd"/>
-                                                </connections>
-                                            </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="finals6.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
-                                                <rect key="frame" x="0.0" y="454" width="320" height="150"/>
-                                            </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuJ-UA-uqz" userLabel="viewRankings" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="588" width="320" height="235"/>
+                                                <rect key="frame" x="0.0" y="562" width="320" height="235"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Top 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJO-74-Y3m">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -2668,7 +2656,7 @@
                                                 <rect key="frame" x="40" y="-100" width="240" height="128"/>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5i3-q8-WYf" userLabel="NewsView" customClass="ClipView">
-                                                <rect key="frame" x="0.0" y="823" width="320" height="145"/>
+                                                <rect key="frame" x="0.0" y="797" width="320" height="145"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99L-WD-I9t">
                                                         <rect key="frame" x="14" y="4" width="221" height="21"/>
@@ -2760,7 +2748,7 @@
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slv-vG-kN6" userLabel="viewExtras">
-                                                <rect key="frame" x="0.0" y="968" width="320" height="105"/>
+                                                <rect key="frame" x="0.0" y="942" width="320" height="105"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="088-5I-tcI">
                                                         <rect key="frame" x="10" y="103" width="310" height="1"/>
@@ -2889,7 +2877,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-Bm-tJU" userLabel="viewLinks">
-                                                <rect key="frame" x="0.0" y="1072" width="320" height="153"/>
+                                                <rect key="frame" x="0.0" y="1046" width="320" height="153"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="© 2015 Youth Education in the Arts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvc-oY-ZGh">
                                                         <rect key="frame" x="33" y="9" width="255" height="21"/>
@@ -2972,6 +2960,44 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGI-Lc-uOF" userLabel="viewExtras">
+                                                <rect key="frame" x="0.0" y="454" width="320" height="108"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aiU-hb-15e">
+                                                        <rect key="frame" x="10" y="105" width="310" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPZ-S3-qEq" customClass="UIControl">
+                                                        <rect key="frame" x="164" y="11" width="150" height="85"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Support" translatesAutoresizingMaskIntoConstraints="NO" id="2dI-p5-Mxa">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="support_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="v4l-Eo-Ekc"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e00-5T-M9u">
+                                                        <rect key="frame" x="8" y="1" width="310" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TUP-ob-IVp" customClass="UIControl">
+                                                        <rect key="frame" x="8" y="11" width="150" height="85"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Shop" translatesAutoresizingMaskIntoConstraints="NO" id="Mp9-Id-sDa">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="shop_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="GhN-L5-cVh"/>
+                                                        </connections>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.047058828179999998" green="0.69019609689999994" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -2993,6 +3019,9 @@
                                     <outlet property="delegate" destination="603-gO-u9Q" id="BHf-TW-9Ht"/>
                                 </connections>
                             </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="finals6.png" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-h5-BES">
+                                <rect key="frame" x="437" y="430" width="320" height="150"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
@@ -3045,6 +3074,8 @@
                         <outlet property="viewProfile" destination="5CV-vg-CGX" id="1vG-LV-zzK"/>
                         <outlet property="viewRankings" destination="TuJ-UA-uqz" id="mBw-rf-2sE"/>
                         <outlet property="viewRecentShows" destination="ljf-8V-rLy" id="VEc-nF-dsU"/>
+                        <outlet property="viewShop" destination="TUP-ob-IVp" id="PEb-uU-xFu"/>
+                        <outlet property="viewSupport" destination="mPZ-S3-qEq" id="xqN-jj-RHe"/>
                         <segue destination="a3o-sb-0qX" kind="show" identifier="shows" id="o99-aO-U0e"/>
                         <segue destination="kuq-xU-myI" kind="show" identifier="openShow" id="yHE-cF-ijy"/>
                         <segue destination="8XX-OR-XBf" kind="show" identifier="rankings" id="oaA-Is-4o3"/>
@@ -4026,6 +4057,8 @@
         <image name="Contact" width="450" height="255"/>
         <image name="DCI_CorpBoard1" width="600" height="600"/>
         <image name="Message" width="48" height="48"/>
+        <image name="Shop" width="450" height="255"/>
+        <image name="Support" width="450" height="255"/>
         <image name="Upload" width="48" height="48"/>
         <image name="User" width="256" height="256"/>
         <image name="Warning" width="48" height="48"/>

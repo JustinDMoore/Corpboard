@@ -1,8 +1,11 @@
-//
-//  Parse.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
@@ -30,7 +33,6 @@
 #import <Parse/PFProduct.h>
 #import <Parse/PFPurchase.h>
 #import <Parse/PFPush.h>
-#import <Parse/PFTwitterUtils.h>
 
 #else
 
@@ -42,9 +44,11 @@
 #import <ParseOSX/PFConstants.h>
 #import <ParseOSX/PFFile.h>
 #import <ParseOSX/PFGeoPoint.h>
+#import <ParseOSX/PFInstallation.h>
 #import <ParseOSX/PFNullability.h>
 #import <ParseOSX/PFObject+Subclass.h>
 #import <ParseOSX/PFObject.h>
+#import <ParseOSX/PFPush.h>
 #import <ParseOSX/PFQuery.h>
 #import <ParseOSX/PFRelation.h>
 #import <ParseOSX/PFRole.h>
