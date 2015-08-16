@@ -192,6 +192,7 @@
 		D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2EC601B0E771600C57017 /* CBPredictionSubmitted.xib */; };
 		D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */; };
 		D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C7755D196A0590006525AE /* CavsUpsideDown.png */; };
+		D0CB14681B7EF92F001E1033 /* DailyScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14671B7EF92F001E1033 /* DailyScheduleModel.swift */; };
 		D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */; };
 		D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */; };
 		D0D777421B116A4D00D4EF6A /* CBLocationServices.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D777411B116A4D00D4EF6A /* CBLocationServices.xib */; };
@@ -525,6 +526,7 @@
 		D0C2EC621B0E772B00C57017 /* CBPredictionSubmitted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPredictionSubmitted.h; sourceTree = "<group>"; };
 		D0C2EC631B0E772B00C57017 /* CBPredictionSubmitted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPredictionSubmitted.m; sourceTree = "<group>"; };
 		D0C7755D196A0590006525AE /* CavsUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CavsUpsideDown.png; sourceTree = "<group>"; };
+		D0CB14671B7EF92F001E1033 /* DailyScheduleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleModel.swift; sourceTree = "<group>"; };
 		D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPushNotifications.xib; sourceTree = "<group>"; };
 		D0D7773E1B115D7E00D4EF6A /* CBPushNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPushNotifications.h; sourceTree = "<group>"; };
 		D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPushNotifications.m; sourceTree = "<group>"; };
@@ -783,6 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				925334BD194FD6F80004D16F /* Main.storyboard */,
+				D0CB14671B7EF92F001E1033 /* DailyScheduleModel.swift */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
@@ -1593,6 +1596,7 @@
 				D03DCADD1B168A81005D326E /* CBPush.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
+				D0CB14681B7EF92F001E1033 /* DailyScheduleModel.swift in Sources */,
 				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
 				D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */,
 				9264B26D1A34EAE800E1838F /* LiveChatCell.m in Sources */,
