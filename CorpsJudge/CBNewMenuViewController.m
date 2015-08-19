@@ -1626,7 +1626,7 @@ bool isScrolling = NO;
 }
 
 - (IBAction)shop_tapped:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Coming soon" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    [alert show];
+
+    [self performSegueWithIdentifier:@"store" sender:self];
 }
 @end

@@ -3087,6 +3087,7 @@
                         <segue destination="DT4-0M-8gX" kind="show" identifier="admin" id="CLe-5n-rU7"/>
                         <segue destination="671-6y-8zX" kind="custom" identifier="feedback" customClass="CBSegueNoAnimation" id="B9L-RN-ls5"/>
                         <segue destination="u0G-RF-HbE" kind="show" identifier="find" id="pIH-8i-jUf"/>
+                        <segue destination="R9h-AD-VHj" kind="show" identifier="store" id="Oab-fr-vea"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4011,6 +4012,122 @@
             </objects>
             <point key="canvasLocation" x="3792" y="90"/>
         </scene>
+        <!--Store Controller-->
+        <scene sceneID="00B-Ub-gWZ">
+            <objects>
+                <viewController id="R9h-AD-VHj" customClass="CBStoreController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fYi-JT-VM8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fz0-I6-r6C"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zGj-IS-YnH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-L4-sqQ" userLabel="scrollMain">
+                                <rect key="frame" x="0.0" y="64" width="320" height="536"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zwf-m2-yLE" userLabel="viewMain">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="536"/>
+                                        <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbx-v1-Ua2" userLabel="scrollBanners">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="R9h-AD-VHj" id="g05-Yg-Jzq"/>
+                                                </connections>
+                                            </scrollView>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcU-rB-CLK" userLabel="viewNewItems" customClass="ClipView">
+                                                <rect key="frame" x="0.0" y="137" width="320" height="153"/>
+                                                <subviews>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Newest Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vN9-nT-5Sf">
+                                                        <rect key="frame" x="14" y="4" width="137" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAg-16-ZtA">
+                                                        <rect key="frame" x="220" y="0.0" width="87" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="See All">
+                                                            <color key="titleColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="seeAllItems:" destination="R9h-AD-VHj" eventType="touchUpInside" id="MXB-TL-lRS"/>
+                                                        </connections>
+                                                    </button>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yyK-dF-45f">
+                                                        <rect key="frame" x="0.0" y="23" width="320" height="130"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="tB4-KZ-byK">
+                                                            <size key="itemSize" width="125" height="130"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="R9h-AD-VHj" id="2pI-E7-PBG"/>
+                                                            <outlet property="delegate" destination="R9h-AD-VHj" id="3rp-dJ-gWN"/>
+                                                        </connections>
+                                                    </collectionView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zU-Rs-QQD" userLabel="viewCategory" customClass="ClipView">
+                                                <rect key="frame" x="0.0" y="290" width="320" height="124"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52w-Oa-mjn">
+                                                        <rect key="frame" x="10" y="120" width="310" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yl1-E4-Rw4">
+                                                        <rect key="frame" x="20" y="2" width="310" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IQC-qM-14d">
+                                                        <rect key="frame" x="0.0" y="6" width="320" height="111"/>
+                                                        <color key="backgroundColor" red="0.77111950549999997" green="0.77111950549999997" blue="0.77111950549999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <inset key="scrollIndicatorInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J5A-sx-oo3">
+                                                            <size key="itemSize" width="195" height="100"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="R9h-AD-VHj" id="BMP-fI-UQf"/>
+                                                            <outlet property="delegate" destination="R9h-AD-VHj" id="lu0-4L-z8M"/>
+                                                        </connections>
+                                                    </collectionView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="btnSeeAllItems" destination="HAg-16-ZtA" id="2Fs-d0-IHl"/>
+                        <outlet property="collectionCategories" destination="IQC-qM-14d" id="ULX-pG-Udk"/>
+                        <outlet property="collectionNewItems" destination="yyK-dF-45f" id="aHh-DL-U96"/>
+                        <outlet property="contentMainView" destination="Zwf-m2-yLE" id="8yG-jc-pgU"/>
+                        <outlet property="scrollMain" destination="VwW-L4-sqQ" id="BE4-it-zyb"/>
+                        <outlet property="sscrollBanners" destination="xbx-v1-Ua2" id="Tk5-Xq-igp"/>
+                        <outlet property="viewNewItems" destination="bcU-rB-CLK" id="YXe-qH-NiP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dgA-oQ-pls" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4522" y="90"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qk1-3e-3Ai">
             <objects>
@@ -4105,8 +4222,8 @@
         <image name="star_unselected.png" width="64" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5XH-ng-dQw"/>
         <segue reference="Bex-sd-T2E"/>
+        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="5Fi-Lt-Ok5"/>
     </inferredMetricsTieBreakers>

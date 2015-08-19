@@ -352,6 +352,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"banners"];
     [query whereKey:@"hidden" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"type" equalTo:@"MAIN"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         // do your thing with text
         if (!error) {

@@ -369,3 +369,26 @@ Parse.Cloud.define("getOnlineUsers", function(request, response) {
                                          response.error(error);
                                          });
                    });
+
+
+// STORE
+// Returns all store objects to the client
+Parse.Cloud.define("getStoreItems", function(request, response) {
+                   
+                   Parse.Cloud.useMasterKey();
+                   var query = new Parse.Query("Store");
+                   query.find({
+                              success: function(results) {
+                              
+                              var status = "Found " + results.length + " items in the store";
+                              response.success(results);
+                              
+                              },
+                              
+                              error: function() {
+                              
+                              status = "No items exist in the store "; 
+                              response.error(status);
+                              }
+                              });
+                   });
