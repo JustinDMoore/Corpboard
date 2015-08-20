@@ -38,8 +38,21 @@ NSTimer *stimerBanners;
 @property (weak, nonatomic) IBOutlet UIButton *btnSeeAllItems;
 @property (weak, nonatomic) IBOutlet ClipView *viewNewItems;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionNewItems;
+
+#pragma mark
+#pragma mark - Item Categories
+#pragma mark
+
+@property (weak, nonatomic) IBOutlet ClipView *viewCategories;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionCategories;
-@property (nonatomic, strong) NSMutableArray *arrayOfCategoryImages;
+
+#pragma mark
+#pragma mark - Popular Items
+#pragma mark
+@property (weak, nonatomic) IBOutlet UIButton *btnSeeAllPopular;
+@property (weak, nonatomic) IBOutlet ClipView *viewPopularItems;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionPopularItems;
+
 @end
 
 @implementation CBStoreController
@@ -49,15 +62,15 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     // title view
-    UIView *bgTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 110, 25)];
-    UIImageView *storeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"storeLogo"]];
+    UIView *bgTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 35)];
+    UIImageView *storeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"34storeLogo"]];
     [bgTitleView addSubview:storeImage];
     storeImage.frame = CGRectMake(0, 0, bgTitleView.frame.size.width, bgTitleView.frame.size.height);
     self.navigationItem.titleView = bgTitleView;
     
     // back button
     UIButton *backButton = [[UIButton alloc] init];
-    UIImage *imgBack = [UIImage imageNamed:@"arrowLeftMaroon"];
+    UIImage *imgBack = [UIImage imageNamed:@"storeBack"];
     [backButton setBackgroundImage:imgBack forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     backButton.frame = CGRectMake(0, 0, 30, 30);
@@ -68,40 +81,19 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.arrayOfCategoryImages = [[NSMutableArray alloc] init];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"Apparel5"]];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"Media5"]];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"Gifts5"]];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"Instruments5"]];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"Tickets5"]];
-    [self.arrayOfCategoryImages addObject:[UIImage imageNamed:@"More5"]];
+
+    self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
+    self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.sscrollBanners.frame.size.height + self.viewNewItems.frame.size.height + self.viewCategories.frame.size.height + self.viewPopularItems.frame.size.height);
     
     // Register cell classes
     [self.collectionNewItems registerClass:[CBStoreItemCell class] forCellWithReuseIdentifier:CELL_ITEM_IDENTIFIER];
     [self.collectionCategories registerClass:[CBStoreCategoryCell class] forCellWithReuseIdentifier:CELL_CATEGORY_IDENTIFIER];
+    [self.collectionPopularItems registerClass:[CBStoreItemCell class] forCellWithReuseIdentifier:CELL_ITEM_IDENTIFIER];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress show];
     });
-    
-    store = [CBStoreModel storeModel];
-    
-    if (!store.storeLoaded) {
-        [store loadStore];
-    } else {
-        [self initUI];
-    }
-}
-
--(void)storeDidLoad {
-    [self initUI];
-}
-
--(void)initUI {
-    
-    // new items
     
     UIImageView *seeAllItemsArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
     seeAllItemsArrowImage.frame = CGRectMake(0, 0, 20, 20);
@@ -117,22 +109,41 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     self.view.backgroundColor = [UIColor blackColor];
     self.viewNewItems.backgroundColor = [UIColor blackColor];
     self.collectionCategories.backgroundColor = [UIColor blackColor];
+    self.contentMainView.backgroundColor = [UIColor blackColor];
+    self.collectionPopularItems.backgroundColor = [UIColor blackColor];
+    
     //banners
     sbtnBanner1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 135)];
     sbtnBanner2 = [[UIButton alloc] initWithFrame:CGRectMake(320, 0, 320, 135)];
     sbtnBanner3 = [[UIButton alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
     
     [sbtnBanner1 addTarget:self
-                   action:@selector(bannerTapped:)
-         forControlEvents:UIControlEventTouchUpInside];
+                    action:@selector(bannerTapped:)
+          forControlEvents:UIControlEventTouchUpInside];
     [sbtnBanner2 addTarget:self
-                   action:@selector(bannerTapped:)
-         forControlEvents:UIControlEventTouchUpInside];
+                    action:@selector(bannerTapped:)
+          forControlEvents:UIControlEventTouchUpInside];
     [sbtnBanner3 addTarget:self
-                   action:@selector(bannerTapped:)
-         forControlEvents:UIControlEventTouchUpInside];
+                    action:@selector(bannerTapped:)
+          forControlEvents:UIControlEventTouchUpInside];
     
-    [self loadPageWithId:(int)[store.arrayOfBannerImages count] - 1 onPage:0];
+    store = [CBStoreModel storeModel];
+    [store setDelegate:self];
+    
+    if (!store.storeLoaded) {
+        [store loadStore];
+    } else {
+        [self initUI];
+    }
+}
+
+-(void)storeDidLoad {
+    [self initUI];
+}
+
+-(void)initUI {
+    
+    [self loadPageWithId:(int)[store.arrayOfBannerObjects count] - 1 onPage:0];
     [self loadPageWithId:0 onPage:1];
     [self loadPageWithId:1 onPage:2];
     
@@ -148,7 +159,6 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     // calculate scroll content
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.contentMainView.backgroundColor = [UIColor blackColor];
     
     //    // for scrollMain content size (per the docs)
     for (UIView *view in [self.contentMainView subviews]) {
@@ -162,10 +172,13 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     
     //self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.scrollMain.contentSize.height);
     
+
+    [self initItems];
+    
     self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
+    self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.sscrollBanners.frame.size.height + self.viewNewItems.frame.size.height + self.viewCategories.frame.size.height + self.viewPopularItems.frame.size.height + 1000);
     
-    
-    [self initNewItems];
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress dismiss];
@@ -176,9 +189,10 @@ int numOfNewItems = 6;
 int newItemScrollWidth = 0;
 int newItemContentWidth = 0;
 
--(void)initNewItems {
+-(void)initItems {
     [self.collectionNewItems reloadData];
     [self.collectionCategories reloadData];
+    [self.collectionPopularItems reloadData];
 }
 
 -(void)goBack {
@@ -193,7 +207,7 @@ int newItemContentWidth = 0;
     
     UIButton *btnForBanner;
     
-    if ([store.arrayOfBannerImages count]) {
+    if ([store.arrayOfBannerObjects count]) {
         // load data for page
         switch (page) {
             case 0:
@@ -207,8 +221,14 @@ int newItemContentWidth = 0;
                 break;
         }
         
-        [btnForBanner setBackgroundImage:[store.arrayOfBannerImages objectAtIndex:index] forState:UIControlStateNormal];
-        btnForBanner.tag = index;
+        PFObject *objBanner = store.arrayOfBannerObjects[index];
+        [objBanner[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *imgBanner = [UIImage imageWithData:data];
+                [btnForBanner setBackgroundImage:imgBanner forState:UIControlStateNormal];
+                btnForBanner.tag = index;
+            }
+        }];
     }
 }
 
@@ -246,11 +266,11 @@ int scounter = 0;
     // We are moving forward. Load the current doc data on the first page.
     [self loadPageWithId:self.scurrIndex onPage:0];
     // Add one to the currentIndex or reset to 0 if we have reached the end.
-    self.scurrIndex = (self.scurrIndex >= [store.arrayOfBannerImages count]-1) ? 0 : self.scurrIndex + 1;
+    self.scurrIndex = (self.scurrIndex >= [store.arrayOfBannerObjects count]-1) ? 0 : self.scurrIndex + 1;
     [self loadPageWithId:self.scurrIndex onPage:1];
     // Load content on the last page. This is either from the next item in the array
     // or the first if we have reached the end.
-    self.snextIndex = (self.scurrIndex >= [store.arrayOfBannerImages count]-1) ? 0 : self.scurrIndex + 1;
+    self.snextIndex = (self.scurrIndex >= [store.arrayOfBannerObjects count]-1) ? 0 : self.scurrIndex + 1;
     [self loadPageWithId:self.snextIndex onPage:2];
     
     // Reset offset back to middle page
@@ -283,22 +303,22 @@ int scounter = 0;
             // We are moving forward. Load the current doc data on the first page.
             [self loadPageWithId:self.scurrIndex onPage:0];
             // Add one to the currentIndex or reset to 0 if we have reached the end.
-            self.scurrIndex = (self.scurrIndex >= [store.arrayOfBannerImages count]-1) ? 0 : self.scurrIndex + 1;
+            self.scurrIndex = (self.scurrIndex >= [store.arrayOfBannerObjects count]-1) ? 0 : self.scurrIndex + 1;
             [self loadPageWithId:self.scurrIndex onPage:1];
             // Load content on the last page. This is either from the next item in the array
             // or the first if we have reached the end.
-            self.snextIndex = (self.scurrIndex >= [store.arrayOfBannerImages count]-1) ? 0 : self.scurrIndex + 1;
+            self.snextIndex = (self.scurrIndex >= [store.arrayOfBannerObjects count]-1) ? 0 : self.scurrIndex + 1;
             [self loadPageWithId:self.snextIndex onPage:2];
         }
         if(scrollView.contentOffset.x < scrollView.frame.size.width) {
             // We are moving backward. Load the current doc data on the last page.
             [self loadPageWithId:self.scurrIndex onPage:2];
             // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-            self.scurrIndex = (self.scurrIndex == 0) ? (int)[store.arrayOfBannerImages count]-1 : self.scurrIndex - 1;
+            self.scurrIndex = (self.scurrIndex == 0) ? (int)[store.arrayOfBannerObjects count]-1 : self.scurrIndex - 1;
             [self loadPageWithId:self.scurrIndex onPage:1];
             // Load content on the first page. This is either from the prev item in the array
             // or the last if we have reached the beginning.
-            self.sprevIndex = (self.scurrIndex == 0) ? (int)[store.arrayOfBannerImages count]-1 : self.scurrIndex - 1;
+            self.sprevIndex = (self.scurrIndex == 0) ? (int)[store.arrayOfBannerObjects count]-1 : self.scurrIndex - 1;
             [self loadPageWithId:self.sprevIndex onPage:0];
         }
         
@@ -321,18 +341,16 @@ int scounter = 0;
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (collectionView == self.collectionNewItems) {
-        int x = 0;
-        if ([store.arrayOfNewItems count] > 10) x = 10;
-        else x = (int)[store.arrayOfNewItems count];
-        
-        return x;
-        
         if ([store.arrayOfNewItems count] > 10) return 10;
         else return [store.arrayOfNewItems count];
     } else if (collectionView == self.collectionCategories) {
-        if ([self.arrayOfCategoryImages count]) return [self.arrayOfCategoryImages count];
+        if ([store.arrayOfCategoryObjects count]) return [store.arrayOfCategoryObjects count];
         else return 0;
-    } else {
+    } else if (collectionView == self.collectionPopularItems) {
+        if ([store.arrayOfPopularItems count] > 10) return 10;
+        else return [store.arrayOfPopularItems count];
+    }
+    else {
         return 0;
     }
 }
@@ -340,6 +358,7 @@ int scounter = 0;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (collectionView == self.collectionNewItems) {
+        
         
         static NSString *cellIdentifier = @"CBStoreItemCell";
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -388,12 +407,61 @@ int scounter = 0;
 
         
         UIImageView *imgCategory = (UIImageView *)[cell viewWithTag:1];
-        [imgCategory setImage:(UIImage *)self.arrayOfCategoryImages[indexPath.row]];
+        PFObject *objCategory = store.arrayOfCategoryObjects[indexPath.row];
+        PFFile *fileCategory = [objCategory objectForKey:@"image"];
+        [fileCategory getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                [imgCategory setImage:image];
+            }
+        }];
+
         cell.backgroundColor = [UIColor redColor];
         
         cell.layer.cornerRadius = 10;
         cell.clipsToBounds = YES;
         return cell;
+    } else if (collectionView == self.collectionPopularItems) {
+        static NSString *cellIdentifier = @"CBStoreItemCell";
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+        
+        
+        PFObject *item = [store.arrayOfPopularItems objectAtIndex:indexPath.row];
+        
+        
+        PFImageView *imgItem = (PFImageView *)[cell viewWithTag:1];
+        PFFile *imgFile = item[@"image"];
+        if (imgFile) {
+            [imgItem setFile:imgFile];
+            [imgItem loadInBackground];
+        } else {
+            [imgItem setImage:[UIImage imageNamed:@"StoreError"]];
+        }
+        UIView *view = (UIView *)[cell viewWithTag:6];
+        
+        view.layer.cornerRadius = 10;
+        view.layer.borderColor = [UIColor blackColor].CGColor;
+        view.layer.borderWidth = 0;
+        view.clipsToBounds = YES;
+        
+        UILabel *lblItem = (UILabel *)[cell viewWithTag:2];
+        lblItem.text = item[@"item"];
+        
+        UILabel *lblCategory = (UILabel *)[cell viewWithTag:3];
+        lblCategory.text = item[@"category"];
+        
+        double price = [item[@"price"] doubleValue];
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+        NSString *priceString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:price]];
+        
+        UILabel *lblPrice = (UILabel *)[cell viewWithTag:4];
+        lblPrice.text = priceString;
+        
+        cell.clipsToBounds = YES;
+        
+        return cell;
+
     } else {
         return nil;
     }

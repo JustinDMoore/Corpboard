@@ -373,7 +373,7 @@ Parse.Cloud.define("getOnlineUsers", function(request, response) {
 
 // STORE
 // Returns all store objects to the client
-Parse.Cloud.define("getStoreItems", function(request, response) {
+Parse.Cloud.define("getStoreObjects", function(request, response) {
                    
                    Parse.Cloud.useMasterKey();
                    var query = new Parse.Query("Store");
@@ -388,6 +388,30 @@ Parse.Cloud.define("getStoreItems", function(request, response) {
                               error: function() {
                               
                               status = "No items exist in the store "; 
+                              response.error(status);
+                              }
+                              });
+                   });
+
+// Returns all category objects to the client (Apparel, Instruments, Gifts, etc)
+Parse.Cloud.define("getStoreCategories", function(request, response) {
+                   
+                   Parse.Cloud.useMasterKey();
+                   var query = new Parse.Query("banners");
+                   query.equalTo("type", "STORECATEGORY");
+                   query.equalTo("hidden", false);
+                   query.ascending("order");
+                   query.find({
+                              success: function(results) {
+                              
+                              var status = "Found " + results.length + " categories in the store";
+                              response.success(results);
+                              
+                              },
+                              
+                              error: function() {
+                              
+                              status = "No categories exist in the store ";
                               response.error(status);
                               }
                               });
