@@ -12,6 +12,7 @@
 @protocol storeProtocol <NSObject>
 @required
 -(void)storeDidLoad;
+-(void)storeDidFail;
 @end
 
 @interface CBStoreModel : NSObject {

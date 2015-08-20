@@ -18,12 +18,16 @@
 CBStoreModel *store;
 UIButton *sbtnBanner1, *sbtnBanner2, *sbtnBanner3;
 NSTimer *stimerBanners;
+static NSString * const CELL_ITEM_IDENTIFIER = @"CBStoreItemCell";
+static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
+int numOfNewItems = 6;
+int newItemScrollWidth = 0;
+int newItemContentWidth = 0;
+int scounter = 0;
 
 @interface CBStoreController()
-
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollMain;
 @property (nonatomic, strong) IBOutlet UIView *contentMainView;
-
 @property (nonatomic, retain) UIImageView *spageOneDoc;
 @property (nonatomic, retain) UIImageView *spageTwoDoc;
 @property (nonatomic, retain) UIImageView *spageThreeDoc;
@@ -42,7 +46,6 @@ NSTimer *stimerBanners;
 #pragma mark
 #pragma mark - Item Categories
 #pragma mark
-
 @property (weak, nonatomic) IBOutlet ClipView *viewCategories;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionCategories;
 
@@ -52,14 +55,14 @@ NSTimer *stimerBanners;
 @property (weak, nonatomic) IBOutlet UIButton *btnSeeAllPopular;
 @property (weak, nonatomic) IBOutlet ClipView *viewPopularItems;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionPopularItems;
-
 @end
 
 @implementation CBStoreController
 
-static NSString * const CELL_ITEM_IDENTIFIER = @"CBStoreItemCell";
-static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
 
+#pragma mark
+#pragma mark - View Lifecycle
+#pragma mark
 -(void)viewWillAppear:(BOOL)animated {
     // title view
     UIView *bgTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 35)];
@@ -81,7 +84,8 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-
+    self.contentMainView.hidden = YES;
+    self.view.backgroundColor = [UIColor blackColor];
     self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
     self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.sscrollBanners.frame.size.height + self.viewNewItems.frame.size.height + self.viewCategories.frame.size.height + self.viewPopularItems.frame.size.height);
     
@@ -89,12 +93,10 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     [self.collectionNewItems registerClass:[CBStoreItemCell class] forCellWithReuseIdentifier:CELL_ITEM_IDENTIFIER];
     [self.collectionCategories registerClass:[CBStoreCategoryCell class] forCellWithReuseIdentifier:CELL_CATEGORY_IDENTIFIER];
     [self.collectionPopularItems registerClass:[CBStoreItemCell class] forCellWithReuseIdentifier:CELL_ITEM_IDENTIFIER];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress show];
     });
-    
     UIImageView *seeAllItemsArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
     seeAllItemsArrowImage.frame = CGRectMake(0, 0, 20, 20);
     UITableViewCell *seeAllItemsArrow = [[UITableViewCell alloc] init];
@@ -126,7 +128,6 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     [sbtnBanner3 addTarget:self
                     action:@selector(bannerTapped:)
           forControlEvents:UIControlEventTouchUpInside];
-    
     store = [CBStoreModel storeModel];
     [store setDelegate:self];
     
@@ -137,64 +138,6 @@ static NSString * const CELL_CATEGORY_IDENTIFIER = @"CBStoreCategoryCell";
     }
 }
 
--(void)storeDidLoad {
-    [self initUI];
-}
-
--(void)initUI {
-    
-    [self loadPageWithId:(int)[store.arrayOfBannerObjects count] - 1 onPage:0];
-    [self loadPageWithId:0 onPage:1];
-    [self loadPageWithId:1 onPage:2];
-    
-    [self.sscrollBanners addSubview:sbtnBanner1];
-    [self.sscrollBanners addSubview:sbtnBanner2];
-    [self.sscrollBanners addSubview:sbtnBanner3];
-    
-    self.sscrollBanners.contentSize = CGSizeMake(960, 135);
-    [self.sscrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
-
-    [self startTimerForBannerRotation];
-    
-    // calculate scroll content
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    //    // for scrollMain content size (per the docs)
-    for (UIView *view in [self.contentMainView subviews]) {
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    
-    self.scrollMain.canCancelContentTouches = YES;
-    self.scrollMain.delaysContentTouches = YES;
-    self.scrollMain.userInteractionEnabled = YES;
-    self.scrollMain.exclusiveTouch = YES;
-    
-    //self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.scrollMain.contentSize.height);
-    
-
-    [self initItems];
-    
-    self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
-    self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.sscrollBanners.frame.size.height + self.viewNewItems.frame.size.height + self.viewCategories.frame.size.height + self.viewPopularItems.frame.size.height + 1000);
-    
-
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [KVNProgress dismiss];
-    });
-}
-
-int numOfNewItems = 6;
-int newItemScrollWidth = 0;
-int newItemContentWidth = 0;
-
--(void)initItems {
-    [self.collectionNewItems reloadData];
-    [self.collectionCategories reloadData];
-    [self.collectionPopularItems reloadData];
-}
-
 -(void)goBack {
     [stimerBanners invalidate];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -203,10 +146,76 @@ int newItemContentWidth = 0;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark
+#pragma mark - Store Model Delegates
+#pragma mark
+-(void)storeDidLoad {
+    [self initUI];
+}
+
+-(void)storeDidFail {
+    self.contentMainView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        KVNProgressConfiguration *config = [Configuration errorProgressConfig];
+        config.minimumErrorDisplayTime = 100;
+        config.tapBlock = ^(KVNProgress *progressView) {
+            KVNProgress.configuration.tapBlock = nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [KVNProgress dismiss];
+            });
+            [self goBack];
+        };
+        config.fullScreen = NO;
+        [KVNProgress setConfiguration:config];
+        [KVNProgress showErrorWithStatus:@"There was a problem connecting to the 34Store."
+                                  onView:self.view];
+    });
+}
+
+#pragma mark
+#pragma mark - Inits
+#pragma mark
+-(void)initUI {
+    [self loadPageWithId:(int)[store.arrayOfBannerObjects count] - 1 onPage:0];
+    [self loadPageWithId:0 onPage:1];
+    [self loadPageWithId:1 onPage:2];
+    [self.sscrollBanners addSubview:sbtnBanner1];
+    [self.sscrollBanners addSubview:sbtnBanner2];
+    [self.sscrollBanners addSubview:sbtnBanner3];
+    self.sscrollBanners.contentSize = CGSizeMake(960, 135);
+    [self.sscrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
+    [self startTimerForBannerRotation];
+    // calculate scroll content
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    // for scrollMain content size (per the docs)
+    for (UIView *view in [self.contentMainView subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    self.scrollMain.canCancelContentTouches = YES;
+    self.scrollMain.delaysContentTouches = YES;
+    self.scrollMain.userInteractionEnabled = YES;
+    self.scrollMain.exclusiveTouch = YES;
+    //self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.scrollMain.contentSize.height);
+    [self initItems];
+    self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
+    self.scrollMain.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.sscrollBanners.frame.size.height + self.viewNewItems.frame.size.height + self.viewCategories.frame.size.height + self.viewPopularItems.frame.size.height + 1000);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [KVNProgress dismiss];
+    });
+    self.contentMainView.hidden = NO;
+}
+
+-(void)initItems {
+    [self.collectionNewItems reloadData];
+    [self.collectionCategories reloadData];
+    [self.collectionPopularItems reloadData];
+}
+
+#pragma mark
+#pragma mark - Helpers
+#pragma mark
 -(void)loadPageWithId:(int)index onPage:(int)page {
-    
     UIButton *btnForBanner;
-    
     if ([store.arrayOfBannerObjects count]) {
         // load data for page
         switch (page) {
@@ -220,7 +229,6 @@ int newItemContentWidth = 0;
                 btnForBanner = sbtnBanner3;
                 break;
         }
-        
         PFObject *objBanner = store.arrayOfBannerObjects[index];
         [objBanner[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
@@ -233,7 +241,6 @@ int newItemContentWidth = 0;
 }
 
 -(void)startTimerForBannerRotation {
-    
     stimerBanners = [NSTimer scheduledTimerWithTimeInterval:1
                                                     target:self
                                                   selector:@selector(scrollToNextBanner)
@@ -241,19 +248,7 @@ int newItemContentWidth = 0;
                                                    repeats:YES];
 }
 
--(void)bannerTapped:(UIButton *)sender {
-    
-    PFObject *bannerObj = store.arrayOfBannerObjects[sender.tag];
-    
-    if ([bannerObj[@"link"] length]) {
-        
-
-    }
-}
-
-int scounter = 0;
 -(void)scrollToNextBanner {
-    
     scounter ++;
     if (scounter == 5) {
         scounter = 0;
@@ -261,6 +256,23 @@ int scounter = 0;
     }
 }
 
+#pragma mark
+#pragma mark - Actions
+#pragma mark
+-(void)bannerTapped:(UIButton *)sender {
+    PFObject *bannerObj = store.arrayOfBannerObjects[sender.tag];
+    
+    if ([bannerObj[@"link"] length]) {
+        
+    }
+}
+
+- (IBAction)seeAllItems:(UIButton *)sender {
+}
+
+#pragma mark
+#pragma mark - Scrollview Delegates
+#pragma mark
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     
     // We are moving forward. Load the current doc data on the first page.
@@ -278,13 +290,11 @@ int scounter = 0;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
     if (scrollView == self.scrollMain) {
         if (scrollView.contentOffset.y < -128) {
             scrollView.contentOffset = CGPointMake(0, -128);
         }
     }
-    
     if (scrollView == self.sscrollBanners) {
         // the user scrolled manually, so reset the counter
         scounter = 0;
@@ -292,10 +302,7 @@ int scounter = 0;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-    
     if (scrollView == self.sscrollBanners) {
-        
         // All data for the documents are stored in an array (documentTitles).
         // We keep track of the index that we are scrolling to so that we
         // know what data to load for each page.
@@ -321,13 +328,9 @@ int scounter = 0;
             self.sprevIndex = (self.scurrIndex == 0) ? (int)[store.arrayOfBannerObjects count]-1 : self.scurrIndex - 1;
             [self loadPageWithId:self.sprevIndex onPage:0];
         }
-        
         // Reset offset back to middle page
         [scrollView scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
     }
-}
-
-- (IBAction)seeAllItems:(UIButton *)sender {
 }
 
 #pragma mark -
@@ -339,7 +342,6 @@ int scounter = 0;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     if (collectionView == self.collectionNewItems) {
         if ([store.arrayOfNewItems count] > 10) return 10;
         else return [store.arrayOfNewItems count];
@@ -356,16 +358,11 @@ int scounter = 0;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (collectionView == self.collectionNewItems) {
-        
-        
         static NSString *cellIdentifier = @"CBStoreItemCell";
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
-        
         PFObject *item = [store.arrayOfNewItems objectAtIndex:indexPath.row];
-        
         
         PFImageView *imgItem = (PFImageView *)[cell viewWithTag:1];
         PFFile *imgFile = item[@"image"];
@@ -399,9 +396,7 @@ int scounter = 0;
         cell.clipsToBounds = YES;
         
         return cell;
-        
     } else if (collectionView == self.collectionCategories) {
-        
         static NSString *cellIdentifier = @"CBStoreCategoryCell";
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
@@ -424,11 +419,7 @@ int scounter = 0;
     } else if (collectionView == self.collectionPopularItems) {
         static NSString *cellIdentifier = @"CBStoreItemCell";
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        
-        
         PFObject *item = [store.arrayOfPopularItems objectAtIndex:indexPath.row];
-        
-        
         PFImageView *imgItem = (PFImageView *)[cell viewWithTag:1];
         PFFile *imgFile = item[@"image"];
         if (imgFile) {
@@ -461,22 +452,15 @@ int scounter = 0;
         cell.clipsToBounds = YES;
         
         return cell;
-
     } else {
         return nil;
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (collectionView == self.collectionNewItems) {
-        
         PFObject *itemSelected = [store.arrayOfNewItems objectAtIndex:indexPath.row];
-        
-        
         // do something with selected item
-    
-    
     }
 }
 @end

@@ -376,6 +376,16 @@ Parse.Cloud.define("getOnlineUsers", function(request, response) {
 Parse.Cloud.define("getStoreObjects", function(request, response) {
                    
                    Parse.Cloud.useMasterKey();
+                   
+                   //First, check to see if the store is open
+                   var queryOpen = new Parse.Query("admin");
+                   queryOpen.find ({
+                   
+                   })
+                   
+                   
+                   
+                   
                    var query = new Parse.Query("Store");
                    query.find({
                               success: function(results) {
@@ -412,6 +422,30 @@ Parse.Cloud.define("getStoreCategories", function(request, response) {
                               error: function() {
                               
                               status = "No categories exist in the store ";
+                              response.error(status);
+                              }
+                              });
+                   });
+
+// Returns all store banner objects to the client
+Parse.Cloud.define("getStoreBanners", function(request, response) {
+                   
+                   Parse.Cloud.useMasterKey();
+                   var query = new Parse.Query("banners");
+                   query.equalTo("type", "STORE");
+                   query.equalTo("hidden", false);
+                   query.ascending("order");
+                   query.find({
+                              success: function(results) {
+                              
+                              var status = "Found " + results.length + " banners for the store";
+                              response.success(results);
+                              
+                              },
+                              
+                              error: function() {
+                              
+                              status = "No banners exist for the store ";
                               response.error(status);
                               }
                               });

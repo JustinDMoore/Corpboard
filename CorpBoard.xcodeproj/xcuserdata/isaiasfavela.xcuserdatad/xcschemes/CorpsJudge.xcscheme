@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9253347A194FD5D70004D16F"
-               BuildableName = "Corpboard.app"
+               BuildableName = "Corpsboard.app"
                BlueprintName = "Corpboard"
                ReferencedContainer = "container:Corpboard.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "Corpboard.app"
+            BuildableName = "Corpsboard.app"
             BlueprintName = "Corpboard"
             ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>
@@ -63,7 +63,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "Corpboard.app"
+            BuildableName = "Corpsboard.app"
             BlueprintName = "Corpboard"
             ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9253347A194FD5D70004D16F"
-            BuildableName = "Corpboard.app"
+            BuildableName = "Corpsboard.app"
             BlueprintName = "Corpboard"
             ReferencedContainer = "container:Corpboard.xcodeproj">
          </BuildableReference>

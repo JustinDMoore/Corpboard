@@ -1627,6 +1627,18 @@ bool isScrolling = NO;
 
 - (IBAction)shop_tapped:(id)sender {
 
-    [self performSegueWithIdentifier:@"store" sender:self];
+    BOOL storeOpen = [data.objAdmin[@"storeOpen"] boolValue];
+    if (storeOpen) {
+        [self performSegueWithIdentifier:@"store" sender:self];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"We'll be back."
+                                                                       message:@"We're busy updating the 34Store for you and will be back soon."
+                                                                preferredStyle: UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:nil];
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 @end

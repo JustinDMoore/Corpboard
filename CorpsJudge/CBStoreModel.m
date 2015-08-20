@@ -10,6 +10,8 @@
 
 @implementation CBStoreModel
 
+int task = 0;
+
 +(id)storeModel {
     static CBStoreModel *storeModel = nil;
     static dispatch_once_t onceToken;
@@ -31,6 +33,7 @@
         self.updatedBanners = NO;
         self.storeLoaded = NO;
         self.updatedCategories = NO;
+        task = 0;
     }
     return self;
 }
@@ -45,29 +48,31 @@
     [self getStoreObjects];
 }
 
-
-
-// TO DO::: MOVE TO CLOUD
 -(void)getBannerObjects {
-    PFQuery *query = [PFQuery queryWithClassName:@"banners"];
-    [query whereKey:@"hidden" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"type" equalTo:@"STORE"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            self.arrayOfBannerObjects = objects;
-            self.updatedBanners = YES;
-            [self didWeFinish];
-        }
-    }];
+    [PFCloud callFunctionInBackground:@"getStoreBanners"
+                       withParameters:nil
+                                block:^(NSArray *results, NSError *error) {
+                                    task++;
+                                    if (!error) {
+                                        if ([results count]) {
+                                            self.arrayOfBannerObjects = results;
+                                            self.updatedBanners = YES;
+                                        }
+                                        [self didWeFinish];
+                                    }
+                                }];
 }
 
 -(void)getStoreObjects {
     [PFCloud callFunctionInBackground:@"getStoreObjects"
                        withParameters:nil
                                 block:^(NSArray *results, NSError *error) {
+                                    task++;
                                     if (!error) {
-                                        [self.arrayOfStoreObjects addObjectsFromArray:results];
-                                        self.updatedStoreObjects = YES;
+                                        if ([results count]) {
+                                            [self.arrayOfStoreObjects addObjectsFromArray:results];
+                                            self.updatedStoreObjects = YES;
+                                        }
                                         [self didWeFinish];
                                     }
                                 }];
@@ -77,9 +82,12 @@
     [PFCloud callFunctionInBackground:@"getStoreCategories"
                        withParameters:nil
                                 block:^(NSArray *results, NSError *error) {
+                                    task++;
                                     if (!error) {
-                                        [self.arrayOfCategoryObjects addObjectsFromArray:results];
-                                        self.updatedCategories = YES;
+                                        if ([results count]) {
+                                            [self.arrayOfCategoryObjects addObjectsFromArray:results];
+                                            self.updatedCategories = YES;
+                                        }
                                         [self didWeFinish];
                                     }
                                 }];
@@ -123,8 +131,13 @@
         [self getPopularItems];
         self.storeLoaded = YES;
         if ([delegate respondsToSelector:@selector(storeDidLoad)]) {
-
             [delegate storeDidLoad];
+        }
+    } else {
+        if (task >= 3) {
+            if ([delegate respondsToSelector:@selector(storeDidFail)]) {
+                [delegate storeDidFail];
+            }
         }
     }
 }
