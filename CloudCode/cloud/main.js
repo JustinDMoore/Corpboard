@@ -379,9 +379,15 @@ Parse.Cloud.define("getStoreObjects", function(request, response) {
                    
                    //First, check to see if the store is open
                    var queryOpen = new Parse.Query("admin");
-                   queryOpen.find ({
-                   
-                   })
+                   queryOpen.first({
+                               success: function(object) {
+                               myObject = object("storeOpen");
+                               console.log(myObject);
+                               },
+                               error: function(error) {
+                               console.log("There was an error");
+                               }
+                               });
                    
                    
                    
@@ -450,3 +456,33 @@ Parse.Cloud.define("getStoreBanners", function(request, response) {
                               }
                               });
                    });
+
+//Parse.Cloud.define("isStoreOpen", function(request, response) {
+//                      Parse.Cloud.useMasterKey();
+//
+//                   var adminObject = Parse.Object.extend("admin");
+//                   var query = new Parse.Query(adminObject);
+//                   query.get("IjplBNRNjj", {
+//                             success: function(results) {
+//                                var open = gameScore.get("storeOpen");
+//                             response.success({"result": open});
+//                             },
+//                             error: function(object, error) {
+//                             // The object was not retrieved successfully.
+//                             // error is a Parse.Error with an error code and message.
+//                             }
+//                             });
+//                      });
+//
+//function checkIfStoreIsOpen(currentUser, selfFriendid, callback) {
+//    var query = new Parse.Query("Connections");
+//    query.equalTo("Connection", currentUser);
+//    query.find({
+//               success: function(results) {
+//               callback(results);
+//               },
+//               error: function(error) {
+//               callback(error);
+//               }
+//               });
+//};

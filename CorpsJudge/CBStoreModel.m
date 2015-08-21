@@ -64,6 +64,8 @@ int task = 0;
 }
 
 -(void)getStoreObjects {
+
+    
     [PFCloud callFunctionInBackground:@"getStoreObjects"
                        withParameters:nil
                                 block:^(NSArray *results, NSError *error) {
