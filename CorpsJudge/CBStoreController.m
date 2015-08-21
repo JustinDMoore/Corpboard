@@ -14,8 +14,10 @@
 #import "ClipView.h"
 #import "CBStoreItemCell.h"
 #import "CBStoreCategoryCell.h"
+#import "CBStoreItemTableViewController.h"
 
 CBStoreModel *store;
+PFObject *itemSelected;
 UIButton *sbtnBanner1, *sbtnBanner2, *sbtnBanner3;
 NSTimer *stimerBanners;
 static NSString * const CELL_ITEM_IDENTIFIER = @"CBStoreItemCell";
@@ -64,14 +66,10 @@ int scounter = 0;
 #pragma mark - View Lifecycle
 #pragma mark
 -(void)viewWillAppear:(BOOL)animated {
-    // title view
-    UIView *bgTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 35)];
-    UIImageView *storeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"34storeLogo"]];
-    [bgTitleView addSubview:storeImage];
-    storeImage.frame = CGRectMake(0, 0, bgTitleView.frame.size.width, bgTitleView.frame.size.height);
-    self.navigationItem.titleView = bgTitleView;
-    
-    // back button
+    store = [CBStoreModel storeModel];
+    [store setDelegate:self];
+    [self updateCart];
+    self.navigationItem.titleView = [store getStoreTitleView];
     UIButton *backButton = [[UIButton alloc] init];
     UIImage *imgBack = [UIImage imageNamed:@"storeBack"];
     [backButton setBackgroundImage:imgBack forState:UIControlStateNormal];
@@ -79,7 +77,6 @@ int scounter = 0;
     backButton.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButtonBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonBarItem;
-    
 }
 
 -(void)viewDidLoad {
@@ -128,8 +125,6 @@ int scounter = 0;
     [sbtnBanner3 addTarget:self
                     action:@selector(bannerTapped:)
           forControlEvents:UIControlEventTouchUpInside];
-    store = [CBStoreModel storeModel];
-    [store setDelegate:self];
     
     if (!store.storeLoaded) {
         [store loadStore];
@@ -256,6 +251,16 @@ int scounter = 0;
     }
 }
 
+-(void)updateCart {
+    // cart button
+    UIButton *cartButton = [[UIButton alloc] init];
+    UIImage *imgCart = [UIImage imageNamed:[NSString stringWithFormat:@"cart%i", + [store numberOfItemsInCart]]];
+    [cartButton setBackgroundImage:imgCart forState:UIControlStateNormal];
+    [cartButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    cartButton.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *cartBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
+    self.navigationItem.rightBarButtonItem = cartBarButtonItem;
+}
 #pragma mark
 #pragma mark - Actions
 #pragma mark
@@ -385,13 +390,28 @@ int scounter = 0;
         UILabel *lblCategory = (UILabel *)[cell viewWithTag:3];
         lblCategory.text = item[@"category"];
         
-        double price = [item[@"price"] doubleValue];
+        UILabel *lblItemPrice = (UILabel *)[cell viewWithTag:4];
+        UILabel *lblItemSalePrice = (UILabel *)[cell viewWithTag:5];
+        
+        double itemPrice = [item[@"price"] doubleValue];
+        double itemSalePrice = [item[@"salePrice"] doubleValue];
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-        NSString *priceString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:price]];
-        
-        UILabel *lblPrice = (UILabel *)[cell viewWithTag:4];
-        lblPrice.text = priceString;
+        NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:itemPrice]];
+        NSString *strSalePrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:itemSalePrice]];
+        if (itemSalePrice > 0) {
+            lblItemSalePrice.hidden = NO;
+            NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:strPrice];
+            [attributeString addAttribute:NSStrikethroughStyleAttributeName
+                                    value:@2
+                                    range:NSMakeRange(0, [attributeString length])];
+            lblItemPrice.attributedText = attributeString;
+            lblItemSalePrice.text = strSalePrice;
+        } else {
+            lblItemPrice.text = strPrice;
+            lblItemSalePrice.hidden = YES;
+        }
+
         
         cell.clipsToBounds = YES;
         
@@ -441,13 +461,27 @@ int scounter = 0;
         UILabel *lblCategory = (UILabel *)[cell viewWithTag:3];
         lblCategory.text = item[@"category"];
         
-        double price = [item[@"price"] doubleValue];
+        UILabel *lblItemPrice = (UILabel *)[cell viewWithTag:4];
+        UILabel *lblItemSalePrice = (UILabel *)[cell viewWithTag:5];
+        
+        double itemPrice = [item[@"price"] doubleValue];
+        double itemSalePrice = [item[@"salePrice"] doubleValue];
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-        NSString *priceString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:price]];
-        
-        UILabel *lblPrice = (UILabel *)[cell viewWithTag:4];
-        lblPrice.text = priceString;
+        NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:itemPrice]];
+        NSString *strSalePrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:itemSalePrice]];
+        if (itemSalePrice > 0) {
+            lblItemSalePrice.hidden = NO;
+            NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:strPrice];
+            [attributeString addAttribute:NSStrikethroughStyleAttributeName
+                                    value:@2
+                                    range:NSMakeRange(0, [attributeString length])];
+            lblItemPrice.attributedText = attributeString;
+            lblItemSalePrice.text = strSalePrice;
+        } else {
+            lblItemPrice.text = strPrice;
+            lblItemSalePrice.hidden = YES;
+        }
         
         cell.clipsToBounds = YES;
         
@@ -459,8 +493,18 @@ int scounter = 0;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.collectionNewItems) {
-        PFObject *itemSelected = [store.arrayOfNewItems objectAtIndex:indexPath.row];
-        // do something with selected item
+        itemSelected = [store.arrayOfNewItems objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"item" sender:self];
+    } else if (collectionView == self.collectionPopularItems) {
+        itemSelected = [store.arrayOfPopularItems objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"item" sender:self];
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"item"]) {
+        CBStoreItemTableViewController *vc = [segue destinationViewController];
+        vc.item = itemSelected;
     }
 }
 @end

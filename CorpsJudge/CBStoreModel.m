@@ -64,8 +64,6 @@ int task = 0;
 }
 
 -(void)getStoreObjects {
-
-    
     [PFCloud callFunctionInBackground:@"getStoreObjects"
                        withParameters:nil
                                 block:^(NSArray *results, NSError *error) {
@@ -142,6 +140,19 @@ int task = 0;
             }
         }
     }
+}
+
+-(UIView *)getStoreTitleView {
+    UIView *bgTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 35)];
+    UIImageView *storeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"34storeLogo"]];
+    [bgTitleView addSubview:storeImage];
+    storeImage.frame = CGRectMake(0, 0, bgTitleView.frame.size.width, bgTitleView.frame.size.height);
+    return bgTitleView;
+}
+
+-(int)numberOfItemsInCart {
+    PFUser *user = [PFUser currentUser];
+    return 0;
 }
 
 @end

@@ -376,21 +376,21 @@ Parse.Cloud.define("getOnlineUsers", function(request, response) {
 Parse.Cloud.define("getStoreObjects", function(request, response) {
                    
                    Parse.Cloud.useMasterKey();
-                   
-                   //First, check to see if the store is open
-                   var queryOpen = new Parse.Query("admin");
-                   queryOpen.first({
-                               success: function(object) {
-                               myObject = object("storeOpen");
-                               console.log(myObject);
-                               },
-                               error: function(error) {
-                               console.log("There was an error");
-                               }
-                               });
-                   
-                   
-                   
+//                   
+//                   //First, check to see if the store is open
+//                   var queryOpen = new Parse.Query("admin");
+//                   queryOpen.first({
+//                               success: function(object) {
+//                               myObject = object("storeOpen");
+//                               console.log(myObject);
+//                               },
+//                               error: function(error) {
+//                               console.log("There was an error");
+//                               }
+//                               });
+//                   
+//                   
+//                   
                    
                    var query = new Parse.Query("Store");
                    query.find({

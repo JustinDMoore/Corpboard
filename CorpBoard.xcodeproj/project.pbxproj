@@ -133,6 +133,9 @@
 		D03DCADD1B168A81005D326E /* CBPush.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DCADC1B168A81005D326E /* CBPush.m */; };
 		D04702D9195790AC0004A0EF /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702D8195790AC0004A0EF /* Accounts.framework */; };
 		D04702DB195790B40004A0EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D04702DA195790B40004A0EF /* Social.framework */; };
+		D047404F1B86D9C300ADC30E /* CBStoreItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D047404E1B86D9C300ADC30E /* CBStoreItemTableViewController.m */; };
+		D04740511B870D2400ADC30E /* CBStoreItemSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04740501B870D2400ADC30E /* CBStoreItemSelector.xib */; };
+		D04740541B870E6B00ADC30E /* CBStoreItemSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = D04740531B870E6B00ADC30E /* CBStoreItemSelector.m */; };
 		D047A349196A095F00F5F5BC /* star_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A348196A095F00F5F5BC /* star_unselected.png */; };
 		D047A34B196A096700F5F5BC /* star_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D047A34A196A096700F5F5BC /* star_selected.png */; };
 		D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D04B300B196A746C00E92C22 /* CBTextViewPlaceHolder.m */; };
@@ -445,6 +448,11 @@
 		D03DCADC1B168A81005D326E /* CBPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPush.m; sourceTree = "<group>"; };
 		D04702D8195790AC0004A0EF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D04702DA195790B40004A0EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		D047404D1B86D9C300ADC30E /* CBStoreItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreItemTableViewController.h; sourceTree = "<group>"; };
+		D047404E1B86D9C300ADC30E /* CBStoreItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreItemTableViewController.m; sourceTree = "<group>"; };
+		D04740501B870D2400ADC30E /* CBStoreItemSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBStoreItemSelector.xib; sourceTree = "<group>"; };
+		D04740521B870E6B00ADC30E /* CBStoreItemSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreItemSelector.h; sourceTree = "<group>"; };
+		D04740531B870E6B00ADC30E /* CBStoreItemSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreItemSelector.m; sourceTree = "<group>"; };
 		D047A348196A095F00F5F5BC /* star_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_unselected.png; sourceTree = "<group>"; };
 		D047A34A196A096700F5F5BC /* star_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_selected.png; sourceTree = "<group>"; };
 		D04B300A196A746C00E92C22 /* CBTextViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextViewPlaceHolder.h; sourceTree = "<group>"; };
@@ -892,6 +900,7 @@
 				D00B716B1AF4488400403A12 /* CBFeedbackViewController.m */,
 				D02BB6D81AFC59F000721426 /* CBConnectViewController.m */,
 				D01DDE9E1B8179A8006B7103 /* CBStoreController.m */,
+				D047404E1B86D9C300ADC30E /* CBStoreItemTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -945,6 +954,8 @@
 				D008F86A1B20F6EA0012D144 /* CBVersion.m */,
 				D036DA661B82B4C600746DD6 /* CBStoreItemCell.xib */,
 				D036DA681B82E08200746DD6 /* CBStoreCategoryCell.xib */,
+				D04740501B870D2400ADC30E /* CBStoreItemSelector.xib */,
+				D04740531B870E6B00ADC30E /* CBStoreItemSelector.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -981,6 +992,7 @@
 				D00B716A1AF4488400403A12 /* CBFeedbackViewController.h */,
 				D02BB6D71AFC59F000721426 /* CBConnectViewController.h */,
 				D01DDE9D1B8179A8006B7103 /* CBStoreController.h */,
+				D047404D1B86D9C300ADC30E /* CBStoreItemTableViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1035,6 +1047,7 @@
 				D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */,
 				D03DCADB1B168A81005D326E /* CBPush.h */,
 				D008F8691B20F6EA0012D144 /* CBVersion.h */,
+				D04740521B870E6B00ADC30E /* CBStoreItemSelector.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1459,6 +1472,7 @@
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				D00B71731AF44E0900403A12 /* CBFeedbackCell.xib in Resources */,
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
+				D04740511B870D2400ADC30E /* CBStoreItemSelector.xib in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
 				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
 				D00E41541AE9DB0D00199974 /* finals6.png in Resources */,
@@ -1520,7 +1534,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1540,6 +1554,7 @@
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
+				D047404F1B86D9C300ADC30E /* CBStoreItemTableViewController.m in Sources */,
 				D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				D036DA651B82A86100746DD6 /* CBStoreItemCell.m in Sources */,
@@ -1566,6 +1581,7 @@
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
+				D04740541B870E6B00ADC30E /* CBStoreItemSelector.m in Sources */,
 				D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */,
 				D01DDE9F1B8179A8006B7103 /* CBStoreController.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,

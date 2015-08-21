@@ -31,5 +31,6 @@
 +(id)storeModel;
 -(void)loadStore;
 -(void)setDelegate:(id)newDelegate;
-
+-(int)numberOfItemsInCart;
+-(UIView *)getStoreTitleView;
 @end
