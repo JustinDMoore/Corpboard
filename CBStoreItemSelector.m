@@ -8,6 +8,7 @@
 
 #import "CBStoreItemSelector.h"
 
+
 @implementation CBStoreItemSelector
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -19,42 +20,45 @@
     return self;
 }
 
--(void)showInParent:(CGRect)parent {
+-(void)showInParentWithSelectorType:(selectType)type {
     
-    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height / 4, [UIScreen mainScreen].bounds.size.width);
+    switch (type) {
+        case SIZE: self.lblTitle.text = @"PICK A SIZE";
+            break;
+        case COLOR: self.lblTitle.text = @"PICK A COLOR";
+            break;
+        case QUANTITY: self.lblTitle.text = @"PICK A QUANTITY";
+            break;
+        default:
+            break;
+    }
     
-//    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-//        
-//        self.transform = CGAffineTransformIdentity;
-//        
-//    } completion:^(BOOL finished) {
-//        
-//        
-//    }];
+    self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height / 2);
+    
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
+        
+        self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - ([UIScreen mainScreen].bounds.size.height / 2), [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height / 2);
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
 }
 
 -(void)closeView:(BOOL)cancelled {
-    
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
+    if ([delegate respondsToSelector:@selector(selectorWillClose)]) {
+        [delegate selectorWillClose];
+    }
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:8 options:0 animations:^{
         
-        self.transform = CGAffineTransformScale(self.transform, 1.1, 1.1);
+            self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height / 2);
         
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.2
-                              delay:0
-             usingSpringWithDamping:1
-              initialSpringVelocity:8
-                            options:0
-                         animations:^{
-                             self.transform = CGAffineTransformScale(self.transform, 0.1f, 0.1f);
-                             self.alpha = 0;
-                         }
-                         completion:^(BOOL finished) {
-                             [self removeFromSuperview];
-                             //[delegate corpExperienceUpdated];
-                         }];
+        [self removeFromSuperview];
+        if ([delegate respondsToSelector:@selector(selectorDidClose)]) {
+            [delegate selectorDidClose];
+        }
     }];
-    
 }
 
 - (IBAction)btnClose:(id)sender {

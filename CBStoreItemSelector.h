@@ -7,19 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBStoreItemSelectorType.h"
 
 @protocol StoreItemSelectorProtocol <NSObject>
 @required
 -(void)indexSelected;
--(void)selectorCancelled;
+-(void)selectorClosedWithSelectedIndex:(int)selectedIndex;
+-(void)selectorDidClose;
+-(void)selectorWillClose;
 @end
 
 @interface CBStoreItemSelector : UIView {
     id delegate;
 }
+@property (nonatomic, strong) IBOutlet UILabel *lblTitle;
 @property (nonatomic, weak) IBOutlet UITableView *tableSelector;
 -(IBAction)btnClose:(id)sender;
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent;
+-(void)showInParentWithSelectorType:(selectType)type;
 -(void)closeView:(BOOL)cancelled;
 @end

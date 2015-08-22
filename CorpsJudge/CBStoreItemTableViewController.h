@@ -11,6 +11,16 @@
 #import <ParseUI/ParseUI.h>
 #import "CBStoreItemSelector.h"
 
-@interface CBStoreItemTableViewController : UITableViewController
+
+@interface CBStoreItemTableViewController : UITableViewController <StoreItemSelectorProtocol>
+
+typedef enum {
+    errorNone,
+    errorSize,
+    errorColor
+} errorForItem;
+
 @property (nonatomic, strong) PFObject *item;
+@property (nonatomic) errorForItem itemErrors;
+
 @end

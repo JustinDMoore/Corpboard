@@ -66,10 +66,7 @@ int scounter = 0;
 #pragma mark - View Lifecycle
 #pragma mark
 -(void)viewWillAppear:(BOOL)animated {
-    store = [CBStoreModel storeModel];
-    [store setDelegate:self];
-    [self updateCart];
-    self.navigationItem.titleView = [store getStoreTitleView];
+
     UIButton *backButton = [[UIButton alloc] init];
     UIImage *imgBack = [UIImage imageNamed:@"storeBack"];
     [backButton setBackgroundImage:imgBack forState:UIControlStateNormal];
@@ -81,6 +78,10 @@ int scounter = 0;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    store = [CBStoreModel storeModel];
+    [store setDelegate:self];
+    self.navigationItem.titleView = [store getStoreTitleView];
+    [self updateCart];
     self.contentMainView.hidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
     self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height);
