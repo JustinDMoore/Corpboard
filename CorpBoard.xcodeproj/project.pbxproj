@@ -157,6 +157,7 @@
 		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
+		D0893DAB1B87F60700BCD999 /* CBStoreItemSelectorType.m in Sources */ = {isa = PBXBuildFile; fileRef = D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */; };
 		D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC7D51B140AB1000B3C75 /* PodNotes.m */; };
 		D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F01A41467800FF0B62 /* CBEditName.xib */; };
 		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
@@ -484,6 +485,8 @@
 		D074E1531A6EEFCB00C1E300 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
+		D0893DA91B87F60700BCD999 /* CBStoreItemSelectorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreItemSelectorType.h; sourceTree = "<group>"; };
+		D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreItemSelectorType.m; sourceTree = "<group>"; };
 		D08BC7D51B140AB1000B3C75 /* PodNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodNotes.m; sourceTree = "<group>"; };
 		D08E00F01A41467800FF0B62 /* CBEditName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditName.xib; sourceTree = "<group>"; };
 		D08E00F21A4147B700FF0B62 /* CBEditName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditName.h; sourceTree = "<group>"; };
@@ -956,6 +959,8 @@
 				D036DA681B82E08200746DD6 /* CBStoreCategoryCell.xib */,
 				D04740501B870D2400ADC30E /* CBStoreItemSelector.xib */,
 				D04740531B870E6B00ADC30E /* CBStoreItemSelector.m */,
+				D0893DA91B87F60700BCD999 /* CBStoreItemSelectorType.h */,
+				D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1595,6 +1600,7 @@
 				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,
 				D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
+				D0893DAB1B87F60700BCD999 /* CBStoreItemSelectorType.m in Sources */,
 				928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */,
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,

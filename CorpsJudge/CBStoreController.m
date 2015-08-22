@@ -74,6 +74,7 @@ int scounter = 0;
     backButton.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButtonBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonBarItem;
+    [self updateCart];
 }
 
 -(void)viewDidLoad {
@@ -147,6 +148,7 @@ int scounter = 0;
 #pragma mark
 -(void)storeDidLoad {
     [self initUI];
+    [self updateCart];
 }
 
 -(void)storeDidFail {

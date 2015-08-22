@@ -409,6 +409,30 @@ Parse.Cloud.define("getStoreObjects", function(request, response) {
                               });
                    });
 
+Parse.Cloud.define("getItemsInCart", function(request, response) {
+                   
+                   Parse.Cloud.useMasterKey();
+                   var query = new Parse.Query("Orders");
+                   query.equalTo("status", "CART");
+                   query.equalTo("user", request.user);
+                   var user = request.user;
+
+                   query.find({
+                              success: function(results) {
+                              
+                              var status = "Found " + results.length + " items in the users cart";
+                              response.success(results);
+                              
+                              },
+                              
+                              error: function() {
+                              
+                              status = "No items exist in the users cart ";
+                              response.error(status);
+                              }
+                              });
+                   });
+
 // Returns all category objects to the client (Apparel, Instruments, Gifts, etc)
 Parse.Cloud.define("getStoreCategories", function(request, response) {
                    

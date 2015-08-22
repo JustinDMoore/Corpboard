@@ -11,6 +11,7 @@
 #import "CBStoreItemSelectorType.h"
 
 CBStoreModel *store;
+
 NSString *const _GOLD = @"c78e34";
 NSString *const _MAROON = @"782025";
 UIView *viewFade;
@@ -25,6 +26,7 @@ BOOL colors, sizes;
 @interface CBStoreItemTableViewController ()
 @property (nonatomic, strong) CBStoreItemSelector *viewSelector;
 @property (nonatomic) selectType selectorType;
+@property (nonatomic) itmStatus itemStatus;
 @property (nonatomic) int indexOfSize;
 @property (nonatomic) int indexOfColor;
 @property (nonatomic) int indexOfQuantity;
@@ -438,6 +440,23 @@ BOOL colors, sizes;
             return;
         }
     }
+    
+    PFObject *cartItem = [PFObject objectWithClassName:@"Orders"];
+    cartItem[@"status"] = [store stringFromItemStatus:INCART];
+    cartItem[@"user"] = [PFUser currentUser];
+    cartItem[@"item"] = self.item;
+    cartItem[@"quantity"] = [NSNumber numberWithInt:self.indexOfQuantity + 1];
+    if ([self.arrayOfSizeChoices count]) {
+        NSString *sizeChoice = self.arrayOfSizeChoices[self.indexOfSize];
+        cartItem[@"size"] = sizeChoice;
+    }
+    if ([self.arrayOfColorChoices count]) {
+        NSString *colorChoice = self.arrayOfColorChoices[self.indexOfColor];
+        cartItem[@"color"] = colorChoice;
+    }
+    [cartItem saveEventually];
+    [store.arrayOfItemsInCart addObject:cartItem];
+    [self updateCart];
 }
 
 #pragma mark

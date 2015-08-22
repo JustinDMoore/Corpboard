@@ -29,6 +29,8 @@ int task = 0;
         self.arrayOfNewItems = [[NSMutableArray alloc] init];
         self.arrayOfStoreObjects = [[NSMutableArray alloc] init];
         self.arrayOfPopularItems = [[NSMutableArray alloc] init];
+        self.arrayOfItemsInCart = [[NSMutableArray alloc] init];
+        self.updatedItemsInCart = NO;
         self.updatedStoreObjects = NO;
         self.updatedBanners = NO;
         self.storeLoaded = NO;
@@ -46,6 +48,24 @@ int task = 0;
     [self getStoreCategories];
     [self getBannerObjects];
     [self getStoreObjects];
+    [self getCartObjects];
+}
+
+-(void)getCartObjects {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:[PFUser currentUser].objectId forKey:@"user"];
+    [PFCloud callFunctionInBackground:@"getItemsInCart"
+                       withParameters:dict
+                                block:^(NSArray *results, NSError *error) {
+                                    task++;
+                                    if (!error) {
+                                        if ([results count]) {
+                                            [self.arrayOfItemsInCart addObjectsFromArray:results];
+                                        }
+                                        self.updatedItemsInCart = YES;
+                                        [self didWeFinish];
+                                    }
+                                }];
 }
 
 -(void)getBannerObjects {
@@ -126,7 +146,7 @@ int task = 0;
 }
 
 -(void)didWeFinish {
-    if ((self.updatedBanners) && (self.updatedStoreObjects) && (self.updatedCategories)) {
+    if ((self.updatedBanners) && (self.updatedStoreObjects) && (self.updatedCategories) && (self.updatedItemsInCart)) {
         [self getNewestItems];
         [self getPopularItems];
         self.storeLoaded = YES;
@@ -134,7 +154,7 @@ int task = 0;
             [delegate storeDidLoad];
         }
     } else {
-        if (task >= 3) {
+        if (task >= 4) {
             if ([delegate respondsToSelector:@selector(storeDidFail)]) {
                 [delegate storeDidFail];
             }
@@ -151,8 +171,17 @@ int task = 0;
 }
 
 -(int)numberOfItemsInCart {
-    PFUser *user = [PFUser currentUser];
-    return 0;
+    return (int)[self.arrayOfItemsInCart count];
 }
 
+
+-(NSString *)stringFromItemStatus:(itmStatus)status {
+    switch ((int)status) {
+        case INCART: return @"CART";
+            break;
+        case ORDERED: return @"ORDERED";
+            break;
+    }
+    return @"ERROR";
+}
 @end
