@@ -257,12 +257,18 @@ int scounter = 0;
 -(void)updateCart {
     // cart button
     UIButton *cartButton = [[UIButton alloc] init];
-    UIImage *imgCart = [UIImage imageNamed:[NSString stringWithFormat:@"cart%i", + [store numberOfItemsInCart]]];
+    int num = [store numberOfItemsInCart];
+    if (num > 20) num = 21;
+    UIImage *imgCart = [UIImage imageNamed:[NSString stringWithFormat:@"cart%i", + num]];
     [cartButton setBackgroundImage:imgCart forState:UIControlStateNormal];
-    [cartButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [cartButton addTarget:self action:@selector(openCart) forControlEvents:UIControlEventTouchUpInside];
     cartButton.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *cartBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
     self.navigationItem.rightBarButtonItem = cartBarButtonItem;
+}
+
+-(void)openCart {
+    [self performSegueWithIdentifier:@"cart" sender:self];
 }
 #pragma mark
 #pragma mark - Actions
