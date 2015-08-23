@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CBCartItemCell.h"
+#import "CBCartEditItem.h"
 
-@interface CBCartCollectionViewController : UICollectionViewController
+@interface CBCartCollectionViewController : UICollectionViewController <CartEditItemProtocol>
 
 @end

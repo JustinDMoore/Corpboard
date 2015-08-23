@@ -9,9 +9,11 @@
 #import "CBCartCollectionViewController.h"
 #import "CBStoreModel.h"
 
-CBStoreModel *store;
-@interface CBCartCollectionViewController ()
 
+CBStoreModel *store;
+BOOL editing;
+@interface CBCartCollectionViewController ()
+@property (nonatomic, strong) CBCartEditItem *viewEdit;
 @end
 
 @implementation CBCartCollectionViewController
@@ -34,6 +36,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     store = [CBStoreModel storeModel];
+    editing = NO;
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -124,10 +127,7 @@ static NSString * const reuseIdentifier = @"Cell";
             NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:total]];
             lblPrice.text = strPrice;
         }
-        
     }];
-    
-
 
     return cell;
 }
@@ -163,4 +163,60 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 */
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (!editing) {
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        CGRect frame = [collectionView convertRect:cell.frame toView:self.view];
+        [self.view addSubview:self.viewEdit];
+        [self.view bringSubviewToFront:self.viewEdit];
+        NSInteger itemsPerRow = 2;
+        NSInteger column = indexPath.item % itemsPerRow;
+        BOOL right;
+        if (column == 0) right = YES;
+        else right = NO;
+        [self.viewEdit showAtRect:frame animateRight:right];
+        editing = YES;
+    }
+//    PFObject *item = store.arrayOfItemsInCart[indexPath.row];
+//    self.viewEdit.lblQty.text = item[@"quantity"];
+
+}
+
+#pragma mark
+#pragma mark - Edit Item Protocol
+#pragma mark
+-(void)incrementQty {
+    //increment and update price on item and total
+}
+
+-(void)decrementQty {
+    //decrement and update price on item and total
+}
+
+-(void)itemRemoved {
+    //delete item
+    //display a message
+    //animate it
+}
+
+-(void)itemCancelAnimationComplete {
+    self.viewEdit = nil;
+    editing = NO;
+}
+
+-(void)itemCancelAnimationWillStart {
+    
+}
+
+-(CBCartEditItem *)viewEdit {
+    if (!_viewEdit) {
+        _viewEdit = [[[NSBundle mainBundle] loadNibNamed:@"CBCartEditItem"
+                                                       owner:self
+                                                     options:nil]
+                         objectAtIndex:0];
+        [_viewEdit setDelegate:self];
+    }
+    return _viewEdit;
+}
 @end

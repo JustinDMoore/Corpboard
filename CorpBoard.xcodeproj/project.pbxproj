@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920962C81B02DF08006D8B27 /* CBReviewShow.xib */; };
+		920E5E8D1B895A6500D81C7B /* CBCartEditItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */; };
+		920E5E901B895D9400D81C7B /* CBCartEditItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */; };
 		92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CBStatsViewController.m */; };
 		92275B3C1A4042BC006E8E8E /* CBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92275B3B1A4042BC006E8E8E /* CBView.m */; };
 		92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92393F261A59B5DE00020C6A /* CBProblemWhere.xib */; };
@@ -31,6 +33,8 @@
 		923D4FDC1A2C6DCF00E16B64 /* tab_private@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 923D4F1F1A2C6DCF00E16B64 /* tab_private@2x.png */; };
 		923D4FDD1A2C6DCF00E16B64 /* tab_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 923D4F201A2C6DCF00E16B64 /* tab_profile@2x.png */; };
 		923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D501E1A2C737600E16B64 /* CBChatMessages.m */; };
+		923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 923E69A11B8850BB00B7328F /* CBCartItemCell.m */; };
+		923E69A51B88518800B7328F /* CBCartCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923E69A41B88518800B7328F /* CBCartCollectionViewController.m */; };
 		924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924280E11963A573006E8240 /* CBCorpsViewController.m */; };
 		924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 924E93B3195904380006DB81 /* UINavigationController+Orientation.m */; };
 		9253347F194FD5D70004D16F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9253347E194FD5D70004D16F /* Foundation.framework */; };
@@ -262,6 +266,9 @@
 /* Begin PBXFileReference section */
 		15A4219440C800AE5E982027 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		920962C81B02DF08006D8B27 /* CBReviewShow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewShow.xib; sourceTree = "<group>"; };
+		920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBCartEditItem.xib; sourceTree = "<group>"; };
+		920E5E8E1B895D9400D81C7B /* CBCartEditItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCartEditItem.h; sourceTree = "<group>"; };
+		920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCartEditItem.m; sourceTree = "<group>"; };
 		92120A8E195945B600FFB9A8 /* CBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStatsViewController.h; sourceTree = "<group>"; };
 		92120A8F195945B600FFB9A8 /* CBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStatsViewController.m; sourceTree = "<group>"; };
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
@@ -299,6 +306,10 @@
 		923D4F201A2C6DCF00E16B64 /* tab_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_profile@2x.png"; sourceTree = "<group>"; };
 		923D501D1A2C737600E16B64 /* CBChatMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBChatMessages.h; sourceTree = "<group>"; };
 		923D501E1A2C737600E16B64 /* CBChatMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChatMessages.m; sourceTree = "<group>"; };
+		923E69A01B8850BB00B7328F /* CBCartItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCartItemCell.h; sourceTree = "<group>"; };
+		923E69A11B8850BB00B7328F /* CBCartItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCartItemCell.m; sourceTree = "<group>"; };
+		923E69A31B88518800B7328F /* CBCartCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCartCollectionViewController.h; sourceTree = "<group>"; };
+		923E69A41B88518800B7328F /* CBCartCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCartCollectionViewController.m; sourceTree = "<group>"; };
 		924280E01963A573006E8240 /* CBCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsViewController.h; sourceTree = "<group>"; };
 		924280E11963A573006E8240 /* CBCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsViewController.m; sourceTree = "<group>"; };
 		924E93B2195904380006DB81 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
@@ -904,6 +915,7 @@
 				D02BB6D81AFC59F000721426 /* CBConnectViewController.m */,
 				D01DDE9E1B8179A8006B7103 /* CBStoreController.m */,
 				D047404E1B86D9C300ADC30E /* CBStoreItemTableViewController.m */,
+				923E69A41B88518800B7328F /* CBCartCollectionViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -961,6 +973,9 @@
 				D04740531B870E6B00ADC30E /* CBStoreItemSelector.m */,
 				D0893DA91B87F60700BCD999 /* CBStoreItemSelectorType.h */,
 				D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */,
+				920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */,
+				920E5E8E1B895D9400D81C7B /* CBCartEditItem.h */,
+				920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -998,6 +1013,7 @@
 				D02BB6D71AFC59F000721426 /* CBConnectViewController.h */,
 				D01DDE9D1B8179A8006B7103 /* CBStoreController.h */,
 				D047404D1B86D9C300ADC30E /* CBStoreItemTableViewController.h */,
+				923E69A31B88518800B7328F /* CBCartCollectionViewController.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1151,6 +1167,8 @@
 				D01DDEA91B8193F9006B7103 /* CBStoreItemCollectionFlowLayout.m */,
 				D0AAD16F1AB68619002CAACC /* CBAnnotation.h */,
 				D0AAD1701AB68619002CAACC /* CBAnnotation.m */,
+				923E69A01B8850BB00B7328F /* CBCartItemCell.h */,
+				923E69A11B8850BB00B7328F /* CBCartItemCell.m */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1460,6 +1478,7 @@
 				D064F3B21A36ECA1007455E2 /* index.html in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */,
+				920E5E8D1B895A6500D81C7B /* CBCartEditItem.xib in Resources */,
 				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */,
 				9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */,
@@ -1539,7 +1558,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1555,6 +1574,7 @@
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				D01DDEA21B817CB1006B7103 /* CBStoreModel.m in Sources */,
+				920E5E901B895D9400D81C7B /* CBCartEditItem.m in Sources */,
 				923D4FCA1A2C6DCF00E16B64 /* MessagesView.m in Sources */,
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
@@ -1573,6 +1593,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
+				923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */,
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
 				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
 				D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */,
@@ -1654,6 +1675,7 @@
 				D036DA6F1B82E66500746DD6 /* CBStoreCategoryFlowLayout.m in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */,
+				923E69A51B88518800B7328F /* CBCartCollectionViewController.m in Sources */,
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				D03DCADD1B168A81005D326E /* CBPush.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
