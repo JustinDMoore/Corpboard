@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *lblTotal;
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
+@property (weak, nonatomic) IBOutlet UIView *viewCheckout;
 
 @end

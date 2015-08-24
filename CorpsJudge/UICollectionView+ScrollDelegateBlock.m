@@ -27,7 +27,7 @@ static id<UITableViewDelegate>previousDelegate;
 
 @implementation UITableView (ScrollDelegateBlock)
 
--(void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath
              atScrollPosition:(UITableViewScrollPosition)scrollPosition
                      animated:(BOOL)animated
                scrollFinished:(void (^)())scrollFinished {

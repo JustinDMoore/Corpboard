@@ -24,4 +24,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *lblQty;
 -(void)setDelegate:(id)newDelegate;
 -(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(int)qty;
+-(void)closeView;
 @end

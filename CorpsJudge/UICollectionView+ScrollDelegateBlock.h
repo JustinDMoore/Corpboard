@@ -11,7 +11,7 @@
 // Header file
 @interface UICollectionView (ScrollDelegateBlock)
 
--(void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath
              atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
                      animated:(BOOL)animated
                scrollFinished:(void (^)())scrollFinished;

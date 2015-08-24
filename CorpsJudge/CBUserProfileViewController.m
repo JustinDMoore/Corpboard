@@ -1425,6 +1425,8 @@ UIPickerView *corpPicker;
 float ht;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    
+    
     if (scrollView == self.scrollProfile) {
         CGPoint offset = scrollView.contentOffset;
         if (scrollView.contentOffset.y < 0) {

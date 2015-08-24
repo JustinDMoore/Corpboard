@@ -54,7 +54,7 @@
 		identifier = [decoder decodeObjectForKey:@"identifier"];
 		title = [decoder decodeObjectForKey:@"title"];
 		link = [decoder decodeObjectForKey:@"link"];
-		date = [decoder decodeObjectForKey:@"news_date"];
+		date = [decoder decodeObjectForKey:@"date"];
 		updated = [decoder decodeObjectForKey:@"updated"];
 		summary = [decoder decodeObjectForKey:@"summary"];
 		content = [decoder decodeObjectForKey:@"content"];

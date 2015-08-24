@@ -14,6 +14,7 @@
 CBStoreModel *store;
 NSIndexPath *indexPathOfEdit;
 CBHoleView *viewBlock;
+double finalPrice;
 
 @interface CBCartCollectionViewController ()
 @property (nonatomic, strong) CBCartEditItem *viewEdit;
@@ -42,9 +43,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.btnCheckout.layer.borderWidth = 1;
     self.btnCheckout.layer.borderColor = [UIColor blackColor].CGColor;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    viewBlock = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    viewBlock.backgroundColor = [UIColor blackColor];
-    viewBlock.alpha = .5;
 }
 
 -(void)goBack {
@@ -137,42 +135,52 @@ static NSString * const reuseIdentifier = @"Cell";
 
 }
 
+-(void)getPrices {
+    
+}
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    [collectionView scrollToItemAtIndexPath:indexPath
-                           atScrollPosition:UICollectionViewScrollPositionCenteredVertically
-                                   animated:YES];
-    
-    BOOL isScrolling = (collectionView.isDragging || collectionView.isDecelerating);
-    
-    
-    if (self.viewEdit.alpha == 0 && !isScrolling) {
+    if (self.viewEdit.alpha < 1) {
+        self.btnCheckout.userInteractionEnabled = NO;
         
-//        self.collectionView.userInteractionEnabled = NO;
-//        self.btnCheckout.userInteractionEnabled = NO;
-//        
-//        indexPathOfEdit = indexPath;
-//        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-//        
-//        [self.view addSubview:self.viewEdit];
-//        NSInteger itemsPerRow = 2;
-//        NSInteger column = indexPath.item % itemsPerRow;
-//        
-//        CGRect startRect = [collectionView convertRect:cell.frame toView:self.view];
-//        UICollectionViewCell *endCell;
-//        if (column == 0) {
-//            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row + 1 inSection:0]];
-//        } else {
-//            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row - 1 inSection:0]];
-//        }
-//        CGRect endRect = [collectionView convertRect:endCell.frame toView:self.view];
-//        PFObject *item = store.arrayOfItemsInCart[indexPath.row];
-//        [self.viewEdit showAtRect:startRect endAtRect:endRect withQty:[item[@"quantity"] intValue]];
-//        [self mask:YES forRect:startRect];
-//        [self.view bringSubviewToFront:self.viewEdit];
+        indexPathOfEdit = indexPath;
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
         
+        
+        NSInteger itemsPerRow = 2;
+        NSInteger column = indexPath.item % itemsPerRow;
+        
+        CGRect startRect = [collectionView convertRect:cell.frame toView:self.view];
+        UICollectionViewCell *endCell;
+        if (column == 0) {
+            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row + 1 inSection:0]];
+        } else {
+            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row - 1 inSection:0]];
+        }
+        CGRect endRect = [collectionView convertRect:endCell.frame toView:self.view];
+        PFObject *item = store.arrayOfItemsInCart[indexPath.row];
+       
+        
+        [self.view bringSubviewToFront:self.viewEdit];
+        
+        [self mask:YES forRect:startRect];
+        [self.view addSubview:self.viewEdit];
+        [self.viewEdit showAtRect:startRect endAtRect:endRect withQty:[item[@"quantity"] intValue]];
+    } else {
+        [self.viewEdit closeView];
+        [self mask:NO forRect:CGRectZero];
     }
+    [self.view bringSubviewToFront:self.viewCheckout];
 }
+
+CGPoint pointNow;
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.viewEdit closeView];
+    [self mask:NO forRect:CGRectZero];
+}
+
+
 
 -(void)mask:(BOOL)yes forRect:(CGRect)maskRect {
     if (yes) {
@@ -184,9 +192,11 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.view addSubview:viewBlock];
         viewBlock.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         viewBlock.alpha = .7;
+        [self.view bringSubviewToFront:viewBlock];
     } else {
         [viewBlock removeFromSuperview];
     }
+    [self.view bringSubviewToFront:self.viewCheckout];
 }
 
 #pragma mark
@@ -204,6 +214,17 @@ static NSString * const reuseIdentifier = @"Cell";
     [item saveEventually];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPathOfEdit];
     [self detailsForCell:cell atIndexPath:indexPathOfEdit];
+}
+
+-(void)calculateTotal {
+    double final = 0;
+    for (PFObject *item in store.arrayOfItemsInCart) {
+        PFObject *base = item[@"item"];
+        [base fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            double price = [base[@"price"] doubleValue];
+            int qty = item[@"quantity"];
+        }];
+    }
 }
 
 -(void)itemRemoved {

@@ -150,6 +150,8 @@
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
 		D064F3B21A36ECA1007455E2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AF1A36ECA1007455E2 /* index.html */; };
+		D065EE871B8AC43A001611D9 /* CBHoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D065EE861B8AC43A001611D9 /* CBHoleView.m */; };
+		D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = D065EE891B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m */; };
 		D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D066C2001AF5756100C84609 /* CBFeedbackView.xib */; };
 		D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = D066C2031AF576DC00C84609 /* CBFeedbackView.m */; };
 		D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */ = {isa = PBXBuildFile; fileRef = D066C2051AF5C4A100C84609 /* CBThankYou.xib */; };
@@ -480,6 +482,10 @@
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		D064F3AD1A36ECA1007455E2 /* global.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = global.json; sourceTree = "<group>"; };
 		D064F3AF1A36ECA1007455E2 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		D065EE851B8AC43A001611D9 /* CBHoleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHoleView.h; sourceTree = "<group>"; };
+		D065EE861B8AC43A001611D9 /* CBHoleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHoleView.m; sourceTree = "<group>"; };
+		D065EE881B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ScrollDelegateBlock.h"; sourceTree = "<group>"; };
+		D065EE891B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ScrollDelegateBlock.m"; sourceTree = "<group>"; };
 		D066C2001AF5756100C84609 /* CBFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBFeedbackView.xib; sourceTree = "<group>"; };
 		D066C2021AF576DC00C84609 /* CBFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFeedbackView.h; sourceTree = "<group>"; };
 		D066C2031AF576DC00C84609 /* CBFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFeedbackView.m; sourceTree = "<group>"; };
@@ -1147,6 +1153,8 @@
 		D0606BBE1A3D8619002A1F48 /* SubClasses */ = {
 			isa = PBXGroup;
 			children = (
+				D065EE851B8AC43A001611D9 /* CBHoleView.h */,
+				D065EE861B8AC43A001611D9 /* CBHoleView.m */,
 				D075856B1965CFBF003CAF29 /* ClipView.h */,
 				D075856C1965CFBF003CAF29 /* ClipView.m */,
 				D0606BBB1A3D8614002A1F48 /* CBTextField.h */,
@@ -1290,6 +1298,8 @@
 		D0BA4FC81ABB149F0051310E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				D065EE881B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.h */,
+				D065EE891B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m */,
 				D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */,
 				D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */,
 				D0BA4FC51ABB13E40051310E /* MKMapView+ZoomLevel.h */,
@@ -1558,7 +1568,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1591,6 +1601,7 @@
 				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
 				923D4FC61A2C6DCF00E16B64 /* PrivateView.m in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
+				D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */,
@@ -1605,6 +1616,7 @@
 				92275B3C1A4042BC006E8E8E /* CBView.m in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
+				D065EE871B8AC43A001611D9 /* CBHoleView.m in Sources */,
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				D04740541B870E6B00ADC30E /* CBStoreItemSelector.m in Sources */,
