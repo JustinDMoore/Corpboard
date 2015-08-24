@@ -8,10 +8,13 @@
 
 #import "CBCartCollectionViewController.h"
 #import "CBStoreModel.h"
-
+#import "CBHoleView.h"
+#import "UICollectionView+ScrollDelegateBlock.h"
 
 CBStoreModel *store;
-BOOL editing;
+NSIndexPath *indexPathOfEdit;
+CBHoleView *viewBlock;
+
 @interface CBCartCollectionViewController ()
 @property (nonatomic, strong) CBCartEditItem *viewEdit;
 @end
@@ -36,54 +39,57 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     store = [CBStoreModel storeModel];
-    editing = NO;
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
+    self.btnCheckout.layer.borderWidth = 1;
+    self.btnCheckout.layer.borderColor = [UIColor blackColor].CGColor;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+    viewBlock = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    viewBlock.backgroundColor = [UIColor blackColor];
+    viewBlock.alpha = .5;
 }
 
 -(void)goBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+#pragma mark
+#pragma mark - UICollectionView Delegates & Datasource
+#pragma mark
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [store.arrayOfItemsInCart count];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CBCartItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+    [self detailsForCell:cell atIndexPath:indexPath];
+    if (indexPathOfEdit != indexPath) {
+        [cell addSubview:viewBlock];
+        viewBlock.frame = cell.frame;
+    } else {
+        for (UIView *v in [cell subviews]) {
+            if (v.tag == 111) [v removeFromSuperview];
+        }
+    }
+    return cell;
+}
+
+-(void)detailsForCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
     PFImageView *imgItem = (PFImageView *)[cell viewWithTag:1];
     UILabel *lblQty = (UILabel *)[cell viewWithTag:2];
     UILabel *lblSize = (UILabel *)[cell viewWithTag:3];
     UILabel *lblColor = (UILabel *)[cell viewWithTag:4];
     UILabel *lblPrice = (UILabel *)[cell viewWithTag:5];
-    
+    UIView *viewFooter = (UIView *)[cell viewWithTag:10];
+    viewFooter.backgroundColor = [UIColor colorWithRed:255/2 green:255/2 blue:255/2 alpha:0.5];
     PFObject *item = store.arrayOfItemsInCart[indexPath.row];
     PFObject *itemPointer = item[@"item"];
     [itemPointer fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-    
+        
         if (object) {
             PFFile *imgFile = object[@"image"];
             if (imgFile) {
@@ -129,69 +135,75 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }];
 
-    return cell;
 }
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (!editing) {
-        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-        CGRect frame = [collectionView convertRect:cell.frame toView:self.view];
-        [self.view addSubview:self.viewEdit];
-        [self.view bringSubviewToFront:self.viewEdit];
-        NSInteger itemsPerRow = 2;
-        NSInteger column = indexPath.item % itemsPerRow;
-        BOOL right;
-        if (column == 0) right = YES;
-        else right = NO;
-        [self.viewEdit showAtRect:frame animateRight:right];
-        editing = YES;
+    [collectionView scrollToItemAtIndexPath:indexPath
+                           atScrollPosition:UICollectionViewScrollPositionCenteredVertically
+                                   animated:YES];
+    
+    BOOL isScrolling = (collectionView.isDragging || collectionView.isDecelerating);
+    
+    
+    if (self.viewEdit.alpha == 0 && !isScrolling) {
+        
+//        self.collectionView.userInteractionEnabled = NO;
+//        self.btnCheckout.userInteractionEnabled = NO;
+//        
+//        indexPathOfEdit = indexPath;
+//        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+//        
+//        [self.view addSubview:self.viewEdit];
+//        NSInteger itemsPerRow = 2;
+//        NSInteger column = indexPath.item % itemsPerRow;
+//        
+//        CGRect startRect = [collectionView convertRect:cell.frame toView:self.view];
+//        UICollectionViewCell *endCell;
+//        if (column == 0) {
+//            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row + 1 inSection:0]];
+//        } else {
+//            endCell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row - 1 inSection:0]];
+//        }
+//        CGRect endRect = [collectionView convertRect:endCell.frame toView:self.view];
+//        PFObject *item = store.arrayOfItemsInCart[indexPath.row];
+//        [self.viewEdit showAtRect:startRect endAtRect:endRect withQty:[item[@"quantity"] intValue]];
+//        [self mask:YES forRect:startRect];
+//        [self.view bringSubviewToFront:self.viewEdit];
+        
     }
-//    PFObject *item = store.arrayOfItemsInCart[indexPath.row];
-//    self.viewEdit.lblQty.text = item[@"quantity"];
+}
 
+-(void)mask:(BOOL)yes forRect:(CGRect)maskRect {
+    if (yes) {
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        
+        NSArray *transparentRects = [[NSArray alloc] initWithObjects:[NSValue valueWithCGRect:maskRect],  nil];
+        viewBlock = [[CBHoleView alloc] initWithFrame:CGRectMake(0,0,200,400) backgroundColor:[UIColor blackColor] andTransparentRects:transparentRects];
+        [self.view addSubview:viewBlock];
+        viewBlock.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        viewBlock.alpha = .7;
+    } else {
+        [viewBlock removeFromSuperview];
+    }
+}
+
+#pragma mark
+#pragma mark - Actions
+#pragma mark
+- (IBAction)beginCheckout:(id)sender {
 }
 
 #pragma mark
 #pragma mark - Edit Item Protocol
 #pragma mark
--(void)incrementQty {
-    //increment and update price on item and total
-}
-
--(void)decrementQty {
-    //decrement and update price on item and total
+-(void)newQuantity:(int)newQty {
+    PFObject *item = store.arrayOfItemsInCart[indexPathOfEdit.row];
+    item[@"quantity"] = [NSNumber numberWithInt:newQty];
+    [item saveEventually];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPathOfEdit];
+    [self detailsForCell:cell atIndexPath:indexPathOfEdit];
 }
 
 -(void)itemRemoved {
@@ -201,12 +213,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)itemCancelAnimationComplete {
-    self.viewEdit = nil;
-    editing = NO;
+   
 }
 
 -(void)itemCancelAnimationWillStart {
-    
+    self.collectionView.userInteractionEnabled = YES;
+    self.btnCheckout.userInteractionEnabled = YES;
+    [self mask:NO forRect:CGRectZero];
 }
 
 -(CBCartEditItem *)viewEdit {
@@ -216,6 +229,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                                      options:nil]
                          objectAtIndex:0];
         [_viewEdit setDelegate:self];
+        _viewEdit.alpha = 0;
     }
     return _viewEdit;
 }

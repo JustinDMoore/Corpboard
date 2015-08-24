@@ -265,6 +265,8 @@ int scounter = 0;
     cartButton.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *cartBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
     self.navigationItem.rightBarButtonItem = cartBarButtonItem;
+    if (store.storeLoaded) self.navigationItem.rightBarButtonItem.enabled = YES;
+    else self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 -(void)openCart {

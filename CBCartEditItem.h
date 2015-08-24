@@ -11,8 +11,7 @@
 
 @protocol CartEditItemProtocol <NSObject>
 @required
--(void)incrementQty;
--(void)decrementQty;
+-(void)newQuantity:(int)newQty;
 -(void)itemRemoved;
 -(void)itemCancelAnimationWillStart;
 -(void)itemCancelAnimationComplete;
@@ -21,7 +20,8 @@
 @interface CBCartEditItem : UIView {
     id delegate;
 }
+@property (nonatomic) int quantity;
 @property (nonatomic, strong) IBOutlet UILabel *lblQty;
 -(void)setDelegate:(id)newDelegate;
--(void)showAtRect:(CGRect)rect animateRight:(BOOL)right;
+-(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(int)qty;
 @end

@@ -10,6 +10,9 @@
 #import "CBCartItemCell.h"
 #import "CBCartEditItem.h"
 
-@interface CBCartCollectionViewController : UICollectionViewController <CartEditItemProtocol>
+@interface CBCartCollectionViewController : UIViewController <CartEditItemProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotal;
+@property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
 
 @end
