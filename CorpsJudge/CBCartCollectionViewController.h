@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTotal;
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
 @property (weak, nonatomic) IBOutlet UIView *viewCheckout;
-
+@property (nonatomic, strong) NSMutableArray *arrayOfPrices;
 @end
