@@ -30,6 +30,9 @@ CGRect endRect;
 }
 
 - (IBAction)removeItem:(UIButton *)sender {
+    if ([delegate respondsToSelector:@selector(itemRemoved)]) {
+        [delegate itemRemoved];
+    }
 }
 
 - (IBAction)cancel:(UIButton *)sender {

@@ -39,30 +39,32 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     store = [CBStoreModel storeModel];
-    self.btnCheckout.layer.borderWidth = 1;
-    self.btnCheckout.layer.borderColor = [UIColor blackColor].CGColor;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    self.arrayOfPrices = [[NSMutableArray alloc] init];
+    [self.arrayOfPrices removeAllObjects];
+    [self initUI];
+}
+
+-(void)initUI {
     self.lblTotal.text = @"$0";
     if ([store.arrayOfItemsInCart count]) {
         [self calculateTotal];
+        self.btnCheckout.layer.borderWidth = 1;
+        self.btnCheckout.layer.borderColor = [UIColor blackColor].CGColor;
+        self.viewCheckout.hidden = NO;
     } else {
         UILabel *lblMessage = [[UILabel alloc] init];
         lblMessage.font = [UIFont systemFontOfSize:12];
-        lblMessage.text = @"Your cart is empty.";
+        lblMessage.numberOfLines = 0;
+        lblMessage.text = @"Your cart is empty.\n\nAnd lonely.";
+        [lblMessage setTextAlignment:NSTextAlignmentCenter];
         lblMessage.textColor = [UIColor lightGrayColor];
         [lblMessage sizeToFit];
         [self.view addSubview:lblMessage];
         [lblMessage setCenter:self.view.center];
         [self.view bringSubviewToFront:lblMessage];
-        
-        self.btnCheckout.enabled = NO;
-        self.btnCheckout.backgroundColor = [UIColor lightGrayColor];
-        [self.btnCheckout setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        self.viewCheckout.hidden = YES;
     }
-}
-
--(void)updateFinalPrice {
-    
 }
 
 -(void)goBack {
@@ -73,7 +75,8 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - UICollectionView Delegates & Datasource
 #pragma mark
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    if ([store.arrayOfItemsInCart count]) return 1;
+    else return 0;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -107,9 +110,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)detailsForCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
-    if ((int)indexPath.row > [store.arrayOfItemsInCart count] - 1) {
-        
-    }
+//    if ((int)indexPath.row > [store.arrayOfItemsInCart count] - 1) {
+//        
+//    }
     
     PFImageView *imgItem = (PFImageView *)[cell viewWithTag:1];
     UILabel *lblQty = (UILabel *)[cell viewWithTag:2];
@@ -117,10 +120,11 @@ static NSString * const reuseIdentifier = @"Cell";
     UILabel *lblColor = (UILabel *)[cell viewWithTag:4];
     UILabel *lblPrice = (UILabel *)[cell viewWithTag:5];
     UIView *viewFooter = (UIView *)[cell viewWithTag:10];
+
     viewFooter.backgroundColor = [UIColor colorWithRed:255/2 green:255/2 blue:255/2 alpha:0.5];
     PFObject *item = store.arrayOfItemsInCart[indexPath.row];
     PFObject *itemPointer = item[@"item"];
-    [itemPointer fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [itemPointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         if (object) {
             PFFile *imgFile = object[@"image"];
@@ -132,45 +136,40 @@ static NSString * const reuseIdentifier = @"Cell";
             }
             NSString *color = item[@"color"];
             NSString *size = item[@"size"];
-            NSString *qty = [NSString stringWithFormat:@"%i", [item[@"quantity"] intValue]];
+            NSString *strqty = [NSString stringWithFormat:@"%i", [item[@"quantity"] intValue]];
             if ([color length]) lblColor.text = [NSString stringWithFormat:@"Color: %@", color];
             else lblColor.text = @"";
             
             if ([size length]) lblSize.text = [NSString stringWithFormat:@"Size: %@", size];
             else lblSize.text = @"";
             
-            if ([qty length]) lblQty.text = [NSString stringWithFormat:@"Qty: %@", qty];
+            if ([strqty length]) lblQty.text = [NSString stringWithFormat:@"Qty: %@", strqty];
             else lblQty.text = @"";
             
-            //calculate price x quantity for item
-            
-            double itemSalePrice = [itemPointer[@"salePrice"] doubleValue];
-            double itemPrice = [itemPointer[@"price"] doubleValue];
+            double salePrice = [itemPointer[@"salePrice"] doubleValue];
+            double price = [itemPointer[@"price"] doubleValue];
+            int qty = [item[@"quantity"] intValue];
             double total = 0;
-            if (itemSalePrice > 0) {
-                total = itemSalePrice * [item[@"quantity"] intValue];
+            if (salePrice > 0) {
+                total = qty * salePrice;
             } else {
-                total = itemPrice * [item[@"quantity"] intValue];
-            }
-            // we have price x qty.. now check for price increase for size
-            NSString *myString = size;
-            NSArray *myArray = [myString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"$"]];
-            if ([myArray count]) { // charge extra
-                double extraCharge = [[myArray lastObject] doubleValue];
-                total = total + (extraCharge * [item[@"quantity"] intValue]);
+                total = qty * price;
             }
             
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-            NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:total]];
-            lblPrice.text = strPrice;
+            NSString *myString = item[@"size"];
+            NSArray *myArray = [myString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"$"]];
+            if ([myArray count] > 1) { // charge extra
+                double extraCharge = [[myArray lastObject] doubleValue];
+                if (extraCharge > 0) {
+                    extraCharge = extraCharge * qty;
+                    total = total + extraCharge;
+                }
+            }
+
+            lblPrice.text = [self stringFromDouble:total];
         }
     }];
 
-}
-
--(void)getPrices {
-    
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -255,32 +254,70 @@ CGPoint pointNow;
 
 double final;
 -(void)calculateTotal {
-    final = 0;
+    [self.arrayOfPrices removeAllObjects];
     for (PFObject *item in store.arrayOfItemsInCart) {
         PFObject *base = item[@"item"];
         [base fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            double salePrice = [base[@"salePrice"] doubleValue];
             double price = [base[@"price"] doubleValue];
             int qty = [item[@"quantity"] intValue];
+            double total = 0;
+            if (salePrice > 0) {
+                total = qty * salePrice;
+            } else {
+                total = qty * price;
+            }
+            
+            
             NSString *myString = item[@"size"];
             NSArray *myArray = [myString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"$"]];
-            if ([myArray count]) { // charge extra
+            if ([myArray count] > 1) { // charge extra
                 double extraCharge = [[myArray lastObject] doubleValue];
-                if (extraCharge > 0) price += extraCharge;
-                final += price * qty;
-                
-                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-                [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-                NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:final]];
-                self.lblTotal.text = strPrice;
+                if (extraCharge > 0) {
+                    extraCharge = extraCharge * qty;
+                    total = total + extraCharge;
+                }
             }
+            
+            [self.arrayOfPrices addObject:[NSNumber numberWithDouble:total]];
+            [self checkForTotal];
         }];
     }
+}
+
+-(void)checkForTotal {
+    if ([self.arrayOfPrices count] == [store.arrayOfItemsInCart count]) {
+        double total;
+        for (NSNumber *price in self.arrayOfPrices) {
+            double p = [price doubleValue];
+            total += p;
+        }
+        self.lblTotal.text = [self stringFromDouble:total];
+    }
+}
+
+-(NSString *)stringFromDouble:(double)price {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    NSString *strPrice = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:price]];
+    return strPrice;
 }
 
 -(void)itemRemoved {
     //delete item
     //display a message
-    //animate it
+    //animate it-(void)remove:(int)i {
+    
+    [self.collectionView performBatchUpdates:^{
+        [self.viewEdit closeView];
+        PFObject *itemToDelete = store.arrayOfItemsInCart[(int)indexPathOfEdit.row];
+        [store.arrayOfItemsInCart removeObjectAtIndex:[store.arrayOfItemsInCart indexOfObject:itemToDelete]];
+        [itemToDelete deleteEventually];
+        [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPathOfEdit]];
+        
+    } completion:^(BOOL finished) {
+        //[self initUI];
+    }];
 }
 
 -(void)itemCancelAnimationComplete {
