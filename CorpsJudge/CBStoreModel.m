@@ -171,7 +171,14 @@ int task = 0;
 }
 
 -(int)numberOfItemsInCart {
-    return (int)[self.arrayOfItemsInCart count];
+    if (![self.arrayOfItemsInCart count]) return 0;
+    else {
+        int qty = 0;
+        for (PFObject *itemInCart in self.arrayOfItemsInCart) {
+            qty = qty + [itemInCart[@"quantity"] intValue];
+        }
+        return qty;
+    }
 }
 
 

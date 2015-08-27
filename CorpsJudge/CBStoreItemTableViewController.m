@@ -15,12 +15,15 @@ CBStoreModel *store;
 NSString *const _GOLD = @"c78e34";
 NSString *const _MAROON = @"782025";
 UIView *viewFade;
-UIImage *imgToAnimate;
+PFImageView *imgVToAnimate;
+PFImageView *imgOriginal;
 int buttonBorderWidth;
 int buttonCornerRadius;
 UIColor *buttonBorderColor;
 UIColor *buttonTitleColor;
 UIColor *buttonBackgroundColor;
+UIButton *btnCart;
+int numOfItemsInCart;
 
 BOOL colors, sizes;
 @interface CBStoreItemTableViewController ()
@@ -40,6 +43,7 @@ BOOL colors, sizes;
     [super viewWillAppear:animated];
     store = [CBStoreModel storeModel];
     [store setDelegate:self];
+    numOfItemsInCart = [store numberOfItemsInCart] - 1;
     [self updateCart];
     self.navigationItem.titleView = [store getStoreTitleView];
     UIButton *backButton = [[UIButton alloc] init];
@@ -86,15 +90,17 @@ BOOL colors, sizes;
 
 -(void)updateCart {
     // cart button
-    UIButton *cartButton = [[UIButton alloc] init];
-    int num = [store numberOfItemsInCart];
+    btnCart = [[UIButton alloc] init];
+    numOfItemsInCart = numOfItemsInCart + 1;
+    int num = numOfItemsInCart;
     if (num > 20) num = 21;
     UIImage *imgCart = [UIImage imageNamed:[NSString stringWithFormat:@"cart%i", + num]];
-    [cartButton setBackgroundImage:imgCart forState:UIControlStateNormal];
-    [cartButton addTarget:self action:@selector(openCart) forControlEvents:UIControlEventTouchUpInside];
-    cartButton.frame = CGRectMake(0, 0, 30, 30);
-    UIBarButtonItem *cartBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
+    [btnCart addTarget:self action:@selector(openCart) forControlEvents:UIControlEventTouchUpInside];
+    [btnCart setBackgroundImage:imgCart forState:UIControlStateNormal];
+    btnCart.frame = CGRectMake(0, 0, 30, 30);
+    UIBarButtonItem *cartBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnCart];
     self.navigationItem.rightBarButtonItem = cartBarButtonItem;
+    
 }
 
 -(void)openCart {
@@ -187,13 +193,18 @@ BOOL colors, sizes;
     if (imgFile) {
         [imgItem setFile:imgFile];
         [imgItem loadInBackground:^(UIImage *image, NSError *error) {
-            imgToAnimate = image;
+            imgVToAnimate = [[PFImageView alloc] initWithFrame:[imgItem convertRect:imgItem.frame toView:self.navigationController.view]];
+            [imgVToAnimate setFile:imgFile];
+            [imgVToAnimate loadInBackground];
         }];
     } else {
         [imgItem setImage:[UIImage imageNamed:@"StoreError"]];
-        imgToAnimate = imgItem.image;
+        imgVToAnimate = [[PFImageView alloc] initWithFrame:[imgItem convertRect:imgItem.frame toView:self.navigationController.view]];
+        [imgVToAnimate setImage:[UIImage imageNamed:@"StoreError"]];
     }
-    
+    imgVToAnimate.frame = [imgItem convertRect:imgItem.frame toView:self.navigationController.view];
+    imgVToAnimate.contentMode = UIViewContentModeScaleAspectFit;
+    imgOriginal = imgItem;
     return cell;
 }
 
@@ -454,7 +465,8 @@ BOOL colors, sizes;
     cartItem[@"status"] = [store stringFromItemStatus:INCART];
     cartItem[@"user"] = [PFUser currentUser];
     cartItem[@"item"] = self.item;
-    cartItem[@"quantity"] = [NSNumber numberWithInt:self.indexOfQuantity + 1];
+    int qty = self.indexOfQuantity + 1;
+    cartItem[@"quantity"] = [NSNumber numberWithInt:qty];
     if ([self.arrayOfSizeChoices count]) {
         NSString *sizeChoice = self.arrayOfSizeChoices[self.indexOfSize];
         cartItem[@"size"] = sizeChoice;
@@ -465,59 +477,93 @@ BOOL colors, sizes;
     }
     [cartItem saveEventually];
     [store.arrayOfItemsInCart addObject:cartItem];
-    [self animateItemToCart];
-    [self updateCart];
+    //[self animateItemToCart:qty];
+    
+    CFTimeInterval intv = 0;
+    for (int i = qty; i > 0; i--) {
+        [self performSelector:@selector(animateItemToCart) withObject:nil afterDelay:intv];
+        intv = intv + .6;
+    }
 }
 
+
 -(void)animateItemToCart {
-    UIImageView *imageViewForAnimation = [[UIImageView alloc] initWithImage:imgToAnimate];
-    imageViewForAnimation.alpha = 1.0f;
-    CGRect imageFrame = imageViewForAnimation.frame;
-    //Your image frame.origin from where the animation need to get start
-    CGPoint viewOrigin = imageViewForAnimation.frame.origin;
-    viewOrigin.y = viewOrigin.y + imageFrame.size.height / 2.0f;
-    viewOrigin.x = viewOrigin.x + imageFrame.size.width / 2.0f;
+        
+        CFTimeInterval fullDuration = 0.6f;
+        imgVToAnimate.alpha = 1.0f;
+        
+        PFImageView *viewAnimate = [[PFImageView alloc] initWithFrame:imgVToAnimate.frame];
+        viewAnimate.image = imgVToAnimate.image;
+        viewAnimate.contentMode = UIViewContentModeScaleAspectFit;
+        viewAnimate.alpha = 1.0f;
+        
+        CGRect imageFrame = viewAnimate.frame;
+        //Your image frame.origin from where the animation need to get start
+        CGPoint viewOrigin = viewAnimate.frame.origin;
+        viewOrigin.y = viewOrigin.y + imageFrame.size.height / 2.0f;
+        viewOrigin.x = viewOrigin.x + imageFrame.size.width / 2.0f;
+        
+        viewAnimate.frame = imageFrame;
+        viewAnimate.layer.position = viewOrigin;
+        [self.navigationController.view addSubview:viewAnimate];
+        
+        // Set up fade out effect
+        CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        [fadeOutAnimation setToValue:[NSNumber numberWithFloat:0.3]];
+        fadeOutAnimation.fillMode = kCAFillModeForwards;
+        fadeOutAnimation.removedOnCompletion = NO;
+        
+        // Set up scaling
+        CABasicAnimation *resizeAnimation = [CABasicAnimation animationWithKeyPath:@"bounds.size"];
+        [resizeAnimation setToValue:[NSValue valueWithCGSize:CGSizeMake(0.0, 0.0)]];
+        resizeAnimation.fillMode = kCAFillModeForwards;
+        resizeAnimation.removedOnCompletion = NO;
+        
+        // Set up path movement
+        CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+        pathAnimation.calculationMode = kCAAnimationPaced;
+        pathAnimation.fillMode = kCAFillModeForwards;
+        pathAnimation.removedOnCompletion = NO;
+        //Setting Endpoint of the animation
+        CGPoint endP = CGPointMake([UIScreen mainScreen].bounds.size.width - 30, 45);
+        //CGPoint endPoint = CGPointMake(480.0f - 30.0f, 40.0f);
+        //to end animation in last tab use
+        //CGPoint endPoint = CGPointMake( 320-40.0f, 480.0f);
+        CGMutablePathRef curvedPath = CGPathCreateMutable();
+        CGPathMoveToPoint(curvedPath, NULL, viewOrigin.x, viewOrigin.y);
+        CGPathAddCurveToPoint(curvedPath, NULL, endP.x, viewOrigin.y, endP.x, viewOrigin.y, endP.x, endP.y);
+        pathAnimation.path = curvedPath;
+        CGPathRelease(curvedPath);
+        
+        CAAnimationGroup *group = [CAAnimationGroup animation];
+        group.fillMode = kCAFillModeForwards;
+        group.removedOnCompletion = NO;
+        [group setAnimations:[NSArray arrayWithObjects:fadeOutAnimation, pathAnimation, resizeAnimation, nil]];
+        group.duration = fullDuration;
+        group.delegate = self;
+        [group setValue:viewAnimate forKey:@"imageViewBeingAnimated"];
+        
+        [viewAnimate.layer addAnimation:group forKey:@"savingAnimation"];
+        [self performSelector:@selector(updateCart) withObject:nil afterDelay:fullDuration];
+        //[self performSelector:@selector(reload) withObject:nil afterDelay:fullDuration];
+        
+        //animate replacement item
+        imgOriginal.alpha = 0;
+        imgOriginal.transform = CGAffineTransformScale(imgOriginal.transform, 0.8, 0.8);
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:0
+                         animations:^{
+                             imgOriginal.alpha = 1;
+                             imgOriginal.transform = CGAffineTransformIdentity;
+                         } completion:^(BOOL finished) {
+                             [self.tableView reloadData];
+                         }];
     
-    imageViewForAnimation.frame = imageFrame;
-    imageViewForAnimation.layer.position = viewOrigin;
-    [self.view addSubview:imageViewForAnimation];
-    
-    // Set up fade out effect
-    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [fadeOutAnimation setToValue:[NSNumber numberWithFloat:0.3]];
-    fadeOutAnimation.fillMode = kCAFillModeForwards;
-    fadeOutAnimation.removedOnCompletion = NO;
-    
-    // Set up scaling
-    CABasicAnimation *resizeAnimation = [CABasicAnimation animationWithKeyPath:@"bounds.size"];
-    [resizeAnimation setToValue:[NSValue valueWithCGSize:CGSizeMake(40.0f, imageFrame.size.height * (40.0f / imageFrame.size.width))]];
-    resizeAnimation.fillMode = kCAFillModeForwards;
-    resizeAnimation.removedOnCompletion = NO;
-    
-    // Set up path movement
-    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    pathAnimation.calculationMode = kCAAnimationPaced;
-    pathAnimation.fillMode = kCAFillModeForwards;
-    pathAnimation.removedOnCompletion = NO;
-    //Setting Endpoint of the animation
-    CGPoint endPoint = CGPointMake(480.0f - 30.0f, 40.0f);
-    //to end animation in last tab use
-    //CGPoint endPoint = CGPointMake( 320-40.0f, 480.0f);
-    CGMutablePathRef curvedPath = CGPathCreateMutable();
-    CGPathMoveToPoint(curvedPath, NULL, viewOrigin.x, viewOrigin.y);
-    CGPathAddCurveToPoint(curvedPath, NULL, endPoint.x, viewOrigin.y, endPoint.x, viewOrigin.y, endPoint.x, endPoint.y);
-    pathAnimation.path = curvedPath;
-    CGPathRelease(curvedPath);
-    
-    CAAnimationGroup *group = [CAAnimationGroup animation];
-    group.fillMode = kCAFillModeForwards;
-    group.removedOnCompletion = NO;
-    [group setAnimations:[NSArray arrayWithObjects:fadeOutAnimation, pathAnimation, resizeAnimation, nil]];
-    group.duration = 0.7f;
-    group.delegate = self;
-    [group setValue:imageViewForAnimation forKey:@"imageViewBeingAnimated"];
-    
-    [imageViewForAnimation.layer addAnimation:group forKey:@"savingAnimation"];
+}
+
+-(void)reload {
+    [self.tableView reloadData];
 }
 
 #pragma mark

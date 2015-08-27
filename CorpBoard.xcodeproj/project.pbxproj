@@ -146,6 +146,7 @@
 		D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */; };
 		D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */; };
 		D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D054A74E1A816259000968CA /* PrivateMessageCell.m */; };
+		D05E1D6A1B8E782B00C612BF /* CBCollectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E1D691B8E782B00C612BF /* CBCollectionFooter.m */; };
 		D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0606BBC1A3D8614002A1F48 /* CBTextField.m */; };
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
@@ -477,6 +478,8 @@
 		D054A74D1A816259000968CA /* PrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageCell.h; sourceTree = "<group>"; };
 		D054A74E1A816259000968CA /* PrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageCell.m; sourceTree = "<group>"; };
 		D055CF911A8EC560002D3B31 /* Message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Message.caf; sourceTree = "<group>"; };
+		D05E1D681B8E782B00C612BF /* CBCollectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCollectionFooter.h; sourceTree = "<group>"; };
+		D05E1D691B8E782B00C612BF /* CBCollectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCollectionFooter.m; sourceTree = "<group>"; };
 		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
 		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -1177,6 +1180,8 @@
 				D0AAD1701AB68619002CAACC /* CBAnnotation.m */,
 				923E69A01B8850BB00B7328F /* CBCartItemCell.h */,
 				923E69A11B8850BB00B7328F /* CBCartItemCell.m */,
+				D05E1D681B8E782B00C612BF /* CBCollectionFooter.h */,
+				D05E1D691B8E782B00C612BF /* CBCollectionFooter.m */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1568,7 +1573,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/isaiasfavela/documents/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/justin/documents/developer/cadets/cloudcode\n\nparse symbol --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1598,6 +1603,7 @@
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
 				D0F7E5211A1F351300AE500E /* CBEmailLogin.m in Sources */,
+				D05E1D6A1B8E782B00C612BF /* CBCollectionFooter.m in Sources */,
 				928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */,
 				923D4FC61A2C6DCF00E16B64 /* PrivateView.m in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,

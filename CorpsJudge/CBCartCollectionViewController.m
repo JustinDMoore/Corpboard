@@ -10,13 +10,16 @@
 #import "CBStoreModel.h"
 #import "CBHoleView.h"
 #import "UICollectionView+ScrollDelegateBlock.h"
+#import "CBCollectionFooter.h"
 
 CBStoreModel *store;
 NSIndexPath *indexPathOfEdit;
 CBHoleView *viewBlock;
 
+
 @interface CBCartCollectionViewController ()
 @property (nonatomic, strong) CBCartEditItem *viewEdit;
+@property (nonatomic, strong) CBCollectionFooter *collectionFooter;
 @end
 
 @implementation CBCartCollectionViewController
@@ -36,6 +39,11 @@ static NSString * const reuseIdentifier = @"Cell";
     self.navigationItem.leftBarButtonItem = backButtonBarItem;
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //self.collectionFooter = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     store = [CBStoreModel storeModel];
@@ -43,6 +51,13 @@ static NSString * const reuseIdentifier = @"Cell";
     self.arrayOfPrices = [[NSMutableArray alloc] init];
     [self.arrayOfPrices removeAllObjects];
     [self initUI];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([store.arrayOfItemsInCart count]) {
+        [self initUI];
+    }
 }
 
 -(void)initUI {
@@ -80,6 +95,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+//    int x = (int)[store.arrayOfItemsInCart count];
+//    if (x % 2) { //odd
+//        return x + 1;
+//    } else { //even
+//        return x;
+//    }
     if ([store.arrayOfItemsInCart count]) return [store.arrayOfItemsInCart count] + 1;
     else return 0;
 }
@@ -287,12 +309,21 @@ double final;
 
 -(void)checkForTotal {
     if ([self.arrayOfPrices count] == [store.arrayOfItemsInCart count]) {
-        double total;
+        double total = 0.00;
+        double tax = 0.00;
+        double shipping = 5.00;
         for (NSNumber *price in self.arrayOfPrices) {
             double p = [price doubleValue];
             total += p;
         }
-        self.lblTotal.text = [self stringFromDouble:total];
+        if (!self.collectionFooter) [self.collectionView reloadData];
+        self.collectionFooter.lblPriceMerch.text = [self stringFromDouble:total];
+        self.collectionFooter.lblPriceShipping.text = [self stringFromDouble:shipping];
+        self.collectionFooter.lblPriceTax.text = [self stringFromDouble:0.00];
+        self.collectionFooter.lblPriceSavings.text = [self stringFromDouble:0.00];
+        
+        double final = total + shipping + tax;
+        self.lblTotal.text = [self stringFromDouble:final];
     }
 }
 
@@ -311,12 +342,17 @@ double final;
     [self.collectionView performBatchUpdates:^{
         [self.viewEdit closeView];
         PFObject *itemToDelete = store.arrayOfItemsInCart[(int)indexPathOfEdit.row];
-        [store.arrayOfItemsInCart removeObjectAtIndex:[store.arrayOfItemsInCart indexOfObject:itemToDelete]];
+        if ([store.arrayOfItemsInCart count] > 1) {
+            [store.arrayOfItemsInCart removeObjectAtIndex:[store.arrayOfItemsInCart indexOfObject:itemToDelete]];
+            [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPathOfEdit]];
+        } else if ([store.arrayOfItemsInCart count] == 1) {
+            [store.arrayOfItemsInCart removeAllObjects];
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPathOfEdit.section];
+            [self.collectionView deleteSections:set];
+        }
         [itemToDelete deleteEventually];
-        [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPathOfEdit]];
-        
     } completion:^(BOOL finished) {
-        //[self initUI];
+        [self initUI];
     }];
 }
 
@@ -341,4 +377,30 @@ double final;
     }
     return _viewEdit;
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+
+    if (kind == UICollectionElementKindSectionFooter) {
+       
+        if (!self.collectionFooter)  {
+            self.collectionFooter = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Footer" forIndexPath:indexPath];
+        }
+        
+        if (self.collectionFooter.enteringPromo) {
+            self.collectionFooter.imgPromo.hidden = NO;
+            self.collectionFooter.lblPromo.hidden = NO;
+            self.collectionFooter.txtPromo.hidden = YES;
+            self.collectionFooter.btnPromo.hidden = YES;
+        } else {
+            self.collectionFooter.imgPromo.hidden = NO;
+            self.collectionFooter.lblPromo.hidden = NO;
+            self.collectionFooter.txtPromo.hidden = YES;
+            self.collectionFooter.btnPromo.hidden = YES;
+        }
+    }
+    
+    return self.collectionFooter;
+}
+
+
 @end
