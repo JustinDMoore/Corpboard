@@ -393,6 +393,7 @@ Parse.Cloud.define("getStoreObjects", function(request, response) {
 //                   
                    
                    var query = new Parse.Query("Store");
+                   query.limit(1000)
                    query.find({
                               success: function(results) {
                               

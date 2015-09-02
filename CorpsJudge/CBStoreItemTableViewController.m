@@ -9,8 +9,12 @@
 #import "CBStoreItemTableViewController.h"
 #import "CBStoreModel.h"
 #import "CBStoreItemSelectorType.h"
+#import "CBPaymentModel.h"
+#import "Corpsboard-Swift.h"
 
+//CBPaymentModel *payment;
 CBStoreModel *store;
+Payment *payment;
 
 NSString *const _GOLD = @"c78e34";
 NSString *const _MAROON = @"782025";
@@ -264,7 +268,10 @@ BOOL colors, sizes;
     btnAddToCart.layer.borderColor = buttonBorderColor.CGColor;
     [btnAddToCart setTitleColor:[self colorFromHexString:_GOLD] forState:UIControlStateNormal];
     [btnAddToCart setBackgroundColor:[self colorFromHexString:_MAROON]];
-    [btnAddToCart addTarget:self action:@selector(addItemToCart) forControlEvents:UIControlEventTouchUpInside];
+    [btnAddToCart addTarget:self action:@selector(addItemToCartAndBuy:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *btnApplePay = (UIButton *)[cell viewWithTag:40];
+    [btnApplePay addTarget:self action:@selector(applePay) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -444,7 +451,7 @@ BOOL colors, sizes;
     }
 }
 
--(void)addItemToCart {
+-(void)addItemToCartAndBuy:(BOOL)buyNow {
     //make sure size, color exists
     if ([self.arrayOfSizeChoices count]) {
         if (self.indexOfSize < 0) {
@@ -475,14 +482,31 @@ BOOL colors, sizes;
         NSString *colorChoice = self.arrayOfColorChoices[self.indexOfColor];
         cartItem[@"color"] = colorChoice;
     }
-    [cartItem saveEventually];
-    [store.arrayOfItemsInCart addObject:cartItem];
-    //[self animateItemToCart:qty];
     
-    CFTimeInterval intv = 0;
-    for (int i = qty; i > 0; i--) {
-        [self performSelector:@selector(animateItemToCart) withObject:nil afterDelay:intv];
-        intv = intv + .6;
+    [store.arrayOfItemsInCart addObject:cartItem];
+    if (!buyNow) {
+        [cartItem saveEventually];
+        CFTimeInterval intv = 0;
+        for (int i = qty; i > 0; i--) {
+            [self performSelector:@selector(animateItemToCart) withObject:nil afterDelay:intv];
+            intv = intv + .6;
+        }
+    } else {
+        [cartItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                payment = [[Payment alloc] init];
+                
+//                payment = [CBPaymentModel paymentModel];
+                NSMutableArray *arrayOfItems = [[NSMutableArray alloc] init];
+                [arrayOfItems addObject:cartItem];
+                [payment purchaseItemsWithApplePay:arrayOfItems
+                                          discount:0.00
+                                fromViewController:self];
+//                [payment purchaseItemsWithApplePay:arrayOfItems
+//                                      withDiscount:0.00
+//                                fromViewController:self];
+            }
+        }];
     }
 }
 
@@ -575,6 +599,10 @@ BOOL colors, sizes;
 
 -(void)selectorWillClose {
     [self setFade:NO];
+}
+
+-(void)applePay {
+    [self addItemToCartAndBuy:YES];
 }
 
 -(CBStoreItemSelector *)viewSelector {

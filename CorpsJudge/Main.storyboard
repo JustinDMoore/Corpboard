@@ -4828,19 +4828,34 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMU-pj-4FO" id="Z0b-Oa-PRy">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-0G-6cr">
-                                            <rect key="frame" x="8" y="4" width="584" height="40"/>
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-0G-6cr">
+                                            <rect key="frame" x="8" y="4" width="110" height="40"/>
                                             <color key="backgroundColor" red="0.77111950549999997" green="0.77111950549999997" blue="0.77111950549999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="4Nc-Am-XiK"/>
+                                                <constraint firstAttribute="width" constant="110" id="Gjn-t2-SEm"/>
+                                            </constraints>
                                             <state key="normal" title="ADD TO CART">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbz-B7-t0A" customClass="PKPaymentButton">
+                                            <rect key="frame" x="126" y="4" width="465" height="40"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Hox-ef-v8g"/>
+                                            </constraints>
+                                            <state key="normal" image="ApplePayButton" backgroundImage="ApplePayButton">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="top" secondItem="Z0b-Oa-PRy" secondAttribute="topMargin" constant="-4" id="8Xg-4t-vWt"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ci5-0G-6cr" secondAttribute="bottom" constant="-4" id="Qig-bf-tTt"/>
-                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="trailing" secondItem="Z0b-Oa-PRy" secondAttribute="trailingMargin" id="Uxt-zu-V94"/>
-                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="leading" secondItem="Z0b-Oa-PRy" secondAttribute="leadingMargin" id="wXw-hN-amg"/>
+                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="leading" secondItem="Z0b-Oa-PRy" secondAttribute="leadingMargin" id="Bro-lZ-J81"/>
+                                        <constraint firstAttribute="centerY" secondItem="ci5-0G-6cr" secondAttribute="centerY" id="FAK-V7-Mzb"/>
+                                        <constraint firstItem="tbz-B7-t0A" firstAttribute="leading" secondItem="ci5-0G-6cr" secondAttribute="trailing" constant="8" id="KzQ-5I-KD0"/>
+                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="centerY" secondItem="tbz-B7-t0A" secondAttribute="centerY" id="aFK-ZN-L8V"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="tbz-B7-t0A" secondAttribute="trailing" constant="1" id="uOt-pA-Vtx"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -4871,6 +4886,8 @@
                             <outlet property="delegate" destination="eIT-C5-1cp" id="MZh-hI-0iS"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <segue destination="z8V-jA-ICn" kind="show" identifier="cart" id="rAC-0J-vVH"/>
                     </connections>
@@ -4919,6 +4936,7 @@
     </scenes>
     <resources>
         <image name="About.png" width="350" height="170"/>
+        <image name="ApplePayButton" width="140" height="40"/>
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>

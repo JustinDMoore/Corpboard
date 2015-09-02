@@ -147,6 +147,8 @@
 		D054A74C1A80B2EB000968CA /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D054A74B1A80B2EB000968CA /* PrivateMessageCell.xib */; };
 		D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D054A74E1A816259000968CA /* PrivateMessageCell.m */; };
 		D05E1D6A1B8E782B00C612BF /* CBCollectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E1D691B8E782B00C612BF /* CBCollectionFooter.m */; };
+		D05E1D6E1B8EE57400C612BF /* CBPaymentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E1D6D1B8EE57400C612BF /* CBPaymentController.m */; };
+		D05E1D771B8FFE6100C612BF /* CBPaymentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D05E1D761B8FFE6100C612BF /* CBPaymentModel.m */; };
 		D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0606BBC1A3D8614002A1F48 /* CBTextField.m */; };
 		D064F3B01A36ECA1007455E2 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AB1A36ECA1007455E2 /* main.js */; };
 		D064F3B11A36ECA1007455E2 /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = D064F3AD1A36ECA1007455E2 /* global.json */; };
@@ -220,6 +222,10 @@
 		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
 		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
+		D0F136E31B94FC430075628C /* CBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E21B94FC430075628C /* CBAddress.m */; };
+		D0F136E51B94FF750075628C /* CBPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E41B94FF750075628C /* CBPayment.swift */; };
+		D0F136E71B96C4230075628C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E61B96C4230075628C /* Address.swift */; };
+		D0F136EB1B96D7FC0075628C /* ApplePay.py in Resources */ = {isa = PBXBuildFile; fileRef = D0F136EA1B96D7FC0075628C /* ApplePay.py */; };
 		D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F891B14F62500357663 /* CBStartReview.xib */; };
 		D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19F8C1B14F63900357663 /* CBStartReview.m */; };
 		D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F8E1B14F86000357663 /* CBReviewCell.xib */; };
@@ -480,6 +486,12 @@
 		D055CF911A8EC560002D3B31 /* Message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Message.caf; sourceTree = "<group>"; };
 		D05E1D681B8E782B00C612BF /* CBCollectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCollectionFooter.h; sourceTree = "<group>"; };
 		D05E1D691B8E782B00C612BF /* CBCollectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCollectionFooter.m; sourceTree = "<group>"; };
+		D05E1D6B1B8EDEFB00C612BF /* Corpsboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Corpsboard.entitlements; sourceTree = "<group>"; };
+		D05E1D6C1B8EE57400C612BF /* CBPaymentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPaymentController.h; sourceTree = "<group>"; };
+		D05E1D6D1B8EE57400C612BF /* CBPaymentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPaymentController.m; sourceTree = "<group>"; };
+		D05E1D741B8FF94A00C612BF /* Corpboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Corpboard-Bridging-Header.h"; sourceTree = "<group>"; };
+		D05E1D751B8FFE6100C612BF /* CBPaymentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPaymentModel.h; sourceTree = "<group>"; };
+		D05E1D761B8FFE6100C612BF /* CBPaymentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPaymentModel.m; sourceTree = "<group>"; };
 		D0606BBB1A3D8614002A1F48 /* CBTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTextField.h; sourceTree = "<group>"; };
 		D0606BBC1A3D8614002A1F48 /* CBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTextField.m; sourceTree = "<group>"; };
 		D064F3AB1A36ECA1007455E2 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -592,6 +604,11 @@
 		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
 		D0E37A191959178B00AE4215 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
+		D0F136E11B94FC430075628C /* CBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAddress.h; sourceTree = "<group>"; };
+		D0F136E21B94FC430075628C /* CBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAddress.m; sourceTree = "<group>"; };
+		D0F136E41B94FF750075628C /* CBPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPayment.swift; sourceTree = "<group>"; };
+		D0F136E61B96C4230075628C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		D0F136EA1B96D7FC0075628C /* ApplePay.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ApplePay.py; sourceTree = "<group>"; };
 		D0F19F861B14F44A00357663 /* CBDidAttend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDidAttend.h; sourceTree = "<group>"; };
 		D0F19F891B14F62500357663 /* CBStartReview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBStartReview.xib; sourceTree = "<group>"; };
 		D0F19F8B1B14F63900357663 /* CBStartReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStartReview.h; sourceTree = "<group>"; };
@@ -784,6 +801,7 @@
 		92533472194FD5D70004D16F = {
 			isa = PBXGroup;
 			children = (
+				D05E1D6B1B8EDEFB00C612BF /* Corpsboard.entitlements */,
 				92533486194FD5D70004D16F /* CorpBoard */,
 				D064F3A91A36ECA1007455E2 /* Cloud Code */,
 				925334A3194FD5D70004D16F /* CorpBoardTests */,
@@ -835,9 +853,16 @@
 		92533486194FD5D70004D16F /* CorpBoard */ = {
 			isa = PBXGroup;
 			children = (
+				D0F136EA1B96D7FC0075628C /* ApplePay.py */,
 				925334BD194FD6F80004D16F /* Main.storyboard */,
 				D01DDEA01B817CB1006B7103 /* CBStoreModel.h */,
 				D01DDEA11B817CB1006B7103 /* CBStoreModel.m */,
+				D05E1D751B8FFE6100C612BF /* CBPaymentModel.h */,
+				D05E1D761B8FFE6100C612BF /* CBPaymentModel.m */,
+				D0F136E11B94FC430075628C /* CBAddress.h */,
+				D0F136E21B94FC430075628C /* CBAddress.m */,
+				D0F136E41B94FF750075628C /* CBPayment.swift */,
+				D0F136E61B96C4230075628C /* Address.swift */,
 				925334C2194FD7C10004D16F /* ViewControllers */,
 				927F4DF31A212AAE008CC143 /* Xibs */,
 				D02D63FB19F820E7000139CE /* Classes */,
@@ -846,6 +871,7 @@
 				92533495194FD5D70004D16F /* Images.xcassets */,
 				92533487194FD5D70004D16F /* Supporting Files */,
 				92FE95391A74FB3500D4A7D9 /* MyParticle.sks */,
+				D05E1D741B8FF94A00C612BF /* Corpboard-Bridging-Header.h */,
 			);
 			name = CorpBoard;
 			path = CorpsJudge;
@@ -925,6 +951,8 @@
 				D01DDE9E1B8179A8006B7103 /* CBStoreController.m */,
 				D047404E1B86D9C300ADC30E /* CBStoreItemTableViewController.m */,
 				923E69A41B88518800B7328F /* CBCartCollectionViewController.m */,
+				D05E1D6C1B8EE57400C612BF /* CBPaymentController.h */,
+				D05E1D6D1B8EE57400C612BF /* CBPaymentController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1394,6 +1422,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 0;
 							};
+							com.apple.OMC = {
+								enabled = 1;
+							};
 						};
 					};
 					9253349A194FD5D70004D16F = {
@@ -1486,6 +1517,7 @@
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
 				D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */,
+				D0F136EB1B96D7FC0075628C /* ApplePay.py in Resources */,
 				D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
@@ -1597,6 +1629,7 @@
 				D047404F1B86D9C300ADC30E /* CBStoreItemTableViewController.m in Sources */,
 				D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
+				D0F136E51B94FF750075628C /* CBPayment.swift in Sources */,
 				D036DA651B82A86100746DD6 /* CBStoreItemCell.m in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */,
@@ -1609,6 +1642,7 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
+				D05E1D771B8FFE6100C612BF /* CBPaymentModel.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */,
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
@@ -1626,6 +1660,7 @@
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */,
 				D04740541B870E6B00ADC30E /* CBStoreItemSelector.m in Sources */,
+				D0F136E71B96C4230075628C /* Address.swift in Sources */,
 				D025CE471AE6BD35000021A6 /* CBMapCell.m in Sources */,
 				D01DDE9F1B8179A8006B7103 /* CBStoreController.m in Sources */,
 				D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */,
@@ -1676,6 +1711,7 @@
 				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
 				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
+				D0F136E31B94FC430075628C /* CBAddress.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
@@ -1697,6 +1733,7 @@
 				923D4FD41A2C6DCF00E16B64 /* camera.m in Sources */,
 				D03DCADD1B168A81005D326E /* CBPush.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
+				D05E1D6E1B8EE57400C612BF /* CBPaymentController.m in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
 				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
 				D036DA6C1B82E0B000746DD6 /* CBStoreCategoryCell.m in Sources */,
@@ -1766,13 +1803,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					STRIPE_ENABLE_APPLEPAY,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1783,9 +1821,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1810,9 +1849,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				COPY_PHASE_STRIP = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1820,9 +1864,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1836,6 +1881,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Corpsboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1864,6 +1910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Corpsboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1945,9 +1992,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Justin Moore (AASBAN3GCL)";
 				COPY_PHASE_STRIP = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1955,9 +2007,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "a62b5deb-b9ed-4699-8302-02902f126823";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1971,6 +2024,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Corpsboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

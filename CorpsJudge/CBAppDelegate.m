@@ -17,6 +17,7 @@
 #import "DTCoreText.h"
 #import "CBAlertView.h"
 #import "CBPush.h"
+#import "Stripe.h"
 
 @implementation CBAppDelegate
 
@@ -24,6 +25,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+NSString * const StripePublishableKey = @"pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf";
 CBSingle *data;
 
 -(void)setDelegate:(id)newDelegate{
@@ -34,7 +36,7 @@ CBSingle *data;
 {
     
     data = [CBSingle data];
-    
+    [Stripe setDefaultPublishableKey:StripePublishableKey];
     //parse
     [ParseCrashReporting enable];
     [Parse setApplicationId:@"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"

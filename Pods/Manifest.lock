@@ -90,6 +90,11 @@ PODS:
   - MWFeedParser/NSDate+InternetDateTime (1.0.1)
   - MWFeedParser/NSString+HTML (1.0.1)
   - PulsingHalo (0.0.1)
+  - Stripe (5.1.2):
+    - Stripe/Core (= 5.1.2)
+  - Stripe/ApplePay (5.1.2):
+    - Stripe/Core
+  - Stripe/Core (5.1.2)
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.0)
@@ -102,6 +107,8 @@ DEPENDENCIES:
   - KVNProgress (= 2.2.1)
   - MWFeedParser (= 1.0.1)
   - PulsingHalo (= 0.0.1)
+  - Stripe (= 5.1.2)
+  - Stripe/ApplePay
 
 SPEC CHECKSUMS:
   AFNetworking: 96ac9bf3eda33582701cb1fcc5b896aa1e20311e
@@ -114,5 +121,6 @@ SPEC CHECKSUMS:
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
+  Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2
