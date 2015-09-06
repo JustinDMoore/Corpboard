@@ -13,7 +13,7 @@
     
 }
 
-float minimumLoadTime = 3; //seconds
+float minimumLoadTime = 0; //seconds
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder {

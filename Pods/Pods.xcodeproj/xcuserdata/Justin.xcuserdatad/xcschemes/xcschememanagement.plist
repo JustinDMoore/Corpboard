@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JSBadgeView-JSBadgeView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JSBadgeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,42 +77,47 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5599FCC728455DBEB37BAC30006ECF17</key>
+		<key>17251CEF35BBA90140917A8BA5FAE252</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>62F84BFCCB0ACB783A29E5F189DB3075</key>
+		<key>24568E0F54A88D3AEA424A826B201805</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>685F20CE3586AEE09F70BFF98FA61E6E</key>
+		<key>2A77944AA9E2983F4E5962F76F71B246</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7AA000D549C94F4A54835944E894B481</key>
+		<key>474BDF88391A96132738DD7450142A72</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C98DBD3E184D0E29A9B379375E24BB4</key>
+		<key>5EBA33EF8777070A5A02AF2060CB975E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EEBAF19602CC258751CC883B06C828D</key>
+		<key>68483554B8FF951AA1CE9E14A7C79E89</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A504DA0DA25C93DA9A61B605F2BDDBEB</key>
+		<key>81C647940B502F78FE458812EF36CEB8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6C9D3E8D8449DC03FA9F30789D0E4B2</key>
+		<key>92319E7D600587786BC81699AB0409A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9855A06D25E21E2F0A9E8A701EA4506C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC9943BD5487629D0585D081D237FD58</key>
+		<key>DAE386962A6AF90184A87C4CBAA7D171</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DAE386962A6AF90184A87C4CBAA7D171</key>
+		<key>DDEC933DE2591C61983402C161C26865</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -98,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@3x.png"
   install_resource "Stripe/Stripe/Resources/Images"
+  install_resource "${BUILT_PRODUCTS_DIR}/JSBadgeView.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
@@ -140,6 +141,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@3x.png"
   install_resource "Stripe/Stripe/Resources/Images"
+  install_resource "${BUILT_PRODUCTS_DIR}/JSBadgeView.bundle"
 fi
 if [[ "$CONFIGURATION" == "Distribution" ]]; then
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
@@ -182,6 +184,7 @@ if [[ "$CONFIGURATION" == "Distribution" ]]; then
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_visa@3x.png"
   install_resource "Stripe/Stripe/Resources/Images"
+  install_resource "${BUILT_PRODUCTS_DIR}/JSBadgeView.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

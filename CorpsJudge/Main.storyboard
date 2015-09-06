@@ -3791,7 +3791,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Footer" id="9az-Zg-FDy" customClass="CBCollectionFooter">
-                                    <rect key="frame" x="0.0" y="214" width="600" height="50"/>
+                                    <rect key="frame" x="0.0" y="214" width="600" height="178"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merchandise:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiU-RZ-xRa">
@@ -4383,10 +4383,10 @@
             </objects>
             <point key="canvasLocation" x="3792" y="90"/>
         </scene>
-        <!--Store Controller-->
+        <!--Store View Controller-->
         <scene sceneID="00B-Ub-gWZ">
             <objects>
-                <viewController id="R9h-AD-VHj" customClass="CBStoreController" sceneMemberID="viewController">
+                <viewController id="R9h-AD-VHj" customClass="StoreViewController" customModule="Corpsboard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fYi-JT-VM8"/>
                         <viewControllerLayoutGuide type="bottom" id="Fz0-I6-r6C"/>
@@ -4430,9 +4430,6 @@
                                                             <color key="titleColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="seeAllItems:" destination="R9h-AD-VHj" eventType="touchUpInside" id="MXB-TL-lRS"/>
-                                                        </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yyK-dF-45f">
                                                         <rect key="frame" x="0.0" y="23" width="320" height="130"/>
@@ -4622,17 +4619,17 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
-                        <outlet property="btnSeeAllItems" destination="HAg-16-ZtA" id="2Fs-d0-IHl"/>
-                        <outlet property="btnSeeAllPopular" destination="Kjg-bd-4nd" id="YcO-GI-hXG"/>
-                        <outlet property="collectionCategories" destination="IQC-qM-14d" id="ULX-pG-Udk"/>
-                        <outlet property="collectionNewItems" destination="yyK-dF-45f" id="aHh-DL-U96"/>
-                        <outlet property="collectionPopularItems" destination="NNa-t5-eK4" id="Nui-bX-cfY"/>
-                        <outlet property="contentMainView" destination="Zwf-m2-yLE" id="8yG-jc-pgU"/>
-                        <outlet property="scrollMain" destination="VwW-L4-sqQ" id="BE4-it-zyb"/>
-                        <outlet property="sscrollBanners" destination="xbx-v1-Ua2" id="Tk5-Xq-igp"/>
-                        <outlet property="viewCategories" destination="8zU-Rs-QQD" id="oil-lm-sZQ"/>
-                        <outlet property="viewNewItems" destination="bcU-rB-CLK" id="YXe-qH-NiP"/>
-                        <outlet property="viewPopularItems" destination="1BO-Vc-1cz" id="LCU-ab-xv7"/>
+                        <outlet property="btnSeeAllItems" destination="HAg-16-ZtA" id="LEw-4h-aPy"/>
+                        <outlet property="btnSeeAllPopularItems" destination="Kjg-bd-4nd" id="sb5-BB-7YX"/>
+                        <outlet property="collectionCategories" destination="IQC-qM-14d" id="7Ow-Ai-iCR"/>
+                        <outlet property="collectionNewItems" destination="yyK-dF-45f" id="Ukh-gC-HB1"/>
+                        <outlet property="collectionPopularItems" destination="NNa-t5-eK4" id="7h7-Go-vCD"/>
+                        <outlet property="scrollBanners" destination="xbx-v1-Ua2" id="eOk-kD-bIy"/>
+                        <outlet property="scrollMain" destination="VwW-L4-sqQ" id="4JV-E5-XjH"/>
+                        <outlet property="viewCategories" destination="8zU-Rs-QQD" id="cex-Dk-Zcf"/>
+                        <outlet property="viewMain" destination="Zwf-m2-yLE" id="c58-Vv-XVN"/>
+                        <outlet property="viewNewItems" destination="bcU-rB-CLK" id="diE-ht-lTQ"/>
+                        <outlet property="viewPopularItems" destination="1BO-Vc-1cz" id="qcV-VI-hCG"/>
                         <segue destination="eIT-C5-1cp" kind="show" identifier="item" id="PFL-Nc-Of5"/>
                         <segue destination="z8V-jA-ICn" kind="show" identifier="cart" id="87F-jY-4el"/>
                     </connections>
@@ -4644,7 +4641,7 @@
         <!--Store Item Table View Controller-->
         <scene sceneID="5B4-kv-NUR">
             <objects>
-                <tableViewController id="eIT-C5-1cp" customClass="CBStoreItemTableViewController" sceneMemberID="viewController">
+                <tableViewController id="eIT-C5-1cp" customClass="StoreItemTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gal-9B-LdW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4829,33 +4826,43 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ci5-0G-6cr">
-                                            <rect key="frame" x="8" y="4" width="110" height="40"/>
+                                            <rect key="frame" x="8" y="4" width="288" height="40"/>
                                             <color key="backgroundColor" red="0.77111950549999997" green="0.77111950549999997" blue="0.77111950549999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="4Nc-Am-XiK"/>
-                                                <constraint firstAttribute="width" constant="110" id="Gjn-t2-SEm"/>
+                                                <constraint firstAttribute="height" constant="40" id="k0I-rP-C9J"/>
                                             </constraints>
                                             <state key="normal" title="ADD TO CART">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                         <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbz-B7-t0A" customClass="PKPaymentButton">
-                                            <rect key="frame" x="126" y="4" width="465" height="40"/>
+                                            <rect key="frame" x="304" y="4" width="288" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="Hox-ef-v8g"/>
+                                                <constraint firstAttribute="height" constant="40" id="bH3-tf-dUr"/>
                                             </constraints>
-                                            <state key="normal" image="ApplePayButton" backgroundImage="ApplePayButton">
+                                            <state key="normal" image="ApplePayButton">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qF3-fR-ezc">
+                                            <rect key="frame" x="296" y="12" width="8" height="24"/>
+                                            <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="9cB-5S-tio"/>
+                                                <constraint firstAttribute="width" constant="8" id="epf-B8-T0H"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="leading" secondItem="Z0b-Oa-PRy" secondAttribute="leadingMargin" id="Bro-lZ-J81"/>
-                                        <constraint firstAttribute="centerY" secondItem="ci5-0G-6cr" secondAttribute="centerY" id="FAK-V7-Mzb"/>
-                                        <constraint firstItem="tbz-B7-t0A" firstAttribute="leading" secondItem="ci5-0G-6cr" secondAttribute="trailing" constant="8" id="KzQ-5I-KD0"/>
-                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="centerY" secondItem="tbz-B7-t0A" secondAttribute="centerY" id="aFK-ZN-L8V"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="tbz-B7-t0A" secondAttribute="trailing" constant="1" id="uOt-pA-Vtx"/>
+                                        <constraint firstItem="qF3-fR-ezc" firstAttribute="leading" secondItem="ci5-0G-6cr" secondAttribute="trailing" id="3cr-ls-OF3"/>
+                                        <constraint firstAttribute="centerY" secondItem="tbz-B7-t0A" secondAttribute="centerY" id="5ou-SJ-ds2"/>
+                                        <constraint firstItem="tbz-B7-t0A" firstAttribute="leading" secondItem="qF3-fR-ezc" secondAttribute="trailing" id="Cqk-k8-Uc5"/>
+                                        <constraint firstAttribute="centerY" secondItem="ci5-0G-6cr" secondAttribute="centerY" id="Efq-br-VyB"/>
+                                        <constraint firstAttribute="centerX" secondItem="qF3-fR-ezc" secondAttribute="centerX" id="MVN-qr-DyB"/>
+                                        <constraint firstAttribute="centerY" secondItem="qF3-fR-ezc" secondAttribute="centerY" id="oNe-RV-KAF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="tbz-B7-t0A" secondAttribute="trailing" id="qSE-qz-V0N"/>
+                                        <constraint firstItem="ci5-0G-6cr" firstAttribute="leading" secondItem="Z0b-Oa-PRy" secondAttribute="leadingMargin" id="wVa-0y-a5r"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -4993,10 +5000,10 @@
         <image name="star_unselected.png" width="64" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="5Fi-Lt-Ok5"/>
         <segue reference="Bex-sd-T2E"/>
         <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
-        <segue reference="5Fi-Lt-Ok5"/>
-        <segue reference="rAC-0J-vVH"/>
+        <segue reference="87F-jY-4el"/>
     </inferredMetricsTieBreakers>
 </document>

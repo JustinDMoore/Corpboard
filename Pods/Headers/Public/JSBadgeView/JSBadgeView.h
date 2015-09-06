@@ -1,1 +1,1 @@
-../../../JSBadgeView/JSBadgeView/JSBadgeView.h
+../../../JSBadgeView/Pod/Classes/JSBadgeView.h
