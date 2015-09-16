@@ -15,7 +15,7 @@ import Foundation
     @NSManaged var itemDescription: String?
     @NSManaged var itemPrice: NSDecimalNumber
     @NSManaged var itemSalePrice: NSDecimalNumber?
-    @NSManaged var itemAvailable: Boolean
+    @NSManaged var itemAvailable: DarwinBoolean
     @NSManaged var itemSizes: [String]?
     @NSManaged var itemColors: [String]?
     @NSManaged var itemCategory: String
@@ -35,7 +35,7 @@ import Foundation
     }
     
     static func parseClassName() -> String {
-        return "StoreItem"
+        return "Store"
     }
     
     var priceString: String {

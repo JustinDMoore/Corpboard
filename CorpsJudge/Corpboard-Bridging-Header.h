@@ -11,9 +11,7 @@
 #import <Stripe/Stripe.h>
 #import <Stripe/Stripe+ApplePay.h>
 #import <Parse/PFObject+Subclass.h>
-#import "CBStoreItemSelector.h"
 #import "ClipView.h"
-#import "CBStoreItemCell.h"
 #import "CBStoreCategoryCell.h"
 #import "Configuration.h"
 

@@ -24,7 +24,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     let btnBanner2 = UIButton(frame: CGRectMake(320, 0, 320, 135))
     let btnBanner3 = UIButton(frame: CGRectMake(640, 0, 320, 135))
     var timerBanners = NSTimer()
-    let CELL_ITEM_IDENTIFIER = "CBStoreItemCell"
+    let CELL_ITEM_IDENTIFIER = "StoreItemCell"
     let CELL_CATEGORY_IDENTIFIER = "CBStoreCategoryCell"
     
     var numOfNewItems = 6
@@ -76,9 +76,13 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         scrollMain.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height + viewNewItems.frame.size.height + viewCategories.frame.size.height + viewPopularItems.frame.size.height)
         
         // Register cell classes
-        collectionNewItems.registerClass(CBStoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
+        collectionNewItems.registerNib(UINib(nibName: CELL_ITEM_IDENTIFIER, bundle: nil), forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
+        collectionPopularItems.registerNib(UINib(nibName: CELL_ITEM_IDENTIFIER, bundle: nil), forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
+
+        
+        //collectionNewItems.registerClass(StoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
         collectionCategories.registerClass(CBStoreCategoryCell.self, forCellWithReuseIdentifier: CELL_CATEGORY_IDENTIFIER)
-        collectionPopularItems.registerClass(CBStoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
+        //collectionPopularItems.registerClass(StoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
         
         dispatch_async(dispatch_get_main_queue()) { [unowned self] in
             KVNProgress.setConfiguration(Configuration.standardProgressConfig())
@@ -156,8 +160,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 135), animated: false)
         startTimerForBannerRotation()
         self.automaticallyAdjustsScrollViewInsets = false
-        for view in self.view.subviews as! [UIView] {
-            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        for view in self.view.subviews {
+            view.translatesAutoresizingMaskIntoConstraints = false
         }
         scrollMain.canCancelContentTouches = true
         scrollMain.delaysContentTouches = true
@@ -180,26 +184,21 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func loadPageWithId(index: Int, page: Int) {
         var btnForBanner = UIButton()
-        if store.arrayOfBannerObjects.count > 0 {
+        if store.arrayOfBannerImages.count > 0 {
             switch page {
             case 0: btnForBanner = btnBanner1
             case 1: btnForBanner = btnBanner2
             case 2: btnForBanner = btnBanner3
-            default: print("default")
+            default: print("default", terminator: "")
             }
+            let objBanner = store.arrayOfBannerImages[index]
+            btnForBanner.setBackgroundImage(objBanner, forState: UIControlState.Normal)
         }
-        let objBanner = store.arrayOfBannerObjects[index]
-        objBanner["image"]?.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
-            if (error == nil) {
-                let imgBanner = UIImage(data: data!)
-                btnForBanner.setBackgroundImage(imgBanner, forState: UIControlState.Normal)
-                btnForBanner.tag = index
-            }
-        })
     }
     
     func startTimerForBannerRotation() {
-        timerBanners = NSTimer(timeInterval: 1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
+        timerBanners = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
+        //timerBanners = NSTimer(timeInterval: 1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
     }
     
     func scrollToNextBanner() {
@@ -237,28 +236,31 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
             
         }
     }
+    
     // MARK:
     // MARK: UIScrollViewDelegate
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        //we are moving forward. Load the current doc data on the first page
-        loadPageWithId(currIndex, page: 0)
-        //add one to the currentIndex or reset to 0 if we have reached the end
-        if currIndex >= store.arrayOfBannerObjects.count - 1 {
-            currIndex = 0
-        } else {
-            currIndex += 1
+        if scrollView == scrollBanners {
+            //we are moving forward. Load the current doc data on the first page
+            loadPageWithId(currIndex, page: 0)
+            //add one to the currentIndex or reset to 0 if we have reached the end
+            if currIndex >= store.arrayOfBannerObjects.count - 1 {
+                currIndex = 0
+            } else {
+                currIndex += 1
+            }
+            loadPageWithId(currIndex, page: 1)
+            //load the content on the last page. This is either from the next item int he array
+            //or the first if we have reached the end
+            if currIndex >= store.arrayOfBannerObjects.count - 1 {
+                nextIndex = 0
+            } else {
+                nextIndex = currIndex + 1
+            }
+            loadPageWithId(nextIndex, page: 2)
+            //Reset offset back to middle page
+            scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
         }
-        loadPageWithId(currIndex, page: 1)
-        //load the content on the last page. This is either from the next item int he array
-        //or the first if we have reached the end
-        if currIndex >= store.arrayOfBannerObjects.count - 1 {
-            nextIndex = 0
-        } else {
-            nextIndex = currIndex + 1
-        }
-        loadPageWithId(nextIndex, page: 2)
-        //Reset offset back to middle page
-        scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -297,28 +299,28 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 }
                 loadPageWithId(nextIndex, page: 2)
             }
-        }
-        if scrollView.contentOffset.x < scrollView.frame.size.width {
-            // We are moving backward. Load the current doc data on the last page.
-            loadPageWithId(currIndex, page: 2)
-            // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-            if currIndex == 0 {
-                currIndex = store.arrayOfBannerObjects.count - 1
-            } else {
-                currIndex -= 1
+            if scrollView.contentOffset.x < scrollView.frame.size.width {
+                // We are moving backward. Load the current doc data on the last page.
+                loadPageWithId(currIndex, page: 2)
+                // Subtract one from the currentIndex or go to the end if we have reached the beginning.
+                if currIndex == 0 {
+                    currIndex = store.arrayOfBannerObjects.count - 1
+                } else {
+                    currIndex -= 1
+                }
+                loadPageWithId(currIndex, page: 1)
+                // Load content on the first page. This is either from the prev item in the array
+                // or the last if we have reached the beginning.
+                if currIndex == 0 {
+                    prevIndex = store.arrayOfBannerObjects.count - 1
+                } else {
+                    prevIndex = currIndex - 1
+                }
+                loadPageWithId(prevIndex, page: 0)
             }
-            loadPageWithId(currIndex, page: 1)
-            // Load content on the first page. This is either from the prev item in the array
-            // or the last if we have reached the beginning.
-            if currIndex == 0 {
-                prevIndex = store.arrayOfBannerObjects.count - 1
-            } else {
-                prevIndex = currIndex - 1
-            }
-            loadPageWithId(prevIndex, page: 0)
+            //Reset offset back to middle page
+            scrollView.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
         }
-        //Reset offset back to middle page
-        scrollView.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
     }
     
     //MARK:
@@ -342,105 +344,82 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         }
     }
     
+    func getStoreItemCell(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
+            CELL_ITEM_IDENTIFIER, forIndexPath: indexPath) as! StoreItemCell
+        
+        let item: StoreItem
+        if collectionView == collectionNewItems {
+            item = store.arrayOfNewItems[indexPath.row]
+        } else {
+            item = store.arrayOfPopularItems[indexPath.row]
+        }
+
+        if let imgFile = item.itemImage {
+            cell.imgItem.file = imgFile
+            cell.imgItem.loadInBackground()
+        } else {
+            cell.imgItem.image = UIImage(named: "StoreError")
+        }
+        let view = cell.viewWithTag(6)!
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.blackColor().CGColor
+        view.layer.borderWidth = 0
+        view.clipsToBounds = true
+
+        if item.itemSalePrice == nil || item.itemSalePrice?.compare(NSDecimalNumber.zero()) == NSComparisonResult.OrderedSame { //no sale
+                cell.lblPrice.text = "$\(item.priceString)"
+                cell.lblSalePrice.hidden = true
+        } else { // there is a sale going on here
+            cell.lblSalePrice.hidden = false
+            let attributedString = NSMutableAttributedString(string: "$\(item.priceString)")
+            attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
+            cell.lblPrice.attributedText = attributedString
+            cell.lblSalePrice.text = "$\(item.salePriceString)"
+        }
+        
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+    
+    func getCategoryCellForCollectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "CBStoreCategoryCell"
+        let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let imgCategory = cell.viewWithTag(1) as! UIImageView
+        let objCategory = store.arrayOfCategoryObjects[indexPath.row]
+        if let fileCategory = objCategory["image"] as? PFFile {
+            fileCategory.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
+                if error == nil {
+                    let image = UIImage(data: data!)
+                    imgCategory.image = image
+                }
+            })
+        }
+        cell.backgroundColor = UIColor.redColor()
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
+        return cell
+    }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell = UICollectionViewCell()
         if collectionView == collectionNewItems {
-            let cellIdentifier = "CBStoreItemCell"
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-            let item = store.arrayOfNewItems[indexPath.row]
-            let imgItem = cell.viewWithTag(1) as! PFImageView
-            if let imgFile = item.itemImage {
-                imgItem.file = imgFile
-                imgItem.loadInBackground()
-            } else {
-                imgItem.image = UIImage(named: "StoreError")
-            }
-            let view = cell.viewWithTag(6)!
-            view.layer.cornerRadius = 10
-            view.layer.borderColor = UIColor.blackColor().CGColor
-            view.layer.borderWidth = 0
-            view.clipsToBounds = true
             
-            let lblItem = cell.viewWithTag(2) as! UILabel
-            lblItem.text = item.itemName
+            return self.getStoreItemCell(collectionView, cellForItemAtIndexPath: indexPath)
             
-            let lblCategory = cell.viewWithTag(3) as! UILabel
-            lblCategory.text = item.itemCategory
-            
-            let lblItemPrice = cell.viewWithTag(4) as! UILabel
-            let lblItemSalePrice = cell.viewWithTag(5) as! UILabel
-            
-            if item.itemSalePrice?.compare(NSDecimalNumber(double: 0.00)) == NSComparisonResult.OrderedSame { //no sale
-                lblItemPrice.text = item.priceString
-                lblItemSalePrice.hidden = true
-            } else { // there is a sale going on here
-                lblItemSalePrice.hidden = false
-                let attributedString = NSMutableAttributedString(string: item.priceString)
-                attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
-                lblItemPrice.attributedText = attributedString
-                lblItemSalePrice.text = item.priceString
-            }
-            
-            cell.clipsToBounds = true
-            return cell
         } else if collectionView == collectionCategories {
-            let cellIdentifier = "CBStoreCategoryCell"
-            let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-            let imgCategory = cell.viewWithTag(1) as! UIImageView
-            let objCategory = store.arrayOfCategoryObjects[indexPath.row]
-            if let fileCategory = objCategory["image"] as? PFFile {
-                fileCategory.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
-                    if error == nil {
-                        let image = UIImage(data: data!)
-                        imgCategory.image = image
-                    }
-                })
-            }
-            cell.backgroundColor = UIColor.redColor()
-            cell.layer.cornerRadius = 10
-            cell.clipsToBounds = true
-            return cell
+            
+            return self.getCategoryCellForCollectionView(collectionView, cellForItemAtIndexPath: indexPath)
+            
         } else if collectionView == collectionPopularItems {
-            let cellIdentifier = "CBStoreItemCell"
-            let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-            let item = store.arrayOfPopularItems[indexPath.row]
-            let imgItem = cell.viewWithTag(1) as! PFImageView
-            if let imgFile = item.itemImage {
-                imgItem.file = imgFile
-                imgItem.loadInBackground()
-            } else {
-                imgItem.image = UIImage(named: "StoreError")
-            }
-            let view = cell.viewWithTag(6)!
-            view.layer.cornerRadius = 10
-            view.layer.borderColor = UIColor.blackColor().CGColor
-            view.layer.borderWidth = 0
-            view.clipsToBounds = true
             
-            let lblItem = cell.viewWithTag(2) as! UILabel
-            lblItem.text = item.itemName
+            return self.getStoreItemCell(collectionView, cellForItemAtIndexPath: indexPath)
             
-            let lblCategory = cell.viewWithTag(3) as! UILabel
-            lblCategory.text = item.itemCategory
-            
-            let lblItemPrice = cell.viewWithTag(4) as! UILabel
-            let lblItemSalePrice = cell.viewWithTag(5) as! UILabel
-            
-            if item.itemSalePrice?.compare(NSDecimalNumber(double: 0.00)) == NSComparisonResult.OrderedSame { //no sale
-                lblItemPrice.text = item.priceString
-                lblItemSalePrice.hidden = true
-            } else { // there is a sale going on here
-                lblItemSalePrice.hidden = false
-                let attributedString = NSMutableAttributedString(string: item.priceString)
-                attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
-                lblItemPrice.attributedText = attributedString
-                lblItemSalePrice.text = item.priceString
-            }
-            
-            cell.clipsToBounds = true
-            return cell
         }
+        let cell = UICollectionViewCell()
         return cell
     }
     
@@ -456,8 +435,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "item" {
-            var vc = segue.destinationViewController as! StoreItemTableViewController
-            vc.item = itemSelected
+            let vc = segue.destinationViewController as! StoreItemTableViewController
+            vc.item = self.itemSelected
         }
     }
 }

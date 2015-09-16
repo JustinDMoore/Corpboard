@@ -39,18 +39,18 @@ import PassKit
             arrayOfCartItemsToPurchase = arrayOfCartItems
             self.calculateTotalForItems()
         } else {
-            print("Apple Pay Not Accepted")
+            print("Apple Pay Not Accepted", terminator: "")
         }
     }
     
     func calculateTotalForItems() {
         self.arrayOfPrices.removeAll()
-        for (index, item) in enumerate(arrayOfCartItemsToPurchase) {
+        for (_, item) in arrayOfCartItemsToPurchase.enumerate() {
             let base = item["item"] as! PFObject
             base.fetchIfNeededInBackgroundWithBlock {(result, error) in
                 if base == base {
                     //var shipable: Bool?
-                    if let shipable: Bool = base["shipable"] as? Bool {
+                    if let _: Bool = base["shipable"] as? Bool {
                         self.orderCanShip = true
                     }
                     
@@ -85,9 +85,9 @@ import PassKit
     func checkForTotal() {
         if self.arrayOfPrices.count == self.arrayOfCartItemsToPurchase.count {
             var total: Double = 0.00
-            var tax: Double = 0.00
-            var shipping: Double = 5.00
-            for (index, price) in enumerate(self.arrayOfPrices) {
+            let tax: Double = 0.00
+            let shipping: Double = 5.00
+            for (_, price) in self.arrayOfPrices.enumerate() {
                 let p: Double = Double(price)
                 total = total + p
             }
@@ -95,7 +95,7 @@ import PassKit
         }
     }
     
-    func beginApplePayTransaction(#subTotal: Double, tax: Double, shipping: Double, discount: Double) {
+    func beginApplePayTransaction(subTotal subTotal: Double, tax: Double, shipping: Double, discount: Double) {
         let request = PKPaymentRequest()
         let applePayController: PKPaymentAuthorizationViewController
         //applePayController.delegate = self;
@@ -105,7 +105,7 @@ import PassKit
         request.currencyCode = "USD"
         request.countryCode = "US"
         
-        var _subTotal = NSDecimalNumber(double: subTotal)
+        let _subTotal = NSDecimalNumber(double: subTotal)
         var _tax: NSDecimalNumber
         var _shipping: NSDecimalNumber
         var _discount: NSDecimalNumber
@@ -113,7 +113,7 @@ import PassKit
         var taxItem: PKPaymentSummaryItem
         var shippingItem: PKPaymentSummaryItem
         var discountItem: PKPaymentSummaryItem
-        var subTotalItem = PKPaymentSummaryItem(label: "Subtotal", amount: _subTotal)
+        let subTotalItem = PKPaymentSummaryItem(label: "Subtotal", amount: _subTotal)
         
         var arrayOfSummaryItems = [PKPaymentSummaryItem]()
         arrayOfSummaryItems.append(subTotalItem)
@@ -142,7 +142,7 @@ import PassKit
         if self.orderCanShip {
             request.requiredShippingAddressFields = PKAddressField.All
         } else {
-            request.requiredShippingAddressFields = PKAddressField.Name | PKAddressField.Phone
+            request.requiredShippingAddressFields = [PKAddressField.Name, PKAddressField.Phone]
         }
     
         applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
@@ -170,8 +170,8 @@ import PassKit
 }
 
 
-extension Payment: PKPaymentAuthorizationViewControllerDelegate {
-    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController!, didAuthorizePayment payment: PKPayment!, completion: ((PKPaymentAuthorizationStatus) -> Void)!) {
+extension Payment {
+    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: ((PKPaymentAuthorizationStatus) -> Void)) {
         // 1
         let shippingAddress = self.createShippingAddressFromRef(payment.shippingAddress)
         
@@ -183,7 +183,7 @@ extension Payment: PKPaymentAuthorizationViewControllerDelegate {
             (token, error) -> Void in
             
             if (error != nil) {
-                println(error)
+                print(error)
                 completion(PKPaymentAuthorizationStatus.Failure)
                 return
             }
@@ -211,7 +211,14 @@ extension Payment: PKPaymentAuthorizationViewControllerDelegate {
             ]
             
             var error: NSError?
-            request.HTTPBody = NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions(), error: &error)
+            do {
+                request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions())
+            } catch let error1 as NSError {
+                error = error1
+                request.HTTPBody = nil
+            } catch {
+                fatalError()
+            }
             
             // 7
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
@@ -224,18 +231,18 @@ extension Payment: PKPaymentAuthorizationViewControllerDelegate {
         }
     }
     
-    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController!) {
+    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController!, didSelectShippingAddress address: ABRecord!, completion: ((PKPaymentAuthorizationStatus, [AnyObject]!, [AnyObject]!) -> Void)!) {
+    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didSelectShippingAddress address: ABRecord, completion: ((PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void)) {
         let shippingAddress = createShippingAddressFromRef(address)
         
         switch (shippingAddress.State, shippingAddress.City, shippingAddress.Zip) {
         case (.Some(let state), .Some(let city), .Some(let zip)):
-            completion(PKPaymentAuthorizationStatus.Success, nil, nil)
+            completion(PKPaymentAuthorizationStatus.Success, [], [])
         default:
-            completion(PKPaymentAuthorizationStatus.InvalidShippingPostalAddress, nil, nil)
+            completion(PKPaymentAuthorizationStatus.InvalidShippingPostalAddress, [], [])
         }
     }
 }

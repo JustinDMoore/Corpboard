@@ -8,6 +8,8 @@
 
 import UIKit
 
+var view: UIView!
+
 protocol StoreItemSelectorProtocol {
     func indexSelected()
     func selectorClosedWithSelectedIndex(selectedIndex: Int)
@@ -29,13 +31,16 @@ class StoreItemSelector: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        xibSetup()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        xibSetup()
     }
     
     func showInParent() {
+    
         switch selectorType {
         case .NOTSET: title.text = "ERROR"
         case .SIZE: title.text = "PICK A SIZE"
@@ -45,16 +50,28 @@ class StoreItemSelector: UIView {
         
         self.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height / 2)
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.allZeros, animations: ({
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: ({
             self.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height - (UIScreen.mainScreen().bounds.size.height / 2), UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height / 2)
         }), completion: nil)
+    }
+    
+    func xibSetup() {
+        view = loadViewFromNib()
+        addSubview(view)
+    }
+    
+    func loadViewFromNib() -> UIView {
+        let bundle = NSBundle(forClass: self.dynamicType)
+        let nib = UINib(nibName: "StoreItemSelector", bundle: bundle)
+        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        return view
     }
     
     func closeView() {
          if let del = self.delegate {
             del.selectorWillClose()
         }
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10.0, options: UIViewAnimationOptions.allZeros, animations: ({
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: ({
             
         }), completion: { finisehd in
             self.removeFromSuperview()

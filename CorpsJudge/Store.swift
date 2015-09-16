@@ -25,6 +25,7 @@ protocol StoreProtocol {
     var updatedItemsInCart = false
     var arrayOfCategoryObjects = [PFObject]()
     var arrayOfBannerObjects = [PFObject]()
+    var arrayOfBannerImages = [UIImage]()
     var arrayOfStoreObjects = [StoreItem]()
     var arrayOfNewItems = [StoreItem]()
     var arrayOfPopularItems = [StoreItem]()
@@ -67,6 +68,7 @@ protocol StoreProtocol {
     }
     
     func loadStore() {
+        task = 0
         self.getStoreCategories()
         self.getBannerObjects()
         self.getStoreObjects()
@@ -76,7 +78,7 @@ protocol StoreProtocol {
     func numberOfItemsInCart() -> Int {
         if arrayOfItemsInCart.count > 0 {
             var qty = 0
-            for (index, itemInCart) in enumerate(arrayOfItemsInCart) {
+            for (_, itemInCart) in arrayOfItemsInCart.enumerate() {
                 if let q = itemInCart["quantity"] as? Int {
                     qty = qty + q
                 }
@@ -106,13 +108,13 @@ protocol StoreProtocol {
     
     func getPopularItems() {
         if arrayOfStoreObjects.count > 0 {
-            arrayOfStoreObjects.sort({ $0.itemPurchaseCount > $1.itemPurchaseCount })
+            arrayOfStoreObjects.sortInPlace({ $0.itemPurchaseCount > $1.itemPurchaseCount })
             var max = 10
             if max > arrayOfStoreObjects.count {
                 max = arrayOfStoreObjects.count
             }
             for var x = 0; x < max; x++ {
-                var item = arrayOfStoreObjects[x] as StoreItem
+                let item = arrayOfStoreObjects[x] as StoreItem
                 arrayOfPopularItems.append(item)
             }
         }
@@ -120,97 +122,104 @@ protocol StoreProtocol {
 
     func getNewestItems() {
         if arrayOfStoreObjects.count > 0 {
-            arrayOfStoreObjects.sort({ $0.createdAt!.compare($1.createdAt!) == NSComparisonResult.OrderedAscending })
+            arrayOfStoreObjects.sortInPlace({ $0.createdAt!.compare($1.createdAt!) == NSComparisonResult.OrderedAscending })
             var max = 10
             if max > arrayOfStoreObjects.count {
                 max = arrayOfStoreObjects.count
             }
             for var x = 0; x < max; x++ {
-                var newItem = arrayOfStoreObjects[x] as StoreItem
+                let newItem = arrayOfStoreObjects[x] as StoreItem
                 arrayOfNewItems.append(newItem)
             }
         }
     }
     
     func getStoreCategories() {
-        PFCloud.callFunctionInBackground("getStoreCategories", withParameters: nil) { (results: NSArray?, error: NSError?) -> Void in
-            
-        }
-        PFCloud.callFunctionInBackground("getStoreCategories", withParameters: nil, target: self, selector: Selector("blockCategories:error:"))
-        func blockCategories(results: NSArray!, error: NSError!) {
+        PFCloud.callFunctionInBackground("getStoreCategories", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
             if (error === nil) {
-                if let swiftResults = results as NSArray as? [PFObject] {
+                if let swiftResults = results as? [PFObject] {
                     if !swiftResults.isEmpty {
-                        arrayOfCategoryObjects += swiftResults
-                        updatedCategories = true
+                        self.arrayOfCategoryObjects += swiftResults
+                        self.updatedCategories = true
                     }
-                    task++
+                    self.task++
                     self.didWeFinish()
                 }
-            }
-            else if (error != nil) {
-                NSLog("Error: \(error.userInfo)")
+            } else if (error != nil) {
+                NSLog("Error: \(error!.userInfo)")
             }
         }
     }
     
     func getStoreObjects() {
-        PFCloud.callFunctionInBackground("getStoreObjects", withParameters: nil, target: self, selector: Selector("blockStore:error:"))
-        func blockStore(results: NSArray!, error: NSError!) {
+        PFCloud.callFunctionInBackground("getStoreObjects", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
             if (error === nil) {
-                if let swiftResults = results as NSArray as? [PFObject] {
+                if let swiftResults = results as? [PFObject] {
                     if !swiftResults.isEmpty {
-                        for (index, item) in enumerate(results) {
-                            var storeItem = StoreItem()
-                            arrayOfStoreObjects.append(storeItem)
+                        for (_, item) in swiftResults.enumerate() {
+                            let storeItem = item as! StoreItem
+                            self.arrayOfStoreObjects.append(storeItem)
                         }
-                        updatedStoreObjects = true
+                        self.updatedStoreObjects = true
                     }
-                    task++
+                    self.task++
                     self.didWeFinish()
                 }
-            }
-            else if (error != nil) {
-                NSLog("Error: \(error.userInfo)")
+            } else if (error != nil) {
+                NSLog("Error: \(error!.userInfo)")
             }
         }
     }
     
     func getBannerObjects() {
-        PFCloud.callFunctionInBackground("getStoreBanners", withParameters: nil, target: self, selector: Selector("blockBanners:error:"))
-        func blockBanners(results: NSArray!, error: NSError!) {
+        PFCloud.callFunctionInBackground("getStoreBanners", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
             if (error === nil) {
-                if let swiftResults = results as NSArray as? [PFObject] {
-                    if !swiftResults.isEmpty {
-                        arrayOfBannerObjects += swiftResults
-                        updatedBanners = true
+                if let swiftResults = results as? [PFObject] {
+                    for (_, banner) in swiftResults.enumerate() {
+                        let imageFile = banner.objectForKey("image")
+                        imageFile?.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
+                            if (error === nil) {
+                                let image = UIImage(data: data!)
+                                self.arrayOfBannerImages.append(image!)
+                                self.arrayOfBannerObjects.append(banner)
+                                if self.arrayOfBannerImages.count == swiftResults.count {
+                                    self.updatedBanners = true
+                                    self.task++
+                                    self.didWeFinish()
+                                }
+                            }
+                        })
                     }
-                    task++
-                    self.didWeFinish()
+                    //
+                    //
+                    //
+                    //                    if !swiftResults.isEmpty {
+                    //                        self.arrayOfBannerObjects += swiftResults
+                    //                        self.updatedBanners = true
+                    //                    }
+                    //                    self.task++
+                    //                    self.didWeFinish()
                 }
-            }
-            else if (error != nil) {
-                NSLog("Error: \(error.userInfo)")
+            } else if (error != nil) {
+                NSLog("Error: \(error!.userInfo)")
             }
         }
     }
     
     
     func getCartObjects() {
-        PFCloud.callFunctionInBackground("getItemsInCart", withParameters: nil, target: self, selector: Selector("blockCart:error:"))
-        func blockCart(results: NSArray!, error: NSError!) {
+        PFCloud.callFunctionInBackground("getItemsInCart", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
             if (error === nil) {
-                if let swiftResults = results as NSArray as? [PFObject] {
+                if let swiftResults = results as? [PFObject] {
                     if !swiftResults.isEmpty {
-                        arrayOfItemsInCart += swiftResults
-                        updatedItemsInCart = true
+                        self.arrayOfItemsInCart += swiftResults
+                        self.updatedItemsInCart = true
                     }
-                    task++
+                    self.task++
                     self.didWeFinish()
                 }
-            }
-            else if (error != nil) {
-                NSLog("Error: \(error.userInfo)")
+            } else if (error != nil) {
+                NSLog("Error: \(error!.userInfo)")
             }
         }
     }

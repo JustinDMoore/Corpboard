@@ -12,7 +12,6 @@
 //#import "KVNProgress.h"
 //#import "Configuration.h"
 //#import "ClipView.h"
-//#import "CBStoreItemCell.h"
 //#import "CBStoreCategoryCell.h"
 //#import "CBStoreItemTableViewController.h"
 //

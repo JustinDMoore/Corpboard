@@ -19,7 +19,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     let GOLD = UIColor(red:0.78, green:0.56, blue:0.2, alpha:1.0)
     let MAROON = UIColor(red:0.47, green:0.13, blue:0.15, alpha:1.0)
     var store: Store {
-        var _store = Store.model()
+        let _store = Store.model()
         _store.delegate = self
         return _store
     }
@@ -32,7 +32,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     var viewSelector: StoreItemSelector {
         var tViewSelector = StoreItemSelector()
         //tViewSelector = NSBundle.mainBundle().loadNibNamed("CBStoreItemSelector", owner: self, options: nil)
-        tViewSelector = NSBundle.mainBundle().loadNibNamed("CBStoreItemSelector", owner: nil, options: nil)[0] as! StoreItemSelector
+        tViewSelector = NSBundle.mainBundle().loadNibNamed("StoreItemSelector", owner: nil, options: nil)[0] as! StoreItemSelector
         tViewSelector.tableSelector.delegate = self
         tViewSelector.tableSelector.dataSource = self
         tViewSelector.tableSelector.tableFooterView = UIView(frame: CGRectZero)
@@ -52,14 +52,6 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     var imgOriginal = PFImageView()
     var viewFade: UIView?
     var payment = Payment()
-    
-    override init(style: UITableViewStyle) {
-        super.init(style: style)
-    }
-
-    required init!(coder aDecoder: NSCoder!) {
-        super.init(coder: aDecoder)
-    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,14 +74,14 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 100
         self.clearsSelectionOnViewWillAppear = true
-        if item.itemSizes != nil { sizes = true }
-        if item.itemColors != nil { colors = true }
+        if item?.itemSizes != nil { sizes = true }
+        if item?.itemColors != nil { colors = true }
         
     }
 
     func goBack() {
         self.navigationController?.popViewControllerAnimated(true)
-        self.viewSelector.closeView()
+        //self.viewSelector.closeView()
     }
     
     func updateCart() {
@@ -109,6 +101,10 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         self.performSegueWithIdentifier("cart", sender: self)
     }
     
+    
+    //MARK:
+    //MARK: UITableView Delegates
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -125,8 +121,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if tableView === self.tableView {
-            if let desc = item.itemDescription {
+            if let _ = item.itemDescription {
                 return 5
             } else { return 4 }
         } else {
@@ -139,134 +136,6 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         }
     }
 
-    
-    func descriptionCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("description", forIndexPath: indexPath) as! UITableViewCell
-        let lblItemName = cell.viewWithTag(5) as! UILabel
-        let lblItemPrice = cell.viewWithTag(6) as! UILabel
-        let lblItemSalePrice = cell.viewWithTag(7) as! UILabel
-        let lblError = cell.viewWithTag(10) as! UILabel
-        if itemError == .COLOR {
-            lblError.hidden = false
-            lblError.text = "Please select an available color."
-        } else if itemError == .SIZE {
-            lblError.hidden = false
-            lblError.text = "Please select an available size."
-        } else {
-            lblError.hidden = true
-        }
-        lblItemName.text = item.itemName
-        if item.itemSalePrice != nil {
-            var attributedString = NSMutableAttributedString(string: item.priceString)
-            attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
-            lblItemPrice.attributedText = attributedString
-            lblItemSalePrice.text = item.salePriceString
-        } else {
-            lblItemPrice.text = item.priceString
-            lblItemSalePrice.hidden = true
-        }
-        return cell
-    }
-
-    func imageCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("image", forIndexPath: indexPath) as! UITableViewCell
-        var imgItem = cell.viewWithTag(1) as! PFImageView
-        if let imgFile: PFFile = item.itemImage {
-            imgItem.file = imgFile
-            imgItem.loadInBackground({ (image: UIImage?, error: NSError?) -> Void in
-                self.imgVToAnimate = PFImageView(frame: imgItem.convertRect(imgItem.frame, toView: self.navigationController?.view))
-                self.imgVToAnimate.file = imgFile
-                self.imgVToAnimate.loadInBackground()
-            })
-        } else {
-            imgItem.image = UIImage(named: "StoreError")
-            imgVToAnimate = PFImageView(frame: imgItem.convertRect(imgItem.frame, toView: self.navigationController?.view))
-            imgVToAnimate.image = UIImage(named: "StoreError")
-        }
-        imgVToAnimate.frame = imgItem .convertRect(imgItem.frame, toView: self.navigationController?.view)
-        imgVToAnimate.contentMode = UIViewContentMode.ScaleAspectFit
-        imgOriginal = imgItem
-        return cell
-    }
-    
-    func buttonsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        if (!colors && !sizes) {
-            cell = tableView.dequeueReusableCellWithIdentifier("quantity", forIndexPath: indexPath) as! UITableViewCell
-        } else if (sizes && !colors) {
-            cell = tableView.dequeueReusableCellWithIdentifier("sizequantity", forIndexPath: indexPath) as! UITableViewCell
-        } else if (sizes && colors) {
-            cell = tableView.dequeueReusableCellWithIdentifier("sizecolorquantity", forIndexPath: indexPath) as! UITableViewCell
-        }
-        
-        let btnPickASize = cell.viewWithTag(1) as! UIButton
-        let btnPickAColor = cell.viewWithTag(2) as! UIButton
-        let btnPickQuantity = cell.viewWithTag(3) as! UIButton
-        
-        btnPickASize.layer.borderWidth = buttonBorderWidth
-        btnPickAColor.layer.borderWidth = buttonBorderWidth
-        btnPickQuantity.layer.borderWidth = buttonBorderWidth
-    
-        btnPickQuantity.layer.borderColor = buttonBorderColor.CGColor
-        
-        btnPickASize.backgroundColor = buttonBackgroundColor
-        btnPickAColor.backgroundColor = buttonBackgroundColor
-        btnPickQuantity.backgroundColor = buttonBackgroundColor
-        
-        btnPickASize.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-        btnPickAColor.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-        btnPickQuantity.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-        
-        if (self.itemError == .SIZE) {
-            btnPickASize.layer.borderColor = UIColor.redColor().CGColor
-        } else if (self.itemError == .COLOR) {
-            btnPickAColor.layer.borderColor = UIColor.redColor().CGColor
-        } else {
-            btnPickASize.layer.borderColor = buttonBorderColor.CGColor
-            btnPickAColor.layer.borderColor = buttonBorderColor.CGColor
-        }
-        
-        btnPickASize.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
-        btnPickAColor.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
-        btnPickQuantity.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        btnPickQuantity.setTitle("QTY: \(indexOfQuantity + 1)", forState: UIControlState.Normal)
-        if (indexOfSize > -1) {
-            btnPickASize.setTitle("Size: \(item.itemSizes?[indexOfSize])", forState: UIControlState.Normal)
-        } else {
-            btnPickASize.setTitle("PICK A SIZE", forState: UIControlState.Normal)
-        }
-        
-        if (indexOfColor > -1) {
-            btnPickAColor.setTitle("Color: \(item.itemColors?[indexOfColor])", forState: UIControlState.Normal)
-        } else {
-            btnPickAColor.setTitle("PICK A COLOR", forState: UIControlState.Normal)
-        }
-        return cell
-    }
-    
-    func cartCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("addtocart", forIndexPath: indexPath) as! UITableViewCell
-        let btnAddToCart = cell.viewWithTag(4) as! UIButton
-        btnAddToCart.layer.borderColor = buttonBorderColor.CGColor
-        btnAddToCart.layer.borderWidth = buttonBorderWidth
-        btnAddToCart.setTitleColor(GOLD, forState: UIControlState.Normal)
-        btnAddToCart.backgroundColor = MAROON
-        btnAddToCart.addTarget(self, action: "addItemToCartAndBuy:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        let btnApplePay = cell.viewWithTag(40) as! UIButton
-        btnApplePay.addTarget(self, action: "applePay", forControlEvents: UIControlEvents.TouchUpInside)
-        return cell
-    }
-    
-    func detailsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("details", forIndexPath: indexPath) as! UITableViewCell
-        let lblDesc = cell.viewWithTag(1) as! UILabel
-        lblDesc.font = UIFont(name: lblDesc.font.fontName, size: 12)
-        lblDesc.text = item.itemDescription
-        return cell
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         if tableView == self.tableView {
@@ -274,9 +143,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             case 0: return self.imageCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 1: return self.descriptionCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 2: return self.buttonsCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
-            case 3: return self.cartCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
+            //case 3: return self.cartCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 4: return self.detailsCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
-            default: print("Error")
+            default: print("Error", terminator: "")
             }
         } else if tableView == self.viewSelector.tableSelector {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
@@ -308,21 +177,21 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
                     cell.backgroundColor = UIColor.clearColor()
                     cell.textLabel?.textColor = UIColor.blackColor()
                 }
-            case .NOTSET: print("Not set")
+            case .NOTSET: print("Not set", terminator: "")
             }
             cell.textLabel?.textAlignment = NSTextAlignment.Center
             cell.textLabel?.font = UIFont(name: cell.textLabel!.font.fontName, size: 10)
         }
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView == viewSelector.tableSelector {
             switch viewSelector.selectorType {
             case .SIZE: indexOfSize = indexPath.row
             case .COLOR: indexOfColor = indexPath.row
             case .QUANTITY: indexOfQuantity = indexPath.row
-            case .NOTSET: print("not set")
+            case .NOTSET: print("not set", terminator: "")
             }
             viewSelector.tableSelector.reloadData()
             viewSelector.closeView()
@@ -331,17 +200,149 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         }
     }
     
+    func descriptionCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("description", forIndexPath: indexPath) 
+        let lblItemName = cell.viewWithTag(5) as! UILabel
+        let lblItemPrice = cell.viewWithTag(6) as! UILabel
+        let lblItemSalePrice = cell.viewWithTag(7) as! UILabel
+        let lblError = cell.viewWithTag(10) as! UILabel
+        if itemError == .COLOR {
+            lblError.hidden = false
+            lblError.text = "Please select an available color."
+        } else if itemError == .SIZE {
+            lblError.hidden = false
+            lblError.text = "Please select an available size."
+        } else {
+            lblError.hidden = true
+        }
+        lblItemName.text = item.itemName
+        if item.itemSalePrice != nil {
+            let attributedString = NSMutableAttributedString(string: item.priceString)
+            attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
+            lblItemPrice.attributedText = attributedString
+            lblItemSalePrice.text = item.salePriceString
+        } else {
+            lblItemPrice.text = item.priceString
+            lblItemSalePrice.hidden = true
+        }
+        return cell
+    }
+
+    func imageCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("image", forIndexPath: indexPath) 
+        let imgItem = cell.viewWithTag(1) as! PFImageView
+        if let imgFile: PFFile = item.itemImage {
+            imgItem.file = imgFile
+            imgItem.loadInBackground({ (image: UIImage?, error: NSError?) -> Void in
+                self.imgVToAnimate = PFImageView(frame: imgItem.convertRect(imgItem.frame, toView: self.navigationController?.view))
+                self.imgVToAnimate.file = imgFile
+                self.imgVToAnimate.loadInBackground()
+            })
+        } else {
+            imgItem.image = UIImage(named: "StoreError")
+            imgVToAnimate = PFImageView(frame: imgItem.convertRect(imgItem.frame, toView: self.navigationController?.view))
+            imgVToAnimate.image = UIImage(named: "StoreError")
+        }
+        imgVToAnimate.frame = imgItem .convertRect(imgItem.frame, toView: self.navigationController?.view)
+        imgVToAnimate.contentMode = UIViewContentMode.ScaleAspectFit
+        imgOriginal = imgItem
+        return cell
+    }
+    
+    func buttonsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        if (!colors && !sizes) {
+            cell = tableView.dequeueReusableCellWithIdentifier("quantity", forIndexPath: indexPath) 
+        } else if (sizes && !colors) {
+            cell = tableView.dequeueReusableCellWithIdentifier("sizequantity", forIndexPath: indexPath) 
+        } else if (sizes && colors) {
+            cell = tableView.dequeueReusableCellWithIdentifier("sizecolorquantity", forIndexPath: indexPath) 
+        }
+        
+        var btnPickASize = UIButton()
+        var btnPickAColor = UIButton()
+        var btnPickQuantity = UIButton()
+        
+        if sizes {
+            btnPickASize = cell.viewWithTag(1) as! UIButton
+            btnPickASize.layer.borderWidth = buttonBorderWidth
+            btnPickASize.backgroundColor = buttonBackgroundColor
+            btnPickASize.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
+            btnPickASize.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+            if (indexOfSize > -1) {
+                btnPickASize.setTitle("Size: \(item.itemSizes?[indexOfSize])", forState: UIControlState.Normal)
+            } else {
+                btnPickASize.setTitle("PICK A SIZE", forState: UIControlState.Normal)
+            }
+        }
+        
+        if colors {
+            btnPickAColor = cell.viewWithTag(2) as! UIButton
+            btnPickAColor.layer.borderWidth = buttonBorderWidth
+            btnPickAColor.backgroundColor = buttonBackgroundColor
+            btnPickAColor.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
+            btnPickAColor.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+            if (indexOfColor > -1) {
+                btnPickAColor.setTitle("Color: \(item.itemColors?[indexOfColor])", forState: UIControlState.Normal)
+            } else {
+                btnPickAColor.setTitle("PICK A COLOR", forState: UIControlState.Normal)
+            }
+        }
+        
+        // we will always need a quantity
+        btnPickQuantity = cell.viewWithTag(3) as! UIButton
+        btnPickQuantity.layer.borderWidth = buttonBorderWidth
+        btnPickQuantity.layer.borderColor = buttonBorderColor.CGColor
+        btnPickQuantity.backgroundColor = buttonBackgroundColor
+        btnPickQuantity.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
+        btnPickQuantity.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnPickQuantity.setTitle("QTY: \(indexOfQuantity + 1)", forState: UIControlState.Normal)
+        
+        if (self.itemError == .SIZE) {
+            if sizes { btnPickASize.layer.borderColor = UIColor.redColor().CGColor }
+        } else if (self.itemError == .COLOR) {
+            if colors { btnPickAColor.layer.borderColor = UIColor.redColor().CGColor }
+        } else {
+            if sizes { btnPickASize.layer.borderColor = buttonBorderColor.CGColor }
+            if colors { btnPickAColor.layer.borderColor = buttonBorderColor.CGColor }
+        }
+
+        return cell
+    }
+    
+    func cartCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("isaias", forIndexPath: indexPath) as! cartTableViewCell
+        let btnAddToCart = cell.viewWithTag(4) as! UIButton
+        btnAddToCart.layer.borderColor = buttonBorderColor.CGColor
+        btnAddToCart.layer.borderWidth = buttonBorderWidth
+        btnAddToCart.setTitleColor(GOLD, forState: UIControlState.Normal)
+        btnAddToCart.backgroundColor = MAROON
+        btnAddToCart.addTarget(self, action: "addItemToCartAndBuy:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let btnApplePay = cell.viewWithTag(40) as! UIButton
+        btnApplePay.addTarget(self, action: "applePay", forControlEvents: UIControlEvents.TouchUpInside)
+        return cell
+    }
+    
+    func detailsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("details", forIndexPath: indexPath) 
+        let lblDesc = cell.viewWithTag(1) as! UILabel
+        lblDesc.font = UIFont(name: lblDesc.font.fontName, size: 12)
+        lblDesc.text = item.itemDescription
+        return cell
+    }
+    
     func showSelector(sender: UIButton) {
         switch sender.tag {
         case 1: viewSelector.selectorType = .SIZE
         case 2: viewSelector.selectorType = .COLOR
         case 3: viewSelector.selectorType = .QUANTITY
-        default: print("error")
+        default: print("error", terminator: "")
         }
         self.setFade(true)
         self.navigationController!.view.addSubview(viewSelector)
         viewSelector.showInParent()
-        viewSelector
+        //viewSelector
     }
     
     func setFade(on: Bool) {
