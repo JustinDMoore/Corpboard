@@ -10,7 +10,6 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
-#import <ParseCrashReporting/ParseCrashReporting.h>
 #import "IQKeyboardManager.h"
 #import "CBSingle.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -38,7 +37,6 @@ CBSingle *data;
     data = [CBSingle data];
     [Stripe setDefaultPublishableKey:StripePublishableKey];
     //parse
-    [ParseCrashReporting enable];
     [Parse setApplicationId:@"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"
                   clientKey:@"ECyvUjxayFW3un2sOkTkgFJC8mmqweeOAjW0OlKJ"];
     

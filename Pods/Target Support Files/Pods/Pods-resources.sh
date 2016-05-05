@@ -67,6 +67,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
+  install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/fr.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/pt-BR.lproj"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@3x.png"
@@ -110,6 +114,10 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
+  install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/fr.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/pt-BR.lproj"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@3x.png"
@@ -153,6 +161,10 @@ if [[ "$CONFIGURATION" == "Distribution" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
+  install_resource "Parse/Parse/Resources/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/fr.lproj"
+  install_resource "ParseUI/ParseUI/Resources/Localization/pt-BR.lproj"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@2x.png"
   install_resource "Stripe/Stripe/Resources/Images/stp_card_amex@3x.png"
@@ -189,7 +201,7 @@ fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-if [[ "${ACTION}" == "install" ]]; then
+if [[ "${ACTION}" == "install" ]] && [[ "${SKIP_INSTALL}" == "NO" ]]; then
   mkdir -p "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
   rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi
