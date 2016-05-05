@@ -7,7 +7,6 @@
 //
 
 #import "CBAppDelegate.h"
-#import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "IQKeyboardManager.h"
@@ -27,6 +26,7 @@
 NSString * const StripePublishableKey = @"pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf";
 CBSingle *data;
 
+
 -(void)setDelegate:(id)newDelegate{
     delegate = newDelegate;
 }
@@ -37,8 +37,11 @@ CBSingle *data;
     data = [CBSingle data];
     [Stripe setDefaultPublishableKey:StripePublishableKey];
     //parse
-    [Parse setApplicationId:@"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"
-                  clientKey:@"ECyvUjxayFW3un2sOkTkgFJC8mmqweeOAjW0OlKJ"];
+    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        configuration.applicationId = @"wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ";
+        configuration.clientKey = @"ECyvUjxayFW3un2sOkTkgFJC8mmqweeOAjW0OlKJ";
+        configuration.server = @"http://corpsboard.herokuapp.com/parse";
+    }]];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     

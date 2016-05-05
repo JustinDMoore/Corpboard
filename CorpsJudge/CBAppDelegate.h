@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <Parse/Parse.h>
 
 @protocol messagesProtocol <NSObject>
 @required
