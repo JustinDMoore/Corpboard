@@ -14,7 +14,7 @@
 #import "ClipView.h"
 #import "CBStoreCategoryCell.h"
 #import "Configuration.h"
-
+#import "MWFeedParser.h"
 // pods
 #import "KVNProgress.h"
 

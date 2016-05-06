@@ -18,11 +18,14 @@
 
 @interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate, newsProtocol, CBPushNotificationProtocol>
 
+
+//swift
 @property (weak, nonatomic) IBOutlet UILabel *lblCorpboard;
 @property (nonatomic, weak) IBOutlet UIImageView *imgCadetsText;
 @property (weak, nonatomic) IBOutlet UIView *viewCadets;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow1;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow2;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow3;
+//
 
 @end

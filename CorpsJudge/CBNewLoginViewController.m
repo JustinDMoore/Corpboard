@@ -8,7 +8,6 @@
 
 #import "CBNewLoginViewController.h"
 #import <Parse/Parse.h>
-//#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ParseErrors.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
@@ -167,7 +166,7 @@ CAShapeLayer *pathLayer;
         [self addView:self.viewProgress andScroll:NO];
     }
     
-    PFQuery *query = [PFQuery queryWithClassName:@"messages"];
+    PFQuery *query = [PFQuery queryWithClassName:@"AppMessages"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if ([objects count]) {

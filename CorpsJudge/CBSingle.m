@@ -104,7 +104,7 @@
     
     [self getNumberOfUsers];
     self.updatedAdmin = NO;
-    PFQuery *queryAdmin = [PFQuery queryWithClassName:@"admin"];
+    PFQuery *queryAdmin = [PFQuery queryWithClassName:@"AppSettings"];
     [queryAdmin whereKey:@"objectId" equalTo:@"IjplBNRNjj"];
     [queryAdmin findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
