@@ -1,5 +1,5 @@
 //
-//  LoadingViewController.swift
+//  CadetsLoadingViewController.swift
 //  CorpBoard
 //
 //  Created by Justin Moore on 5/5/16.
@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import AVFoundation
 
-class LoadingViewController: UIViewController, delegateInitialAppLoad {
+class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     
     //MARK:-
     //MARK: Properties
     var animatedCadets = false
     var progress: Float = 0.0
     var canUseApp = true
-    var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.05, 0.05, 0.10, 0.10, 0.10, 0.15, 0.15, 0.25]
+    var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.10, 0.15, 0.15, 0.25]
+    var player = AVAudioPlayer()
+    
     /*
      1. updateAppStatus() Check app messages, stop if can't use app
      2. signInAndSyncOrCreateAnonymousUser()
@@ -47,39 +50,33 @@ class LoadingViewController: UIViewController, delegateInitialAppLoad {
         self.viewCadets.backgroundColor = UIColor.clearColor()
         self.progress = 0
         self.progressBar.progress = 0
+        self.progressBar.hidden = true
         self.lblFact.alpha = 0
+        self.imgArrow1.alpha = 0
+        self.imgArrow2.alpha = 0
+        self.imgArrow3.alpha = 0
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if !self.animatedCadets {
-            self.animateCadets()
-            Server.data.updateFacts()
-            Server.data.updateAppStatus()
-            Server.data.signInAndSyncOrAllowAnonymousUser()
-            Server.data.updateUserLocation()
-            Server.data.updateAppSettings()
-            Server.data.updateNews()
-            Server.data.updateShows()
-            Server.data.updateCorps()
-            Server.data.updateBanners()
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            if !self.animatedCadets {
+                self.playRockyPoint()
+                Server.data.updateFacts()
+            }
         }
     }
     
     //MARK:-
     //MARK: Animations
     func animateCadets() {
-        //gives the animations time to complete, then updates the last part of the progress
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            self.updateProgress()
-        }
-        
+
         self.animatedCadets = true
         self.view.sendSubviewToBack(self.viewCadets)
         self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
-        self.imgArrow2.frame = self.imgArrow1.frame
-        self.imgArrow3.frame = self.imgArrow1.frame
+        self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
         self.viewCadets.bringSubviewToFront(self.imgArrow3)
         
         UIView.animateWithDuration(2.0,
@@ -93,32 +90,35 @@ class LoadingViewController: UIViewController, delegateInitialAppLoad {
             
         }
 
-        UIView.animateWithDuration(1.5,
-                                   delay: 1.0,
+        
+        
+
+        UIView.animateWithDuration(0.2,
+                                   delay: 0.5,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
-                                    self.imgArrow3.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+                                    self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
                                     self.imgArrow3.alpha = 1
                                     
         }) { (finished: Bool) in
             
         }
-
-        UIView.animateWithDuration(1.5,
-                                   delay: 1.2,
+    
+        UIView.animateWithDuration(0.2,
+                                   delay: 0.7,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
-                                    self.imgArrow2.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+                                    self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
                                     self.imgArrow2.alpha = 1
                                     
         }) { (finished: Bool) in
             
         }
-        
-        UIView.animateWithDuration(1.5,
-                                   delay: 1.4,
+
+        UIView.animateWithDuration(0.2,
+                                   delay: 0.9,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
@@ -127,19 +127,28 @@ class LoadingViewController: UIViewController, delegateInitialAppLoad {
                                     self.imgCadetsText.alpha = 1
                                     
         }) { (finished: Bool) in
-            
+            self.progressBar.hidden = false
+            Server.data.updateAppStatus()
+            Server.data.signInAndSyncOrAllowAnonymousUser()
+            Server.data.updateUserLocation()
+            Server.data.updateAppSettings()
+            Server.data.updateNews()
+            Server.data.updateShows()
+            Server.data.updateCorps()
+            Server.data.updateBanners()
         }
 
-        UIView.animateWithDuration(1.5,
-                                   delay: 1.25,
-                                   options: UIViewAnimationOptions.CurveEaseInOut,
-                                   animations: {
-                                    
-                                    self.lblCorpsboard.alpha = 1
-                                    
-        }) { (finished: Bool) in
-
-        }
+//
+//        UIView.animateWithDuration(1.5,
+//                                   delay: 1.25,
+//                                   options: UIViewAnimationOptions.CurveEaseInOut,
+//                                   animations: {
+//                                    
+//                                    self.lblCorpsboard.alpha = 1
+//                                    
+//        }) { (finished: Bool) in
+//
+//        }
     }
     
     //MARK: -
@@ -164,8 +173,11 @@ class LoadingViewController: UIViewController, delegateInitialAppLoad {
             self.progress += progressAmount
             print("Progress: \(self.progress)")
             self.progressBar.setProgress(self.progress, animated: true)
-            if self.progress >= 100 {
-                
+            if self.progress >= 1.0 {
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    //self.performSegueWithIdentifier("menu", sender: self)
+                }
             }
         } else {
             print("Tried to update progress when no progress was left.")
@@ -177,5 +189,16 @@ class LoadingViewController: UIViewController, delegateInitialAppLoad {
         UIView.animateWithDuration(0.5) { 
             self.lblFact.alpha = 1
         }
+    }
+    
+    //MARK:-
+    //MARK: Helpers
+    func playRockyPoint() {
+            self.animateCadets()
+            let url:NSURL = NSBundle.mainBundle().URLForResource("RockyPoint", withExtension: "mp3")!
+            
+            do { self.player = try AVAudioPlayer(contentsOfURL: url, fileTypeHint: nil) }
+            catch let error as NSError { print(error.description) }
+            self.player.play()
     }
 }
