@@ -14,7 +14,7 @@ protocol delegateInitialAppLoad: class {
     func displayFact(factObject: PFObject)
 }
 
-class Server {
+@objc class Server: NSObject {
     
     static let data = Server()
     weak var delegateInitial: delegateInitialAppLoad?
@@ -23,7 +23,7 @@ class Server {
     var news = News()
     var arrayOfAllCorps = [PFObject]?(), arrayOfWorldClass = [PFObject]?(), arrayOfOpenClass = [PFObject]?(), arrayOfAllAge = [PFObject]?(), arrayOfAllShows = [PFObject]?(), arrayOfBannerImages = [UIImage]?(), arrayOfBannerObjects = [PFObject]?()
     
-    private init() {
+    private override init() {
         
     }
     
@@ -133,7 +133,7 @@ class Server {
     }
     
     func updateNews() {
-        news = News()
+        //news = News()
         self.delegateInitial?.updateProgress()
         print("5. News Updated.")
     }

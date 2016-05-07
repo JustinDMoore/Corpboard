@@ -14,7 +14,7 @@
 #import "CBVersion.h"
 
 @interface CBNewMenuViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, dataProtocol, CBMakeFinalsPredictionDelegate, CBLocationProtocol, versionProtocol> {
-
+    
 }
 
 @property (nonatomic, strong) CBVersion *viewVersion;

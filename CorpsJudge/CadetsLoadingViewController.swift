@@ -12,7 +12,7 @@ import AVFoundation
 class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     
     //MARK:-
-    //MARK: Properties
+    //MARK:Properties
     var animatedCadets = false
     var progress: Float = 0.0
     var canUseApp = true
@@ -31,7 +31,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
      */
     
     //MARK:-
-    //MARK: Outlets
+    //MARK:Outlets
     @IBOutlet weak var viewCadets: UIView!
     @IBOutlet weak var imgArrow1: UIImageView!
     @IBOutlet weak var imgArrow2: UIImageView!
@@ -40,9 +40,10 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     @IBOutlet weak var lblCorpsboard: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var lblFact: UILabel!
+    @IBOutlet weak var imgC: UIImageView!
     
     //MARK:-
-    //MARK: View Lifecycle
+    //MARK:Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.data.delegateInitial = self
@@ -55,6 +56,9 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         self.imgArrow1.alpha = 0
         self.imgArrow2.alpha = 0
         self.imgArrow3.alpha = 0
+        self.imgCadetsText.alpha = 0
+        self.lblCorpsboard.alpha = 0
+        self.imgC.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,9 +73,9 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     }
     
     //MARK:-
-    //MARK: Animations
+    //MARK:Animations
     func animateCadets() {
-
+        
         self.animatedCadets = true
         self.view.sendSubviewToBack(self.viewCadets)
         self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
@@ -93,8 +97,8 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         
         
 
-        UIView.animateWithDuration(0.2,
-                                   delay: 0.5,
+        UIView.animateWithDuration(0.1,
+                                   delay: 0.6,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
@@ -105,8 +109,8 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             
         }
     
-        UIView.animateWithDuration(0.2,
-                                   delay: 0.7,
+        UIView.animateWithDuration(0.1,
+                                   delay: 0.8,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
@@ -116,9 +120,9 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         }) { (finished: Bool) in
             
         }
-
-        UIView.animateWithDuration(0.2,
-                                   delay: 0.9,
+        
+        UIView.animateWithDuration(0.1,
+                                   delay: 1.0,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
@@ -138,21 +142,22 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             Server.data.updateBanners()
         }
 
-//
-//        UIView.animateWithDuration(1.5,
-//                                   delay: 1.25,
-//                                   options: UIViewAnimationOptions.CurveEaseInOut,
-//                                   animations: {
-//                                    
-//                                    self.lblCorpsboard.alpha = 1
-//                                    
-//        }) { (finished: Bool) in
-//
-//        }
+        UIView.animateWithDuration(0.1,
+                                   delay: 1.0,
+                                   options: UIViewAnimationOptions.CurveEaseInOut,
+                                   animations: {
+                                    
+                                    self.imgCadetsText.alpha = 1
+                                    self.lblCorpsboard.alpha = 1
+        }) { (finished: Bool) in
+            
+        }
+        
+        self.doMaskAnimation()
     }
     
     //MARK: -
-    //MARK: Server Delegates
+    //MARK:Server Delegates
     func showAppMessage(title: String?, message: String?, canUseApp: Bool) {
         if !canUseApp {
             self.canUseApp = false
@@ -176,7 +181,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             if self.progress >= 1.0 {
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
                 dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    //self.performSegueWithIdentifier("menu", sender: self)
+                    self.performSegueWithIdentifier("menu", sender: self)
                 }
             }
         } else {
@@ -192,7 +197,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     }
     
     //MARK:-
-    //MARK: Helpers
+    //MARK:Helpers
     func playRockyPoint() {
             self.animateCadets()
             let url:NSURL = NSBundle.mainBundle().URLForResource("RockyPoint", withExtension: "mp3")!
@@ -200,5 +205,65 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             do { self.player = try AVAudioPlayer(contentsOfURL: url, fileTypeHint: nil) }
             catch let error as NSError { print(error.description) }
             self.player.play()
+    }
+    
+    func doMaskAnimation() {
+
+        let c: CadetsAnimation = CadetsAnimation()
+        c.doMaskAnimation(self.imgC)
+        
+//        //Create a shape layer that we will use as a mask for the waretoLogoLarge image view
+//        let maskLayer = CAShapeLayer()
+//        let maskHeight = self.imgC.layer.bounds.size.height
+//        let maskWidth = self.imgC.layer.bounds.size.width
+//        let centerPoint = CGPointMake( maskWidth/2, maskHeight/2)
+//    
+//        //Make the radius of our arc large enough to reach into the corners of the image view.
+//        let radius = sqrtf(Float(maskWidth) * Float(maskWidth) + Float(maskHeight) * Float(maskHeight))/2
+//    
+//        //Don't fill the path, but stroke it in black.
+//        maskLayer.fillColor = UIColor.redColor().CGColor
+//        maskLayer.strokeColor = UIColor.yellowColor().CGColor
+//        maskLayer.lineWidth = CGFloat(radius) //Make the line thick enough to completely fill the circle we're drawing
+//    
+//        let arcPath = CGPathCreateMutable()
+//    
+//        //Move to the starting point of the arc so there is no initial line connecting to the arc
+//        CGPathMoveToPoint(arcPath, nil, centerPoint.x, centerPoint.y-CGFloat(radius)/2);
+//    
+//        //Create an arc at 1/2 our circle radius, with a line thickess of the full circle radius
+//        CGPathAddArc(arcPath,
+//                     nil,
+//                     centerPoint.x,
+//                     centerPoint.y,
+//                     CGFloat(radius)/2,
+//                     3*CGFloat(M_PI)/2,
+//                     CGFloat(-M_PI)/2,
+//                     true)
+//    
+//        maskLayer.path = arcPath;
+//    
+//        //Start with an empty mask path (draw 0% of the arc)
+//        maskLayer.strokeEnd = 0.0;
+//    
+//        //Install the mask layer into out image view's layer.
+//        self.imgC.layer.mask = maskLayer;
+//    
+//        //Set our mask layer's frame to the parent layer's bounds.
+//        self.imgC.layer.mask!.frame = self.imgC.layer.bounds;
+//    
+//        //Create an animation that increases the stroke length to 1, then reverses it back to zero.
+//        let swipe = CABasicAnimation(keyPath: "stokeEnd")
+//        swipe.duration = 2;
+//        swipe.delegate = self;
+//        swipe.setValue("theBlock", forKey: "kAnimationCompletionBlock")
+//    
+//        swipe.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+//        swipe.fillMode = kCAFillModeForwards
+//        swipe.removedOnCompletion = false
+//        swipe.autoreverses = true
+//        swipe.toValue = 1.0
+//        maskLayer.addAnimation(swipe, forKey: "strokeEnd")
+    
     }
 }

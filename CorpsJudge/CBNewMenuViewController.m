@@ -186,10 +186,10 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self initVariables];
     [self initUI];
-
+    
     [self startTimerForCorps];
     [self startTimerForNews];
     [self startTimerForBannerRotation];
@@ -207,7 +207,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
         self.btnSeeAll.hidden = NO;
         
     }
-
+    
 }
 
 
@@ -215,7 +215,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     [super viewDidAppear:animated];
     
     UITapGestureRecognizer *tapBottom = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollToBottom)];
-
+    
     [self.lblCopyright addGestureRecognizer:tapBottom];
     self.lblCopyright.userInteractionEnabled = YES;
     [self.lblShowsHeader addGestureRecognizer:tapBottom];
@@ -232,9 +232,9 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     self.navigationItem.backBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:@"    "
-                                      style:UIBarButtonItemStylePlain
-                                     target:nil
-                                     action:nil];
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
 }
 
 -(void)loadProfile {
@@ -256,7 +256,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
         self.navigationItem.leftBarButtonItem = self.btnAdminBarButton;
         
         [self setAdminBadge];
-
+        
     } else {
         self.navigationController.navigationBarHidden = NO;
         [self.navigationItem setHidesBackButton:YES animated:NO];
@@ -264,7 +264,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 }
 
 -(void)initUI {
-
+    
     [self loadProfile];
     
     //update version
@@ -289,7 +289,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     //showArrow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     showArrow.userInteractionEnabled = NO;
     showArrow.accessoryView = showArrowImage;
-
+    
     
     UITableViewCell *rankArrow = [[UITableViewCell alloc] init];
     [self.btnSeeAllRankings addSubview:rankArrow];
@@ -354,8 +354,8 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     btnBanner3 = [[UIButton alloc] initWithFrame:CGRectMake(640, 0, 320, 135)];
     
     [btnBanner1 addTarget:self
-               action:@selector(bannerTapped:)
-     forControlEvents:UIControlEventTouchUpInside];
+                   action:@selector(bannerTapped:)
+         forControlEvents:UIControlEventTouchUpInside];
     [btnBanner2 addTarget:self
                    action:@selector(bannerTapped:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -364,15 +364,15 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
          forControlEvents:UIControlEventTouchUpInside];
     
     [self loadPageWithId:(int)[data.arrayOfBannerImages count] - 1 onPage:0];
-	[self loadPageWithId:0 onPage:1];
-	[self loadPageWithId:1 onPage:2];
+    [self loadPageWithId:0 onPage:1];
+    [self loadPageWithId:1 onPage:2];
     
     [self.scrollBanners addSubview:btnBanner1];
-	[self.scrollBanners addSubview:btnBanner2];
-	[self.scrollBanners addSubview:btnBanner3];
+    [self.scrollBanners addSubview:btnBanner2];
+    [self.scrollBanners addSubview:btnBanner3];
     
     self.scrollBanners.contentSize = CGSizeMake(960, 135);
-	[self.scrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
+    [self.scrollBanners scrollRectToVisible:CGRectMake(320,0,320,135) animated:NO];
     
     self.viewAboutTheCorps.layer.cornerRadius = 8;
     self.viewAboutTheCorps.layer.borderColor = [UIColor blackColor].CGColor;
@@ -398,7 +398,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
     
     // calculate scroll content
     
-//    // for scrollMain content size (per the docs)
+    //    // for scrollMain content size (per the docs)
     for (UIView *view in [self.contentMainView subviews]) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -414,7 +414,7 @@ UIButton *btnBanner1, *btnBanner2, *btnBanner3;
 }
 
 -(void)bannerTapped:(UIButton *)sender {
-
+    
     PFObject *bannerObj = data.arrayOfBannerObjects[sender.tag];
     
     if ([bannerObj[@"link"] length]) {
@@ -482,14 +482,14 @@ int newsContentWidth = 0;
 -(void)startTimerForBannerRotation {
     
     timerBanners = [NSTimer scheduledTimerWithTimeInterval:1
-                                                     target:self
-                                                   selector:@selector(scrollToNextBanner)
-                                                   userInfo:nil
-                                                    repeats:YES];
+                                                    target:self
+                                                  selector:@selector(scrollToNextBanner)
+                                                  userInfo:nil
+                                                   repeats:YES];
 }
 
 -(void)startTimerForCorps {
-   
+    
     timerCheckForCorps = [NSTimer scheduledTimerWithTimeInterval:.5
                                                           target:self
                                                         selector:@selector(checkCorps)
@@ -500,10 +500,10 @@ int newsContentWidth = 0;
 -(void)startTimerForNews {
     
     timerCheckForNews = [NSTimer scheduledTimerWithTimeInterval:.5
-                                                          target:self
-                                                        selector:@selector(checkNews)
-                                                        userInfo:nil
-                                                         repeats:YES];
+                                                         target:self
+                                                       selector:@selector(checkNews)
+                                                       userInfo:nil
+                                                        repeats:YES];
 }
 
 int counter = 0;
@@ -512,7 +512,7 @@ int counter = 0;
     counter ++;
     if (counter == 5) {
         counter = 0;
-       [self.scrollBanners scrollRectToVisible:CGRectMake(640,0,320,416) animated:YES];
+        [self.scrollBanners scrollRectToVisible:CGRectMake(640,0,320,416) animated:YES];
     }
 }
 
@@ -562,13 +562,13 @@ int counter = 0;
         [self openShowAtIndex:indPath withTable:self.tableNextShows];
     }
     
-//    if (tableView == self.tableLastShows) {
-//        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
-//    } else if (tableView == self.tableNextShows) {
-//        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
-//    }
-//    
-//    if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
+    //    if (tableView == self.tableLastShows) {
+    //        showToOpen = [self.arrayOfLastShows objectAtIndex:indexPath.row];
+    //    } else if (tableView == self.tableNextShows) {
+    //        showToOpen = [self.arrayOfNextShows objectAtIndex:indexPath.row];
+    //    }
+    //
+    //    if (showToOpen) [self performSegueWithIdentifier:@"openShow" sender:self];
     
 }
 
@@ -584,9 +584,9 @@ int counter = 0;
     
     NSSortDescriptor *sortOfficialScores = [[NSSortDescriptor alloc] initWithKey:@"lastScore" ascending:NO];
     NSArray *sortOfficialScoresDescriptor = [NSArray arrayWithObject: sortOfficialScores];
-        
+    
     if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
-
+    
     self.pageTopTwelve.hidden = NO;
     self.scrollTopTwelve.hidden = NO;
     self.lblTopTwelveHeader.hidden = NO;
@@ -609,7 +609,7 @@ int counter = 0;
 NSDate *nearestDate;
 
 -(void)prepareShowsForTable {
-
+    
     [self getPreviousAndNextShows];
     
     if ([self.arrayOfShowsForTable2 count]) {
@@ -642,14 +642,14 @@ NSDate *nearestDate;
     self.arrayOfShowsForTable1 = nil;
     self.arrayOfShowsForTable2 = nil;
     
-
+    
     NSSortDescriptor *sortShowDescriptor = [[NSSortDescriptor alloc] initWithKey:@"showDate" ascending:YES];
     NSArray *sortShows = [NSArray arrayWithObject: sortShowDescriptor];
     if ([data.arrayOfAllShows count]) [data.arrayOfAllShows sortUsingDescriptors:sortShows];
     PFObject *lastShow = [data.arrayOfAllShows lastObject];
     NSDate *lastShowDate = lastShow[@"showDate"];
     
-        //if today is after finals, just get the last four shows
+    //if today is after finals, just get the last four shows
     if ([lastShowDate isInPast]) {
         NSUInteger i = [data.arrayOfAllShows indexOfObject:[data.arrayOfAllShows lastObject]];
         int x = 0;
@@ -866,7 +866,7 @@ NSDate *nearestDate;
             BOOL isOver = [show[@"isShowOver"] boolValue];
             if (isOver) cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"scores"];
             else cell = [self.tableLastShows dequeueReusableCellWithIdentifier:@"show"];
-                
+            
             lblShowName = (UILabel *)[cell viewWithTag:1];
             lblShowLocation = (UILabel *)[cell viewWithTag:2];
             btnScores = (UIButton *)[cell viewWithTag:3];
@@ -901,26 +901,26 @@ NSDate *nearestDate;
                     btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
                     
                     
-//                    
-//                    btnScores.alpha = 0;
-//                    
-//                    btnScores.transform = CGAffineTransformScale(btnScores.transform, 0.4, 0.4);
-//                    
-//                    [UIView animateWithDuration:.2 delay:2 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
-//                        btnScores.alpha = 1;
-//                        btnScores.transform = CGAffineTransformIdentity;
-//                        
-//                    } completion:^(BOOL finished) {
-//                        
-//                    }];
+                    //
+                    //                    btnScores.alpha = 0;
+                    //
+                    //                    btnScores.transform = CGAffineTransformScale(btnScores.transform, 0.4, 0.4);
+                    //
+                    //                    [UIView animateWithDuration:.2 delay:2 usingSpringWithDamping:.6 initialSpringVelocity:10 options:0 animations:^{
+                    //                        btnScores.alpha = 1;
+                    //                        btnScores.transform = CGAffineTransformIdentity;
+                    //
+                    //                    } completion:^(BOOL finished) {
+                    //
+                    //                    }];
                 }
                 
-
+                
             } else btnScores.hidden = YES;
         }
         
         [btnScores addTarget:self action:@selector(openShow:) forControlEvents:UIControlEventTouchUpInside];
-       
+        
     } else if (tableView == self.tableNextShows) {
         
         cell = [self.tableNextShows dequeueReusableCellWithIdentifier:@"show"];
@@ -1032,7 +1032,7 @@ NSDate *nearestDate;
 
 PFObject *showToOpen;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     [self openShowAtIndex:indexPath withTable:tableView];
 }
 
@@ -1116,14 +1116,14 @@ bool isScrolling = NO;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-
+    
     if (scrollView == self.scrollViewShows) {
         if (self.pageShows.currentPage == 0) self.lblShowsHeader.text = lastShowString;
         else self.lblShowsHeader.text = nextShowString;
     }
     
     if (scrollView == self.scrollBanners) {
-     
+        
         // All data for the documents are stored in an array (documentTitles).
         // We keep track of the index that we are scrolling to so that we
         // know what data to load for each page.
@@ -1148,9 +1148,9 @@ bool isScrolling = NO;
             // or the last if we have reached the beginning.
             self.prevIndex = (self.currIndex == 0) ? (int)[data.arrayOfBannerImages count]-1 : self.currIndex - 1;
             [self loadPageWithId:self.prevIndex onPage:0];
-        }     
+        }
         
-        // Reset offset back to middle page     
+        // Reset offset back to middle page
         [scrollView scrollRectToVisible:CGRectMake(320,0,320,416) animated:NO];
     }
 }
@@ -1177,7 +1177,7 @@ bool isScrolling = NO;
             case kCLAuthorizationStatusRestricted: [self tellUserToEnableLocation];
                 break;
         }
-    
+        
     } else {
         NSLog(@"iOS location services disabled.");
         [self tellUserToEnableLocation];
@@ -1198,9 +1198,9 @@ bool isScrolling = NO;
 -(void)tellUserToEnableLocation {
     
     CBLocationServicesDisabled *viewDisabled = [[[NSBundle mainBundle] loadNibNamed:@"CBLocationServicesDisabled"
-                                                                      owner:self
-                                                                    options:nil]
-                                        objectAtIndex:0];
+                                                                              owner:self
+                                                                            options:nil]
+                                                objectAtIndex:0];
     viewDisabled.parentNav = self.navigationController;
     [viewDisabled show];
     [viewDisabled setDelegate:self];
@@ -1216,14 +1216,14 @@ bool isScrolling = NO;
     //UIViewController *contestViewController = [[UIViewController alloc] init];
     
     BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
-
+    
     if (allowPredictions) {
         
         PFUser *user = [PFUser currentUser];
         BOOL predicted = [user[@"predictionEntered"] boolValue];
-
+        
         if (!predicted) {
-
+            
             CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
                                                     
                                                                                  owner:self
@@ -1260,7 +1260,7 @@ bool isScrolling = NO;
 }
 
 -(IBAction)aboutTheCorps_clicked:(id)sender {
-
+    
     [self performSegueWithIdentifier:@"corps" sender:self];
 }
 
@@ -1269,7 +1269,7 @@ bool isScrolling = NO;
 }
 
 - (IBAction)btnLink_tapped:(UIButton *)sender {
-
+    
     if (sender.tag == 0) { // YEA
         
         [self openWebViewWithLink:@"http://yea.org" title:@"Yea!" subTitle:@"Youth Education in the Arts"];
@@ -1279,20 +1279,20 @@ bool isScrolling = NO;
         [self openWebViewWithLink:@"http://cadets.org" title:@"The Cadets" subTitle:@"www.cadets.org"];
         
     } else if (sender.tag == 2) { // Cadets 2
-
+        
         [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets2" title:@"Cadets 2" subTitle:@"http://yea.org/programs/cadets/cadets2"];
         
     } else if (sender.tag == 3) { // USBands
-
+        
         [self openWebViewWithLink:@"http://usbands.org" title:@"USBands" subTitle:@"www.usbands.org"];
         
     } else if (sender.tag == 4)  { // Cadets WP
         
         [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets-winter-perc" title:@"Cadets Winter Percussion" subTitle:@"http://yea.org/programs/cadets/cadets-winter-perc"];
-
+        
         
     } else if (sender.tag == 5) { // Cadets WG
-     
+        
         [self openWebViewWithLink:@"http://yea.org/programs/cadets/cadets-winter-guard" title:@"Cadets Winter Guard" subTitle:@"http://yea.org/programs/cadets/cadets-winter-guard"];
     }
 }
@@ -1379,7 +1379,7 @@ bool isScrolling = NO;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-
+    
     if ([news.arrayOfNewsItemsToDisplay count] >= 6) return 6;
     else return [news.arrayOfNewsItemsToDisplay count];
 }
@@ -1392,7 +1392,7 @@ bool isScrolling = NO;
     CBNewsCell *cell = (CBNewsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     MWFeedItem *item = [news.arrayOfNewsItemsToDisplay objectAtIndex:indexPath.row];
-
+    
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 190, 21)];
     dateLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     dateLabel.text = [CBNewsSingleton dateForNews:item.date];
@@ -1442,21 +1442,21 @@ bool isScrolling = NO;
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset {
-
+    
     if (scrollView == self.collectionNews) {
         CGPoint point = *targetContentOffset;
-
+        
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionNews.collectionViewLayout;
-
+        
         // This assumes that the values of `layout.sectionInset.left` and
         // `layout.sectionInset.right` are the same with `layout.minimumInteritemSpacing`.
         // Remember that we're trying to snap to one item at a time. So one
         // visible item comprises of its width plus the left margin.
         CGFloat visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width;
-
+        
         // It's either we go forwards or backwards.
         int indexOfItemToSnap = round(point.x / visibleWidth);
-
+        
         // The only exemption is the last item.
         if (indexOfItemToSnap + 1 == [self.collectionNews numberOfItemsInSection:0]) { // last item
             *targetContentOffset = CGPointMake(self.collectionNews.contentSize.width -
@@ -1467,13 +1467,13 @@ bool isScrolling = NO;
     }
 }
 
-                                               
+
 #pragma mark
 #pragma mark - Data Protocol
 #pragma mark
 
 -(void)messagesUpdated {
- 
+    
     [self setMsgBadge];
 }
 
@@ -1514,7 +1514,7 @@ bool isScrolling = NO;
     if (!_badgeAdmin) {
         _badgeAdmin = [[JSBadgeView alloc] init];
         //_badgeAdmin = [[JSBadgeView alloc] initWithFrame:CGRectMake(-200, 0, _badgeAdmin.frame.size.width, _badgeAdmin.frame.size.height)];
-//        [self.navigationController.navigationBar addSubview:_badgeAdmin];
+        //        [self.navigationController.navigationBar addSubview:_badgeAdmin];
         //[self.btnAdminButton addSubview:_badgeAdmin];
     }
     return _badgeAdmin;
@@ -1557,32 +1557,32 @@ bool isScrolling = NO;
 }
 
 -(void)denyLocation {
-
+    
     [data setParseLocationServices:NO];
 }
 
 -(void)scrollToBottom {
     
-//    [UIView animateWithDuration:3.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        
-//        CGPoint bottomOffset = CGPointMake(0, self.scrollMain.contentSize.height - self.scrollMain.bounds.size.height);
-//        [self.scrollMain setContentOffset:bottomOffset animated:NO];
-//        
-//
-//    } completion:^(BOOL finished) {
-//        
-//        [UIView animateWithDuration:3.5f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//            
-//            
-//            CGPoint bottomOffset = CGPointMake(0, 0);
-//            [self.scrollMain setContentOffset:bottomOffset animated:NO];
-//            
-//            
-//        } completion:^(BOOL finished) {
-//            
-//        }];
-//        
-//    }];
+    //    [UIView animateWithDuration:3.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    //
+    //        CGPoint bottomOffset = CGPointMake(0, self.scrollMain.contentSize.height - self.scrollMain.bounds.size.height);
+    //        [self.scrollMain setContentOffset:bottomOffset animated:NO];
+    //
+    //
+    //    } completion:^(BOOL finished) {
+    //
+    //        [UIView animateWithDuration:3.5f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    //
+    //
+    //            CGPoint bottomOffset = CGPointMake(0, 0);
+    //            [self.scrollMain setContentOffset:bottomOffset animated:NO];
+    //
+    //
+    //        } completion:^(BOOL finished) {
+    //
+    //        }];
+    //
+    //    }];
 }
 
 -(void)checkForNewVersion {
@@ -1616,7 +1616,7 @@ bool isScrolling = NO;
 
 -(void)updateNow {
     
-   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
 }
 
 - (IBAction)support_tapped:(id)sender {
@@ -1626,7 +1626,7 @@ bool isScrolling = NO;
 }
 
 - (IBAction)shop_tapped:(id)sender {
-
+    
     BOOL storeOpen = [data.objAdmin[@"storeOpen"] boolValue];
     if (storeOpen) {
         [self performSegueWithIdentifier:@"store" sender:self];

@@ -15,6 +15,7 @@
 #import "CBStoreCategoryCell.h"
 #import "Configuration.h"
 #import "MWFeedParser.h"
+#import "CadetsAnimation.h"
 // pods
 #import "KVNProgress.h"
 
