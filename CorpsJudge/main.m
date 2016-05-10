@@ -7,13 +7,14 @@
 //  Copyright (c) 2014 Justin Moore. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#import "CBAppDelegate.h"
-
-int main(int argc, char * argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([CBAppDelegate class]));
-    }
-}
+//#import <UIKit/UIKit.h>
+//
+//#import "CBAppDelegate.h"
+//#import "Corpsboard-Swift.h"
+//
+//int main(int argc, char * argv[])
+//{
+//    @autoreleasepool {
+//        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+//    }
+//}

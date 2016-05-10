@@ -1258,9 +1258,11 @@
                         <outlet property="progressBar" destination="Omx-9l-d7K" id="Clh-en-4ts"/>
                         <outlet property="viewCadets" destination="Ous-gB-1Zn" id="D4e-Lx-2R4"/>
                         <segue destination="603-gO-u9Q" kind="show" identifier="menu" id="jsD-tX-QYd"/>
+                        <segue destination="jxI-gT-Qz6" kind="unwind" unwindAction="unwindToThisViewController:" id="edl-RN-VWR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVd-Rh-AwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jxI-gT-Qz6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3110" y="-958"/>
         </scene>
@@ -2265,10 +2267,10 @@
             </objects>
             <point key="canvasLocation" x="4698" y="-1339"/>
         </scene>
-        <!--New Menu View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="Ut0-us-wbY">
             <objects>
-                <viewController storyboardIdentifier="mainScreen" id="603-gO-u9Q" customClass="CBNewMenuViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainScreen" id="603-gO-u9Q" customClass="MenuViewController" customModule="Corpsboard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9WX-Uk-k75"/>
                         <viewControllerLayoutGuide type="bottom" id="MB2-nc-JuE"/>
@@ -2806,7 +2808,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="chat_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="mkb-bg-tfR"/>
+                                                            <action selector="btnChat:" destination="603-gO-u9Q" eventType="touchUpInside" id="jEI-dl-x8e"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Live Chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOo-1X-ffB">
@@ -2844,7 +2846,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="btnProfile_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="qBD-dx-1GN"/>
+                                                            <action selector="btnProfile:" destination="603-gO-u9Q" eventType="touchUpInside" id="oqa-Y1-QTg"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ro-Wz-Ti8">
@@ -2855,7 +2857,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="btnNearMe_tapped:" destination="603-gO-u9Q" eventType="touchUpInside" id="ywV-Tc-7RR"/>
+                                                            <action selector="near:" destination="603-gO-u9Q" eventType="touchUpInside" id="ixN-Hi-jNI"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Near Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Du-23-6Ya">
@@ -2871,9 +2873,6 @@
                                                         <state key="normal" image="map">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
-                                                        <connections>
-                                                            <segue destination="yG7-Vq-JyB" kind="show" id="XoY-oR-9vF"/>
-                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tour Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnj-UG-zvc">
                                                         <rect key="frame" x="257" y="35" width="63" height="21"/>
@@ -3048,7 +3047,7 @@
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
                         <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
                         <outlet property="btnNearMe" destination="2ro-Wz-Ti8" id="jmB-h0-6zs"/>
-                        <outlet property="btnProfile" destination="wVQ-HI-UoB" id="pXt-63-uX8"/>
+                        <outlet property="btnProfile" destination="wVQ-HI-UoB" id="l5B-kp-rRa"/>
                         <outlet property="btnSeeAll" destination="m1j-TQ-WyR" id="QS4-cN-3eb"/>
                         <outlet property="btnSeeAllNews" destination="o1E-bU-OIe" id="GHb-1T-PK2"/>
                         <outlet property="btnSeeAllRankings" destination="rKi-fi-4Hc" id="KYa-q6-Ev6"/>
@@ -3057,7 +3056,7 @@
                         <outlet property="contentViewShows" destination="Pri-nq-ON5" id="vW4-a5-TEi"/>
                         <outlet property="contentViewTopTwelve" destination="q2N-Ya-IY1" id="Jkl-WH-P0R"/>
                         <outlet property="imgBannerMiddle" destination="BpO-h5-BES" id="Uuf-e0-eG7"/>
-                        <outlet property="imgUpsideDownCavalier" destination="DId-Yi-xbI" id="smI-Y5-r43"/>
+                        <outlet property="imgCavalier" destination="DId-Yi-xbI" id="Ug5-ca-8h4"/>
                         <outlet property="lblCopyright" destination="bvc-oY-ZGh" id="MG8-90-IsJ"/>
                         <outlet property="lblShowsHeader" destination="oPe-Kn-Ngj" id="rSz-Pu-Qvj"/>
                         <outlet property="lblTopTwelveHeader" destination="EJO-74-Y3m" id="rDD-I8-SHI"/>

@@ -322,30 +322,30 @@
 
 -(void)getUnreadMessagesForUser {
     
-    self.numberOfMessages = 0;
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
-    [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
-    
-    [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
-    [query selectKeys:@[@"counter"]];
-    [query includeKey:@"user"];
-    [query orderByDescending:@"updatedAt"];
-    [query setLimit:50];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-
-        if (!error) {
-            for (PFObject *obj in objects) {
-                self.numberOfMessages += [obj[@"counter"] intValue];
-            }
-            if ([delegate respondsToSelector:@selector(messagesUpdated)]) {
-                [delegate messagesUpdated];
-            }
-        } else {
-            
-            NSLog(@"Error getting new messages.");
-        }
-    }];
+//    self.numberOfMessages = 0;
+//    
+//    PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+//    [query whereKey:PF_CHAT_ROOMID containsString:[PFUser currentUser].objectId];
+//    
+//    [query whereKey:@"belongsToUser" equalTo:[PFUser currentUser]];
+//    [query selectKeys:@[@"counter"]];
+//    [query includeKey:@"user"];
+//    [query orderByDescending:@"updatedAt"];
+//    [query setLimit:50];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//
+//        if (!error) {
+//            for (PFObject *obj in objects) {
+//                self.numberOfMessages += [obj[@"counter"] intValue];
+//            }
+//            if ([delegate respondsToSelector:@selector(messagesUpdated)]) {
+//                [delegate messagesUpdated];
+//            }
+//        } else {
+//            
+//            NSLog(@"Error getting new messages.");
+//        }
+//    }];
 }
 
 -(void)getBanners {

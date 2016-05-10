@@ -13,8 +13,9 @@
 #import "JSQMessagesTimestampFormatter.h"
 #import "CBWebViewController.h"
 #import "DTCoreText.h"
+#import "Corpsboard-Swift.h"
 
-CBNewsSingleton *news;
+News *news;
 
 @interface CBNewsViewController ()
 
@@ -46,7 +47,7 @@ MWFeedItem *itemForWeb;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    news = [CBNewsSingleton news];
+    news = [[News alloc] init];
     
     self.tableView.estimatedRowHeight = 65.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -112,8 +113,8 @@ MWFeedItem *itemForWeb;
     } else {
         desc.text = x;
     }
-    
-    by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", [CBNewsSingleton dateForNews:item.date]];
+
+   // by.text = [NSString stringWithFormat:@"by Drum Corps International - %@", [news.sharedInstance dateForNews(item.date)]];
 
     return cell;
 }

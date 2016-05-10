@@ -46,7 +46,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     //MARK:Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.data.delegateInitial = self
+        Server.sharedInstance.delegateInitial = self
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.viewCadets.backgroundColor = UIColor.clearColor()
         self.progress = 0
@@ -67,9 +67,13 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             if !self.animatedCadets {
                 self.playRockyPoint()
-                Server.data.updateFacts()
+                Server.sharedInstance.updateFacts()
             }
         }
+    }
+    
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+    
     }
     
     //MARK:-
@@ -132,14 +136,14 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
                                     
         }) { (finished: Bool) in
             self.progressBar.hidden = false
-            Server.data.updateAppStatus()
-            Server.data.signInAndSyncOrAllowAnonymousUser()
-            Server.data.updateUserLocation()
-            Server.data.updateAppSettings()
-            Server.data.updateNews()
-            Server.data.updateShows()
-            Server.data.updateCorps()
-            Server.data.updateBanners()
+            Server.sharedInstance.updateAppStatus()
+            Server.sharedInstance.signInAndSyncOrAllowAnonymousUser()
+            Server.sharedInstance.updateUserLocation()
+            Server.sharedInstance.updateAppSettings()
+            //Server.data.updateNews() This is called from updateAppSettings because we need the URL for the news
+            Server.sharedInstance.updateShows()
+            Server.sharedInstance.updateCorps()
+            Server.sharedInstance.updateBanners()
         }
 
         UIView.animateWithDuration(0.1,
@@ -157,7 +161,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     }
     
     //MARK: -
-    //MARK:Server Delegates
+    //MARK:delegateInitialAppLoad
     func showAppMessage(title: String?, message: String?, canUseApp: Bool) {
         if !canUseApp {
             self.canUseApp = false
@@ -189,7 +193,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         }
     }
     
-    func displayFact(fact: PFObject) {
+    func displayFact(fact: PFact) {
         self.lblFact.text = fact["fact"] as? String
         UIView.animateWithDuration(0.5) { 
             self.lblFact.alpha = 1

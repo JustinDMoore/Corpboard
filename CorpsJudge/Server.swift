@@ -11,32 +11,95 @@ import Foundation
 protocol delegateInitialAppLoad: class {
     func updateProgress()
     func showAppMessage(title: String?, message: String?, canUseApp: Bool)
-    func displayFact(factObject: PFObject)
+    func displayFact(factObject: PFact)
 }
 
-@objc class Server: NSObject {
-    
-    static let data = Server()
-    weak var delegateInitial: delegateInitialAppLoad?
-    var userTotal = 0, usersOnline = 0
-    var objAdmin: PFObject?
-    var news = News()
-    var arrayOfAllCorps = [PFObject]?(), arrayOfWorldClass = [PFObject]?(), arrayOfOpenClass = [PFObject]?(), arrayOfAllAge = [PFObject]?(), arrayOfAllShows = [PFObject]?(), arrayOfBannerImages = [UIImage]?(), arrayOfBannerObjects = [PFObject]?()
-    
-    private override init() {
-        
-    }
+
+protocol delegateUserProfile: class {
+    func updateUserMessages()
+}
+
+//TODO: Remove @objc
+@objc class Server: NSObject, delegateNews {
     
     //MARK:-
-    //MARK: Initial App Load
+    //MARK:SINGLETON DECLARATION
+    static let sharedInstance = Server()
+    
+    //MARK:-
+    //MARK:Chat Constants
+    //let HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
+    //let hex = UIColor(red: ((c>>24)&0xFF)/255.0, green: ((c>>16)&0xFF)/255.0, blue: ((c>>8)&0xFF)/255.0, alpha: ((c)&0xFF)/255.0)
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+    let		PF_INSTALLATION_CLASS_NAME			= "_Installation"		//	Class name
+    let		PF_INSTALLATION_OBJECTID			= "objectId"			//	String
+    let		PF_INSTALLATION_USER				= "user"				//	Pointer to User Class
+    
+    let		PF_USER_CLASS_NAME					= "_User"				//	Class name
+    let		PF_USER_OBJECTID					= "objectId"			//	String
+    let		PF_USER_USERNAME					= "username"			//	String
+    let		PF_USER_PASSWORD					= "password"			//	String
+    let		PF_USER_EMAIL						= "email"				//	String
+    let		PF_USER_EMAILCOPY					= "emailCopy"			//	String
+    let		PF_USER_FULLNAME					= "fullname"			//	String
+    let		PF_USER_FULLNAME_LOWER				= "fullname_lower"		//	String
+    let		PF_USER_FACEBOOKID					= "facebookId"			//	String
+    let		PF_USER_PICTURE						= "picture"				//	File
+    let		PF_USER_THUMBNAIL					= "thumbnail"			//	File
+    
+    let		PF_CHAT_CLASS_NAME					= "Chat"				//	Class name
+    let		PF_CHAT_USER						= "user"				//	Pointer to User Class
+    let		PF_CHAT_ROOMID						= "roomId"				//	String
+    let		PF_CHAT_TEXT						= "text"				//	String
+    let		PF_CHAT_PICTURE						= "picture"				//	File
+    let		PF_CHAT_CREATEDAT					= "createdAt"			//	Date
+    
+    let		PF_CHATROOMS_CLASS_NAME				= "ChatRooms"			//	Class name
+    let		PF_CHATROOMS_NAME					= "name"				//	String
+    
+    let		PF_MESSAGES_CLASS_NAME				= "Messages"			//	Class name
+    let		PF_MESSAGES_USER					= "user"				//	Pointer to User Class
+    let		PF_MESSAGES_ROOMID					= "roomId"				//	String
+    let		PF_MESSAGES_DESCRIPTION				= "description"			//	String
+    let		PF_MESSAGES_LASTUSER				= "lastUser"			//	Pointer to User Class
+    let		PF_MESSAGES_LASTMESSAGE				= "lastMessage"			//	String
+    let		PF_MESSAGES_COUNTER					= "counter"				//	Number
+    let		PF_MESSAGES_UPDATEDACTION			= "updatedAction"		//	Date
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+    let		NOTIFICATION_APP_STARTED			= "NCAppStarted"
+    let		NOTIFICATION_USER_LOGGED_IN			= "NCUserLoggedIn"
+    let		NOTIFICATION_USER_LOGGED_OUT		= "NCUserLoggedOut"
+    
+
+    //MARK:-
+    //MARK:Properties
+    var numberOfMessages = 0
+
+    weak var delegateInitial: delegateInitialAppLoad?
+    weak var delegateUser: delegateUserProfile?
+    var userTotal = 0, usersOnline = 0
+    var objAdmin: PAppSetting?
+    var adminMode = false
+    var arrayOfAllCorps = [PCorps]?()
+    var arrayOfWorldClass = [PCorps]?()
+    var arrayOfOpenClass = [PCorps]?()
+    var arrayOfAllAge = [PCorps]?()
+    var arrayOfAllShows = [PShow]?()
+    var arrayOfBannerImages = [UIImage]?()
+    var arrayOfBannerObjects = [PBanner]?()
+    var arrayOfSubscribedRooms = [String]()
+    
+    //MARK:-
+    //MARK: Initial App Load (delgateInitialAppLoad)
     func updateFacts() {
-        let query = PFQuery(className: "Facts")
+        let query = PFQuery(className: PFact.parseClassName())
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
                 if let facts = objects {
                     if facts.count > 0 {
                         let randomIndex = Int(arc4random_uniform(UInt32(facts.count)))
-                        self.delegateInitial?.displayFact(facts[randomIndex])
+                        self.delegateInitial?.displayFact(facts[randomIndex] as! PFact)
                     }
                 }
             } else {
@@ -44,13 +107,12 @@ protocol delegateInitialAppLoad: class {
                 print("Error getting facts: \(errorString)")
             }
         }
-        
     }
     
     func updateAppStatus() {
         //check to see if there are any admin messages to display to the user
         //and whether or not to continue running
-        let query = PFQuery(className:"AppMessages")
+        let query = PFQuery(className: PAppMessage.parseClassName())
         query.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             if error === nil {
@@ -79,7 +141,7 @@ protocol delegateInitialAppLoad: class {
                     print("Error fetching user: \(errorString)")
                 }
                 self.delegateInitial?.updateProgress()
-                self.updateLastLogin()
+                self.updateUserLastLogin()
                 print("2. User logged in.")
             })
         } else {
@@ -94,6 +156,7 @@ protocol delegateInitialAppLoad: class {
                 if let error = err {
                     let errorString = error.userInfo["error"] as? NSString
                     print("Error updating user location: \(errorString)")
+                    self.delegateInitial?.updateProgress()
                 } else {
                     let geoCoder = CLGeocoder()
                     let location = CLLocation(latitude: (geo?.latitude)!, longitude: (geo?.longitude)!)
@@ -119,11 +182,12 @@ protocol delegateInitialAppLoad: class {
     
     func updateAppSettings() {
         self.updateNumberOfUsers()
-        let query = PFQuery(className: "AppSettings")
+        let query = PFQuery(className: PAppSetting.parseClassName())
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
-                self.objAdmin = objects?.last
+                self.objAdmin = objects!.last as? PAppSetting
                 self.delegateInitial?.updateProgress()
+                self.updateNews() //We call update news here, because we need the URL from the admin object
                 print("4. App Settings Updated.")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
@@ -133,29 +197,38 @@ protocol delegateInitialAppLoad: class {
     }
     
     func updateNews() {
-        //news = News()
-        self.delegateInitial?.updateProgress()
-        print("5. News Updated.")
+        News.sharedInstance.delegateNewsParser = self
+        News.sharedInstance.beginUpdatingNewsWithURL((self.objAdmin?.DCI_news)!)
     }
 
+    func newsDidLoad() {
+        self.delegateInitial?.updateProgress()
+        print("5. News updated.")
+    }
+    
+    func newsDidFail() {
+        self.delegateInitial?.updateProgress()
+        print("5. Error loading news.")
+    }
+    
     func updateCorps() {
-        self.arrayOfAllCorps?.removeAll()
-        self.arrayOfWorldClass?.removeAll()
-        self.arrayOfOpenClass?.removeAll()
-        self.arrayOfAllAge?.removeAll()
-        let query = PFQuery(className: "corps")
+        self.arrayOfAllCorps = [PCorps]()
+        self.arrayOfWorldClass = [PCorps]()
+        self.arrayOfOpenClass = [PCorps]()
+        self.arrayOfAllAge = [PCorps]()
+        let query = PFQuery(className: PCorps.parseClassName())
         query.orderByAscending("corpsName")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
                 for corps in objects! {
                     if let active = corps["active"] as? Bool {
                         if active {
-                            self.arrayOfAllCorps?.append(corps)
+                            self.arrayOfAllCorps?.append(corps as! PCorps)
                             let corpsclass = corps["class"] as! String
                             switch corpsclass {
-                            case "World": self.arrayOfWorldClass?.append(corps)
-                            case "Open": self.arrayOfOpenClass?.append(corps)
-                            case "All Age": self.arrayOfAllAge?.append(corps)
+                            case "World": self.arrayOfWorldClass?.append(corps as! PCorps)
+                            case "Open": self.arrayOfOpenClass?.append(corps as! PCorps)
+                            case "All Age": self.arrayOfAllAge?.append(corps as! PCorps)
                             default: print("Error sorting the corps by class. A class doesn't exist.")
                             }
                         }
@@ -171,14 +244,16 @@ protocol delegateInitialAppLoad: class {
     }
     
     func updateShows() {
-        self.arrayOfAllShows?.removeAll()
-        let query = PFQuery(className: "shows")
+        self.arrayOfAllShows = [PShow]()
+        let query = PFQuery(className: PShow.parseClassName())
         query.includeKey("stadium")
         query.limit = 1000
         query.orderByAscending("showDate")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
-                self.arrayOfAllShows = objects
+                for show in objects! {
+                    self.arrayOfAllShows?.append(show as! PShow)
+                }
                 self.delegateInitial?.updateProgress()
                 print("7. Shows Updated.")
             } else {
@@ -189,9 +264,9 @@ protocol delegateInitialAppLoad: class {
     }
     
     func updateBanners() {
-        self.arrayOfBannerImages?.removeAll()
-        self.arrayOfBannerObjects?.removeAll()
-        let query = PFQuery(className: "banners")
+        self.arrayOfBannerImages = [UIImage]()
+        self.arrayOfBannerObjects = [PBanner]()
+        let query = PFQuery(className: PBanner.parseClassName())
         query.whereKey("hidden", equalTo: false)
         query.whereKey("type", equalTo: "MAIN")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
@@ -202,7 +277,7 @@ protocol delegateInitialAppLoad: class {
                         if err === nil {
                             let image = UIImage(data: data!)
                             self.arrayOfBannerImages?.append(image!)
-                            self.arrayOfBannerObjects?.append(obj)
+                            self.arrayOfBannerObjects?.append(obj as! PBanner)
                         }
                     })
                 }
@@ -214,6 +289,34 @@ protocol delegateInitialAppLoad: class {
             }
         }
     }
+    
+    //MARK:-
+    //MARK:User (delegateUser)
+    func getUnreadMessagesForUser() {
+        if PFUser.currentUser() != nil {
+            self.numberOfMessages = 0
+            let query = PFQuery(className: "Messages")
+            query.whereKey(PF_CHAT_ROOMID, containsString: PFUser.currentUser()?.objectId)
+            query.whereKey("belongToUser", equalTo: PFUser.currentUser()!)
+            query.selectKeys(["counter"])
+            query.includeKey("user")
+            query.limit = 50
+            query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
+                if err === nil {
+                    if objects!.count > 0 {
+                        for obj in objects! {
+                            self.numberOfMessages += obj["counter"] as! Int
+                        }
+                        self.delegateUser!.updateUserMessages()
+                    }
+                } else {
+                    let errorString = err!.userInfo["error"] as? NSString
+                    print("Error updating user messages: \(errorString)")
+                }
+            })
+        }
+    }
+    
     
     //MARK:-
     //MARK: Helpers
@@ -234,7 +337,7 @@ protocol delegateInitialAppLoad: class {
         }
     }
     
-    func updateLastLogin() {
+    func updateUserLastLogin() {
         if let currentUser = PFUser.currentUser() {
             currentUser["lastLogin"] = NSDate()
             currentUser.saveEventually()
@@ -267,5 +370,12 @@ protocol delegateInitialAppLoad: class {
         //                print("Error counting users: \(errorString)")
         //            }
         //        });
+    }
+    
+    func unsubscribeFromAllRooms() {
+        self.arrayOfSubscribedRooms.removeAll()
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation["chatRooms"] = []
+        currentInstallation.saveInBackground()
     }
 }

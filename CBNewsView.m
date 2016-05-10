@@ -12,7 +12,7 @@
 #import "CBNewsSingleton.h"
 #import "NSDate+Utilities.h"
 
-CBNewsSingleton *news;
+
 @implementation CBNewsView
 
 //-(id)initWithDate:(NSDate *)date title:(NSString *)title link:(NSString *)link {

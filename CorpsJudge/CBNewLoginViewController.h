@@ -16,7 +16,7 @@
 #import "CBNewsSingleton.h"
 #import "CBPushNotifications.h"
 
-@interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate, newsProtocol, CBPushNotificationProtocol>
+@interface CBNewLoginViewController : UIViewController <dataProtocol, NewUserProtocol, SignInProtocol, EmailProtocol, NicknameProtocol, ProgressProtocol, UIScrollViewDelegate, CBPushNotificationProtocol>
 
 
 //swift
