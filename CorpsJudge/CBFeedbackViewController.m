@@ -7,15 +7,14 @@
 //
 
 #import "CBFeedbackViewController.h"
-#import "CBSingle.h"
 #import "IQKeyboardManager.h"
 #import "CBWebViewController.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBFeedbackViewController ()
 
 @end
 
-CBSingle *data;
 NSString *currentView;
 int keyboardHeight = 210;
 
@@ -185,7 +184,7 @@ int keyboardHeight = 210;
                 [self showProblemWhereView];
                 break;
             case 3:
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data.objAdmin[@"iOS7AppStoreLink"]]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Server.sharedInstance.objAdmin[@"iOS7AppStoreLink"]]];
                 break;
             default:
                 break;

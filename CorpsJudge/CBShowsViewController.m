@@ -12,9 +12,8 @@
 #import "NSDate+Utilities.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
-CBSingle *data;
-CBAppDelegate *del;
 BOOL firstLoad = YES;
 
 @interface CBShowsViewController ()
@@ -102,11 +101,9 @@ BOOL firstLoad = YES;
 
 -(void)checkForShows {
     
-    
-    if (data.dataLoaded) {
+
         
-        if ([data.arrayOfAllShows count]) {
-            
+        if ([Server.sharedInstance.arrayOfAllShows count]) {
             self.tableShows.hidden = NO;
             self.tableShows.userInteractionEnabled = YES;
             [self displayShows];
@@ -119,15 +116,13 @@ BOOL firstLoad = YES;
             [KVNProgress dismiss];
         });
         
-    } else {
-        NSLog(@"Not loaded");
-    }
+    
     
 }
 
 -(void)displayShows {
     
-    if ([data.arrayOfAllShows count]) {
+    if ([Server.sharedInstance.arrayOfAllShows count]) {
         [self reloadTable];
     }
 }
@@ -143,7 +138,7 @@ BOOL firstLoad = YES;
 
 -(void)reloadTable {
     
-    [self processForTableView:data.arrayOfAllShows];
+    [self processForTableView:Server.sharedInstance.arrayOfAllShows];
     [self.tableShows reloadData];
 }
 
@@ -169,7 +164,7 @@ BOOL firstLoad = YES;
     return 0;
 }
 
--(void)processForTableView:(NSMutableArray *)items {
+-(void)processForTableView:(NSArray *)items {
     
     for (PFObject *show in items) {
         
@@ -230,13 +225,13 @@ BOOL firstLoad = YES;
     
     UITableViewCell *cell;
     
-    if ([data.arrayOfAllShows count]) {
+    if ([Server.sharedInstance.arrayOfAllShows count]) {
         NSString *dateString = [self.datesArray objectAtIndex:[indexPath section]];
         NSPredicate *search = [NSPredicate predicateWithFormat:@"showDate == %@", dateString];
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"showDate" ascending:YES];
         
         //sort the dates within each section
-        NSArray *filteredArray = [[data.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        NSArray *filteredArray = [[Server.sharedInstance.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
         
         PFObject *show = [filteredArray objectAtIndex:[indexPath row]];
         NSString *exc = show[@"exception"];
@@ -296,8 +291,6 @@ BOOL firstLoad = YES;
         }
         
     }
-    
-    
     return cell;
 }
 
@@ -323,7 +316,7 @@ BOOL firstLoad = YES;
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"showDate" ascending:YES];
     
     //sort the dates within each section
-    NSArray *filteredArray = [[data.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSArray *filteredArray = [[Server.sharedInstance.arrayOfAllShows filteredArrayUsingPredicate:search]sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     self.currentSelectedShow = [filteredArray objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"showDetails" sender:self];

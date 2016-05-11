@@ -8,7 +8,6 @@
 
 #import "CBShowDetailsViewController.h"
 #import "CBWebViewController.h"
-#import "CBSingle.h"
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
 #import <ParseUI/ParseUI.h>
@@ -16,7 +15,7 @@
 #import "CBEffect.h"
 #import "Configuration.h"
 #import "CBTourMapViewController.h"
-#import "CBAppDelegate.h"
+#import "Corpsboard-Swift.h"
 
 PFObject *favDrumsW;
 PFObject *favHornlineW;
@@ -40,8 +39,8 @@ NSInteger currentRowIndex;
 
 NSString *feedbackString;
 
-CBAppDelegate *del;
-CBSingle *data;
+AppDelegate *del;
+Server *data;
 int votedScore;
 int votedFavorites;
 NSString *currentView;
@@ -409,7 +408,7 @@ typedef enum : int {
     headerBtn.opaque = NO;
     [headerBtn setTitle:@"View Recap" forState:UIControlStateNormal];
     [headerBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [headerBtn setTitleColor:del.appTintColor forState:UIControlStateNormal];
+    [headerBtn setTitleColor:del.appTint forState:UIControlStateNormal];
     [headerBtn sizeToFit];
     headerBtn.frame = CGRectMake(frame.size.width - headerBtn.frame.size.width - 5, -3, headerBtn.frame.size.width, headerBtn.frame.size.height);
     [headerBtn addTarget:self action:@selector(viewRecap:) forControlEvents:UIControlEventTouchUpInside];

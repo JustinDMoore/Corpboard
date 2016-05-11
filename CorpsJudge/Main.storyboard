@@ -1183,7 +1183,7 @@
                                                             </constraints>
                                                         </view>
                                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="Omx-9l-d7K">
-                                                            <rect key="frame" x="216" y="356" width="169" height="2"/>
+                                                            <rect key="frame" x="219" y="356" width="169" height="2"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="169" id="Cyb-hA-MsP"/>
@@ -1203,7 +1203,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="Omx-9l-d7K" firstAttribute="centerX" secondItem="blJ-eA-QrR" secondAttribute="centerX" id="1dk-u6-flg"/>
+                                                        <constraint firstItem="Omx-9l-d7K" firstAttribute="centerX" secondItem="blJ-eA-QrR" secondAttribute="centerX" constant="3.5" id="1dk-u6-flg"/>
                                                         <constraint firstAttribute="bottom" secondItem="5eM-4O-OgB" secondAttribute="bottom" constant="19" id="BTm-OT-yQW"/>
                                                         <constraint firstItem="5eM-4O-OgB" firstAttribute="centerX" secondItem="blJ-eA-QrR" secondAttribute="centerX" id="EJh-WY-Uf1"/>
                                                         <constraint firstItem="Omx-9l-d7K" firstAttribute="top" secondItem="GYG-PI-V9P" secondAttribute="bottom" constant="11" id="Il6-Y3-BQE"/>
@@ -2452,7 +2452,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="seeAllShows_clicked:" destination="603-gO-u9Q" eventType="touchUpInside" id="bYC-n0-Jnw"/>
+                                                            <action selector="btnSeeAllShows:" destination="603-gO-u9Q" eventType="touchUpInside" id="k2Q-BM-UZN"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

@@ -8,7 +8,6 @@
 
 #import "CBUserProfileViewController.h"
 #import "NSDate+Utilities.h"
-#import "CBSingle.h"
 #import "KVNProgress.h"
 
 #import "AppConstant.h"
@@ -17,9 +16,9 @@
 #import "IQKeyboardManager.h"
 #import "Configuration.h"
 #import "PulsingHaloLayer.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBUserProfileViewController () {
-    CBSingle *_data;
     BOOL profileLoaded;
     
     //queries
@@ -133,9 +132,7 @@
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress show];
     });
-    
-    
-    _data = [CBSingle data];
+
     self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2;
     self.imgUser.layer.masksToBounds = YES;
     self.imgUser.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -1374,7 +1371,7 @@ UIPickerView *corpPicker;
     } else if (pickerView == corpPicker) {
         if (row == 0) return @"-Select Corp-";
         else {
-            PFObject *corp = [_data.arrayOfAllCorps objectAtIndex:row - 1];
+            PFObject *corp = [Server.sharedInstance.arrayOfAllCorps objectAtIndex:row - 1];
             return corp[@"corpsName"];
         }
     } else {
@@ -1388,7 +1385,7 @@ UIPickerView *corpPicker;
     } else if (pickerView == positionPicker) {
         return [self.corpExperience.arrayOfPositions count] +1;
     } else if (pickerView == corpPicker) {
-        return [_data.arrayOfAllCorps count] +1;
+        return [Server.sharedInstance.arrayOfAllCorps count] +1;
     } else {
         return 1;
     }
@@ -1411,7 +1408,7 @@ UIPickerView *corpPicker;
             self.corpExperience.selectedCorp = nil;
             self.corpExperience.txtCorpsName.text = @"";
         } else {
-            PFObject *corps = [_data.arrayOfAllCorps objectAtIndex:row - 1];
+            PFObject *corps = [Server.sharedInstance.arrayOfAllCorps objectAtIndex:row - 1];
             self.corpExperience.selectedCorp = corps;
             self.corpExperience.txtCorpsName.text = corps[@"corpsName"];
         }

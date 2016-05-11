@@ -13,6 +13,7 @@
 #import "KVNProgress.h"
 #import "AppConstant.h"
 #import "pushnotification.h"
+#import "Corpsboard-Swift.h"
 
 @implementation CBEmailLogin {
     UIView *parent;

@@ -7,7 +7,6 @@
 //
 
 #import "CBTourMapViewController.h"
-#import "CBSingle.h"
 #import "CBAnnotation.h"
 #import "CBShowDetailsViewController.h"
 #import "MKMapView+ZoomLevel.h"
@@ -15,14 +14,12 @@
 #import "CBMapMenu.h"
 #import "CBMapCell.h"
 #import <ParseUI/ParseUI.h>
+#import "Corpsboard-Swift.h"
 
 @interface CBTourMapViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentMapType;
 @property (nonatomic, strong) CBMapMenu *mapMenu;
 @end
-
-
-CBSingle *datas;
 
 @implementation CBTourMapViewController
 - (IBAction)segmentMapType_changed:(id)sender {
@@ -43,7 +40,6 @@ CBSingle *datas;
     [super viewDidLoad];
     
     self.title = @"Tour Map";
-    datas = [CBSingle data];
     self.mapView.delegate = self;
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -186,7 +182,7 @@ BOOL showsPlotted;
     [self.arrayOfCoordinates removeAllObjects];
     
     if (corps) { // ONLY SHOWING SHOWS FOR A CORPS
-        for (PFObject *show in datas.arrayOfAllShows) {
+        for (PFObject *show in Server.sharedInstance.arrayOfAllShows) {
             for (NSString *name in show[@"arrayOfCorps"]) {
                 if ([name isEqualToString:corps[@"corpsName"]]) {
                     [self plotShow:show];
@@ -196,7 +192,7 @@ BOOL showsPlotted;
         }
         
     } else { // ALL SHOWS
-        for (PFObject *show in datas.arrayOfAllShows) {
+        for (PFObject *show in Server.sharedInstance.arrayOfAllShows) {
             [self plotShow:show];
         }
     }
@@ -386,7 +382,7 @@ BOOL showPlotted;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [datas.arrayOfAllCorps count] + 1;
+    return [Server.sharedInstance.arrayOfAllCorps count] + 1;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -420,7 +416,7 @@ BOOL showPlotted;
         lblCorpName.font = [UIFont boldSystemFontOfSize:12];
         imgLogo.image = [UIImage imageNamed:@"allShows"];
     } else {
-        PFObject *corps = datas.arrayOfAllCorps[indexPath.row - 1];
+        PFObject *corps = Server.sharedInstance.arrayOfAllCorps[indexPath.row - 1];
         lblCorpName.text = corps[@"corpsName"];
         lblCorpName.font = [UIFont systemFontOfSize:12];
         PFFile *imgFile = corps[@"logo"];
@@ -443,7 +439,7 @@ BOOL showPlotted;
     if (indexPath.row == 0) { //all shows
         [self filterShowByCorps:nil];
     } else {
-        PFObject *corps = datas.arrayOfAllCorps[indexPath.row - 1];
+        PFObject *corps = Server.sharedInstance.arrayOfAllCorps[indexPath.row - 1];
         [self filterShowByCorps:corps];
     }
     

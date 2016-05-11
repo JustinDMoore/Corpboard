@@ -7,10 +7,10 @@
 //
 
 #import "CBFinalsPredictionViewController.h"
-#import "CBSingle.h"
 #import <ParseUI/ParseUI.h>
 #import "Configuration.h"
 #import "IQKeyBoardManager.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBFinalsPredictionViewController () {
     Configuration *config;
@@ -24,7 +24,7 @@
 
 
 @implementation CBFinalsPredictionViewController {
-    CBSingle *data;
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -107,7 +107,6 @@
     [super viewDidLoad];
 
     
-    data = [CBSingle data];
     config = [[Configuration alloc] init];
     
     self.title = @"Finals Prediction";
@@ -115,7 +114,7 @@
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
     
-    for (PFObject *corp in data.arrayOfWorldClass) {
+    for (PFObject *corp in Server.sharedInstance.arrayOfWorldClass) {
         [self.dictOfCorps setObject:@"NO" forKey:corp[@"corpsName"]];
         [self.arrayOfCorps addObject:corp];
     }

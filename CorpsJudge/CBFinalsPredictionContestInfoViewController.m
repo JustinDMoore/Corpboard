@@ -7,14 +7,13 @@
 //
 
 #import "CBFinalsPredictionContestInfoViewController.h"
-#import "CBSingle.h"
 #import "UserScore.h"
 #import <ParseUI/ParseUI.h>
 #import "KVNProgress.h"
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBFinalsPredictionContestInfoViewController () {
-    CBSingle *data;
     Configuration *config;
     PFQuery *queryPredictions;
     PFQuery *queryUserPredictions;
@@ -45,16 +44,15 @@
     actualDone = NO;
     averageDone = NO;
     userDone = NO;
-    
-    data = [CBSingle data];
+
     self.tablePredictions.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    for (PFObject *corp in data.arrayOfWorldClass) {
+    for (PFObject *corp in Server.sharedInstance.arrayOfWorldClass) {
         [self.dictOfCorps setObject:@"NO" forKey:corp[@"corpsName"]];
         [self.arrayOfCorps addObject:corp];
     }
     self.viewLine.hidden = YES;
     
-    for (PFObject *corp in data.arrayOfWorldClass) {
+    for (PFObject *corp in Server.sharedInstance.arrayOfWorldClass) {
         UserScore *us = [[UserScore alloc] init];
         us.corps = corp;
         us.score = [corp[@"lastScore"] doubleValue];
@@ -85,7 +83,7 @@
     PFUser *user = [PFUser currentUser];
     BOOL predicted = [user[@"predictionEntered"] boolValue];
     if (!predicted) {
-        BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
+        BOOL allowPredictions = [Server.sharedInstance.objAdmin[@"allowPredictions"] boolValue];
         if (allowPredictions) {
             UIVisualEffect *blurEffect;
             blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -111,7 +109,7 @@
     PFUser *user = [PFUser currentUser];
     BOOL predicted = [user[@"predictionEntered"] boolValue];
     if (!predicted) {
-        BOOL allowPredictions = [data.objAdmin[@"allowPredictions"] boolValue];
+        BOOL allowPredictions = [Server.sharedInstance.objAdmin[@"allowPredictions"] boolValue];
         if (allowPredictions) {
             
             self.viewCorps = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPredictionTable"
@@ -201,7 +199,7 @@
 
 -(void)getPredictions {
 
-    for (PFObject *corp in data.arrayOfWorldClass) {
+    for (PFObject *corp in Server.sharedInstance.arrayOfWorldClass) {
         [self getRankForCorps:corp];
     }
 }
@@ -262,13 +260,13 @@ int loop = 0;
             
             [self.arrayOfAllPredictions addObject:us];
            
-            if (loop == [data.arrayOfWorldClass count]) {
+            if (loop == [Server.sharedInstance.arrayOfWorldClass count]) {
                 // we're done
                 averageDone = YES;
                 [self areWeDone];
             }
         } else {
-            if (loop == [data.arrayOfWorldClass count]) {
+            if (loop == [Server.sharedInstance.arrayOfWorldClass count]) {
                 averageDone = YES;
                 [self areWeDone];
             }

@@ -7,11 +7,12 @@
 //
 
 #import "CBWebViewController.h"
-#import "CBAppDelegate.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBWebViewController()
 @property (weak, nonatomic) IBOutlet UILabel *lblWebsiteTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblWebsiteSubTitle;
+
 - (IBAction)btnAction_tapped:(id)sender;
 - (IBAction)btnClose_tapped:(id)sender;
 
@@ -22,8 +23,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CBAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate setShouldRotate:YES];
+    AppDelegate *delegate =  [[UIApplication sharedApplication]delegate];
+    //[delegate setShouldRotate:YES];
+    
     [self loadWebsite];
     // Do any additional setup after loading the view.
 }
@@ -88,8 +90,8 @@
 
 - (IBAction)btnClose_tapped:(id)sender {
     
-    CBAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate setShouldRotate:NO];
+    AppDelegate *delegate =  [[UIApplication sharedApplication]delegate];
+    //[appDelegate setShouldRotate:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

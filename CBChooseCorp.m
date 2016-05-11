@@ -7,7 +7,6 @@
 //
 
 #import "CBChooseCorp.h"
-#import "CBSingle.h"
 
 @implementation CBChooseCorp {
 

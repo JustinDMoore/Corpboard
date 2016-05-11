@@ -25,52 +25,6 @@ protocol delegateUserProfile: class {
     //MARK:-
     //MARK:SINGLETON DECLARATION
     static let sharedInstance = Server()
-    
-    //MARK:-
-    //MARK:Chat Constants
-    //let HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
-    //let hex = UIColor(red: ((c>>24)&0xFF)/255.0, green: ((c>>16)&0xFF)/255.0, blue: ((c>>8)&0xFF)/255.0, alpha: ((c)&0xFF)/255.0)
-    //-------------------------------------------------------------------------------------------------------------------------------------------------
-    let		PF_INSTALLATION_CLASS_NAME			= "_Installation"		//	Class name
-    let		PF_INSTALLATION_OBJECTID			= "objectId"			//	String
-    let		PF_INSTALLATION_USER				= "user"				//	Pointer to User Class
-    
-    let		PF_USER_CLASS_NAME					= "_User"				//	Class name
-    let		PF_USER_OBJECTID					= "objectId"			//	String
-    let		PF_USER_USERNAME					= "username"			//	String
-    let		PF_USER_PASSWORD					= "password"			//	String
-    let		PF_USER_EMAIL						= "email"				//	String
-    let		PF_USER_EMAILCOPY					= "emailCopy"			//	String
-    let		PF_USER_FULLNAME					= "fullname"			//	String
-    let		PF_USER_FULLNAME_LOWER				= "fullname_lower"		//	String
-    let		PF_USER_FACEBOOKID					= "facebookId"			//	String
-    let		PF_USER_PICTURE						= "picture"				//	File
-    let		PF_USER_THUMBNAIL					= "thumbnail"			//	File
-    
-    let		PF_CHAT_CLASS_NAME					= "Chat"				//	Class name
-    let		PF_CHAT_USER						= "user"				//	Pointer to User Class
-    let		PF_CHAT_ROOMID						= "roomId"				//	String
-    let		PF_CHAT_TEXT						= "text"				//	String
-    let		PF_CHAT_PICTURE						= "picture"				//	File
-    let		PF_CHAT_CREATEDAT					= "createdAt"			//	Date
-    
-    let		PF_CHATROOMS_CLASS_NAME				= "ChatRooms"			//	Class name
-    let		PF_CHATROOMS_NAME					= "name"				//	String
-    
-    let		PF_MESSAGES_CLASS_NAME				= "Messages"			//	Class name
-    let		PF_MESSAGES_USER					= "user"				//	Pointer to User Class
-    let		PF_MESSAGES_ROOMID					= "roomId"				//	String
-    let		PF_MESSAGES_DESCRIPTION				= "description"			//	String
-    let		PF_MESSAGES_LASTUSER				= "lastUser"			//	Pointer to User Class
-    let		PF_MESSAGES_LASTMESSAGE				= "lastMessage"			//	String
-    let		PF_MESSAGES_COUNTER					= "counter"				//	Number
-    let		PF_MESSAGES_UPDATEDACTION			= "updatedAction"		//	Date
-    
-    //-------------------------------------------------------------------------------------------------------------------------------------------------
-    let		NOTIFICATION_APP_STARTED			= "NCAppStarted"
-    let		NOTIFICATION_USER_LOGGED_IN			= "NCUserLoggedIn"
-    let		NOTIFICATION_USER_LOGGED_OUT		= "NCUserLoggedOut"
-    
 
     //MARK:-
     //MARK:Properties
@@ -82,13 +36,69 @@ protocol delegateUserProfile: class {
     var objAdmin: PAppSetting?
     var adminMode = false
     var arrayOfAllCorps = [PCorps]?()
+
     var arrayOfWorldClass = [PCorps]?()
     var arrayOfOpenClass = [PCorps]?()
-    var arrayOfAllAge = [PCorps]?()
+    var arrayOfAllAgeClass = [PCorps]?()
+    
+    
+    var NSarrayOfWorldClass = NSMutableArray()
+    var NSarrayOfOpenClass = NSMutableArray()
+    var NSarrayOfAllAgeClass = NSMutableArray()
+    
     var arrayOfAllShows = [PShow]?()
     var arrayOfBannerImages = [UIImage]?()
     var arrayOfBannerObjects = [PBanner]?()
     var arrayOfSubscribedRooms = [String]()
+    
+    var arrayOfAllFavorites = NSMutableArray()
+    
+    var arrayOfWorldFavs = NSMutableArray()
+    var arrayOfWorldFavorites = NSMutableArray()
+    var arrayOfWorldColorguardFavs = NSMutableArray()
+    var arrayOfWorldHornlineFavs = NSMutableArray()
+    var arrayOfWorldLoudestFavs = NSMutableArray()
+    var arrayOfWorldPercussionFavs = NSMutableArray()
+    
+    var arrayOfOpenFavs = NSMutableArray()
+    var arrayOfOpenFavorites = NSMutableArray()
+    var arrayOfOpenColorguardFavs = NSMutableArray()
+    var arrayOfOpenHornlineFavs = NSMutableArray()
+    var arrayOfOpenLoudestFavs = NSMutableArray()
+    var arrayOfOpenPercussionFavs = NSMutableArray()
+    
+    var arrayOfAllAgeFavs = NSMutableArray()
+    var arrayOfAllAgeFavorites = NSMutableArray()
+    var arrayOfAllAgeColorguardFavs = NSMutableArray()
+    var arrayOfAllAgeHornlineFavs = NSMutableArray()
+    var arrayOfAllAgeLoudestFavs = NSMutableArray()
+    var arrayOfAllAgePercussionFavs = NSMutableArray()
+    
+    var arrayOfWorldColorguardVotes = NSMutableArray()
+    var arrayOfWorldFavorirtes = NSMutableArray()
+    var arrayOfWorldHornlineVotes = NSMutableArray()
+    var arrayOfWorldPercussionVotes = NSMutableArray()
+    var arrayOfWorldLoudestVotes = NSMutableArray()
+
+    var arrayOfOpenColorguardVotes = NSMutableArray()
+    var arrayOfOpenFavorirtes = NSMutableArray()
+    var arrayOfOpenHornlineVotes = NSMutableArray()
+    var arrayOfOpenPercussionVotes = NSMutableArray()
+    var arrayOfOpenLoudestVotes = NSMutableArray()
+    
+    var arrayOfAllAgeColorguardVotes = NSMutableArray()
+    var arrayOfAllAgeFavorirtes = NSMutableArray()
+    var arrayOfAllAgeHornlineVotes = NSMutableArray()
+    var arrayOfAllAgePercussionVotes = NSMutableArray()
+    var arrayOfAllAgeLoudestVotes = NSMutableArray()
+    
+    var arrayOfWorldClassRankings = NSMutableArray()
+    var arrayOfOpenClassRankings = NSMutableArray()
+    var arrayOfAllAgeClassRankings = NSMutableArray()
+    
+    var arrayOfUserWorldClassRankings = NSMutableArray()
+    var arrayOfUserOpenClassRankings = NSMutableArray()
+    var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
     //MARK:-
     //MARK: Initial App Load (delgateInitialAppLoad)
@@ -215,7 +225,7 @@ protocol delegateUserProfile: class {
         self.arrayOfAllCorps = [PCorps]()
         self.arrayOfWorldClass = [PCorps]()
         self.arrayOfOpenClass = [PCorps]()
-        self.arrayOfAllAge = [PCorps]()
+        self.arrayOfAllAgeClass = [PCorps]()
         let query = PFQuery(className: PCorps.parseClassName())
         query.orderByAscending("corpsName")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
@@ -226,9 +236,15 @@ protocol delegateUserProfile: class {
                             self.arrayOfAllCorps?.append(corps as! PCorps)
                             let corpsclass = corps["class"] as! String
                             switch corpsclass {
-                            case "World": self.arrayOfWorldClass?.append(corps as! PCorps)
-                            case "Open": self.arrayOfOpenClass?.append(corps as! PCorps)
-                            case "All Age": self.arrayOfAllAge?.append(corps as! PCorps)
+                            case "World":
+                                self.arrayOfWorldClass?.append(corps as! PCorps)
+                                self.NSarrayOfWorldClass.addObject(corps)
+                            case "Open":
+                                self.arrayOfOpenClass?.append(corps as! PCorps)
+                                self.NSarrayOfOpenClass.addObject(corps)
+                            case "All Age":
+                                self.arrayOfAllAgeClass?.append(corps as! PCorps)
+                                self.NSarrayOfAllAgeClass.addObject(corps)
                             default: print("Error sorting the corps by class. A class doesn't exist.")
                             }
                         }
@@ -338,7 +354,7 @@ protocol delegateUserProfile: class {
         if PFUser.currentUser() != nil {
             self.numberOfMessages = 0
             let query = PFQuery(className: "Messages")
-            query.whereKey(PF_CHAT_ROOMID, containsString: PFUser.currentUser()?.objectId)
+            query.whereKey("roomId", containsString: PFUser.currentUser()?.objectId)
             query.whereKey("belongToUser", equalTo: PFUser.currentUser()!)
             query.selectKeys(["counter"])
             query.includeKey("user")
@@ -411,11 +427,68 @@ protocol delegateUserProfile: class {
         //                let errorString = err.userInfo["error"] as? NSString
         //                print("Error counting users: \(errorString)")
         //            }
-        //        });
+        //        })
+    }
+    
+    //MARK:-
+    //MARK:Chatroom Subscriptions
+    
+    func subscribeToRoom(roomID: String) {
+        //if they aren't subscribed on parse, makes it so
+        if !self.isUserSubscribedToChatRoomOnParse(roomID) {
+            let currentInstallation = PFInstallation.currentInstallation()
+            currentInstallation.addUniqueObject(roomID, forKey: "chatRooms")
+            currentInstallation.saveInBackgroundWithBlock({ (complete: Bool, err: NSError?) in
+                //now sync it with corpsboard
+                if !self.isUserSubscribedToChatRoomOnCorpsboard(roomID) {
+                    self.arrayOfSubscribedRooms.append(roomID)
+                }
+            })
+        }
+    }
+    
+    func unsubscribeFromRoom(roomID: String) {
+        //if they are subscribed on parse, remove it
+        if self.isUserSubscribedToChatRoomOnParse(roomID) {
+            let currentInstallation = PFInstallation.currentInstallation()
+            currentInstallation.removeObject(roomID, forKey: "chatRooms")
+            currentInstallation.saveInBackgroundWithBlock({ (complete: Bool, err: NSError?) in
+                if complete {
+                    //now sync it with corpsboard
+                    if self.isUserSubscribedToChatRoomOnCorpsboard(roomID) {
+                       self.arrayOfSubscribedRooms = self.arrayOfSubscribedRooms.filter{$0 != roomID}
+                    }
+                }
+            })
+        }
+    }
+    
+    func isUserSubscribedToChatRoomOnCorpsboard(roomID: String) -> Bool {
+        for room in self.arrayOfSubscribedRooms {
+            if room == roomID {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func isUserSubscribedToChatRoomOnParse(roomID: String) -> Bool {
+        let currentInstallation = PFInstallation.currentInstallation()
+        let subscribedChannels = currentInstallation["chatRooms"] as! [String]
+        if subscribedChannels.count > 0 {
+            for channel in subscribedChannels {
+                if channel == roomID {
+                    return true
+                }
+            }
+        } else {
+            return false
+        }
+        return false
     }
     
     func unsubscribeFromAllRooms() {
-        self.arrayOfSubscribedRooms.removeAll()
+        self.arrayOfSubscribedRooms = []
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation["chatRooms"] = []
         currentInstallation.saveInBackground()

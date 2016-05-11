@@ -11,25 +11,20 @@
 
 #import <Parse/Parse.h>
 #import "KVNProgress.h"
-
 #import "AppConstant.h"
 #import "camera.h"
 #import "messages.h"
 #import "pushnotification.h"
-
 #import "ChatView.h"
-#import "CBAppDelegate.h"
-
 #import "CBUserProfileViewController.h"
-
 #import "IQKeyboardManager.h"
 #import "CBImageViewController.h"
-
 #import "Configuration.h"
-#import "CBSingle.h"
+#import "Corpsboard-Swift.h"
 
 @interface ChatView() {
     
+    AppDelegate *del;
     NSTimer *timer;
     BOOL isLoading;
     
@@ -43,9 +38,7 @@
     JSQMessagesBubbleImage *incomingBubbleImageData;
     
     JSQMessagesAvatarImage *placeholderImageData;
-    
-    CBAppDelegate *del;
-    CBSingle *data;
+
 }
 @end
 
@@ -67,8 +60,7 @@
     
     [super viewDidLoad];
     
-    data = [CBSingle data];
-    [data subscribeToRoom:roomId];
+    [Server.sharedInstance subscribeToRoom: roomId];
     
     self.collectionView.backgroundColor = [UIColor blackColor];
     self.collectionView.backgroundView.backgroundColor = [UIColor blackColor];
@@ -84,7 +76,7 @@
     
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-    outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:del.appTintColor];
+    outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:del.appTint];
     
     placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"defaultProfilePicture"] diameter:30.0];
     
@@ -149,7 +141,7 @@
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     [timer invalidate];
     
-    [data unsubscribeFromRoom:roomId];
+    [Server.sharedInstance unsubscribeFromRoom:roomId];
 }
 
 #pragma mark - Backend methods

@@ -7,13 +7,12 @@
 //
 
 #import "CBCorpsViewController.h"
-#import "CBSingle.h"
 #import "CBCorpsDetailViewController.h"
 #import "ILTranslucentView.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
-CBSingle *data;
 NSTimer *timer;
 
 @interface CBCorpsViewController ()
@@ -64,8 +63,7 @@ NSTimer *timer;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    data = [CBSingle data];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableCorps.hidden = YES;
     [self startTimer];
@@ -81,13 +79,11 @@ NSTimer *timer;
 
 -(void)checkForCorp {
     
-    if (data.dataLoaded) {
-        [timer invalidate];
-        self.lblactivity.hidden = YES;
-        [self.activity stopAnimating];
-        self.activity.hidden = YES;
-        [self showTable];
-    }
+    [timer invalidate];
+    self.lblactivity.hidden = YES;
+    [self.activity stopAnimating];
+    self.activity.hidden = YES;
+    [self showTable];
 }
 
 -(void)startTimer {
@@ -110,9 +106,9 @@ NSTimer *timer;
     NSSortDescriptor *sortCorps = [[NSSortDescriptor alloc] initWithKey:@"corpsName" ascending:YES];
     NSArray *sortCorpsDescriptor = [NSArray arrayWithObject: sortCorps];
     
-    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortCorpsDescriptor];
-    if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortCorpsDescriptor];
-    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortCorpsDescriptor];
+    if ([Server.sharedInstance.arrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortCorpsDescriptor];
+    if ([Server.sharedInstance.arrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortCorpsDescriptor];
+    if ([Server.sharedInstance.arrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortCorpsDescriptor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,9 +142,9 @@ NSTimer *timer;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 0) return [data.arrayOfWorldClass count];
-    else if (section == 1) return [data.arrayOfOpenClass count];
-    else if (section == 2) return [data.arrayOfAllAgeClass count];
+    if (section == 0) return [Server.sharedInstance.arrayOfWorldClass count];
+    else if (section == 1) return [Server.sharedInstance.arrayOfOpenClass count];
+    else if (section == 2) return [Server.sharedInstance.arrayOfAllAgeClass count];
     else return 0;
 }
 
@@ -159,10 +155,10 @@ NSTimer *timer;
     UIImageView *imgCorps = (UIImageView *)[cell viewWithTag:3];
     
     if (indexPath.section == 0) {
-        if ([data.arrayOfWorldClass count]) {
+        if ([Server.sharedInstance.arrayOfWorldClass count]) {
             
             PFObject *corps;
-            corps = [data.arrayOfWorldClass objectAtIndex:indexPath.row];
+            corps = [Server.sharedInstance.arrayOfWorldClass objectAtIndex:indexPath.row];
            
             lblcorpsName.text = corps[@"corpsName"];
             PFFile *imageFile = corps[@"logo"];
@@ -181,10 +177,10 @@ NSTimer *timer;
             }
         }
     } else if (indexPath.section == 1) {
-        if ([data.arrayOfOpenClass count]) {
+        if ([Server.sharedInstance.arrayOfOpenClass count]) {
 
             PFObject *corps;
-            corps = [data.arrayOfOpenClass objectAtIndex:indexPath.row];
+            corps = [Server.sharedInstance.arrayOfOpenClass objectAtIndex:indexPath.row];
             lblcorpsName.text = corps[@"corpsName"];
             PFFile *imageFile = corps[@"logo"];
             if (imageFile) {
@@ -202,10 +198,10 @@ NSTimer *timer;
             }
         }
     }  else if (indexPath.section == 2) {
-        if ([data.arrayOfAllAgeClass count]) {
+        if ([Server.sharedInstance.arrayOfAllAgeClass count]) {
             
             PFObject *corps;
-            corps = [data.arrayOfAllAgeClass objectAtIndex:indexPath.row];
+            corps = [Server.sharedInstance.arrayOfAllAgeClass objectAtIndex:indexPath.row];
             lblcorpsName.text = corps[@"corpsName"];
             PFFile *imageFile = corps[@"logo"];
             if (imageFile) {
@@ -251,11 +247,11 @@ PFObject *corpsToOpen;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        corpsToOpen = [data.arrayOfWorldClass objectAtIndex:indexPath.row];
+        corpsToOpen = [Server.sharedInstance.arrayOfWorldClass objectAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
-        corpsToOpen = [data.arrayOfOpenClass objectAtIndex:indexPath.row];
+        corpsToOpen = [Server.sharedInstance.arrayOfOpenClass objectAtIndex:indexPath.row];
     } else if (indexPath.section == 2) {
-        corpsToOpen = [data.arrayOfAllAgeClass objectAtIndex:indexPath.row];
+        corpsToOpen = [Server.sharedInstance.arrayOfAllAgeClass objectAtIndex:indexPath.row];
     }
     
     [self performSegueWithIdentifier:@"corpDetail" sender:self];

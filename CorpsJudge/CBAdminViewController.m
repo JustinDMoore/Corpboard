@@ -8,8 +8,8 @@
 
 #import "CBAdminViewController.h"
 #import "JSBadgeView.h"
-#import "CBSingle.h"
 #import "CBAdminTableViewController.h"
+#import "Corpsboard-Swift.h"
 
 @interface CBAdminViewController ()
 @property (nonatomic, strong) JSBadgeView *badgeFeedback;
@@ -18,14 +18,11 @@
 @property (nonatomic, strong) JSBadgeView *badgeUsersReported;
 @end
 
-CBSingle *data;
 
 @implementation CBAdminViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    data = [CBSingle data];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,15 +96,15 @@ CBSingle *data;
         category = @"users";
         lblUsersTotal = (UILabel *)[cell viewWithTag:5];
         lblUsersOnline = (UILabel *)[cell viewWithTag:6];
-        lblUsersTotal.text = [NSString stringWithFormat:@"%i users total", data.usersTotal];
-        lblUsersOnline.text = [NSString stringWithFormat:@"%i users online", data.usersOnline];
+        lblUsersTotal.text = [NSString stringWithFormat:@"%li users total", (long)Server.sharedInstance.userTotal];
+        lblUsersOnline.text = [NSString stringWithFormat:@"%li users online", Server.sharedInstance.usersOnline];
         break;
     }
     
     imgIcon = (UIImageView *)[cell viewWithTag:2];
     if (!badgeView) badgeView = [[JSBadgeView alloc] initWithParentView:imgIcon alignment:JSBadgeViewAlignmentTopRight];
 
-    int num = [data.objAdmin[category] intValue];
+    int num = [Server.sharedInstance.objAdmin[category] intValue];
     
     if (num > 0) {
         badgeView.badgeText = [NSString stringWithFormat:@"%i", num];
@@ -133,8 +130,8 @@ NSString *adminCategory;
         badgeView = self.badgeFeedback;
         adminCategory = category;
         badgeView.badgeText = @"";
-        data.objAdmin[category] = [NSNumber numberWithInt:0];
-        [data.objAdmin saveEventually];
+        Server.sharedInstance.objAdmin[category] = [NSNumber numberWithInt:0];
+        [Server.sharedInstance.objAdmin saveEventually];
         [self performSegueWithIdentifier:@"adminDetails" sender:self];
         break;
         case 1:
@@ -142,8 +139,8 @@ NSString *adminCategory;
         badgeView = self.badgeBugs;
         adminCategory = category;
         badgeView.badgeText = @"";
-        data.objAdmin[category] = [NSNumber numberWithInt:0];
-        [data.objAdmin saveEventually];
+        Server.sharedInstance.objAdmin[category] = [NSNumber numberWithInt:0];
+        [Server.sharedInstance.objAdmin saveEventually];
         [self performSegueWithIdentifier:@"adminDetails" sender:self];
         break;
         case 2:
@@ -151,8 +148,8 @@ NSString *adminCategory;
         badgeView = self.badgePhotos;
         adminCategory = category;
         badgeView.badgeText = @"";
-        data.objAdmin[category] = [NSNumber numberWithInt:0];
-        [data.objAdmin saveEventually];
+        Server.sharedInstance.objAdmin[category] = [NSNumber numberWithInt:0];
+        [Server.sharedInstance.objAdmin saveEventually];
         [self performSegueWithIdentifier:@"adminDetails" sender:self];
         break;
         case 3:
@@ -160,8 +157,8 @@ NSString *adminCategory;
         badgeView = self.badgeUsersReported;
         adminCategory = category;
         badgeView.badgeText = @"";
-        data.objAdmin[category] = [NSNumber numberWithInt:0];
-        [data.objAdmin saveEventually];
+        Server.sharedInstance.objAdmin[category] = [NSNumber numberWithInt:0];
+        [Server.sharedInstance.objAdmin saveEventually];
         [self performSegueWithIdentifier:@"adminDetails" sender:self];
         break;
         case 4:

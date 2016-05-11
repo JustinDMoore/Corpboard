@@ -17,7 +17,6 @@
 #import "MWFeedParser.h"
 #import "CadetsAnimation.h"
 #import "AppConstant.h"
-#import "CBNewsSingleton.h"
 #import "NSDate+InternetDateTime.h"
 #import "CBNewsCell.h"
 #import "CBWebViewController.h"

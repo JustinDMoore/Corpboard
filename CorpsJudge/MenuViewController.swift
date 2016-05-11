@@ -126,7 +126,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Helvetica NeueUI", size: 20)!, NSForegroundColorAttributeName:UIColor.whiteColor()]
+        //TODO: Do I need this line??????
+        //UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Helvetica NeueUI", size: 20)!, NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
     
     func setupShows() {
@@ -211,38 +212,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img3 = UIImageView(image: UIImage(named: "disclosure"))
         img3.frame = CGRectMake(0, 0, 20, 20)
         disclosure3.accessoryView = img3
-
-//
-//        let disclosure3 = UITableViewCell()
-//        self.btnSeeAllNews.addSubview(disclosure3)
-//        disclosure3.frame = CGRectMake(25, 1, self.btnSeeAllNews.bounds.size.width, self.btnSeeAllNews.bounds.size.height)
-//        disclosure3.accessoryType = .DisclosureIndicator
-//        disclosure3.userInteractionEnabled = false
-//        let img3 = UIImageView(image: UIImage(named: "disclosure"))
-//        disclosure3.accessoryView = img3
-        
-        
-//        let showArrow = UITableViewCell()
-//        let scoreArrow = UITableViewCell()
-//        let newsArrow = UITableViewCell()
-//        
-//        self.btnSeeAll.addSubview(showArrow)
-//        showArrow.frame = CGRectMake(15, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height)
-//        showArrow.frame = self.btnSeeAll.bounds
-//        showArrow.accessoryType = .DisclosureIndicator
-//        showArrow.userInteractionEnabled = false
-//        
-//        self.btnSeeAllRankings.addSubview(scoreArrow)
-//        scoreArrow.frame = CGRectMake(15, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height)
-//        scoreArrow.frame = self.btnSeeAllRankings.bounds
-//        scoreArrow.accessoryType = .DisclosureIndicator
-//        scoreArrow.userInteractionEnabled = false
-//        
-//        self.btnSeeAllNews.addSubview(newsArrow)
-//        newsArrow.frame = CGRectMake(15, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height)
-//        newsArrow.frame = self.btnSeeAllNews.bounds
-//        newsArrow.accessoryType = .DisclosureIndicator
-//        newsArrow.userInteractionEnabled = false
 
         //top 12
         self.pageTopTwelve.hidden = true
@@ -880,6 +849,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     //MARK:-
     //MARK: Actions
+    
+    @IBAction func btnSeeAllShows(sender: AnyObject) {
+        self.performSegueWithIdentifier("shows", sender: self)
+    }
+    
     @IBAction func near(sender: AnyObject) {
         //must have an account to proceed
         if CLLocationManager.locationServicesEnabled() {

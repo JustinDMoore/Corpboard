@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBAppDelegate.h"
 #import "KVNProgress.h"
 
 @protocol ProgressProtocol <NSObject>
@@ -18,7 +17,6 @@
 
 @interface CBProgressView : UIView {
     id delegate;
-    CBAppDelegate *del;
 }
 @property (nonatomic, strong) IBOutlet UIView *viewProgress;
 @property (nonatomic, strong) IBOutlet UILabel *lblFactHeader;

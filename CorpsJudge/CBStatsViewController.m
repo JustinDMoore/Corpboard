@@ -11,13 +11,10 @@
 #import <ParseUI/ParseUI.h>
 #import "NSDate+Utilities.h"
 #import "UserScore.h"
-#import "CBSingle.h"
-#import "CBAppDelegate.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
-CBAppDelegate *appDel;
-CBSingle *data;
 PFQuery *queryUserRanks;
 PFQuery *queryOfficialHornlineScores;
 PFQuery *queryUserHornlineRanks;
@@ -31,6 +28,8 @@ int totalWorldPercussionVotes, totalOpenPercussionVotes, totalAllAgePercussionVo
 int totalWorldColorguardVotes, totalOpenColorguardVotes, totalAllAgeColorguardVotes;
 int totalWorldLoudestVotes, totalOpenLoudestVotes, totalAllAgeLoudestVotes;
 int totalWorldFavoriteCorpsVotes, totalOpenFavoriteCorpsVotes, totalAllAgeFavoriteCorpsVotes;
+
+AppDelegate *appDel;
 
 typedef enum : int {
     phaseScore = 0,
@@ -113,7 +112,9 @@ typedef enum : int {
     [queryOfficialHornlineScores cancel];
     [queryUserHornlineRanks cancel];
     
-    [data.arrayOfAllFavorites removeAllObjects];
+    appDel =  [[UIApplication sharedApplication]delegate];
+    [Server.sharedInstance.arrayOfAllFavorites removeAllObjects];
+
     
     [self.arrayOfWorldColorguardFavs removeAllObjects];
     [self.arrayOfWorldFavs removeAllObjects];
@@ -133,23 +134,23 @@ typedef enum : int {
     [self.arrayOfAllAgeLoudestFavs removeAllObjects];
     [self.arrayOfAllAgePercussionFavs removeAllObjects];
     
-    [data.arrayofWorldColorguardVotes removeAllObjects];
-    [data.arrayofWorldFavorites removeAllObjects];
-    [data.arrayOfWorldHornlineVotes removeAllObjects];
-    [data.arrayofWorldLoudestVotes removeAllObjects];
-    [data.arrayOfWorldPercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldPercussionVotes removeAllObjects];
     
-    [data.arrayofOpenColorguardVotes removeAllObjects];
-    [data.arrayofOpenFavorites removeAllObjects];
-    [data.arrayOfOpenHornlineVotes removeAllObjects];
-    [data.arrayofOpenLoudestVotes removeAllObjects];
-    [data.arrayOfOpenPercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenPercussionVotes removeAllObjects];
     
-    [data.arrayofAllAgeColorguardVotes removeAllObjects];
-    [data.arrayofAllAgeFavorites removeAllObjects];
-    [data.arrayOfAllAgeHornlineVotes removeAllObjects];
-    [data.arrayofAllAgeLoudestVotes removeAllObjects];
-    [data.arrayOfAllAgePercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgePercussionVotes removeAllObjects];
     
     rank = 0;
     sort = 0;
@@ -209,7 +210,6 @@ int fetchCount = 0;
 
 -(void)initVariables {
     
-    data = [CBSingle data];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableCorps.hidden = YES;
     self.scorePhase = phaseScore;
@@ -225,8 +225,8 @@ int fetchCount = 0;
     self.tabBar.userInteractionEnabled = NO;
     self.segmentOfficial.userInteractionEnabled = NO;
     self.btnInfo.userInteractionEnabled = NO;
-    self.segmentOfficial.tintColor = appDel.appTintColor;
-    self.btnInfo.tintColor = appDel.appTintColor;
+    self.segmentOfficial.tintColor = appDel.appTint;
+    self.btnInfo.tintColor = appDel.appTint;
     [self.segmentOfficial addTarget:self
                              action:@selector(officialChanged)
                    forControlEvents:UIControlEventValueChanged];
@@ -246,8 +246,8 @@ int fetchCount = 0;
     [allFavorites findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if ([objects count]) {
-                [data.arrayOfAllFavorites removeAllObjects];
-                [data.arrayOfAllFavorites addObjectsFromArray:objects];
+                [Server.sharedInstance.arrayOfAllFavorites removeAllObjects];
+                [Server.sharedInstance.arrayOfAllFavorites addObjectsFromArray:objects];
                 [self sortAllFavorites];
             }
         } else {
@@ -259,11 +259,11 @@ int fetchCount = 0;
 -(void)getAllCorps {
     
     //for user rankings
-    [data.arrayOfUserWorldClassRankings removeAllObjects];
-    [data.arrayOfUserOpenClassRankings removeAllObjects];
-    [data.arrayOfUserAllAgeClassRankings removeAllObjects];
+    [Server.sharedInstance.arrayOfUserWorldClassRankings removeAllObjects];
+    [Server.sharedInstance.arrayOfUserOpenClassRankings removeAllObjects];
+    [Server.sharedInstance.arrayOfUserAllAgeClassRankings removeAllObjects];
     
-    for (PFObject *corps in data.arrayOfAllCorps) {
+    for (PFObject *corps in Server.sharedInstance.arrayOfAllCorps) {
         numC++;
         [corps fetchInBackground];
         [self getUserRankForCorps:corps];
@@ -274,31 +274,31 @@ int fetchCount = 0;
 -(void)sortAllFavorites {
     
     // clear all of the votes
-    [data.arrayOfWorldHornlineVotes removeAllObjects];
-    [data.arrayOfOpenHornlineVotes removeAllObjects];
-    [data.arrayOfAllAgeHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenHornlineVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeHornlineVotes removeAllObjects];
     
-    [data.arrayOfWorldPercussionVotes removeAllObjects];
-    [data.arrayOfOpenPercussionVotes removeAllObjects];
-    [data.arrayOfAllAgePercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldPercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenPercussionVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgePercussionVotes removeAllObjects];
     
-    [data.arrayofWorldColorguardVotes removeAllObjects];
-    [data.arrayofOpenColorguardVotes removeAllObjects];
-    [data.arrayofAllAgeColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenColorguardVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeColorguardVotes removeAllObjects];
     
-    [data.arrayofWorldLoudestVotes removeAllObjects];
-    [data.arrayofOpenLoudestVotes removeAllObjects];
-    [data.arrayofAllAgeLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenLoudestVotes removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeLoudestVotes removeAllObjects];
     
-    [data.arrayofWorldFavorites removeAllObjects];
-    [data.arrayofOpenFavorites removeAllObjects];
-    [data.arrayofAllAgeFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfWorldFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfOpenFavorites removeAllObjects];
+    [Server.sharedInstance.arrayOfAllAgeFavorites removeAllObjects];
     
     // loop through each vote and sort it by category and class
     // keep a tally of the number of votes per category and class to get an average later
-    if ([data.arrayOfAllFavorites count]) {
+    if ([Server.sharedInstance.arrayOfAllFavorites count]) {
         
-        for (PFObject *fav in data.arrayOfAllFavorites) {
+        for (PFObject *fav in Server.sharedInstance.arrayOfAllFavorites) {
             
             NSString *corpClass = fav[@"class"];
             
@@ -306,64 +306,64 @@ int fetchCount = 0;
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldHornlineVotes++;
-                    [data.arrayOfWorldHornlineVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfWorldHornlineVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenHornlineVotes++;
-                    [data.arrayOfOpenHornlineVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfOpenHornlineVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"All Age"]) {
                     totalAllAgeHornlineVotes++;
-                    [data.arrayOfAllAgeHornlineVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfAllAgeHornlineVotes addObject:fav];
                 }
                 
             } else if ([fav[@"category"] isEqualToString:@"Favorite Drums"]) {
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldPercussionVotes++;
-                    [data.arrayOfWorldPercussionVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfWorldPercussionVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenPercussionVotes++;
-                    [data.arrayOfOpenPercussionVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfOpenPercussionVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"All Age"]) {
                     totalAllAgePercussionVotes++;
-                    [data.arrayOfAllAgePercussionVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfAllAgePercussionVotes addObject:fav];
                 }
             } else if ([fav[@"category"] isEqualToString:@"Favorite Color Guard"]) {
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldColorguardVotes++;
-                    [data.arrayofWorldColorguardVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfWorldColorguardVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenColorguardVotes++;
-                    [data.arrayofOpenColorguardVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfOpenColorguardVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"All Age"]) {
                     totalAllAgeColorguardVotes++;
-                    [data.arrayofAllAgeColorguardVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfAllAgeColorguardVotes addObject:fav];
                 }
                 
             } else if ([fav[@"category"] isEqualToString:@"Loudest Brass"]) {
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldLoudestVotes++;
-                    [data.arrayofWorldLoudestVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfWorldLoudestVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenLoudestVotes++;
-                    [data.arrayofOpenLoudestVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfOpenLoudestVotes addObject:fav];
                 } else if ([corpClass isEqualToString:@"All Age"]) {
                     totalAllAgeLoudestVotes++;
-                    [data.arrayofAllAgeLoudestVotes addObject:fav];
+                    [Server.sharedInstance.arrayOfAllAgeLoudestVotes addObject:fav];
                 }
                 
             } else if ([fav[@"category"] isEqualToString:@"Favorite Corps"]) {
                 
                 if ([corpClass isEqualToString:@"World"]) {
                     totalWorldFavoriteCorpsVotes++;
-                    [data.arrayofWorldFavorites addObject:fav];
+                    [Server.sharedInstance.arrayOfWorldFavorites addObject:fav];
                 } else if ([corpClass isEqualToString:@"Open"]) {
                     totalOpenFavoriteCorpsVotes++;
-                    [data.arrayofOpenFavorites addObject:fav];
+                    [Server.sharedInstance.arrayOfOpenFavorites addObject:fav];
                 } else if ([corpClass isEqualToString:@"All Age"]) {
                     totalAllAgeFavoriteCorpsVotes++;
-                    [data.arrayofAllAgeFavorites addObject:fav];
+                    [Server.sharedInstance.arrayOfAllAgeFavorites addObject:fav];
                 }
             }
         }
@@ -371,12 +371,12 @@ int fetchCount = 0;
         // now we have the favorites seperated into arrays by category
         // now go through each corps and count the votes
         
-        for (PFObject *corps in data.arrayOfWorldClass) {
+        for (PFObject *corps in Server.sharedInstance.arrayOfWorldClass) {
             
             //world favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofWorldFavorites) { // get a corps
+                for (PFObject *fav in Server.sharedInstance.arrayOfWorldFavorites) { // get a corps
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) { // see if the fav is for that corps
                         score++;  // if so, increment
                     }
@@ -392,7 +392,7 @@ int fetchCount = 0;
             //world hornline favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfWorldHornlineVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfWorldHornlineVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -408,7 +408,7 @@ int fetchCount = 0;
             //world percussion favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfWorldPercussionVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfWorldPercussionVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -424,7 +424,7 @@ int fetchCount = 0;
             //world colorguard favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofWorldColorguardVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfWorldColorguardVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -440,7 +440,7 @@ int fetchCount = 0;
             //world loudest
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofWorldLoudestVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfWorldLoudestVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -454,13 +454,13 @@ int fetchCount = 0;
             }
         }
         
-        for (PFObject *corps in data.arrayOfOpenClass) {
+        for (PFObject *corps in Server.sharedInstance.arrayOfOpenClass) {
             
             
             //open favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofOpenFavorites) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfOpenFavorites) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -476,7 +476,7 @@ int fetchCount = 0;
             //open hornline favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfOpenHornlineVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfOpenHornlineVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -492,7 +492,7 @@ int fetchCount = 0;
             //open percussion favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfOpenPercussionVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfOpenPercussionVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -508,7 +508,7 @@ int fetchCount = 0;
             //open colorguard favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofOpenColorguardVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfOpenColorguardVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -524,7 +524,7 @@ int fetchCount = 0;
             //open loudest
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofOpenLoudestVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfOpenLoudestVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -538,13 +538,13 @@ int fetchCount = 0;
             }
         }
         
-        for (PFObject *corps in data.arrayOfAllAgeClass) {
+        for (PFObject *corps in Server.sharedInstance.arrayOfAllAgeClass) {
             
             
             //all age favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofAllAgeFavorites) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfAllAgeFavorites) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -560,7 +560,7 @@ int fetchCount = 0;
             //all age hornline favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfAllAgeHornlineVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfAllAgeHornlineVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -576,7 +576,7 @@ int fetchCount = 0;
             //all age percussion favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayOfAllAgePercussionVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfAllAgePercussionVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -592,7 +592,7 @@ int fetchCount = 0;
             //all age colorguard favs
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofAllAgeColorguardVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfAllAgeColorguardVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -608,7 +608,7 @@ int fetchCount = 0;
             //all age loudest
             {
                 int score = 0;
-                for (PFObject *fav in data.arrayofAllAgeLoudestVotes) {
+                for (PFObject *fav in Server.sharedInstance.arrayOfAllAgeLoudestVotes) {
                     if ([fav[@"corpsName"] isEqualToString: corps[@"corpsName"]]) {
                         score++;
                     }
@@ -678,15 +678,15 @@ int rank;
             
             if ([score[@"class"] isEqualToString:@"World"]) {
                 
-                [data.arrayOfUserWorldClassRankings addObject:us];
+                [Server.sharedInstance.arrayOfUserWorldClassRankings addObject:us];
                 
             } else if ([score[@"class"] isEqualToString:@"Open"]) {
                 
-                [data.arrayOfUserOpenClassRankings addObject:us];
+                [Server.sharedInstance.arrayOfUserOpenClassRankings addObject:us];
                 
             } else if ([score[@"class"] isEqualToString:@"All Age"]) {
                 
-                [data.arrayOfUserAllAgeClassRankings addObject:us];
+                [Server.sharedInstance.arrayOfUserAllAgeClassRankings addObject:us];
                 
             }
         }
@@ -714,9 +714,9 @@ int sort;
                     NSSortDescriptor *sortOfficialScores = [[NSSortDescriptor alloc] initWithKey:@"lastScore" ascending:NO];
                     NSArray *sortOfficialScoresDescriptor = [NSArray arrayWithObject: sortOfficialScores];
                     
-                    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
-                    if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortOfficialScoresDescriptor];
-                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortOfficialScoresDescriptor];
+                    if ([Server.sharedInstance.NSarrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortOfficialScoresDescriptor];
+                    if ([Server.sharedInstance.NSarrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortOfficialScoresDescriptor];
+                    if ([Server.sharedInstance.NSarrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortOfficialScoresDescriptor];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -724,9 +724,9 @@ int sort;
                     NSSortDescriptor *sortUserRankings = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
                     NSArray *sortUserRankingsDescriptor = [NSArray arrayWithObject: sortUserRankings];
                     
-                    if ([data.arrayOfUserWorldClassRankings count]) [data.arrayOfUserWorldClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
-                    if ([data.arrayOfUserOpenClassRankings count]) [data.arrayOfUserOpenClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
-                    if ([data.arrayOfUserAllAgeClassRankings count]) [data.arrayOfUserAllAgeClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
+                    if ([Server.sharedInstance.arrayOfUserWorldClassRankings count]) [Server.sharedInstance.arrayOfUserWorldClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
+                    if ([Server.sharedInstance.arrayOfUserOpenClassRankings count]) [Server.sharedInstance.arrayOfUserOpenClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
+                    if ([Server.sharedInstance.arrayOfUserAllAgeClassRankings count]) [Server.sharedInstance.arrayOfUserAllAgeClassRankings sortUsingDescriptors:sortUserRankingsDescriptor];
                 }
             }
             
@@ -740,9 +740,9 @@ int sort;
                     NSSortDescriptor *sortOfficialBrass = [[NSSortDescriptor alloc] initWithKey:@"lastBrass" ascending:NO];
                     NSArray *sortDescriptorsForOfficialBrass = [NSArray arrayWithObject: sortOfficialBrass];
                     
-                    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
-                    if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
-                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
+                    if ([Server.sharedInstance.NSarrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
+                    if ([Server.sharedInstance.NSarrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
+                    if ([Server.sharedInstance.NSarrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialBrass];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -767,9 +767,9 @@ int sort;
                     NSSortDescriptor *sortOfficialPercussion = [[NSSortDescriptor alloc] initWithKey:@"lastPercussion" ascending:NO];
                     NSArray *sortDescriptorsForOfficialPercussion = [NSArray arrayWithObject: sortOfficialPercussion];
                     
-                    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
-                    if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
-                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    if ([Server.sharedInstance.NSarrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    if ([Server.sharedInstance.NSarrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    if ([Server.sharedInstance.NSarrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -794,9 +794,9 @@ int sort;
                     NSSortDescriptor *sortOfficialColorguard = [[NSSortDescriptor alloc] initWithKey:@"lastColorguard" ascending:NO];
                     NSArray *sortDescriptorsForOfficialColorguard = [NSArray arrayWithObject: sortOfficialColorguard];
                     
-                    if ([data.arrayOfWorldClass count]) [data.arrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
-                    if ([data.arrayOfOpenClass count]) [data.arrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
-                    if ([data.arrayOfAllAgeClass count]) [data.arrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
+                    if ([Server.sharedInstance.NSarrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
+                    if ([Server.sharedInstance.NSarrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
+                    if ([Server.sharedInstance.NSarrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialColorguard];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -902,24 +902,24 @@ int sort;
             if (self.segmentOfficial.selectedSegmentIndex == 0) {
                 
                 if (section == 0) {
-                    if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
+                    if ([Server.sharedInstance.arrayOfWorldClass count]) return [Server.sharedInstance.arrayOfWorldClass count];
                 } else if (section ==1) {
                     
-                    if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                    if ([Server.sharedInstance.arrayOfOpenClass count]) return [Server.sharedInstance.arrayOfOpenClass count];
                 } else if (section == 2) {
                     
-                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
+                    if ([Server.sharedInstance.arrayOfAllAgeClass count]) return [Server.sharedInstance.arrayOfAllAgeClass count];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
                 if (section == 0) {
-                    if ([data.arrayOfUserWorldClassRankings count]) return [data.arrayOfUserWorldClassRankings count];
+                    if ([Server.sharedInstance.arrayOfUserWorldClassRankings count]) return [Server.sharedInstance.arrayOfUserWorldClassRankings count];
                 } else if (section == 1) {
                     
-                    if ([data.arrayOfUserOpenClassRankings count]) return [data.arrayOfUserOpenClassRankings count];
+                    if ([Server.sharedInstance.arrayOfUserOpenClassRankings count]) return [Server.sharedInstance.arrayOfUserOpenClassRankings count];
                 } else if (section == 2) {
                     
-                    if ([data.arrayOfUserAllAgeClassRankings count]) return [data.arrayOfUserAllAgeClassRankings count];
+                    if ([Server.sharedInstance.arrayOfUserAllAgeClassRankings count]) return [Server.sharedInstance.arrayOfUserAllAgeClassRankings count];
                 }
             }
             break;
@@ -930,14 +930,14 @@ int sort;
                 
                 if (section == 0) {
                     
-                    if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
+                    if ([Server.sharedInstance.arrayOfWorldClass count]) return [Server.sharedInstance.arrayOfWorldClass count];
                 } else if (section == 1) {
                     
-                    if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                    if ([Server.sharedInstance.arrayOfOpenClass count]) return [Server.sharedInstance.arrayOfOpenClass count];
                     
                 } else if (section == 2) {
                     
-                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
+                    if ([Server.sharedInstance.arrayOfAllAgeClass count]) return [Server.sharedInstance.arrayOfAllAgeClass count];
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -961,14 +961,14 @@ int sort;
                 
                 if (section == 0) {
                     
-                    if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
+                    if ([Server.sharedInstance.arrayOfWorldClass count]) return [Server.sharedInstance.arrayOfWorldClass count];
                 } else if (section == 1) {
                     
-                    if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                    if ([Server.sharedInstance.arrayOfOpenClass count]) return [Server.sharedInstance.arrayOfOpenClass count];
                     
                 } else if (section == 2) {
                     
-                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
+                    if ([Server.sharedInstance.arrayOfAllAgeClass count]) return [Server.sharedInstance.arrayOfAllAgeClass count];
                 }
                 
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
@@ -994,15 +994,15 @@ int sort;
                 
                 if (section == 0) {
                     
-                    if ([data.arrayOfWorldClass count]) return [data.arrayOfWorldClass count];
+                    if ([Server.sharedInstance.arrayOfWorldClass count]) return [Server.sharedInstance.arrayOfWorldClass count];
                     
                 } else if (section == 1) {
                     
-                    if ([data.arrayOfOpenClass count]) return [data.arrayOfOpenClass count];
+                    if ([Server.sharedInstance.arrayOfOpenClass count]) return [Server.sharedInstance.arrayOfOpenClass count];
                     
                 } else if (section == 2) {
                     
-                    if ([data.arrayOfAllAgeClass count]) return [data.arrayOfAllAgeClass count];
+                    if ([Server.sharedInstance.arrayOfAllAgeClass count]) return [Server.sharedInstance.arrayOfAllAgeClass count];
                 }
                 
             }  else if (self.segmentOfficial.selectedSegmentIndex == 1) {
@@ -1108,9 +1108,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = data.arrayOfWorldClass;
-                if (indexPath.section == 1) array = data.arrayOfOpenClass;
-                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"officialRank"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1184,9 +1184,9 @@ int sort;
                 }
             } else { // USER REVIEWS
                 
-                if (indexPath.section == 0) array = data.arrayOfUserWorldClassRankings;
-                if (indexPath.section == 1) array = data.arrayOfUserOpenClassRankings;
-                if (indexPath.section == 2) array = data.arrayOfUserAllAgeClassRankings;
+                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfUserWorldClassRankings;
+                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfUserOpenClassRankings;
+                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfUserAllAgeClassRankings;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblRank = (UILabel *)[cell viewWithTag:1];
@@ -1213,9 +1213,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = data.arrayOfWorldClass;
-                if (indexPath.section == 1) array = data.arrayOfOpenClass;
-                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1284,9 +1284,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = data.arrayOfWorldClass;
-                if (indexPath.section == 1) array = data.arrayOfOpenClass;
-                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1357,9 +1357,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = data.arrayOfWorldClass;
-                if (indexPath.section == 1) array = data.arrayOfOpenClass;
-                if (indexPath.section == 2) array = data.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];

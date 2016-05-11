@@ -19,13 +19,13 @@
 #import "PrivateView.h"
 #import "ChatView.h"
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
 @interface PrivateView() {
     
     NSMutableArray *users;
     NSMutableArray *arrayOfChatsForCurrentUser;
     NSMutableArray *arrayOfChatsForOtherUsers;
-    CBAppDelegate *del;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
@@ -51,9 +51,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    del = [UIApplication sharedApplication].delegate;
-    [del setDelegate:self];
+    AppDelegate *del =  [[UIApplication sharedApplication]delegate];
+    //[del setDelegate:self];
     
     self.title = @"Private";
     

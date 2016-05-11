@@ -9,7 +9,6 @@
 #import "CBNewsView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
-#import "CBNewsSingleton.h"
 #import "NSDate+Utilities.h"
 
 

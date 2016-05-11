@@ -7,7 +7,6 @@
 //
 
 #import "CBNewsViewController.h"
-#import "CBNewsSingleton.h"
 #import "CBNewsItem.h"
 #import "NSDate+Utilities.h"
 #import "JSQMessagesTimestampFormatter.h"

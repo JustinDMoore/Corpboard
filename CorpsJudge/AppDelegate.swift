@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol messagesDelegate: class {
+    func messageReceived()
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -15,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let stripePublishableKey = "pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf"
     var window: UIWindow?
     var alertParentView = UIView()
+    var messDelegate: messagesDelegate?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Stripe.setDefaultPublishableKey(stripePublishableKey)
@@ -29,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PAppSetting.registerSubclass()
         PChat.registerSubclass()
         PBanner.registerSubclass()
+        PFavorite.registerSubclass()
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"

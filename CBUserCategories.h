@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBAppDelegate.h"
 
 @protocol CBUserCategoriesProtocol <NSObject>
 
@@ -18,7 +17,6 @@
 
 @interface CBUserCategories : UIView {
     id delegate;
-    CBAppDelegate *del;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *dict;

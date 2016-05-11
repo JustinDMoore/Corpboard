@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBAppDelegate.h"
-#import "CBSingle.h"
 
-@interface CBShowsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, dataProtocol>
+@interface CBShowsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
