@@ -35,11 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PChat.registerSubclass()
         PBanner.registerSubclass()
         PFavorite.registerSubclass()
+        PScore.registerSubclass()
+        
+        Parse.enableLocalDatastore()
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "wx8eMIWy1f9e60WrQJYUI81jlk5g6YYAPPmwxequ"
             $0.clientKey = "ECyvUjxayFW3un2sOkTkgFJC8mmqweeOAjW0OlKJ"
             $0.server = "http://corpsboard.herokuapp.com/parse"
+            $0.localDatastoreEnabled = true
         }
         Parse.initializeWithConfiguration(configuration)
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)

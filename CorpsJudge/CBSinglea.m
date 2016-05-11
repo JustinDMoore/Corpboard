@@ -168,15 +168,15 @@
 //                BOOL active = [corps[@"active"] boolValue];
 //                if (active) {
 //
-//                    if ([corps[@"class"] isEqualToString:@"World"]) {
+//                    if ([corps[@"classification"] isEqualToString:@"World"]) {
 //                        
 //                        [self.arrayOfWorldClass addObject:corps];
 //                        
-//                    } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+//                    } else if ([corps[@"classification"] isEqualToString:@"Open"]) {
 //                        
 //                        [self.arrayOfOpenClass addObject:corps];
 //                        
-//                    } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+//                    } else if ([corps[@"classification"] isEqualToString:@"All Age"]) {
 //                        
 //                        [self.arrayOfAllAgeClass addObject:corps];
 //                        
@@ -259,10 +259,10 @@
 ////            PFObject *rep = [PFObject objectWithClassName:@"repertoires"];
 ////            [rep setObject:corps[@"corpsName"] forKey:@"corpsName"];
 ////            [rep setObject:[NSNumber numberWithInt:x] forKey:@"year"];
-////            //if (x < 1992) [rep setObject:@"Open Class" forKey:@"class"];
-////            //if (x > 1991) [rep setObject:@"Division II" forKey:@"class"];
+////            //if (x < 1992) [rep setObject:@"Open Class" forKey:@"classification"];
+////            //if (x > 1991) [rep setObject:@"Division II" forKey:@"classification"];
 ////            //if (x > 2007)
-////                [rep setObject:@"All Age Class" forKey:@"class"];
+////                [rep setObject:@"All Age Class" forKey:@"classification"];
 ////            [rep setObject:corps forKey:@"corps"];
 ////            [rep saveInBackground];
 ////        }
@@ -299,15 +299,15 @@
 //        for (PFObject *score in results) {
 //            PFObject *corps = score[@"corps"];
 //            
-//            if ([corps[@"class"] isEqualToString:@"World"]) {
+//            if ([corps[@"classification"] isEqualToString:@"World"]) {
 //                
 //                [world addObject:score];
 //                
-//            } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+//            } else if ([corps[@"classification"] isEqualToString:@"Open"]) {
 //                
 //                [open addObject:score];
 //                
-//            } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+//            } else if ([corps[@"classification"] isEqualToString:@"All Age"]) {
 //                
 //                [allage addObject:score];
 //                

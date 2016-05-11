@@ -16,7 +16,7 @@ class PCorps: PFObject, PFSubclassing {
     @NSManaged var from: String
     @NSManaged var about: String
     @NSManaged var corpsName: String
-    @NSManaged var numberOfChamps: String
+    @NSManaged var numberOfChamps: Int
     @NSManaged var champs: String
     @NSManaged var classification: String //TODO: Change parse 'class' to 'classification'
     @NSManaged var website: String

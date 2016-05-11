@@ -100,21 +100,68 @@ protocol delegateUserProfile: class {
     var arrayOfUserOpenClassRankings = NSMutableArray()
     var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
+    var arrayOfFacts = [PFact]()
+    var isFactDisplayed = false
+    
+    func createShowsAndScores() {
+        let config = Configuration()
+        config.getAllCorps()
+    }
+    
     //MARK:-
     //MARK: Initial App Load (delgateInitialAppLoad)
-    func updateFacts() {
+    func factBaseQuery() -> PFQuery {
         let query = PFQuery(className: PFact.parseClassName())
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
-            if err === nil {
-                if let facts = objects {
-                    if facts.count > 0 {
+        return query
+    }
+    
+    func findObjectsLocallyThenRemotely(query: PFQuery!, block:[AnyObject]! -> Void) {
+        
+        let localQuery = (query.copy() as! PFQuery).fromLocalDatastore()
+        localQuery.findObjectsInBackgroundWithBlock({ (locals, error) -> Void in
+            if (error == nil) {
+                print("Success : Local Query \(query.parseClassName)")
+                block(locals)
+            } else {
+                print("Error : Local Query \(query.parseClassName)")
+            }
+            query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                if(error == nil) {
+                    print("Success : Network Query \(query.parseClassName)")
+                    PFObject.unpinAllInBackground(locals, block: { (success, error) -> Void in
+                        if (error == nil) {
+                            print("Success : Unpin Local Query \(query.parseClassName)")
+                            block(objects)
+                            PFObject.pinAllInBackground(objects, block: { (success, error) -> Void in
+                                if (error == nil) {
+                                    print("Success : Pin Query Result \(query.parseClassName)")
+                                } else {
+                                    print("Error : Pin Query Result \(query.parseClassName)")
+                                }
+                            })
+                        } else {
+                            print("Error : Unpin Local Query \(query.parseClassName)")
+                        }
+                    })
+                } else {
+                    print("Error : Network Query \(query.parseClassName)")
+                }
+            })
+        })
+    }
+    
+    
+
+    func updateFacts() {
+        self.findObjectsLocallyThenRemotely(self.factBaseQuery()) { (results: [AnyObject]!) in
+            if let facts = results {
+                if facts.count > 0 {
+                    if !self.isFactDisplayed {
+                        self.isFactDisplayed = true
                         let randomIndex = Int(arc4random_uniform(UInt32(facts.count)))
                         self.delegateInitial?.displayFact(facts[randomIndex] as! PFact)
                     }
                 }
-            } else {
-                let errorString = err!.userInfo["error"] as? NSString
-                print("Error getting facts: \(errorString)")
             }
         }
     }
@@ -234,7 +281,7 @@ protocol delegateUserProfile: class {
                     if let active = corps["active"] as? Bool {
                         if active {
                             self.arrayOfAllCorps?.append(corps as! PCorps)
-                            let corpsclass = corps["class"] as! String
+                            let corpsclass = corps["classification"] as! String
                             switch corpsclass {
                             case "World":
                                 self.arrayOfWorldClass?.append(corps as! PCorps)
@@ -279,41 +326,62 @@ protocol delegateUserProfile: class {
         }
     }
     
-    func moveShows() {
-//        let query = PFQuery(className: "shows")
+    func moveCorps() {
+//        let query = PFQuery(className: "corps")
 //        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, err: NSError?) in
 //            if results?.count > 0 {
 //                for obj in results! {
-//                    //let newshow = PShow()
-////                    if obj["showName"] != nil {
-////                        newshow.showName = obj["showName"] as! String
+////                    let newCorps = PCorps()
+////                    if obj["active"] != nil {
+////                        newCorps.active = obj["active"] as! Bool
 ////                    }
-////                    if obj["recapOpen"] != nil {
-////                        newshow.recapOpen = obj["recapOpen"] as! String
+////                    if obj["class"] != nil {
+////                        newCorps.classification = obj["class"] as! String
 ////                    }
-////                    if obj["showDate"] != nil {
-////                        newshow.showDate = obj["showDate"] as! NSDate
+////                    if obj["website_Display"] != nil {
+////                        newCorps.websiteDisplay = obj["website_Display"] as! String
 ////                    }
-////                    if obj["exception"] != nil {
-////                        newshow.exception = obj["exception"] as! String
+////                    if obj["lastScoreDate"] != nil {
+////                        newCorps.lastScoreDate = obj["lastScoreDate"] as! NSDate
 ////                    }
-////                    if obj["showLocation"] != nil {
-////                        newshow.showLocation = obj["showLocation"] as! String
+////                    if obj["from"] != nil {
+////                        newCorps.from = obj["from"] as! String
 ////                    }
-////                    if obj["recapWorld"] != nil {
-////                        newshow.recapWorld = obj["recapWorld"] as! String
+////                    if obj["logo"] != nil {
+////                        newCorps.logo = obj["logo"] as? PFFile
 ////                    }
-////                    if obj["arrayOfCorps"] != nil {
-////                        newshow.arrayOfCorps = obj["arrayOfCorps"] as! [String]
+////                    if obj["logo_light"] != nil {
+////                        newCorps.logoLight = obj["logo_light"] as? PFFile
 ////                    }
-////                    if obj["isShowOver"] != nil {
-////                        newshow.isShowOver = obj["isShowOver"] as! Bool
+////                    if obj["about"] != nil {
+////                        newCorps.about = obj["about"] as! String
 ////                    }
-////                    if obj["recapAllAge"] != nil {
-////                        newshow.recapAllAge = obj["recapAllAge"] as! String
+////                    if obj["lastPercussion"] != nil {
+////                        newCorps.lastPercussion = obj["lastPercussion"] as! String
 ////                    }
-////                    if obj["stadium"] != nil {
-////                        newshow.stadium = obj["stadium"] as! PStadium
+////                    if obj["corpsName"] != nil {
+////                        newCorps.corpsName = obj["corpsName"] as! String
+////                    }
+////                    if obj["numberOfChamps"] != nil {
+////                        newCorps.numberOfChamps = obj["numberOfChamps"] as! Int
+////                    }
+////                    if obj["champs"] != nil {
+////                        newCorps.champs = obj["champs"] as! String
+////                    }
+////                    if obj["lastColorguard"] != nil {
+////                        newCorps.lastColorguard = obj["lastColorguard"] as! String
+////                    }
+////                    if obj["website"] != nil {
+////                        newCorps.website = obj["website"] as! String
+////                    }
+////                    if obj["lastBrass"] != nil {
+////                        newCorps.lastBrass = obj["lastBrass"] as! String
+////                    }
+////                    if obj["lastScore"] != nil {
+////                        newCorps.lastScore = obj["lastScore"] as! String
+////                    }
+////                    if obj["olderScore"] != nil {
+////                        newCorps.olderScore = obj["olderScore"] as! String
 ////                    }
 //                    obj.deleteInBackground()
 //                }

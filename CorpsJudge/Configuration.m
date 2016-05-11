@@ -7,6 +7,7 @@
 //
 
 #import "Configuration.h"
+#import "Corpsboard-Swift.h"
 
 //105 shows
 //804 blank scores
@@ -14,10 +15,10 @@
 //27 open class
 //49 corps
 
-NSInteger const JUNE = 6;
-NSInteger const JULY = 7;
-NSInteger const AUGUST = 8;
-NSInteger const YEAR = 2015;
+NSInteger const JUNE = 4;
+NSInteger const JULY = 5;
+NSInteger const AUGUST = 6;
+NSInteger const YEAR = 2016;
 
 // World Class - 22 Corps
 NSString *const CADETS = @"The Cadets";
@@ -268,14 +269,14 @@ NSString *const KILTIES = @"Kilties";
 -(void)getAllCorps {
     
     [self.arrayOfCorpsObjects removeAllObjects];
-    PFQuery *query = [PFQuery queryWithClassName:@"corps"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Corps"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             NSLog(@"Successfully retrieved %lu corps.", (unsigned long)objects.count);
             [self.arrayOfCorpsObjects addObjectsFromArray:objects];
             NSLog(@"%lu", (unsigned long)[self.arrayOfCorpsObjects count]);
-            [self createAllShowsFor2015];
+            [self createAllShowsFor2016];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -935,7 +936,7 @@ NSString *const KILTIES = @"Kilties";
                 forDay:(NSInteger)day
    withPerformingCorps:(NSArray *)corpsArray {
     
-    PFObject *newShow = [PFObject objectWithClassName:@"shows"];
+    PFObject *newShow = [PFObject objectWithClassName:@"Shows"];
     
     newShow[@"isShowOver"] = [NSNumber numberWithBool:NO];
     newShow[@"showName"] = showName;
@@ -960,12 +961,12 @@ NSString *const KILTIES = @"Kilties";
 
 -(void)createEmptyScoreForCorps:(PFObject *)corps atShow:(PFObject *)show {
     
-    PFObject *score = [PFObject objectWithClassName:@"scores"];
+    PFObject *score = [PFObject objectWithClassName:@"Scores"];
     [score setObject:corps forKey:@"corps"];
     [score setObject:show forKey:@"show"];
     score[@"corpsName"] = corps[@"corpsName"];
     score[@"isOfficial"] = [NSNumber numberWithBool:YES];
-    score[@"class"] = corps[@"class"];
+    score[@"classification"] = corps[@"classification"];
     score[@"showDate"] = show[@"showDate"];
     [score saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) NSLog(@"Empty score created for %@                      %@", corps[@"corpsName"], show[@"showLocation"]);
@@ -974,9 +975,9 @@ NSString *const KILTIES = @"Kilties";
 
 -(void)addCorps:(NSString *)corpsName corpClass:(NSString *)corpsClass {
     
-    PFObject *newCorps = [PFObject objectWithClassName:@"corps"];
+    PFObject *newCorps = [PFObject objectWithClassName:@"Corps"];
     newCorps[@"corpsName"] = corpsName;
-    newCorps[@"class"] = corpsClass;
+    newCorps[@"classification"] = corpsClass;
     [newCorps saveInBackground];
 }
 
@@ -1067,7 +1068,7 @@ NSString *const KILTIES = @"Kilties";
 
 // **THIS SHOULD NOT BE CALLED DIRECTLY. [SELF GETALLCORPS] IS NECESSARY FIRST AND CALLS CREATEALLSHOWS
 // AUTOMATICALLY
--(void)createAllShowsFor2015 {
+-(void)createAllShowsFor2016 {
     
     
     //    [self addShowWithName:<#(NSString *)#>

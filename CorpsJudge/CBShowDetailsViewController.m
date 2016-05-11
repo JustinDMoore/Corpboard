@@ -271,16 +271,18 @@ typedef enum : int {
 
 -(void)didUserVoteForShow {
     
-    queryVoteFavorites = [PFQuery queryWithClassName:@"scores"];
-    [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
-    [queryVoteFavorites whereKey:@"show" equalTo:self.show];
-    [queryVoteFavorites whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
-    [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedScore:error:)];
-    
-    queryVoteFavorites = [PFQuery queryWithClassName:@"favorites"];
-    [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
-    [queryVoteFavorites whereKey:@"show" equalTo:self.show];
-    [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedFavorites:error:)];
+    if ([PFUser currentUser]) {
+        queryVoteFavorites = [PFQuery queryWithClassName:@"scores"];
+        [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
+        [queryVoteFavorites whereKey:@"show" equalTo:self.show];
+        [queryVoteFavorites whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
+        [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedScore:error:)];
+        
+        queryVoteFavorites = [PFQuery queryWithClassName:@"favorites"];
+        [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
+        [queryVoteFavorites whereKey:@"show" equalTo:self.show];
+        [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedFavorites:error:)];
+    }
 }
 
 -(void)showUIAfterLoad {
@@ -314,7 +316,7 @@ typedef enum : int {
     
     if (![self.arrayOfWorldClassScores count] && ![self.arrayOfOpenClassScores count] && ![self.arrayOfAllAgeClassScores count] ) {
         
-        queryScores = [PFQuery queryWithClassName:@"scores"];
+        queryScores = [PFQuery queryWithClassName:@"Scores"];
         [queryScores whereKey:@"show" equalTo:self.show];
         [queryScores whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:YES]];
         [queryScores setLimit:1000];
@@ -338,15 +340,15 @@ typedef enum : int {
                     for (PFObject *score in objects) {
                         PFObject *corps = score[@"corps"];
                         
-                        if ([corps[@"class"] isEqualToString:@"World"]) {
+                        if ([corps[@"classification"] isEqualToString:@"World"]) {
                             
                             [self.arrayOfWorldClassScores addObject:score];
                             
-                        } else if ([corps[@"class"] isEqualToString:@"Open"]) {
+                        } else if ([corps[@"classification"] isEqualToString:@"Open"]) {
                             
                             [self.arrayOfOpenClassScores addObject:score];
                             
-                        } else if ([corps[@"class"] isEqualToString:@"All Age"]) {
+                        } else if ([corps[@"classification"] isEqualToString:@"All Age"]) {
                             
                             [self.arrayOfAllAgeClassScores addObject:score];
                             
@@ -2160,7 +2162,7 @@ bool backspaced;
             score[@"corpsName"] = us.corps[@"corpsName"];
             score[@"isOfficial"] = [NSNumber numberWithBool:NO];
             score[@"user"] = [PFUser currentUser];
-            score[@"class"] = @"World";
+            score[@"classification"] = @"World";
             score[@"showDate"] = self.show[@"showDate"];
             
             [score saveEventually];
@@ -2177,7 +2179,7 @@ bool backspaced;
             score[@"corpsName"] = us.corps[@"corpsName"];
             score[@"isOfficial"] = [NSNumber numberWithBool:NO];
             score[@"user"] = [PFUser currentUser];
-            score[@"class"] = @"Open";
+            score[@"classification"] = @"Open";
             score[@"showDate"] = self.show[@"showDate"];
             
             [score saveEventually];
@@ -2194,7 +2196,7 @@ bool backspaced;
             score[@"corpsName"] = us.corps[@"corpsName"];
             score[@"isOfficial"] = [NSNumber numberWithBool:NO];
             score[@"user"] = [PFUser currentUser];
-            score[@"class"] = @"Open";
+            score[@"classification"] = @"Open";
             score[@"showDate"] = self.show[@"showDate"];
             
             [score saveEventually];
@@ -2279,7 +2281,7 @@ bool backspaced;
         //PFObject *corps = score[@"corps"];
         favorite[@"corpsName"] = corp[@"corpsName"];
         favorite[@"corps"] = corp;
-        favorite[@"class"] = corpClass;
+        favorite[@"classification"] = corpClass;
         [favorite saveInBackground];
     }
 }

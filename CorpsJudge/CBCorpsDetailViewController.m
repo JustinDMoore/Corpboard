@@ -404,7 +404,7 @@ NSMutableArray *arrayOfRows;
     cell = [self.tableRepertoire dequeueReusableCellWithIdentifier:@"score"];
     UILabel *lblScore = (UILabel *)[cell viewWithTag:2];
     UILabel *lblClass = (UILabel *)[cell viewWithTag:3];
-    lblClass.text = self.currentYear[@"class"];
+    lblClass.text = self.currentYear[@"classification"];
     NSString *marker;
     if ([self.currentYear[@"score"] length] && [self.currentYear[@"placement"] length]) {
         marker = @" - ";

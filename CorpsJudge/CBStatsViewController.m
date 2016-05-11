@@ -300,7 +300,7 @@ int fetchCount = 0;
         
         for (PFObject *fav in Server.sharedInstance.arrayOfAllFavorites) {
             
-            NSString *corpClass = fav[@"class"];
+            NSString *corpClass = fav[@"classification"];
             
             if ([fav[@"category"] isEqualToString:@"Favorite Brass"]) {
                 
@@ -676,15 +676,15 @@ int rank;
             us.corps = score[@"corps"];
             us.score = grand;
             
-            if ([score[@"class"] isEqualToString:@"World"]) {
+            if ([score[@"classification"] isEqualToString:@"World"]) {
                 
                 [Server.sharedInstance.arrayOfUserWorldClassRankings addObject:us];
                 
-            } else if ([score[@"class"] isEqualToString:@"Open"]) {
+            } else if ([score[@"classification"] isEqualToString:@"Open"]) {
                 
                 [Server.sharedInstance.arrayOfUserOpenClassRankings addObject:us];
                 
-            } else if ([score[@"class"] isEqualToString:@"All Age"]) {
+            } else if ([score[@"classification"] isEqualToString:@"All Age"]) {
                 
                 [Server.sharedInstance.arrayOfUserAllAgeClassRankings addObject:us];
                 

@@ -70,18 +70,18 @@ class News: NSObject, MWFeedParserDelegate {
     }
     
     func feedParserDidStart(parser: MWFeedParser!) {
-        print("Starting parsing news @ \(parser.url())")
+        //print("Starting parsing news @ \(parser.url())")
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
-        print("Parsed feed info: \(info.title)")
+        //print("Parsed feed info: \(info.title)")
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
         if item != nil {
             parsedItems.append(item)
         }
-        print("\(item.description)")
+        //print("\(item.description)")
     }
     
     func feedParserDidFinish(parser: MWFeedParser!) {
