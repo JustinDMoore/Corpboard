@@ -263,6 +263,48 @@ protocol delegateUserProfile: class {
         }
     }
     
+    func moveShows() {
+//        let query = PFQuery(className: "shows")
+//        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, err: NSError?) in
+//            if results?.count > 0 {
+//                for obj in results! {
+//                    //let newshow = PShow()
+////                    if obj["showName"] != nil {
+////                        newshow.showName = obj["showName"] as! String
+////                    }
+////                    if obj["recapOpen"] != nil {
+////                        newshow.recapOpen = obj["recapOpen"] as! String
+////                    }
+////                    if obj["showDate"] != nil {
+////                        newshow.showDate = obj["showDate"] as! NSDate
+////                    }
+////                    if obj["exception"] != nil {
+////                        newshow.exception = obj["exception"] as! String
+////                    }
+////                    if obj["showLocation"] != nil {
+////                        newshow.showLocation = obj["showLocation"] as! String
+////                    }
+////                    if obj["recapWorld"] != nil {
+////                        newshow.recapWorld = obj["recapWorld"] as! String
+////                    }
+////                    if obj["arrayOfCorps"] != nil {
+////                        newshow.arrayOfCorps = obj["arrayOfCorps"] as! [String]
+////                    }
+////                    if obj["isShowOver"] != nil {
+////                        newshow.isShowOver = obj["isShowOver"] as! Bool
+////                    }
+////                    if obj["recapAllAge"] != nil {
+////                        newshow.recapAllAge = obj["recapAllAge"] as! String
+////                    }
+////                    if obj["stadium"] != nil {
+////                        newshow.stadium = obj["stadium"] as! PStadium
+////                    }
+//                    obj.deleteInBackground()
+//                }
+//            }
+//        }
+    }
+    
     func updateBanners() {
         self.arrayOfBannerImages = [UIImage]()
         self.arrayOfBannerObjects = [PBanner]()

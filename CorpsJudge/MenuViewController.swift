@@ -176,7 +176,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.pulse()
         self.automaticallyAdjustsScrollViewInsets = false
         //self.view.backgroundColor = self.viewAppTitle.backgroundColor
-        //self.contentMainView.backgroundColor = self.viewAppTitle.backgroundColor
+        self.contentMainView.backgroundColor = UIColor.clearColor()
         
         //display app version to user
         let info = NSBundle.mainBundle().infoDictionary
@@ -184,22 +184,65 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.lblVersion.text = version
         
         //disclosure arrows
-        let arrowFrame = CGRectMake(0, 0, 20, 20)
-        let arrowImage = UIImage(named: "disclosure")
-        let arrowImageView = UIImageView(image: arrowImage)
-        arrowImageView.frame = arrowFrame
-        let arrow = UITableViewCell()
-        arrow.userInteractionEnabled = false
-        arrow.accessoryView = arrowImageView
         
-        self.btnSeeAll.addSubview(arrow)
-        arrow.frame = CGRectMake(24, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height)
+        let disclosure1 = UITableViewCell()
+        self.btnSeeAll.addSubview(disclosure1)
+        disclosure1.frame = CGRectMake(25, 1, self.btnSeeAll.bounds.size.width, self.btnSeeAll.bounds.size.height)
+        disclosure1.accessoryType = .DisclosureIndicator
+        disclosure1.userInteractionEnabled = false
+        let img1 = UIImageView(image: UIImage(named: "disclosure"))
+        img1.frame = CGRectMake(0, 0, 20, 20)
+        disclosure1.accessoryView = img1
         
-        self.btnSeeAllRankings.addSubview(arrow)
-        arrow.frame = CGRectMake(24, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height)
+        let disclosure2 = UITableViewCell()
+        self.btnSeeAllRankings.addSubview(disclosure2)
+        disclosure2.frame = CGRectMake(25, 1, self.btnSeeAllRankings.bounds.size.width, self.btnSeeAllRankings.bounds.size.height)
+        disclosure2.accessoryType = .DisclosureIndicator
+        disclosure2.userInteractionEnabled = false
+        let img2 = UIImageView(image: UIImage(named: "disclosure"))
+        img2.frame = CGRectMake(0, 0, 20, 20)
+        disclosure2.accessoryView = img2
         
-        self.btnSeeAllNews.addSubview(arrow)
-        arrow.frame = CGRectMake(24, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height)
+        let disclosure3 = UITableViewCell()
+        self.btnSeeAllNews.addSubview(disclosure3)
+        disclosure3.frame = CGRectMake(25, 1, self.btnSeeAllNews.bounds.size.width, self.btnSeeAllNews.bounds.size.height)
+        disclosure3.accessoryType = .DisclosureIndicator
+        disclosure3.userInteractionEnabled = false
+        let img3 = UIImageView(image: UIImage(named: "disclosure"))
+        img3.frame = CGRectMake(0, 0, 20, 20)
+        disclosure3.accessoryView = img3
+
+//
+//        let disclosure3 = UITableViewCell()
+//        self.btnSeeAllNews.addSubview(disclosure3)
+//        disclosure3.frame = CGRectMake(25, 1, self.btnSeeAllNews.bounds.size.width, self.btnSeeAllNews.bounds.size.height)
+//        disclosure3.accessoryType = .DisclosureIndicator
+//        disclosure3.userInteractionEnabled = false
+//        let img3 = UIImageView(image: UIImage(named: "disclosure"))
+//        disclosure3.accessoryView = img3
+        
+        
+//        let showArrow = UITableViewCell()
+//        let scoreArrow = UITableViewCell()
+//        let newsArrow = UITableViewCell()
+//        
+//        self.btnSeeAll.addSubview(showArrow)
+//        showArrow.frame = CGRectMake(15, 0, self.btnSeeAll.frame.size.width, self.btnSeeAll.frame.size.height)
+//        showArrow.frame = self.btnSeeAll.bounds
+//        showArrow.accessoryType = .DisclosureIndicator
+//        showArrow.userInteractionEnabled = false
+//        
+//        self.btnSeeAllRankings.addSubview(scoreArrow)
+//        scoreArrow.frame = CGRectMake(15, 0, self.btnSeeAllRankings.frame.size.width, self.btnSeeAllRankings.frame.size.height)
+//        scoreArrow.frame = self.btnSeeAllRankings.bounds
+//        scoreArrow.accessoryType = .DisclosureIndicator
+//        scoreArrow.userInteractionEnabled = false
+//        
+//        self.btnSeeAllNews.addSubview(newsArrow)
+//        newsArrow.frame = CGRectMake(15, 0, self.btnSeeAllNews.frame.size.width, self.btnSeeAllNews.frame.size.height)
+//        newsArrow.frame = self.btnSeeAllNews.bounds
+//        newsArrow.accessoryType = .DisclosureIndicator
+//        newsArrow.userInteractionEnabled = false
 
         //top 12
         self.pageTopTwelve.hidden = true
@@ -235,7 +278,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.btnBanner3.addTarget(self,
                                   action: Selector(bannerTapped(self.btnBanner3)),
                                   forControlEvents: .TouchUpInside)
-//        self.loadPageWithId(Server.sharedInstance.arrayOfBannerImages?.count - 1, onPage: 0)
         self.loadPageWithId((Server.sharedInstance.arrayOfBannerImages?.count)! - 1, page: 0)
         self.loadPageWithId(0, page: 1)
         self.loadPageWithId(1, page: 2)
@@ -325,11 +367,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     func startTimerForBannerRotation() {
-        self.timerBanners = NSTimer(timeInterval: 1,
-                                    target: self,
-                                    selector: Selector(scrollToNextBanner()),
-                                    userInfo: nil,
-                                    repeats: true)
+        self.timerBanners = NSTimer.scheduledTimerWithTimeInterval(1,
+                                                                   target: self,
+                                                                   selector: #selector(MenuViewController.scrollToNextBanner),
+                                                                   userInfo: nil,
+                                                                repeats: true)
     }
     
     func scrollToNextBanner() {
@@ -418,6 +460,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if Server.sharedInstance.arrayOfAllShows?.count > 0 {
             Server.sharedInstance.arrayOfAllShows!.sortInPlace({ $0.showDate.compare($1.showDate) == NSComparisonResult.OrderedAscending })
         }
+        
         let lastShow = Server.sharedInstance.arrayOfAllShows?.last
         let lastShowDate = (lastShow?.showDate)! as NSDate
         
@@ -467,7 +510,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                             }
                         }
                         numberOfDays += 1
-                        if numberOfDays > 60 { return }
+                        if numberOfDays > 60 { break }
                     }
                     
                 } while !foundLastDate
@@ -495,7 +538,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                         }
                     }
                     numberOfDays += 1
-                    if numberOfDays > 60 { return }
+                    if numberOfDays > 60 { break }
                 }
             } while !foundNextDate
         }
@@ -613,25 +656,21 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let show: PShow
         let lblShowName: UILabel
         let lblShowLocation: UILabel
-        var btnScores = UIButton()
+        var btnScores: UIButton
         
         if tableView === self.tableLastShows {
             if self.arrayOfShowsForTable1.count > 0 {
                 show = self.arrayOfShowsForTable1[indexPath.row]
                 if show.isShowOver {
                     cell = self.tableLastShows.dequeueReusableCellWithIdentifier("scores")!
-                } else {
-                    cell = self.tableLastShows.dequeueReusableCellWithIdentifier("show")!
-                }
-                lblShowName = cell.viewWithTag(1) as! UILabel
-                lblShowLocation = cell.viewWithTag(2) as! UILabel
-                btnScores = cell.viewWithTag(3) as! UIButton
-                
-                lblShowName.text = show.showName
-                lblShowLocation.text = show.showLocation
-                
-                if show.isShowOver {
-                    if show.exception?.characters.count > 0 {
+                    lblShowName = cell.viewWithTag(1) as! UILabel
+                    lblShowLocation = cell.viewWithTag(2) as! UILabel
+                    btnScores = cell.viewWithTag(3) as! UIButton
+                    btnScores.addTarget(self, action: Selector(openShow(btnScores)), forControlEvents: .TouchUpInside)
+                    lblShowName.text = show.showName
+                    lblShowLocation.text = show.showLocation
+                    
+                    if show.exception.characters.count > 0 {
                         let lblException = UILabel(frame: CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20))
                         lblException.font = UIFont.systemFontOfSize(12)
                         lblException.textColor = UIColor.lightGrayColor()
@@ -639,7 +678,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                         lblException.textAlignment = .Right
                         lblException.sizeToFit()
                         cell.addSubview(lblException)
-                        btnScores.hidden = true
                     } else {
                         btnScores.hidden = false
                         btnScores.layer.borderWidth = 1.0
@@ -649,32 +687,27 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                         btnScores.titleLabel?.text = " Scores "
                         btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
                     }
-                } else { btnScores.hidden = true }
+                    
+                } else {
+                    cell = self.tableLastShows.dequeueReusableCellWithIdentifier("show")!
+                    lblShowName = cell.viewWithTag(1) as! UILabel
+                    lblShowLocation = cell.viewWithTag(2) as! UILabel
+                    lblShowName.text = show.showName
+                    lblShowLocation.text = show.showLocation
+                }
             }
-            btnScores.addTarget(self, action: Selector(openShow(btnScores)), forControlEvents: .TouchUpInside)
+            
         } else if tableView === self.tableNextShows {
+            
             cell = self.tableNextShows.dequeueReusableCellWithIdentifier("show")!
             lblShowName = cell.viewWithTag(1) as! UILabel
             lblShowLocation = cell.viewWithTag(2) as! UILabel
-            btnScores = cell.viewWithTag(3) as! UIButton
             
             if self.arrayOfShowsForTable2.count > 0 {
                 show = self.arrayOfShowsForTable2[indexPath.row]
                 lblShowName.text = show.showName
                 lblShowLocation.text = show.showLocation
-                if show.isShowOver {
-                    btnScores.hidden = false
-                    btnScores.layer.borderWidth = 1.0
-                    btnScores.layer.borderColor = self.appDel.appTint.CGColor
-                    btnScores.layer.cornerRadius = 4.0
-                    btnScores.layer.masksToBounds = true
-                    btnScores.titleLabel?.text = " Scores "
-                    btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
-                } else {
-                    btnScores.hidden = true
-                }
             }
-            btnScores.addTarget(self, action: Selector(openShow(btnScores)), forControlEvents: .TouchUpInside)
         }
         
         let corps: PCorps

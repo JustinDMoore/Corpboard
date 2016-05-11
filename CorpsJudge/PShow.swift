@@ -13,10 +13,10 @@ class PShow: PFObject, PFSubclassing {
     @NSManaged var showName: String
     @NSManaged var recapOpen: String
     @NSManaged var showDate: NSDate
-    @NSManaged var exception: String?
+    @NSManaged var exception: String
     @NSManaged var showLocation: String
     @NSManaged var recapWorld: String
-    @NSManaged var arrayOfCorps: [PCorps]
+    @NSManaged var arrayOfCorps: [String]
     @NSManaged var isShowOver: Bool
     @NSManaged var recapAllAge: String
     @NSManaged var stadium: PStadium
