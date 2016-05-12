@@ -128,11 +128,8 @@ typedef enum : int {
     
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backBtnImage = [UIImage imageNamed:@"arrowLeft"];
-    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    UIButton *backBtn = [UISingleton.sharedInstance getBackButton];
     [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
@@ -410,7 +407,7 @@ typedef enum : int {
     headerBtn.opaque = NO;
     [headerBtn setTitle:@"View Recap" forState:UIControlStateNormal];
     [headerBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [headerBtn setTitleColor:del.appTint forState:UIControlStateNormal];
+    [headerBtn setTitleColor: UISingleton.sharedInstance.appTint forState:UIControlStateNormal];
     [headerBtn sizeToFit];
     headerBtn.frame = CGRectMake(frame.size.width - headerBtn.frame.size.width - 5, -3, headerBtn.frame.size.width, headerBtn.frame.size.height);
     [headerBtn addTarget:self action:@selector(viewRecap:) forControlEvents:UIControlEventTouchUpInside];

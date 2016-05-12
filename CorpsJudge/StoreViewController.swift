@@ -56,13 +56,14 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let backButton = UIButton()
-        let imgBack = UIImage(named: "storeBack")
-        backButton.setBackgroundImage(imgBack, forState: UIControlState.Normal)
-        backButton.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
-        backButton.frame = CGRectMake(0, 0, 30, 30)
-        let backButtonBarItem = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = backButtonBarItem
+
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(StoreViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
+        
         updateCart()
     }
     

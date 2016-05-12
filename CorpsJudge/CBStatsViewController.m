@@ -73,6 +73,7 @@ typedef enum : int {
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenLoudestFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllAgeLoudestFavs;
 
+@property (nonatomic) CGFloat progressTotal;
 @end
 
 @implementation CBStatsViewController
@@ -90,18 +91,15 @@ typedef enum : int {
     return self;
 }
 
-
 -(void)viewWillAppear:(BOOL)animated {
     
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backBtnImage = [UIImage imageNamed:@"arrowLeft"];
-    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    UIButton *backBtn = [UISingleton.sharedInstance getBackButton];
     [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -111,8 +109,7 @@ typedef enum : int {
     [queryUserRanks cancel];
     [queryOfficialHornlineScores cancel];
     [queryUserHornlineRanks cancel];
-    
-    appDel =  [[UIApplication sharedApplication]delegate];
+
     [Server.sharedInstance.arrayOfAllFavorites removeAllObjects];
 
     
@@ -191,10 +188,10 @@ int fetchCount = 0;
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
-        [KVNProgress showWithStatus:@"Connecting"];
-    });
+
+    appDel =  [[UIApplication sharedApplication]delegate];
+    [self.progressBar setProgress:0];
+    self.progressTotal = 0.0;
     
     // reset bools for loading
     favoritesComplete = NO;
@@ -216,17 +213,20 @@ int fetchCount = 0;
     self.segmentOfficial.userInteractionEnabled = NO;
     self.btnInfo.userInteractionEnabled = NO;
     self.tabBar.userInteractionEnabled = NO;
-    
 }
 
 -(void)initUI {
     
+    self.lblProgress.hidden = NO;
+    self.progressBar.hidden = NO;
     self.tableCorps.hidden = YES;
     self.tabBar.userInteractionEnabled = NO;
     self.segmentOfficial.userInteractionEnabled = NO;
     self.btnInfo.userInteractionEnabled = NO;
-    self.segmentOfficial.tintColor = appDel.appTint;
-    self.btnInfo.tintColor = appDel.appTint;
+    self.tabBar.tintColor = UISingleton.sharedInstance.appTint;
+    self.segmentOfficial.tintColor = UISingleton.sharedInstance.appTint;
+    self.btnInfo.tintColor = UISingleton.sharedInstance.appTint;
+    self.navigationItem.leftBarButtonItem.tintColor = UISingleton.sharedInstance.appTint;
     [self.segmentOfficial addTarget:self
                              action:@selector(officialChanged)
                    forControlEvents:UIControlEventValueChanged];
@@ -629,6 +629,8 @@ int fetchCount = 0;
 int rank;
 
 -(void)getUserRankForCorps:(PFObject *)corps {
+
+    [self.progressBar setProgress:self.progressTotal animated:YES];
     
     queryUserRanks = [PFQuery queryWithClassName:@"scores"];
     [queryUserRanks whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
@@ -644,22 +646,31 @@ int rank;
         NSLog(@"ranking %i", rank);
         
         
-        if (rank == 10) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [KVNProgress updateStatus:@"Getting official scores"];
-            });
+        if (rank == 5) {
+            self.progressTotal += 0.05;
+            [self.progressBar setProgress:self.progressTotal animated:YES];
             
         }
-        if (rank == 30) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [KVNProgress updateStatus:@"Getting caption scores"];
-            });
+        if (rank == 20) {
+            self.progressTotal += 0.10;
+            [self.progressBar setProgress:self.progressTotal animated:YES];
             
         }
+        if (rank == 35) {
+            self.progressTotal += 0.25;
+            [self.progressBar setProgress:self.progressTotal animated:YES];
+            
+        }
+        
+        if (rank == 40) {
+            self.progressTotal += 0.1;
+            [self.progressBar setProgress:self.progressTotal animated:YES];
+            
+        }
+        
         if (rank == 50) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [KVNProgress updateStatus:@"Calculating"];
-            });
+            self.progressTotal += 0.5;
+            [self.progressBar setProgress:self.progressTotal animated:YES];
             
         }
         
@@ -705,6 +716,23 @@ int sort;
     
     sort++;
     NSLog(@"sorting %i", sort);
+    if (sort == 1) {
+        self.progressTotal += 0.15;
+        [self.progressBar setProgress:self.progressTotal animated:YES];
+    } else if (sort == 2) {
+        self.progressTotal += 0.15;
+        [self.progressBar setProgress:self.progressTotal animated:YES];
+    } else if (sort == 3) {
+        self.progressTotal += 0.05;
+        [self.progressBar setProgress:self.progressTotal animated:YES];
+    } else if (sort == 4) {
+        self.progressTotal += 0.05;
+        [self.progressBar setProgress:self.progressTotal animated:YES];
+    } else if (sort == 5) {
+        self.progressTotal += 0.05;
+        [self.progressBar setProgress:self.progressTotal animated:YES];
+    }
+    
     switch (self.scorePhase) {
         {case phaseScore:
             
@@ -1541,7 +1569,8 @@ int sort;
 }
 
 -(void)reloadTable {
-    
+    self.lblProgress.hidden = YES;
+    self.progressBar.hidden = YES;
     self.tableCorps.hidden = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress dismiss];

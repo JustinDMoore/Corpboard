@@ -14,8 +14,7 @@ protocol messagesDelegate: class {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    let appTint = UIColor(colorLiteralRed: 0/255.0, green: 174/255.0, blue: 237/255.0, alpha: 1)
+
     let stripePublishableKey = "pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf"
     var window: UIWindow?
     var alertParentView = UIView()

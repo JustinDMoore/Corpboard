@@ -52,11 +52,8 @@ BOOL firstLoad = YES;
     
     self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:NO animated:NO];
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backBtnImage = [UIImage imageNamed:@"arrowLeft"];
-    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    UIButton *backBtn = [UISingleton.sharedInstance getBackButton];
     [backBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.frame = CGRectMake(0, 0, 30, 30);
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
     self.navigationItem.leftBarButtonItem = backButton;
     
@@ -255,6 +252,13 @@ BOOL firstLoad = YES;
             btnScores = (UIButton *)[cell viewWithTag:3];
             lblException.hidden = YES;
             btnScores.hidden = NO;
+            btnScores.layer.borderWidth = 1.0;
+            btnScores.layer.borderColor = UISingleton.sharedInstance.appTint.CGColor;
+            btnScores.layer.cornerRadius = 4.0;
+            btnScores.titleLabel.text = @" Scores ";
+            btnScores.layer.masksToBounds = YES;
+            btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
+            [btnScores setTitleColor:UISingleton.sharedInstance.appTint forState:UIControlStateNormal];
         }
         
         UILabel *lblShowTitle = (UILabel *)[cell viewWithTag:1];
@@ -272,16 +276,7 @@ BOOL firstLoad = YES;
                 lblException.hidden = NO;
             } else {
                 lblException.hidden = YES;
-
                 btnScores.hidden = NO;
-                btnScores.layer.borderWidth = 1.0f;
-                btnScores.layer.borderColor = [UIColor colorWithRed:0/255.0 green:174/255.0 blue:237/255.0 alpha:1].CGColor;
-                
-                
-                btnScores.layer.cornerRadius = 4.0f;
-                btnScores.layer.masksToBounds = YES;
-                btnScores.titleLabel.text = @" Scores ";
-                btnScores.titleLabel.font = [UIFont systemFontOfSize:12];
                 [btnScores addTarget:self action:@selector(openShows:) forControlEvents:UIControlEventTouchUpInside];
             }
             

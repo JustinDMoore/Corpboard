@@ -59,13 +59,13 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         numOfItemsInCart = store.numberOfItemsInCart() - 1
         self.updateCart()
         self.navigationItem.titleView = store.getStoreTitleView()
-        let backButton = UIButton()
-        let imgBack = UIImage(named: "storeBack")
-        backButton.setBackgroundImage(imgBack, forState: UIControlState.Normal)
-        backButton.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
-        backButton.frame = CGRectMake(0, 0, 30, 30)
-        let backButtonBarItem = UIBarButtonItem(customView: backButton)
-        self.navigationItem.leftBarButtonItem = backButtonBarItem
+        
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(StoreItemTableViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     

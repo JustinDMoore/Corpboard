@@ -99,6 +99,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var lblCopyright: UILabel!
     @IBOutlet weak var btnDCI: UIButton!
     @IBOutlet weak var btnProfile: UIButton!
+    @IBOutlet weak var btnTourMap: UIButton!
     
     //MARK:-
     //MARK:Lifecycle
@@ -175,6 +176,13 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     func initUI() {
         self.loadProfile()
         self.pulse()
+        
+        self.btnProfile.tintColor = UISingleton.sharedInstance.appTint
+        self.btnMessages.tintColor = UISingleton.sharedInstance.appTint
+        self.btnLiveChat.tintColor = UISingleton.sharedInstance.appTint
+        self.btnNearMe.tintColor = UISingleton.sharedInstance.appTint
+        self.btnTourMap.tintColor = UISingleton.sharedInstance.appTint
+        
         self.automaticallyAdjustsScrollViewInsets = false
         //self.view.backgroundColor = self.viewAppTitle.backgroundColor
         self.contentMainView.backgroundColor = UIColor.clearColor()
@@ -625,7 +633,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let show: PShow
         let lblShowName: UILabel
         let lblShowLocation: UILabel
-        var btnScores: UIButton
+        var btnScores = UIButton()
         
         if tableView === self.tableLastShows {
             if self.arrayOfShowsForTable1.count > 0 {
@@ -635,9 +643,16 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                     lblShowName = cell.viewWithTag(1) as! UILabel
                     lblShowLocation = cell.viewWithTag(2) as! UILabel
                     btnScores = cell.viewWithTag(3) as! UIButton
-                    btnScores.addTarget(self, action: Selector(openShow(btnScores)), forControlEvents: .TouchUpInside)
+                    btnScores.addTarget(self, action: #selector(MenuViewController.openShow(_:)), forControlEvents: .TouchUpInside)
                     lblShowName.text = show.showName
                     lblShowLocation.text = show.showLocation
+                    btnScores.layer.borderWidth = 1.0
+                    btnScores.layer.borderColor = UISingleton.sharedInstance.appTint.CGColor
+                    btnScores.layer.cornerRadius = 4.0
+                    btnScores.titleLabel?.text = " Scores "
+                    btnScores.layer.masksToBounds = true
+                    btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
+                    btnScores.setTitleColor(UISingleton.sharedInstance.appTint, forState: .Normal)
                     
                     if show.exception.characters.count > 0 {
                         let lblException = UILabel(frame: CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20))
@@ -649,12 +664,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                         cell.addSubview(lblException)
                     } else {
                         btnScores.hidden = false
-                        btnScores.layer.borderWidth = 1.0
-                        btnScores.layer.borderColor = self.appDel.appTint.CGColor
-                        btnScores.layer.cornerRadius = 4.0
-                        btnScores.layer.masksToBounds = true
-                        btnScores.titleLabel?.text = " Scores "
-                        btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
                     }
                     
                 } else {
@@ -849,11 +858,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     //MARK:-
     //MARK: Actions
-    
-    @IBAction func btnSeeAllShows(sender: AnyObject) {
-        self.performSegueWithIdentifier("shows", sender: self)
-    }
-    
+
     @IBAction func near(sender: AnyObject) {
         //must have an account to proceed
         if CLLocationManager.locationServicesEnabled() {
