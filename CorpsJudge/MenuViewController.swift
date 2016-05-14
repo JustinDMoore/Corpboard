@@ -103,6 +103,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var btnDCI: UIButton!
     @IBOutlet weak var btnProfile: UIButton!
     @IBOutlet weak var btnTourMap: UIButton!
+    @IBOutlet weak var btnSeeDailySchedule: UIButton!
     
     //MARK:-
     //MARK:Lifecycle
@@ -223,6 +224,15 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img3 = UIImageView(image: UIImage(named: "disclosure"))
         img3.frame = CGRectMake(0, 0, 20, 20)
         disclosure3.accessoryView = img3
+        
+        let disclosure4 = UITableViewCell()
+        self.btnSeeDailySchedule.addSubview(disclosure4)
+        disclosure4.frame = CGRectMake(25, 1, self.btnSeeDailySchedule.bounds.size.width, self.btnSeeDailySchedule.bounds.size.height)
+        disclosure4.accessoryType = .DisclosureIndicator
+        disclosure4.userInteractionEnabled = false
+        let img4 = UIImageView(image: UIImage(named: "disclosure"))
+        img4.frame = CGRectMake(0, 0, 20, 20)
+        disclosure4.accessoryView = img4
 
         //top 12
         self.pageTopTwelve.hidden = true
