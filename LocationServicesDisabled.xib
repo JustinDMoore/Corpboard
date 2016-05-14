@@ -14,7 +14,23 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKS-Ul-asM">
                     <rect key="frame" x="64" y="24" width="258" height="409"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To find fans near you, we need to use your location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJM-ce-3FA">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Go to Settings, Privacy, Location Services." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wX-l6-Sk2">
+                            <rect key="frame" x="29" y="240" width="200" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3PJ-CH-4ZB">
+                            <rect key="frame" x="43" y="351" width="172" height="44"/>
+                            <state key="normal" title="Got It">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnOK:" destination="qcA-DF-bbI" eventType="touchUpInside" id="fcB-io-eIo"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To find nearby friends and fans, turn on location services." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJM-ce-3FA">
                             <rect key="frame" x="20" y="195" width="218" height="37"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -23,46 +39,25 @@
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="wqi-Pc-Fcw">
                             <rect key="frame" x="80" y="125" width="99" height="65"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epn-ct-eQA">
-                            <rect key="frame" x="-6" y="96" width="270" height="27"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Services Disabled" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epn-ct-eQA">
+                            <rect key="frame" x="-6" y="96" width="270" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Make sure Location Services is turned on, then find Corpsboard and enabled it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCL-bR-SgP">
+                            <rect key="frame" x="29" y="289" width="200" height="54"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="mes-qj-7gP">
                             <rect key="frame" x="69" y="3" width="120" height="85"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ep5-nr-OQU">
-                            <rect key="frame" x="99" y="341" width="61" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="Not Now">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4q-3r-pzA">
-                            <rect key="frame" x="43" y="289" width="172" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="CNL-b4-eLf"/>
-                                <constraint firstAttribute="width" constant="172" id="gmR-UB-buq"/>
-                            </constraints>
-                            <state key="normal" title="Find Nearby Fans">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="We don't share your location or use it for any other purpose." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wX-l6-Sk2">
-                            <rect key="frame" x="15" y="240" width="229" height="41"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="E4q-3r-pzA" firstAttribute="centerX" secondItem="9wX-l6-Sk2" secondAttribute="centerX" id="7XM-jf-RWQ"/>
                         <constraint firstAttribute="height" constant="409" id="FNi-uZ-1m5"/>
-                        <constraint firstItem="E4q-3r-pzA" firstAttribute="top" secondItem="9wX-l6-Sk2" secondAttribute="bottom" constant="8" id="P42-Qf-00x"/>
                         <constraint firstAttribute="width" constant="258" id="zLu-fJ-4ID"/>
                     </constraints>
                 </view>
@@ -74,6 +69,9 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnOK" destination="3PJ-CH-4ZB" id="wCJ-zn-MYM"/>
+            </connections>
             <point key="canvasLocation" x="281" y="714.5"/>
         </view>
         <view contentMode="scaleToFill" id="zqB-b6-rr4" customClass="CBLocationServicesDisabled">
@@ -89,7 +87,7 @@
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="433C9727-F517-45A5-B6E4-2BC7D3F7970A" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-ID-JT1">
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="146A9D19-E730-44EE-8EF0-5ABB70485557" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-ID-JT1">
                             <rect key="frame" x="80" y="125" width="99" height="65"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="Egd-ch-73c">
@@ -145,7 +143,7 @@
         </view>
     </objects>
     <resources>
-        <image name="433C9727-F517-45A5-B6E4-2BC7D3F7970A" width="85" height="85">
+        <image name="146A9D19-E730-44EE-8EF0-5ABB70485557" width="85" height="85">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
