@@ -2819,11 +2819,11 @@
                                                         <rect key="frame" x="10" y="103" width="310" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z15-Uh-jtu" customClass="UIControl">
                                                         <rect key="frame" x="6" y="9" width="150" height="85"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="About.png" translatesAutoresizingMaskIntoConstraints="NO" id="fru-j2-3CE">
-                                                                <rect key="frame" x="5" y="5" width="140" height="75"/>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="fru-j2-3CE">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
                                                             </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -2834,7 +2834,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ia3-0E-Vl4" customClass="UIControl">
                                                         <rect key="frame" x="164" y="9" width="150" height="85"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Contact" translatesAutoresizingMaskIntoConstraints="NO" id="hSv-3u-JRW">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="contact" translatesAutoresizingMaskIntoConstraints="NO" id="hSv-3u-JRW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
                                                             </imageView>
                                                         </subviews>
@@ -2858,7 +2858,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYM-Y4-Xhp">
                                                         <rect key="frame" x="139" y="3" width="35" height="35"/>
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
-                                                        <state key="normal" image="Chat"/>
+                                                        <state key="normal" image="chat"/>
                                                         <connections>
                                                             <action selector="btnChat:" destination="603-gO-u9Q" eventType="touchUpInside" id="jEI-dl-x8e"/>
                                                         </connections>
@@ -2876,7 +2876,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNu-IM-EjK">
                                                         <rect key="frame" x="76" y="3" width="35" height="35"/>
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
-                                                        <state key="normal" image="Message"/>
+                                                        <state key="normal" image="messages"/>
                                                         <connections>
                                                             <segue destination="krs-FK-NiX" kind="show" identifier="messages" id="QrO-de-uLh"/>
                                                         </connections>
@@ -2898,7 +2898,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ro-Wz-Ti8">
                                                         <rect key="frame" x="205" y="3" width="35" height="35"/>
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
-                                                        <state key="normal" image="radar"/>
+                                                        <state key="normal" image="near"/>
                                                         <connections>
                                                             <action selector="near:" destination="603-gO-u9Q" eventType="touchUpInside" id="ixN-Hi-jNI"/>
                                                         </connections>
@@ -2943,7 +2943,7 @@
                                                         <subviews>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7h-uy-mN8">
                                                                 <rect key="frame" x="93" y="41" width="27" height="35"/>
-                                                                <state key="normal" image="link_USB">
+                                                                <state key="normal" image="USB">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -2952,7 +2952,7 @@
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-J5-KOL">
                                                                 <rect key="frame" x="-1" y="41" width="39" height="35"/>
-                                                                <state key="normal" image="link_C1">
+                                                                <state key="normal" image="C">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -2961,7 +2961,7 @@
                                                             </button>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVX-a2-sjg">
                                                                 <rect key="frame" x="131" y="41" width="39" height="35"/>
-                                                                <state key="normal" image="link_CWP">
+                                                                <state key="normal" image="CWP">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -2970,7 +2970,7 @@
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsF-gI-tiR">
                                                                 <rect key="frame" x="45" y="41" width="39" height="35"/>
-                                                                <state key="normal" image="link_C2">
+                                                                <state key="normal" image="C2">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -2985,7 +2985,7 @@
                                                             </label>
                                                             <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebp-82-mAQ">
                                                                 <rect key="frame" x="178" y="41" width="39" height="35"/>
-                                                                <state key="normal" image="link_CWG">
+                                                                <state key="normal" image="CWG">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -2994,7 +2994,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbH-HK-CUl">
                                                                 <rect key="frame" x="84" y="1" width="55" height="45"/>
-                                                                <state key="normal" image="link_yea">
+                                                                <state key="normal" image="YEA">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
@@ -3017,7 +3017,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPZ-S3-qEq" customClass="UIControl">
                                                         <rect key="frame" x="164" y="11" width="150" height="85"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Support" translatesAutoresizingMaskIntoConstraints="NO" id="2dI-p5-Mxa">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="support" translatesAutoresizingMaskIntoConstraints="NO" id="2dI-p5-Mxa">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
                                                             </imageView>
                                                         </subviews>
@@ -3033,7 +3033,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TUP-ob-IVp" customClass="UIControl">
                                                         <rect key="frame" x="8" y="11" width="150" height="85"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Shop" translatesAutoresizingMaskIntoConstraints="NO" id="Mp9-Id-sDa">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shop" translatesAutoresizingMaskIntoConstraints="NO" id="Mp9-Id-sDa">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="85"/>
                                                             </imageView>
                                                         </subviews>
@@ -5031,20 +5031,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="About.png" width="350" height="170"/>
         <image name="ApplePayButton" width="140" height="40"/>
+        <image name="C" width="66" height="63"/>
+        <image name="C2" width="66" height="57"/>
+        <image name="CWG" width="66" height="60"/>
+        <image name="CWP" width="66" height="61"/>
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
-        <image name="Contact" width="450" height="255"/>
         <image name="DCI_CorpBoard1" width="600" height="600"/>
         <image name="FLATRATE" width="320" height="100"/>
-        <image name="Message" width="48" height="48"/>
         <image name="Promo" width="128" height="128"/>
-        <image name="Shop" width="450" height="255"/>
-        <image name="Support" width="450" height="255"/>
+        <image name="USB" width="53" height="71"/>
         <image name="Upload" width="48" height="48"/>
         <image name="Warning" width="48" height="48"/>
+        <image name="YEA" width="133" height="106"/>
+        <image name="about" width="150" height="85"/>
         <image name="admin_bug" width="48" height="48"/>
         <image name="admin_cancel" width="48" height="48"/>
         <image name="admin_done" width="48" height="48"/>
@@ -5062,7 +5064,9 @@
         <image name="cadets_arrow3" width="212" height="202"/>
         <image name="cadets_text" width="357" height="61"/>
         <image name="champs" width="426" height="305"/>
+        <image name="chat" width="85" height="85"/>
         <image name="closeRed" width="48" height="48"/>
+        <image name="contact" width="150" height="85"/>
         <image name="defaultCoverPicture" width="851" height="315"/>
         <image name="drum_tab" width="48" height="48"/>
         <image name="edit2" width="48" height="48"/>
@@ -5070,22 +5074,19 @@
         <image name="finals6.png" width="640" height="298"/>
         <image name="flag_tab" width="48" height="48"/>
         <image name="horn_tab" width="48" height="48"/>
-        <image name="link_C1" width="213" height="202"/>
-        <image name="link_C2" width="281" height="243"/>
-        <image name="link_CWG" width="389" height="356"/>
-        <image name="link_CWP" width="576" height="537"/>
-        <image name="link_USB" width="160" height="214"/>
-        <image name="link_yea" width="133" height="106"/>
         <image name="loudest_tab" width="48" height="48"/>
-        <image name="map" width="48" height="48"/>
+        <image name="map" width="85" height="85"/>
         <image name="medal_gold" width="48" height="48"/>
+        <image name="messages" width="85" height="85"/>
+        <image name="near" width="85" height="85"/>
         <image name="online" width="66" height="66"/>
-        <image name="radar" width="64" height="64"/>
         <image name="review" width="48" height="48"/>
         <image name="run1" width="132" height="178"/>
         <image name="score_tab" width="48" height="48"/>
+        <image name="shop" width="150" height="85"/>
         <image name="star_selected.png" width="63" height="63"/>
         <image name="star_unselected.png" width="64" height="62"/>
+        <image name="support" width="150" height="85"/>
         <image name="user" width="85" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
