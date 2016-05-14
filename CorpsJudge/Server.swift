@@ -100,7 +100,7 @@ protocol delegateUserProfile: class {
     var arrayOfUserOpenClassRankings = NSMutableArray()
     var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
-    var arrayOfFacts = [PFact]()
+    var arrayOfFacts = [PFObject]()
     var isFactDisplayed = false
     
     func createShowsAndScores() {
@@ -122,11 +122,19 @@ protocol delegateUserProfile: class {
             if (error == nil) {
                 print("Success : Local Query \(query.parseClassName)")
                 block(locals)
+                self.arrayOfFacts = []
+                for fact in locals! {
+                    self.arrayOfFacts.append(fact)
+                }
             } else {
                 print("Error : Local Query \(query.parseClassName)")
             }
             query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                 if(error == nil) {
+                    self.arrayOfFacts = []
+                    for fact in objects! {
+                        self.arrayOfFacts.append(fact)
+                    }
                     print("Success : Network Query \(query.parseClassName)")
                     PFObject.unpinAllInBackground(locals, block: { (success, error) -> Void in
                         if (error == nil) {

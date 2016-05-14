@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreLocation
+import JSBadgeView
+import PulsingHalo
+import MWFeedParser
 
 class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, delegateLocationServices, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile {
 
@@ -1026,7 +1029,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row] as! MWFeedItem
+        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
         self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
     }
     

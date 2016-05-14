@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import PassKit
+import Stripe
 
 @objc class Payment: NSObject, PKPaymentAuthorizationViewControllerDelegate {
     

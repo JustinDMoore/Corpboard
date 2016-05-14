@@ -17,7 +17,7 @@
 #import "UserScore.h"
 #import "CBReviewScoreCell.h"
 #import "CBReviewFeedback.h"
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "CBReviewShow.h"
 #import "CBReviewFavoriteCell.h"
 #import "CBReviewCaptionCell.h"

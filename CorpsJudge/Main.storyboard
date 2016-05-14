@@ -618,7 +618,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="vote" id="p0j-UZ-viA">
-                                        <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0j-UZ-viA" id="vs3-Fj-Ejx">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -676,7 +676,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="officialRank" id="fia-jH-SSP">
-                                        <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="66" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fia-jH-SSP" id="gw5-ZQ-TUA">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -755,7 +755,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userScore" id="ziP-r5-WG9">
-                                        <rect key="frame" x="0.0" y="174" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="110" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ziP-r5-WG9" id="2J0-DE-PQg">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1242,6 +1242,16 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If only your internet connection was as fast as a typical Cadets closer..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOn-rr-EtC">
+                                                            <rect key="frame" x="132" y="366" width="343" height="43"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="343" id="rJU-4y-gd6"/>
+                                                                <constraint firstAttribute="height" constant="43" id="ycJ-BV-7pI"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -1249,9 +1259,11 @@
                                                         <constraint firstAttribute="bottom" secondItem="5eM-4O-OgB" secondAttribute="bottom" constant="19" id="BTm-OT-yQW"/>
                                                         <constraint firstItem="5eM-4O-OgB" firstAttribute="centerX" secondItem="blJ-eA-QrR" secondAttribute="centerX" id="EJh-WY-Uf1"/>
                                                         <constraint firstItem="Omx-9l-d7K" firstAttribute="top" secondItem="GYG-PI-V9P" secondAttribute="bottom" constant="11" id="Il6-Y3-BQE"/>
+                                                        <constraint firstItem="WOn-rr-EtC" firstAttribute="centerX" secondItem="Omx-9l-d7K" secondAttribute="centerX" id="USJ-cW-tE9"/>
                                                         <constraint firstAttribute="centerX" secondItem="GYG-PI-V9P" secondAttribute="centerX" constant="-0.5" id="kK4-I9-zui"/>
                                                         <constraint firstAttribute="centerY" secondItem="GYG-PI-V9P" secondAttribute="centerY" constant="48" id="rDn-s1-p0h"/>
                                                         <constraint firstItem="5eM-4O-OgB" firstAttribute="leading" secondItem="blJ-eA-QrR" secondAttribute="leading" constant="8" id="xT9-6e-Vdp"/>
+                                                        <constraint firstItem="WOn-rr-EtC" firstAttribute="top" secondItem="Omx-9l-d7K" secondAttribute="bottom" constant="8" id="y5g-CH-eEA"/>
                                                         <constraint firstAttribute="trailing" secondItem="5eM-4O-OgB" secondAttribute="trailing" constant="8" id="zJT-fU-Ong"/>
                                                     </constraints>
                                                 </view>
@@ -1297,6 +1309,7 @@
                         <outlet property="imgCadetsText" destination="Dqs-6w-6Et" id="mcV-S4-qkW"/>
                         <outlet property="lblCorpsboard" destination="X71-P0-nAq" id="rcD-a9-9v2"/>
                         <outlet property="lblFact" destination="5eM-4O-OgB" id="q6O-xx-pHY"/>
+                        <outlet property="lblLongerThanNormal" destination="WOn-rr-EtC" id="8OQ-08-2gF"/>
                         <outlet property="progressBar" destination="Omx-9l-d7K" id="Clh-en-4ts"/>
                         <outlet property="viewCadets" destination="Ous-gB-1Zn" id="D4e-Lx-2R4"/>
                         <segue destination="603-gO-u9Q" kind="show" identifier="menu" id="jsD-tX-QYd"/>
@@ -3070,7 +3083,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1260"/>
                     <connections>
-                        <outlet property="btnDCI" destination="z7h-uy-mN8" id="CfH-PK-gdP"/>
                         <outlet property="btnLiveChat" destination="UYM-Y4-Xhp" id="eNf-Il-qAn"/>
                         <outlet property="btnMessages" destination="GNu-IM-EjK" id="Y8F-20-KOU"/>
                         <outlet property="btnNearMe" destination="2ro-Wz-Ti8" id="jmB-h0-6zs"/>

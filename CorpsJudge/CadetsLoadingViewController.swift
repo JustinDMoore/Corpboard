@@ -13,11 +13,17 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     
     //MARK:-
     //MARK:Properties
+    var timerLoading = NSTimer()
+    
     var animatedCadets = false
     var progress: Float = 0.0
     var canUseApp = true
     var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.10, 0.15, 0.15, 0.25]
     var player = AVAudioPlayer()
+    var loadStarted = false
+    var progressTimerCount = 0
+    var factTimerCount = 0
+    var arrayOfLoadMessages = ["This is taking longer than it's supposed to.", "If only your internet connection was as fast as The Cadets' drill.", "Internet connection is slow. What will you do with no internet?", "Do you always suffer from slow connections? You poor thing.", "It isn't supposed to take this long."]
     
     /*
      1. updateAppStatus() Check app messages, stop if can't use app
@@ -41,6 +47,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var lblFact: UILabel!
     @IBOutlet weak var imgC: UIImageView!
+    @IBOutlet weak var lblLongerThanNormal: UILabel!
     
     //MARK:-
     //MARK:Lifecycle
@@ -72,8 +79,8 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         }
     }
     
-    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
-    
+    override func viewWillDisappear(animated: Bool) {
+        self.timerLoading.invalidate()
     }
     
     //MARK:-
@@ -173,9 +180,57 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func testProgress() {
+        self.progressTimerCount += 1
+        self.factTimerCount += 1
+        print("Timer: '\(self.factTimerCount)")
+        if self.progressTimerCount == 7 {
+            let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfLoadMessages.count)))
+            self.lblLongerThanNormal.text = self.arrayOfLoadMessages[randomIndex]
+            self.lblLongerThanNormal.alpha = 0
+            self.lblLongerThanNormal.hidden = false
+            self.lblLongerThanNormal.frame = CGRectMake(self.lblLongerThanNormal.frame.origin.x, self.lblLongerThanNormal.frame.origin.y - 10, self.lblLongerThanNormal.frame.size.width, self.lblLongerThanNormal.frame.size.height)
+            UIView.animateWithDuration(0.5,
+                                       animations: { 
+                                        self.lblLongerThanNormal.alpha = 1
+                                        self.lblLongerThanNormal.frame = CGRectMake(self.lblLongerThanNormal.frame.origin.x, self.lblLongerThanNormal.frame.origin.y + 10, self.lblLongerThanNormal.frame.size.width, self.lblLongerThanNormal.frame.size.height)
+                                        
+            })
+        }
+        
+        //change out the facts every 10 seconds
+        if self.factTimerCount >= 10 {
+            self.factTimerCount = 0
+            if Server.sharedInstance.arrayOfFacts.count > 0 {
+                UIView.animateWithDuration(0.5, animations: {
+                    self.lblFact.alpha = 0
+                    self.lblFact.frame = CGRectMake(self.lblFact.frame.origin.x, self.lblFact.frame.origin.y + 10, self.lblFact.frame.size.width, self.lblFact.frame.size.height)
+                    }, completion: { (finished: Bool) in
+                        let randomIndex = Int(arc4random_uniform(UInt32(Server.sharedInstance.arrayOfFacts.count)))
+                        let fact = Server.sharedInstance.arrayOfFacts[randomIndex]
+                        self.lblFact.text = fact["fact"] as? String
+                        self.lblFact.frame = CGRectMake(self.lblFact.frame.origin.x, self.lblFact.frame.origin.y - 20, self.lblFact.frame.size.width, self.lblFact.frame.size.height)
+                        UIView.animateWithDuration(0.5, animations: {
+                            self.lblFact.alpha = 1
+                            self.lblFact.frame = CGRectMake(self.lblFact.frame.origin.x, self.lblFact.frame.origin.y + 10, self.lblFact.frame.size.width, self.lblFact.frame.size.height)
+                        })
+                })
+            }
+        }
+    }
+    
     func updateProgress() {
         //update progress variable and animate progress bar
         //if at 100%, segue
+        if !loadStarted {
+            loadStarted = true
+            timerLoading = NSTimer.scheduledTimerWithTimeInterval(1.0,
+                                                                  target: self,
+                                                                  selector: #selector(CadetsLoadingViewController.testProgress),
+                                                                  userInfo: [],
+                                                                  repeats: true)
+        }
+        
         if self.arrayOfRandomProgressNumbers.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfRandomProgressNumbers.count)))
             let progressAmount = self.arrayOfRandomProgressNumbers.removeAtIndex(randomIndex)
@@ -205,7 +260,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     func playRockyPoint() {
             self.animateCadets()
             let url:NSURL = NSBundle.mainBundle().URLForResource("RockyPoint", withExtension: "mp3")!
-            
+        
             do { self.player = try AVAudioPlayer(contentsOfURL: url, fileTypeHint: nil) }
             catch let error as NSError { print(error.description) }
             self.player.play()

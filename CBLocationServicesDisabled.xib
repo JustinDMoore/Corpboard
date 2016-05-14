@@ -87,7 +87,7 @@
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FC51B59E-EFEC-484E-B9B5-CF7C240C3AB9" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-ID-JT1">
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="13697B30-CC36-4B5F-8DAE-7C36C6E2386D" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-ID-JT1">
                             <rect key="frame" x="80" y="125" width="99" height="65"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="Egd-ch-73c">
@@ -143,7 +143,7 @@
         </view>
     </objects>
     <resources>
-        <image name="FC51B59E-EFEC-484E-B9B5-CF7C240C3AB9" width="85" height="85">
+        <image name="13697B30-CC36-4B5F-8DAE-7C36C6E2386D" width="85" height="85">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

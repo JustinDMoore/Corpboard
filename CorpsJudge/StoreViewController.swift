@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KVNProgress
 
 class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     

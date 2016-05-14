@@ -14,27 +14,27 @@
 #import "ClipView.h"
 #import "CBStoreCategoryCell.h"
 #import "Configuration.h"
-#import "MWFeedParser.h"
-#import "CadetsAnimation.h"
+#import <MWFeedParser/MWFeedParser.h>
+#import "CadetsAni.h"
 #import "AppConstant.h"
-#import "NSDate+InternetDateTime.h"
+#import <MWFeedParser/NSDate+InternetDateTime.h>
 #import "CBNewsCell.h"
 #import "CBWebViewController.h"
 #import "CBShowDetailsViewController.h"
 #import "CBUserProfileViewController.h"
 #import "CBLocationServices.h"
 #import "CBNewsCell.h"
-#import "MWFeedItem.h"
+#import <MWFeedParser/MWFeedItem.h>
 
 // pods
-#import "KVNProgress.h"
-#import "JSBadgeView.h"
-#import "PulsingHaloLayer.h"
+#import <KVNProgress/KVNProgress.h>
+#import <JSBadgeView/JSBadgeView.h>
+#import <PulsingHalo/PulsingHaloLayer.h>
 #import <Parse/PFObject+Subclass.h>
 #import <Stripe/Stripe.h>
 #import <AFNetworking/AFNetworking.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "CBPush.h"
 

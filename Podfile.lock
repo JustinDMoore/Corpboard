@@ -1,4 +1,5 @@
 PODS:
+  - AFDateHelper (3.3.1)
   - AFNetworking (2.6.0):
     - AFNetworking/NSURLConnection (= 2.6.0)
     - AFNetworking/NSURLSession (= 2.6.0)
@@ -26,60 +27,6 @@ PODS:
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
-  - DTCoreText (1.6.15):
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation (1.7.5):
-    - DTFoundation/AppKit (= 1.7.5)
-    - DTFoundation/Core (= 1.7.5)
-    - DTFoundation/Debug (= 1.7.5)
-    - DTFoundation/DTAnimatedGIF (= 1.7.5)
-    - DTFoundation/DTASN1 (= 1.7.5)
-    - DTFoundation/DTAWS (= 1.7.5)
-    - DTFoundation/DTHTMLParser (= 1.7.5)
-    - DTFoundation/DTProgressHUD (= 1.7.5)
-    - DTFoundation/DTReachability (= 1.7.5)
-    - DTFoundation/DTScripting (= 1.7.5)
-    - DTFoundation/DTSidePanel (= 1.7.5)
-    - DTFoundation/DTSQLite (= 1.7.5)
-    - DTFoundation/DTUTI (= 1.7.5)
-    - DTFoundation/DTZipArchive (= 1.7.5)
-    - DTFoundation/Runtime (= 1.7.5)
-    - DTFoundation/UIKit (= 1.7.5)
-    - DTFoundation/UIKit_BlocksAdditions (= 1.7.5)
-  - DTFoundation/Core (1.7.5)
-  - DTFoundation/Debug (1.7.5):
-    - DTFoundation/Core
-    - DTFoundation/Runtime
-  - DTFoundation/DTAnimatedGIF (1.7.5)
-  - DTFoundation/DTASN1 (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTAWS (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTHTMLParser (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTProgressHUD (1.7.5):
-    - DTFoundation/Core
-    - DTFoundation/UIKit
-  - DTFoundation/DTReachability (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTScripting (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTSidePanel (1.7.5):
-    - DTFoundation/UIKit
-  - DTFoundation/DTSQLite (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/DTUTI (1.7.5)
-  - DTFoundation/DTZipArchive (1.7.5):
-    - DTFoundation/DTZipArchive/Minizip (= 1.7.5)
-  - DTFoundation/DTZipArchive/Minizip (1.7.5)
-  - DTFoundation/Runtime (1.7.5)
-  - DTFoundation/UIKit (1.7.5):
-    - DTFoundation/Core
-  - DTFoundation/UIKit_BlocksAdditions (1.7.5):
-    - DTFoundation/Core
   - FBSDKCoreKit (4.11.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.11.0):
@@ -116,9 +63,8 @@ PODS:
   - Stripe/Core (5.1.2)
 
 DEPENDENCIES:
+  - AFDateHelper
   - AFNetworking (= 2.6.0)
-  - DTCoreText (= 1.6.15)
-  - DTFoundation (= 1.7.5)
   - IQKeyboardManager (= 3.2.3)
   - JSBadgeView (= 1.4.1)
   - JSQMessagesViewController (= 7.0.1)
@@ -126,16 +72,15 @@ DEPENDENCIES:
   - KVNProgress (= 2.2.1)
   - MWFeedParser (= 1.0.1)
   - Parse (= 1.13.0)
-  - ParseFacebookUtilsV4
+  - ParseFacebookUtilsV4 (= 1.11.1)
   - ParseUI (= 1.2.0)
   - PulsingHalo (= 0.0.1)
   - Stripe (= 5.1.2)
 
 SPEC CHECKSUMS:
+  AFDateHelper: 3cf2296dc56cdc72af8fb8e73fb04ca0bd1999ae
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
-  DTCoreText: 13ce06e63204a3b47c9db974e3d9be982bb0b1ed
-  DTFoundation: 1d28080c20c3da041706545363f8238ab53a6204
   FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
   FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
@@ -150,4 +95,6 @@ SPEC CHECKSUMS:
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 9d371dc2aed10eb02ea0dcf9cbf05d966399cfb1
+
+COCOAPODS: 1.0.0

@@ -1,0 +1,6 @@
+framework module Pods_Corpboard {
+  umbrella header "Pods-Corpboard-umbrella.h"
+
+  export *
+  module * { export * }
+}

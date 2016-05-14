@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ParseUI
 
 class StoreItemTableViewController: UITableViewController, StoreItemSelectorProtocol, StoreProtocol {
 

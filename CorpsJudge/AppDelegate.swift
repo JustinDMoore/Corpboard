@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Stripe
+import IQKeyboardManager
+import ParseFacebookUtilsV4
 
 protocol messagesDelegate: class {
     func messageReceived()

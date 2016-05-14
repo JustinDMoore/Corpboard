@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import "JustinHelper.h"
-#import "KVNProgress.h"
+#import <KVNProgress/KVNProgress.h>
 
 @interface Configuration : NSObject
 
