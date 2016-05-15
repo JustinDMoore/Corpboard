@@ -123,7 +123,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         let imageView = UIImageView(frame: CGRectMake(130, 20, 20, 54))
-        imageView.image = UIImage(named: "corpboard_title.png")
+        imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
         self.navigationItem.titleView = imageView
     }
@@ -871,20 +871,53 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     //MARK:-
     //MARK: Actions
-
+    
+    @IBAction func btnProfile(sender: AnyObject) {
+        //must have an account to proceed
+        if profileActive() {
+            self.performSegueWithIdentifier("profile", sender: self)
+        } else {
+            signUp()
+        }
+    }
+    
+    @IBAction func btnMessages(sender: AnyObject) {
+        if profileActive() {
+            self.performSegueWithIdentifier("messages", sender: self)
+        } else {
+            signUp()
+        }
+    }
+    
+    @IBAction func btnChat(sender: AnyObject) {
+        if profileActive() {
+            self.performSegueWithIdentifier("chat", sender: self)
+        } else {
+            signUp()
+        }
+    }
+    
     @IBAction func near(sender: AnyObject) {
         //must have an account to proceed
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .Denied: self.tellUserToEnableLocation()
-            case .NotDetermined: self.askForLocationPermission()
-            case .AuthorizedAlways: self.performSegueWithIdentifier("find", sender: self)
-            case .Restricted: self.tellUserToEnableLocation()
-            default: break
+        if profileActive() {
+            if CLLocationManager.locationServicesEnabled() {
+                switch CLLocationManager.authorizationStatus() {
+                case .Denied: self.tellUserToEnableLocation()
+                case .NotDetermined: self.askForLocationPermission()
+                case .AuthorizedAlways: self.performSegueWithIdentifier("find", sender: self)
+                case .Restricted: self.tellUserToEnableLocation()
+                default: break
+                }
+            } else {
+                self.tellUserToEnableLocation()
             }
         } else {
-            self.tellUserToEnableLocation()
+            signUp()
         }
+    }
+    
+    @IBAction func btnTourMap(sender: AnyObject) {
+        self.performSegueWithIdentifier("tour", sender: self)
     }
     
     func askForLocationPermission() {
@@ -900,47 +933,19 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         viewLocation.show()
     }
     
-    @IBAction func btnProfile(sender: AnyObject) {
-        //must have an account to proceed
+    func profileActive() -> Bool {
+        if PFUser.currentUser() != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
-    @IBAction func btnChat(sender: AnyObject) {
-        //must have an account to proceed
-        self.performSegueWithIdentifier("chat", sender: self)
-    }
-    
-    @IBAction func btnFinalsContest(sender: AnyObject) {
-        //must have an account to proceed
-        //UIViewController *contestViewController = [[UIViewController alloc] init];
-        
-//        BOOL allowPredictions = [server.objAdmin[@"allowPredictions"] boolValue];
-//        
-//        if (allowPredictions) {
-//            
-//            PFUser *user = [PFUser currentUser];
-//            BOOL predicted = [user[@"predictionEntered"] boolValue];
-//            
-//            if (!predicted) {
-//                
-//                CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
-//                    
-//                    owner:self
-//                    
-//                    options:nil]
-//                
-//                objectAtIndex:0];
-//                
-//                viewPredict.parentNav = self.navigationController;
-//                [viewPredict show];
-//                [viewPredict setDelegate:self];
-//                
-//            } else {
-//                [self performSegueWithIdentifier:@"contest" sender:self];
-//            }
-//        } else {
-//            [self performSegueWithIdentifier:@"contest" sender:self];
-//        }
-        
+    func signUp() {
+        if let signUpView = NSBundle.mainBundle().loadNibNamed("CreateAccount", owner: self, options: nil).first as? CreateAccount {
+            signUpView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            signUpView.showInParent(self.navigationController!)
+        }
     }
     
     @IBAction func feedback(sender: AnyObject) {

@@ -49,7 +49,7 @@
 		9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */; };
 		9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBE61A209D8000FB40AB /* CBIsNewUser.m */; };
 		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
-		9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */; };
+		9253EBEC1A209F8300FB40AB /* CreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CreateAccount.m */; };
 		926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123611A59B9E200A6B755 /* CBProblemWhere.m */; };
 		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
 		9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9264B2691A34E91700E1838F /* ChatNameCell.xib */; };
@@ -81,6 +81,8 @@
 		92FE95371A74E10900D4A7D9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
 		9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */; };
+		9F9D68641CE70FAD0084878B /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68631CE70FAD0084878B /* CreateAccount.xib */; };
+		9F9D68681CE7EA310084878B /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68671CE7EA310084878B /* AppConstant.swift */; };
 		9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71C511CE65F2200C36A1C /* Launch Screen.storyboard */; };
 		9FC71C931CE6639500C36A1C /* AFDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C7F1CE6639500C36A1C /* AFDateExtension.swift */; };
 		9FC71C941CE6639500C36A1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C801CE6639500C36A1C /* AppDelegate.swift */; };
@@ -182,7 +184,6 @@
 		D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D066C20E1AF5CD4A00C84609 /* CBProblemWhereCell.m */; };
 		D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0681E141A8010080084EB42 /* CBNewsCell.xib */; };
 		D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */; };
-		D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */; };
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
 		D0893DAB1B87F60700BCD999 /* CBStoreItemSelectorType.m in Sources */ = {isa = PBXBuildFile; fileRef = D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */; };
@@ -347,8 +348,8 @@
 		9253EBE51A209D8000FB40AB /* CBIsNewUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBIsNewUser.h; sourceTree = "<group>"; };
 		9253EBE61A209D8000FB40AB /* CBIsNewUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBIsNewUser.m; sourceTree = "<group>"; };
 		9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBViewSignIn.xib; sourceTree = "<group>"; };
-		9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBViewSignIn.h; sourceTree = "<group>"; };
-		9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBViewSignIn.m; sourceTree = "<group>"; };
+		9253EBEA1A209F8300FB40AB /* CreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccount.h; sourceTree = "<group>"; };
+		9253EBEB1A209F8300FB40AB /* CreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccount.m; sourceTree = "<group>"; };
 		926123601A59B9E200A6B755 /* CBProblemWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhere.h; sourceTree = "<group>"; };
 		926123611A59B9E200A6B755 /* CBProblemWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhere.m; sourceTree = "<group>"; };
 		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
@@ -389,7 +390,6 @@
 		92E5C9C11A2EE19F0051207C /* CBNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewUser.xib; sourceTree = "<group>"; };
 		92EA0B841A93BF7700894C98 /* CBImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBImageViewController.h; sourceTree = "<group>"; };
 		92EA0B851A93BF7700894C98 /* CBImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBImageViewController.m; sourceTree = "<group>"; };
-		92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
 		92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEndShowViewController.h; sourceTree = "<group>"; };
 		92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEndShowViewController.m; sourceTree = "<group>"; };
 		92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
@@ -398,6 +398,8 @@
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
 		9F9D68591CE6C3E30084878B /* CadetsAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CadetsAnimation.m; path = CorpsJudge/CadetsAnimation.m; sourceTree = "<group>"; };
 		9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationServicesPermission.xib; sourceTree = "<group>"; };
+		9F9D68631CE70FAD0084878B /* CreateAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccount.xib; sourceTree = "<group>"; };
+		9F9D68671CE7EA310084878B /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		9FC71C511CE65F2200C36A1C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9FC71C7F1CE6639500C36A1C /* AFDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFDateExtension.swift; sourceTree = "<group>"; };
 		9FC71C801CE6639500C36A1C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -536,7 +538,6 @@
 		D0681E141A8010080084EB42 /* CBNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewsCell.xib; sourceTree = "<group>"; };
 		D0681E161A8048A70084EB42 /* CBCollectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCollectionFlowLayout.h; sourceTree = "<group>"; };
 		D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCollectionFlowLayout.m; sourceTree = "<group>"; };
-		D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CBLaunch.xib; path = CorpsJudge/CBLaunch.xib; sourceTree = "<group>"; };
 		D074E1531A6EEFCB00C1E300 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
@@ -870,7 +871,6 @@
 			isa = PBXGroup;
 			children = (
 				D0BA4FC81ABB149F0051310E /* Categories */,
-				92F0B5F91A2C6BE6005EA4B5 /* AppConstant.h */,
 				D02B39EA1969EB91005E14AC /* ILTranslucentView.h */,
 				D02B39EB1969EB91005E14AC /* ILTranslucentView.m */,
 				D0067A6619690AB300C372D0 /* Math.h */,
@@ -941,11 +941,9 @@
 			isa = PBXGroup;
 			children = (
 				92D01F371A30F14800929F35 /* Headers */,
-				D06F798D1A0C0AF100A1F3CD /* CBLaunch.xib */,
 				9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */,
 				9253EBE61A209D8000FB40AB /* CBIsNewUser.m */,
 				9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */,
-				9253EBEB1A209F8300FB40AB /* CBViewSignIn.m */,
 				92E5C9C11A2EE19F0051207C /* CBNewUser.xib */,
 				D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */,
 				D0F7E5201A1F351300AE500E /* CBEmailLogin.m */,
@@ -977,6 +975,8 @@
 				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
 				92A6AE681B053598000E2F55 /* CBAlertView.m */,
 				D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */,
+				9253EBEB1A209F8300FB40AB /* CreateAccount.m */,
+				9F9D68631CE70FAD0084878B /* CreateAccount.xib */,
 				D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */,
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
 				D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */,
@@ -1028,7 +1028,7 @@
 				D025CE451AE6BD35000021A6 /* CBMapCell.h */,
 				D025CE401AE6B10A000021A6 /* CBMapMenu.h */,
 				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
-				9253EBEA1A209F8300FB40AB /* CBViewSignIn.h */,
+				9253EBEA1A209F8300FB40AB /* CreateAccount.h */,
 				D0F7E51F1A1F351300AE500E /* CBEmailLogin.h */,
 				92620E361A21A302003EC5D8 /* CBNicknameView.h */,
 				927F4DF61A212BF5008CC143 /* CBProgressView.h */,
@@ -1079,6 +1079,7 @@
 			isa = PBXGroup;
 			children = (
 				923D4EE41A2C6DCF00E16B64 /* AppConstant.h */,
+				9F9D68671CE7EA310084878B /* AppConstant.swift */,
 				923D4EEC1A2C6DCF00E16B64 /* Classes */,
 				923D4F191A2C6DCF00E16B64 /* Resources */,
 			);
@@ -1525,6 +1526,7 @@
 				D03DCADA1B168A72005D326E /* CBPush.xib in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D036DA671B82B4C600746DD6 /* StoreItemCell.xib in Resources */,
+				9F9D68641CE70FAD0084878B /* CreateAccount.xib in Resources */,
 				D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */,
@@ -1585,7 +1587,6 @@
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
 				D04740511B870D2400ADC30E /* StoreItemSelector.xib in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
-				D06F798E1A0C0AF100A1F3CD /* CBLaunch.xib in Resources */,
 				D00E41541AE9DB0D00199974 /* finals6.png in Resources */,
 				923D4FC91A2C6DCF00E16B64 /* MessagesCell.xib in Resources */,
 				D0AA71491A42B4DB00875237 /* CBCorpExperienceList.xib in Resources */,
@@ -1750,6 +1751,7 @@
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
 				D03D64EF1B98E2C800C07B74 /* OrderStatus.swift in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
+				9F9D68681CE7EA310084878B /* AppConstant.swift in Sources */,
 				9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */,
 				92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */,
 				9FC71C9B1CE6639500C36A1C /* PBanner.swift in Sources */,
@@ -1767,7 +1769,7 @@
 				D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */,
 				9FC71C9C1CE6639500C36A1C /* PChat.swift in Sources */,
 				923D4FC81A2C6DCF00E16B64 /* MessagesCell.m in Sources */,
-				9253EBEC1A209F8300FB40AB /* CBViewSignIn.m in Sources */,
+				9253EBEC1A209F8300FB40AB /* CreateAccount.m in Sources */,
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */,

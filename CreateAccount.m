@@ -1,5 +1,5 @@
 //
-//  CBViewSignIn.m
+//  CreateAccount.m
 //  CorpBoard
 //
 //  Created by Isaias Favela on 11/22/14.
@@ -7,7 +7,7 @@
 //
 
 
-#import "CBViewSignIn.h"
+#import "CreateAccount.h"
 
 #import "AFNetworking.h"
 #import <Parse/Parse.h>
@@ -23,7 +23,7 @@
 #import "ParseErrors.h"
 
 
-@implementation CBViewSignIn
+@implementation CreateAccount
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -35,16 +35,8 @@
     return self;
 }
 
--(void)setTitleMessage:(NSString *)message {
-    self.lblTitle.text = message;
-}
-
--(void)setDelegate:(id)newDelegate {
-    delegate = newDelegate;
-}
-
 - (IBAction)btnBack_clicked:(id)sender {
-    [delegate SignInCancelled];
+    [self dismissView];
 }
 
 #pragma mark
@@ -52,18 +44,29 @@
 #pragma mark
 - (IBAction)btnFacebook_clicked:(id)sender {
     
-    [delegate loggingIn];
-    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
-        if (user != nil) {
-            if (user[PF_USER_FACEBOOKID] == nil) {
-                [self requestFacebook:user];
-            } else {
-                [self userLoggedIn:user];
-            }
+//    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+//        if (user != nil) {
+//            if (user[PF_USER_FACEBOOKID] == nil) {
+//                [self requestFacebook:user];
+//            } else {
+//                [self userLoggedIn:user];
+//            }
+//        } else {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//            [alert show];
+//        }
+//    }];
+    
+    NSArray *permissionsArray = @[ @"email", @"user_friends", @"user_birthday"];
+    
+    // Login PFUser using Facebook
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in through Facebook!");
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            [delegate errorLoggingIn];
+            NSLog(@"User logged in through Facebook!");
         }
     }];
 }
@@ -80,7 +83,6 @@
             [PFUser logOut];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
-            [delegate errorLoggingIn];
         }
     }];
 }
@@ -135,7 +137,6 @@
                 [PFUser logOut];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                [delegate errorLoggingIn];
             }
         }];
     }
@@ -149,21 +150,45 @@
 }
 
 - (void)userLoggedIn:(PFUser *)user {
-    
+    //FIXME: Add nickname to this view. Make sure it's unique.
     ParsePushUserAssign();
     BOOL needsNickname = NO;
     NSString *nickname = user[@"nickname"];
     if (![nickname length]) needsNickname = YES;
-    [delegate loginSuccessful:needsNickname];
 }
 
-#pragma mark
-#pragma mark - Email
-#pragma mark
-
-- (IBAction)btnEmail_clicked:(id)sender {
+-(void)showInParent:(UINavigationController *)parentNav {
     
-    [delegate emailSelected];
+    self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    
+    self.backgroundColor = [UIColor clearColor];
+
+    [parentNav.view addSubview:self];
+    [UIView animateWithDuration:0.25
+                          delay:0
+         usingSpringWithDamping:.9
+          initialSpringVelocity:.7
+                        options:0
+                     animations:^{
+                         self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+                     } completion:nil];
+}
+
+
+-(void)dismissView {
+    
+    [UIView animateWithDuration:0.25
+                          delay:0.09
+         usingSpringWithDamping:1
+          initialSpringVelocity:.7
+                        options:0
+                     animations:^{
+                         self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
+                     } completion:^(BOOL finished){
+                         
+                         [self removeFromSuperview];
+
+                     }];
 }
 
 @end

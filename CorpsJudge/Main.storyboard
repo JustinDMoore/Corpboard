@@ -1157,9 +1157,9 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYG-PI-V9P">
                                                             <rect key="frame" x="216" y="159" width="169" height="186"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corpboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X71-P0-nAq">
-                                                                    <rect key="frame" x="-24" y="158" width="219" height="38"/>
-                                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="31"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corpsboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X71-P0-nAq">
+                                                                    <rect key="frame" x="-7" y="160" width="185" height="38"/>
+                                                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="28"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -1213,15 +1213,15 @@
                                                                 <constraint firstItem="Ous-gB-1Zn" firstAttribute="leading" secondItem="GYG-PI-V9P" secondAttribute="leading" constant="22" id="5Ct-pj-mf8"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Dqs-6w-6Et" secondAttribute="bottom" constant="15" id="D33-zg-rss"/>
                                                                 <constraint firstItem="Ous-gB-1Zn" firstAttribute="top" secondItem="GYG-PI-V9P" secondAttribute="top" id="HAV-le-r3V"/>
-                                                                <constraint firstItem="X71-P0-nAq" firstAttribute="top" secondItem="Ous-gB-1Zn" secondAttribute="bottom" constant="30" id="Qm9-Jd-KNN"/>
-                                                                <constraint firstAttribute="bottom" secondItem="X71-P0-nAq" secondAttribute="bottom" constant="-10" id="ZBk-X1-pGH"/>
-                                                                <constraint firstAttribute="trailing" secondItem="X71-P0-nAq" secondAttribute="trailing" constant="-26" id="ZfQ-If-BzG"/>
+                                                                <constraint firstItem="X71-P0-nAq" firstAttribute="top" secondItem="Ous-gB-1Zn" secondAttribute="bottom" constant="32" id="Qm9-Jd-KNN"/>
+                                                                <constraint firstAttribute="bottom" secondItem="X71-P0-nAq" secondAttribute="bottom" constant="-12" id="ZBk-X1-pGH"/>
+                                                                <constraint firstAttribute="trailing" secondItem="X71-P0-nAq" secondAttribute="trailing" constant="-9" id="ZfQ-If-BzG"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Ous-gB-1Zn" secondAttribute="trailing" constant="24" id="eZn-7b-qmQ"/>
                                                                 <constraint firstAttribute="width" constant="169" id="m9r-Kv-zQ1"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Dqs-6w-6Et" secondAttribute="trailing" id="pxu-Si-D0F"/>
                                                                 <constraint firstAttribute="height" constant="186" id="vHf-6t-671"/>
                                                                 <constraint firstItem="Dqs-6w-6Et" firstAttribute="leading" secondItem="GYG-PI-V9P" secondAttribute="leading" id="vZp-B3-EBK"/>
-                                                                <constraint firstItem="X71-P0-nAq" firstAttribute="leading" secondItem="GYG-PI-V9P" secondAttribute="leading" constant="-24" id="zrY-Q4-zey"/>
+                                                                <constraint firstItem="X71-P0-nAq" firstAttribute="leading" secondItem="GYG-PI-V9P" secondAttribute="leading" constant="-7" id="zrY-Q4-zey"/>
                                                             </constraints>
                                                         </view>
                                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="Omx-9l-d7K">
@@ -2388,7 +2388,7 @@
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
                                                         <state key="normal" image="messages"/>
                                                         <connections>
-                                                            <segue destination="krs-FK-NiX" kind="show" identifier="messages" id="QrO-de-uLh"/>
+                                                            <action selector="btnMessages:" destination="603-gO-u9Q" eventType="touchUpInside" id="kp0-1f-BdT"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gg-9s-AhZ">
@@ -2405,14 +2405,6 @@
                                                             <action selector="btnProfile:" destination="603-gO-u9Q" eventType="touchUpInside" id="oqa-Y1-QTg"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ro-Wz-Ti8">
-                                                        <rect key="frame" x="205" y="10" width="35" height="35"/>
-                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
-                                                        <state key="normal" image="near"/>
-                                                        <connections>
-                                                            <action selector="near:" destination="603-gO-u9Q" eventType="touchUpInside" id="ixN-Hi-jNI"/>
-                                                        </connections>
-                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Near Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Du-23-6Ya">
                                                         <rect key="frame" x="191" y="42" width="63" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -2423,6 +2415,9 @@
                                                         <rect key="frame" x="271" y="10" width="35" height="35"/>
                                                         <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
                                                         <state key="normal" image="map"/>
+                                                        <connections>
+                                                            <action selector="btnTourMap:" destination="603-gO-u9Q" eventType="touchUpInside" id="VjS-P2-p6h"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tour Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnj-UG-zvc">
                                                         <rect key="frame" x="257" y="42" width="63" height="21"/>
@@ -2430,6 +2425,14 @@
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ro-Wz-Ti8">
+                                                        <rect key="frame" x="205" y="10" width="35" height="35"/>
+                                                        <inset key="titleEdgeInsets" minX="-35" minY="50" maxX="35" maxY="0.0"/>
+                                                        <state key="normal" image="near"/>
+                                                        <connections>
+                                                            <action selector="near:" destination="603-gO-u9Q" eventType="touchUpInside" id="ixN-Hi-jNI"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -3356,6 +3359,7 @@
                         <segue destination="671-6y-8zX" kind="custom" identifier="feedback" customClass="CBSegueNoAnimation" id="B9L-RN-ls5"/>
                         <segue destination="u0G-RF-HbE" kind="show" identifier="find" id="pIH-8i-jUf"/>
                         <segue destination="R9h-AD-VHj" kind="show" identifier="store" id="Oab-fr-vea"/>
+                        <segue destination="yG7-Vq-JyB" kind="show" identifier="tour" id="HHX-ig-YGP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3950,7 +3954,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9r-LG-JhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5416" y="-886"/>
+            <point key="canvasLocation" x="4600" y="-2004"/>
         </scene>
         <!--Cart Collection View Controller-->
         <scene sceneID="YJP-IZ-bhR">
@@ -5260,7 +5264,7 @@
         <image name="CameraRoll" width="48" height="48"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
         <image name="Chat" width="48" height="48"/>
-        <image name="DCI_CorpBoard1" width="600" height="600"/>
+        <image name="DCI_CorpBoard1" width="85" height="85"/>
         <image name="FLATRATE" width="320" height="100"/>
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>
