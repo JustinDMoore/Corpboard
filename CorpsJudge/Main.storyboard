@@ -1243,9 +1243,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If only your internet connection was as fast as a typical Cadets closer..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOn-rr-EtC">
-                                                            <rect key="frame" x="132" y="366" width="343" height="43"/>
+                                                            <rect key="frame" x="155" y="366" width="291" height="43"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="343" id="rJU-4y-gd6"/>
+                                                                <constraint firstAttribute="width" constant="291" id="rJU-4y-gd6"/>
                                                                 <constraint firstAttribute="height" constant="43" id="ycJ-BV-7pI"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -1259,7 +1259,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="5eM-4O-OgB" secondAttribute="bottom" constant="19" id="BTm-OT-yQW"/>
                                                         <constraint firstItem="5eM-4O-OgB" firstAttribute="centerX" secondItem="blJ-eA-QrR" secondAttribute="centerX" id="EJh-WY-Uf1"/>
                                                         <constraint firstItem="Omx-9l-d7K" firstAttribute="top" secondItem="GYG-PI-V9P" secondAttribute="bottom" constant="11" id="Il6-Y3-BQE"/>
-                                                        <constraint firstItem="WOn-rr-EtC" firstAttribute="centerX" secondItem="Omx-9l-d7K" secondAttribute="centerX" id="USJ-cW-tE9"/>
+                                                        <constraint firstItem="WOn-rr-EtC" firstAttribute="centerX" secondItem="Omx-9l-d7K" secondAttribute="centerX" constant="-3" id="USJ-cW-tE9"/>
                                                         <constraint firstAttribute="centerX" secondItem="GYG-PI-V9P" secondAttribute="centerX" constant="-0.5" id="kK4-I9-zui"/>
                                                         <constraint firstAttribute="centerY" secondItem="GYG-PI-V9P" secondAttribute="centerY" constant="48" id="rDn-s1-p0h"/>
                                                         <constraint firstItem="5eM-4O-OgB" firstAttribute="leading" secondItem="blJ-eA-QrR" secondAttribute="leading" constant="8" id="xT9-6e-Vdp"/>
