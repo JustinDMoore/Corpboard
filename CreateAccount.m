@@ -57,7 +57,7 @@
 //        }
 //    }];
     
-    NSArray *permissionsArray = @[ @"email", @"user_friends", @"user_birthday"];
+    NSArray *permissionsArray = @[ @"email", @"user_friends"];
     
     // Login PFUser using Facebook
     [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
