@@ -24,10 +24,11 @@
                                         <rect key="frame" x="6" y="143" width="240" height="56"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="contentEdgeInsets" minX="30" minY="7" maxX="0.0" maxY="0.0"/>
-                                        <inset key="titleEdgeInsets" minX="-50" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Sign Up" image="facebook"/>
+                                        <state key="normal" title="Sign Up"/>
                                         <connections>
                                             <action selector="btnFacebook_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="bYd-BZ-htr"/>
                                         </connections>
@@ -35,15 +36,15 @@
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3JY-CM-Qdh">
                                         <rect key="frame" x="6" y="31" width="240" height="130"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a profile, find nearby fans, and get access to live chats and private messages." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OX-Ri-XRq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Get access to profiles, nearby fans, live chats, and private messages." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OX-Ri-XRq">
                                                 <rect key="frame" x="4" y="68" width="232" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CREATE AN ACCOUNT WITH CORPSBOARD" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfm-Rj-L2r">
-                                                <rect key="frame" x="8" y="17" width="218" height="47"/>
-                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Corpsboard Account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfm-Rj-L2r">
+                                                <rect key="frame" x="8" y="20" width="218" height="47"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="21"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -67,6 +68,14 @@
                                         </state>
                                         <connections>
                                             <action selector="btnBack_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="T7T-92-HS5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFy-Do-zQh">
+                                        <rect key="frame" x="67" y="155" width="50" height="50"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="facebook"/>
+                                        <connections>
+                                            <action selector="btnFacebook_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="wkE-xe-rbR"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -99,6 +108,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnFacebook" destination="sFy-Do-zQh" id="8j7-zR-bmV"/>
                 <outlet property="btnImage" destination="GC2-cw-BKf" id="Z8W-ui-FM7"/>
                 <outlet property="btnSignUp" destination="xCv-Bi-QnJ" id="eDm-wn-EkT"/>
                 <outlet property="lblMessage" destination="7OX-Ri-XRq" id="5Oj-Jp-acX"/>
@@ -109,7 +119,7 @@
         </view>
     </objects>
     <resources>
-        <image name="facebook" width="48" height="48"/>
+        <image name="facebook" width="128" height="128"/>
         <image name="newuser" width="85" height="85"/>
     </resources>
 </document>

@@ -45,19 +45,6 @@
 #pragma mark
 - (IBAction)btnFacebook_clicked:(id)sender {
     
-//    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
-//        if (user != nil) {
-//            if (user[PF_USER_FACEBOOKID] == nil) {
-//                [self requestFacebook:user];
-//            } else {
-//                [self userLoggedIn:user];
-//            }
-//        } else {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            [alert show];
-//        }
-//    }];
-    
     NSArray *permissionsArray = @[ @"email", @"user_friends"];
     
     // Login PFUser using Facebook
@@ -164,6 +151,24 @@
 -(void)showInParent:(UINavigationController *)parentNav {
     
     
+    //DIALOG VIEW
+    //set dialog top rounded corners
+    UIBezierPath *shapePath2 = [UIBezierPath bezierPathWithRoundedRect:self.viewDialog.bounds
+                                                     byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+                                                           cornerRadii:CGSizeMake(10.0, 10.0)];
+    
+    
+    
+    CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
+    shapeLayer2.frame = self.viewDialog.bounds;
+    shapeLayer2.path = shapePath2.CGPath;
+    shapeLayer2.strokeColor = UIColor.whiteColor.CGColor;
+    shapeLayer2.fillColor = UISingleton.sharedInstance.maroon.CGColor;
+    [self.viewDialog.layer insertSublayer:shapeLayer2 below:self.lblMessage.layer];
+    
+    self.viewDialog.backgroundColor = UIColor.clearColor;
+    //[self bringSubviewToFront:self.lblMessage];
+    
     //BUTTON
     //set button bottom corners round
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRoundedRect:self.btnSignUp.bounds
@@ -174,35 +179,21 @@
     shapeLayer.frame = self.btnSignUp.bounds;
     shapeLayer.path = shapePath.CGPath;
     shapeLayer.fillColor = UISingleton.sharedInstance.gold.CGColor;
+    shapeLayer.strokeColor = UISingleton.sharedInstance.gold.CGColor;
+    shapeLayer.lineWidth = 1.0;
     [self.btnSignUp.layer insertSublayer:shapeLayer below:self.btnSignUp.imageView.layer];
 
-    //set dialog top rounded corners
-    UIBezierPath *shapePath2 = [UIBezierPath bezierPathWithRoundedRect:self.viewDialog.bounds
-                                                    byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-                                                          cornerRadii:CGSizeMake(10.0, 10.0)];
-    
-    
-    //DIALOG VIEW
-    CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
-    shapeLayer2.frame = self.viewDialog.bounds;
-    shapeLayer2.path = shapePath2.CGPath;
-    shapeLayer2.strokeColor = UIColor.whiteColor.CGColor;
-    shapeLayer2.fillColor = UISingleton.sharedInstance.maroon.CGColor;
-    [self.viewDialog.layer insertSublayer:shapeLayer2 below:self.lblMessage.layer];
-    
     //set image and button tint colors to match app
     self.btnImage.tintColor = UISingleton.sharedInstance.gold;
     [self.btnSignUp setBackgroundColor:UIColor.clearColor];
     self.btnSignUp.tintColor = UISingleton.sharedInstance.maroon;
-    
+    self.btnFacebook.tintColor = UISingleton.sharedInstance.maroon;
     
     //add top border line on button
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.btnSignUp.frame.size.width, 1)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.btnSignUp addSubview:lineView];
-    
-    self.viewDialog.backgroundColor = UIColor.clearColor;
-    [self bringSubviewToFront:self.lblMessage];
+
     
     self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     
@@ -210,15 +201,19 @@
 
     self.viewContainer.alpha = 0;
     self.btnSignUp.alpha = 0;
+    self.btnFacebook.alpha = 0;
+    
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    self.alpha = 0;
     
     [parentNav.view addSubview:self];
-    [UIView animateWithDuration:0.25
+    [UIView animateWithDuration:0.50
                           delay:0.0
          usingSpringWithDamping:.9
           initialSpringVelocity:.7
                         options:0
                      animations:^{
-                         self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+                         
                      } completion:^(BOOL finished){
                          
                          self.viewContainer.transform = CGAffineTransformScale(self.viewDialog.transform, 0.8, 0.8);
@@ -229,6 +224,7 @@
                                initialSpringVelocity:0.7
                                              options:0
                                           animations:^{
+                                              self.alpha = 1;
                                               self.viewContainer.alpha = 1;
                                               self.viewContainer.transform = CGAffineTransformIdentity;
                                               
@@ -237,6 +233,7 @@
                                           }];
                          
                          self.btnSignUp.frame = CGRectMake(self.btnSignUp.frame.origin.x, self.btnSignUp.frame.origin.y - self.btnSignUp.frame.size.height, self.btnSignUp.frame.size.width, self.btnSignUp.frame.size.height);
+                         self.btnFacebook.frame = CGRectMake(self.btnFacebook.frame.origin.x, self.btnFacebook.frame.origin.y - self.btnSignUp.frame.size.height, self.btnFacebook.frame.size.width, self.btnFacebook.frame.size.height);
                          
                          [UIView animateWithDuration:0.25
                                                delay:0.05
@@ -245,6 +242,9 @@
                                               
                                               self.btnSignUp.alpha = 1;
                                               self.btnSignUp.frame = CGRectMake(self.btnSignUp.frame.origin.x, self.btnSignUp.frame.origin.y + self.btnSignUp.frame.size.height, self.btnSignUp.frame.size.width, self.btnSignUp.frame.size.height);
+                                              
+                                              self.btnFacebook.alpha = 1;
+                                              self.btnFacebook.frame = CGRectMake(self.btnFacebook.frame.origin.x, self.btnFacebook.frame.origin.y + self.btnSignUp.frame.size.height, self.btnFacebook.frame.size.width, self.btnFacebook.frame.size.height);
                                               
                                           } completion:^(BOOL finished) {
                                               

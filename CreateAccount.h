@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @property (weak, nonatomic) IBOutlet UILabel *lblMessage;
+@property (weak, nonatomic) IBOutlet UIButton *btnFacebook;
 
 -(void)showInParent:(UINavigationController *)parentNav;
 
