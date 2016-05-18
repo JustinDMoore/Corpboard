@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import MWFeedParser
 
-class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, delegateLocationServices, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile {
+class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices {
 
     enum scrollDir {
         case None
@@ -21,6 +21,15 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         case Up
         case Down
         case Crazy
+    }
+    
+    enum opening {
+        case None
+        case Profile
+        case Messages
+        case LiveChat
+        case NearMe
+        case Map
     }
     
     //MARK:-
@@ -58,6 +67,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     var isScrolling = false
     var scrollDirection = scrollDir.None
     var bannerCounter = 0
+    var tryingToOpen = opening.None
     
     //MARK:-
     //MARK:Outlets
@@ -873,6 +883,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //MARK: Actions
     
     @IBAction func btnProfile(sender: AnyObject) {
+        self.openProfile()
+    }
+    
+    func openProfile() {
+        self.tryingToOpen = .Profile
         //must have an account to proceed
         if profileActive() {
             self.performSegueWithIdentifier("profile", sender: self)
@@ -882,6 +897,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func btnMessages(sender: AnyObject) {
+        self.openMessages()
+    }
+    
+    func openMessages() {
+        self.tryingToOpen = .Messages
         if profileActive() {
             self.performSegueWithIdentifier("messages", sender: self)
         } else {
@@ -890,6 +910,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func btnChat(sender: AnyObject) {
+        self.openChat()
+    }
+    
+    func openChat() {
+        self.tryingToOpen = .LiveChat
         if profileActive() {
             self.performSegueWithIdentifier("chat", sender: self)
         } else {
@@ -898,13 +923,23 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func near(sender: AnyObject) {
+        self.openMap()
+    }
+    
+    func openNearMe() {
+        self.tryingToOpen = .NearMe
+        self.checkLocationServicesThenResume()
+    }
+    
+    func checkLocationServicesThenResume() {
+
         //must have an account to proceed
         if profileActive() {
             if CLLocationManager.locationServicesEnabled() {
                 switch CLLocationManager.authorizationStatus() {
                 case .Denied: self.tellUserToEnableLocation()
                 case .NotDetermined: self.askForLocationPermission()
-                case .AuthorizedAlways: self.performSegueWithIdentifier("find", sender: self)
+                case .AuthorizedAlways: self.resumeOpening()
                 case .Restricted: self.tellUserToEnableLocation()
                 default: break
                 }
@@ -917,20 +952,26 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func btnTourMap(sender: AnyObject) {
-        self.performSegueWithIdentifier("tour", sender: self)
+        self.openMap()
+    }
+    
+    func openMap() {
+        self.tryingToOpen = .Map
+        self.checkLocationServicesThenResume()
     }
     
     func askForLocationPermission() {
-        let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil) as! LocationServicesPermission
-        viewLocation.parentNav = self.navigationController
-        viewLocation.show()
-        viewLocation.delegateLocation = self
+        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
+            viewLocation.showInParent(self.navigationController)
+            viewLocation.setDelegate(self)
+        }
     }
     
     func tellUserToEnableLocation() {
-        let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil) as! LocationServicesDisabled
-        viewLocation.parentNav = self.navigationController!
-        viewLocation.show()
+        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
+            viewLocation.parentNav = self.navigationController!
+            viewLocation.show()
+        }
     }
     
     func profileActive() -> Bool {
@@ -1122,11 +1163,23 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         
     }
     
-    
-   
-    
-    
     //TODO: Double check to make sure lazy inits aren't required on some of the properties
     
+    //MARK:-
+    //MARK:locationDelegate
     
+    func locationAllowed() {
+        self.resumeOpening()
+    }
+    
+    func resumeOpening() {
+        switch tryingToOpen {
+        case .Profile: self.openProfile()
+        case .LiveChat: self.openChat()
+        case .Map: self.openMap()
+        case .Messages: self.openMessages()
+        case .NearMe: self.openNearMe()
+        default: break
+        }
+    }
 }

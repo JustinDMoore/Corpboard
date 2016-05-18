@@ -19,11 +19,15 @@
     id delegate;
 }
 
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
+@property (weak, nonatomic) IBOutlet UIButton *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
 @property (nonatomic, strong) UIVisualEffectView *viewBlur;
-@property (nonatomic, strong) IBOutlet UIButton *btnAllowPush;
 @property (nonatomic, strong) UIView *parentNav;
 
--(void)show;
 -(void)setDelegate:(id)newDelegate;
+-(void)showInParent:(UINavigationController *)parentNav;
 
 @end

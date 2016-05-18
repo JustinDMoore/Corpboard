@@ -79,7 +79,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [queryUsers whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     //[queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint];
     [queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint withinMiles:3000];
-    queryUsers.limit = 1000;
+    queryUsers.limit = 100;
     [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [self.arrayOfUsers removeAllObjects];

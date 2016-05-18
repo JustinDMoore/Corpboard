@@ -20,6 +20,7 @@
 #import "CBNewsCell.h"
 #import "CBPush.h"
 #import "CreateAccount.h"
+#import "LocationServicesPermission.h"
 
 // pods
 

@@ -40,6 +40,10 @@
     [self dismissView];
 }
 
+-(void)setDelegate:(id)newDelegate {
+    delegate = newDelegate;
+}
+
 #pragma mark
 #pragma mark - Facebook
 #pragma mark
@@ -57,7 +61,7 @@
             [self requestFacebook:user];
         } else {
             NSLog(@"User logged in through Facebook!");
-                    [self dismissView];
+            [self dismissView];
         }
     }];
 }

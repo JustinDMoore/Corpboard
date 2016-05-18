@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,110 +8,96 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="xhe-dg-vOA" customClass="CBPushNotifications">
-            <rect key="frame" x="0.0" y="0.0" width="386" height="457"/>
+            <rect key="frame" x="0.0" y="0.0" width="386" height="665"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dtd-1c-vsM">
-                    <rect key="frame" x="64" y="24" width="258" height="409"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score Updates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8b-Hp-Kuz">
-                            <rect key="frame" x="43" y="110" width="173" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="173" id="QYq-ea-k5T"/>
-                                <constraint firstAttribute="height" constant="21" id="dUf-hh-Xj2"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="push" translatesAutoresizingMaskIntoConstraints="NO" id="oGc-wm-rGL">
-                            <rect key="frame" x="80" y="144" width="99" height="65"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="99" id="bsf-zU-xZH"/>
-                                <constraint firstAttribute="height" constant="65" id="fnv-9b-pMm"/>
-                            </constraints>
-                        </imageView>
-                    </subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JbD-o8-Hv5">
+                    <rect key="frame" x="0.0" y="0.0" width="386" height="665"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="e0a-Ng-6Dp">
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="665"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXA-g7-2li">
+                                <rect key="frame" x="67" y="203" width="253" height="260"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPF-UB-e87">
+                                        <rect key="frame" x="6" y="143" width="240" height="56"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Notify Me"/>
+                                    </button>
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQX-Lo-pXS">
+                                        <rect key="frame" x="6" y="31" width="240" height="130"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Get notified if someone messages you or when scores are posted." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWW-8d-0kx">
+                                                <rect key="frame" x="4" y="68" width="232" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Corpsboard Updates" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-2x-dOe">
+                                                <rect key="frame" x="8" y="20" width="218" height="47"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="21"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUs-Ih-kf5">
+                                        <rect key="frame" x="83" y="222" width="87" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <state key="normal" title="Not Now">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDP-88-UM0">
+                                        <rect key="frame" x="76" y="-32" width="100" height="100"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="push"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="253" id="CEc-7w-RKQ"/>
+                                    <constraint firstAttribute="height" constant="260" id="YrC-LD-Z72"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rXA-g7-2li" firstAttribute="centerX" secondItem="e0a-Ng-6Dp" secondAttribute="centerX" id="TI2-er-SGr"/>
+                            <constraint firstItem="rXA-g7-2li" firstAttribute="centerY" secondItem="e0a-Ng-6Dp" secondAttribute="centerY" id="UZF-ze-KSg"/>
+                        </constraints>
+                    </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="409" id="Obb-Py-Sqc"/>
-                        <constraint firstItem="oGc-wm-rGL" firstAttribute="centerX" secondItem="Q8b-Hp-Kuz" secondAttribute="centerX" id="VZW-Ns-2LB"/>
-                        <constraint firstItem="oGc-wm-rGL" firstAttribute="top" secondItem="Q8b-Hp-Kuz" secondAttribute="bottom" constant="13" id="pEE-ll-LxE"/>
-                        <constraint firstAttribute="width" constant="258" id="xXZ-42-s8a"/>
-                    </constraints>
-                </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="corpboard_cadets_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="O81-MW-ZOQ">
-                    <rect key="frame" x="133" y="35" width="120" height="85"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="85" id="jXz-Vo-GBV"/>
-                        <constraint firstAttribute="width" constant="120" id="vCG-db-WWw"/>
-                    </constraints>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1a-KI-XYT">
-                    <rect key="frame" x="163" y="361" width="61" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="gm0-OP-8Vl"/>
-                        <constraint firstAttribute="width" constant="61" id="k4N-2r-iuw"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="Not Now">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnNotNow_tapped:" destination="xhe-dg-vOA" eventType="touchUpInside" id="1e8-UJ-0jX"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhB-Yt-K1W">
-                    <rect key="frame" x="107" y="309" width="172" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="172" id="RC7-O6-ynv"/>
-                        <constraint firstAttribute="height" constant="44" id="lWH-Xn-i32"/>
-                    </constraints>
-                    <state key="normal" title="Notify Me">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnAllowPush_tapped:" destination="xhe-dg-vOA" eventType="touchUpInside" id="CrD-8J-nVg"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to be notified when scores are posted or when someone messages you?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqh-CX-6p2">
-                    <rect key="frame" x="84" y="245" width="218" height="56"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="56" id="UTX-6z-YuB"/>
-                        <constraint firstAttribute="width" constant="218" id="mvx-Z6-WGP"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="tqh-CX-6p2" firstAttribute="top" secondItem="oGc-wm-rGL" secondAttribute="bottom" constant="12" id="6Lv-Hx-dFU"/>
-                <constraint firstItem="Dtd-1c-vsM" firstAttribute="top" secondItem="O81-MW-ZOQ" secondAttribute="bottom" constant="-96" id="86C-gX-mYj"/>
-                <constraint firstItem="YhB-Yt-K1W" firstAttribute="centerX" secondItem="d1a-KI-XYT" secondAttribute="centerX" constant="-0.5" id="MGQ-TD-aPp"/>
-                <constraint firstItem="Q8b-Hp-Kuz" firstAttribute="top" secondItem="O81-MW-ZOQ" secondAttribute="bottom" constant="14" id="Po1-5U-nyt"/>
-                <constraint firstItem="oGc-wm-rGL" firstAttribute="centerX" secondItem="tqh-CX-6p2" secondAttribute="centerX" constant="0.5" id="YvM-i5-HaH"/>
-                <constraint firstAttribute="centerX" secondItem="O81-MW-ZOQ" secondAttribute="centerX" id="mGT-nV-845"/>
-                <constraint firstAttribute="centerX" secondItem="Dtd-1c-vsM" secondAttribute="centerX" id="oYh-4n-Apw"/>
-                <constraint firstItem="O81-MW-ZOQ" firstAttribute="centerX" secondItem="Q8b-Hp-Kuz" secondAttribute="centerX" constant="-0.5" id="p3B-bD-xyT"/>
-                <constraint firstItem="YhB-Yt-K1W" firstAttribute="centerX" secondItem="tqh-CX-6p2" secondAttribute="centerX" id="t3i-QH-wvV"/>
-                <constraint firstItem="YhB-Yt-K1W" firstAttribute="top" secondItem="tqh-CX-6p2" secondAttribute="bottom" constant="8" id="tii-rc-KQY"/>
-                <constraint firstAttribute="centerY" secondItem="Dtd-1c-vsM" secondAttribute="centerY" id="u6z-g9-I7v"/>
-                <constraint firstItem="d1a-KI-XYT" firstAttribute="top" secondItem="YhB-Yt-K1W" secondAttribute="bottom" constant="8" id="z00-AM-1y9"/>
+                <constraint firstItem="JbD-o8-Hv5" firstAttribute="leading" secondItem="xhe-dg-vOA" secondAttribute="leading" id="6Vt-Xp-puW"/>
+                <constraint firstItem="JbD-o8-Hv5" firstAttribute="top" secondItem="xhe-dg-vOA" secondAttribute="top" id="G1T-nN-jDv"/>
+                <constraint firstAttribute="bottom" secondItem="JbD-o8-Hv5" secondAttribute="bottom" id="VdX-ti-s7O"/>
+                <constraint firstAttribute="trailing" secondItem="JbD-o8-Hv5" secondAttribute="trailing" id="bel-1A-UfR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnAllowPush" destination="YhB-Yt-K1W" id="6ra-KU-M8E"/>
+                <outlet property="btnImage" destination="aDP-88-UM0" id="K91-v8-Czf"/>
+                <outlet property="btnSignUp" destination="wPF-UB-e87" id="4u5-PQ-xfr"/>
+                <outlet property="lblMessage" destination="qWW-8d-0kx" id="8Rd-Qh-vqO"/>
+                <outlet property="viewContainer" destination="rXA-g7-2li" id="d2i-uK-U3F"/>
+                <outlet property="viewDialog" destination="dQX-Lo-pXS" id="3eb-LS-4lD"/>
             </connections>
-            <point key="canvasLocation" x="-379" y="178.5"/>
+            <point key="canvasLocation" x="-379" y="282.5"/>
         </view>
     </objects>
     <resources>
-        <image name="corpboard_cadets_transparent" width="250" height="250"/>
         <image name="push" width="85" height="85"/>
     </resources>
 </document>

@@ -1,26 +1,28 @@
 //
-//  CBPushNotifications.m
-//  Corpboard
+//  LocationServicesPermission.m
+//  CorpBoard
 //
-//  Created by Justin Moore on 5/23/15.
-//  Copyright (c) 2015 Justin Moore. All rights reserved.
+//  Created by Justin Moore on 5/17/16.
+//  Copyright © 2016 Justin Moore. All rights reserved.
 //
 
-#import "CBPushNotifications.h"
-#import <Parse/Parse.h>
+#import "LocationServicesPermission.h"
 #import "Corpsboard-Swift.h"
 
-@implementation CBPushNotifications 
+@implementation LocationServicesPermission
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-    }
-    return self;
+- (IBAction)btnNotNow:(id)sender {
+    [self dismissView];
 }
 
--(void)setDelegate:(id)newDelegate{
+- (IBAction)btnAllowLocation:(id)sender {
+    [self dismissView];
+    if ([delegate respondsToSelector:@selector(locationAllowed)]) {
+        [delegate locationAllowed];
+    }
+}
+
+-(void)setDelegate:(id)newDelegate {
     delegate = newDelegate;
 }
 
@@ -122,8 +124,7 @@
                      }];
 }
 
-
--(void)dismissView:(BOOL)allow {
+-(void)dismissView {
     
     [UIView animateWithDuration:0.25
                           delay:0.09
@@ -131,51 +132,12 @@
           initialSpringVelocity:.7
                         options:0
                      animations:^{
-                         self.viewBlur.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
+                         self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
                      } completion:^(BOOL finished){
                          
-                         [self.viewBlur removeFromSuperview];
-                         if (allow) {
-                             if ([delegate respondsToSelector:@selector(allowPush)]) {
-                                 [delegate allowPush];
-                             }
-                         } else {
-                             if ([delegate respondsToSelector:@selector(denyPush)]) {
-                                 [delegate denyPush];
-                             }
-                         }
+                         [self removeFromSuperview];
+                         
                      }];
 }
-
-#pragma mark
-#pragma mark - Actions
-#pragma mark
-
-- (IBAction)btnNotNow_tapped:(id)sender {
-    
-    [self dismissView:NO];
-}
-
-- (IBAction)btnAllowPush_tapped:(id)sender {
-    
-    [self setUpPush];
-    [self dismissView:YES];
-}
-
--(void)setUpPush {
-
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
-
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-
-    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-    [Server.sharedInstance setParsePush:pushAllowed];
-}
-
 
 @end

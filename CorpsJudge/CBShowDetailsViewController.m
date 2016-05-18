@@ -181,7 +181,7 @@ typedef enum : int {
                                                                          options:nil]
                                              objectAtIndex:0];
             viewPush.parentNav = self.view;
-            [viewPush show];
+            [viewPush showInParent:self.navigationController];
             [viewPush setDelegate:self];
 
         }

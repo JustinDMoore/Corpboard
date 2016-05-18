@@ -1,18 +1,18 @@
 //
-//  CreateAccount.h
+//  LocationServicesPermission.h
 //  CorpBoard
 //
-//  Created by Isaias Favela on 11/22/14.
-//  Copyright (c) 2014 Justin Moore. All rights reserved.
+//  Created by Justin Moore on 5/17/16.
+//  Copyright © 2016 Justin Moore. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@protocol delegateCreateAccount <NSObject>
--(void)accountCreated;
+@protocol delegateLocationServices <NSObject>
+-(void)locationAllowed;
 @end
 
-@interface CreateAccount : UIView {
+@interface LocationServicesPermission : UIView {
     id delegate;
 }
 
@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @property (weak, nonatomic) IBOutlet UILabel *lblMessage;
-@property (weak, nonatomic) IBOutlet UIButton *btnFacebook;
 
 -(void)showInParent:(UINavigationController *)parentNav;
 -(void)setDelegate:(id)newDelegate;
