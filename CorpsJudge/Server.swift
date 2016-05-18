@@ -569,4 +569,26 @@ protocol delegateUserProfile: class {
         currentInstallation["chatRooms"] = []
         currentInstallation.saveInBackground()
     }
+    
+    
+    //MARK:-
+    //MARK:Push Notifications
+    
+    func setUpPushNotifications() {
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+        let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(pushNotificationSettings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        let pushAllowed = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
+        self.setParsePush(pushAllowed)
+    }
+    
+    func setParsePush(on: Bool) {
+        let install = PFInstallation.currentInstallation()
+        let allowsPush = install["allowsPush"] as! Bool
+        if allowsPush != on {
+            install["allowsPush"] = on
+            install.saveEventually()
+        }
+    }
 }

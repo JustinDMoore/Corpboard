@@ -7,6 +7,8 @@
 //
 
 #import "CBPushNotifications.h"
+#import <Parse/Parse.h>
+#import "Corpsboard-Swift.h"
 
 @implementation CBPushNotifications 
 
@@ -90,7 +92,24 @@
 
 - (IBAction)btnAllowPush_tapped:(id)sender {
     
+    [self setUpPush];
     [self dismissView:YES];
 }
+
+-(void)setUpPush {
+
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+
+    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    [Server.sharedInstance setParsePush:pushAllowed];
+}
+
 
 @end

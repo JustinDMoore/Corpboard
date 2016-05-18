@@ -12,9 +12,11 @@ import UIKit
 @objc class UISingleton: NSObject {
     
     static let sharedInstance = UISingleton()
-    
-    //let appTint = UIColor(colorLiteralRed: 0/255.0, green: 174/255.0, blue: 237/255.0, alpha: 1)
-    let appTint = UIColor.redColor()
+
+    let maroon = UIColor(colorLiteralRed: 97/255.0, green: 22/255.0, blue: 26/255.0, alpha: 1)
+    let gold = UIColor(colorLiteralRed: 199/255.0, green: 143/255.0, blue: 48/255.0, alpha: 1)
+    let appTint = UIColor(colorLiteralRed: 0/255.0, green: 174/255.0, blue: 237/255.0, alpha: 1)
+    //let appTint = UIColor.redColor()
     
     func getBackButton() -> UIButton {
         let backBtn = UIButton(type: .Custom)
