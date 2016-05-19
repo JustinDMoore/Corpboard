@@ -21,6 +21,7 @@
 #import "CBPush.h"
 #import "CreateAccount.h"
 #import "LocationServicesPermission.h"
+#import "LocationServicesDisabled.h"
 
 // pods
 

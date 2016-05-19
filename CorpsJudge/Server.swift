@@ -19,6 +19,11 @@ protocol delegateUserProfile: class {
     func updateUserMessages()
 }
 
+@objc protocol delegateUserLocation: class {
+    func userLocationUpdated()
+    func userLocationError()
+}
+
 //TODO: Remove @objc
 @objc class Server: NSObject, delegateNews {
     
@@ -32,6 +37,7 @@ protocol delegateUserProfile: class {
 
     weak var delegateInitial: delegateInitialAppLoad?
     weak var delegateUser: delegateUserProfile?
+    weak var delegateLocation: delegateUserLocation?
     var userTotal = 0, usersOnline = 0
     var objAdmin: PAppSetting?
     var adminMode = false
@@ -216,6 +222,28 @@ protocol delegateUserProfile: class {
     }
     
     func updateUserLocation() {
+        //make sure location is enabled, if not, set installationAllowsLocation to false, then bail
+        switch CLLocationManager.authorizationStatus() {
+        case .Denied:
+            self.setInstallationLocationAllowed(false)
+            self.delegateInitial?.updateProgress()
+            self.delegateLocation?.userLocationError()
+            print("3. User did not allow location services.")
+            return
+        case .AuthorizedAlways:
+            break
+        case .AuthorizedWhenInUse:
+            break
+        case .NotDetermined:
+            break
+        case .Restricted:
+            self.setInstallationLocationAllowed(false)
+            self.delegateInitial?.updateProgress()
+            self.delegateLocation?.userLocationError()
+            print("3. User did not allow location services.")
+            return
+        }
+        
         if PFUser.currentUser() != nil {
             PFGeoPoint.geoPointForCurrentLocationInBackground { (geo: PFGeoPoint?, err: NSError?) in
                 if let error = err {
@@ -235,6 +263,7 @@ protocol delegateUserProfile: class {
                                 self.setInstallationLocationAllowed(true)
                                 self.delegateInitial?.updateProgress()
                                 print("3. User location updated.")
+                                self.delegateLocation?.userLocationUpdated()
                             }
                     })
                 }
@@ -242,6 +271,7 @@ protocol delegateUserProfile: class {
         } else {
             self.delegateInitial?.updateProgress()
             print("3. Anonymous user cannot update location. This is ok.")
+            self.delegateLocation?.userLocationError()
         }
     }
     

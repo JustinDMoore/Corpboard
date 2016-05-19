@@ -184,7 +184,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         self.progressTimerCount += 1
         self.factTimerCount += 1
         print("Timer: '\(self.factTimerCount)")
-        if self.progressTimerCount == 7 {
+        if self.progressTimerCount == 10 {
             let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfLoadMessages.count)))
             self.lblLongerThanNormal.text = self.arrayOfLoadMessages[randomIndex]
             self.lblLongerThanNormal.alpha = 0

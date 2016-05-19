@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import "Corpsboard-Swift.h"
 
-@interface CBConnectViewController : UICollectionViewController
+@interface CBConnectViewController : UICollectionViewController <delegateUserLocation>
 @property (nonatomic, strong) NSMutableArray *arrayOfUsers;
 @end

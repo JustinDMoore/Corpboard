@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import MWFeedParser
 
-class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices, delegateCreateAccount {
+class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices, delegateCreateAccount, delegateUserLocation {
 
     enum scrollDir {
         case None
@@ -927,7 +927,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func near(sender: AnyObject) {
-        self.openMap()
+        self.openNearMe()
     }
     
     func openNearMe() {
@@ -941,11 +941,16 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if profileActive() {
             if CLLocationManager.locationServicesEnabled() {
                 switch CLLocationManager.authorizationStatus() {
-                case .Denied: self.tellUserToEnableLocation()
-                case .NotDetermined: self.askForLocationPermission()
-                case .AuthorizedAlways: self.resumeOpening()
-                case .Restricted: self.tellUserToEnableLocation()
-                default: break
+                case .Denied:
+                    self.tellUserToEnableLocation()
+                case .AuthorizedWhenInUse:
+                    self.performSegueWithIdentifier("find", sender: self)
+                case .NotDetermined:
+                    self.askForLocationPermission()
+                case .AuthorizedAlways:
+                    self.performSegueWithIdentifier("find", sender: self)
+                case .Restricted:
+                    self.tellUserToEnableLocation()
                 }
             } else {
                 self.tellUserToEnableLocation()
@@ -973,8 +978,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     func tellUserToEnableLocation() {
         if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
-            viewLocation.parentNav = self.navigationController!
-            viewLocation.show()
+            viewLocation.showInParent(self.navigationController)
         }
     }
     
@@ -1155,13 +1159,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     func locationGranted() {
         if CLLocationManager.locationServicesEnabled() {
+            // after the user's location is updated, the delegate loads the page
+            Server.sharedInstance.delegateLocation = self
             Server.sharedInstance.updateUserLocation()
             Server.sharedInstance.updateUserLastLogin()
-            switch CLLocationManager.authorizationStatus() {
-            case .AuthorizedAlways: self.performSegueWithIdentifier("find", sender: self)
-            case .AuthorizedWhenInUse: self.performSegueWithIdentifier("find", sender: self)
-            default: break
-            }
         }
     }
     
@@ -1186,10 +1187,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //TODO: Double check to make sure lazy inits aren't required on some of the properties
     
     //MARK:-
-    //MARK:delegateLocation
+    //MARK:delegateLocationServices
     
     func locationAllowed() {
-        self.resumeOpening()
+        self.locationGranted()
     }
     
     
@@ -1210,4 +1211,19 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         default: break
         }
     }
+    
+    //MARK:-
+    //MARK:delegateUserLocation
+    
+    func userLocationUpdated() {
+        self.openNearMe()
+    }
+    
+    func userLocationError() {
+        let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+ 
+    
 }

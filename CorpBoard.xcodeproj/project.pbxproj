@@ -88,7 +88,6 @@
 		9FC71C931CE6639500C36A1C /* AFDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C7F1CE6639500C36A1C /* AFDateExtension.swift */; };
 		9FC71C941CE6639500C36A1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C801CE6639500C36A1C /* AppDelegate.swift */; };
 		9FC71C951CE6639500C36A1C /* CadetsLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C811CE6639500C36A1C /* CadetsLoadingViewController.swift */; };
-		9FC71C961CE6639500C36A1C /* LocationServicesDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C821CE6639500C36A1C /* LocationServicesDisabled.swift */; };
 		9FC71C981CE6639500C36A1C /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C841CE6639500C36A1C /* News.swift */; };
 		9FC71C991CE6639500C36A1C /* PAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C851CE6639500C36A1C /* PAppMessage.swift */; };
 		9FC71C9A1CE6639500C36A1C /* PAppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C861CE6639500C36A1C /* PAppSetting.swift */; };
@@ -106,6 +105,7 @@
 		9FC71CA61CE6639500C36A1C /* UISingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C921CE6639500C36A1C /* UISingleton.swift */; };
 		9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */; };
 		9FC71CB11CE6ABDD00C36A1C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */; };
+		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		BC3592D8010020D54B19646C /* Pods_Corpboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4516266754101E78A9611302 /* Pods_Corpboard.framework */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
@@ -231,7 +231,6 @@
 		D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */; };
 		D0D777451B116A6700D4EF6A /* CBLocationServices.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D777441B116A6700D4EF6A /* CBLocationServices.m */; };
 		D0D777471B117BF000D4EF6A /* LocationServicesDisabled.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D777461B117BF000D4EF6A /* LocationServicesDisabled.xib */; };
-		D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */; };
 		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
 		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
@@ -406,7 +405,6 @@
 		9FC71C7F1CE6639500C36A1C /* AFDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFDateExtension.swift; sourceTree = "<group>"; };
 		9FC71C801CE6639500C36A1C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FC71C811CE6639500C36A1C /* CadetsLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CadetsLoadingViewController.swift; sourceTree = "<group>"; };
-		9FC71C821CE6639500C36A1C /* LocationServicesDisabled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabled.swift; sourceTree = "<group>"; };
 		9FC71C841CE6639500C36A1C /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		9FC71C851CE6639500C36A1C /* PAppMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PAppMessage.swift; sourceTree = "<group>"; };
 		9FC71C861CE6639500C36A1C /* PAppSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PAppSetting.swift; sourceTree = "<group>"; };
@@ -424,6 +422,8 @@
 		9FC71C921CE6639500C36A1C /* UISingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleton.swift; sourceTree = "<group>"; };
 		9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = RockyPoint.mp3; sourceTree = "<group>"; };
 		9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesDisabled.h; sourceTree = "<group>"; };
+		9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesDisabled.m; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
@@ -613,8 +613,6 @@
 		D0D777431B116A6700D4EF6A /* CBLocationServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationServices.h; sourceTree = "<group>"; };
 		D0D777441B116A6700D4EF6A /* CBLocationServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationServices.m; sourceTree = "<group>"; };
 		D0D777461B117BF000D4EF6A /* LocationServicesDisabled.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LocationServicesDisabled.xib; path = ../LocationServicesDisabled.xib; sourceTree = "<group>"; };
-		D0D777481B117C0200D4EF6A /* CBLocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLocationServicesDisabled.h; sourceTree = "<group>"; };
-		D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBLocationServicesDisabled.m; sourceTree = "<group>"; };
 		D0DF7FDC1AB360360095BA4E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D0DF7FDE1AB361AB0095BA4E /* CBTourMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBTourMapViewController.h; sourceTree = "<group>"; };
 		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
@@ -975,12 +973,11 @@
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
 				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
 				92A6AE681B053598000E2F55 /* CBAlertView.m */,
-				D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */,
 				9253EBEB1A209F8300FB40AB /* CreateAccount.m */,
 				9F9D68631CE70FAD0084878B /* CreateAccount.xib */,
+				D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */,
 				D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */,
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
-				D0D777491B117C0200D4EF6A /* CBLocationServicesDisabled.m */,
 				D008F8671B20F6D90012D144 /* CBVersion.xib */,
 				D008F86A1B20F6EA0012D144 /* CBVersion.m */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
@@ -1025,7 +1022,6 @@
 		92D01F371A30F14800929F35 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				D0D777481B117C0200D4EF6A /* CBLocationServicesDisabled.h */,
 				D025CE451AE6BD35000021A6 /* CBMapCell.h */,
 				D025CE401AE6B10A000021A6 /* CBMapMenu.h */,
 				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
@@ -1131,10 +1127,11 @@
 			isa = PBXGroup;
 			children = (
 				9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */,
-				9FC71C821CE6639500C36A1C /* LocationServicesDisabled.swift */,
-				D0D777461B117BF000D4EF6A /* LocationServicesDisabled.xib */,
 				9FC51A641CEC038600EC081D /* LocationServicesPermission.h */,
 				9FC51A651CEC038600EC081D /* LocationServicesPermission.m */,
+				D0D777461B117BF000D4EF6A /* LocationServicesDisabled.xib */,
+				9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */,
+				9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1673,7 +1670,6 @@
 				9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
-				9FC71C961CE6639500C36A1C /* LocationServicesDisabled.swift in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				D013EE031BA1214F003E5237 /* StoreItemCell.swift in Sources */,
 				9FC71C9A1CE6639500C36A1C /* PAppSetting.swift in Sources */,
@@ -1700,12 +1696,12 @@
 				923D4FC61A2C6DCF00E16B64 /* PrivateView.m in Sources */,
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */,
+				9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */,
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
 				D066C2091AF5C6B500C84609 /* CBThankYou.m in Sources */,
-				D0D7774A1B117C0200D4EF6A /* CBLocationServicesDisabled.m in Sources */,
 				D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */,
 				D054A74F1A816259000968CA /* PrivateMessageCell.m in Sources */,
 				923D4FC41A2C6DCF00E16B64 /* ChatView.m in Sources */,

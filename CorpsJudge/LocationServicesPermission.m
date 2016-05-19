@@ -126,17 +126,17 @@
 
 -(void)dismissView {
     
+    
     [UIView animateWithDuration:0.25
                           delay:0.09
          usingSpringWithDamping:1
           initialSpringVelocity:.7
                         options:0
                      animations:^{
-                         self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
+                         self.viewContainer.transform = CGAffineTransformScale(self.viewContainer.transform, 0.0, 0.0);
+                         self.alpha = 0;
                      } completion:^(BOOL finished){
-                         
                          [self removeFromSuperview];
-                         
                      }];
 }
 

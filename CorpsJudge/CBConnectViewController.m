@@ -12,7 +12,7 @@
 #import "KVNProgress.h"
 #import "Configuration.h"
 #import "CBUserProfileViewController.h"
-#import "Corpsboard-Swift.h"
+
 
 @interface CBConnectViewController ()
 
@@ -75,29 +75,61 @@ static NSString * const reuseIdentifier = @"Cell";
     
     PFUser *user = [PFUser currentUser];
     PFGeoPoint *userGeoPoint = user[@"geo"];
-    queryUsers = [PFUser query];
-    [queryUsers whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
-    //[queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint];
-    [queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint withinMiles:3000];
-    queryUsers.limit = 100;
-    [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [self.arrayOfUsers removeAllObjects];
-            [self.arrayOfUsers addObjectsFromArray:objects];
-            [self.collectionView reloadData];
-            [refreshControl endRefreshing];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [KVNProgress dismiss];
-            });
-        } else {
-            // Log details of the failure
-            [refreshControl endRefreshing];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [KVNProgress dismiss];
-            });
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
+    
+    if (userGeoPoint) {
+        
+        queryUsers = [PFUser query];
+        [queryUsers whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
+        //[queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint];
+        [queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint withinMiles:3000];
+        queryUsers.limit = 100;
+        [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                [self.arrayOfUsers removeAllObjects];
+                [self.arrayOfUsers addObjectsFromArray:objects];
+                [self.collectionView reloadData];
+                [refreshControl endRefreshing];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [KVNProgress dismiss];
+                });
+            } else {
+                // Log details of the failure
+                [refreshControl endRefreshing];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [KVNProgress dismiss];
+                });
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+    } else {
+        //location is nil, update it first, wait for callback, then retry
+        Server.sharedInstance.delegateLocation = self;
+        [Server.sharedInstance updateUserLocation];
+    }
+}
+
+-(void)userLocationUpdated {
+    [self loadUsers];
+}
+
+-(void)userLocationError {
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"Location Services"
+                                  message:@"Corpsboard could not find your location."
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             [self goback];
+                             
+                         }];
+    
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
