@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tj-i6-t6H">
-                                <rect key="frame" x="67" y="227" width="253" height="260"/>
+                                <rect key="frame" x="67" y="80" width="253" height="260"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59D-KN-4Ec">
                                         <rect key="frame" x="6" y="143" width="240" height="56"/>
@@ -36,7 +36,7 @@
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Op4-ed-nXc">
                                         <rect key="frame" x="6" y="31" width="240" height="130"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Find drum corps members and fans near you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DsM-JV-kBd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Corpsboard uses your location to find drum corps members and fans near you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DsM-JV-kBd">
                                                 <rect key="frame" x="24" y="68" width="193" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,11 +52,11 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pv-yK-R4V">
-                                        <rect key="frame" x="87" y="-23" width="70" height="70"/>
+                                        <rect key="frame" x="87" y="-15" width="70" height="70"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="near"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-76-L1u">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-76-L1u">
                                         <rect key="frame" x="83" y="222" width="87" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="87" id="AXe-ps-yzb"/>
@@ -71,20 +71,17 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="253" id="bgf-BZ-ya4"/>
-                                    <constraint firstAttribute="bottom" secondItem="n3o-76-L1u" secondAttribute="bottom" constant="8" id="os6-aI-F9X"/>
-                                    <constraint firstItem="n3o-76-L1u" firstAttribute="centerX" secondItem="1Tj-i6-t6H" secondAttribute="centerX" id="uJO-QV-ReO"/>
-                                    <constraint firstAttribute="height" constant="260" id="zq7-e5-if1"/>
+                                    <constraint firstAttribute="width" constant="253" id="tjS-PW-EEm"/>
+                                    <constraint firstAttribute="height" constant="260" id="yvQ-bQ-dV7"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1Tj-i6-t6H" firstAttribute="top" secondItem="3Ie-p4-udc" secondAttribute="top" constant="227" id="9FR-am-UnQ"/>
-                            <constraint firstItem="1Tj-i6-t6H" firstAttribute="centerX" secondItem="3Ie-p4-udc" secondAttribute="centerX" id="Xxf-Im-klr"/>
-                            <constraint firstItem="1Tj-i6-t6H" firstAttribute="centerY" secondItem="3Ie-p4-udc" secondAttribute="centerY" constant="24.5" id="xk1-5j-fOk"/>
+                            <constraint firstItem="1Tj-i6-t6H" firstAttribute="centerX" secondItem="3Ie-p4-udc" secondAttribute="centerX" id="Ahi-ag-KjY"/>
+                            <constraint firstItem="1Tj-i6-t6H" firstAttribute="top" secondItem="3Ie-p4-udc" secondAttribute="top" constant="80" id="FVO-5x-DKO"/>
                         </constraints>
                     </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

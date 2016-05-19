@@ -18,6 +18,7 @@ class LocationServicesDisabled: UIView {
     //MARK:-
     //MARK:Outlets
     @IBOutlet var btnOK: UIButton!
+    @IBOutlet weak var viewContainer: UIView!
     
     //MARK:-
     //MARK:Lifecycle
@@ -26,6 +27,7 @@ class LocationServicesDisabled: UIView {
     }
     
     func show() {
+        self.viewContainer.backgroundColor = UIColor.clearColor()
         self.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         self.backgroundColor = UIColor.clearColor()
         self.btnOK.layer.borderColor = UIColor.whiteColor().CGColor

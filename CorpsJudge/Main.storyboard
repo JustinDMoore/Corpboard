@@ -1049,7 +1049,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xY-TM-nwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3074" y="-4139"/>
+            <point key="canvasLocation" x="3074" y="-4110"/>
         </scene>
         <!--Group View-->
         <scene sceneID="k0u-fx-ASz">
@@ -3360,6 +3360,7 @@
                         <segue destination="u0G-RF-HbE" kind="show" identifier="find" id="pIH-8i-jUf"/>
                         <segue destination="R9h-AD-VHj" kind="show" identifier="store" id="Oab-fr-vea"/>
                         <segue destination="yG7-Vq-JyB" kind="show" identifier="tour" id="HHX-ig-YGP"/>
+                        <segue destination="krs-FK-NiX" kind="show" identifier="messages" id="oee-eY-v00"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5v-yR-IS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5316,7 +5317,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
-        <segue reference="5Fi-Lt-Ok5"/>
         <segue reference="rAC-0J-vVH"/>
+        <segue reference="5Fi-Lt-Ok5"/>
     </inferredMetricsTieBreakers>
 </document>

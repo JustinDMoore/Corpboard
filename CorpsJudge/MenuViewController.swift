@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import MWFeedParser
 
-class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices {
+class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices, delegateCreateAccount {
 
     enum scrollDir {
         case None
@@ -888,11 +888,15 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     func openProfile() {
         self.tryingToOpen = .Profile
-        //must have an account to proceed
+        //must have an account and nickname to proceed
         if profileActive() {
-            self.performSegueWithIdentifier("profile", sender: self)
+            if !doesUserNeedNickname() {
+                self.performSegueWithIdentifier("profile", sender: self)
+            } else {
+                signUpForView("nickname")
+            }
         } else {
-            signUp()
+            signUpForView("account")
         }
     }
     
@@ -905,7 +909,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if profileActive() {
             self.performSegueWithIdentifier("messages", sender: self)
         } else {
-            signUp()
+            signUpForView("account")
         }
     }
     
@@ -918,7 +922,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if profileActive() {
             self.performSegueWithIdentifier("chat", sender: self)
         } else {
-            signUp()
+            signUpForView("account")
         }
     }
     
@@ -947,7 +951,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
                 self.tellUserToEnableLocation()
             }
         } else {
-            signUp()
+            signUpForView("account")
         }
     }
     
@@ -982,10 +986,26 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         }
     }
     
-    func signUp() {
+    func doesUserNeedNickname() -> Bool {
+        if let user = PFUser.currentUser() {
+            if let nickname = user["nickname"] as? String {
+                if nickname.characters.count < 1 {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func signUpForView(view: String) {
         if let signUpView = NSBundle.mainBundle().loadNibNamed("CreateAccount", owner: self, options: nil).first as? CreateAccount {
             signUpView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-            signUpView.showInParent(self.navigationController!)
+            signUpView.setDelegate(self);
+            signUpView.showView(view, inParent: self.navigationController!)
         }
     }
     
@@ -1166,9 +1186,17 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //TODO: Double check to make sure lazy inits aren't required on some of the properties
     
     //MARK:-
-    //MARK:locationDelegate
+    //MARK:delegateLocation
     
     func locationAllowed() {
+        self.resumeOpening()
+    }
+    
+    
+    //MARK:-
+    //MARK:delegateCreateUserAccount
+    
+    func proceed() {
         self.resumeOpening()
     }
     

@@ -26,6 +26,9 @@
 
 @implementation CreateAccount
 
+BOOL checkingName = NO;
+BOOL linkingFacebook = NO;
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super initWithCoder:aDecoder];
@@ -37,7 +40,7 @@
 }
 
 - (IBAction)btnBack_clicked:(id)sender {
-    [self dismissView];
+    [self dismissView:NO canProceed:NO];
 }
 
 -(void)setDelegate:(id)newDelegate {
@@ -48,38 +51,46 @@
 #pragma mark - Facebook
 #pragma mark
 - (IBAction)btnFacebook_clicked:(id)sender {
-    
-    NSArray *permissionsArray = @[ @"email", @"user_friends"];
-    
-    // Login PFUser using Facebook
-    [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-            [self dismissView];
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
-            [self requestFacebook:user];
-        } else {
-            NSLog(@"User logged in through Facebook!");
-            [self dismissView];
-        }
-    }];
+    if (!linkingFacebook) {
+        linkingFacebook = YES;
+        [self.btnFacebook setTitle:@"Linking" forState:UIControlStateNormal];
+        NSArray *permissionsArray = @[ @"public_profile", @"email"];
+        
+        // Login PFUser using Facebook
+        [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+            if (!user) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                [self dismissView:NO canProceed:NO];
+            } else if (user.isNew) {
+                NSLog(@"User signed up and logged in through Facebook!");
+                [self requestFacebook:user];
+            } else {
+                NSLog(@"User logged in through Facebook!");
+                if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
+                else [self dismissView:NO canProceed:YES];
+            }
+        }];
+    }
 }
 
 - (void)requestFacebook:(PFUser *)user {
-
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
     
-    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        if (error == nil) {
-            NSDictionary *userData = (NSDictionary *)result;
-            [self processFacebook:user UserData:userData];
-        } else {
-            [PFUser logOut];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    }];
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:@"id,name,email" forKey:@"fields"];
+    
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             if (!error) {
+                 NSDictionary *userData = (NSDictionary *)result;
+                 [self processFacebook:user UserData:userData];
+             } else {
+                 [PFUser logOut];
+                 NSLog(@"Error retrieving Facebook profile.");
+                 linkingFacebook = NO;
+             }
+         }];
+    }
 }
 
 - (void)processFacebook:(PFUser *)user UserData:(NSDictionary *)userData {
@@ -123,15 +134,12 @@
         user[@"lastLogin"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error == nil) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [KVNProgress dismiss];
-                });
-                
                 [self userLoggedIn:user];
             } else {
                 [PFUser logOut];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
+                linkingFacebook = NO;
             }
         }];
     }
@@ -139,6 +147,7 @@
                                          [PFUser logOut];
                                          UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                                          [alert show];
+                                         linkingFacebook = NO;
                                      }];
     
     [[NSOperationQueue mainQueue] addOperation:operation];
@@ -147,13 +156,60 @@
 - (void)userLoggedIn:(PFUser *)user {
     //FIXME: Add nickname to this view. Make sure it's unique.
     ParsePushUserAssign();
-    BOOL needsNickname = NO;
-    NSString *nickname = user[@"nickname"];
-    if (![nickname length]) needsNickname = YES;
+    if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
+    else [self dismissView:NO canProceed:YES];
 }
 
--(void)showInParent:(UINavigationController *)parentNav {
+-(BOOL)doesUserNeedNickname:(PFUser *)user {
+    NSString *nickname = user[@"nickname"];
+    if (![nickname length]) return YES;
+    else return NO;
+}
+
+-(void)showView:(NSString *)view InParent:(UINavigationController *)parentNav {
     
+    self.alpha = 0;
+    [parentNav.view addSubview:self];
+    if ([view isEqualToString:@"account"]) {
+        [self showAccountView];
+    } else if ([view isEqualToString:@"nickname"]) {
+        [self showNicknameView];
+    }
+}
+
+-(void)dismissView:(BOOL)needsNickname canProceed:(BOOL)proceed {
+    
+    [UIView animateWithDuration:0.25
+                          delay:0.09
+         usingSpringWithDamping:1
+          initialSpringVelocity:.7
+                        options:0
+                     animations:^{
+                         self.viewContainer.transform = CGAffineTransformScale(self.viewContainer.transform, 0.0, 0.0);
+                         self.viewContainerNickname.transform = CGAffineTransformScale(self.viewContainerNickname.transform, 0.0, 0.0);
+                         if (!needsNickname) self.alpha = 0;
+                     } completion:^(BOOL finished){
+                         
+                         if (!needsNickname) {
+                            [self removeFromSuperview];
+                         } else {
+                             [self showNicknameView];
+                         }
+                         if (proceed) {
+                             if ([delegate respondsToSelector:@selector(proceed)]) {
+                                 [delegate proceed];
+                             }
+                         }
+                     }];
+}
+
+-(void)showAccountView {
+    self.viewContainer.backgroundColor = UIColor.clearColor;
+    [self.btnFacebook setTitle:@"Sign Up" forState:UIControlStateNormal];
+    self.viewContainerNickname.alpha = 0;
+    
+    //hide nickname view
+    self.viewContainerNickname.alpha = 0;
     
     //DIALOG VIEW
     //set dialog top rounded corners
@@ -186,7 +242,7 @@
     shapeLayer.strokeColor = UISingleton.sharedInstance.gold.CGColor;
     shapeLayer.lineWidth = 1.0;
     [self.btnSignUp.layer insertSublayer:shapeLayer below:self.btnSignUp.imageView.layer];
-
+    
     //set image and button tint colors to match app
     self.btnImage.tintColor = UISingleton.sharedInstance.gold;
     [self.btnSignUp setBackgroundColor:UIColor.clearColor];
@@ -197,12 +253,12 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.btnSignUp.frame.size.width, 1)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.btnSignUp addSubview:lineView];
-
+    
     
     self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     
     self.backgroundColor = [UIColor clearColor];
-
+    
     self.viewContainer.alpha = 0;
     self.btnSignUp.alpha = 0;
     self.btnFacebook.alpha = 0;
@@ -210,7 +266,7 @@
     self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.alpha = 0;
     
-    [parentNav.view addSubview:self];
+    
     [UIView animateWithDuration:0.50
                           delay:0.0
          usingSpringWithDamping:.9
@@ -233,7 +289,7 @@
                                               self.viewContainer.transform = CGAffineTransformIdentity;
                                               
                                           } completion:^(BOOL finished) {
-
+                                              
                                           }];
                          
                          self.btnSignUp.frame = CGRectMake(self.btnSignUp.frame.origin.x, self.btnSignUp.frame.origin.y - self.btnSignUp.frame.size.height, self.btnSignUp.frame.size.width, self.btnSignUp.frame.size.height);
@@ -256,21 +312,147 @@
                      }];
 }
 
-
--(void)dismissView {
+-(void)showNicknameView {
+    self.viewContainerNickname.backgroundColor = UIColor.clearColor;
+    [self.btnCheckName setTitle:@"Check Name" forState:UIControlStateNormal];
+    self.viewContainer.alpha = 0;
+    self.txtNickname.layer.borderWidth = 0;
     
-    [UIView animateWithDuration:0.25
-                          delay:0.09
-         usingSpringWithDamping:1
+    //DIALOG VIEW
+    //set dialog top rounded corners
+    UIBezierPath *shapePath2 = [UIBezierPath bezierPathWithRoundedRect:self.viewDialogNickname.bounds
+                                                     byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+                                                           cornerRadii:CGSizeMake(10.0, 10.0)];
+    
+    
+    
+    CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
+    shapeLayer2.frame = self.viewDialogNickname.bounds;
+    shapeLayer2.path = shapePath2.CGPath;
+    shapeLayer2.strokeColor = UIColor.whiteColor.CGColor;
+    shapeLayer2.fillColor = UISingleton.sharedInstance.maroon.CGColor;
+    [self.viewDialogNickname.layer insertSublayer:shapeLayer2 below:self.lblNicknameTitle.layer];
+    
+    self.viewDialogNickname.backgroundColor = UIColor.clearColor;
+    //[self bringSubviewToFront:self.lblMessage];
+    
+    //BUTTON
+    //set button bottom corners round
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRoundedRect:self.btnCheckName.bounds
+                                                    byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                          cornerRadii:CGSizeMake(10.0, 10.0)];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.frame = self.btnCheckName.bounds;
+    shapeLayer.path = shapePath.CGPath;
+    shapeLayer.fillColor = UISingleton.sharedInstance.gold.CGColor;
+    shapeLayer.strokeColor = UISingleton.sharedInstance.gold.CGColor;
+    shapeLayer.lineWidth = 1.0;
+    [self.btnCheckName.layer insertSublayer:shapeLayer below:self.btnCheckName.imageView.layer];
+    
+    //set image and button tint colors to match app
+    self.btnImageNickname.tintColor = UISingleton.sharedInstance.gold;
+    [self.btnCheckName setBackgroundColor:UIColor.clearColor];
+    self.btnCheckName.tintColor = UISingleton.sharedInstance.maroon;
+    
+    //add top border line on button
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.btnCheckName.frame.size.width, 1)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.btnCheckName addSubview:lineView];
+    
+    
+    self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    
+    self.backgroundColor = [UIColor clearColor];
+    
+    self.viewContainerNickname.alpha = 0;
+    self.btnCheckName.alpha = 0;
+    
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+
+    [UIView animateWithDuration:0.50
+                          delay:0.0
+         usingSpringWithDamping:.9
           initialSpringVelocity:.7
                         options:0
                      animations:^{
-                         self.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.frame.size.width, self.frame.size.height);
+                         
                      } completion:^(BOOL finished){
                          
-                         [self removeFromSuperview];
-
+                         self.viewContainerNickname.transform = CGAffineTransformScale(self.viewDialog.transform, 0.8, 0.8);
+                         
+                         [UIView animateWithDuration:0.25
+                                               delay:0
+                              usingSpringWithDamping:0.6
+                               initialSpringVelocity:0.7
+                                             options:0
+                                          animations:^{
+                                              self.alpha = 1;
+                                              self.viewContainerNickname.alpha = 1;
+                                              self.viewContainerNickname.transform = CGAffineTransformIdentity;
+                                              
+                                          } completion:^(BOOL finished) {
+                                              
+                                          }];
+                         
+                         self.btnCheckName.frame = CGRectMake(self.btnCheckName.frame.origin.x, self.btnCheckName.frame.origin.y - self.btnCheckName.frame.size.height, self.btnCheckName.frame.size.width, self.btnCheckName.frame.size.height);
+                         
+                         [UIView animateWithDuration:0.25
+                                               delay:0.05
+                                             options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^{
+                                              
+                                              self.btnCheckName.alpha = 1;
+                                              self.btnCheckName.frame = CGRectMake(self.btnCheckName.frame.origin.x, self.btnCheckName.frame.origin.y + self.btnCheckName.frame.size.height, self.btnCheckName.frame.size.width, self.btnCheckName.frame.size.height);
+                                              
+                                          } completion:^(BOOL finished) {
+                                              [self.txtNickname becomeFirstResponder];
+                                          }];
                      }];
 }
+
+-(void)checkUniqueNickname {
+    
+    if (!checkingName) {
+        if (![self.txtNickname.text length]) {
+            return;
+        } else {
+            [self.btnCheckName setTitle:@"Checking" forState:UIControlStateNormal];
+            PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+            [query whereKey:@"nickname" equalTo:self.txtNickname.text];
+            [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+                if (!error) {
+                    if (count > 0) {
+                        [self shake];
+                    } else {
+                        PFUser *user = [PFUser currentUser];
+                        user[@"nickname"] = self.txtNickname.text;
+                        [user saveInBackground];
+                        [self.txtNickname resignFirstResponder];
+                        [self dismissView:NO canProceed:YES];
+                    }
+                } else {
+                    [self shake];
+                }
+            }];
+        }
+    }
+}
+
+- (void)shake {
+    [self.btnCheckName setTitle:@"Check Name" forState:UIControlStateNormal];
+    CAKeyframeAnimation * anim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
+    anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
+    anim.autoreverses = YES ;
+    anim.repeatCount = 3.0f ;
+    anim.duration = 0.04f ;
+    
+    [self.viewContainerNickname.layer addAnimation:anim forKey:nil] ;
+}
+
+- (IBAction)btnCheckName:(id)sender {
+    [self checkUniqueNickname];
+}
+
 
 @end

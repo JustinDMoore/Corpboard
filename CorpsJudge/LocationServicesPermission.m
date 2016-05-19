@@ -27,7 +27,7 @@
 }
 
 -(void)showInParent:(UINavigationController *)parentNav {
-    
+    self.viewContainer.backgroundColor = UIColor.clearColor;
     
     //DIALOG VIEW
     //set dialog top rounded corners
