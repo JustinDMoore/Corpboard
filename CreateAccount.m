@@ -204,6 +204,7 @@ BOOL linkingFacebook = NO;
 }
 
 -(void)showAccountView {
+    linkingFacebook = NO;
     self.viewContainer.backgroundColor = UIColor.clearColor;
     [self.btnFacebook setTitle:@"Sign Up" forState:UIControlStateNormal];
     self.viewContainerNickname.alpha = 0;
@@ -313,6 +314,7 @@ BOOL linkingFacebook = NO;
 }
 
 -(void)showNicknameView {
+    checkingName = NO;
     self.viewContainerNickname.backgroundColor = UIColor.clearColor;
     [self.btnCheckName setTitle:@"Check Name" forState:UIControlStateNormal];
     self.viewContainer.alpha = 0;
