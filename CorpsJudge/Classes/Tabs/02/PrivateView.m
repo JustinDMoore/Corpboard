@@ -54,7 +54,7 @@
     AppDelegate *del =  [[UIApplication sharedApplication]delegate];
     //[del setDelegate:self];
     
-    self.title = @"Private";
+    self.title = @"Messages";
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol delegateCreateAccount <NSObject>
--(void)proceed;
+-(void)accountCreated;
 @end
 
 @interface CreateAccount : UIView {

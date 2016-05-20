@@ -230,8 +230,8 @@ Loading *loadView;
                              [self showNicknameView];
                          }
                          if (proceed) {
-                             if ([delegate respondsToSelector:@selector(proceed)]) {
-                                 [delegate proceed];
+                             if ([delegate respondsToSelector:@selector(accountCreated)]) {
+                                 [delegate accountCreated];
                              }
                          }
                      }];

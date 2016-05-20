@@ -41,15 +41,6 @@
     
     self.title = @"Tour Map";
     self.mapView.delegate = self;
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-#ifdef __IPHONE_8_0
-    if(IS_OS_8_OR_LATER) {
-        // Use one or the other, not both. Depending on what you put in info.plist
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-#endif
-    [self.locationManager startUpdatingLocation];
     
     self.mapView.showsUserLocation = NO;
     [self.mapView setMapType:MKMapTypeStandard];
@@ -156,19 +147,6 @@
         return annotationView;
     }
     else return nil;
-}
-
-- (NSString *)deviceLocation {
-    return [NSString stringWithFormat:@"latitude: %f longitude: %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
-}
-- (NSString *)deviceLat {
-    return [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.latitude];
-}
-- (NSString *)deviceLon {
-    return [NSString stringWithFormat:@"%f", self.locationManager.location.coordinate.longitude];
-}
-- (NSString *)deviceAlt {
-    return [NSString stringWithFormat:@"%f", self.locationManager.location.altitude];
 }
 
 BOOL showsPlotted;

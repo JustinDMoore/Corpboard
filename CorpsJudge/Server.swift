@@ -235,7 +235,9 @@ protocol delegateUserProfile: class {
         case .AuthorizedWhenInUse:
             break
         case .NotDetermined:
-            break
+            self.delegateInitial?.updateProgress()
+            print("3. User has not been prompted for location yet.")
+            return
         case .Restricted:
             self.setInstallationLocationAllowed(false)
             self.delegateInitial?.updateProgress()

@@ -68,6 +68,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     var scrollDirection = scrollDir.None
     var bannerCounter = 0
     var tryingToOpen = opening.None
+    var viewLocationForDelegate = LocationServicesPermission()
     
     //MARK:-
     //MARK:Outlets
@@ -781,28 +782,63 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.openShowAtIndex(indexPath, tableView: tableView)
     }
     
-    func openShowAtIndex(indexPath: NSIndexPath, tableView: UITableView) {
-        if tableView === self.tableLastShows {
-            self.showToOpen = self.arrayOfShowsForTable1[indexPath.row]
-            if self.showToOpen != nil {
-                self.performSegueWithIdentifier("openShow", sender: self)
-            }
-        } else if tableView === self.tableNextShows {
-            self.showToOpen = self.arrayOfShowsForTable2[indexPath.row]
-            if self.showToOpen != nil {
-                self.performSegueWithIdentifier("openShow", sender: self)
-            }
-        }
+    
+    //MARK:-
+    //MARK:UICollectionView
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "openShow" {
-            let vc = segue.destinationViewController as! CBShowDetailsViewController
-            vc.show = self.showToOpen
-        } else if segue.identifier == "profile" {
-            let vc = segue.destinationViewController as! CBUserProfileViewController
-            vc.setUser(PFUser.currentUser())
-        }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
+        else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "cell\(indexPath.row)"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CBNewsCell
+        let item = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
+        let dateLabel = UILabel(frame: CGRectMake(8, 8, 190, 21))
+        dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+        dateLabel.text = News.sharedInstance.dateForNews(item.date)
+        dateLabel.textColor = UIColor.whiteColor()
+        dateLabel.sizeToFit()
+        cell.addSubview(dateLabel)
+        
+        let titleLabel = UILabel(frame: CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60))
+        titleLabel.font = UIFont.systemFontOfSize(14)
+        titleLabel.text = item.title
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.numberOfLines = 3
+        titleLabel.lineBreakMode = .ByTruncatingTail
+        titleLabel.sizeToFit()
+        cell.addSubview(titleLabel)
+        
+        let imgFrom = UIImageView(frame: CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 30))
+        imgFrom.image = UIImage(named: "DCI_LOGO_Transparent3")
+        cell.addSubview(imgFrom)
+        
+        let lblFrom = UILabel(frame: CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21))
+        lblFrom.font = UIFont.systemFontOfSize(10)
+        lblFrom.text = ""
+        lblFrom.textColor = UIColor.blueColor()
+        lblFrom.sizeToFit()
+        cell.addSubview(lblFrom)
+        
+        cell.lblDate = dateLabel
+        cell.lblTitle = titleLabel
+        
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 8
+        cell.colorNumber = News.sharedInstance.arrayOfColors[indexPath.row]
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
+        self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
     }
     
     //MARK:-
@@ -880,142 +916,22 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         }
     }
     
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        //        if scrollView === self.collectionNews {
+        //            let point = targetContentOffset
+        //            let layout = self.collectionNews.collectionViewLayout as! UICollectionViewFlowLayout
+        //            let visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width
+        //            let indexOfItemToSnap = round(point.x / visibleWidth)
+        //            if indexOfItemToSnap + 1 == self.collectionNews.numberOfItemsInSection(0) { //last item
+        //                targetContentOffset = CGPointMake(self.collectionNews.contentSize.width - self.collectionNews.bounds.size.width, 0)
+        //            } else {
+        //                targetContentOffset = CGPointMake(indexOfItemToSnap * visibleWidth, 0)
+        //            }
+        //        }
+    }
+    
     //MARK:-
     //MARK: Actions
-    
-    @IBAction func btnProfile(sender: AnyObject) {
-        self.openProfile()
-    }
-    
-    func openProfile() {
-        self.tryingToOpen = .Profile
-        //must have an account and nickname to proceed
-        if profileActive() {
-            if !doesUserNeedNickname() {
-                self.performSegueWithIdentifier("profile", sender: self)
-            } else {
-                signUpForView("nickname")
-            }
-        } else {
-            signUpForView("account")
-        }
-    }
-    
-    @IBAction func btnMessages(sender: AnyObject) {
-        self.openMessages()
-    }
-    
-    func openMessages() {
-        self.tryingToOpen = .Messages
-        if profileActive() {
-            self.performSegueWithIdentifier("messages", sender: self)
-        } else {
-            signUpForView("account")
-        }
-    }
-    
-    @IBAction func btnChat(sender: AnyObject) {
-        self.openChat()
-    }
-    
-    func openChat() {
-        self.tryingToOpen = .LiveChat
-        if profileActive() {
-            self.performSegueWithIdentifier("chat", sender: self)
-        } else {
-            signUpForView("account")
-        }
-    }
-    
-    @IBAction func near(sender: AnyObject) {
-        self.openNearMe()
-    }
-    
-    func openNearMe() {
-        self.tryingToOpen = .NearMe
-        self.checkLocationServicesThenResume()
-    }
-    
-    func checkLocationServicesThenResume() {
-
-        //must have an account to proceed
-        if profileActive() {
-            if CLLocationManager.locationServicesEnabled() {
-                switch CLLocationManager.authorizationStatus() {
-                case .Denied:
-                    self.tellUserToEnableLocation()
-                case .AuthorizedWhenInUse:
-                    self.performSegueWithIdentifier("find", sender: self)
-                case .NotDetermined:
-                    self.askForLocationPermission()
-                case .AuthorizedAlways:
-                    self.performSegueWithIdentifier("find", sender: self)
-                case .Restricted:
-                    self.tellUserToEnableLocation()
-                }
-            } else {
-                self.tellUserToEnableLocation()
-            }
-        } else {
-            signUpForView("account")
-        }
-    }
-    
-    @IBAction func btnTourMap(sender: AnyObject) {
-        self.openMap()
-    }
-    
-    func openMap() {
-        self.tryingToOpen = .Map
-        self.checkLocationServicesThenResume()
-    }
-    
-    var viewLocationForDelegate = LocationServicesPermission()
-    func askForLocationPermission() {
-        if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
-            viewLoc.showInParent(self.navigationController)
-            viewLoc.setDelegate(self)
-            viewLocationForDelegate = viewLoc
-        }
-    }
-    
-    func tellUserToEnableLocation() {
-        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
-            viewLocation.showInParent(self.navigationController)
-        }
-    }
-    
-    func profileActive() -> Bool {
-        if PFUser.currentUser() != nil {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func doesUserNeedNickname() -> Bool {
-        if let user = PFUser.currentUser() {
-            if let nickname = user["nickname"] as? String {
-                if nickname.characters.count < 1 {
-                    return true
-                } else {
-                    return false
-                }
-            } else {
-                return true
-            }
-        }
-        return false
-    }
-    
-    func signUpForView(view: String) {
-        if let signUpView = NSBundle.mainBundle().loadNibNamed("CreateAccount", owner: self, options: nil).first as? CreateAccount {
-            signUpView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-            signUpView.setDelegate(self);
-            signUpView.showView(view, inParent: self.navigationController!)
-        }
-    }
-    
     @IBAction func feedback(sender: AnyObject) {
         self.performSegueWithIdentifier("feedback", sender: self)
     }
@@ -1058,78 +974,237 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.performSegueWithIdentifier("admin", sender: self)
     }
     
+    @IBAction func btnProfile(sender: AnyObject) {
+        self.tryingToOpen = .Profile
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    @IBAction func btnMessages(sender: AnyObject) {
+        self.tryingToOpen = .Messages
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    @IBAction func btnChat(sender: AnyObject) {
+        self.tryingToOpen = .LiveChat
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    @IBAction func near(sender: AnyObject) {
+        self.tryingToOpen = .NearMe
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    @IBAction func btnTourMap(sender: AnyObject) {
+        self.tryingToOpen = .Map
+        self.resumeOpening()
+    }
+    
+    func openProfile() {
+        self.performSegueWithIdentifier("profile", sender: self)
+    }
+    
+    func openMessages() {
+        self.performSegueWithIdentifier("messages", sender: self)
+    }
+    
+    func openChat() {
+        self.performSegueWithIdentifier("chat", sender: self)
+    }
+    
+    func openNearMe() { //one extra step compared to the other open() functions to ensure location is enabled
+        if self.doesUserHaveLocationServicesEnabled() {
+            self.performSegueWithIdentifier("find", sender: self)
+        }
+    }
+    
+    func openMap() {
+        self.performSegueWithIdentifier("tour", sender: self)
+    }
+    
     //MARK:-
-    //MARK:UICollectionView
+    //MARK: Account Functions
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+    // Checks to see if user has a profile and nickname
+    // If they need either, prompts the user
+    // If they don't, returns false to the caller can resumeOpening()
+    func doesUserNeedAccountOrNickname() -> Bool {
+        if profileActive() {
+            if !doesUserNeedNickname() {
+                return false
+            } else {
+                signUpForView("nickname")
+                return true
+            }
+        } else {
+            signUpForView("account")
+            return true
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
-        else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
+    // Called by doesUserNeedAccountOrNickname()
+    // Do not call directly
+    func profileActive() -> Bool {
+        if PFUser.currentUser() != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cellIdentifier = "cell\(indexPath.row)"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CBNewsCell
-        let item = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
-        let dateLabel = UILabel(frame: CGRectMake(8, 8, 190, 21))
-        dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
-        dateLabel.text = News.sharedInstance.dateForNews(item.date)
-        dateLabel.textColor = UIColor.whiteColor()
-        dateLabel.sizeToFit()
-        cell.addSubview(dateLabel)
-        
-        let titleLabel = UILabel(frame: CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60))
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.text = item.title
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.numberOfLines = 3
-        titleLabel.lineBreakMode = .ByTruncatingTail
-        titleLabel.sizeToFit()
-        cell.addSubview(titleLabel)
-        
-        let imgFrom = UIImageView(frame: CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 30))
-        imgFrom.image = UIImage(named: "DCI_LOGO_Transparent3")
-        cell.addSubview(imgFrom)
-        
-        let lblFrom = UILabel(frame: CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21))
-        lblFrom.font = UIFont.systemFontOfSize(10)
-        lblFrom.text = ""
-        lblFrom.textColor = UIColor.blueColor()
-        lblFrom.sizeToFit()
-        cell.addSubview(lblFrom)
-        
-        cell.lblDate = dateLabel
-        cell.lblTitle = titleLabel
-        
-        cell.clipsToBounds = true
-        cell.layer.cornerRadius = 8
-        cell.colorNumber = News.sharedInstance.arrayOfColors[indexPath.row]
-        
-        return cell
+    // Called by doesUserNeedAccountOrNickname()
+    // Do not call directly
+    func doesUserNeedNickname() -> Bool {
+        if let user = PFUser.currentUser() {
+            if let nickname = user["nickname"] as? String {
+                if nickname.characters.count < 1 {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return true
+            }
+        }
+        return false
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
-        self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
+    func signUpForView(view: String) {
+        if let signUpView = NSBundle.mainBundle().loadNibNamed("CreateAccount", owner: self, options: nil).first as? CreateAccount {
+            signUpView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            signUpView.setDelegate(self);
+            signUpView.showView(view, inParent: self.navigationController!)
+        }
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        if scrollView === self.collectionNews {
-//            let point = targetContentOffset
-//            let layout = self.collectionNews.collectionViewLayout as! UICollectionViewFlowLayout
-//            let visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width
-//            let indexOfItemToSnap = round(point.x / visibleWidth)
-//            if indexOfItemToSnap + 1 == self.collectionNews.numberOfItemsInSection(0) { //last item
-//                targetContentOffset = CGPointMake(self.collectionNews.contentSize.width - self.collectionNews.bounds.size.width, 0)
-//            } else {
-//                targetContentOffset = CGPointMake(indexOfItemToSnap * visibleWidth, 0)
-//            }
-//        }
+    // delegateCreateAccount in CreateAccount.h
+    
+    func accountCreated() {
+        self.resumeOpening()
     }
     
+    //MARK:-
+    //MARK: Location Functions
+    
+    // Checks to see if user has allowed location services
+    // If so, returns true
+    // If not, prompts user
+    // Before this is called, call doesUserNeedAccountOrNickname(), because we need an account to write geo to
+    func doesUserHaveLocationServicesEnabled() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .AuthorizedAlways: return true
+            case .AuthorizedWhenInUse: return true
+            case .Denied:
+                self.tellUserToEnableLocationForView()
+                return false
+            case .NotDetermined:
+                self.askForLocationPermissionForView()
+                return false
+            case .Restricted:
+                self.tellUserToEnableLocationForView()
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
+    func askForLocationPermissionForView() {
+        if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
+            viewLoc.showInParent(self.navigationController)
+            viewLoc.setDelegate(self)
+            viewLocationForDelegate = viewLoc
+        }
+    }
+    
+    func tellUserToEnableLocationForView() {
+        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
+            viewLocation.showInParent(self.navigationController)
+        }
+    }
+    
+    // deleateUserLocation in Server.swift
+    // called from updateUserLocation()
+    func userLocationUpdated() {
+        viewLocationForDelegate.dismissView()
+        self.resumeOpening()
+    }
+    
+    // deleateUserLocation in Server.swift
+    // called from updateUserLocation()
+    func userLocationError() {
+        viewLocationForDelegate.dismissView()
+        let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //TODO: Double check to make sure lazy inits aren't required on some of the properties
+    
+    
+    //MARK:-
+    //MARK: Helper Functions
+    
+    func resumeOpening() {
+        switch tryingToOpen {
+        case .Profile: self.openProfile()
+        case .LiveChat: self.openChat()
+        case .Map: self.openMap()
+        case .Messages: self.openMessages()
+        case .NearMe: self.openNearMe()
+        default: break
+        }
+    }
+    
+    func openShowAtIndex(indexPath: NSIndexPath, tableView: UITableView) {
+        if tableView === self.tableLastShows {
+            self.showToOpen = self.arrayOfShowsForTable1[indexPath.row]
+            if self.showToOpen != nil {
+                self.performSegueWithIdentifier("openShow", sender: self)
+            }
+        } else if tableView === self.tableNextShows {
+            self.showToOpen = self.arrayOfShowsForTable2[indexPath.row]
+            if self.showToOpen != nil {
+                self.performSegueWithIdentifier("openShow", sender: self)
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "openShow" {
+            let vc = segue.destinationViewController as! CBShowDetailsViewController
+            vc.show = self.showToOpen
+        } else if segue.identifier == "profile" {
+            let vc = segue.destinationViewController as! CBUserProfileViewController
+            vc.setUser(PFUser.currentUser())
+        }
+    }
+    
+    func makePrediction() {
+        self.performSegueWithIdentifier("contest", sender: self)
+    }
+    
+    func checkForNewVersion() {
+        let releasedVersion = Server.sharedInstance.objAdmin?.releasedVersion
+        if let info = NSBundle.mainBundle().infoDictionary {
+            let userVersion = info["CFBundleShortVersionString"] as! String
+            if releasedVersion != userVersion {
+                self.newVersion()
+            }
+        }
+    }
+    
+    func newVersion() {
+        
+    }
     
     func updateUserMessages() {
         self.setMsgBadge()
@@ -1154,63 +1229,5 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         } else {
             self.badgeAdmin.badgeText = ""
         }
-    }
-    
-    func makePrediction() {
-        self.performSegueWithIdentifier("contest", sender: self)
-    }
-    
-    func locationDenied() {
-        Server.sharedInstance.setInstallationLocationAllowed(false)
-    }
-    
-    func checkForNewVersion() {
-        let releasedVersion = Server.sharedInstance.objAdmin?.releasedVersion
-        if let info = NSBundle.mainBundle().infoDictionary {
-            let userVersion = info["CFBundleShortVersionString"] as! String
-            if releasedVersion != userVersion {
-                self.newVersion()
-            }
-        }
-    }
-    
-    func newVersion() {
-        
-    }
-    
-    //TODO: Double check to make sure lazy inits aren't required on some of the properties
-    
-    
-    //MARK:-
-    //MARK:delegateCreateUserAccount
-    
-    func proceed() {
-        self.resumeOpening()
-    }
-    
-    func resumeOpening() {
-        switch tryingToOpen {
-        case .Profile: self.openProfile()
-        case .LiveChat: self.openChat()
-        case .Map: self.openMap()
-        case .Messages: self.openMessages()
-        case .NearMe: self.openNearMe()
-        default: break
-        }
-    }
-    
-    //MARK:-
-    //MARK:delegateUserLocation
-    
-    func userLocationUpdated() {
-        viewLocationForDelegate.dismissView()
-        self.openNearMe()
-    }
-    
-    func userLocationError() {
-        viewLocationForDelegate.dismissView()
-        let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
