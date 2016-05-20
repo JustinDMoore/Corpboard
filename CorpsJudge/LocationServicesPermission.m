@@ -11,14 +11,37 @@
 
 @implementation LocationServicesPermission
 
+
+Loading *loadView;
+CLLocationManager *locationManager;
+
 - (IBAction)btnNotNow:(id)sender {
     [self dismissView];
 }
 
 - (IBAction)btnAllowLocation:(id)sender {
-    [self dismissView];
-    if ([delegate respondsToSelector:@selector(locationAllowed)]) {
-        [delegate locationAllowed];
+
+    [UIView animateWithDuration:0.25
+                          delay:0.05
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         [self hideButton:self.btnSignUp];
+                     } completion:^(BOOL finished) {
+                         [self load];
+                         locationManager = [[CLLocationManager alloc] init];
+                         locationManager.delegate = self;
+                         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+                             [locationManager requestWhenInUseAuthorization];
+                         }
+                     }];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [Server.sharedInstance updateUserLocation];
+        [Server.sharedInstance updateUserLastLogin];
+    } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+        [Server.sharedInstance setInstallationLocationAllowed:NO];
     }
 }
 
@@ -27,6 +50,9 @@
 }
 
 -(void)showInParent:(UINavigationController *)parentNav {
+    
+    self.btnNotNow.hidden = NO;
+    self.viewLoading.backgroundColor = UIColor.clearColor;
     self.viewContainer.backgroundColor = UIColor.clearColor;
     
     //DIALOG VIEW
@@ -126,7 +152,6 @@
 
 -(void)dismissView {
     
-    
     [UIView animateWithDuration:0.25
                           delay:0.09
          usingSpringWithDamping:1
@@ -138,6 +163,32 @@
                      } completion:^(BOOL finished){
                          [self removeFromSuperview];
                      }];
+}
+
+-(void)load {
+    self.btnNotNow.hidden = YES;
+    loadView = [[[NSBundle mainBundle] loadNibNamed:@"Loading" owner:self options:nil] objectAtIndex:0];
+
+    [self.viewLoading addSubview:loadView];
+
+    [loadView animate];
+}
+
+-(void)stopLoad {
+    if (loadView) {
+        [loadView removeFromSuperview];
+        loadView = nil;
+    }
+}
+
+-(void)hideButton:(UIButton *)button {
+    button.alpha = 0;
+    button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y - self.btnSignUp.frame.size.height, button.frame.size.width, button.frame.size.height);
+}
+
+-(void)showButton:(UIButton *)button {
+    button.alpha = 1;
+    button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y + self.btnSignUp.frame.size.height, button.frame.size.width, button.frame.size.height);
 }
 
 @end

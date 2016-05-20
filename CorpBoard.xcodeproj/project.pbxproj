@@ -106,6 +106,8 @@
 		9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */; };
 		9FC71CB11CE6ABDD00C36A1C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */; };
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
+		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
+		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
 		BC3592D8010020D54B19646C /* Pods_Corpboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4516266754101E78A9611302 /* Pods_Corpboard.framework */; };
 		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
@@ -424,6 +426,8 @@
 		9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesDisabled.h; sourceTree = "<group>"; };
 		9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesDisabled.m; sourceTree = "<group>"; };
+		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
+		9FFA92601CEE3F37000A3765 /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
 		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
@@ -980,6 +984,8 @@
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
 				D008F8671B20F6D90012D144 /* CBVersion.xib */,
 				D008F86A1B20F6EA0012D144 /* CBVersion.m */,
+				9FFA925E1CEE3F28000A3765 /* Loading.xib */,
+				9FFA92601CEE3F37000A3765 /* Loading.swift */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1521,6 +1527,7 @@
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */,
 				D0F19F941B1502C700357663 /* CBReviewAttendance.xib in Resources */,
+				9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */,
 				923D4FDA1A2C6DCF00E16B64 /* tab_group@2x.png in Resources */,
 				D03DCADA1B168A72005D326E /* CBPush.xib in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
@@ -1773,6 +1780,7 @@
 				D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */,
 				D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
+				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,
 				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
 				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,

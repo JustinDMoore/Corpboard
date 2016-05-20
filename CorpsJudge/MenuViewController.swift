@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import MWFeedParser
 
-class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateLocationServices, delegateCreateAccount, delegateUserLocation {
+class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateCreateAccount, delegateUserLocation {
 
     enum scrollDir {
         case None
@@ -124,6 +124,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.initUI()
         self.setupShows()
         self.initNewsFeed()
+        Server.sharedInstance.delegateLocation = self
         Server.sharedInstance.getUnreadMessagesForUser()
         self.sortScores()
         self.startTimerForBannerRotation()
@@ -969,10 +970,12 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.checkLocationServicesThenResume()
     }
     
+    var viewLocationForDelegate = LocationServicesPermission()
     func askForLocationPermission() {
-        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
-            viewLocation.showInParent(self.navigationController)
-            viewLocation.setDelegate(self)
+        if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
+            viewLoc.showInParent(self.navigationController)
+            viewLoc.setDelegate(self)
+            viewLocationForDelegate = viewLoc
         }
     }
     
@@ -1157,15 +1160,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.performSegueWithIdentifier("contest", sender: self)
     }
     
-    func locationGranted() {
-        if CLLocationManager.locationServicesEnabled() {
-            // after the user's location is updated, the delegate loads the page
-            Server.sharedInstance.delegateLocation = self
-            Server.sharedInstance.updateUserLocation()
-            Server.sharedInstance.updateUserLastLogin()
-        }
-    }
-    
     func locationDenied() {
         Server.sharedInstance.setInstallationLocationAllowed(false)
     }
@@ -1185,13 +1179,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     //TODO: Double check to make sure lazy inits aren't required on some of the properties
-    
-    //MARK:-
-    //MARK:delegateLocationServices
-    
-    func locationAllowed() {
-        self.locationGranted()
-    }
     
     
     //MARK:-
@@ -1216,14 +1203,14 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //MARK:delegateUserLocation
     
     func userLocationUpdated() {
+        viewLocationForDelegate.dismissView()
         self.openNearMe()
     }
     
     func userLocationError() {
+        viewLocationForDelegate.dismissView()
         let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
- 
-    
 }

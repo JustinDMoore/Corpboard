@@ -28,6 +28,7 @@
 
 BOOL checkingName = NO;
 BOOL linkingFacebook = NO;
+Loading *loadView;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -53,23 +54,34 @@ BOOL linkingFacebook = NO;
 - (IBAction)btnFacebook_clicked:(id)sender {
     if (!linkingFacebook) {
         linkingFacebook = YES;
-        [self.btnFacebook setTitle:@"Linking" forState:UIControlStateNormal];
-        NSArray *permissionsArray = @[ @"public_profile", @"email"];
+        self.btnNotNow.hidden = YES;
+        [self load];
         
-        // Login PFUser using Facebook
-        [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-            if (!user) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
-                [self dismissView:NO canProceed:NO];
-            } else if (user.isNew) {
-                NSLog(@"User signed up and logged in through Facebook!");
-                [self requestFacebook:user];
-            } else {
-                NSLog(@"User logged in through Facebook!");
-                if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
-                else [self dismissView:NO canProceed:YES];
-            }
-        }];
+        [UIView animateWithDuration:0.25
+                              delay:0.05
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             [self hideButton:self.btnFacebook];
+                             [self hideButton:self.btnSignUp];
+                         } completion:^(BOOL finished) {
+                             NSArray *permissionsArray = @[ @"public_profile", @"email"];
+                             
+                             
+                             // Login PFUser using Facebook
+                             [PFFacebookUtils logInInBackgroundWithReadPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+                                 if (!user) {
+                                     NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                                     [self dismissView:NO canProceed:NO];
+                                 } else if (user.isNew) {
+                                     NSLog(@"User signed up and logged in through Facebook!");
+                                     [self requestFacebook:user];
+                                 } else {
+                                     NSLog(@"User logged in through Facebook!");
+                                     if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
+                                     else [self dismissView:NO canProceed:YES];
+                                 }
+                             }];
+                         }];
     }
 }
 
@@ -169,11 +181,32 @@ BOOL linkingFacebook = NO;
 -(void)showView:(NSString *)view InParent:(UINavigationController *)parentNav {
     
     self.alpha = 0;
+    self.viewAccountLoading.backgroundColor = UIColor.clearColor;
+    self.viewNicknameLoading.backgroundColor = UIColor.clearColor;
     [parentNav.view addSubview:self];
     if ([view isEqualToString:@"account"]) {
         [self showAccountView];
     } else if ([view isEqualToString:@"nickname"]) {
         [self showNicknameView];
+    }
+}
+
+-(void)load {
+    loadView = [[[NSBundle mainBundle] loadNibNamed:@"Loading" owner:self options:nil] objectAtIndex:0];
+    if (linkingFacebook) {
+        [self.viewAccountLoading addSubview:loadView];
+    }
+    
+    if (checkingName) {
+        [self.viewNicknameLoading addSubview:loadView];
+    }
+    [loadView animate];
+}
+
+-(void)stopLoad {
+    if (loadView) {
+        [loadView removeFromSuperview];
+        loadView = nil;
     }
 }
 
@@ -190,6 +223,7 @@ BOOL linkingFacebook = NO;
                          if (!needsNickname) self.alpha = 0;
                      } completion:^(BOOL finished){
                          
+                         [self stopLoad];
                          if (!needsNickname) {
                             [self removeFromSuperview];
                          } else {
@@ -206,7 +240,6 @@ BOOL linkingFacebook = NO;
 -(void)showAccountView {
     linkingFacebook = NO;
     self.viewContainer.backgroundColor = UIColor.clearColor;
-    [self.btnFacebook setTitle:@"Sign Up" forState:UIControlStateNormal];
     self.viewContainerNickname.alpha = 0;
     
     //hide nickname view
@@ -301,11 +334,9 @@ BOOL linkingFacebook = NO;
                                              options:UIViewAnimationOptionCurveEaseIn
                                           animations:^{
                                               
-                                              self.btnSignUp.alpha = 1;
-                                              self.btnSignUp.frame = CGRectMake(self.btnSignUp.frame.origin.x, self.btnSignUp.frame.origin.y + self.btnSignUp.frame.size.height, self.btnSignUp.frame.size.width, self.btnSignUp.frame.size.height);
+                                              [self showButton:self.btnSignUp];
                                               
-                                              self.btnFacebook.alpha = 1;
-                                              self.btnFacebook.frame = CGRectMake(self.btnFacebook.frame.origin.x, self.btnFacebook.frame.origin.y + self.btnSignUp.frame.size.height, self.btnFacebook.frame.size.width, self.btnFacebook.frame.size.height);
+                                              [self showButton:self.btnFacebook];
                                               
                                           } completion:^(BOOL finished) {
                                               
@@ -314,9 +345,10 @@ BOOL linkingFacebook = NO;
 }
 
 -(void)showNicknameView {
+    
+    self.btnNotNow.hidden = NO;
     checkingName = NO;
     self.viewContainerNickname.backgroundColor = UIColor.clearColor;
-    [self.btnCheckName setTitle:@"Check Name" forState:UIControlStateNormal];
     self.viewContainer.alpha = 0;
     self.txtNickname.layer.borderWidth = 0;
     
@@ -404,8 +436,7 @@ BOOL linkingFacebook = NO;
                                              options:UIViewAnimationOptionCurveEaseIn
                                           animations:^{
                                               
-                                              self.btnCheckName.alpha = 1;
-                                              self.btnCheckName.frame = CGRectMake(self.btnCheckName.frame.origin.x, self.btnCheckName.frame.origin.y + self.btnCheckName.frame.size.height, self.btnCheckName.frame.size.width, self.btnCheckName.frame.size.height);
+                                              [self showButton:self.btnCheckName];
                                               
                                           } completion:^(BOOL finished) {
                                               [self.txtNickname becomeFirstResponder];
@@ -417,32 +448,70 @@ BOOL linkingFacebook = NO;
     
     if (!checkingName) {
         if (![self.txtNickname.text length]) {
+            [self shake: NO];
             return;
         } else {
-            [self.btnCheckName setTitle:@"Checking" forState:UIControlStateNormal];
+            [self.txtNickname resignFirstResponder];
+            
+            [UIView animateWithDuration:0.25
+                                  delay:0.05
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 
+                                 [self hideButton:self.btnCheckName];
+                                 
+                             } completion:^(BOOL finished) {
+                                 
+                             }];
+
+            checkingName = YES;
+            [self load];
             PFQuery *query = [PFQuery queryWithClassName:@"_User"];
             [query whereKey:@"nickname" equalTo:self.txtNickname.text];
             [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
                     if (count > 0) {
-                        [self shake];
+                        [self shake: YES];
                     } else {
                         PFUser *user = [PFUser currentUser];
                         user[@"nickname"] = self.txtNickname.text;
                         [user saveInBackground];
-                        [self.txtNickname resignFirstResponder];
+                        [self stopLoad];
                         [self dismissView:NO canProceed:YES];
                     }
                 } else {
-                    [self shake];
+                    [self shake: YES];
                 }
             }];
         }
     }
 }
 
-- (void)shake {
-    [self.btnCheckName setTitle:@"Check Name" forState:UIControlStateNormal];
+-(void)hideButton:(UIButton *)button {
+    button.alpha = 0;
+    button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y - self.btnSignUp.frame.size.height, button.frame.size.width, button.frame.size.height);
+}
+
+-(void)showButton:(UIButton *)button {
+    button.alpha = 1;
+    button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y + self.btnSignUp.frame.size.height, button.frame.size.width, button.frame.size.height);
+}
+
+- (void)shake:(BOOL)moveButton {
+    [self stopLoad];
+    [UIView animateWithDuration:0.25
+                          delay:0.05
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         if (moveButton) {
+                             [self showButton:self.btnCheckName];
+                         }
+                     } completion:^(BOOL finished) {
+                         [self.txtNickname becomeFirstResponder];
+                     }];
+    
+
+    checkingName = NO;
     CAKeyframeAnimation * anim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
     anim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
     anim.autoreverses = YES ;

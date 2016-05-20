@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @property (weak, nonatomic) IBOutlet UILabel *lblMessage;
 @property (weak, nonatomic) IBOutlet UIButton *btnFacebook;
+@property (weak, nonatomic) IBOutlet UIButton *btnNotNow;
+@property (weak, nonatomic) IBOutlet UIView *viewAccountLoading;
 
 //nickname
 @property (weak, nonatomic) IBOutlet UIView *viewContainerNickname;
@@ -32,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtNickname;
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckName;
 @property (weak, nonatomic) IBOutlet UILabel *lblNicknameTitle;
+@property (weak, nonatomic) IBOutlet UIView *viewNicknameLoading;
 
 
 -(void)showView:(NSString *)view InParent:(UINavigationController *)parentNav;

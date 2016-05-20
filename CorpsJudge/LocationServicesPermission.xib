@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tj-i6-t6H">
-                                <rect key="frame" x="67" y="80" width="253" height="260"/>
+                                <rect key="frame" x="67" y="80" width="253" height="280"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59D-KN-4Ec">
                                         <rect key="frame" x="6" y="143" width="240" height="56"/>
@@ -56,12 +56,8 @@
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="near"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-76-L1u">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-76-L1u">
                                         <rect key="frame" x="83" y="222" width="87" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="87" id="AXe-ps-yzb"/>
-                                            <constraint firstAttribute="height" constant="30" id="Tpe-Y2-gvT"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <state key="normal" title="Not Now">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,11 +66,15 @@
                                             <action selector="btnNotNow:" destination="rsb-cg-kOo" eventType="touchUpInside" id="F8K-Yb-m24"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cW1-s1-vlO">
+                                        <rect key="frame" x="96" y="222" width="60" height="58"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="253" id="tjS-PW-EEm"/>
-                                    <constraint firstAttribute="height" constant="260" id="yvQ-bQ-dV7"/>
+                                    <constraint firstAttribute="height" constant="280" id="yvQ-bQ-dV7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -99,10 +99,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btnImage" destination="2Pv-yK-R4V" id="1l4-fp-MWd"/>
+                <outlet property="btnNotNow" destination="n3o-76-L1u" id="knM-bz-xkZ"/>
                 <outlet property="btnSignUp" destination="59D-KN-4Ec" id="i65-W5-cxY"/>
                 <outlet property="lblMessage" destination="DsM-JV-kBd" id="t1A-aQ-lbB"/>
                 <outlet property="viewContainer" destination="1Tj-i6-t6H" id="8QB-H7-Luu"/>
                 <outlet property="viewDialog" destination="Op4-ed-nXc" id="WdB-Im-QPE"/>
+                <outlet property="viewLoading" destination="cW1-s1-vlO" id="WIQ-4J-zOs"/>
             </connections>
             <point key="canvasLocation" x="292" y="358.5"/>
         </view>

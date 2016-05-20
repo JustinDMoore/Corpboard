@@ -12,5 +12,5 @@ typedef void (^animationCompletionBlock)(void);
 #define kAnimationCompletionBlock @"animationCompletionBlock"
 
 @interface CadetsAnimation : NSObject
--(void)doMaskAnimation:(UIView *)waretoLogoLarge;
+- (void)doMaskAnimation:(UIView *)waretoLogoLarge repeat:(BOOL)repeat;
 @end

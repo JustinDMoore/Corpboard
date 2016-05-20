@@ -435,18 +435,23 @@ protocol delegateUserProfile: class {
         query.whereKey("type", equalTo: "MAIN")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
+                var x = 0
                 for obj in objects! {
                     let userImageFile = obj["image"] as! PFFile
                     userImageFile.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
                         if err === nil {
+                            x+=1
                             let image = UIImage(data: data!)
                             self.arrayOfBannerImages?.append(image!)
                             self.arrayOfBannerObjects?.append(obj as! PBanner)
+                            if x == objects!.count {
+                                //we've processed all the banners, notify the progress
+                                self.delegateInitial?.updateProgress()
+                                print("8. Banners Updated.")
+                            }
                         }
                     })
                 }
-                self.delegateInitial?.updateProgress()
-                print("8. Banners Updated.")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
                 print("Error updating the banners: \(errorString)")

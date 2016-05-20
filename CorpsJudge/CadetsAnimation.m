@@ -12,8 +12,9 @@
 
 
 
-- (void)doMaskAnimation:(UIView *)waretoLogoLarge {
+- (void)doMaskAnimation:(UIView *)waretoLogoLarge repeat:(BOOL)repeat {
     
+    waretoLogoLarge.alpha = 1;
     
     animationCompletionBlock theBlock;
     waretoLogoLarge.hidden = FALSE;//Show the image view
@@ -86,6 +87,7 @@
     //Set up a completion block that will be called once the animation is completed.
     theBlock = ^void(void)
     {
+
 //        stopAnimationButton.enabled = FALSE;
 //        
 //        waretoLogoLarge.layer.mask = nil;

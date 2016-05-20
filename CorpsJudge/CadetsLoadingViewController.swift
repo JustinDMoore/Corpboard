@@ -89,9 +89,9 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         
         self.animatedCadets = true
         self.view.sendSubviewToBack(self.viewCadets)
-        self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
-        self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
-        self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x - 15, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
         self.viewCadets.bringSubviewToFront(self.imgArrow3)
         
         UIView.animateWithDuration(2.0,
@@ -269,7 +269,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     func doMaskAnimation() {
 
         let c: CadetsAnimation = CadetsAnimation()
-        c.doMaskAnimation(self.imgC)
+        c.doMaskAnimation(self.imgC, repeat: false)
         
 //        //Create a shape layer that we will use as a mask for the waretoLogoLarge image view
 //        let maskLayer = CAShapeLayer()

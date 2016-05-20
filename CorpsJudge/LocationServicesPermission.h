@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@protocol delegateLocationServices <NSObject>
--(void)locationAllowed;
-@end
-
-@interface LocationServicesPermission : UIView {
+@interface LocationServicesPermission : UIView <CLLocationManagerDelegate> {
     id delegate;
 }
 
@@ -21,8 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @property (weak, nonatomic) IBOutlet UILabel *lblMessage;
+@property (weak, nonatomic) IBOutlet UIView *viewLoading;
+@property (weak, nonatomic) IBOutlet UIButton *btnNotNow;
 
 -(void)showInParent:(UINavigationController *)parentNav;
 -(void)setDelegate:(id)newDelegate;
+-(void)dismissView;
 
 @end
