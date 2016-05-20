@@ -3,7 +3,7 @@
 //  CorpBoard
 //
 //  Created by Justin Moore on 5/19/16.
-//  Copyright © 2016 Justin Moore. All rights reserved.
+//  Copyright © 1016 Justin Moore. All rights reserved.
 //
 
 import UIKit
@@ -23,9 +23,9 @@ class Loading: UIView {
         self.doMaskAnimation()
         
         //self.view.sendSubviewToBack(self.viewCadets)
-        self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
-        self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
-        self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x - 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x - 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x - 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+        self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x - 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
         self.viewCadets.bringSubviewToFront(self.imgArrow3)
         
         self.imgArrow3.alpha = 0
@@ -46,18 +46,18 @@ class Loading: UIView {
         
         
         
-        UIView.animateWithDuration(0.1,
+        UIView.animateWithDuration(0.5,
                                    delay: 0.6,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
-                                    self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+                                    self.imgArrow3.frame = CGRectMake(self.imgArrow3.frame.origin.x + 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
                                     self.imgArrow3.alpha = 1
                                     
         }) { (finished: Bool) in
             
-            UIView.animateWithDuration(1,
-                                       delay: 0,
+            UIView.animateWithDuration(0.5,
+                                       delay: 0.0,
                                        options: [],
                                        animations: {
                                         
@@ -69,17 +69,17 @@ class Loading: UIView {
             
         }
         
-        UIView.animateWithDuration(0.1,
-                                   delay: 0.8,
+        UIView.animateWithDuration(0.5,
+                                   delay: 0.7,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
-                                    self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+                                    self.imgArrow2.frame = CGRectMake(self.imgArrow2.frame.origin.x + 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
                                     self.imgArrow2.alpha = 1
                                     
         }) { (finished: Bool) in
             
-            UIView.animateWithDuration(1,
+            UIView.animateWithDuration(0.5,
                                        delay: 0,
                                        options: [],
                                        animations: {
@@ -91,12 +91,12 @@ class Loading: UIView {
             }
         }
         
-        UIView.animateWithDuration(0.1,
-                                   delay: 1.0,
+        UIView.animateWithDuration(0.5,
+                                   delay: 0.8,
                                    options: UIViewAnimationOptions.CurveEaseInOut,
                                    animations: {
                                     
-                                    self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x + 20, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
+                                    self.imgArrow1.frame = CGRectMake(self.imgArrow1.frame.origin.x + 10, self.imgArrow1.frame.origin.y, self.imgArrow1.frame.size.width, self.imgArrow1.frame.size.height)
                                     self.imgArrow1.alpha = 1
                                     
                                     
@@ -104,7 +104,7 @@ class Loading: UIView {
             
       
             
-            UIView.animateWithDuration(1,
+            UIView.animateWithDuration(0.5,
                                        delay: 0,
                                        options: [],
                                        animations: {
