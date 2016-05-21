@@ -661,27 +661,46 @@ protocol delegateUserProfile: class {
     func createDailySchedules() {
         var today = NSDate()
         
-//        let q = PFQuery(className: PCalendar.parseClassName())
-//        q.findObjectsInBackgroundWithBlock { (objs: [PFObject]?, err: NSError?) in
-//            for obj in objs! {
-//                obj.deleteInBackground()
-//            }
-//        }
-        
-        for _ in 0..<60 {
-            let newSchedule = PCalendar()
-            let dateComponents = NSDateComponents()
-            dateComponents.day = today.day()
-            dateComponents.month = today.month()
-            dateComponents.year = today.year()
-            dateComponents.hour = 17
-            dateComponents.minute = 0
-            dateComponents.second = 0
-            let gregorianCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-            let date = gregorianCalendar!.dateFromComponents(dateComponents)
-            newSchedule.date = date!
-            today = today.dateByAddingDays(1)
-            newSchedule.saveInBackground()
+        let q = PFQuery(className: PCalendar.parseClassName())
+        q.findObjectsInBackgroundWithBlock { (objs: [PFObject]?, err: NSError?) in
+            for obj in objs! {
+                
+                let day = obj as! PCalendar
+                if day.typeOfDay == "Spring Training" {
+                    let block = PDailySchedule()
+                    block.calendarDay = day
+                    block.task = "Wake Up"
+                    block.taskPresent = "are waking up."
+                    block.rawDateTime = "0800"
+                    let formatter = NSDateFormatter()
+                    formatter.timeZone = NSTimeZone(abbreviation: day.timeZone)
+                    let newDate: NSDate = formatter.dateFromString(day.date.toString())!
+                    block.dateTime = newDate
+                    
+                    let calendar = NSCalendar.currentCalendar()
+                    let date = day.date
+                    let components = calendar.components([.Month, .Day, .Year, .Hour, .Minute, .Second], fromDate: date)
+                    components.hour = 17
+                    components.minute = 0
+                    components.second = 0
+                }
+            }
         }
+        
+//        for _ in 0..<60 {
+//            let newSchedule = PCalendar()
+//            let dateComponents = NSDateComponents()
+//            dateComponents.day = today.day()
+//            dateComponents.month = today.month()
+//            dateComponents.year = today.year()
+//            dateComponents.hour = 17
+//            dateComponents.minute = 0
+//            dateComponents.second = 0
+//            let gregorianCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+//            let date = gregorianCalendar!.dateFromComponents(dateComponents)
+//            newSchedule.date = date!
+//            today = today.dateByAddingDays(1)
+//            newSchedule.saveInBackground()
+//        }
     }
 }
