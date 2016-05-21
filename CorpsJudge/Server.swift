@@ -106,6 +106,8 @@ protocol delegateUserProfile: class {
     var arrayOfUserOpenClassRankings = NSMutableArray()
     var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
+    var currentTask = PDailySchedule()
+    
     var arrayOfFacts = [PFObject]()
     var isFactDisplayed = false
     
@@ -181,6 +183,11 @@ protocol delegateUserProfile: class {
     }
     
     func updateAppStatus() {
+        
+        
+        self.getTodaysSchedule()
+        
+        
         //check to see if there are any admin messages to display to the user
         //and whether or not to continue running
         let query = PFQuery(className: PAppMessage.parseClassName())
@@ -626,6 +633,55 @@ protocol delegateUserProfile: class {
         if allowsPush != on {
             install["allowsPush"] = on
             install.saveEventually()
+        }
+    }
+    
+    func getTodaysSchedule() {
+        
+        self.createDailySchedules()
+        
+        let now = NSDate()
+        now.dateByAddingMinutes(1)
+        
+        let query = PFQuery(className: PDailySchedule.parseClassName())
+        //query.whereKey("dateTime", greaterThan: yesterdayMorning!)
+        query.whereKey("dateTime", lessThan: now)
+        query.orderByDescending("dateTime")
+        query.limit = 1
+        query.includeKey("calendarDay")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if err === nil {
+                if objects?.count > 0 {
+                    self.currentTask = objects?.last as! PDailySchedule
+                }
+            }
+        }
+    }
+    
+    func createDailySchedules() {
+        var today = NSDate()
+        
+//        let q = PFQuery(className: PCalendar.parseClassName())
+//        q.findObjectsInBackgroundWithBlock { (objs: [PFObject]?, err: NSError?) in
+//            for obj in objs! {
+//                obj.deleteInBackground()
+//            }
+//        }
+        
+        for _ in 0..<60 {
+            let newSchedule = PCalendar()
+            let dateComponents = NSDateComponents()
+            dateComponents.day = today.day()
+            dateComponents.month = today.month()
+            dateComponents.year = today.year()
+            dateComponents.hour = 17
+            dateComponents.minute = 0
+            dateComponents.second = 0
+            let gregorianCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            let date = gregorianCalendar!.dateFromComponents(dateComponents)
+            newSchedule.date = date!
+            today = today.dateByAddingDays(1)
+            newSchedule.saveInBackground()
         }
     }
 }

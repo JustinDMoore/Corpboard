@@ -115,6 +115,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var btnProfile: UIButton!
     @IBOutlet weak var btnTourMap: UIButton!
     @IBOutlet weak var btnSeeDailySchedule: UIButton!
+    @IBOutlet weak var lblTaskLocation: UILabel!
+    @IBOutlet weak var lblTask: UILabel!
+    
     
     //MARK:-
     //MARK:Lifecycle
@@ -138,8 +141,16 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
         self.navigationItem.titleView = imageView
+        
+        //update the cadets current activity
+        self.updateCurrentTask()
     }
-    
+
+    func updateCurrentTask() {
+        let schedule = Server.sharedInstance.currentTask.calendarDay
+        self.lblTaskLocation.text = "The Cadets are in \(schedule.city)"
+        self.lblTask.text = "and \(Server.sharedInstance.currentTask.taskPresent)"
+    }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
@@ -578,11 +589,11 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if self.arrayOfShowsForTable1.count > 0 {
             if let show = self.arrayOfShowsForTable1.first {
                 if show.showDate.isToday() {
-                    lastShowString = "Today"
+                    lastShowString = "Shows Today"
                 } else if show.showDate.isYesterday() {
                     lastShowString = "Yesterday"
                 } else if show.showDate.isTomorrow() {
-                    lastShowString = "Tomorrow"
+                    lastShowString = "Shows Tomorrow"
                 } else {
                     let formatter = NSDateFormatter()
                     formatter.dateFormat = "EEEE M/dd"
@@ -595,9 +606,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if self.arrayOfShowsForTable2.count > 0 {
             if let show = self.arrayOfShowsForTable2.first {
                 if show.showDate.isToday() {
-                    nextShowString = "Today"
+                    nextShowString = "Shows Today"
                 } else if show.showDate.isTomorrow() {
-                    nextShowString = "Tomorrow"
+                    nextShowString = "Shows Tomorrow"
                 } else {
                     let formatter = NSDateFormatter()
                     formatter.dateFormat = "EEEE M/dd"
@@ -938,6 +949,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     @IBAction func rankings(sender: AnyObject) {
         self.performSegueWithIdentifier("rankings", sender: self)
+    }
+    
+    @IBAction func schedules(sender: AnyObject) {
+        self.performSegueWithIdentifier("schedules", sender: self)
     }
     
     @IBAction func shows(sender: AnyObject) {

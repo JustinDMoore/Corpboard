@@ -105,6 +105,10 @@
 		9FC71CA61CE6639500C36A1C /* UISingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C921CE6639500C36A1C /* UISingleton.swift */; };
 		9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */; };
 		9FC71CB11CE6ABDD00C36A1C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */; };
+		9FC7F0F51CEFA11300B75143 /* PDailySchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */; };
+		9FC7F0F71CEFA24A00B75143 /* PCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */; };
+		9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */; };
+		9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */; };
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
 		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
@@ -424,6 +428,10 @@
 		9FC71C921CE6639500C36A1C /* UISingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleton.swift; sourceTree = "<group>"; };
 		9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = RockyPoint.mp3; sourceTree = "<group>"; };
 		9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDailySchedule.swift; sourceTree = "<group>"; };
+		9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCalendar.swift; sourceTree = "<group>"; };
+		9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesViewController.swift; sourceTree = "<group>"; };
+		9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesDisabled.h; sourceTree = "<group>"; };
 		9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesDisabled.m; sourceTree = "<group>"; };
 		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
@@ -1106,6 +1114,7 @@
 			children = (
 				9FC71C811CE6639500C36A1C /* CadetsLoadingViewController.swift */,
 				9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */,
+				9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1157,6 +1166,8 @@
 				9FC71C8E1CE6639500C36A1C /* PShow.swift */,
 				9FC71C8F1CE6639500C36A1C /* PStadium.swift */,
 				9FC71C901CE6639500C36A1C /* PUser.swift */,
+				9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */,
+				9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */,
 			);
 			name = "PFObject Subclasses";
 			sourceTree = "<group>";
@@ -1301,6 +1312,7 @@
 				D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */,
 				D0AAD16F1AB68619002CAACC /* CBAnnotation.h */,
 				D0AAD1701AB68619002CAACC /* CBAnnotation.m */,
+				9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1704,7 +1716,9 @@
 				928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */,
 				D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */,
 				9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */,
+				9FC7F0F71CEFA24A00B75143 /* PCalendar.swift in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
+				9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */,
 				D075856D1965CFBF003CAF29 /* ClipView.m in Sources */,
 				923E69A21B8850BB00B7328F /* CBCartItemCell.m in Sources */,
 				D0C2EC501B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m in Sources */,
@@ -1719,6 +1733,7 @@
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
 				D065EE871B8AC43A001611D9 /* CBHoleView.m in Sources */,
+				9FC7F0F51CEFA11300B75143 /* PDailySchedule.swift in Sources */,
 				9FC71C991CE6639500C36A1C /* PAppMessage.swift in Sources */,
 				92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */,
 				D03D64F91B99612000C07B74 /* StoreViewController.swift in Sources */,
@@ -1799,6 +1814,7 @@
 				D0F19F921B14F88400357663 /* CBReviewCell.m in Sources */,
 				D00B71791AF4531900403A12 /* CBContactUs.m in Sources */,
 				92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */,
+				9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D036DA6F1B82E66500746DD6 /* CBStoreCategoryFlowLayout.m in Sources */,
 				D09149571BA27647001EA154 /* cartTableViewCell.swift in Sources */,

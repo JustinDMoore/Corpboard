@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PBanner.registerSubclass()
         PFavorite.registerSubclass()
         PScore.registerSubclass()
+        PCalendar.registerSubclass()
+        PDailySchedule.registerSubclass()
         
         Parse.enableLocalDatastore()
         
