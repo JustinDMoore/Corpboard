@@ -10,7 +10,5 @@
 #import "CBRankingsInfoView.h"
 
 @interface CBStatsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, RankInfoProtocol>
-@property (weak, nonatomic) IBOutlet UILabel *lblProgress;
-@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 
 @end

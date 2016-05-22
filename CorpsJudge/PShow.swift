@@ -19,7 +19,7 @@ class PShow: PFObject, PFSubclassing {
     @NSManaged var arrayOfCorps: [String]
     @NSManaged var isShowOver: Bool
     @NSManaged var recapAllAge: String
-    @NSManaged var stadium: PStadium
+    @NSManaged var stadium: PStadium?
 
     override class func initialize() {
         struct Static {

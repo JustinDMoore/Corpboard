@@ -10,13 +10,13 @@ import UIKit
 
 class PCalendar: PFObject, PFSubclassing {
 
-    @NSManaged var housingSite: String
+
     @NSManaged var city: String
     @NSManaged var typeOfDay: String
     @NSManaged var date: NSDate
-    @NSManaged var housingAddress: String
-    @NSManaged var zip: Int
+    @NSManaged var housing: PStadium?
     @NSManaged var timeZone: String
+    @NSManaged var show: PShow?
     
     override class func initialize() {
         struct Static {

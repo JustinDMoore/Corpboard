@@ -106,7 +106,8 @@ protocol delegateUserProfile: class {
     var arrayOfUserOpenClassRankings = NSMutableArray()
     var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
-    var currentTask = PDailySchedule()
+    var currentTask = String()
+    var currentLocation = String()
     
     var arrayOfFacts = [PFObject]()
     var isFactDisplayed = false
@@ -183,11 +184,7 @@ protocol delegateUserProfile: class {
     }
     
     func updateAppStatus() {
-        
-        
-        self.getTodaysSchedule()
-        
-        
+    
         //check to see if there are any admin messages to display to the user
         //and whether or not to continue running
         let query = PFQuery(className: PAppMessage.parseClassName())
@@ -373,70 +370,43 @@ protocol delegateUserProfile: class {
         }
     }
     
-    func moveCorps() {
-//        let query = PFQuery(className: "corps")
+//    func moveCorps() {
+//        let query = PFQuery(className: "stadiums")
+//        query.limit = 1000
 //        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, err: NSError?) in
 //            if results?.count > 0 {
 //                for obj in results! {
-////                    let newCorps = PCorps()
-////                    if obj["active"] != nil {
-////                        newCorps.active = obj["active"] as! Bool
-////                    }
-////                    if obj["class"] != nil {
-////                        newCorps.classification = obj["class"] as! String
-////                    }
-////                    if obj["website_Display"] != nil {
-////                        newCorps.websiteDisplay = obj["website_Display"] as! String
-////                    }
-////                    if obj["lastScoreDate"] != nil {
-////                        newCorps.lastScoreDate = obj["lastScoreDate"] as! NSDate
-////                    }
-////                    if obj["from"] != nil {
-////                        newCorps.from = obj["from"] as! String
-////                    }
-////                    if obj["logo"] != nil {
-////                        newCorps.logo = obj["logo"] as? PFFile
-////                    }
-////                    if obj["logo_light"] != nil {
-////                        newCorps.logoLight = obj["logo_light"] as? PFFile
-////                    }
-////                    if obj["about"] != nil {
-////                        newCorps.about = obj["about"] as! String
-////                    }
-////                    if obj["lastPercussion"] != nil {
-////                        newCorps.lastPercussion = obj["lastPercussion"] as! String
-////                    }
-////                    if obj["corpsName"] != nil {
-////                        newCorps.corpsName = obj["corpsName"] as! String
-////                    }
-////                    if obj["numberOfChamps"] != nil {
-////                        newCorps.numberOfChamps = obj["numberOfChamps"] as! Int
-////                    }
-////                    if obj["champs"] != nil {
-////                        newCorps.champs = obj["champs"] as! String
-////                    }
-////                    if obj["lastColorguard"] != nil {
-////                        newCorps.lastColorguard = obj["lastColorguard"] as! String
-////                    }
-////                    if obj["website"] != nil {
-////                        newCorps.website = obj["website"] as! String
-////                    }
-////                    if obj["lastBrass"] != nil {
-////                        newCorps.lastBrass = obj["lastBrass"] as! String
-////                    }
-////                    if obj["lastScore"] != nil {
-////                        newCorps.lastScore = obj["lastScore"] as! String
-////                    }
-////                    if obj["olderScore"] != nil {
-////                        newCorps.olderScore = obj["olderScore"] as! String
-////                    }
+//                    let newCorps = PStadium()
+//                    if obj["zip"] != nil {
+//                        newCorps.zip = obj["zip"] as! String
+//                    }
+//                    if obj["facility"] != nil {
+//                        newCorps.facility = obj["facility"] as! String
+//                    }
+//                    if obj["city"] != nil {
+//                        newCorps.city = obj["city"] as! String
+//                    }
+//                    if obj["name"] != nil {
+//                        newCorps.name = obj["name"] as! String
+//                    }
+//                    if obj["state"] != nil {
+//                        newCorps.state = obj["state"] as! String
+//                    }
+//                    if obj["address"] != nil {
+//                        newCorps.address = obj["address"] as! String
+//                    }
+//                    if obj["coordinates"] != nil {
+//                        newCorps.coordinates = obj["coordinates"] as! PFGeoPoint
+//                    }
+//                    
 //                    obj.deleteInBackground()
 //                }
 //            }
 //        }
-    }
+//    }
     
     func updateBanners() {
+
         self.arrayOfBannerImages = [UIImage]()
         self.arrayOfBannerObjects = [PBanner]()
         let query = PFQuery(className: PBanner.parseClassName())
@@ -636,15 +606,20 @@ protocol delegateUserProfile: class {
         }
     }
     
-    func getTodaysSchedule() {
-        
-        self.createDailySchedules()
+    func checkForAdminMode() {
+        if let user = PFUser.currentUser() {
+            if let admin = user["isAdmin"] as? Bool {
+                if (admin) { self.adminMode = true }
+            }
+        }
+    }
+    
+    func getCurrentTask() {
         
         let now = NSDate()
         now.dateByAddingMinutes(1)
         
         let query = PFQuery(className: PDailySchedule.parseClassName())
-        //query.whereKey("dateTime", greaterThan: yesterdayMorning!)
         query.whereKey("dateTime", lessThan: now)
         query.orderByDescending("dateTime")
         query.limit = 1
@@ -652,9 +627,38 @@ protocol delegateUserProfile: class {
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
                 if objects?.count > 0 {
-                    self.currentTask = objects?.last as! PDailySchedule
+                    if let schedule = objects?.first as? PDailySchedule {
+                        self.currentLocation = "The Cadets are in \(schedule.calendarDay.city)"
+                        self.currentTask = "and \(schedule.taskPresent)"
+                    }
+                } else {
+                    self.getCurrentLocationIfNoTask()
                 }
             }
+        }
+    }
+    
+    func getCurrentLocationIfNoTask() {
+            
+            let now = NSDate()
+            now.dateByAddingMinutes(1)
+            
+            let query = PFQuery(className: PCalendar.parseClassName())
+            query.whereKey("date", lessThan: now)
+            query.orderByDescending("date")
+            query.limit = 1
+            query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+                if err === nil {
+                    if objects?.count > 0 {
+                        if let obj = objects?.first as? PCalendar {
+                            self.currentLocation = "The Cadets are in \(obj.city)"
+                            self.currentTask = "and are hard at work."
+                        }
+                    } else {
+                        self.currentLocation = "The Cadets are hard at work today."
+                        self.currentTask = ""
+                    }
+                }
         }
     }
     
@@ -687,20 +691,21 @@ protocol delegateUserProfile: class {
             }
         }
         
-//        for _ in 0..<60 {
-//            let newSchedule = PCalendar()
-//            let dateComponents = NSDateComponents()
-//            dateComponents.day = today.day()
-//            dateComponents.month = today.month()
-//            dateComponents.year = today.year()
-//            dateComponents.hour = 17
-//            dateComponents.minute = 0
-//            dateComponents.second = 0
-//            let gregorianCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-//            let date = gregorianCalendar!.dateFromComponents(dateComponents)
-//            newSchedule.date = date!
-//            today = today.dateByAddingDays(1)
-//            newSchedule.saveInBackground()
-//        }
+        for _ in 0..<60 {
+            let newSchedule = PCalendar()
+            let dateComponents = NSDateComponents()
+            dateComponents.day = today.day()
+            dateComponents.month = today.month()
+            dateComponents.year = today.year()
+            dateComponents.hour = 17
+            dateComponents.minute = 0
+            dateComponents.second = 0
+            let gregorianCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            let date = gregorianCalendar!.dateFromComponents(dateComponents)
+            newSchedule.date = date!
+            today = today.dateByAddingDays(1)
+            newSchedule.saveInBackground()
+        }
     }
+        
 }

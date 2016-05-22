@@ -12,11 +12,19 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     
     var arrayOfSchedules = [PCalendar]()
+    var selectedSchedule: PCalendar?
+    var viewLoading = Loading()
     
     @IBOutlet weak var tableSchedules: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.blackColor()
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.view.addSubview(viewLoading)
+        viewLoading.center = self.view.center
+        viewLoading.animate()
+        
         self.tableSchedules.delegate = self
         self.tableSchedules.dataSource = self
         self.tableSchedules.estimatedRowHeight = 44
@@ -28,6 +36,8 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     func getSchedules() {
         self.arrayOfSchedules = []
         let query = PFQuery(className: PCalendar.parseClassName())
+        query.includeKey("show")
+        query.includeKey("housing")
         query.orderByAscending("date")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
@@ -47,12 +57,18 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func reload() {
+        self.viewLoading.removeFromSuperview()
         self.tableSchedules.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "schedule" {
+            if let vc = segue.destinationViewController as? DailyScheduleViewController {
+                if selectedSchedule != nil {
+                    vc.day = selectedSchedule
+                }
+            }
+        }
     }
 
     //MARK:-
@@ -86,7 +102,8 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        selectedSchedule = arrayOfSchedules[indexPath.row]
+        self.performSegueWithIdentifier("schedule", sender: self)
     }
     
 }

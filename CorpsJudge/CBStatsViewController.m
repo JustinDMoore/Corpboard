@@ -43,6 +43,7 @@ typedef enum : int {
 @interface CBStatsViewController () {
     BOOL favoritesComplete;
     BOOL scoresComplete;
+    Loading *viewLoading;
 }
 
 - (IBAction)btnInfo_clicked:(id)sender;
@@ -73,7 +74,6 @@ typedef enum : int {
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenLoudestFavs;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllAgeLoudestFavs;
 
-@property (nonatomic) CGFloat progressTotal;
 @end
 
 @implementation CBStatsViewController
@@ -190,8 +190,10 @@ int fetchCount = 0;
     [super viewDidLoad];
 
     appDel =  [[UIApplication sharedApplication]delegate];
-    [self.progressBar setProgress:0];
-    self.progressTotal = 0.0;
+    viewLoading = [[[NSBundle mainBundle] loadNibNamed:@"Loading" owner:self options:nil] objectAtIndex:0];
+    [self.view addSubview:viewLoading];
+    viewLoading.center = self.view.center;
+    [viewLoading animate];
     
     // reset bools for loading
     favoritesComplete = NO;
@@ -216,9 +218,7 @@ int fetchCount = 0;
 }
 
 -(void)initUI {
-    
-    self.lblProgress.hidden = NO;
-    self.progressBar.hidden = NO;
+
     self.tableCorps.hidden = YES;
     self.tabBar.userInteractionEnabled = NO;
     self.segmentOfficial.userInteractionEnabled = NO;
@@ -629,8 +629,6 @@ int fetchCount = 0;
 int rank;
 
 -(void)getUserRankForCorps:(PFObject *)corps {
-
-    [self.progressBar setProgress:self.progressTotal animated:YES];
     
     queryUserRanks = [PFQuery queryWithClassName:@"scores"];
     [queryUserRanks whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
@@ -644,35 +642,6 @@ int rank;
     [queryUserRanks findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         rank++;
         NSLog(@"ranking %i", rank);
-        
-        
-        if (rank == 5) {
-            self.progressTotal += 0.05;
-            [self.progressBar setProgress:self.progressTotal animated:YES];
-            
-        }
-        if (rank == 20) {
-            self.progressTotal += 0.10;
-            [self.progressBar setProgress:self.progressTotal animated:YES];
-            
-        }
-        if (rank == 35) {
-            self.progressTotal += 0.25;
-            [self.progressBar setProgress:self.progressTotal animated:YES];
-            
-        }
-        
-        if (rank == 40) {
-            self.progressTotal += 0.1;
-            [self.progressBar setProgress:self.progressTotal animated:YES];
-            
-        }
-        
-        if (rank == 50) {
-            self.progressTotal += 0.5;
-            [self.progressBar setProgress:self.progressTotal animated:YES];
-            
-        }
         
         if ([array count]) {
 
@@ -716,22 +685,6 @@ int sort;
     
     sort++;
     NSLog(@"sorting %i", sort);
-    if (sort == 1) {
-        self.progressTotal += 0.15;
-        [self.progressBar setProgress:self.progressTotal animated:YES];
-    } else if (sort == 2) {
-        self.progressTotal += 0.15;
-        [self.progressBar setProgress:self.progressTotal animated:YES];
-    } else if (sort == 3) {
-        self.progressTotal += 0.05;
-        [self.progressBar setProgress:self.progressTotal animated:YES];
-    } else if (sort == 4) {
-        self.progressTotal += 0.05;
-        [self.progressBar setProgress:self.progressTotal animated:YES];
-    } else if (sort == 5) {
-        self.progressTotal += 0.05;
-        [self.progressBar setProgress:self.progressTotal animated:YES];
-    }
     
     switch (self.scorePhase) {
         {case phaseScore:
@@ -1569,8 +1522,8 @@ int sort;
 }
 
 -(void)reloadTable {
-    self.lblProgress.hidden = YES;
-    self.progressBar.hidden = YES;
+    
+    [viewLoading removeFromSuperview];
     self.tableCorps.hidden = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress dismiss];

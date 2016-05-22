@@ -110,6 +110,10 @@
 		9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */; };
 		9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */; };
 		9FEDCCF61CF028E500C1AB8C /* DailyScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */; };
+		9FEDCCF81CF0BAD900C1AB8C /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF71CF0BAD900C1AB8C /* TaskTableViewCell.swift */; };
+		9FEDCCFA1CF0FF1A00C1AB8C /* CreateSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF91CF0FF1A00C1AB8C /* CreateSchedule.swift */; };
+		9FEDCCFC1CF0FF2700C1AB8C /* CreateSchedule.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FEDCCFB1CF0FF2700C1AB8C /* CreateSchedule.xib */; };
+		9FEDCCFE1CF1024F00C1AB8C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCFD1CF1024F00C1AB8C /* Task.swift */; };
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
 		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
@@ -434,6 +438,10 @@
 		9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesViewController.swift; sourceTree = "<group>"; };
 		9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleViewController.swift; sourceTree = "<group>"; };
+		9FEDCCF71CF0BAD900C1AB8C /* TaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		9FEDCCF91CF0FF1A00C1AB8C /* CreateSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSchedule.swift; sourceTree = "<group>"; };
+		9FEDCCFB1CF0FF2700C1AB8C /* CreateSchedule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSchedule.xib; sourceTree = "<group>"; };
+		9FEDCCFD1CF1024F00C1AB8C /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesDisabled.h; sourceTree = "<group>"; };
 		9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesDisabled.m; sourceTree = "<group>"; };
 		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
@@ -1128,6 +1136,7 @@
 				9FC71C911CE6639500C36A1C /* Server.swift */,
 				9FC71C921CE6639500C36A1C /* UISingleton.swift */,
 				9FC71C841CE6639500C36A1C /* News.swift */,
+				9FEDCCFD1CF1024F00C1AB8C /* Task.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1150,6 +1159,8 @@
 				D0D777461B117BF000D4EF6A /* LocationServicesDisabled.xib */,
 				9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */,
 				9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */,
+				9FEDCCF91CF0FF1A00C1AB8C /* CreateSchedule.swift */,
+				9FEDCCFB1CF0FF2700C1AB8C /* CreateSchedule.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1316,6 +1327,7 @@
 				D0AAD16F1AB68619002CAACC /* CBAnnotation.h */,
 				D0AAD1701AB68619002CAACC /* CBAnnotation.m */,
 				9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */,
+				9FEDCCF71CF0BAD900C1AB8C /* TaskTableViewCell.swift */,
 			);
 			name = SubClasses;
 			sourceTree = "<group>";
@@ -1585,6 +1597,7 @@
 				D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
+				9FEDCCFC1CF0FF2700C1AB8C /* CreateSchedule.xib in Resources */,
 				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
 				D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */,
@@ -1734,6 +1747,7 @@
 				9FC71C9F1CE6639500C36A1C /* PFavorite.swift in Sources */,
 				D0307DB719537792000849F1 /* CBShowDetailsViewController.m in Sources */,
 				92275B3C1A4042BC006E8E8E /* CBView.m in Sources */,
+				9FEDCCFA1CF0FF1A00C1AB8C /* CreateSchedule.swift in Sources */,
 				D097A21F1A04125300C9FF72 /* CBWebViewController.m in Sources */,
 				D01189521A6B12BE00D77EA9 /* CBEffect.m in Sources */,
 				D065EE871B8AC43A001611D9 /* CBHoleView.m in Sources */,
@@ -1775,6 +1789,7 @@
 				923D4FD71A2C6DCF00E16B64 /* utilities.m in Sources */,
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
 				D03D64EF1B98E2C800C07B74 /* OrderStatus.swift in Sources */,
+				9FEDCCF81CF0BAD900C1AB8C /* TaskTableViewCell.swift in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
 				9F9D68681CE7EA310084878B /* AppConstant.swift in Sources */,
 				9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */,
@@ -1807,6 +1822,7 @@
 				D0A88B6B1A9AAFED00A20441 /* CBAdminViewController.m in Sources */,
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				9FC71C9D1CE6639500C36A1C /* PCorps.swift in Sources */,
+				9FEDCCFE1CF1024F00C1AB8C /* Task.swift in Sources */,
 				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
 				D0F19FA31B15369500357663 /* CBReviewScoreCell.m in Sources */,

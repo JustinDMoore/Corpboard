@@ -10,12 +10,13 @@ import Foundation
 
 class PStadium: PFObject, PFSubclassing {
 
-    @NSManaged var zip: String
+
     @NSManaged var facility: String
-    @NSManaged var city: String
-    @NSManaged var name: String
-    @NSManaged var state: String
+    @NSManaged var name: String //of the stadium
     @NSManaged var address: String
+    @NSManaged var city: String!
+    @NSManaged var state: String!
+    @NSManaged var zip: String!
     @NSManaged var coordinates: PFGeoPoint
     
     override class func initialize() {

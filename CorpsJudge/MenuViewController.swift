@@ -118,7 +118,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var lblTaskLocation: UILabel!
     @IBOutlet weak var lblTask: UILabel!
     
-    
     //MARK:-
     //MARK:Lifecycle
     
@@ -147,9 +146,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
 
     func updateCurrentTask() {
-        let schedule = Server.sharedInstance.currentTask.calendarDay
-        self.lblTaskLocation.text = "The Cadets are in \(schedule.city)"
-        self.lblTask.text = "and \(Server.sharedInstance.currentTask.taskPresent)"
+        self.lblTaskLocation.text = Server.sharedInstance.currentLocation
+        self.lblTask.text = Server.sharedInstance.currentTask
     }
     
     override func viewWillDisappear(animated: Bool) {

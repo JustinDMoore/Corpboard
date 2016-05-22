@@ -9,8 +9,6 @@
 import UIKit
 
 class Loading: UIView {
-
-    var timerLoading = NSTimer()
     
     @IBOutlet weak var viewCadets: UIView!
     @IBOutlet weak var imgArrow1: UIImageView!

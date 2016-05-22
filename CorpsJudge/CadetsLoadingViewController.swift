@@ -66,6 +66,8 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         self.imgCadetsText.alpha = 0
         self.lblCorpsboard.alpha = 0
         self.imgC.hidden = true
+        Server.sharedInstance.getCurrentTask()
+        Server.sharedInstance.checkForAdminMode()
     }
     
     override func viewDidAppear(animated: Bool) {
