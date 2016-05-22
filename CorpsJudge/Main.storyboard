@@ -4219,6 +4219,19 @@
                                             <action selector="btnAddTask:" destination="YX0-Ou-F7m" eventType="touchUpInside" id="Iau-Oz-gaC"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1M-TL-ghy">
+                                        <rect key="frame" x="512" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="bDg-z7-AkN"/>
+                                            <constraint firstAttribute="width" constant="40" id="cER-dd-Hgq"/>
+                                        </constraints>
+                                        <state key="normal" image="delete">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnDeleteSchedule:" destination="YX0-Ou-F7m" eventType="touchUpInside" id="7be-If-CGK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -4232,6 +4245,7 @@
                                     <constraint firstItem="eVb-zz-qhV" firstAttribute="top" secondItem="9wN-Xn-NvV" secondAttribute="bottom" constant="15" id="FmK-Rz-ggR"/>
                                     <constraint firstItem="8bU-H0-Hxi" firstAttribute="top" secondItem="0un-Cl-ONh" secondAttribute="bottom" constant="2" id="GL0-kW-ARr"/>
                                     <constraint firstItem="eVb-zz-qhV" firstAttribute="leading" secondItem="Daf-ar-Nxq" secondAttribute="leading" constant="18" id="GTn-Rq-UHn"/>
+                                    <constraint firstItem="qBW-ke-jIi" firstAttribute="leading" secondItem="c1M-TL-ghy" secondAttribute="trailing" constant="8" id="Iay-jZ-0Il"/>
                                     <constraint firstItem="0un-Cl-ONh" firstAttribute="leading" secondItem="Daf-ar-Nxq" secondAttribute="leading" constant="18" id="Ocm-Dm-esb"/>
                                     <constraint firstItem="9wN-Xn-NvV" firstAttribute="leading" secondItem="Daf-ar-Nxq" secondAttribute="leading" constant="18" id="PbH-Rl-kMJ"/>
                                     <constraint firstItem="G4z-zM-XRz" firstAttribute="leading" secondItem="Daf-ar-Nxq" secondAttribute="leading" constant="18" id="R5P-bF-Tgz"/>
@@ -4246,6 +4260,7 @@
                                     <constraint firstItem="Bgz-uG-lVM" firstAttribute="top" secondItem="8bU-H0-Hxi" secondAttribute="bottom" constant="-5" id="lMm-gw-a61"/>
                                     <constraint firstItem="G4z-zM-XRz" firstAttribute="top" secondItem="Ve6-5X-BFb" secondAttribute="bottom" constant="17" id="msQ-Da-nm6"/>
                                     <constraint firstAttribute="trailing" secondItem="9wN-Xn-NvV" secondAttribute="trailing" constant="8" id="sSM-a7-q63"/>
+                                    <constraint firstItem="c1M-TL-ghy" firstAttribute="centerY" secondItem="qBW-ke-jIi" secondAttribute="centerY" id="wDV-mH-1oa"/>
                                     <constraint firstItem="cRI-Ee-ZSy" firstAttribute="top" secondItem="Daf-ar-Nxq" secondAttribute="top" constant="-7" id="xHL-0y-G9s"/>
                                     <constraint firstItem="9wN-Xn-NvV" firstAttribute="top" secondItem="Bgz-uG-lVM" secondAttribute="bottom" constant="18" id="xwA-XP-wiO"/>
                                 </constraints>
@@ -4270,6 +4285,7 @@
                     <navigationItem key="navigationItem" title="Daily Schedule" id="hAz-qy-nOD"/>
                     <connections>
                         <outlet property="btnAddTask" destination="qBW-ke-jIi" id="hoG-Cs-AOi"/>
+                        <outlet property="btnDeleteSchedule" destination="c1M-TL-ghy" id="ttY-uB-boJ"/>
                         <outlet property="btnOpenInMaps" destination="9p1-Gl-Bwc" id="FDd-5C-WYU"/>
                         <outlet property="btnShowDetails" destination="Bgz-uG-lVM" id="13l-i9-HIk"/>
                         <outlet property="lblCity" destination="0un-Cl-ONh" id="tqa-j8-DcR"/>
@@ -5621,6 +5637,7 @@
         <image name="closeRed" width="48" height="48"/>
         <image name="contact" width="150" height="85"/>
         <image name="defaultCoverPicture" width="851" height="315"/>
+        <image name="delete" width="48" height="48"/>
         <image name="drum_tab" width="48" height="48"/>
         <image name="edit2" width="48" height="48"/>
         <image name="favorite_tab" width="48" height="48"/>

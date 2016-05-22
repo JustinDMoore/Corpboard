@@ -16,6 +16,7 @@ class PDailySchedule: PFObject, PFSubclassing {
     @NSManaged var taskPresent: String
     var localDeviceDateTime = NSDate() //as GMT/UTC
     @NSManaged var dateTime: NSDate
+    @NSManaged var note: String?
     
     override class func initialize() {
         struct Static {

@@ -20,6 +20,7 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var btnShowDetails: UIButton!
     @IBOutlet weak var btnOpenInMaps: UIButton!
     @IBOutlet weak var btnAddTask: UIButton!
+    @IBOutlet weak var btnDeleteSchedule: UIButton!
     
     var day: PCalendar?
     var housing: PStadium?
@@ -49,8 +50,10 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
         
         if Server.sharedInstance.adminMode {
             self.btnAddTask.hidden = false
+            self.btnDeleteSchedule.hidden = false
         } else {
             self.btnAddTask.hidden = true
+            self.btnDeleteSchedule.hidden = true
         }
         
         self.tableSchedule.dataSource = self
@@ -150,7 +153,15 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if arrayOfTasks.count > 0 {
+            return "Schedule"
+        } else {
             return ""
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if arrayOfTasks.count > 0 {
+            return "Subject to change"
         } else {
             return "Schedule will be posted soon"
         }
@@ -163,13 +174,19 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
         header.textLabel?.textColor = UIColor.lightGrayColor()
     }
     
+    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.blackColor()
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFontOfSize(10)
+        header.textLabel?.textColor = UIColor.lightGrayColor()
+    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 20
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
+        let cell = UITableViewCell(style: .Value1, reuseIdentifier: "cell")
         
         let task = arrayOfTasks[indexPath.row]
         
@@ -187,6 +204,13 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
         cell.backgroundColor = UIColor.blackColor()
         cell.textLabel?.textColor = UIColor.whiteColor()
         cell.textLabel?.font = UIFont.systemFontOfSize(12)
+        
+        if let text = task.note {
+            cell.detailTextLabel?.textColor = UIColor.lightGrayColor()
+            cell.detailTextLabel?.font = UIFont.systemFontOfSize(10)
+            cell.detailTextLabel?.text = text
+        }
+        
         //print(self.day!.date)
         return cell
 
@@ -222,4 +246,34 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     func taskAdded() {
         self.displaySchedule()
     }
+    
+    @IBAction func btnDeleteSchedule(sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Daily Schedule", message: "Delete this schedule?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action: UIAlertAction!) in
+            //delete
+            
+            let query = PFQuery(className: PDailySchedule.parseClassName())
+            query.whereKey("calendarDay", equalTo: self.day!)
+            query.findObjectsInBackgroundWithBlock { (objs: [PFObject]?, err: NSError?) in
+                if err === nil {
+                    if objs?.count > 0 {
+                        for obj in objs! {
+                            obj.deleteInBackground()
+                        }
+                    }
+                    self.reloadData()
+                }
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
+            //cancel
+        }))
+        
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+    
 }

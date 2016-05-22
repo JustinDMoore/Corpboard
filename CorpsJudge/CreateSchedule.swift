@@ -18,7 +18,9 @@ class CreateSchedule: UIView, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var lblTimeZone: UILabel!
     @IBOutlet weak var txtTime: UITextField!
     @IBOutlet weak var switchAfterMidnight: UISwitch!
-    
+    @IBOutlet weak var txtCustomTask: UITextField!
+    @IBOutlet weak var txtNote: UITextField!
+    @IBOutlet weak var txtCustomTaskPresent: UITextField!
     var calendarDay = PCalendar()
     var arrayOfTasks = [Task]()
     var selectedTask: Task?
@@ -67,16 +69,77 @@ class CreateSchedule: UIView, UITableViewDelegate, UITableViewDataSource {
                 //print("EST: \(estDate)")
                 
                 newTask.dateTime = estDate
+                
+                if self.txtNote.text?.characters.count > 0 {
+                    newTask.note = self.txtNote.text
+                }
+                
                 newTask.saveInBackground()
             }
             
             //rawdatetime - raw date and time of time zone for calendarDay
             //datetime - convert date/time from time zone to UTC
             
+        } else {
+            if self.tableTasks.hidden {
+                if self.txtCustomTask.text?.characters.count > 0 && self.txtCustomTaskPresent.text?.characters.count > 0 {
+                    let newTask = PDailySchedule()
+                    newTask.calendarDay = self.calendarDay
+
+                    newTask.task = self.txtCustomTask.text!
+                    newTask.taskPresent = self.txtCustomTaskPresent.text!
+                    
+                    //divide the 4 digit time up between hour and minutes
+                    
+                    let str = self.txtTime.text!
+                    let index1 = str.startIndex.advancedBy(2)
+                    let hours = Int(str.substringToIndex(index1))!
+                    
+                    let index2 = str.startIndex.advancedBy(2)
+                    let minutes = Int(str.substringFromIndex(index2))!
+                    
+                    var day = self.calendarDay.date.day()
+                    if switchAfterMidnight.on {
+                        day += 1
+                    }
+                    
+                    let stra = "\(self.calendarDay.date.year())-\(self.calendarDay.date.month())-\(day) \(hours):\(minutes):00"
+                    newTask.rawDateTime = stra
+                    //print("Starting string: \(stra)")
+                    
+                    let gmtDf: NSDateFormatter = NSDateFormatter()
+                    gmtDf.timeZone = NSTimeZone(name: "GMT")
+                    gmtDf.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let gmtDate: NSDate = gmtDf.dateFromString(stra)!
+                    //print("GMT: \(gmtDate)")
+                    
+                    let estDf: NSDateFormatter = NSDateFormatter()
+                    estDf.timeZone = NSTimeZone(abbreviation: self.calendarDay.timeZone)
+                    estDf.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let estDate: NSDate = estDf.dateFromString(gmtDf.stringFromDate(gmtDate))!
+                    //print("EST: \(estDate)")
+                    
+                    newTask.dateTime = estDate
+                    
+                    if self.txtNote.text?.characters.count > 0 {
+                        newTask.note = self.txtNote.text
+                    }
+                    
+                    newTask.saveInBackground()
+                }
+            }
         }
+        
+        
         self.switchAfterMidnight.on = false
         self.tableTasks.reloadData()
         self.txtTime.text = ""
+        self.txtNote.text = ""
+        self.txtCustomTaskPresent.text = ""
+        self.txtCustomTask.text = ""
+        self.txtCustomTask.hidden = true
+        self.txtCustomTaskPresent.hidden = true
+        self.tableTasks.hidden = false
         self.delegateTask?.taskAdded()
     }
     
@@ -101,7 +164,7 @@ class CreateSchedule: UIView, UITableViewDelegate, UITableViewDataSource {
         createTask("S & R", present: "are stretching and running.")
         createTask("Visual", present: "are having visual rehearsal.")
         createTask("Lunch", present: "are having lunch.")
-        createTask("Sectionals", present: "are having sectionals.")
+        createTask("Sectionals", present: "are in sectionals.")
         createTask("Snack", present: "are having a snack.")
         createTask("Visual Ensemble", present: "are having visual ensemble rehearsal.")
         createTask("Set Up", present: "are setting up for ensemble rehearsal.")
@@ -146,5 +209,12 @@ class CreateSchedule: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedTask = self.arrayOfTasks[indexPath.row]
+    }
+
+    @IBAction func btnCustom(sender: UIButton) {
+        self.tableTasks.hidden = true
+        self.txtCustomTask.hidden = false
+        self.txtCustomTaskPresent.hidden = false
+        self.selectedTask = nil
     }
 }
