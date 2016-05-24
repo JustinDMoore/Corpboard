@@ -36,9 +36,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //MARK:-
     //MARK:Properties
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
-    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, 320, 135))
-    let btnBanner2 = UIButton(frame: CGRectMake(320, 0, 320, 135))
-    let btnBanner3 = UIButton(frame: CGRectMake(640, 0, 320, 135))
+    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 135))
+    let btnBanner2 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135))
+    let btnBanner3 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 135))
     let BUTTON_CORNER_RADIUS: CGFloat = 8.0
     let BUTTON_BORDER_WIDTH: CGFloat = 1.0
     let BUTTON_BORDER_COLOR = UIColor.blackColor().CGColor
@@ -296,8 +296,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.scrollBanners.addSubview(btnBanner1)
         self.scrollBanners.addSubview(btnBanner2)
         self.scrollBanners.addSubview(btnBanner3)
-        self.scrollBanners.contentSize = CGSizeMake(960, 135)
-        self.scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 135), animated: false)
+        scrollBanners.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height)
+        self.scrollBanners.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 3, 135)
+        self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135), animated: false)
         
         //buttons
         self.viewAboutTheCorps.layer.cornerRadius = BUTTON_CORNER_RADIUS
@@ -390,7 +391,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.bannerCounter += 1
         if self.bannerCounter == 5 {
             self.bannerCounter = 0
-            self.scrollBanners.scrollRectToVisible(CGRectMake(640, 0, 320, 416), animated: true)
+            self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: true)
         }
     }
     
@@ -406,7 +407,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.loadPageWithId(self.nextIndex, page: 2)
         
         // Reset offset back to middle page
-        self.scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
+        self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
     }
     
     func openShow(sender: UIButton) {
@@ -922,7 +923,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             }
             
             // Reset offset back to middle page
-            scrollView.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
+            scrollView.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
         }
     }
     

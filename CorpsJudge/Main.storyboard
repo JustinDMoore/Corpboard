@@ -2421,15 +2421,6 @@
                                                     <constraint firstAttribute="width" constant="240" id="lEg-GB-lYw"/>
                                                 </constraints>
                                             </imageView>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI" userLabel="scrollBanners">
-                                                <rect key="frame" x="0.0" y="34" width="400" height="135"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="135" id="jOW-R9-jYq"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="delegate" destination="603-gO-u9Q" id="jC0-b4-rR7"/>
-                                                </connections>
-                                            </scrollView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5CV-vg-CGX" customClass="UIControl">
                                                 <rect key="frame" x="0.0" y="168" width="320" height="70"/>
                                                 <subviews>
@@ -2513,6 +2504,15 @@
                                                     <constraint firstAttribute="height" constant="70" id="nyJ-hc-Nhc"/>
                                                 </constraints>
                                             </view>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pww-Gk-PAI" userLabel="scrollBanners">
+                                                <rect key="frame" x="0.0" y="34" width="400" height="135"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="135" id="jOW-R9-jYq"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="delegate" destination="603-gO-u9Q" id="jC0-b4-rR7"/>
+                                                </connections>
+                                            </scrollView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-31-r1n" userLabel="viewSchedule">
                                                 <rect key="frame" x="0.0" y="238" width="320" height="84"/>
                                                 <subviews>
