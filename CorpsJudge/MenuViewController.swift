@@ -30,6 +30,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         case LiveChat
         case NearMe
         case Map
+        case Store
     }
     
     //MARK:-
@@ -104,8 +105,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var viewNews: ClipView!
     @IBOutlet weak var collectionNews: UICollectionView!
     @IBOutlet weak var viewShop: UIView!
-    @IBOutlet weak var viewSupport: UIView!
-    @IBOutlet weak var viewFeedback: UIView!
+    @IBOutlet weak var viewSupport: UIControl!
+    @IBOutlet weak var viewFeedback: UIControl!
     @IBOutlet weak var viewAboutTheCorps: UIControl!
     @IBOutlet weak var viewExtras: UIView!
     @IBOutlet weak var viewLinks: UIView!
@@ -1020,6 +1021,21 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.resumeOpening()
     }
     
+    @IBAction func shop(sender: UIControl) {
+        self.tryingToOpen = .Store
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    @IBAction func support(sender: UIControl) {
+        
+    }
+    
+    func openStore() {
+        self.performSegueWithIdentifier("store", sender: self)
+    }
+    
     func openProfile() {
         self.performSegueWithIdentifier("profile", sender: self)
     }
@@ -1173,6 +1189,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         case .Map: self.openMap()
         case .Messages: self.openMessages()
         case .NearMe: self.openNearMe()
+        case .Store: self.openStore()
         default: break
         }
     }

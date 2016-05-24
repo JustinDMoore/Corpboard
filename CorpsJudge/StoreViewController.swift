@@ -20,10 +20,10 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     let pageOneDoc = UIImageView()
     let pageTwoDoc = UIImageView()
     let pageThreeDoc = UIImageView()
-    var itemSelected = StoreItem()
-    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, 320, 135))
-    let btnBanner2 = UIButton(frame: CGRectMake(320, 0, 320, 135))
-    let btnBanner3 = UIButton(frame: CGRectMake(640, 0, 320, 135))
+    var itemSelected = PStoreItem()
+    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 135))
+    let btnBanner2 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135))
+    let btnBanner3 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 135))
     var timerBanners = NSTimer()
     let CELL_ITEM_IDENTIFIER = "StoreItemCell"
     let CELL_CATEGORY_IDENTIFIER = "CBStoreCategoryCell"
@@ -33,6 +33,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     var newItemContentWidth = 0
     var counter = 0
     var prevIndex = 0, currIndex = 0, nextIndex = 0
+    var viewLoading = Loading()
     
     // New Items
     
@@ -85,11 +86,11 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         //collectionNewItems.registerClass(StoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
         collectionCategories.registerClass(CBStoreCategoryCell.self, forCellWithReuseIdentifier: CELL_CATEGORY_IDENTIFIER)
         //collectionPopularItems.registerClass(StoreItemCell.self, forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
-        
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-            KVNProgress.setConfiguration(Configuration.standardProgressConfig())
-            KVNProgress.show()
-        }
+
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.view.addSubview(viewLoading)
+        viewLoading.center = self.view.center
+        viewLoading.animate()
         
         let seeAllItemsArrowImage = UIImageView(image: UIImage(named: "disclosure"))
         seeAllItemsArrowImage.frame = CGRectMake(0, 0, 20, 20)
@@ -120,9 +121,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func goBack() {
         timerBanners.invalidate()
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-            KVNProgress.dismiss()
-        }
+        viewLoading.removeFromSuperview()
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -133,22 +132,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func storeDidFail() {
         viewMain.hidden = true
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-            let config = Configuration.errorProgressConfig()
-            config.minimumErrorDisplayTime = 100
-            config.tapBlock = {
-                progressView in
-                dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                    KVNProgress.dismiss()
-                }
-                self.goBack()
-            }
-            config.fullScreen = false
-            KVNProgress.setConfiguration(config)
-            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                KVNProgress.showErrorWithStatus("There was a problem connecting to the 34Store", onView: self.view)
-            }
-        }
+        viewLoading.removeFromSuperview()
+        //TODO: add message for error
     }
     
     func initUI() {
@@ -158,8 +143,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         scrollBanners.addSubview(btnBanner1)
         scrollBanners.addSubview(btnBanner2)
         scrollBanners.addSubview(btnBanner3)
-        scrollBanners.contentSize = CGSizeMake(960, 135)
-        scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 135), animated: false)
+        scrollBanners.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 3, 135)
+        scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135), animated: false)
         startTimerForBannerRotation()
         self.automaticallyAdjustsScrollViewInsets = false
         for view in self.view.subviews {
@@ -172,10 +157,14 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         initItems()
         scrollMain.frame = CGRectMake(0, 0, scrollMain.frame.size.width, scrollMain.frame.size.height)
         scrollMain.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height + viewNewItems.frame.size.height + viewCategories.frame.size.height + viewPopularItems.frame.size.height + viewPopularItems.frame.size.height + 1000)
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-            KVNProgress.dismiss()
-        }
+        viewLoading.removeFromSuperview()
         viewMain.hidden = false
+        
+        let reduce = UIScreen.mainScreen().bounds.size.width / 36.6
+        
+        collectionNewItems.frame = CGRectMake(collectionNewItems.frame.origin.x, collectionNewItems.frame.origin.y, UIScreen.mainScreen().bounds.size.width - reduce, collectionNewItems.frame.size.height)
+        
+        collectionPopularItems.frame = CGRectMake(collectionPopularItems.frame.origin.x, collectionPopularItems.frame.origin.y, UIScreen.mainScreen().bounds.size.width - reduce, collectionPopularItems.frame.size.height)
     }
     
     func initItems() {
@@ -207,7 +196,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         counter++
         if counter == 5 {
             counter = 0
-            scrollBanners.scrollRectToVisible(CGRectMake(640, 0, 320, 416), animated: true)
+            scrollBanners.scrollRectToVisible(CGRectMake(640, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: true)
         }
     }
     
@@ -261,7 +250,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
             }
             loadPageWithId(nextIndex, page: 2)
             //Reset offset back to middle page
-            scrollBanners.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
+            scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
         }
     }
     
@@ -321,7 +310,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 loadPageWithId(prevIndex, page: 0)
             }
             //Reset offset back to middle page
-            scrollView.scrollRectToVisible(CGRectMake(320, 0, 320, 416), animated: false)
+            scrollView.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
         }
     }
     
@@ -352,7 +341,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
             CELL_ITEM_IDENTIFIER, forIndexPath: indexPath) as! StoreItemCell
         
-        let item: StoreItem
+        let item: PStoreItem
         if collectionView == collectionNewItems {
             item = store.arrayOfNewItems[indexPath.row]
         } else {

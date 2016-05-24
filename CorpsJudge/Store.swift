@@ -23,27 +23,19 @@ protocol StoreProtocol {
     var updatedStoreObjects = false
     var updatedCategories = false
     var updatedItemsInCart = false
-    var arrayOfCategoryObjects = [PFObject]()
+    var arrayOfCategoryObjects = [PBanner]()
     var arrayOfBannerObjects = [PFObject]()
     var arrayOfBannerImages = [UIImage]()
-    var arrayOfStoreObjects = [StoreItem]()
-    var arrayOfNewItems = [StoreItem]()
-    var arrayOfPopularItems = [StoreItem]()
-    var arrayOfItemsInCart = [PFObject]()
+    var arrayOfStoreObjects = [PStoreItem]()
+    var arrayOfNewItems = [PStoreItem]()
+    var arrayOfPopularItems = [PStoreItem]()
+    var arrayOfItemsInCart = [POrder]()
     var task = 0
     
-    @objc enum Status: Int {
-        case NOTSET
-        case INCART
-        case ORDERED
-    }
-    
-    class func string(status: Status) -> String {
-        switch status {
-        case .NOTSET: return "NOT SET"
-        case .INCART: return "IN CART"
-        case .ORDERED: return "ORDERED"
-        }
+    enum OrderStatus: String {
+        case NOTSET = "NOT SET"
+        case INCART = "IN CART"
+        case ORDERED = "ORDERED"
     }
     
     private override init() {
@@ -113,8 +105,8 @@ protocol StoreProtocol {
             if max > arrayOfStoreObjects.count {
                 max = arrayOfStoreObjects.count
             }
-            for var x = 0; x < max; x++ {
-                let item = arrayOfStoreObjects[x] as StoreItem
+            for x in 1...10 {
+                let item = arrayOfStoreObjects[x] as PStoreItem
                 arrayOfPopularItems.append(item)
             }
         }
@@ -127,99 +119,109 @@ protocol StoreProtocol {
             if max > arrayOfStoreObjects.count {
                 max = arrayOfStoreObjects.count
             }
-            for var x = 0; x < max; x++ {
-                let newItem = arrayOfStoreObjects[x] as StoreItem
+            for x in 1...10 {
+                let newItem = arrayOfStoreObjects[x] as PStoreItem
                 arrayOfNewItems.append(newItem)
             }
         }
     }
     
     func getStoreCategories() {
-        PFCloud.callFunctionInBackground("getStoreCategories", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
-            if (error === nil) {
-                if let swiftResults = results as? [PFObject] {
-                    if !swiftResults.isEmpty {
-                        self.arrayOfCategoryObjects += swiftResults
+        arrayOfCategoryObjects = []
+        let query = PFQuery(className: PBanner.parseClassName())
+        query.whereKey("type", equalTo: "STORECATEGORY")
+        query.whereKey("hidden", equalTo: false)
+        query.orderByAscending("order")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if (err === nil) {
+                if let objects = objects as? [PBanner] {
+                    if !objects.isEmpty {
+                        self.arrayOfCategoryObjects += objects
                         self.updatedCategories = true
                     }
-                    self.task++
+                    self.task += 1
                     self.didWeFinish()
                 }
-            } else if (error != nil) {
-                NSLog("Error: \(error!.userInfo)")
+            } else if (err != nil) {
+                NSLog("Error: \(err!.userInfo)")
             }
         }
     }
     
     func getStoreObjects() {
-        PFCloud.callFunctionInBackground("getStoreObjects", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
-            if (error === nil) {
-                if let swiftResults = results as? [PFObject] {
-                    if !swiftResults.isEmpty {
-                        for (_, item) in swiftResults.enumerate() {
-                            let storeItem = item as! StoreItem
-                            self.arrayOfStoreObjects.append(storeItem)
-                        }
+        
+        arrayOfStoreObjects = []
+        let query = PFQuery(className: PStoreItem.parseClassName())
+        query.limit = 1000
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if (err === nil) {
+                if let objects = objects as? [PStoreItem] {
+                    if !objects.isEmpty {
+                        self.arrayOfStoreObjects += objects
                         self.updatedStoreObjects = true
                     }
-                    self.task++
+                    self.task += 1
                     self.didWeFinish()
                 }
-            } else if (error != nil) {
-                NSLog("Error: \(error!.userInfo)")
+            } else if (err != nil) {
+                NSLog("Error: \(err!.userInfo)")
             }
         }
     }
     
     func getBannerObjects() {
-        PFCloud.callFunctionInBackground("getStoreBanners", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
-            if (error === nil) {
-                if let swiftResults = results as? [PFObject] {
-                    for (_, banner) in swiftResults.enumerate() {
-                        let imageFile = banner.objectForKey("image")
-                        imageFile?.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
-                            if (error === nil) {
+        
+        arrayOfBannerImages = []
+        arrayOfBannerObjects = []
+        
+        let query = PFQuery(className: PBanner.parseClassName())
+        query.whereKey("type", equalTo: "STORE")
+        query.whereKey("hidden", equalTo: false)
+        query.orderByAscending("order")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            
+            if (err === nil) {
+                if let objects = objects as? [PBanner] {
+                    for (_, banner) in objects.enumerate() {
+                        let imageFile = banner.image
+                        imageFile.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+                            if (err === nil) {
                                 let image = UIImage(data: data!)
                                 self.arrayOfBannerImages.append(image!)
                                 self.arrayOfBannerObjects.append(banner)
-                                if self.arrayOfBannerImages.count == swiftResults.count {
+                                if self.arrayOfBannerImages.count == objects.count {
                                     self.updatedBanners = true
-                                    self.task++
+                                    self.task += 1
                                     self.didWeFinish()
                                 }
                             }
                         })
                     }
-                    //
-                    //
-                    //
-                    //                    if !swiftResults.isEmpty {
-                    //                        self.arrayOfBannerObjects += swiftResults
-                    //                        self.updatedBanners = true
-                    //                    }
-                    //                    self.task++
-                    //                    self.didWeFinish()
                 }
-            } else if (error != nil) {
-                NSLog("Error: \(error!.userInfo)")
+            } else if (err != nil) {
+                NSLog("Error: \(err!.userInfo)")
             }
         }
     }
     
     
     func getCartObjects() {
-        PFCloud.callFunctionInBackground("getItemsInCart", withParameters: nil) { (results: AnyObject?, error: NSError?) -> Void in
-            if (error === nil) {
-                if let swiftResults = results as? [PFObject] {
-                    if !swiftResults.isEmpty {
-                        self.arrayOfItemsInCart += swiftResults
-                        self.updatedItemsInCart = true
+        
+        let query = PFQuery(className: POrder.parseClassName())
+        query.whereKey("status", equalTo: "\(OrderStatus.INCART)")
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if (err === nil) {
+                if let results = objects as? [POrder] {
+                    if !results.isEmpty {
+                        self.arrayOfItemsInCart += results
                     }
-                    self.task++
+                    self.task += 1
+                    self.updatedItemsInCart = true
                     self.didWeFinish()
                 }
-            } else if (error != nil) {
-                NSLog("Error: \(error!.userInfo)")
+            } else if (err != nil) {
+                NSLog("Error: \(err!.userInfo)")
             }
         }
     }

@@ -1,21 +1,20 @@
 //
-//  StoreItem.swift
+//  PStore.swift
 //  CorpBoard
 //
-//  Created by Justin Moore on 9/2/15.
-//  Copyright (c) 2015 Justin Moore. All rights reserved.
+//  Created by Peggy Moore on 5/24/16.
+//  Copyright © 2016 Justin Moore. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-@objc class StoreItem : PFObject, PFSubclassing {
-    
-    
+class PStoreItem: PFObject, PFSubclassing {
+
     @NSManaged var itemName: String
     @NSManaged var itemDescription: String?
     @NSManaged var itemPrice: NSDecimalNumber
     @NSManaged var itemSalePrice: NSDecimalNumber?
-    @NSManaged var itemAvailable: DarwinBoolean
+    @NSManaged var itemAvailable: Bool
     @NSManaged var itemSizes: [String]?
     @NSManaged var itemColors: [String]?
     @NSManaged var itemCategory: String
@@ -23,8 +22,10 @@ import Foundation
     @NSManaged var itemImage: PFFile?
     @NSManaged var itemPurchaseCount: Int
     @NSManaged var itemShipable: Bool
-    @NSManaged var itemCreated: NSDate
-
+    @NSManaged var itemNotes: String?
+    @NSManaged var school: [String]?
+    @NSManaged var year: Int
+    
     override class func initialize() {
         struct Static {
             static var onceToken : dispatch_once_t = 0;
@@ -37,7 +38,7 @@ import Foundation
     static func parseClassName() -> String {
         return "Store"
     }
-    
+ 
     var priceString: String {
         let dollarFormatter: NSNumberFormatter = NSNumberFormatter()
         dollarFormatter.minimumFractionDigits = 2;
@@ -51,4 +52,5 @@ import Foundation
         dollarFormatter.maximumFractionDigits = 2;
         return dollarFormatter.stringFromNumber(itemSalePrice!)!
     }
+    
 }

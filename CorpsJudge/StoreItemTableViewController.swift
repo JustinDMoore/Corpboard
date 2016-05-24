@@ -42,7 +42,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     
     var colors = false
     var sizes = false
-    var item: StoreItem! = nil
+    var item: PStoreItem! = nil
     var numOfItemsInCart = 0
     var itemError = errorForItem.NONE
     var indexOfQuantity = 0
@@ -91,7 +91,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         var num = numOfItemsInCart
         if num > 20 { num = 21 }
         let imgCart = UIImage(named: "cart\(num)")
-        btnCart?.addTarget(self, action: "openCart", forControlEvents: UIControlEvents.TouchUpInside)
+        btnCart?.addTarget(self, action: #selector(StoreItemTableViewController.openCart), forControlEvents: UIControlEvents.TouchUpInside)
         btnCart?.setBackgroundImage(imgCart, forState: UIControlState.Normal)
         btnCart?.frame = CGRectMake(0, 0, 30, 30)
         let cartBarButtonItem = UIBarButtonItem(customView: btnCart!)
@@ -269,7 +269,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             btnPickASize.layer.borderWidth = buttonBorderWidth
             btnPickASize.backgroundColor = buttonBackgroundColor
             btnPickASize.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-            btnPickASize.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+            btnPickASize.addTarget(self, action: #selector(StoreItemTableViewController.showSelector(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if (indexOfSize > -1) {
                 btnPickASize.setTitle("Size: \(item.itemSizes?[indexOfSize])", forState: UIControlState.Normal)
             } else {
@@ -282,7 +282,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             btnPickAColor.layer.borderWidth = buttonBorderWidth
             btnPickAColor.backgroundColor = buttonBackgroundColor
             btnPickAColor.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-            btnPickAColor.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+            btnPickAColor.addTarget(self, action: #selector(StoreItemTableViewController.showSelector(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if (indexOfColor > -1) {
                 btnPickAColor.setTitle("Color: \(item.itemColors?[indexOfColor])", forState: UIControlState.Normal)
             } else {
@@ -296,7 +296,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         btnPickQuantity.layer.borderColor = buttonBorderColor.CGColor
         btnPickQuantity.backgroundColor = buttonBackgroundColor
         btnPickQuantity.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
-        btnPickQuantity.addTarget(self, action: "showSelector:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnPickQuantity.addTarget(self, action: #selector(StoreItemTableViewController.showSelector(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnPickQuantity.setTitle("QTY: \(indexOfQuantity + 1)", forState: UIControlState.Normal)
         
         if (self.itemError == .SIZE) {
@@ -318,15 +318,15 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         btnAddToCart.layer.borderWidth = buttonBorderWidth
         btnAddToCart.setTitleColor(GOLD, forState: UIControlState.Normal)
         btnAddToCart.backgroundColor = MAROON
-        btnAddToCart.addTarget(self, action: "addItemToCartAndBuy:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnAddToCart.addTarget(self, action: #selector(StoreItemTableViewController.addItemToCartAndBuy(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         let btnApplePay = cell.viewWithTag(40) as! UIButton
-        btnApplePay.addTarget(self, action: "applePay", forControlEvents: UIControlEvents.TouchUpInside)
+        //btnApplePay.addTarget(self, action: #selector(StoreItemTableViewController), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
     
     func detailsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("details", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier("details", forIndexPath: indexPath)
         let lblDesc = cell.viewWithTag(1) as! UILabel
         lblDesc.font = UIFont(name: lblDesc.font.fontName, size: 12)
         lblDesc.text = item.itemDescription
@@ -376,23 +376,23 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             }
         }
         
-        let cartItem = PFObject(className: "Orders")
-        cartItem["status"] = "CART"
-        cartItem["user"] = PFUser.currentUser()
-        cartItem["item"] = item
-        cartItem["quantity"] = NSNumber(int: indexOfQuantity + 1)
+        let cartItem = POrder()
+        cartItem.status = "CART"
+        cartItem.user = PFUser.currentUser()!
+        cartItem.item = item
+        cartItem.quantity = indexOfQuantity + 1
         if item.itemSizes?.count != nil {
-            cartItem["size"] = item.itemSizes?[indexOfSize]
+            cartItem.size = item.itemSizes?[indexOfSize]
         }
         if item.itemColors?.count != nil {
-            cartItem["color"] = item.itemColors?[indexOfColor]
+            cartItem.color = item.itemColors?[indexOfColor]
         }
         store.arrayOfItemsInCart.append(cartItem)
         if (!buyNow) {
             cartItem.saveEventually()
             var intv = 0.0
-            for var i = indexOfQuantity + 1; i > 0; i-- {
-                NSTimer.scheduledTimerWithTimeInterval(intv, target: self, selector: "animateItemToCart", userInfo: nil, repeats: false)
+            for var i = indexOfQuantity + 1; i > 0; i -= 1 {
+                NSTimer.scheduledTimerWithTimeInterval(intv, target: self, selector: #selector(StoreItemTableViewController.animateItemToCart), userInfo: nil, repeats: false)
                 intv = intv + 0.6
             }
         } else {
@@ -454,7 +454,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         
         viewAnimate.layer.addAnimation(group, forKey: "savingAnimation")
      
-        NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "updateCart", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(StoreItemTableViewController.updateCart), userInfo: nil, repeats: false)
         
         imgOriginal.alpha = 0
         imgOriginal.transform = CGAffineTransformScale(imgOriginal.transform, 0.8, 0.8)
