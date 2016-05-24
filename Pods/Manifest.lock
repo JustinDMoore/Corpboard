@@ -27,9 +27,9 @@ PODS:
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
-  - FBSDKCoreKit (4.11.0):
+  - FBSDKCoreKit (4.12.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.11.0):
+  - FBSDKLoginKit (4.12.0):
     - FBSDKCoreKit
   - IQKeyboardManager (3.2.3)
   - JSBadgeView (1.4.1)
@@ -81,8 +81,8 @@ SPEC CHECKSUMS:
   AFDateHelper: 3cf2296dc56cdc72af8fb8e73fb04ca0bd1999ae
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
-  FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
-  FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
+  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
+  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   JSQMessagesViewController: 03fba8a3021a3ddc1c91847f180ffe549f2e8cf2
@@ -95,6 +95,4 @@ SPEC CHECKSUMS:
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
-PODFILE CHECKSUM: 9d371dc2aed10eb02ea0dcf9cbf05d966399cfb1
-
-COCOAPODS: 1.0.0
+COCOAPODS: 0.39.0
