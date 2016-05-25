@@ -31,16 +31,18 @@ class StoreItemSelector: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        xibSetup()
+       // xibSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        xibSetup()
+       // xibSetup()
     }
     
-    func showInParent() {
+    func showInParent(parent: UINavigationController) {
     
+        parent.view.addSubview(self)
+        
         switch selectorType {
         case .NOTSET: title.text = "ERROR"
         case .SIZE: title.text = "PICK A SIZE"
@@ -55,17 +57,17 @@ class StoreItemSelector: UIView {
         }), completion: nil)
     }
     
-    func xibSetup() {
-        view = loadViewFromNib()
-        addSubview(view)
-    }
-    
-    func loadViewFromNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let nib = UINib(nibName: "StoreItemSelector", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
-        return view
-    }
+//    func xibSetup() {
+////        view = loadViewFromNib()
+////        addSubview(view)
+//    }
+//    
+//    func loadViewFromNib() -> UIView {
+////        let bundle = NSBundle(forClass: self.dynamicType)
+////        let nib = UINib(nibName: "StoreItemSelector", bundle: bundle)
+////        //let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+////        return view
+//    }
     
     func closeView() {
          if let del = self.delegate {

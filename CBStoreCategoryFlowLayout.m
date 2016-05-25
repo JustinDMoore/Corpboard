@@ -18,8 +18,7 @@ const NSInteger kMaxCellSpacing = 9;
     self.minimumInteritemSpacing = 8.0;
     self.minimumLineSpacing = 8.0;
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.sectionInset = UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0);
-}
+    self.sectionInset = UIEdgeInsetsMake(28.0, 28.0, 28.0, 28.0); }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray* attributesToReturn = [super layoutAttributesForElementsInRect:rect];

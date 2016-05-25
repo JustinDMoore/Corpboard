@@ -18,5 +18,5 @@ pod 'Stripe', '5.1.2'
 pod 'Parse', '1.13.0'
 pod 'ParseUI', '1.2.0'
 pod 'ParseFacebookUtilsV4', '1.11.1'
-pod 'AFDateHelper'
+pod 'AFDateHelper', '3.3.1'
 end

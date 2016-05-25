@@ -198,13 +198,11 @@
 		D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0681E171A8048A70084EB42 /* CBCollectionFlowLayout.m */; };
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
-		D0893DAB1B87F60700BCD999 /* CBStoreItemSelectorType.m in Sources */ = {isa = PBXBuildFile; fileRef = D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */; };
 		D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC7D51B140AB1000B3C75 /* PodNotes.m */; };
 		D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F01A41467800FF0B62 /* CBEditName.xib */; };
 		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
 		D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F51A41640700FF0B62 /* CBEditDescription.xib */; };
 		D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */; };
-		D09149571BA27647001EA154 /* cartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09149561BA27647001EA154 /* cartTableViewCell.swift */; };
 		D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */; };
 		D094AFA91A157C24003557AF /* CBNewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFA81A157C24003557AF /* CBNewsItem.m */; };
 		D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D094AFAB1A1584A9003557AF /* CBNewsView.m */; };
@@ -566,8 +564,6 @@
 		D074E1531A6EEFCB00C1E300 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
-		D0893DA91B87F60700BCD999 /* CBStoreItemSelectorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBStoreItemSelectorType.h; path = ../CBStoreItemSelectorType.h; sourceTree = "<group>"; };
-		D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBStoreItemSelectorType.m; path = ../CBStoreItemSelectorType.m; sourceTree = "<group>"; };
 		D08BC7D51B140AB1000B3C75 /* PodNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodNotes.m; sourceTree = "<group>"; };
 		D08E00F01A41467800FF0B62 /* CBEditName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditName.xib; sourceTree = "<group>"; };
 		D08E00F21A4147B700FF0B62 /* CBEditName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditName.h; sourceTree = "<group>"; };
@@ -575,7 +571,6 @@
 		D08E00F51A41640700FF0B62 /* CBEditDescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditDescription.xib; sourceTree = "<group>"; };
 		D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditDescription.h; sourceTree = "<group>"; };
 		D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditDescription.m; sourceTree = "<group>"; };
-		D09149561BA27647001EA154 /* cartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cartTableViewCell.swift; sourceTree = "<group>"; };
 		D09275781A4FD3DB002B0750 /* CBAboutCorpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAboutCorpsViewController.h; sourceTree = "<group>"; };
 		D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAboutCorpsViewController.m; sourceTree = "<group>"; };
 		D094AFA71A157C24003557AF /* CBNewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsItem.h; sourceTree = "<group>"; };
@@ -1208,7 +1203,6 @@
 				D036DA681B82E08200746DD6 /* CBStoreCategoryCell.xib */,
 				D04740501B870D2400ADC30E /* StoreItemSelector.xib */,
 				D03D64F41B98EC0A00C07B74 /* StoreItemSelector.swift */,
-				D09149561BA27647001EA154 /* cartTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1271,8 +1265,6 @@
 				D05E1D6B1B8EDEFB00C612BF /* Corpsboard.entitlements */,
 				D07EE44B1BA21D90003EA5C6 /* To Delete */,
 				D013EE011BA11F2A003E5237 /* Views */,
-				D0893DA91B87F60700BCD999 /* CBStoreItemSelectorType.h */,
-				D0893DAA1B87F60700BCD999 /* CBStoreItemSelectorType.m */,
 				920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */,
 				920E5E8E1B895D9400D81C7B /* CBCartEditItem.h */,
 				920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */,
@@ -1790,7 +1782,6 @@
 				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,
 				D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
-				D0893DAB1B87F60700BCD999 /* CBStoreItemSelectorType.m in Sources */,
 				928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */,
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				9FC71C981CE6639500C36A1C /* News.swift in Sources */,
@@ -1857,7 +1848,6 @@
 				9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */,
 				D01012491A800F810040BFFD /* CBNewsCell.m in Sources */,
 				D036DA6F1B82E66500746DD6 /* CBStoreCategoryFlowLayout.m in Sources */,
-				D09149571BA27647001EA154 /* cartTableViewCell.swift in Sources */,
 				D094AFAC1A1584A9003557AF /* CBNewsView.m in Sources */,
 				D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */,
 				923E69A51B88518800B7328F /* CBCartCollectionViewController.m in Sources */,

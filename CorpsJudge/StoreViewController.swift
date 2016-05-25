@@ -12,7 +12,6 @@ import KVNProgress
 class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
-    
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var scrollMain: UIScrollView!
     @IBOutlet weak var scrollBanners: UIScrollView!
@@ -37,7 +36,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     // New Items
     
-    @IBOutlet weak var btnSeeAllItems: UIButton!
     @IBOutlet weak var collectionNewItems: UICollectionView!
     @IBOutlet weak var viewNewItems: ClipView!
     
@@ -47,7 +45,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     // Popular Items
     @IBOutlet weak var viewPopularItems: ClipView!
-    @IBOutlet weak var btnSeeAllPopularItems: UIButton!
     @IBOutlet weak var collectionPopularItems: UICollectionView!
     
     var store: Store {
@@ -92,13 +89,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         viewLoading.center = self.view.center
         viewLoading.animate()
         
-        let seeAllItemsArrowImage = UIImageView(image: UIImage(named: "disclosure"))
-        seeAllItemsArrowImage.frame = CGRectMake(0, 0, 20, 20)
-        let seeAllItemsArrow = UITableViewCell()
-        btnSeeAllItems.addSubview(seeAllItemsArrow)
-        seeAllItemsArrowImage.frame = CGRectMake(24, 0, btnSeeAllItems.frame.size.width, btnSeeAllItems.frame.size.height)
-        seeAllItemsArrow.userInteractionEnabled = false
-        seeAllItemsArrow.accessoryView = seeAllItemsArrowImage
         collectionNewItems.backgroundColor = UIColor.blackColor()
         scrollMain.backgroundColor = UIColor.blackColor()
         self.view.backgroundColor = UIColor.blackColor()
@@ -108,9 +98,9 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         collectionPopularItems.backgroundColor = UIColor.blackColor()
         
         // banners
-        btnBanner1.addTarget(self, action: "bannerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        btnBanner2.addTarget(self, action: "bannerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        btnBanner3.addTarget(self, action: "bannerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnBanner1.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btnBanner2.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btnBanner3.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         if !store.storeLoaded {
             store.loadStore()

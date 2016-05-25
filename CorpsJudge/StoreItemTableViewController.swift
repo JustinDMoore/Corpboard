@@ -29,16 +29,17 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     let buttonBorderColor = UIColor.blackColor()
     let buttonBackgroundColor = UIColor.clearColor()
     let buttonTitleColor = UIColor.blackColor()
+    var viewSelector = StoreItemSelector()
     
-    var viewSelector: StoreItemSelector {
-        var tViewSelector = StoreItemSelector()
-        //tViewSelector = NSBundle.mainBundle().loadNibNamed("CBStoreItemSelector", owner: self, options: nil)
-        tViewSelector = NSBundle.mainBundle().loadNibNamed("StoreItemSelector", owner: nil, options: nil)[0] as! StoreItemSelector
-        tViewSelector.tableSelector.delegate = self
-        tViewSelector.tableSelector.dataSource = self
-        tViewSelector.tableSelector.tableFooterView = UIView(frame: CGRectZero)
-        return tViewSelector
-    }
+//    var viewSelector: StoreItemSelector {
+//        var tViewSelector = StoreItemSelector()
+//        //tViewSelector = NSBundle.mainBundle().loadNibNamed("CBStoreItemSelector", owner: self, options: nil)
+//        tViewSelector = NSBundle.mainBundle().loadNibNamed("StoreItemSelector", owner: nil, options: nil)[0] as! StoreItemSelector
+//        tViewSelector.tableSelector.delegate = self
+//        tViewSelector.tableSelector.dataSource = self
+//        tViewSelector.tableSelector.tableFooterView = UIView(frame: CGRectZero)
+//        return tViewSelector
+//    }
     
     var colors = false
     var sizes = false
@@ -144,7 +145,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             case 0: return self.imageCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 1: return self.descriptionCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 2: return self.buttonsCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
-            //case 3: return self.cartCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
+            case 3: return self.cartCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             case 4: return self.detailsCellForTableView(tableView, cellForRowAtIndexPath: indexPath)
             default: print("Error", terminator: "")
             }
@@ -152,7 +153,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
             switch self.viewSelector.selectorType {
             case .SIZE:
-                cell.textLabel?.text = item.itemSizes?[indexPath.row]
+                if let size = item.itemSizes?[indexPath.row] {
+                    cell.textLabel?.text = size
+                }
                 if indexOfSize == indexPath.row {
                     cell.backgroundColor = UIColor.blackColor()
                     cell.textLabel?.textColor = UIColor.whiteColor()
@@ -161,7 +164,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
                     cell.textLabel?.textColor = UIColor.blackColor()
                 }
             case .COLOR:
-                cell.textLabel?.text = item.itemColors?[indexPath.row]
+                if let color = item.itemColors?[indexPath.row] {
+                    cell.textLabel?.text = color
+                }
                 if indexOfColor == indexPath.row {
                     cell.backgroundColor = UIColor.blackColor()
                     cell.textLabel?.textColor = UIColor.whiteColor()
@@ -186,7 +191,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         return cell
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView == viewSelector.tableSelector {
             switch viewSelector.selectorType {
             case .SIZE: indexOfSize = indexPath.row
@@ -251,18 +256,22 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     func buttonsCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         var cell = UITableViewCell()
-        if (!colors && !sizes) {
-            cell = tableView.dequeueReusableCellWithIdentifier("quantity", forIndexPath: indexPath) 
-        } else if (sizes && !colors) {
-            cell = tableView.dequeueReusableCellWithIdentifier("sizequantity", forIndexPath: indexPath) 
-        } else if (sizes && colors) {
-            cell = tableView.dequeueReusableCellWithIdentifier("sizecolorquantity", forIndexPath: indexPath) 
-        }
         
         var btnPickASize = UIButton()
         var btnPickAColor = UIButton()
         var btnPickQuantity = UIButton()
+        
+        if (!colors && !sizes) {
+            cell = tableView.dequeueReusableCellWithIdentifier("quantity", forIndexPath: indexPath) 
+        } else if (sizes && !colors) {
+            cell = tableView.dequeueReusableCellWithIdentifier("sizequantity", forIndexPath: indexPath)
+        } else if (sizes && colors) {
+            cell = tableView.dequeueReusableCellWithIdentifier("sizecolorquantity", forIndexPath: indexPath)
+        } else if (!sizes && colors) {
+            cell = tableView.dequeueReusableCellWithIdentifier("colorquantity", forIndexPath: indexPath)
+        }
         
         if sizes {
             btnPickASize = cell.viewWithTag(1) as! UIButton
@@ -271,7 +280,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             btnPickASize.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
             btnPickASize.addTarget(self, action: #selector(StoreItemTableViewController.showSelector(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if (indexOfSize > -1) {
-                btnPickASize.setTitle("Size: \(item.itemSizes?[indexOfSize])", forState: UIControlState.Normal)
+                if let size = item.itemSizes?[indexOfSize] {
+                    btnPickASize.setTitle("Size: \(size)", forState: UIControlState.Normal)
+                }
             } else {
                 btnPickASize.setTitle("PICK A SIZE", forState: UIControlState.Normal)
             }
@@ -284,7 +295,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             btnPickAColor.setTitleColor(buttonTitleColor, forState: UIControlState.Normal)
             btnPickAColor.addTarget(self, action: #selector(StoreItemTableViewController.showSelector(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if (indexOfColor > -1) {
-                btnPickAColor.setTitle("Color: \(item.itemColors?[indexOfColor])", forState: UIControlState.Normal)
+                if let color = item.itemColors?[indexOfColor] {
+                    btnPickAColor.setTitle("Color: \(color)", forState: UIControlState.Normal)
+                }
             } else {
                 btnPickAColor.setTitle("PICK A COLOR", forState: UIControlState.Normal)
             }
@@ -312,7 +325,8 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     func cartCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("isaias", forIndexPath: indexPath) as! cartTableViewCell
+        var cell = UITableViewCell()
+        cell = tableView.dequeueReusableCellWithIdentifier("cart", forIndexPath: indexPath)
         let btnAddToCart = cell.viewWithTag(4) as! UIButton
         btnAddToCart.layer.borderColor = buttonBorderColor.CGColor
         btnAddToCart.layer.borderWidth = buttonBorderWidth
@@ -334,6 +348,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     func showSelector(sender: UIButton) {
+        
+        viewSelector = NSBundle.mainBundle().loadNibNamed("StoreItemSelector", owner: self, options: nil).first as! StoreItemSelector
+        
         switch sender.tag {
         case 1: viewSelector.selectorType = .SIZE
         case 2: viewSelector.selectorType = .COLOR
@@ -341,9 +358,12 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         default: print("error", terminator: "")
         }
         self.setFade(true)
-        self.navigationController!.view.addSubview(viewSelector)
-        viewSelector.showInParent()
-        //viewSelector
+        
+        viewSelector.tableSelector.delegate = self
+        viewSelector.tableSelector.dataSource = self
+        viewSelector.showInParent(self.navigationController!)
+        viewSelector.delegate = self
+        
     }
     
     func setFade(on: Bool) {
