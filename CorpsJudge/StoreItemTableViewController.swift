@@ -8,6 +8,7 @@
 
 import UIKit
 import ParseUI
+import QuartzCore
 
 class StoreItemTableViewController: UITableViewController, StoreItemSelectorProtocol, StoreProtocol {
 
@@ -426,12 +427,14 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     func animateItemToCart() {
+
         imgVToAnimate.alpha = 1.0
         let viewAnimate = PFImageView(frame: imgVToAnimate.frame)
         viewAnimate.image = imgVToAnimate.image
-        viewAnimate.contentMode = UIViewContentMode.ScaleAspectFit
-        viewAnimate.alpha = 1.0
         
+        viewAnimate.alpha = 1.0
+        viewAnimate.frame = imgVToAnimate.frame
+
         let imageFrame = viewAnimate.frame
         var viewOrigin = viewAnimate.frame.origin
         viewOrigin.y = viewOrigin.y + imageFrame.size.height / 2.0;
@@ -440,50 +443,37 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         viewAnimate.frame = imageFrame;
         viewAnimate.layer.position = viewOrigin;
         self.navigationController!.view.addSubview(viewAnimate)
+        self.navigationController!.view.bringSubviewToFront(viewAnimate)
         
-        let fadeOutAnimation = CABasicAnimation(keyPath: "opacity")
-        fadeOutAnimation.setValue(0.3, forKey: "opacity")
-        fadeOutAnimation.fillMode = kCAFillModeForwards
-        fadeOutAnimation.removedOnCompletion = false
+        let rect = imgVToAnimate.convertRect(imgVToAnimate.frame, toView: self.navigationController?.view)
+        let start = CGPointMake(rect.origin.x, rect.origin.y)
+        print("here: \(start)")
+        let end = CGPointMake(UIScreen.mainScreen().bounds.size.width - 40, 35)
+
         
-        let resizeAnimation = CABasicAnimation(keyPath: "bounds.size")
-        resizeAnimation.setValue(0.0, forKey: "bounds.size")
-        //resizeAnimation.setValue(CGSizeMake(0.0, 0.0), forKey: "bounds.size")
-        resizeAnimation.fillMode = kCAFillModeForwards
-        resizeAnimation.removedOnCompletion = false
-        
-        let pathAnimation = CAKeyframeAnimation(keyPath: "position")
-        pathAnimation.calculationMode = kCAAnimationPaced
-        pathAnimation.fillMode = kCAFillModeForwards
-        pathAnimation.removedOnCompletion = false
-        
-        let endP = CGPointMake(UIScreen.mainScreen().bounds.size.width - 30, 45)
-        
-        let curvedPath = CGPathCreateMutable()
-        CGPathMoveToPoint(curvedPath, nil, viewOrigin.x, viewOrigin.y)
-        CGPathAddCurveToPoint(curvedPath, nil, endP.x, viewOrigin.y, endP.x, viewOrigin.y, endP.x, endP.y)
-        pathAnimation.path = curvedPath
-    
-        let group = CAAnimationGroup()
-        group.fillMode = kCAFillModeForwards
-        group.removedOnCompletion = false
-        group.animations = [fadeOutAnimation, pathAnimation, resizeAnimation]
-        group.duration = 0.6
-        group.delegate = self
-        group.setValue(viewAnimate, forKey: "imageViewBeingAnimated")
-        
-        viewAnimate.layer.addAnimation(group, forKey: "savingAnimation")
+        UIView.animateWithDuration(0.6,
+                                   animations: {
+                                    viewAnimate.alpha = 0.3
+                                    viewAnimate.frame = CGRectMake(end.x, end.y, 20, 20)
+
+        }) { (finished: Bool) in
+            viewAnimate.alpha = 0
+            viewAnimate.removeFromSuperview()
+            self.tableView.reloadData()
+        }
      
         NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(StoreItemTableViewController.updateCart), userInfo: nil, repeats: false)
         
         imgOriginal.alpha = 0
         imgOriginal.transform = CGAffineTransformScale(imgOriginal.transform, 0.8, 0.8)
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.imgOriginal.alpha = 1
-            self.imgOriginal.transform = CGAffineTransformIdentity
-            }) { ( completed: Bool ) -> Void in
-                self.tableView.reloadData()
+        UIView.animateWithDuration(0.6,
+                                   animations: { 
+                                    self.imgOriginal.alpha = 1
+                                    self.imgOriginal.transform = CGAffineTransformIdentity
+        }) { (finished: Bool) in
+            self.tableView.reloadData()
         }
+
     }
     
     func indexSelected() {

@@ -63,7 +63,7 @@ PODS:
   - Stripe/Core (5.1.2)
 
 DEPENDENCIES:
-  - AFDateHelper
+  - AFDateHelper (= 3.3.1)
   - AFNetworking (= 2.6.0)
   - IQKeyboardManager (= 3.2.3)
   - JSBadgeView (= 1.4.1)
