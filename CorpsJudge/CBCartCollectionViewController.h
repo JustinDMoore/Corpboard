@@ -1,19 +1,20 @@
-////
-////  CBCartCollectionViewController.h
-////  Corpboard
-////
-////  Created by Isaias Favela on 8/21/15.
-////  Copyright (c) 2015 Justin Moore. All rights reserved.
-////
 //
-//#import <UIKit/UIKit.h>
-//#import "CBCartItemCell.h"
-//#import "CBCartEditItem.h"
+//  CBCartCollectionViewController.h
+//  Corpboard
 //
-//@interface CBCartCollectionViewController : UIViewController <CartEditItemProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
-//@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-//@property (weak, nonatomic) IBOutlet UILabel *lblTotal;
-//@property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
-//@property (weak, nonatomic) IBOutlet UIView *viewCheckout;
-//@property (nonatomic, strong) NSMutableArray *arrayOfPrices;
-//@end
+//  Created by Isaias Favela on 8/21/15.
+//  Copyright (c) 2015 Justin Moore. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "CBCartItemCell.h"
+#import "CBCartEditItem.h"
+
+@interface CBCartCollectionViewController : UIViewController <CartEditItemProtocol, UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotal;
+@property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
+@property (weak, nonatomic) IBOutlet UIView *viewCheckout;
+@property (nonatomic, strong) NSMutableArray *arrayOfPrices;
+@end

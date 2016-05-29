@@ -20,11 +20,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     
     let GOLD = UIColor(red:0.78, green:0.56, blue:0.2, alpha:1.0)
     let MAROON = UIColor(red:0.47, green:0.13, blue:0.15, alpha:1.0)
-    var store: Store {
-        let _store = Store.model()
-        _store.delegate = self
-        return _store
-    }
+
     let buttonBorderWidth: CGFloat = 1
     let buttonCornerRadius: CGFloat = 8
     let buttonBorderColor = UIColor.blackColor()
@@ -58,10 +54,10 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        store.delegate = self
-        numOfItemsInCart = store.numberOfItemsInCart() - 1
+        Store.sharedInstance.delegate = self
+        numOfItemsInCart = Store.sharedInstance.numberOfItemsInCart() - 1
         self.updateCart()
-        self.navigationItem.titleView = store.getStoreTitleView()
+        self.navigationItem.titleView = Store.sharedInstance.getStoreTitleView()
         
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -223,7 +219,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             lblError.hidden = true
         }
         lblItemName.text = item.itemName
-        if item.itemSalePrice != nil {
+        if item.itemSalePrice == 0.00 {
             let attributedString = NSMutableAttributedString(string: item.priceString)
             attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributedString.length))
             lblItemPrice.attributedText = attributedString
@@ -408,7 +404,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         if item.itemColors?.count != nil {
             cartItem.color = item.itemColors?[indexOfColor]
         }
-        store.arrayOfItemsInCart.append(cartItem)
+        Store.sharedInstance.arrayOfItemsInCart.append(cartItem)
         if (!buyNow) {
             cartItem.saveEventually()
             var intv = 0.0

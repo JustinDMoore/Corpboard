@@ -13,7 +13,7 @@ class PStoreItem: PFObject, PFSubclassing {
     @NSManaged var itemName: String
     @NSManaged var itemDescription: String?
     @NSManaged var itemPrice: NSDecimalNumber
-    @NSManaged var itemSalePrice: NSDecimalNumber?
+    @NSManaged var itemSalePrice: NSDecimalNumber
     @NSManaged var itemAvailable: Bool
     @NSManaged var itemSizes: [String]?
     @NSManaged var itemColors: [String]?
@@ -50,7 +50,7 @@ class PStoreItem: PFObject, PFSubclassing {
         let dollarFormatter: NSNumberFormatter = NSNumberFormatter()
         dollarFormatter.minimumFractionDigits = 2;
         dollarFormatter.maximumFractionDigits = 2;
-        return dollarFormatter.stringFromNumber(itemSalePrice!)!
+        return dollarFormatter.stringFromNumber(itemSalePrice)!
     }
     
 }

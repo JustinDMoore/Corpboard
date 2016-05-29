@@ -40,7 +40,7 @@ CGRect endRect;
 }
 
 int moveSpace = 165;
--(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(int)qty {
+-(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(NSInteger)qty {
     self.quantity = qty;
     startRect = sRect;
     endRect = eRect;

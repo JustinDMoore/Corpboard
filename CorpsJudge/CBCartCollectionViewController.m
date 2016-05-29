@@ -7,11 +7,9 @@
 ////
 //
 //#import "CBCartCollectionViewController.h"
-//#import "CBStoreModel.h"
 //#import "CBHoleView.h"
 //#import "UICollectionView+ScrollDelegateBlock.h"
 //#import "CBCollectionFooter.h"
-//
 //#import "Corpsboard-Swift.h"
 //
 ////CBStoreModel *store;
@@ -32,8 +30,6 @@
 //    [super viewWillAppear:animated];
 //    Store *store = [Store model];
 //    
-//    store = [CBStoreModel storeModel];
-//    [store setDelegate:self];
 //    self.navigationItem.titleView = [store getStoreTitleView];
 //    UIButton *backButton = [[UIButton alloc] init];
 //    UIImage *imgBack = [UIImage imageNamed:@"storeBack"];
@@ -44,14 +40,8 @@
 //    self.navigationItem.leftBarButtonItem = backButtonBarItem;
 //}
 //
-//-(void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    //self.collectionFooter = nil;
-//}
-//
 //- (void)viewDidLoad {
 //    [super viewDidLoad];
-//    store = [CBStoreModel storeModel];
 //    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 //    self.arrayOfPrices = [[NSMutableArray alloc] init];
 //    [self.arrayOfPrices removeAllObjects];
@@ -60,14 +50,17 @@
 //
 //-(void)viewDidAppear:(BOOL)animated {
 //    [super viewDidAppear:animated];
-//    if ([store.arrayOfItemsInCart count]) {
+//    if (Store.sharedInstance.arrayOfItemsInCart.count > 0) {
+//        
+//    }
+//    if ([Store.sharedInstance.arrayOfItemsInCart count]) {
 //        [self initUI];
 //    }
 //}
 //
 //-(void)initUI {
 //    self.lblTotal.text = @"$0";
-//    if ([store.arrayOfItemsInCart count]) {
+//    if ([Store.sharedInstance.arrayOfItemsInCart count]) {
 //        [self calculateTotal];
 //        self.btnCheckout.layer.borderWidth = 1;
 //        self.btnCheckout.layer.borderColor = [UIColor blackColor].CGColor;
@@ -114,6 +107,7 @@
 //-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 //    
 //    CBCartItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+//    
 //    if ((int)indexPath.row > [store.arrayOfItemsInCart count] - 1) {
 //        for (UIView *v in [cell subviews]) {
 //            [v removeFromSuperview];
@@ -246,8 +240,8 @@
 //
 //-(void)mask:(BOOL)yes forRect:(CGRect)maskRect {
 //    if (yes) {
-//        UIVisualEffect *blurEffect;
-//        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+////        UIVisualEffect *blurEffect;
+////        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 //        
 //        NSArray *transparentRects = [[NSArray alloc] initWithObjects:[NSValue valueWithCGRect:maskRect],  nil];
 //        viewBlock = [[CBHoleView alloc] initWithFrame:CGRectMake(0,0,200,400) backgroundColor:[UIColor blackColor] andTransparentRects:transparentRects];

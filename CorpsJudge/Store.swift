@@ -47,9 +47,7 @@ protocol StoreProtocol {
         delegate = nil
     }
     
-    class func model() -> Store {
-        return Store._model
-    }
+    static let sharedInstance = Store()
     
     func getStoreTitleView() -> UIView {
         let bgTitleView = UIView(frame: CGRectMake(0, 0, 120, 35))

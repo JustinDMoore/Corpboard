@@ -47,12 +47,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     @IBOutlet weak var viewPopularItems: ClipView!
     @IBOutlet weak var collectionPopularItems: UICollectionView!
     
-    var store: Store {
-        let _store = Store.model()
-        _store.delegate = self
-        return _store
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -68,7 +62,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = store.getStoreTitleView()
+        navigationItem.titleView = Store.sharedInstance.getStoreTitleView()
         updateCart()
         viewMain.hidden = true
         self.view.backgroundColor = UIColor.blackColor()
@@ -102,8 +96,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         btnBanner2.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnBanner3.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
-        if !store.storeLoaded {
-            store.loadStore()
+        if !Store.sharedInstance.storeLoaded {
+            Store.sharedInstance.loadStore()
         } else {
             initUI()
         }
@@ -127,7 +121,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func initUI() {
-        loadPageWithId(store.arrayOfBannerObjects.count - 1, page: 0)
+        loadPageWithId(Store.sharedInstance.arrayOfBannerObjects.count - 1, page: 0)
         loadPageWithId(0, page: 1)
         loadPageWithId(1, page: 2)
         scrollBanners.addSubview(btnBanner1)
@@ -165,14 +159,14 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func loadPageWithId(index: Int, page: Int) {
         var btnForBanner = UIButton()
-        if store.arrayOfBannerImages.count > 0 {
+        if Store.sharedInstance.arrayOfBannerImages.count > 0 {
             switch page {
             case 0: btnForBanner = btnBanner1
             case 1: btnForBanner = btnBanner2
             case 2: btnForBanner = btnBanner3
             default: print("default", terminator: "")
             }
-            let objBanner = store.arrayOfBannerImages[index]
+            let objBanner = Store.sharedInstance.arrayOfBannerImages[index]
             btnForBanner.setBackgroundImage(objBanner, forState: UIControlState.Normal)
         }
     }
@@ -192,7 +186,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func updateCart() {
         let cartButton = UIButton()
-        var num = store.numberOfItemsInCart()
+        var num = Store.sharedInstance.numberOfItemsInCart()
         if num > 20 { num = 21 }
         let imgCart = UIImage(named: "cart\(num)")
         cartButton.setBackgroundImage(imgCart, forState: UIControlState.Normal)
@@ -200,7 +194,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         cartButton.frame = CGRectMake(0, 0, 30, 30)
         let cartBarButtonItem = UIBarButtonItem(customView: cartButton)
         navigationItem.rightBarButtonItem = cartBarButtonItem
-        if store.storeLoaded {
+        if Store.sharedInstance.storeLoaded {
             navigationItem.rightBarButtonItem?.enabled = true
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
@@ -212,7 +206,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func bannerTapped(sender: UIButton) {
-        let bannerObj = store.arrayOfBannerObjects[sender.tag]
+        let bannerObj = Store.sharedInstance.arrayOfBannerObjects[sender.tag]
         if let link: String = (bannerObj["link"] as? String) {
             
         }
@@ -225,7 +219,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
             //we are moving forward. Load the current doc data on the first page
             loadPageWithId(currIndex, page: 0)
             //add one to the currentIndex or reset to 0 if we have reached the end
-            if currIndex >= store.arrayOfBannerObjects.count - 1 {
+            if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
                 currIndex = 0
             } else {
                 currIndex += 1
@@ -233,7 +227,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
             loadPageWithId(currIndex, page: 1)
             //load the content on the last page. This is either from the next item int he array
             //or the first if we have reached the end
-            if currIndex >= store.arrayOfBannerObjects.count - 1 {
+            if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
                 nextIndex = 0
             } else {
                 nextIndex = currIndex + 1
@@ -265,7 +259,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 // We are moving forward. Load the current doc data on the first page.
                 loadPageWithId(currIndex, page: 0)
                 // Add one to the currentIndex or reset to 0 if we have reached the end.
-                if currIndex >= store.arrayOfBannerObjects.count - 1 {
+                if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
                     currIndex = 0
                 } else {
                     currIndex += 1
@@ -273,7 +267,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 loadPageWithId(currIndex, page: 1)
                 // Load content on the last page. This is either from the next item in the array
                 // or the first if we have reached the end.
-                if currIndex >= store.arrayOfBannerObjects.count - 1 {
+                if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
                     nextIndex = 0
                 } else {
                     nextIndex = currIndex + 1
@@ -285,7 +279,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 loadPageWithId(currIndex, page: 2)
                 // Subtract one from the currentIndex or go to the end if we have reached the beginning.
                 if currIndex == 0 {
-                    currIndex = store.arrayOfBannerObjects.count - 1
+                    currIndex = Store.sharedInstance.arrayOfBannerObjects.count - 1
                 } else {
                     currIndex -= 1
                 }
@@ -293,7 +287,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
                 // Load content on the first page. This is either from the prev item in the array
                 // or the last if we have reached the beginning.
                 if currIndex == 0 {
-                    prevIndex = store.arrayOfBannerObjects.count - 1
+                    prevIndex = Store.sharedInstance.arrayOfBannerObjects.count - 1
                 } else {
                     prevIndex = currIndex - 1
                 }
@@ -312,14 +306,14 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == collectionNewItems {
-            if store.arrayOfNewItems.count > 10 { return 10 }
-            else { return store.arrayOfNewItems.count }
+            if Store.sharedInstance.arrayOfNewItems.count > 10 { return 10 }
+            else { return Store.sharedInstance.arrayOfNewItems.count }
         } else if collectionView == collectionCategories {
-            if store.arrayOfCategoryObjects.count > 0 { return store.arrayOfCategoryObjects.count }
+            if Store.sharedInstance.arrayOfCategoryObjects.count > 0 { return Store.sharedInstance.arrayOfCategoryObjects.count }
             else { return 0 }
         } else if collectionView == collectionPopularItems {
-            if store.arrayOfPopularItems.count > 10 { return 10 }
-            else { return store.arrayOfPopularItems.count }
+            if Store.sharedInstance.arrayOfPopularItems.count > 10 { return 10 }
+            else { return Store.sharedInstance.arrayOfPopularItems.count }
         } else {
             return 0
         }
@@ -333,9 +327,9 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         
         let item: PStoreItem
         if collectionView == collectionNewItems {
-            item = store.arrayOfNewItems[indexPath.row]
+            item = Store.sharedInstance.arrayOfNewItems[indexPath.row]
         } else {
-            item = store.arrayOfPopularItems[indexPath.row]
+            item = Store.sharedInstance.arrayOfPopularItems[indexPath.row]
         }
 
         if let imgFile = item.itemImage {
@@ -350,7 +344,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         view.layer.borderWidth = 0
         view.clipsToBounds = true
 
-        if item.itemSalePrice == nil || item.itemSalePrice?.compare(NSDecimalNumber.zero()) == NSComparisonResult.OrderedSame { //no sale
+        if item.itemSalePrice == 0.00 || item.itemSalePrice.compare(NSDecimalNumber.zero()) == NSComparisonResult.OrderedSame { //no sale
                 cell.lblPrice.text = "$\(item.priceString)"
                 cell.lblSalePrice.hidden = true
         } else { // there is a sale going on here
@@ -370,7 +364,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         let cellIdentifier = "CBStoreCategoryCell"
         let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath)
         let imgCategory = cell.viewWithTag(1) as! UIImageView
-        let objCategory = store.arrayOfCategoryObjects[indexPath.row]
+        let objCategory = Store.sharedInstance.arrayOfCategoryObjects[indexPath.row]
         if let fileCategory = objCategory["image"] as? PFFile {
             fileCategory.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
                 if error == nil {
@@ -406,10 +400,10 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == collectionNewItems {
-            itemSelected = store.arrayOfNewItems[indexPath.row]
+            itemSelected = Store.sharedInstance.arrayOfNewItems[indexPath.row]
             self.performSegueWithIdentifier("item", sender: self)
         } else if collectionView == collectionPopularItems {
-            itemSelected = store.arrayOfPopularItems[indexPath.row]
+            itemSelected = Store.sharedInstance.arrayOfPopularItems[indexPath.row]
             self.performSegueWithIdentifier("item", sender: self)
         }
     }

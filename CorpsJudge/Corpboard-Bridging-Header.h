@@ -22,6 +22,10 @@
 #import "CreateAccount.h"
 #import "LocationServicesPermission.h"
 #import "LocationServicesDisabled.h"
+#import "CBHoleView.h"
+#import "CBCartEditItem.h"
+#import "CBCollectionFooter.h"
+#import "CBCartItemCell.h"
 
 // pods
 
