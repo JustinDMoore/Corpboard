@@ -20,9 +20,9 @@
 @interface CBCartEditItem : UIView {
     id delegate;
 }
-@property (nonatomic) NSInteger quantity;
+@property (nonatomic) int quantity;
 @property (nonatomic, strong) IBOutlet UILabel *lblQty;
 -(void)setDelegate:(id)newDelegate;
--(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(NSInteger)qty;
+-(void)showAtRect:(CGRect)sRect endAtRect:(CGRect)eRect withQty:(int)qty;
 -(void)closeView;
 @end

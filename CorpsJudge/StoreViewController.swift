@@ -20,13 +20,14 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     let pageTwoDoc = UIImageView()
     let pageThreeDoc = UIImageView()
     var itemSelected = PStoreItem()
+    var categorySelected = PBanner()
     let btnBanner1 = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 135))
     let btnBanner2 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135))
     let btnBanner3 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 135))
-    var timerBanners = NSTimer()
     let CELL_ITEM_IDENTIFIER = "StoreItemCell"
     let CELL_CATEGORY_IDENTIFIER = "CBStoreCategoryCell"
     
+    var timerBanners = NSTimer()
     var numOfNewItems = 6
     var newItemScrollWidth = 0
     var newItemContentWidth = 0
@@ -96,6 +97,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         btnBanner2.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnBanner3.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
+        Store.sharedInstance.delegate = self
+        
         if !Store.sharedInstance.storeLoaded {
             Store.sharedInstance.loadStore()
         } else {
@@ -104,6 +107,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func goBack() {
+        
         timerBanners.invalidate()
         viewLoading.removeFromSuperview()
         navigationController?.popViewControllerAnimated(true)
@@ -111,7 +115,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func storeDidLoad() {
         initUI()
-        updateCart()
     }
     
     func storeDidFail() {
@@ -172,12 +175,12 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func startTimerForBannerRotation() {
-        timerBanners = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
+        timerBanners = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(StoreViewController.scrollToNextBanner), userInfo: nil, repeats: true)
         //timerBanners = NSTimer(timeInterval: 1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
     }
     
     func scrollToNextBanner() {
-        counter++
+        counter += 1
         if counter == 5 {
             counter = 0
             scrollBanners.scrollRectToVisible(CGRectMake(640, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: true)
@@ -185,13 +188,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func updateCart() {
-        let cartButton = UIButton()
-        var num = Store.sharedInstance.numberOfItemsInCart()
-        if num > 20 { num = 21 }
-        let imgCart = UIImage(named: "cart\(num)")
-        cartButton.setBackgroundImage(imgCart, forState: UIControlState.Normal)
-        cartButton.addTarget(self, action: "openCart", forControlEvents: UIControlEvents.TouchUpInside)
-        cartButton.frame = CGRectMake(0, 0, 30, 30)
+        let cartButton = Store.sharedInstance.cartButton()
+        cartButton.addTarget(self, action: #selector(StoreViewController.openCart), forControlEvents: UIControlEvents.TouchUpInside)
         let cartBarButtonItem = UIBarButtonItem(customView: cartButton)
         navigationItem.rightBarButtonItem = cartBarButtonItem
         if Store.sharedInstance.storeLoaded {
@@ -361,6 +359,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     
     func getCategoryCellForCollectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         let cellIdentifier = "CBStoreCategoryCell"
         let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath)
         let imgCategory = cell.viewWithTag(1) as! UIImageView
@@ -399,19 +398,28 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
         if collectionView == collectionNewItems {
             itemSelected = Store.sharedInstance.arrayOfNewItems[indexPath.row]
             self.performSegueWithIdentifier("item", sender: self)
         } else if collectionView == collectionPopularItems {
             itemSelected = Store.sharedInstance.arrayOfPopularItems[indexPath.row]
             self.performSegueWithIdentifier("item", sender: self)
+        } else if collectionView == collectionCategories {
+            categorySelected = Store.sharedInstance.arrayOfCategoryObjects[indexPath.row]
+            self.performSegueWithIdentifier("category", sender: self)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "item" {
             let vc = segue.destinationViewController as! StoreItemTableViewController
             vc.item = self.itemSelected
+            
+        } else if segue.identifier == "category" {
+            let vc1 = segue.destinationViewController as! StoreCategoryTableViewController
+            vc1.category = categorySelected
         }
     }
 }

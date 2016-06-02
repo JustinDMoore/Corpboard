@@ -14,6 +14,7 @@
 		920E5E8D1B895A6500D81C7B /* CBCartEditItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */; };
 		920E5E901B895D9400D81C7B /* CBCartEditItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */; };
 		92120A90195945B600FFB9A8 /* CBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92120A8F195945B600FFB9A8 /* CBStatsViewController.m */; };
+		92199B3D1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92199B3C1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift */; };
 		92275B3C1A4042BC006E8E8E /* CBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92275B3B1A4042BC006E8E8E /* CBView.m */; };
 		92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92393F261A59B5DE00020C6A /* CBProblemWhere.xib */; };
 		923D4FC31A2C6DCF00E16B64 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923D4EEF1A2C6DCF00E16B64 /* NavigationController.m */; };
@@ -53,6 +54,7 @@
 		9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBE61A209D8000FB40AB /* CBIsNewUser.m */; };
 		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
 		9253EBEC1A209F8300FB40AB /* CreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CreateAccount.m */; };
+		925B9B9A1D00BCB600111F36 /* CartEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B9B991D00BCB600111F36 /* CartEditItem.swift */; };
 		926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123611A59B9E200A6B755 /* CBProblemWhere.m */; };
 		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
 		9264B26A1A34E91700E1838F /* ChatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9264B2691A34E91700E1838F /* ChatNameCell.xib */; };
@@ -297,6 +299,7 @@
 		920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBCartEditItem.m; path = ../CBCartEditItem.m; sourceTree = "<group>"; };
 		92120A8E195945B600FFB9A8 /* CBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStatsViewController.h; sourceTree = "<group>"; };
 		92120A8F195945B600FFB9A8 /* CBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStatsViewController.m; sourceTree = "<group>"; };
+		92199B3C1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCategoryTableViewController.swift; sourceTree = "<group>"; };
 		92275B3A1A4042BC006E8E8E /* CBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBView.h; sourceTree = "<group>"; };
 		92275B3B1A4042BC006E8E8E /* CBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBView.m; sourceTree = "<group>"; };
 		92393F261A59B5DE00020C6A /* CBProblemWhere.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhere.xib; sourceTree = "<group>"; };
@@ -363,6 +366,7 @@
 		9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBViewSignIn.xib; sourceTree = "<group>"; };
 		9253EBEA1A209F8300FB40AB /* CreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccount.h; sourceTree = "<group>"; };
 		9253EBEB1A209F8300FB40AB /* CreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccount.m; sourceTree = "<group>"; };
+		925B9B991D00BCB600111F36 /* CartEditItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartEditItem.swift; sourceTree = "<group>"; };
 		926123601A59B9E200A6B755 /* CBProblemWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhere.h; sourceTree = "<group>"; };
 		926123611A59B9E200A6B755 /* CBProblemWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhere.m; sourceTree = "<group>"; };
 		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
@@ -1270,6 +1274,7 @@
 				920E5E8C1B895A6500D81C7B /* CBCartEditItem.xib */,
 				920E5E8E1B895D9400D81C7B /* CBCartEditItem.h */,
 				920E5E8F1B895D9400D81C7B /* CBCartEditItem.m */,
+				925B9B991D00BCB600111F36 /* CartEditItem.swift */,
 				D0F136EA1B96D7FC0075628C /* ApplePay.py */,
 				D03D64FB1B9BF91A00C07B74 /* Model */,
 				D03D64FC1B9BF92700C07B74 /* Controllers */,
@@ -1292,6 +1297,7 @@
 			isa = PBXGroup;
 			children = (
 				D03D64F81B99612000C07B74 /* StoreViewController.swift */,
+				92199B3C1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift */,
 				D03D64F01B98E5EC00C07B74 /* StoreItemTableViewController.swift */,
 				6F3BE71A1CF74B3D0086426B /* CartViewController.swift */,
 			);
@@ -1786,6 +1792,7 @@
 				D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
 				928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */,
+				925B9B9A1D00BCB600111F36 /* CartEditItem.swift in Sources */,
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				9FC71C981CE6639500C36A1C /* News.swift in Sources */,
 				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,
@@ -1825,6 +1832,7 @@
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */,
+				92199B3D1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift in Sources */,
 				D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,

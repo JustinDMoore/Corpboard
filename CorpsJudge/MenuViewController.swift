@@ -187,7 +187,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             self.btnAdminButton = UIButton(type: .Custom)
             let admImage = UIImage(named: "admin_admin")
             self.btnAdminButton.setBackgroundImage(admImage, forState: .Normal)
-            self.btnAdminButton.addTarget(self, action: Selector(admin()), forControlEvents: .TouchUpInside)
+            self.btnAdminButton.addTarget(self, action: #selector(MenuViewController.admin), forControlEvents: .TouchUpInside)
             self.btnAdminButton.frame = CGRectMake(0, 0, 30, 30)
             self.btnAdminButton.addSubview(self.badgeAdmin)
             self.btnAdminBarButton = UIBarButtonItem(customView: self.btnAdminButton)

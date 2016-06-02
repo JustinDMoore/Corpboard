@@ -12,8 +12,8 @@ class PStoreItem: PFObject, PFSubclassing {
 
     @NSManaged var itemName: String
     @NSManaged var itemDescription: String?
-    @NSManaged var itemPrice: NSDecimalNumber
-    @NSManaged var itemSalePrice: NSDecimalNumber
+    @NSManaged var itemPrice: Double
+    @NSManaged var itemSalePrice: Double
     @NSManaged var itemAvailable: Bool
     @NSManaged var itemSizes: [String]?
     @NSManaged var itemColors: [String]?

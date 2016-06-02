@@ -84,14 +84,10 @@ protocol StoreProtocol {
             self.getNewestItems()
             self.getPopularItems()
             self.storeLoaded = true
-            if let del = self.delegate {
-                del.storeDidLoad()
-            }
+            delegate?.storeDidLoad()
         } else {
             if (task >= 4) {
-                 if let del = self.delegate {
-                    del.storeDidFail()
-                }
+            delegate?.storeDidFail()
             }
         }
     }
@@ -222,5 +218,15 @@ protocol StoreProtocol {
                 NSLog("Error: \(err!.userInfo)")
             }
         }
+    }
+    
+    func cartButton() -> UIButton {
+        let cartButton = UIButton()
+        var num = numberOfItemsInCart()
+        if num > 20 { num = 21 }
+        let imgCart = UIImage(named: "cart\(num)")
+        cartButton.setBackgroundImage(imgCart, forState: UIControlState.Normal)
+        cartButton.frame = CGRectMake(0, 0, 30, 30)
+        return cartButton
     }
 }
