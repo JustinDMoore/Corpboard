@@ -394,7 +394,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         }
         
         let cartItem = POrder()
-        cartItem.status = "CART"
+        cartItem.status = "\(Store.OrderStatus.INCART)"
         cartItem.user = PFUser.currentUser()!
         cartItem.item = item
         cartItem.quantity = indexOfQuantity + 1
@@ -493,6 +493,10 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     }
     
     func storeDidFail() {
+        
+    }
+    
+    func cartUpdated() {
         
     }
 }

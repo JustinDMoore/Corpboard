@@ -63,8 +63,9 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
             lblMessage.font = UIFont.systemFontOfSize(12)
             lblMessage.numberOfLines = 0
             lblMessage.text = "Your cart is empty. \n\n And lonely."
-            lblMessage.textColor = UIColor.lightGrayColor()
+            lblMessage.textColor = UIColor.whiteColor()
             lblMessage.sizeToFit()
+            lblMessage.textAlignment = .Center
             view.addSubview(lblMessage)
             lblMessage.center = view.center
             view.bringSubviewToFront(lblMessage)

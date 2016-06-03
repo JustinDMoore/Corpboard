@@ -5203,7 +5203,6 @@
                                                     </collectionView>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Browse by Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZL-5i-ZUn">
                                                         <rect key="frame" x="14" y="4" width="172" height="21"/>
-                                                        <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -5837,9 +5836,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yHE-cF-ijy"/>
-        <segue reference="eUv-ho-4on"/>
         <segue reference="5Fi-Lt-Ok5"/>
-        <segue reference="y1X-qg-hw2"/>
-        <segue reference="rAC-0J-vVH"/>
+        <segue reference="PFL-Nc-Of5"/>
+        <segue reference="87F-jY-4el"/>
+        <segue reference="eUv-ho-4on"/>
     </inferredMetricsTieBreakers>
 </document>

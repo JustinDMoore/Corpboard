@@ -64,7 +64,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = Store.sharedInstance.getStoreTitleView()
-        updateCart()
         viewMain.hidden = true
         self.view.backgroundColor = UIColor.blackColor()
         scrollMain.frame = CGRectMake(0, 0, scrollMain.frame.size.width, scrollMain.frame.size.height)
@@ -192,11 +191,11 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         cartButton.addTarget(self, action: #selector(StoreViewController.openCart), forControlEvents: UIControlEvents.TouchUpInside)
         let cartBarButtonItem = UIBarButtonItem(customView: cartButton)
         navigationItem.rightBarButtonItem = cartBarButtonItem
-        if Store.sharedInstance.storeLoaded {
-            navigationItem.rightBarButtonItem?.enabled = true
-        } else {
-            navigationItem.rightBarButtonItem?.enabled = false
-        }
+//        if Store.sharedInstance.storeLoaded {
+//            navigationItem.rightBarButtonItem?.enabled = true
+//        } else {
+//            navigationItem.rightBarButtonItem?.enabled = false
+//        }
     }
     
     func openCart() {
@@ -421,6 +420,10 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
             let vc1 = segue.destinationViewController as! StoreCategoryTableViewController
             vc1.category = categorySelected
         }
+    }
+    
+    func cartUpdated() {
+        updateCart()
     }
 }
 

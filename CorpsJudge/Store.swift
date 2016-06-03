@@ -11,6 +11,7 @@ import Foundation
 protocol StoreProtocol {
     func storeDidLoad()
     func storeDidFail()
+    func cartUpdated()
 }
 
 @objc class Store: NSObject  {
@@ -210,6 +211,7 @@ protocol StoreProtocol {
                     if !results.isEmpty {
                         self.arrayOfItemsInCart += results
                     }
+                    self.delegate?.cartUpdated()
                     self.task += 1
                     self.updatedItemsInCart = true
                     self.didWeFinish()
