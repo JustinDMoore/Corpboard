@@ -4299,10 +4299,10 @@
             </objects>
             <point key="canvasLocation" x="6051" y="-1382"/>
         </scene>
-        <!--View Controller-->
+        <!--Cart View Controller-->
         <scene sceneID="YJP-IZ-bhR">
             <objects>
-                <viewController id="z8V-jA-ICn" sceneMemberID="viewController">
+                <viewController id="z8V-jA-ICn" customClass="CartViewController" customModule="Corpsboard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="82Q-P2-llO"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ih-aJ-ZLH"/>
@@ -4666,7 +4666,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RWA-V5-Mki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6117" y="-601"/>
+            <point key="canvasLocation" x="3812" y="2226"/>
         </scene>
         <!--Store Category Table View Controller-->
         <scene sceneID="oOX-eA-xkh">
@@ -4768,10 +4768,14 @@
                             <outlet property="delegate" destination="8eL-p1-BBi" id="1Xm-0p-oSL"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="eIT-C5-1cp" kind="show" identifier="item" id="y1X-qg-hw2"/>
+                        <segue destination="z8V-jA-ICn" kind="show" identifier="cart" id="hih-IH-ssY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SbA-eP-554" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6092" y="251"/>
+            <point key="canvasLocation" x="5740" y="2043"/>
         </scene>
         <!--End Show View Controller-->
         <scene sceneID="anT-CT-UK4">
@@ -5342,7 +5346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgA-oQ-pls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4522" y="90"/>
+            <point key="canvasLocation" x="4816" y="1100"/>
         </scene>
         <!--Store Item Table View Controller-->
         <scene sceneID="5B4-kv-NUR">
@@ -5750,7 +5754,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eWn-qr-gpr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5248" y="336"/>
+            <point key="canvasLocation" x="4809" y="2137"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="99f-P1-FQl">
@@ -5832,9 +5836,10 @@
         <image name="user" width="85" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="87F-jY-4el"/>
         <segue reference="yHE-cF-ijy"/>
         <segue reference="eUv-ho-4on"/>
         <segue reference="5Fi-Lt-Ok5"/>
+        <segue reference="y1X-qg-hw2"/>
+        <segue reference="rAC-0J-vVH"/>
     </inferredMetricsTieBreakers>
 </document>

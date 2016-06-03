@@ -19,14 +19,7 @@ class CartEditItem: UIView {
     
     @IBOutlet weak var lblQty: UILabel?
     
-    var quantity = 0 {
-        didSet {
-            if quantity < 1 { quantity = 1 }
-            else if quantity > 9 { quantity = 9 }
-            lblQty!.text = "\(quantity)"
-            delegate?.newQuantity(quantity)
-        }
-    }
+    var quantity = 0
     
     weak var delegate: delegateEditCartItem?
     var isShowing = false
@@ -37,6 +30,7 @@ class CartEditItem: UIView {
     func showAtRect(sRect: CGRect, endAtRect: CGRect, withQty: Int) {
         
         quantity = withQty
+        lblQty!.text = "\(quantity)"
         startRect = sRect
         endRect = endAtRect
         isShowing = true
@@ -76,10 +70,18 @@ class CartEditItem: UIView {
     
     @IBAction func decrementQty(sender: UIButton) {
         quantity -= 1
+        if quantity < 1 { quantity = 1 }
+        else if quantity > 9 { quantity = 9 }
+        lblQty!.text = "\(quantity)"
+        delegate?.newQuantity(quantity)
     }
     
-    @IBAction func incremenetQty(sender: UIButton) {
+    @IBAction func incrementQty(sender: UIButton) {
         quantity += 1
+        if quantity < 1 { quantity = 1 }
+        else if quantity > 9 { quantity = 9 }
+        lblQty!.text = "\(quantity)"
+        delegate?.newQuantity(quantity)
     }
     
     @IBAction func removeItem(sender: UIButton) {

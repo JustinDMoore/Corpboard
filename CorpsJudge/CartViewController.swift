@@ -9,7 +9,7 @@
 import UIKit
 import ParseUI
 
-class CartViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CartEditItemProtocol {
+class CartViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, delegateEditCartItem {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var lblTotal: UILabel!
@@ -19,16 +19,17 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
     var arrayOfPrices = [Double]()
     var indexPathOfEdit = NSIndexPath()
     var viewBlock = CBHoleView()
-    var viewEdit = CBCartEditItem()
+    var viewEdit = CartEditItem()
     var collectionFooter = CBCollectionFooter?()
     var final = 0.00
     
-    let reuseIdentifier = "Cell"
+    let reuseIdentifier = "Item"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.registerClass(CartViewController.self, forCellWithReuseIdentifier: reuseIdentifier)
-        viewEdit.setDelegate(self)
+        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        viewEdit = NSBundle.mainBundle().loadNibNamed("CBCartEditItem", owner: self, options: nil).first as! CartEditItem
+        viewEdit.delegate = self
         viewEdit.alpha = 0
         arrayOfPrices = []
         initUI()
@@ -48,9 +49,6 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if !Store.sharedInstance.arrayOfItemsInCart.isEmpty {
-            initUI()
-        }
     }
     
     func initUI() {
@@ -93,25 +91,34 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
         if Store.sharedInstance.arrayOfItemsInCart.isEmpty {
             return 0
         } else {
-            return Store.sharedInstance.arrayOfItemsInCart.count
+            let x = Store.sharedInstance.arrayOfItemsInCart.count
+            if x % 2 == 0 { //even
+                return Store.sharedInstance.arrayOfItemsInCart.count
+            } else { //odd
+                return Store.sharedInstance.arrayOfItemsInCart.count + 1
+            }
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("item", forIndexPath: indexPath) as? CBCartItemCell {
+        let identifier = "item"
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
             
-            if indexPath.row > Store.sharedInstance.arrayOfItemsInCart.count - 1 {
+            if indexPath.row > Store.sharedInstance.arrayOfItemsInCart.count - 1 { //this is the extra cell at the end for odd numbers. hide it
+                print("deleting cell: \(indexPath.row)")
                 for v in cell.subviews {
                     v.removeFromSuperview()
                 }
-                cell.backgroundColor = UIColor.clearColor()
+                cell.backgroundColor = UIColor.yellowColor()
                 return cell
             } else {
                 detailsForCell(cell, indexPath: indexPath)
                 if indexPathOfEdit != indexPath {
                     cell.addSubview(viewBlock)
                     viewBlock.frame = cell.frame
+                    viewBlock.alpha = 0
                 } else {
                     for v in cell.subviews {
                         if v.tag == 111 {
@@ -121,39 +128,41 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
                 }
             }
             return cell
-        }
-        return UICollectionViewCell()
     }
     
     func detailsForCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
+
+//        let viewFooter = cell.viewWithTag(10)! as UIView
+//        viewFooter.backgroundColor = UIColor(colorLiteralRed: 255/2, green: 255/2, blue: 255/2, alpha: 0.5)
         
-        let imgItem = cell.viewWithTag(1) as! PFImageView
-        let lblQty = cell.viewWithTag(2) as! UILabel
-        let lblSize = cell.viewWithTag(3) as! UILabel
-        let lblColor = cell.viewWithTag(4) as! UILabel
-        let lblPrice = cell.viewWithTag(5) as! UILabel
-        let viewFooter = cell.viewWithTag(10)! as UIView
         
-        viewFooter.backgroundColor = UIColor(colorLiteralRed: 255/2, green: 255/2, blue: 255/2, alpha: 0.5)
         if let item = Store.sharedInstance.arrayOfItemsInCart[indexPath.row] as? POrder {
         item.item.fetchIfNeededInBackgroundWithBlock({ (object: PFObject?, err: NSError?) in
             if let obj = object as? PStoreItem {
-                if let imgfile: PFFile = obj.itemImage {
-                    imgItem.file = imgfile
-                    imgItem.loadInBackground()
-                } else {
-                    imgItem.image = UIImage(named: "StoreError")
+                if let imgItem = cell.viewWithTag(1) as? PFImageView {
+                    if let imgfile: PFFile = obj.itemImage {
+                        imgItem.file = imgfile
+                        imgItem.loadInBackground()
+                    } else {
+                        imgItem.image = UIImage(named: "StoreError")
+                    }
                 }
                 
-                if let color = item.color {
-                    lblColor.text = "Color: \(color)"
-                } else { lblColor.text = "" }
+                if let lblColor = cell.viewWithTag(4) as? UILabel {
+                    if let color = item.color {
+                        lblColor.text = "Color: \(color)"
+                    } else { lblColor.text = "" }
+                }
                 
-                if let size = item.size {
-                    lblSize.text = "Size: \(size)"
-                } else { lblSize.text = "" }
+                if let lblSize = cell.viewWithTag(3) as? UILabel {
+                    if let size = item.size {
+                        lblSize.text = "Size: \(size)"
+                    } else { lblSize.text = "" }
+                }
                 
-                lblQty.text = "Qty: \(item.quantity)"
+                if let lblQty = cell.viewWithTag(2) as? UILabel {
+                    lblQty.text = "Qty: \(item.quantity)"
+                }
                 
                 //originally, these were doubles
                 //not NSDecimalNumbers
@@ -161,22 +170,23 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
 //                let price = itemPointer?.itemPrice
 //                let qty = item?.quantity
                 var total = 0.00
-                if item.item.itemSalePrice > 0.00 {
-                    total = Double(item.quantity) * item.item.itemSalePrice
+                if item.item.itemSalePrice.doubleValue > 0.00 {
+                    total = Double(item.quantity) * item.item.itemSalePrice.doubleValue
                 } else {
-                    total = Double(item.quantity) * item.item.itemPrice
-                }
-                let myString = item.size
-                
-                if let arraySizesForExtraCharge = myString?.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "$")) {
-                    if !arraySizesForExtraCharge.isEmpty { // charge extra
-                        var extraCharge = Double(arraySizesForExtraCharge.last!)
-                        extraCharge = Double(item.quantity) * extraCharge!
-                        total += extraCharge!
-                    }
+                    total = Double(item.quantity) * item.item.itemPrice.doubleValue
                 }
                 
-                lblPrice.text = "\(total)"
+                let str = item.size
+                let x = str?.componentsSeparatedByString("$")
+                if x?.count > 1 {
+                    var extraCharge = Double((x?.last)!)
+                    extraCharge = Double(item.quantity) * extraCharge!
+                    total += extraCharge!
+                }
+                
+                if let lblPrice = cell.viewWithTag(5) as? UILabel {
+                    lblPrice.text = self.stringFromDouble(total)
+                }
             }
         })
         }
@@ -192,18 +202,28 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
             indexPathOfEdit = indexPath
             let cell = collectionView.cellForItemAtIndexPath(indexPath)
             let itemsPerRow = 2
-            let column = indexPath.item % itemsPerRow //if bugs, check this line
+            let column = indexPath.item % itemsPerRow
             
             let startRect = collectionView.convertRect(cell!.frame, toView: self.view)
             var endCell = UICollectionViewCell()
-            
+            var eRect: CGRect
+            var endRect: CGRect
             if column == 0 {
-                endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row + 1, inSection: 0))!
+                if Store.sharedInstance.arrayOfItemsInCart.count == 1 {
+                    endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
+                    endRect = collectionView.convertRect(endCell.frame, toView: self.view)
+                } else {
+                    let previousCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row + 1, inSection: 0))
+                    endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row, inSection: 0))!
+                    eRect = CGRectMake(previousCell!.frame.origin.x, endCell.frame.origin.y, endCell.frame.size.width, endCell.frame.size.height)
+                    endRect = collectionView.convertRect(eRect, toView: self.view)
+                }
             } else {
                 endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row - 1, inSection: 0))!
+                endRect = collectionView.convertRect(endCell.frame, toView: self.view)
             }
             
-            let endRect = collectionView.convertRect(endCell.frame, toView: self.view)
+            
             let item = Store.sharedInstance.arrayOfItemsInCart[indexPath.row]
             
             self.view.bringSubviewToFront(viewEdit)
@@ -224,14 +244,17 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func mask(yes: Bool, forRect maskRect: CGRect) {
 
-        let transparentRects = NSArray.init(objects: NSValue(CGRect: maskRect))
-        viewBlock = CBHoleView(frame: CGRectMake(0, 0, 200, 400), backgroundColor: UIColor.blackColor(), andTransparentRects: transparentRects as [AnyObject])
-        self.view.addSubview(viewBlock)
-        viewBlock.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        viewBlock.alpha = 0.7
-        self.view .bringSubviewToFront(viewCheckout)
+        if yes {
+            let transparentRects = NSArray.init(objects: NSValue(CGRect: maskRect))
+            viewBlock = CBHoleView(frame: CGRectMake(0, 0, 200, 400), backgroundColor: UIColor.blackColor(), andTransparentRects: transparentRects as [AnyObject])
+            self.view.addSubview(viewBlock)
+            viewBlock.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+            viewBlock.alpha = 0.7
+            self.view .bringSubviewToFront(viewCheckout)
+        } else {
+            viewBlock.removeFromSuperview()
+        }
     }
-
 
     @IBAction func beginCheckout(sender: AnyObject) {
         
@@ -263,15 +286,15 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
                     }
                     
                     let myString = item.size
-                    let myArray = myString?.componentsSeparatedByString("$")
-                    if !(myArray?.isEmpty)! { //extra charge
-                        var extraCharge = Double((myArray?.last)!)
-                        if extraCharge > 0.00 {
-                            extraCharge = extraCharge! * qty
-                            total += extraCharge!
+                    if let myArray = myString?.componentsSeparatedByString("$") {
+                        if !(myArray.isEmpty) { //extra charge
+                            var extraCharge = Double((myArray.last)!)
+                            if extraCharge > 0.00 {
+                                extraCharge = extraCharge! * qty
+                                total += extraCharge!
+                            }
                         }
                     }
-                    
                     self.arrayOfPrices.append(total)
                     self.checkForTotal()
                 }
@@ -290,7 +313,7 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
             }
         
             if let view = collectionFooter {
-                collectionView.reloadData()
+                //collectionView.reloadData()
                 view.lblPriceMerch.text = stringFromDouble(total)
                 view.lblPriceShipping.text = stringFromDouble(shipping)
                 view.lblPriceTax.text = stringFromDouble(tax)
@@ -316,18 +339,25 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
         //display a message
         //animate it
         
-        collectionView.performBatchUpdates({ 
-            self.viewEdit.closeView()
-            let itemToDelete = Store.sharedInstance.arrayOfItemsInCart[self.indexPathOfEdit.row]
+        self.viewEdit.closeView()
+        let itemToDelete = Store.sharedInstance.arrayOfItemsInCart[self.indexPathOfEdit.row]
+        
+        collectionView.performBatchUpdates({
+
+            
             if Store.sharedInstance.arrayOfItemsInCart.count > 1 {
+            
                 Store.sharedInstance.arrayOfItemsInCart.removeAtIndex(Store.sharedInstance.arrayOfItemsInCart.indexOf(itemToDelete)!)
-                //there is another removeObjectAtIndex line here
-                //[Store.sharedInstance.arrayOfItemsInCart removeObjectAtIndex:[Store.sharedInstance.arrayOfItemsInCart indexOfObject:itemToDelete]];
+                //self.collectionView.reloadData()
                 self.collectionView.deleteItemsAtIndexPaths([self.indexPathOfEdit])
-            } else if Store.sharedInstance.arrayOfItemsInCart.count == 1 {
+                
+            }
+            else if Store.sharedInstance.arrayOfItemsInCart.count == 1 {
+                
                 Store.sharedInstance.arrayOfItemsInCart.removeAll()
                 let set = NSIndexSet(index: self.indexPathOfEdit.section)
                 self.collectionView.deleteSections(set)
+                
             }
             itemToDelete.deleteEventually()
         }) { (finished: Bool) in
