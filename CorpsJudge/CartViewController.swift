@@ -91,12 +91,7 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
         if Store.sharedInstance.arrayOfItemsInCart.isEmpty {
             return 0
         } else {
-            let x = Store.sharedInstance.arrayOfItemsInCart.count
-            if x % 2 == 0 { //even
-                return Store.sharedInstance.arrayOfItemsInCart.count
-            } else { //odd
-                return Store.sharedInstance.arrayOfItemsInCart.count + 1
-            }
+            return Store.sharedInstance.arrayOfItemsInCart.count
         }
     }
     
@@ -105,29 +100,21 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
         let identifier = "item"
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
-            
-            if indexPath.row > Store.sharedInstance.arrayOfItemsInCart.count - 1 { //this is the extra cell at the end for odd numbers. hide it
-                print("deleting cell: \(indexPath.row)")
-                for v in cell.subviews {
+        
+        detailsForCell(cell, indexPath: indexPath)
+        if indexPathOfEdit != indexPath {
+            cell.addSubview(viewBlock)
+            viewBlock.frame = cell.frame
+            viewBlock.alpha = 0
+        } else {
+            for v in cell.subviews {
+                if v.tag == 111 {
                     v.removeFromSuperview()
                 }
-                cell.backgroundColor = UIColor.yellowColor()
-                return cell
-            } else {
-                detailsForCell(cell, indexPath: indexPath)
-                if indexPathOfEdit != indexPath {
-                    cell.addSubview(viewBlock)
-                    viewBlock.frame = cell.frame
-                    viewBlock.alpha = 0
-                } else {
-                    for v in cell.subviews {
-                        if v.tag == 111 {
-                            v.removeFromSuperview()
-                        }
-                    }
-                }
             }
-            return cell
+        }
+        
+        return cell
     }
     
     func detailsForCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -206,24 +193,16 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             let startRect = collectionView.convertRect(cell!.frame, toView: self.view)
             var endCell = UICollectionViewCell()
-            var eRect: CGRect
-            var endRect: CGRect
-            if column == 0 {
-                if Store.sharedInstance.arrayOfItemsInCart.count == 1 {
-                    endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
-                    endRect = collectionView.convertRect(endCell.frame, toView: self.view)
-                } else {
-                    let previousCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row + 1, inSection: 0))
-                    endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row, inSection: 0))!
-                    eRect = CGRectMake(previousCell!.frame.origin.x, endCell.frame.origin.y, endCell.frame.size.width, endCell.frame.size.height)
-                    endRect = collectionView.convertRect(eRect, toView: self.view)
-                }
-            } else {
-                endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: indexPath.row - 1, inSection: 0))!
+            var endRect: CGRect = CGRectZero
+            
+            if column == 0 { //since previous cell does not exist (we're ON the first cell in the row), calculate where it would be
+                let eRect = CGRectMake(collectionView.frame.size.width - cell!.frame.size.width - 5, cell!.frame.origin.y, cell!.frame.size.width, cell!.frame.size.height)
+                endRect = collectionView.convertRect(eRect, toView: self.view)
+            } else if column == 1 { //just use the previous cell as endRect since previous cell exists
+                endCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: indexPath.row - 1, inSection: 0))!
                 endRect = collectionView.convertRect(endCell.frame, toView: self.view)
             }
-            
-            
+
             let item = Store.sharedInstance.arrayOfItemsInCart[indexPath.row]
             
             self.view.bringSubviewToFront(viewEdit)
