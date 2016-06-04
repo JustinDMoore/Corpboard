@@ -199,7 +199,6 @@ protocol StoreProtocol {
         }
     }
     
-    
     func getCartObjects() {
         
         let query = PFQuery(className: POrder.parseClassName())

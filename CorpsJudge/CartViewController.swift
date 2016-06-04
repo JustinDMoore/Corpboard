@@ -8,6 +8,7 @@
 
 import UIKit
 import ParseUI
+import PassKit
 
 class CartViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, delegateEditCartItem {
     
@@ -15,6 +16,10 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var lblTotal: UILabel!
     @IBOutlet weak var btnCheckout: UIButton!
     @IBOutlet weak var viewCheckout: UIView!
+    @IBOutlet weak var btnApplePay: UIButton!
+    @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var viewApplePayButton: UIView!
+    @IBOutlet weak var viewCheckoutButton: UIView!
     
     var arrayOfPrices = [Double]()
     var indexPathOfEdit = NSIndexPath()
@@ -53,6 +58,12 @@ class CartViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func initUI() {
         lblTotal.text = "$0"
+//        viewApplePayButton.hidden = Payment.sharedInstance.applePayAccepted()
+//        viewCheckoutButton.hidden = !Payment.sharedInstance.applePayAccepted()
+        //FIXME: Fix this
+        viewApplePayButton.hidden = false
+        viewCheckoutButton.hidden = true
+
         if !Store.sharedInstance.arrayOfItemsInCart.isEmpty {
            calculateTotal()
             btnCheckout.layer.borderWidth = 1

@@ -1,5 +1,5 @@
 //
-//  CBPayment.swift
+//  Payment.swift
 //  Corpboard
 //
 //  Created by Justin Moore on 8/31/15.
@@ -11,7 +11,7 @@ import UIKit
 import PassKit
 import Stripe
 
-@objc class Payment: NSObject, PKPaymentAuthorizationViewControllerDelegate {
+class Payment: NSObject, PKPaymentAuthorizationViewControllerDelegate {
     
     let SUPPORTED_PAYMENT_NETWORKS = [PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex]
     let MERCHANT_ID = "merchant.com.yea"
@@ -23,10 +23,7 @@ import Stripe
     var orderCanShip = false
     var totalPrice = NSDecimalNumber(double: 0.00)
     
-    override init () {
-        
-        
-    }
+    static let sharedInstance = Payment()
     
     func applePayAccepted() -> Bool {
         return PKPaymentAuthorizationViewController.canMakePayments()

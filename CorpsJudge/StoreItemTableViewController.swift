@@ -50,7 +50,6 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     var imgVToAnimate = PFImageView()
     var imgOriginal = PFImageView()
     var viewFade: UIView?
-    var payment = Payment()
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -323,7 +322,14 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
     
     func cartCellForTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        cell = tableView.dequeueReusableCellWithIdentifier("cart", forIndexPath: indexPath)
+        //FIXME: Fix this
+        cell = tableView.dequeueReusableCellWithIdentifier("addToCartApplePay", forIndexPath: indexPath)
+//        if Payment.sharedInstance.applePayAccepted() {
+//            cell = tableView.dequeueReusableCellWithIdentifier("addToCartApplePay", forIndexPath: indexPath)
+//        } else {
+//            cell = tableView.dequeueReusableCellWithIdentifier("addToCart", forIndexPath: indexPath)
+//        }
+
         let btnAddToCart = cell.viewWithTag(4) as! UIButton
         btnAddToCart.layer.borderColor = buttonBorderColor.CGColor
         btnAddToCart.layer.borderWidth = buttonBorderWidth
@@ -331,7 +337,7 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
         btnAddToCart.backgroundColor = MAROON
         btnAddToCart.addTarget(self, action: #selector(StoreItemTableViewController.addItemToCartAndBuy(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
-        let btnApplePay = cell.viewWithTag(40) as! UIButton
+        //let btnApplePay = cell.viewWithTag(40) as! UIButton
         //btnApplePay.addTarget(self, action: #selector(StoreItemTableViewController), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
@@ -414,10 +420,9 @@ class StoreItemTableViewController: UITableViewController, StoreItemSelectorProt
             }
         } else {
             cartItem.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
-                self.payment = Payment()
                 var arrayOfItems = [PFObject]()
                 arrayOfItems.append(cartItem)
-                self.payment.purchaseItemsWithApplePay(arrayOfItems, discount: 0.00, fromViewController: self)
+                Payment.sharedInstance.purchaseItemsWithApplePay(arrayOfItems, discount: 0.00, fromViewController: self)
             })
         }
     }

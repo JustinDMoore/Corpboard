@@ -247,7 +247,7 @@
 		D0DF7FDD1AB360360095BA4E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DF7FDC1AB360360095BA4E /* MapKit.framework */; };
 		D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */; };
 		D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */; };
-		D0F136E51B94FF750075628C /* CBPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E41B94FF750075628C /* CBPayment.swift */; };
+		D0F136E51B94FF750075628C /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E41B94FF750075628C /* Payment.swift */; };
 		D0F136E71B96C4230075628C /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F136E61B96C4230075628C /* Address.swift */; };
 		D0F136EB1B96D7FC0075628C /* ApplePay.py in Resources */ = {isa = PBXBuildFile; fileRef = D0F136EA1B96D7FC0075628C /* ApplePay.py */; };
 		D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19F891B14F62500357663 /* CBStartReview.xib */; };
@@ -643,7 +643,7 @@
 		D0DF7FDF1AB361AB0095BA4E /* CBTourMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBTourMapViewController.m; sourceTree = "<group>"; };
 		D0E37A191959178B00AE4215 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		D0E37A1A1959178B00AE4215 /* NSDate+Utilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilites.m"; sourceTree = "<group>"; };
-		D0F136E41B94FF750075628C /* CBPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPayment.swift; sourceTree = "<group>"; };
+		D0F136E41B94FF750075628C /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		D0F136E61B96C4230075628C /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		D0F136EA1B96D7FC0075628C /* ApplePay.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ApplePay.py; sourceTree = "<group>"; };
 		D0F19F861B14F44A00357663 /* CBDidAttend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBDidAttend.h; sourceTree = "<group>"; };
@@ -1286,7 +1286,7 @@
 			isa = PBXGroup;
 			children = (
 				D03D64DC1B97FD7400C07B74 /* Store.swift */,
-				D0F136E41B94FF750075628C /* CBPayment.swift */,
+				D0F136E41B94FF750075628C /* Payment.swift */,
 				D0F136E61B96C4230075628C /* Address.swift */,
 				D03D64EE1B98E2C800C07B74 /* OrderStatus.swift */,
 			);
@@ -1509,6 +1509,9 @@
 							};
 							com.apple.OMC = {
 								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
 							};
 						};
 					};
@@ -1739,7 +1742,7 @@
 				D0D777401B115D7E00D4EF6A /* CBPushNotifications.m in Sources */,
 				9FC71CA51CE6639500C36A1C /* Server.swift in Sources */,
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
-				D0F136E51B94FF750075628C /* CBPayment.swift in Sources */,
+				D0F136E51B94FF750075628C /* Payment.swift in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedbackViewController.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,

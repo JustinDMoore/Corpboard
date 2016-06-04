@@ -83,6 +83,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var btnLiveChat: UIButton!
     @IBOutlet weak var btnMessages: UIButton!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblMessages: UILabel!
+    @IBOutlet weak var lblLiveChat: UILabel!
+    @IBOutlet weak var lblNearMe: UILabel!
+    @IBOutlet weak var lblTourMap: UILabel!
     @IBOutlet weak var viewRecentShows: ClipView!
     @IBOutlet weak var scrollViewShows: UIScrollView!
     @IBOutlet weak var tableLastShows: UITableView!
@@ -203,11 +207,20 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.loadProfile()
         self.pulse()
         
-        self.btnProfile.tintColor = UISingleton.sharedInstance.appTint
-        self.btnMessages.tintColor = UISingleton.sharedInstance.appTint
-        self.btnLiveChat.tintColor = UISingleton.sharedInstance.appTint
-        self.btnNearMe.tintColor = UISingleton.sharedInstance.appTint
-        self.btnTourMap.tintColor = UISingleton.sharedInstance.appTint
+        let buttonColor = UISingleton.sharedInstance.maroon
+        let textColor = UISingleton.sharedInstance.gold
+        
+        self.btnProfile.tintColor = buttonColor
+        self.btnMessages.tintColor = buttonColor
+        self.btnLiveChat.tintColor = buttonColor
+        self.btnNearMe.tintColor = buttonColor
+        self.btnTourMap.tintColor = buttonColor
+        
+        lblUserName.textColor = textColor
+        lblMessages.textColor = textColor
+        lblLiveChat.textColor = textColor
+        lblNearMe.textColor = textColor
+        lblTourMap.textColor = textColor
         
         self.automaticallyAdjustsScrollViewInsets = false
         //self.view.backgroundColor = self.viewAppTitle.backgroundColor
@@ -354,7 +367,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         halo.animationDuration = 2
         halo.backgroundColor = UIColor.whiteColor().CGColor
         self.viewProfile.layer.addSublayer(halo)
-        self.viewProfile.bringSubviewToFront(self.btnNearMe)
+        //self.viewProfile.bringSubviewToFront(self.btnNearMe)
     }
     
     func initNewsFeed() {

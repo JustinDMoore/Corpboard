@@ -48,6 +48,8 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     @IBOutlet weak var viewPopularItems: ClipView!
     @IBOutlet weak var collectionPopularItems: UICollectionView!
     
+    
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -151,6 +153,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         collectionNewItems.frame = CGRectMake(collectionNewItems.frame.origin.x, collectionNewItems.frame.origin.y, UIScreen.mainScreen().bounds.size.width - reduce, collectionNewItems.frame.size.height)
         
         collectionPopularItems.frame = CGRectMake(collectionPopularItems.frame.origin.x, collectionPopularItems.frame.origin.y, UIScreen.mainScreen().bounds.size.width - reduce, collectionPopularItems.frame.size.height)
+        viewMain.frame = CGRectMake(0, 0, viewMain.frame.size.width, viewMain.frame.size.height)
     }
     
     func initItems() {
