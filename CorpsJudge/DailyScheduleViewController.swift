@@ -28,6 +28,18 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     var viewLoading = Loading()
     var arrayOfTasks = [PDailySchedule]()
     
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(DailyScheduleViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -44,6 +56,10 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
             self.displayDay()
             self.displaySchedule()
         }
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func initUI() {

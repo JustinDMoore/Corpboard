@@ -17,6 +17,22 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableSchedules: UITableView!
     
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(SchedulesViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
+        
+        if let indexPath = tableSchedules.indexPathForSelectedRow {
+            tableSchedules.deselectRowAtIndexPath(indexPath, animated: animated)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
@@ -31,6 +47,16 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
         self.tableSchedules.tableFooterView = UIView()
         self.edgesForExtendedLayout = UIRectEdge.None
         self.getSchedules()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+
+    }
+    
+    func goBack() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func getSchedules() {
