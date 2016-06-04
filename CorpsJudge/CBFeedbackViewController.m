@@ -29,7 +29,7 @@ int keyboardHeight = 210;
     [self.arrayOfFeedbackItems addObject:@"General Feedback"];
     [self.arrayOfFeedbackItems addObject:@"Something Isn't Working"];
     [self.arrayOfFeedbackItems addObject:@"Report Incorrect Information"];
-    [self.arrayOfFeedbackItems addObject:@"Rate Corpboard"];
+    [self.arrayOfFeedbackItems addObject:@"Rate Corpsboard"];
     
     self.btnPrivacyPolicy.alpha = 0;
     self.lblPrivacyPolicy.alpha = 0;
@@ -141,7 +141,7 @@ int keyboardHeight = 210;
             [imgMenuItem setImage:[UIImage imageNamed:@"feedbackBug"]];
         } else if ([item isEqualToString:@"Report Incorrect Information"]) {
             [imgMenuItem setImage:[UIImage imageNamed:@"feedbackInfo"]];
-        } else if ([item isEqualToString:@"Rate Corpboard"]) {
+        } else if ([item isEqualToString:@"Rate Corpsboard"]) {
             [imgMenuItem setImage:[UIImage imageNamed:@"feedbackRate"]];
         }
         

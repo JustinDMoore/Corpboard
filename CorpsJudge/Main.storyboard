@@ -3207,7 +3207,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         <connections>
-                                                            <action selector="aboutTheCorps:" destination="603-gO-u9Q" eventType="valueChanged" id="O5Q-o1-40S"/>
+                                                            <action selector="aboutTheCorps:" destination="603-gO-u9Q" eventType="touchUpInside" id="dX8-j3-y81"/>
                                                         </connections>
                                                     </view>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ia3-0E-Vl4" customClass="UIControl">
@@ -3219,7 +3219,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <connections>
-                                                            <action selector="feedback:" destination="603-gO-u9Q" eventType="valueChanged" id="jGD-Ud-vTJ"/>
+                                                            <action selector="feedback:" destination="603-gO-u9Q" eventType="touchUpInside" id="a0e-xo-2Ko"/>
                                                         </connections>
                                                     </view>
                                                 </subviews>
@@ -5853,8 +5853,8 @@
         <image name="support" width="150" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
-        <segue reference="eUv-ho-4on"/>
         <segue reference="PFL-Nc-Of5"/>
         <segue reference="rAC-0J-vVH"/>
         <segue reference="5Fi-Lt-Ok5"/>

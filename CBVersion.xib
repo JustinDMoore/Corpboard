@@ -79,7 +79,7 @@
                         <constraint firstAttribute="width" constant="50" id="hwa-Yr-jD9"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is a new version of Corpboard available." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtN-Zx-537">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is a new version of Corpsboard available." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtN-Zx-537">
                     <rect key="frame" x="36" y="86" width="195" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="195" id="OXz-NR-zEI"/>
