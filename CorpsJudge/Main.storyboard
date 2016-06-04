@@ -563,18 +563,20 @@
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kez-H2-Be2">
                                         <rect key="frame" x="180" y="20" width="233" height="29"/>
+                                        <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                         <segments>
                                             <segment title="Official Rankings"/>
                                             <segment title="Fan Reviews"/>
                                         </segments>
-                                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <variation key="heightClass=compact-widthClass=compact" ambiguous="YES" misplaced="YES">
                                             <rect key="frame" x="92" y="20" width="232" height="29"/>
                                         </variation>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46L-4I-GEf">
                                         <rect key="frame" x="421" y="23" width="22" height="21"/>
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1455,7 +1457,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvB-e2-cXy">
                                                         <rect key="frame" x="20" y="8" width="45" height="45"/>
-                                                        <state key="normal" image="Chat">
+                                                        <state key="normal" image="chat">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -1592,6 +1594,7 @@
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eZn-fW-UVs">
                                 <rect key="frame" x="186" y="50" width="229" height="29"/>
+                                <color key="backgroundColor" red="0.38039215686274508" green="0.086274509803921567" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="229" id="Rf0-Ju-Ju0"/>
                                 </constraints>
@@ -1599,6 +1602,7 @@
                                     <segment title="Default"/>
                                     <segment title="User Created"/>
                                 </segments>
+                                <color key="tintColor" red="0.7803921568627451" green="0.55294117647058827" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YB9-oy-2p1">
                                 <rect key="frame" x="0.0" y="86" width="600" height="470"/>
@@ -4011,6 +4015,7 @@
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EeH-K0-qkp">
                                 <rect key="frame" x="191" y="558" width="219" height="29"/>
+                                <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="219" id="4a0-OO-MdF"/>
                                 </constraints>
@@ -4019,6 +4024,7 @@
                                     <segment title="Hybrid"/>
                                     <segment title="Satellite"/>
                                 </segments>
+                                <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segmentMapType_changed:" destination="yG7-Vq-JyB" eventType="valueChanged" id="oHH-Uu-BNn"/>
                                 </connections>
@@ -5799,13 +5805,12 @@
         <image name="C2" width="66" height="57"/>
         <image name="CWG" width="66" height="60"/>
         <image name="CWP" width="66" height="61"/>
-        <image name="CameraRoll" width="48" height="48"/>
+        <image name="CameraRoll" width="85" height="85"/>
         <image name="CavsUpsideDown.png" width="193" height="222"/>
-        <image name="Chat" width="48" height="48"/>
-        <image name="DCI_CorpBoard1" width="800" height="800"/>
+        <image name="DCI_CorpBoard1" width="60" height="60"/>
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>
-        <image name="Upload" width="48" height="48"/>
+        <image name="Upload" width="85" height="85"/>
         <image name="Warning" width="48" height="48"/>
         <image name="YEA" width="133" height="106"/>
         <image name="about" width="150" height="85"/>
@@ -5832,7 +5837,7 @@
         <image name="defaultCoverPicture" width="851" height="315"/>
         <image name="delete" width="48" height="48"/>
         <image name="drum_tab" width="48" height="48"/>
-        <image name="edit2" width="48" height="48"/>
+        <image name="edit2" width="85" height="85"/>
         <image name="favorite_tab" width="48" height="48"/>
         <image name="flag_tab" width="48" height="48"/>
         <image name="horn_tab" width="48" height="48"/>
@@ -5843,7 +5848,7 @@
         <image name="near" width="85" height="85"/>
         <image name="online" width="66" height="66"/>
         <image name="profile" width="85" height="85"/>
-        <image name="review" width="48" height="48"/>
+        <image name="review" width="85" height="85"/>
         <image name="run1" width="132" height="178"/>
         <image name="score_tab" width="48" height="48"/>
         <image name="shop" width="150" height="85"/>
