@@ -151,10 +151,12 @@
 -(void)getRepertoiresForCorps {
     
     queryRepertoire = [PFQuery queryWithClassName:@"repertoires"];
-    [queryRepertoire whereKey:@"corps" equalTo:self.corps];
+    //[queryRepertoire whereKey:@"corps" equalTo:self.corps];
+    [queryRepertoire whereKey:@"corpsName" equalTo:self.corps[@"corpsName"]];
     [queryRepertoire orderByDescending:@"year"];
     [queryRepertoire findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            
             [self.arrayOfRepertoires addObjectsFromArray:objects];
             if ([self.arrayOfRepertoires count]) {
                 self.currentYear = [self.arrayOfRepertoires objectAtIndex:0];

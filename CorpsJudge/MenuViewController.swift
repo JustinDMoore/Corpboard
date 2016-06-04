@@ -1043,7 +1043,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     @IBAction func support(sender: UIControl) {
-        
+        let alert = UIAlertController(title: "Support The Cadets", message: "Coming soon.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func openStore() {
