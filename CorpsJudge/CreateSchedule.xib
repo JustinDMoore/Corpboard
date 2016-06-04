@@ -39,16 +39,17 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfr-Af-pUm">
-                    <rect key="frame" x="8" y="412" width="48" height="30"/>
+                    <rect key="frame" x="245" y="41" width="48" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="48" id="01h-bM-ufw"/>
+                        <constraint firstAttribute="width" constant="48" id="Ftl-RG-uC0"/>
+                        <constraint firstAttribute="height" constant="30" id="iTr-ua-rcj"/>
                     </constraints>
                     <state key="normal" title="Add"/>
                     <connections>
                         <action selector="btnAdd:" destination="iN0-l3-epB" eventType="touchUpInside" id="TTx-TB-Jh2"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kEl-8o-GoQ">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kEl-8o-GoQ">
                     <rect key="frame" x="0.0" y="80" width="301" height="286"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -81,7 +82,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioz-sU-dNZ">
-                    <rect key="frame" x="237" y="42" width="54" height="30"/>
+                    <rect key="frame" x="8" y="412" width="54" height="30"/>
                     <state key="normal" title="Custom"/>
                     <connections>
                         <action selector="btnCustom:" destination="iN0-l3-epB" eventType="touchUpInside" id="tNX-Cx-1qc"/>
@@ -90,23 +91,22 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="ioz-sU-dNZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="3Qf-xM-Lnt"/>
                 <constraint firstItem="kEl-8o-GoQ" firstAttribute="top" secondItem="6qc-5k-9m4" secondAttribute="bottom" constant="8" id="4VH-CF-oJd"/>
                 <constraint firstItem="6qc-5k-9m4" firstAttribute="top" secondItem="KPi-R3-b5b" secondAttribute="bottom" constant="8" id="87L-IH-uGb"/>
                 <constraint firstItem="KPi-R3-b5b" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="89z-ge-DLC"/>
                 <constraint firstAttribute="trailing" secondItem="OaH-CD-Rtl" secondAttribute="trailing" constant="8" id="HAX-OV-WDf"/>
                 <constraint firstItem="3pX-DF-9wz" firstAttribute="top" secondItem="MXs-c3-dc9" secondAttribute="bottom" constant="-3" id="IXH-IK-nQ4"/>
-                <constraint firstAttribute="trailing" secondItem="ioz-sU-dNZ" secondAttribute="trailing" constant="10" id="JNq-Xd-Mv2"/>
                 <constraint firstItem="MXs-c3-dc9" firstAttribute="centerX" secondItem="3pX-DF-9wz" secondAttribute="centerX" id="PsC-Sl-sBW"/>
                 <constraint firstItem="kEl-8o-GoQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Qfk-mj-0AC"/>
                 <constraint firstItem="6qc-5k-9m4" firstAttribute="centerX" secondItem="KPi-R3-b5b" secondAttribute="centerX" id="Tre-to-Oah"/>
-                <constraint firstItem="Dfr-Af-pUm" firstAttribute="top" secondItem="kEl-8o-GoQ" secondAttribute="bottom" constant="8" id="XJL-Yl-BIu"/>
-                <constraint firstAttribute="bottom" secondItem="Dfr-Af-pUm" secondAttribute="bottom" constant="8" id="eKk-8l-sNd"/>
                 <constraint firstItem="6qc-5k-9m4" firstAttribute="leading" secondItem="3pX-DF-9wz" secondAttribute="trailing" constant="29" id="hTS-9v-sOm"/>
                 <constraint firstAttribute="bottom" secondItem="OaH-CD-Rtl" secondAttribute="bottom" constant="8" id="jsN-KF-Lpg"/>
                 <constraint firstItem="KPi-R3-b5b" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="lYR-dy-mXx"/>
+                <constraint firstItem="Dfr-Af-pUm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="41" id="lxM-EM-DRc"/>
+                <constraint firstAttribute="bottom" secondItem="ioz-sU-dNZ" secondAttribute="bottom" constant="8" id="prk-tt-zBx"/>
                 <constraint firstItem="3pX-DF-9wz" firstAttribute="centerY" secondItem="6qc-5k-9m4" secondAttribute="centerY" id="tbB-gN-keh"/>
-                <constraint firstItem="Dfr-Af-pUm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="yNQ-av-YxK"/>
-                <constraint firstItem="ioz-sU-dNZ" firstAttribute="centerY" secondItem="6qc-5k-9m4" secondAttribute="centerY" id="zKu-p5-ZRL"/>
+                <constraint firstAttribute="trailing" secondItem="Dfr-Af-pUm" secondAttribute="trailing" constant="8" id="xex-qk-d2U"/>
                 <constraint firstAttribute="trailing" secondItem="kEl-8o-GoQ" secondAttribute="trailing" id="zLf-KE-28y"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

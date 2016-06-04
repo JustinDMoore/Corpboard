@@ -456,22 +456,22 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="stop" id="AWu-bW-7UH">
-                                        <color key="tintColor" red="0.0" green="0.67450980392156867" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="btnClose_tapped:" destination="RrN-fi-akD" id="h47-48-w5w"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5b5-Gj-YnT"/>
                                     <barButtonItem systemItem="action" id="kBh-tc-wiH">
-                                        <color key="tintColor" red="0.0" green="0.67450980390000004" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="btnAction_tapped:" destination="RrN-fi-akD" id="wQI-S2-EpB"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Santa Clara Vanguard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgq-bS-L7A">
-                                <rect key="frame" x="224" y="23" width="152" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Clara Vanguard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgq-bS-L7A">
+                                <rect key="frame" x="221" y="23" width="159" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="WZX-eY-Ki3"/>
                                 </constraints>
@@ -489,8 +489,8 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qi8-T8-5tc">
                                 <rect key="frame" x="0.0" y="63" width="600" height="2"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="www.scvanguard.org" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAz-K1-fx9">
-                                <rect key="frame" x="43" y="42" width="515" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.scvanguard.org" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAz-K1-fx9">
+                                <rect key="frame" x="47" y="42" width="507" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="0.53725490196078429" green="0.5607843137254902" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -5811,7 +5811,7 @@
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>
         <image name="Upload" width="85" height="85"/>
-        <image name="Warning" width="48" height="48"/>
+        <image name="Warning" width="85" height="85"/>
         <image name="YEA" width="133" height="106"/>
         <image name="about" width="150" height="85"/>
         <image name="admin_bug" width="48" height="48"/>

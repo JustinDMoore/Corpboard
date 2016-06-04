@@ -352,12 +352,14 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     func openWebViewWithLink(link: String, title: String, subTitle: String) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let web: CBWebViewController = storyboard.instantiateViewControllerWithIdentifier("web")
-//        web.webURL = link
-//        web.websiteTitle = title
-//        web.websiteSubTitle = subTitle
-//        self.presentViewController(web, animated: true, completion: nil)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let web = storyboard.instantiateViewControllerWithIdentifier("web") as? CBWebViewController {
+            web.webURL = link
+            web.websiteTitle = title
+            web.websiteSubTitle = subTitle
+            self.presentViewController(web, animated: true, completion: nil)
+        }
     }
 
     func pulse() {

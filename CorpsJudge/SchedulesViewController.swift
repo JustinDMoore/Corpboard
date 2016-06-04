@@ -14,6 +14,7 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     var arrayOfSchedules = [PCalendar]()
     var selectedSchedule: PCalendar?
     var viewLoading = Loading()
+    var datesArray = [String]()
     
     @IBOutlet weak var tableSchedules: UITableView!
     
@@ -83,8 +84,32 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func reload() {
-        self.viewLoading.removeFromSuperview()
-        self.tableSchedules.reloadData()
+        viewLoading.removeFromSuperview()
+        tableSchedules.reloadData()
+        scrollToDate()
+    }
+    
+    func scrollToDate() {
+        let x = getIndexOfNearestDateFromDateArray()
+        if x > 0 {
+            let scrollIndexPath = NSIndexPath(forRow: x, inSection: 0)
+            tableSchedules.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
+        }
+    }
+    
+    func getIndexOfNearestDateFromDateArray() -> Int {
+        let testDate = NSDate()
+        var closestInterval = DBL_MAX
+        for (index, schedule) in arrayOfSchedules.enumerate() {
+            let interval = schedule.date.timeIntervalSinceDate(testDate)
+            if interval > 0 {
+                if interval < closestInterval {
+                    closestInterval = interval
+                    return index
+                }
+            }
+        }
+        return 0
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

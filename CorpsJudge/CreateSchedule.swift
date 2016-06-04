@@ -159,7 +159,7 @@ class CreateSchedule: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func loadDict() {
-        createTask("Wake Up", present: "are waking up.")
+        createTask("Wake Up", present: "are waking up and having breakfast.")
         createTask("The Day", present: "are having their morning meeting.")
         createTask("S & R", present: "are stretching and running.")
         createTask("Visual", present: "are having visual rehearsal.")
