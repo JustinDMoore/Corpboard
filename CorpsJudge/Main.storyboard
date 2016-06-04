@@ -5853,8 +5853,8 @@
         <image name="support" width="150" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5XH-ng-dQw"/>
         <segue reference="yHE-cF-ijy"/>
+        <segue reference="eUv-ho-4on"/>
         <segue reference="PFL-Nc-Of5"/>
         <segue reference="rAC-0J-vVH"/>
         <segue reference="5Fi-Lt-Ok5"/>
