@@ -11,6 +11,7 @@ import CoreLocation
 import JSBadgeView
 import PulsingHalo
 import MWFeedParser
+import ImageSlideshow
 
 class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateCreateAccount, delegateUserLocation {
 
@@ -36,18 +37,12 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     //MARK:-
     //MARK:Properties
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
-    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 135))
-    let btnBanner2 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135))
-    let btnBanner3 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 135))
     let BUTTON_CORNER_RADIUS: CGFloat = 8.0
     let BUTTON_BORDER_WIDTH: CGFloat = 1.0
     let BUTTON_BORDER_COLOR = UIColor.blackColor().CGColor
     
     var lastShowString = ""
     var nextShowString = ""
-    var prevIndex = 0 //for tracking banner scrolling
-    var currIndex = 0 //for tracking banner scrolling
-    var nextIndex = 0 //for tracking banner scrolling
     var arrayOfLastShows = [PShow]()
     var arrayOfShowsYesterday = [PShow]()
     var arrayOfShowsToday = [PShow]()
@@ -62,12 +57,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     var badgeAdmin = JSBadgeView()
     var btnAdminBarButton = UIBarButtonItem()
     var btnAdminButton = UIButton()
-    var timerBanners = NSTimer()
     var showToOpen: PShow?
     var lastContentOffSet: CGFloat = 0.0
     var isScrolling = false
     var scrollDirection = scrollDir.None
-    var bannerCounter = 0
     var tryingToOpen = opening.None
     var viewLocationForDelegate = LocationServicesPermission()
     
@@ -77,7 +70,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     @IBOutlet weak var scrollMain: UIScrollView!
     @IBOutlet weak var contentMainView: UIView!
     @IBOutlet weak var imgCavalier: UIImageView!
-    @IBOutlet weak var scrollBanners: UIScrollView!
+    @IBOutlet weak var slideBanners: ImageSlideshow!
     @IBOutlet weak var btnNearMe: UIButton!
     @IBOutlet weak var viewProfile: UIControl!
     @IBOutlet weak var btnLiveChat: UIButton!
@@ -135,7 +128,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         Server.sharedInstance.delegateLocation = self
         Server.sharedInstance.getUnreadMessagesForUser()
         self.sortScores()
-        self.startTimerForBannerRotation()
         self.checkForNewVersion()
     }
     
@@ -294,25 +286,14 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.contentViewShows.exclusiveTouch = true
         
         //banners
-        self.btnBanner1.addTarget(self,
-                                  action: Selector(bannerTapped(self.btnBanner1)),
-                                  forControlEvents: .TouchUpInside)
-        self.btnBanner2.addTarget(self,
-                                  action: Selector(bannerTapped(self.btnBanner2)),
-                                  forControlEvents: .TouchUpInside)
-        self.btnBanner3.addTarget(self,
-                                  action: Selector(bannerTapped(self.btnBanner3)),
-                                  forControlEvents: .TouchUpInside)
-        self.loadPageWithId((Server.sharedInstance.arrayOfBannerImages?.count)! - 1, page: 0)
-        self.loadPageWithId(0, page: 1)
-        self.loadPageWithId(1, page: 2)
-        self.scrollBanners.addSubview(btnBanner1)
-        self.scrollBanners.addSubview(btnBanner2)
-        self.scrollBanners.addSubview(btnBanner3)
-        scrollBanners.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height)
-        self.scrollBanners.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 3, 135)
-        self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135), animated: false)
-        
+        slideBanners.backgroundColor = UIColor.whiteColor()
+        slideBanners.slideshowInterval = 5.0
+        slideBanners.pageControlPosition = .Hidden
+        slideBanners.pageControl.currentPageIndicatorTintColor = UIColor.lightGrayColor();
+        slideBanners.pageControl.pageIndicatorTintColor = UIColor.blackColor();
+        slideBanners.contentScaleMode = .ScaleToFill
+        slideBanners.setImageInputs(Server.sharedInstance.arrayOfBannerImages!)
+
         //buttons
         self.viewAboutTheCorps.layer.cornerRadius = BUTTON_CORNER_RADIUS
         self.viewFeedback.layer.cornerRadius = BUTTON_CORNER_RADIUS
@@ -344,12 +325,12 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height)
     }
     
-    func bannerTapped(sender: UIButton) {
-//        let bannerObj = Server.sharedInstance.arrayOfBannerObjects![sender.tag]
-//        if (bannerObj["link"] as! String?) != nil {
-//            self.openWebViewWithLink(bannerObj["link"] as! String, title: bannerObj["desc"] as! String, subTitle: bannerObj["link"] as! String)
-//        }
-    }
+//    func bannerTapped(sender: UIButton) {
+////        let bannerObj = Server.sharedInstance.arrayOfBannerObjects![sender.tag]
+////        if (bannerObj["link"] as! String?) != nil {
+////            self.openWebViewWithLink(bannerObj["link"] as! String, title: bannerObj["desc"] as! String, subTitle: bannerObj["link"] as! String)
+////        }
+//    }
     
     func openWebViewWithLink(link: String, title: String, subTitle: String) {
         
@@ -374,55 +355,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     func initNewsFeed() {
         self.collectionNews.reloadData()
-    }
-    
-    func loadPageWithId(index: Int, page: Int) {
-        var btnForBanner = UIButton()
-        if Server.sharedInstance.arrayOfBannerImages?.count > 0 {
-            switch page {
-            case 0:
-                btnForBanner = btnBanner1
-            case 1:
-                btnForBanner = btnBanner2
-            case 2:
-                btnForBanner = btnBanner3
-            default:
-                btnForBanner = btnBanner1 //added to cover all cases, might break?
-            }
-            btnForBanner.setBackgroundImage(Server.sharedInstance.arrayOfBannerImages![index], forState: .Normal)
-            btnForBanner.tag = index
-        }
-    }
-    
-    func startTimerForBannerRotation() {
-        self.timerBanners = NSTimer.scheduledTimerWithTimeInterval(1,
-                                                                   target: self,
-                                                                   selector: #selector(MenuViewController.scrollToNextBanner),
-                                                                   userInfo: nil,
-                                                                repeats: true)
-    }
-    
-    func scrollToNextBanner() {
-        self.bannerCounter += 1
-        if self.bannerCounter == 5 {
-            self.bannerCounter = 0
-            self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: true)
-        }
-    }
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        // We are moving forward. Load the current doc data on the first page.
-        self.loadPageWithId(self.currIndex, page: 0)
-        // Add one to the currentIndex or reset to 0 if we have reached the end.
-        self.currIndex = (self.currIndex >= Server.sharedInstance.arrayOfBannerImages!.count - 1) ? 0 : self.currIndex + 1;
-        self.loadPageWithId(self.currIndex, page: 1)
-        // Load content on the last page. This is either from the next item in the array
-        // or the first if we have reached the end.
-        self.nextIndex = (self.currIndex >= Server.sharedInstance.arrayOfBannerImages!.count - 1) ? 0 : self.currIndex + 1;
-        self.loadPageWithId(self.nextIndex, page: 2)
-        
-        // Reset offset back to middle page
-        self.scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
     }
     
     func openShow(sender: UIButton) {
@@ -898,10 +830,10 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             self.pageTopTwelve.currentPage = page
         }
         
-        if scrollView === self.scrollBanners {
-            //the user scrolled mannually, so reset the counter
-            self.bannerCounter = 0
-        }
+//        if scrollView === self.scrollBanners {
+//            //the user scrolled mannually, so reset the counter
+//            self.bannerCounter = 0
+//        }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -911,34 +843,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             } else {
                 self.lblShowsHeader.text = self.nextShowString
             }
-        }
-        
-        if scrollView === self.scrollBanners {
-            if scrollView.contentOffset.x > scrollView.frame.size.width {
-                // We are moving forward. Load the current doc data on the first page.
-                self.loadPageWithId(self.currIndex, page:0)
-                // Add one to the currentIndex or reset to 0 if we have reached the end.
-                self.currIndex = self.currIndex >= Server.sharedInstance.arrayOfBannerImages!.count - 1 ? 0 : self.currIndex + 1
-                self.loadPageWithId(self.currIndex, page:1)
-                // Load content on the last page. This is either from the next item in the array
-                // or the first if we have reached the end.
-                self.nextIndex = self.currIndex >= Server.sharedInstance.arrayOfBannerImages!.count - 1 ? 0 : self.currIndex + 1
-                self.loadPageWithId(self.nextIndex, page:2)
-            }
-            if scrollView.contentOffset.x < scrollView.frame.size.width {
-                // We are moving backward. Load the current doc data on the last page.
-                self.loadPageWithId(self.currIndex, page:2)
-                // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-                self.currIndex = self.currIndex == 0 ? Server.sharedInstance.arrayOfBannerImages!.count - 1 : self.currIndex - 1
-                self.loadPageWithId(self.currIndex, page:1)
-                // Load content on the first page. This is either from the prev item in the array
-                // or the last if we have reached the beginning.
-                self.prevIndex = self.currIndex == 0 ? Server.sharedInstance.arrayOfBannerImages!.count - 1 : self.currIndex - 1
-                self.loadPageWithId(self.prevIndex, page:0)
-            }
-            
-            // Reset offset back to middle page
-            scrollView.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
         }
     }
     
@@ -1195,7 +1099,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     //TODO: Double check to make sure lazy inits aren't required on some of the properties
-    
     
     //MARK:-
     //MARK: Helper Functions

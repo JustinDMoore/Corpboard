@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ImageSlideshow
 
 protocol StoreProtocol {
     func storeDidLoad()
@@ -26,7 +27,7 @@ protocol StoreProtocol {
     var updatedItemsInCart = false
     var arrayOfCategoryObjects = [PBanner]()
     var arrayOfBannerObjects = [PFObject]()
-    var arrayOfBannerImages = [UIImage]()
+    var arrayOfBannerImages = [ImageSource]?()
     var arrayOfStoreObjects = [PStoreItem]()
     var arrayOfNewItems = [PStoreItem]()
     var arrayOfPopularItems = [PStoreItem]()
@@ -182,9 +183,10 @@ protocol StoreProtocol {
                         imageFile.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
                             if (err === nil) {
                                 let image = UIImage(data: data!)
-                                self.arrayOfBannerImages.append(image!)
+                                let imageSource = ImageSource(image: image!)
+                                self.arrayOfBannerImages?.append(imageSource)
                                 self.arrayOfBannerObjects.append(banner)
-                                if self.arrayOfBannerImages.count == objects.count {
+                                if self.arrayOfBannerImages!.count == objects.count {
                                     self.updatedBanners = true
                                     self.task += 1
                                     self.didWeFinish()

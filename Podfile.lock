@@ -1,5 +1,4 @@
 PODS:
-  - AFDateHelper (3.3.1)
   - AFNetworking (2.6.0):
     - AFNetworking/NSURLConnection (= 2.6.0)
     - AFNetworking/NSURLSession (= 2.6.0)
@@ -31,6 +30,9 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.12.0):
     - FBSDKCoreKit
+  - ImageSlideshow (0.4.0):
+    - ImageSlideshow/Core (= 0.4.0)
+  - ImageSlideshow/Core (0.4.0)
   - IQKeyboardManager (3.2.3)
   - JSBadgeView (1.4.1)
   - JSQMessagesViewController (7.0.1):
@@ -63,8 +65,8 @@ PODS:
   - Stripe/Core (5.1.2)
 
 DEPENDENCIES:
-  - AFDateHelper (= 3.3.1)
   - AFNetworking (= 2.6.0)
+  - ImageSlideshow (= 0.4.0)
   - IQKeyboardManager (= 3.2.3)
   - JSBadgeView (= 1.4.1)
   - JSQMessagesViewController (= 7.0.1)
@@ -78,11 +80,11 @@ DEPENDENCIES:
   - Stripe (= 5.1.2)
 
 SPEC CHECKSUMS:
-  AFDateHelper: 3cf2296dc56cdc72af8fb8e73fb04ca0bd1999ae
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
+  ImageSlideshow: 0d3632bc0c2b4d3fff24a49ce4d3022af8238b03
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   JSQMessagesViewController: 03fba8a3021a3ddc1c91847f180ffe549f2e8cf2
@@ -95,4 +97,6 @@ SPEC CHECKSUMS:
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 2e86b53f60510d445a33a2dbfebf0f73a4354399
+
+COCOAPODS: 1.0.0

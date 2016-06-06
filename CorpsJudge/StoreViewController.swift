@@ -8,26 +8,22 @@
 
 import UIKit
 import KVNProgress
+import ImageSlideshow
 
 class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var scrollMain: UIScrollView!
-    @IBOutlet weak var scrollBanners: UIScrollView!
     
     let pageOneDoc = UIImageView()
     let pageTwoDoc = UIImageView()
     let pageThreeDoc = UIImageView()
     var itemSelected = PStoreItem()
     var categorySelected = PBanner()
-    let btnBanner1 = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 135))
-    let btnBanner2 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135))
-    let btnBanner3 = UIButton(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width * 2, 0, UIScreen.mainScreen().bounds.size.width, 135))
     let CELL_ITEM_IDENTIFIER = "StoreItemCell"
     let CELL_CATEGORY_IDENTIFIER = "CBStoreCategoryCell"
     
-    var timerBanners = NSTimer()
     var numOfNewItems = 6
     var newItemScrollWidth = 0
     var newItemContentWidth = 0
@@ -35,8 +31,9 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     var prevIndex = 0, currIndex = 0, nextIndex = 0
     var viewLoading = Loading()
     
-    // New Items
     
+    @IBOutlet weak var slideBanners: ImageSlideshow!
+    // New Items
     @IBOutlet weak var collectionNewItems: UICollectionView!
     @IBOutlet weak var viewNewItems: ClipView!
     
@@ -47,8 +44,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     // Popular Items
     @IBOutlet weak var viewPopularItems: ClipView!
     @IBOutlet weak var collectionPopularItems: UICollectionView!
-    
-    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,7 +64,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         viewMain.hidden = true
         self.view.backgroundColor = UIColor.blackColor()
         scrollMain.frame = CGRectMake(0, 0, scrollMain.frame.size.width, scrollMain.frame.size.height)
-        scrollMain.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height + viewNewItems.frame.size.height + viewCategories.frame.size.height + viewPopularItems.frame.size.height)
         
         // Register cell classes
         collectionNewItems.registerNib(UINib(nibName: CELL_ITEM_IDENTIFIER, bundle: nil), forCellWithReuseIdentifier: CELL_ITEM_IDENTIFIER)
@@ -94,10 +88,7 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         collectionPopularItems.backgroundColor = UIColor.blackColor()
         
         // banners
-        btnBanner1.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        btnBanner2.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        btnBanner3.addTarget(self, action: #selector(StoreViewController.bannerTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        
+
         Store.sharedInstance.delegate = self
         
         if !Store.sharedInstance.storeLoaded {
@@ -109,7 +100,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     func goBack() {
         
-        timerBanners.invalidate()
         viewLoading.removeFromSuperview()
         navigationController?.popViewControllerAnimated(true)
     }
@@ -125,26 +115,27 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     }
     
     func initUI() {
-        loadPageWithId(Store.sharedInstance.arrayOfBannerObjects.count - 1, page: 0)
-        loadPageWithId(0, page: 1)
-        loadPageWithId(1, page: 2)
-        scrollBanners.addSubview(btnBanner1)
-        scrollBanners.addSubview(btnBanner2)
-        scrollBanners.addSubview(btnBanner3)
-        scrollBanners.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 3, 135)
-        scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 135), animated: false)
-        startTimerForBannerRotation()
         self.automaticallyAdjustsScrollViewInsets = false
         for view in self.view.subviews {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        //banners
+        slideBanners.backgroundColor = UIColor.whiteColor()
+        slideBanners.slideshowInterval = 5.0
+        slideBanners.pageControlPosition = .Hidden
+        slideBanners.pageControl.currentPageIndicatorTintColor = UIColor.lightGrayColor();
+        slideBanners.pageControl.pageIndicatorTintColor = UIColor.blackColor();
+        slideBanners.contentScaleMode = .ScaleToFill
+        slideBanners.setImageInputs(Store.sharedInstance.arrayOfBannerImages!)
+        
         scrollMain.canCancelContentTouches = true
         scrollMain.delaysContentTouches = true
         scrollMain.userInteractionEnabled = true
         scrollMain.exclusiveTouch = true
         initItems()
         scrollMain.frame = CGRectMake(0, 0, scrollMain.frame.size.width, scrollMain.frame.size.height)
-        scrollMain.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height + viewNewItems.frame.size.height + viewCategories.frame.size.height + viewPopularItems.frame.size.height + viewPopularItems.frame.size.height + 1000)
+        //scrollMain.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, scrollBanners.frame.size.height + viewNewItems.frame.size.height + viewCategories.frame.size.height + viewPopularItems.frame.size.height + viewPopularItems.frame.size.height + 1000)
         viewLoading.removeFromSuperview()
         viewMain.hidden = false
         
@@ -160,33 +151,6 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         collectionNewItems.reloadData()
         collectionCategories.reloadData()
         collectionPopularItems.reloadData()
-    }
-    
-    func loadPageWithId(index: Int, page: Int) {
-        var btnForBanner = UIButton()
-        if Store.sharedInstance.arrayOfBannerImages.count > 0 {
-            switch page {
-            case 0: btnForBanner = btnBanner1
-            case 1: btnForBanner = btnBanner2
-            case 2: btnForBanner = btnBanner3
-            default: print("default", terminator: "")
-            }
-            let objBanner = Store.sharedInstance.arrayOfBannerImages[index]
-            btnForBanner.setBackgroundImage(objBanner, forState: UIControlState.Normal)
-        }
-    }
-    
-    func startTimerForBannerRotation() {
-        timerBanners = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(StoreViewController.scrollToNextBanner), userInfo: nil, repeats: true)
-        //timerBanners = NSTimer(timeInterval: 1, target: self, selector: "scrollToNextBanner", userInfo: nil, repeats: true)
-    }
-    
-    func scrollToNextBanner() {
-        counter += 1
-        if counter == 5 {
-            counter = 0
-            scrollBanners.scrollRectToVisible(CGRectMake(640, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: true)
-        }
     }
     
     func updateCart() {
@@ -205,96 +169,21 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
         self.performSegueWithIdentifier("cart", sender: self)
     }
     
-    func bannerTapped(sender: UIButton) {
-        let bannerObj = Store.sharedInstance.arrayOfBannerObjects[sender.tag]
-        if let link: String = (bannerObj["link"] as? String) {
-            
-        }
-    }
+//    func bannerTapped(sender: UIButton) {
+//        let bannerObj = Store.sharedInstance.arrayOfBannerObjects[sender.tag]
+//        if let link: String = (bannerObj["link"] as? String) {
+//            
+//        }
+//    }
     
     // MARK:
     // MARK: UIScrollViewDelegate
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        if scrollView == scrollBanners {
-            //we are moving forward. Load the current doc data on the first page
-            loadPageWithId(currIndex, page: 0)
-            //add one to the currentIndex or reset to 0 if we have reached the end
-            if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
-                currIndex = 0
-            } else {
-                currIndex += 1
-            }
-            loadPageWithId(currIndex, page: 1)
-            //load the content on the last page. This is either from the next item int he array
-            //or the first if we have reached the end
-            if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
-                nextIndex = 0
-            } else {
-                nextIndex = currIndex + 1
-            }
-            loadPageWithId(nextIndex, page: 2)
-            //Reset offset back to middle page
-            scrollBanners.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
-        }
-    }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == scrollMain {
             if scrollView.contentOffset.y < -128 {
                 scrollView.contentOffset = CGPointMake(0, -128)
             }
-        }
-        if scrollView == scrollBanners {
-            // the user scrolled manually, so reset the counter
-            self.counter = 0
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if scrollView == scrollBanners {
-            // All data for the documents are stored in an array (documentTitles).
-            // We keep track of the index that we are scrolling to so that we
-            // know what data to load for each page.
-            if(scrollView.contentOffset.x > scrollView.frame.size.width) {
-                // We are moving forward. Load the current doc data on the first page.
-                loadPageWithId(currIndex, page: 0)
-                // Add one to the currentIndex or reset to 0 if we have reached the end.
-                if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
-                    currIndex = 0
-                } else {
-                    currIndex += 1
-                }
-                loadPageWithId(currIndex, page: 1)
-                // Load content on the last page. This is either from the next item in the array
-                // or the first if we have reached the end.
-                if currIndex >= Store.sharedInstance.arrayOfBannerObjects.count - 1 {
-                    nextIndex = 0
-                } else {
-                    nextIndex = currIndex + 1
-                }
-                loadPageWithId(nextIndex, page: 2)
-            }
-            if scrollView.contentOffset.x < scrollView.frame.size.width {
-                // We are moving backward. Load the current doc data on the last page.
-                loadPageWithId(currIndex, page: 2)
-                // Subtract one from the currentIndex or go to the end if we have reached the beginning.
-                if currIndex == 0 {
-                    currIndex = Store.sharedInstance.arrayOfBannerObjects.count - 1
-                } else {
-                    currIndex -= 1
-                }
-                loadPageWithId(currIndex, page: 1)
-                // Load content on the first page. This is either from the prev item in the array
-                // or the last if we have reached the beginning.
-                if currIndex == 0 {
-                    prevIndex = Store.sharedInstance.arrayOfBannerObjects.count - 1
-                } else {
-                    prevIndex = currIndex - 1
-                }
-                loadPageWithId(prevIndex, page: 0)
-            }
-            //Reset offset back to middle page
-            scrollView.scrollRectToVisible(CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, 416), animated: false)
         }
     }
     

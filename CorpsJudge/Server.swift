@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ImageSlideshow
 
 protocol delegateInitialAppLoad: class {
     func updateProgress()
@@ -53,7 +54,7 @@ protocol delegateUserProfile: class {
     var NSarrayOfAllAgeClass = NSMutableArray()
     
     var arrayOfAllShows = [PShow]?()
-    var arrayOfBannerImages = [UIImage]?()
+    var arrayOfBannerImages = [ImageSource]?()
     var arrayOfBannerObjects = [PBanner]?()
     var arrayOfSubscribedRooms = [String]()
     
@@ -407,7 +408,7 @@ protocol delegateUserProfile: class {
     
     func updateBanners() {
 
-        self.arrayOfBannerImages = [UIImage]()
+        self.arrayOfBannerImages = [ImageSource]()
         self.arrayOfBannerObjects = [PBanner]()
         let query = PFQuery(className: PBanner.parseClassName())
         query.whereKey("hidden", equalTo: false)
@@ -421,7 +422,8 @@ protocol delegateUserProfile: class {
                         if err === nil {
                             x+=1
                             let image = UIImage(data: data!)
-                            self.arrayOfBannerImages?.append(image!)
+                            let imageSource = ImageSource(image: image!)
+                            self.arrayOfBannerImages?.append(imageSource)
                             self.arrayOfBannerObjects?.append(obj as! PBanner)
                             if x == objects!.count {
                                 //we've processed all the banners, notify the progress
