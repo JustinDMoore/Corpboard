@@ -10,6 +10,7 @@ import UIKit
 import ImageSlideshow
 import JSBadgeView
 import PulsingHalo
+import YouTubePlayer
 
 class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate {
 
@@ -57,6 +58,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     //News
     @IBOutlet weak var btnSeeAllNews: UIButton!
     @IBOutlet weak var collectionNews: UICollectionView!
+    
+    
+    //Videos
+    @IBOutlet weak var btnSeeAllVideos: UIButton!
+    @IBOutlet weak var collectionVideos: UICollectionView!
     
     //About and Feedback
     @IBOutlet weak var viewFeedback: UIControl!
@@ -134,7 +140,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
         navigationItem.titleView = imageView
-        
+
         self.edgesForExtendedLayout = .None
         
         //update the cadets current activity
@@ -154,7 +160,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     //MARK:Inits
     func initVariables() {
         Server.sharedInstance.delegateLocation = self
-        collectionNews.registerClass(CBNewsCell.self, forCellWithReuseIdentifier: "CBNewsCell")
+ 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "    ",
                                                                 style: UIBarButtonItemStyle.Plain,
                                                                 target: nil,
@@ -248,6 +254,15 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         img4.frame = CGRectMake(0, 0, 20, 20)
         disclosure4.accessoryView = img4
         
+        let disclosure5 = UITableViewCell()
+        btnSeeAllVideos.addSubview(disclosure5)
+        disclosure5.frame = CGRectMake(25, 1, btnSeeAllVideos.bounds.size.width, btnSeeAllVideos.bounds.size.height)
+        disclosure5.accessoryType = .DisclosureIndicator
+        disclosure5.userInteractionEnabled = false
+        let img5 = UIImageView(image: UIImage(named: "disclosure"))
+        img5.frame = CGRectMake(0, 0, 20, 20)
+        disclosure5.accessoryView = img5
+        
         // top 12
         pageTopTwelve.hidden = true
         lblTopTwelveHeader.hidden = true
@@ -285,8 +300,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         viewShop.layer.borderWidth = BUTTON_BORDER_WIDTH
         viewSupport.layer.borderWidth = BUTTON_BORDER_WIDTH
         
-        //news
-        collectionNews.backgroundColor = UIColor.clearColor()
+        // News
+        collectionNews.backgroundColor = UIColor.blackColor()
+        
+        // Videos
+        collectionVideos.backgroundColor = UIColor.blackColor()
     }
     
     func initNewsFeed() {
@@ -561,11 +579,72 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
-        else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
+        
+        if collectionView == collectionNews {
+            if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
+            else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
+        } else if collectionView == collectionVideos {
+            if Server.sharedInstance.arrayOfVideoPlayerViews.count >= 6 { return 6 }
+            else { return Server.sharedInstance.arrayOfVideoPlayerViews.count }
+        } else {
+            return 0
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        if collectionView == collectionNews {
+            return newsCollectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        } else if collectionView == collectionVideos {
+            return videoCollectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        } else {
+            return UICollectionViewCell()
+        }
+    }
+    
+    func videoCollectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cellIdentifier = "cell\(indexPath.row)"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! VideoCell
+        let viewVideo = Server.sharedInstance.arrayOfVideoPlayerViews[indexPath.row]
+//        let dateLabel = UILabel(frame: CGRectMake(8, 8, 190, 21))
+//        dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+//        dateLabel.text = News.sharedInstance.dateForNews(item.date)
+//        dateLabel.textColor = UIColor.whiteColor()
+//        dateLabel.sizeToFit()
+//        cell.addSubview(dateLabel)
+        
+//        let titleLabel = UILabel(frame: CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60))
+//        titleLabel.font = UIFont.systemFontOfSize(14)
+//        titleLabel.text = item.title
+//        titleLabel.textColor = UIColor.whiteColor()
+//        titleLabel.numberOfLines = 3
+//        titleLabel.lineBreakMode = .ByTruncatingTail
+//        titleLabel.sizeToFit()
+//        cell.addSubview(titleLabel)
+        
+//        let imgFrom = UIImageView(frame: CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 30))
+//        imgFrom.image = UIImage(named: "DCI_LOGO_Transparent3")
+//        cell.addSubview(imgFrom)
+        
+//        let lblFrom = UILabel(frame: CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21))
+//        lblFrom.font = UIFont.systemFontOfSize(10)
+//        lblFrom.text = ""
+//        lblFrom.textColor = UIColor.blueColor()
+//        lblFrom.sizeToFit()
+//        cell.addSubview(lblFrom)
+        
+        viewVideo.frame = CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)
+        cell.addSubview(viewVideo)
+        
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 8
+//        cell.colorNumber = News.sharedInstance.arrayOfColors[indexPath.row]
+        
+        return cell
+    }
+    
+    func newsCollectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         let cellIdentifier = "cell\(indexPath.row)"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CBNewsCell
         let item = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
@@ -607,8 +686,12 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
-        self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
+        if collectionView == collectionNews {
+            let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
+            self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
+        } else if collectionView == collectionVideos {
+            //play video full screen
+        }
     }
     
     //MARK:-
@@ -927,6 +1010,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     @IBAction func news(sender: AnyObject) {
         self.performSegueWithIdentifier("news", sender: self)
+    }
+    
+    @IBAction func videos(sender: AnyObject) {
+        self.performSegueWithIdentifier("videos", sender: self)
     }
     
     @IBAction func link(sender: AnyObject) {

@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PDailySchedule.registerSubclass()
         PStoreItem.registerSubclass()
         POrder.registerSubclass()
+        PVideo.registerSubclass()
         
         Parse.enableLocalDatastore()
         
@@ -62,12 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
-        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         return true
-        
-        //self.checkLastLogin()
+
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

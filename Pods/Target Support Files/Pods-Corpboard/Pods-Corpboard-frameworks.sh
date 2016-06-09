@@ -100,6 +100,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ParseUI/ParseUI.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PulsingHalo/PulsingHalo.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YouTubePlayer/YouTubePlayer.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -118,6 +119,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ParseUI/ParseUI.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PulsingHalo/PulsingHalo.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YouTubePlayer/YouTubePlayer.framework"
 fi
 if [[ "$CONFIGURATION" == "Distribution" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -136,4 +138,5 @@ if [[ "$CONFIGURATION" == "Distribution" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ParseUI/ParseUI.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PulsingHalo/PulsingHalo.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YouTubePlayer/YouTubePlayer.framework"
 fi

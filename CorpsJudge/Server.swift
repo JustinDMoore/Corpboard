@@ -8,6 +8,7 @@
 
 import Foundation
 import ImageSlideshow
+import YouTubePlayer
 
 protocol delegateInitialAppLoad: class {
     func updateProgress()
@@ -56,6 +57,7 @@ protocol delegateUserProfile: class {
     var arrayOfAllShows = [PShow]?()
     var arrayOfBannerImages = [ImageSource]?()
     var arrayOfBannerObjects = [PBanner]?()
+    var arrayOfVideoPlayerViews = [YouTubePlayerView]()
     var arrayOfSubscribedRooms = [String]()
     
     var arrayOfAllFavorites = NSMutableArray()
@@ -436,6 +438,31 @@ protocol delegateUserProfile: class {
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
                 print("Error updating the banners: \(errorString)")
+            }
+        }
+    }
+    
+    func updateVideos() {
+        arrayOfVideoPlayerViews = [YouTubePlayerView]()
+        let query = PFQuery(className: PVideo.parseClassName())
+        query.whereKey("public", equalTo: true)
+        query.orderByDescending("createdAt")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if err === nil {
+                for video in objects! {
+                    if let vid = video as? PVideo {
+                        let viewVideo = YouTubePlayerView(frame: CGRectZero)
+                        let myVideoURL = NSURL(string: vid.url)
+                        viewVideo.loadVideoURL(myVideoURL!)
+                        self.arrayOfVideoPlayerViews.append(viewVideo)
+                    }
+                }
+                self.delegateInitial?.updateProgress()
+                if !objects!.isEmpty { print("9. \(objects!.count) videos Updated.") }
+                else { print("9. No videos to update.") }
+            } else {
+                let errorString = err!.userInfo["error"] as? NSString
+                print("Error updating the videos: \(errorString)")
             }
         }
     }

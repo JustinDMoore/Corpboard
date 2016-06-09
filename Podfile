@@ -19,4 +19,5 @@ pod 'Parse', '1.13.0'
 pod 'ParseUI', '1.2.0'
 pod 'ParseFacebookUtilsV4', '1.11.1'
 pod 'ImageSlideshow', '0.4.0'
+pod 'YouTubePlayer', '0.3.0'
 end

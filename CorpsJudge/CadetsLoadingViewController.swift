@@ -18,7 +18,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     var animatedCadets = false
     var progress: Float = 0.0
     var canUseApp = true
-    var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.10, 0.15, 0.15, 0.25]
+    var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.05, 0.05, 0.15, 0.15, 0.25]
     var player = AVAudioPlayer()
     var loadStarted = false
     var progressTimerCount = 0
@@ -34,6 +34,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
      6. updateCorps()
      7. updateShows()
      8. updateBanners()
+     9. updateVideos()
      */
     
     //MARK:-
@@ -153,6 +154,7 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             Server.sharedInstance.updateShows()
             Server.sharedInstance.updateCorps()
             Server.sharedInstance.updateBanners()
+            Server.sharedInstance.updateVideos()
         }
 
         UIView.animateWithDuration(0.1,

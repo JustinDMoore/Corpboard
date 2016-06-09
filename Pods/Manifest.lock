@@ -63,6 +63,7 @@ PODS:
   - Stripe (5.1.2):
     - Stripe/Core (= 5.1.2)
   - Stripe/Core (5.1.2)
+  - YouTubePlayer (0.3.0)
 
 DEPENDENCIES:
   - AFNetworking (= 2.6.0)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - ParseUI (= 1.2.0)
   - PulsingHalo (= 0.0.1)
   - Stripe (= 5.1.2)
+  - YouTubePlayer
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -96,7 +98,8 @@ SPEC CHECKSUMS:
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
+  YouTubePlayer: 88713a96c356f2c88da8925eb61438eda88bcd57
 
-PODFILE CHECKSUM: 2e86b53f60510d445a33a2dbfebf0f73a4354399
+PODFILE CHECKSUM: 38a06234a8a57bd766089ad201f1e25bca728349
 
 COCOAPODS: 1.0.0
