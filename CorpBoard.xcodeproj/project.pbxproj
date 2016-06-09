@@ -85,6 +85,7 @@
 		92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */; };
 		92FE95351A74E0F500D4A7D9 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */; };
 		92FE95371A74E10900D4A7D9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */; };
+		9F00C42D1D0653D600D13E3F /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
 		9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */; };
 		9F9D68641CE70FAD0084878B /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68631CE70FAD0084878B /* CreateAccount.xib */; };
@@ -411,6 +412,7 @@
 		92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		92FE95361A74E10900D4A7D9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9523179A827280DB600485E1 /* Pods-Corpboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Corpboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Corpboard/Pods-Corpboard.debug.xcconfig"; sourceTree = "<group>"; };
+		9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
 		9F9D68591CE6C3E30084878B /* CadetsAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CadetsAnimation.m; path = CorpsJudge/CadetsAnimation.m; sourceTree = "<group>"; };
 		9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationServicesPermission.xib; sourceTree = "<group>"; };
@@ -1129,6 +1131,7 @@
 				9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */,
 				9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */,
 				9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */,
+				9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1823,6 +1826,7 @@
 				D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,
+				9F00C42D1D0653D600D13E3F /* MenuTableViewController.swift in Sources */,
 				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
 				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
@@ -1996,7 +2000,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "";
@@ -2025,7 +2029,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "";
@@ -2097,7 +2101,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Prefix.pch";
 				INFOPLIST_FILE = "CorpsJudge/Corpboard.temp_caseinsensitive_rename-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
 				PROVISIONING_PROFILE = "";

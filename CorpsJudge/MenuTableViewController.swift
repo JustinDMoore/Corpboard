@@ -1,20 +1,71 @@
 //
-//  MenuViewController.swift
+//  MenuTableViewController.swift
 //  CorpBoard
 //
-//  Created by Justin Moore on 5/7/16.
+//  Created by Justin Moore on 6/6/16.
 //  Copyright © 2016 Justin Moore. All rights reserved.
 //
 
 import UIKit
-import CoreLocation
+import ImageSlideshow
 import JSBadgeView
 import PulsingHalo
-import MWFeedParser
-import ImageSlideshow
 
-class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateCreateAccount, delegateUserLocation {
+class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate {
 
+    //MARK:-
+    //MARK:Outlets
+    
+    //Banners
+    @IBOutlet weak var slideBanners: ImageSlideshow!
+    
+    //Buttons
+    @IBOutlet weak var btnNearMe: UIButton!
+    @IBOutlet weak var lblProfile: UILabel!
+    @IBOutlet weak var lblMessages: UILabel!
+    @IBOutlet weak var lblLiveChat: UILabel!
+    @IBOutlet weak var lblNearMe: UILabel!
+    @IBOutlet weak var lblTourMap: UILabel!
+    
+    //Cadets Right Now
+    @IBOutlet weak var btnSeeDailySchedule: UIButton!
+    @IBOutlet weak var lblTaskLocation: UILabel!
+    @IBOutlet weak var lblTask: UILabel!
+    
+    //Latest Shows
+    @IBOutlet weak var scrollShows: UIScrollView!
+    @IBOutlet weak var tableLastShows: UITableView!
+    @IBOutlet weak var tableNextShows: UITableView!
+    @IBOutlet weak var lblShowsHeader: UILabel!
+    @IBOutlet weak var btnSeeAllShows: UIButton!
+    @IBOutlet weak var pageShows: UIPageControl!
+    
+    //Shop and Support
+    @IBOutlet weak var viewShop: UIControl!
+    @IBOutlet weak var viewSupport: UIControl!
+    
+    //Top 12
+    @IBOutlet weak var scrollTopTwelve: UIScrollView!
+    @IBOutlet weak var tableTopFour: UITableView!
+    @IBOutlet weak var tableTopEight: UITableView!
+    @IBOutlet weak var tableTopTwelve: UITableView!
+    @IBOutlet weak var lblTopTwelveHeader: UILabel!
+    @IBOutlet weak var btnSeeAllRankings: UIButton!
+    @IBOutlet weak var pageTopTwelve: UIPageControl!
+    
+    //News
+    @IBOutlet weak var btnSeeAllNews: UIButton!
+    @IBOutlet weak var collectionNews: UICollectionView!
+    
+    //About and Feedback
+    @IBOutlet weak var viewFeedback: UIControl!
+    @IBOutlet weak var viewAboutTheCorps: UIControl!
+    
+    //Links
+    @IBOutlet weak var lblVersion: UILabel!
+
+    //MARK:-
+    //MARK:Enums
     enum scrollDir {
         case None
         case Right
@@ -35,12 +86,14 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     //MARK:-
-    //MARK:Properties
+    //MARK:Constants
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     let BUTTON_CORNER_RADIUS: CGFloat = 8.0
     let BUTTON_BORDER_WIDTH: CGFloat = 1.0
     let BUTTON_BORDER_COLOR = UIColor.blackColor().CGColor
     
+    //MARK:-
+    //MARK:Variables
     var lastShowString = ""
     var nextShowString = ""
     var arrayOfLastShows = [PShow]()
@@ -62,70 +115,16 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     var viewLocationForDelegate = LocationServicesPermission()
     
     //MARK:-
-    //MARK:Outlets
-
-    @IBOutlet weak var scrollMain: UIScrollView!
-    @IBOutlet weak var contentMainView: UIView!
-    @IBOutlet weak var imgCavalier: UIImageView!
-    @IBOutlet weak var slideBanners: ImageSlideshow!
-    @IBOutlet weak var btnNearMe: UIButton!
-    @IBOutlet weak var viewProfile: UIControl!
-    @IBOutlet weak var btnLiveChat: UIButton!
-    @IBOutlet weak var btnMessages: UIButton!
-    @IBOutlet weak var lblUserName: UILabel!
-    @IBOutlet weak var lblMessages: UILabel!
-    @IBOutlet weak var lblLiveChat: UILabel!
-    @IBOutlet weak var lblNearMe: UILabel!
-    @IBOutlet weak var lblTourMap: UILabel!
-    @IBOutlet weak var viewRecentShows: ClipView!
-    @IBOutlet weak var scrollViewShows: UIScrollView!
-    @IBOutlet weak var tableLastShows: UITableView!
-    @IBOutlet weak var tableNextShows: UITableView!
-    @IBOutlet weak var contentViewShows: UIView!
-    @IBOutlet weak var lblShowsHeader: UILabel!
-    @IBOutlet weak var btnSeeAll: UIButton!
-    @IBOutlet weak var pageShows: UIPageControl!
-    @IBOutlet weak var imgBannerMiddle: UIImageView! //TODO: Finals prediction?
-    @IBOutlet weak var viewRankings: ClipView!
-    @IBOutlet weak var scrollTopTwelve: UIScrollView!
-    @IBOutlet weak var tableTopFour: UITableView!
-    @IBOutlet weak var tableTopEight: UITableView!
-    @IBOutlet weak var tableTopTwelve: UITableView!
-    @IBOutlet weak var lblTopTwelveHeader: UILabel!
-    @IBOutlet weak var btnSeeAllRankings: UIButton!
-    @IBOutlet weak var contentViewTopTwelve: UIView!
-    @IBOutlet weak var pageTopTwelve: UIPageControl!
-    @IBOutlet weak var btnSeeAllNews: UIButton!
-    @IBOutlet weak var viewNews: ClipView!
-    @IBOutlet weak var collectionNews: UICollectionView!
-    @IBOutlet weak var viewShop: UIView!
-    @IBOutlet weak var viewSupport: UIControl!
-    @IBOutlet weak var viewFeedback: UIControl!
-    @IBOutlet weak var viewAboutTheCorps: UIControl!
-    @IBOutlet weak var viewExtras: UIView!
-    @IBOutlet weak var viewLinks: UIView!
-    @IBOutlet weak var lblVersion: UILabel!
-    @IBOutlet weak var lblCopyright: UILabel!
-    @IBOutlet weak var btnDCI: UIButton!
-    @IBOutlet weak var btnProfile: UIButton!
-    @IBOutlet weak var btnTourMap: UIButton!
-    @IBOutlet weak var btnSeeDailySchedule: UIButton!
-    @IBOutlet weak var lblTaskLocation: UILabel!
-    @IBOutlet weak var lblTask: UILabel!
-    
-    //MARK:-
-    //MARK:Lifecycle
-    
+    //MARK:View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initVariables()
-        self.initUI()
-        self.setupShows()
-        self.initNewsFeed()
-        Server.sharedInstance.delegateLocation = self
         Server.sharedInstance.getUnreadMessagesForUser()
-        self.sortScores()
-        self.checkForNewVersion()
+        initVariables()
+        initUI()
+        setupShows()
+        initNewsFeed()
+        sortScores()
+        checkForNewVersion()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -133,97 +132,83 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let imageView = UIImageView(frame: CGRectMake(130, 20, 20, 54))
         imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
-        self.navigationItem.titleView = imageView
+        navigationItem.titleView = imageView
+        
+        self.edgesForExtendedLayout = .None
         
         //update the cadets current activity
-        self.updateCurrentTask()
-    }
-
-    func updateCurrentTask() {
-        self.lblTaskLocation.text = Server.sharedInstance.currentLocation
-        self.lblTask.text = Server.sharedInstance.currentTask
+        updateCurrentTask()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        //TODO: Do I need this line??????
-        //UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "Helvetica NeueUI", size: 20)!, NSForegroundColorAttributeName:UIColor.whiteColor()]
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
-    func setupShows() {
-        if Server.sharedInstance.arrayOfAllShows?.count > 0 {
-            self.prepareShowsForTable()
-            self.pageShows.hidden = false
-            self.scrollViewShows.hidden = false
-            self.lblShowsHeader.hidden = false
-            self.btnSeeAll.hidden = false
-        } else {
-            print("Error: No shows to set up.")
-        }
-    }
-    
+    //MARK:-
+    //MARK:Inits
     func initVariables() {
-        
-        self.collectionNews.registerClass(CBNewsCell.self, forCellWithReuseIdentifier: "CBNewsCell")
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "    ",
+        Server.sharedInstance.delegateLocation = self
+        collectionNews.registerClass(CBNewsCell.self, forCellWithReuseIdentifier: "CBNewsCell")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "    ",
                                                                 style: UIBarButtonItemStyle.Plain,
                                                                 target: nil,
                                                                 action: nil)
     }
     
+    func setupShows() {
+        if Server.sharedInstance.arrayOfAllShows?.count > 0 {
+            prepareShowsForTable()
+//            scrollViewShows.hidden = false
+//            lblShowsHeader.hidden = false
+//            btnSeeAllShows.hidden = false
+        } else {
+            print("Error: No shows to set up.")
+        }
+    }
+    
     func loadProfile() {
-        self.viewProfile.backgroundColor = self.tableLastShows.backgroundColor
         //set admin
         if Server.sharedInstance.adminMode {
-            self.navigationController?.navigationBarHidden = false
-            self.navigationItem.setHidesBackButton(false, animated: false)
-            self.btnAdminButton = UIButton(type: .Custom)
+            navigationController?.navigationBarHidden = false
+            navigationItem.setHidesBackButton(false, animated: false)
+            btnAdminButton = UIButton(type: .Custom)
             let admImage = UIImage(named: "admin_admin")
-            self.btnAdminButton.setBackgroundImage(admImage, forState: .Normal)
-            self.btnAdminButton.addTarget(self, action: #selector(MenuViewController.admin), forControlEvents: .TouchUpInside)
-            self.btnAdminButton.frame = CGRectMake(0, 0, 30, 30)
-            self.btnAdminButton.addSubview(self.badgeAdmin)
-            self.btnAdminBarButton = UIBarButtonItem(customView: self.btnAdminButton)
-            self.navigationItem.leftBarButtonItem = self.btnAdminBarButton
-            self.setAdminBadge()
+            btnAdminButton.setBackgroundImage(admImage, forState: .Normal)
+            btnAdminButton.addTarget(self, action: #selector(MenuViewController.admin), forControlEvents: .TouchUpInside)
+            btnAdminButton.frame = CGRectMake(0, 0, 30, 30)
+            btnAdminButton.addSubview(badgeAdmin)
+            btnAdminBarButton = UIBarButtonItem(customView: btnAdminButton)
+            navigationItem.leftBarButtonItem = btnAdminBarButton
+            setAdminBadge()
         } else {
-            self.navigationController?.navigationBarHidden = false
-            self.navigationItem.setHidesBackButton(true, animated: false)
+            navigationController?.navigationBarHidden = false
+            navigationItem.setHidesBackButton(true, animated: false)
         }
     }
     
     func initUI() {
-        self.loadProfile()
-        self.pulse()
-        
-        let buttonColor = UISingleton.sharedInstance.maroon
+        loadProfile()
+        pulse()
+
         let textColor = UISingleton.sharedInstance.gold
         
-        self.btnProfile.tintColor = buttonColor
-        self.btnMessages.tintColor = buttonColor
-        self.btnLiveChat.tintColor = buttonColor
-        self.btnNearMe.tintColor = buttonColor
-        self.btnTourMap.tintColor = buttonColor
-        
-        lblUserName.textColor = textColor
+        lblProfile.textColor = textColor
         lblMessages.textColor = textColor
         lblLiveChat.textColor = textColor
         lblNearMe.textColor = textColor
         lblTourMap.textColor = textColor
         
-        self.automaticallyAdjustsScrollViewInsets = false
-        //self.view.backgroundColor = self.viewAppTitle.backgroundColor
-        self.contentMainView.backgroundColor = UIColor.clearColor()
+        automaticallyAdjustsScrollViewInsets = false
         
         //display app version to user
         let info = NSBundle.mainBundle().infoDictionary
         let version = info!["CFBundleShortVersionString"] as! String
-        self.lblVersion.text = version
+        lblVersion.text = version
         
-        //disclosure arrows
+        // disclosure arrows
         let disclosure1 = UITableViewCell()
-        self.btnSeeAll.addSubview(disclosure1)
-        disclosure1.frame = CGRectMake(25, 1, self.btnSeeAll.bounds.size.width, self.btnSeeAll.bounds.size.height)
+        btnSeeAllShows.addSubview(disclosure1)
+        disclosure1.frame = CGRectMake(25, 1, btnSeeAllShows.bounds.size.width, btnSeeAllShows.bounds.size.height)
         disclosure1.accessoryType = .DisclosureIndicator
         disclosure1.userInteractionEnabled = false
         let img1 = UIImageView(image: UIImage(named: "disclosure"))
@@ -231,8 +216,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         disclosure1.accessoryView = img1
         
         let disclosure2 = UITableViewCell()
-        self.btnSeeAllRankings.addSubview(disclosure2)
-        disclosure2.frame = CGRectMake(25, 1, self.btnSeeAllRankings.bounds.size.width, self.btnSeeAllRankings.bounds.size.height)
+        btnSeeAllRankings.addSubview(disclosure2)
+        disclosure2.frame = CGRectMake(25, 1, btnSeeAllRankings.bounds.size.width, btnSeeAllRankings.bounds.size.height)
         disclosure2.accessoryType = .DisclosureIndicator
         disclosure2.userInteractionEnabled = false
         let img2 = UIImageView(image: UIImage(named: "disclosure"))
@@ -240,8 +225,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         disclosure2.accessoryView = img2
         
         let disclosure3 = UITableViewCell()
-        self.btnSeeAllNews.addSubview(disclosure3)
-        disclosure3.frame = CGRectMake(25, 1, self.btnSeeAllNews.bounds.size.width, self.btnSeeAllNews.bounds.size.height)
+        btnSeeAllNews.addSubview(disclosure3)
+        disclosure3.frame = CGRectMake(25, 1, btnSeeAllNews.bounds.size.width, btnSeeAllNews.bounds.size.height)
         disclosure3.accessoryType = .DisclosureIndicator
         disclosure3.userInteractionEnabled = false
         let img3 = UIImageView(image: UIImage(named: "disclosure"))
@@ -249,39 +234,38 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         disclosure3.accessoryView = img3
         
         let disclosure4 = UITableViewCell()
-        self.btnSeeDailySchedule.addSubview(disclosure4)
-        disclosure4.frame = CGRectMake(25, 1, self.btnSeeDailySchedule.bounds.size.width, self.btnSeeDailySchedule.bounds.size.height)
+        btnSeeDailySchedule.addSubview(disclosure4)
+        disclosure4.frame = CGRectMake(25, 1, btnSeeDailySchedule.bounds.size.width, btnSeeDailySchedule.bounds.size.height)
         disclosure4.accessoryType = .DisclosureIndicator
         disclosure4.userInteractionEnabled = false
         let img4 = UIImageView(image: UIImage(named: "disclosure"))
         img4.frame = CGRectMake(0, 0, 20, 20)
         disclosure4.accessoryView = img4
-
-        //top 12
-        self.pageTopTwelve.hidden = true
-        self.lblTopTwelveHeader.hidden = true
-        self.btnSeeAllRankings.hidden = true
-        self.scrollTopTwelve.hidden = true
-        self.scrollTopTwelve.canCancelContentTouches = true
-        self.scrollTopTwelve.delaysContentTouches = true
-        self.scrollTopTwelve.userInteractionEnabled = true
-        self.scrollTopTwelve.exclusiveTouch = true
-        self.scrollTopTwelve.contentSize = CGSizeMake(self.scrollTopTwelve.frame.size.width * 3, self.scrollTopTwelve.frame.size.height)
+        
+        // top 12
+        pageTopTwelve.hidden = true
+        lblTopTwelveHeader.hidden = true
+        btnSeeAllRankings.hidden = true
+        scrollTopTwelve.hidden = true
+        scrollTopTwelve.canCancelContentTouches = true
+        scrollTopTwelve.delaysContentTouches = true
+        scrollTopTwelve.userInteractionEnabled = true
+        scrollTopTwelve.exclusiveTouch = true
+        scrollTopTwelve.contentSize = CGSizeMake(scrollTopTwelve.frame.size.width * 3, scrollTopTwelve.frame.size.height)
         
         // Recent Shows
-        self.pageShows.hidden = true
-        self.lblShowsHeader.hidden = true
-        self.btnSeeAll.hidden = true
-        self.scrollViewShows.hidden = true
-        self.scrollViewShows.canCancelContentTouches = true
-        self.scrollViewShows.delaysContentTouches = true
-        self.scrollViewShows.userInteractionEnabled = true
-        self.scrollViewShows.exclusiveTouch = true
-        self.scrollViewShows.contentSize = self.contentViewShows.frame.size
-        self.contentViewShows.userInteractionEnabled = true
-        self.contentViewShows.exclusiveTouch = true
+
+//        scrollViewShows.canCancelContentTouches = true
+//        scrollViewShows.delaysContentTouches = true
+//        scrollViewShows.userInteractionEnabled = true
+//        scrollViewShows.exclusiveTouch = true
+        //scrollViewShows.contentSize = CGSizeMake(tableLastShows.frame.size.width  * 2, tableLastShows.frame.size.height * 2)
+
+        tableLastShows.tableFooterView = UIView() // hide empty cells
+        tableNextShows.tableFooterView = UIView() // hide empty cells
+        //content size of shows scroll view set during show setup
         
-        //banners
+        // banners
         slideBanners.backgroundColor = UIColor.whiteColor()
         slideBanners.slideshowInterval = 5.0
         slideBanners.pageControlPosition = .Hidden
@@ -289,44 +273,413 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         slideBanners.pageControl.pageIndicatorTintColor = UIColor.blackColor();
         slideBanners.contentScaleMode = .ScaleToFill
         slideBanners.setImageInputs(Server.sharedInstance.arrayOfBannerImages!)
-
+        
         //buttons
-        self.viewAboutTheCorps.layer.cornerRadius = BUTTON_CORNER_RADIUS
-        self.viewFeedback.layer.cornerRadius = BUTTON_CORNER_RADIUS
-        self.viewShop.layer.cornerRadius = BUTTON_CORNER_RADIUS
-        self.viewSupport.layer.cornerRadius = BUTTON_CORNER_RADIUS
+        viewAboutTheCorps.layer.cornerRadius = BUTTON_CORNER_RADIUS
+        viewFeedback.layer.cornerRadius = BUTTON_CORNER_RADIUS
+        viewShop.layer.cornerRadius = BUTTON_CORNER_RADIUS
+        viewSupport.layer.cornerRadius = BUTTON_CORNER_RADIUS
         
-        self.viewAboutTheCorps.layer.borderColor = BUTTON_BORDER_COLOR
-        self.viewFeedback.layer.borderColor = BUTTON_BORDER_COLOR
-        self.viewShop.layer.borderColor = BUTTON_BORDER_COLOR
-        self.viewSupport.layer.borderColor = BUTTON_BORDER_COLOR
+        viewAboutTheCorps.layer.borderColor = BUTTON_BORDER_COLOR
+        viewFeedback.layer.borderColor = BUTTON_BORDER_COLOR
+        viewShop.layer.borderColor = BUTTON_BORDER_COLOR
+        viewSupport.layer.borderColor = BUTTON_BORDER_COLOR
         
-        self.viewAboutTheCorps.layer.borderWidth = BUTTON_BORDER_WIDTH
-        self.viewFeedback.layer.borderWidth = BUTTON_BORDER_WIDTH
-        self.viewShop.layer.borderWidth = BUTTON_BORDER_WIDTH
-        self.viewSupport.layer.borderWidth = BUTTON_BORDER_WIDTH
+        viewAboutTheCorps.layer.borderWidth = BUTTON_BORDER_WIDTH
+        viewFeedback.layer.borderWidth = BUTTON_BORDER_WIDTH
+        viewShop.layer.borderWidth = BUTTON_BORDER_WIDTH
+        viewSupport.layer.borderWidth = BUTTON_BORDER_WIDTH
         
         //news
-        self.collectionNews.backgroundColor = UIColor.clearColor()
-        
-        //calculate main scroll content
-        //for scrollMain contentsize - per the docs
-        for view in self.contentMainView.subviews {
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
-        self.scrollMain.canCancelContentTouches = true
-        self.scrollMain.delaysContentTouches = true
-        self.scrollMain.userInteractionEnabled = true
-        self.scrollMain.exclusiveTouch = true
-        //self.scrollMain.frame = CGRectMake(0, 0, self.scrollMain.frame.size.width, self.scrollMain.frame.size.height)
+        collectionNews.backgroundColor = UIColor.clearColor()
     }
     
-//    func bannerTapped(sender: UIButton) {
-////        let bannerObj = Server.sharedInstance.arrayOfBannerObjects![sender.tag]
-////        if (bannerObj["link"] as! String?) != nil {
-////            self.openWebViewWithLink(bannerObj["link"] as! String, title: bannerObj["desc"] as! String, subTitle: bannerObj["link"] as! String)
-////        }
+    func initNewsFeed() {
+        self.collectionNews.reloadData()
+    }
+    
+    //MARK:-
+    //MARK:Table view data source
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if tableView == self.tableView {
+            if indexPath.row == 3 { //recent and next shows will have a varying heigh
+                if !arrayOfShowsForTable1.isEmpty || !arrayOfShowsForTable2.isEmpty {
+                    
+                    var num = max(arrayOfShowsForTable1.count, arrayOfShowsForTable2.count)
+                    num += 1
+                    let result = (num * 44) + 20 // 20 for pageControl and padding
+                    
+//                    tableLastShows.frame = CGRectMake(tableLastShows.frame.origin.x, tableLastShows.frame.origin.y, tableLastShows.frame.width, CGFloat(arrayOfShowsForTable1.count) * 44)
+//                    tableNextShows.frame = CGRectMake(tableNextShows.frame.origin.x, tableNextShows.frame.origin.y, tableNextShows.frame.width, CGFloat(arrayOfShowsForTable2.count) * 44)
+                    
+                    return CGFloat(result)
+                }
+            }
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        } else if tableView == tableLastShows ||
+            tableView == tableNextShows ||
+            tableView == tableTopFour ||
+            tableView == tableTopEight ||
+            tableView == tableTopTwelve {
+            return 44
+        }
+        return 44
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if tableView == self.tableView {
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        }
+        
+        else if tableView == self.tableLastShows {
+            if arrayOfShowsForTable1.count > 0 {
+                return arrayOfShowsForTable1.count
+            } else {
+                return 0
+            }
+        }
+            
+        else if tableView == self.tableNextShows {
+            if arrayOfShowsForTable2.count > 0 {
+                return arrayOfShowsForTable2.count
+            } else {
+                return 0
+            }
+        }
+            
+        else if tableView == self.tableTopFour { return 4 }
+        else if tableView == self.tableTopEight { return 4 }
+        else if tableView == self.tableTopTwelve { return 4 }
+    
+        else { return 0 }
+    }
+
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if tableView == self.tableView {
+            let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+            return cell
+        } else if tableView == tableLastShows {
+            return lastShowsTableView(cellForRowAtIndexPath: indexPath)
+        } else if tableView == tableNextShows {
+            return nextShowsTableView(cellForRowAtIndexPath: indexPath)
+        } else if tableView == tableTopFour ||
+                    tableView == tableTopEight ||
+                    tableView == tableTopTwelve {
+            return topTwelveTableView(cellForRowAtIndexPath: indexPath)
+        }
+        return UITableViewCell()
+    }
+    
+    func topTwelveTableView(cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if Server.sharedInstance.arrayOfWorldClass?.count > 0 {
+            
+            let corps: PCorps
+            let lblCorpsName: UILabel
+            let lblPosition: UILabel
+            let lblScore: UILabel
+            let lblScoreDate: UILabel
+            let imgView: UIImageView
+            var cell = UITableViewCell()
+            
+            cell = self.tableTopFour.dequeueReusableCellWithIdentifier("rank")!
+            lblPosition = cell.viewWithTag(4) as! UILabel
+            lblCorpsName = cell.viewWithTag(1) as! UILabel
+            lblScore = cell.viewWithTag(2) as! UILabel
+            lblScoreDate = cell.viewWithTag(3) as! UILabel
+            imgView = cell.viewWithTag(5) as! UIImageView
+            
+            var increment = 0
+            if tableView === self.tableTopFour { increment = 0 }
+            if tableView === self.tableTopEight { increment = 4 }
+            if tableView === self.tableTopTwelve { increment = 8 }
+            
+            corps = Server.sharedInstance.arrayOfWorldClass![indexPath.row + increment]
+            lblPosition.text = "\(indexPath.row + 1 + increment)"
+            lblCorpsName.text = corps.corpsName
+            //get corps logo
+            if corps.logo != nil {
+                corps.logo!.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+                    if err == nil {
+                        imgView.image = UIImage(data: data!)
+                    } else {
+                        imgView.image = nil
+                        print("Could not display logo for \(corps.corpsName)")
+                    }
+                })
+            } else {
+                imgView.image = nil
+                print("Could not display logo for \(corps.corpsName)")
+            }
+            
+            if corps.lastScoreDate.isToday() {
+                lblScoreDate.text = "Today"
+            } else if corps.lastScoreDate.isYesterday() {
+                lblScoreDate.text = "Yesterday"
+            } else {
+                let days = corps.lastScoreDate.daysBeforeDate(NSDate())
+                if days > 1 {
+                    lblScoreDate.text = "\(days) days ago"
+                } else if days <= 0 {
+                    lblScoreDate.text = ""
+                } else {
+                    lblScoreDate.text = "\(days) day ago"
+                }
+            }
+            
+            if corps.lastScore.characters.count > 0 {
+                lblScore.text = corps.lastScore
+            } else {
+                lblScore.text = "0"
+                lblScoreDate.text = "No score"
+            }
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func nextShowsTableView(cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if self.arrayOfShowsForTable2.count > 0 {
+            var cell = UITableViewCell()
+            let show: PShow
+            let lblShowName: UILabel
+            let lblShowLocation: UILabel
+            
+            cell = self.tableNextShows.dequeueReusableCellWithIdentifier("show")!
+            lblShowName = cell.viewWithTag(1) as! UILabel
+            lblShowLocation = cell.viewWithTag(2) as! UILabel
+            
+            show = self.arrayOfShowsForTable2[indexPath.row]
+            lblShowName.text = show.showName
+            lblShowLocation.text = show.showLocation
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func lastShowsTableView(cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if self.arrayOfShowsForTable1.count > 0 {
+            var cell = UITableViewCell()
+            let show: PShow
+            let lblShowName: UILabel
+            let lblShowLocation: UILabel
+            var btnScores = UIButton()
+            
+            show = self.arrayOfShowsForTable1[indexPath.row]
+            if show.isShowOver {
+                cell = self.tableLastShows.dequeueReusableCellWithIdentifier("scores")!
+                lblShowName = cell.viewWithTag(1) as! UILabel
+                lblShowLocation = cell.viewWithTag(2) as! UILabel
+                btnScores = cell.viewWithTag(3) as! UIButton
+                btnScores.addTarget(self, action: #selector(MenuViewController.openShow(_:)), forControlEvents: .TouchUpInside)
+                lblShowName.text = show.showName
+                lblShowLocation.text = show.showLocation
+                btnScores.layer.borderWidth = 1.0
+                btnScores.layer.borderColor = UISingleton.sharedInstance.appTint.CGColor
+                btnScores.layer.cornerRadius = 4.0
+                btnScores.titleLabel?.text = " Scores "
+                btnScores.layer.masksToBounds = true
+                btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
+                btnScores.setTitleColor(UISingleton.sharedInstance.appTint, forState: .Normal)
+                
+                if show.exception.characters.count > 0 {
+                    let lblException = UILabel(frame: CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20))
+                    lblException.font = UIFont.systemFontOfSize(12)
+                    lblException.textColor = UIColor.lightGrayColor()
+                    lblException.text = show.exception
+                    lblException.textAlignment = .Right
+                    lblException.sizeToFit()
+                    cell.addSubview(lblException)
+                } else {
+                    btnScores.hidden = false
+                }
+                
+            } else {
+                cell = self.tableLastShows.dequeueReusableCellWithIdentifier("show")!
+                lblShowName = cell.viewWithTag(1) as! UILabel
+                lblShowLocation = cell.viewWithTag(2) as! UILabel
+                lblShowName.text = show.showName
+                lblShowLocation.text = show.showLocation
+            }
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+    
+    //MARK:-
+    //MARK:UICollectionView
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
+        else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cellIdentifier = "cell\(indexPath.row)"
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CBNewsCell
+        let item = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
+        let dateLabel = UILabel(frame: CGRectMake(8, 8, 190, 21))
+        dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+        dateLabel.text = News.sharedInstance.dateForNews(item.date)
+        dateLabel.textColor = UIColor.whiteColor()
+        dateLabel.sizeToFit()
+        cell.addSubview(dateLabel)
+        
+        let titleLabel = UILabel(frame: CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60))
+        titleLabel.font = UIFont.systemFontOfSize(14)
+        titleLabel.text = item.title
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.numberOfLines = 3
+        titleLabel.lineBreakMode = .ByTruncatingTail
+        titleLabel.sizeToFit()
+        cell.addSubview(titleLabel)
+        
+        let imgFrom = UIImageView(frame: CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 30))
+        imgFrom.image = UIImage(named: "DCI_LOGO_Transparent3")
+        cell.addSubview(imgFrom)
+        
+        let lblFrom = UILabel(frame: CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21))
+        lblFrom.font = UIFont.systemFontOfSize(10)
+        lblFrom.text = ""
+        lblFrom.textColor = UIColor.blueColor()
+        lblFrom.sizeToFit()
+        cell.addSubview(lblFrom)
+        
+        cell.lblDate = dateLabel
+        cell.lblTitle = titleLabel
+        
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 8
+        cell.colorNumber = News.sharedInstance.arrayOfColors[indexPath.row]
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
+        self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
+    }
+    
+    //MARK:-
+    //MARK:UIScrollView
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if lastContentOffSet > scrollView.contentOffset.x {
+            self.scrollDirection = .Right
+        } else if lastContentOffSet < scrollView.contentOffset.x {
+            self.scrollDirection = .Left
+        }
+        
+        lastContentOffSet = scrollView.contentOffset.x
+        
+        if scrollView === scrollShows {
+            let pageWidth = scrollShows.frame.size.width
+            let fractionalPage = scrollShows.contentOffset.x / pageWidth
+            let page = lround(Double(fractionalPage))
+            self.pageShows.currentPage = page
+            if self.pageShows.currentPage == 0 {
+                self.lblShowsHeader.text = self.lastShowString
+            } else {
+                self.lblShowsHeader.text = self.nextShowString
+            }
+        }
+        
+        if scrollView === self.scrollTopTwelve {
+            let pageWidth = self.scrollTopTwelve.frame.size.width
+            let fractionalPage = self.scrollTopTwelve.contentOffset.x / pageWidth
+            let page = lround(Double(fractionalPage))
+            self.pageTopTwelve.currentPage = page
+        }
+    }
+    
+//    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+//        if scrollView === self.scrollViewShows {
+//            
+//        }
 //    }
+    
+    override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        //        if scrollView === self.collectionNews {
+        //            let point = targetContentOffset
+        //            let layout = self.collectionNews.collectionViewLayout as! UICollectionViewFlowLayout
+        //            let visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width
+        //            let indexOfItemToSnap = round(point.x / visibleWidth)
+        //            if indexOfItemToSnap + 1 == self.collectionNews.numberOfItemsInSection(0) { //last item
+        //                targetContentOffset = CGPointMake(self.collectionNews.contentSize.width - self.collectionNews.bounds.size.width, 0)
+        //            } else {
+        //                targetContentOffset = CGPointMake(indexOfItemToSnap * visibleWidth, 0)
+        //            }
+        //        }
+    }
+
+    //MARK:-
+    //MARK:Helpers
+    
+    func updateCurrentTask() {
+        lblTaskLocation.text = Server.sharedInstance.currentLocation
+        lblTask.text = Server.sharedInstance.currentTask
+    }
     
     func openWebViewWithLink(link: String, title: String, subTitle: String) {
         
@@ -338,20 +691,17 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             self.presentViewController(web, animated: true, completion: nil)
         }
     }
-
+    
     func pulse() {
         let halo = PulsingHaloLayer()
-        halo.position = self.btnNearMe.center
+        
         halo.radius = 20
         halo.animationDuration = 2
         halo.backgroundColor = UIColor.whiteColor().CGColor
-        btnProfile.layer.addSublayer(halo)
+        btnNearMe.layer.addSublayer(halo)
+        halo.position = CGPointMake(btnNearMe.frame.origin.x + (btnNearMe.frame.size.width / 2) - 7, btnNearMe.frame.origin.y + (btnNearMe.frame.size.height / 2) - 1)
         //viewProfile.layer.addSublayer(halo)
         //self.viewProfile.bringSubviewToFront(self.btnNearMe)
-    }
-    
-    func initNewsFeed() {
-        self.collectionNews.reloadData()
     }
     
     func openShow(sender: UIButton) {
@@ -398,10 +748,21 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         } else {
             self.tableLastShows.hidden = true
         }
-        if self.arrayOfShowsForTable1.count < 1 || self.arrayOfShowsForTable2.count < 1 {
-            self.scrollViewShows.contentSize = CGSizeMake(self.scrollViewShows.contentSize.width / 2, self.scrollViewShows.contentSize.height)
-            self.pageShows.numberOfPages = 0
-            self.scrollViewShows.scrollEnabled = false
+        if arrayOfShowsForTable1.isEmpty || arrayOfShowsForTable2.isEmpty {
+//            self.scrollViewShows.contentSize = CGSizeMake(scrollViewShows.contentSize.width / 2, scrollViewShows.contentSize.height)
+//            self.pageShows.numberOfPages = 0
+//            self.scrollViewShows.scrollEnabled = false
+        } else {
+//            let num = max(arrayOfShowsForTable1.count, arrayOfShowsForTable2.count)
+//            //scrollViewShows.frame = CGRectMake(scrollViewShows.frame.origin.x, scrollViewShows.frame.origin.y, tableView.frame.size.width - 50, scrollViewShows.frame.size.height)
+//            tableLastShows.frame = CGRectMake(tableLastShows.frame.origin.x, tableLastShows.frame.origin.y, tableView.frame.size.width - 50, tableLastShows.frame.size.height)
+//            tableNextShows.frame = CGRectMake(tableLastShows.frame.origin.x + 10 + tableLastShows.frame.size.width, tableLastShows.frame.origin.y, tableView.frame.size.width - 50, tableLastShows.frame.size.height)
+//            scrollViewShows.contentSize = CGSizeMake(scrollViewShows.frame.size.width, scrollViewShows.frame.size.height / 2)
+            
+//            scrollShows.frame = CGRectMake(5, scrollShows.frame.origin.y, tableView.frame.size.width - 50, scrollShows.frame.size.height)
+//            scrollShows.backgroundColor = UIColor.yellowColor()
+//            
+
         }
     }
     
@@ -478,7 +839,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         if self.arrayOfLastShows.count < 1 {
             var arrayForNext = [PShow]()
             if self.arrayOfShowsTomorrow.count < 1 { // if tomorrow is empty, use it
-                    arrayForNext = self.arrayOfShowsTomorrow
+                arrayForNext = self.arrayOfShowsTomorrow
             } else { //otherwise, use next shows
                 arrayForNext = self.arrayOfNextShows
             }
@@ -562,298 +923,6 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         }
         
         self.lblShowsHeader.text = lastShowString
-    }
-    
-    //MARK:-
-    //MARK:UITableView
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
-    }
-    
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView === self.tableLastShows {
-            if self.arrayOfShowsForTable1.count > 0 {
-                if self.arrayOfShowsForTable1.count > 4 {
-                    return 4
-                } else {
-                    return self.arrayOfShowsForTable1.count
-                }
-            } else {
-                return 0
-            }
-        } else if tableView === self.tableNextShows {
-            if self.arrayOfShowsForTable2.count > 0 {
-                if self.arrayOfShowsForTable2.count > 4 {
-                    return 4
-                } else {
-                    return self.arrayOfShowsForTable2.count
-                }
-            } else {
-                return 0
-            }
-        } else if tableView === self.tableTopFour || tableView === self.tableTopEight || tableView === self.tableTopFour {
-            return 4
-        }
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        let show: PShow
-        let lblShowName: UILabel
-        let lblShowLocation: UILabel
-        var btnScores = UIButton()
-        
-        if tableView === self.tableLastShows {
-            if self.arrayOfShowsForTable1.count > 0 {
-                show = self.arrayOfShowsForTable1[indexPath.row]
-                if show.isShowOver {
-                    cell = self.tableLastShows.dequeueReusableCellWithIdentifier("scores")!
-                    lblShowName = cell.viewWithTag(1) as! UILabel
-                    lblShowLocation = cell.viewWithTag(2) as! UILabel
-                    btnScores = cell.viewWithTag(3) as! UIButton
-                    btnScores.addTarget(self, action: #selector(MenuViewController.openShow(_:)), forControlEvents: .TouchUpInside)
-                    lblShowName.text = show.showName
-                    lblShowLocation.text = show.showLocation
-                    btnScores.layer.borderWidth = 1.0
-                    btnScores.layer.borderColor = UISingleton.sharedInstance.appTint.CGColor
-                    btnScores.layer.cornerRadius = 4.0
-                    btnScores.titleLabel?.text = " Scores "
-                    btnScores.layer.masksToBounds = true
-                    btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
-                    btnScores.setTitleColor(UISingleton.sharedInstance.appTint, forState: .Normal)
-                    
-                    if show.exception.characters.count > 0 {
-                        let lblException = UILabel(frame: CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20))
-                        lblException.font = UIFont.systemFontOfSize(12)
-                        lblException.textColor = UIColor.lightGrayColor()
-                        lblException.text = show.exception
-                        lblException.textAlignment = .Right
-                        lblException.sizeToFit()
-                        cell.addSubview(lblException)
-                    } else {
-                        btnScores.hidden = false
-                    }
-                    
-                } else {
-                    cell = self.tableLastShows.dequeueReusableCellWithIdentifier("show")!
-                    lblShowName = cell.viewWithTag(1) as! UILabel
-                    lblShowLocation = cell.viewWithTag(2) as! UILabel
-                    lblShowName.text = show.showName
-                    lblShowLocation.text = show.showLocation
-                }
-            }
-            
-        } else if tableView === self.tableNextShows {
-            
-            cell = self.tableNextShows.dequeueReusableCellWithIdentifier("show")!
-            lblShowName = cell.viewWithTag(1) as! UILabel
-            lblShowLocation = cell.viewWithTag(2) as! UILabel
-            
-            if self.arrayOfShowsForTable2.count > 0 {
-                show = self.arrayOfShowsForTable2[indexPath.row]
-                lblShowName.text = show.showName
-                lblShowLocation.text = show.showLocation
-            }
-        }
-        
-        let corps: PCorps
-        let lblCorpsName: UILabel
-        let lblPosition: UILabel
-        let lblScore: UILabel
-        let lblScoreDate: UILabel
-        let imgView: UIImageView
-        
-        if tableView === self.tableTopFour || tableView === self.tableTopEight || tableView === self.tableTopTwelve {
-            cell = self.tableTopFour.dequeueReusableCellWithIdentifier("rank")!
-            lblPosition = cell.viewWithTag(4) as! UILabel
-            lblCorpsName = cell.viewWithTag(1) as! UILabel
-            lblScore = cell.viewWithTag(2) as! UILabel
-            lblScoreDate = cell.viewWithTag(3) as! UILabel
-            imgView = cell.viewWithTag(5) as! UIImageView
-            
-            if Server.sharedInstance.arrayOfWorldClass?.count > 0 {
-                var increment = 0
-                if tableView === self.tableTopFour { increment = 0 }
-                if tableView === self.tableTopEight { increment = 4 }
-                if tableView === self.tableTopTwelve { increment = 8 }
-                
-                corps = Server.sharedInstance.arrayOfWorldClass![indexPath.row + increment]
-                lblPosition.text = "\(indexPath.row + 1 + increment)"
-                lblCorpsName.text = corps.corpsName
-                //get corps logo
-                if corps.logo != nil {
-                    corps.logo!.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-                        if err == nil {
-                            imgView.image = UIImage(data: data!)
-                        } else {
-                            imgView.image = nil
-                            print("Could not display logo for \(corps.corpsName)")
-                        }
-                    })
-                } else {
-                    imgView.image = nil
-                    print("Could not display logo for \(corps.corpsName)")
-                }
-                
-                if corps.lastScoreDate.isToday() {
-                    lblScoreDate.text = "Today"
-                } else if corps.lastScoreDate.isYesterday() {
-                    lblScoreDate.text = "Yesterday"
-                } else {
-                    let days = corps.lastScoreDate.daysBeforeDate(NSDate())
-                    if days > 1 {
-                        lblScoreDate.text = "\(days) days ago"
-                    } else if days <= 0 {
-                        lblScoreDate.text = ""
-                    } else {
-                        lblScoreDate.text = "\(days) day ago"
-                    }
-                }
-                
-                if corps.lastScore.characters.count > 0 {
-                    lblScore.text = corps.lastScore
-                } else {
-                    lblScore.text = "0"
-                    lblScoreDate.text = "No score"
-                }
-            }
-        }
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.openShowAtIndex(indexPath, tableView: tableView)
-    }
-    
-    
-    //MARK:-
-    //MARK:UICollectionView
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if News.sharedInstance.arrayOfNewsItemsToDisplay.count >= 6 { return 6 }
-        else { return News.sharedInstance.arrayOfNewsItemsToDisplay.count }
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cellIdentifier = "cell\(indexPath.row)"
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CBNewsCell
-        let item = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
-        let dateLabel = UILabel(frame: CGRectMake(8, 8, 190, 21))
-        dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
-        dateLabel.text = News.sharedInstance.dateForNews(item.date)
-        dateLabel.textColor = UIColor.whiteColor()
-        dateLabel.sizeToFit()
-        cell.addSubview(dateLabel)
-        
-        let titleLabel = UILabel(frame: CGRectMake(8, dateLabel.frame.origin.y + dateLabel.frame.size.height + 3, 190, 60))
-        titleLabel.font = UIFont.systemFontOfSize(14)
-        titleLabel.text = item.title
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.numberOfLines = 3
-        titleLabel.lineBreakMode = .ByTruncatingTail
-        titleLabel.sizeToFit()
-        cell.addSubview(titleLabel)
-        
-        let imgFrom = UIImageView(frame: CGRectMake(cell.frame.size.width - 30, cell.frame.size.height - 25, 30, 30))
-        imgFrom.image = UIImage(named: "DCI_LOGO_Transparent3")
-        cell.addSubview(imgFrom)
-        
-        let lblFrom = UILabel(frame: CGRectMake(imgFrom.frame.origin.x + 3, cell.frame.size.height - 17, 190, 21))
-        lblFrom.font = UIFont.systemFontOfSize(10)
-        lblFrom.text = ""
-        lblFrom.textColor = UIColor.blueColor()
-        lblFrom.sizeToFit()
-        cell.addSubview(lblFrom)
-        
-        cell.lblDate = dateLabel
-        cell.lblTitle = titleLabel
-        
-        cell.clipsToBounds = true
-        cell.layer.cornerRadius = 8
-        cell.colorNumber = News.sharedInstance.arrayOfColors[indexPath.row]
-        
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
-        self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
-    }
-    
-    //MARK:-
-    //MARK:UIScrollView
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView === self.scrollMain {
-            if scrollView.contentOffset.y < -128 {
-                scrollView.contentOffset = CGPointMake(0, -128)
-            }
-        }
-        if lastContentOffSet > scrollView.contentOffset.x {
-            self.scrollDirection = .Right
-        } else if lastContentOffSet < scrollView.contentOffset.x {
-            self.scrollDirection = .Left
-        }
-        
-        lastContentOffSet = scrollView.contentOffset.x
-        
-        if scrollView === self.scrollViewShows {
-            let pageWidth = scrollViewShows.frame.size.width
-            let fractionalPage = self.scrollViewShows.contentOffset.x / pageWidth
-            let page = lround(Double(fractionalPage))
-            self.pageShows.currentPage = page
-        }
-        
-        if scrollView === self.scrollTopTwelve {
-            let pageWidth = self.scrollTopTwelve.frame.size.width
-            let fractionalPage = self.scrollTopTwelve.contentOffset.x / pageWidth
-            let page = lround(Double(fractionalPage))
-            self.pageTopTwelve.currentPage = page
-        }
-        
-//        if scrollView === self.scrollBanners {
-//            //the user scrolled mannually, so reset the counter
-//            self.bannerCounter = 0
-//        }
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if scrollView === self.scrollViewShows {
-            if self.pageShows.currentPage == 0 {
-                self.lblShowsHeader.text = self.lastShowString
-            } else {
-                self.lblShowsHeader.text = self.nextShowString
-            }
-        }
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        //        if scrollView === self.collectionNews {
-        //            let point = targetContentOffset
-        //            let layout = self.collectionNews.collectionViewLayout as! UICollectionViewFlowLayout
-        //            let visibleWidth = layout.minimumInteritemSpacing + layout.itemSize.width
-        //            let indexOfItemToSnap = round(point.x / visibleWidth)
-        //            if indexOfItemToSnap + 1 == self.collectionNews.numberOfItemsInSection(0) { //last item
-        //                targetContentOffset = CGPointMake(self.collectionNews.contentSize.width - self.collectionNews.bounds.size.width, 0)
-        //            } else {
-        //                targetContentOffset = CGPointMake(indexOfItemToSnap * visibleWidth, 0)
-        //            }
-        //        }
     }
     
     //MARK:-
@@ -1063,7 +1132,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             return false
         }
     }
-
+    
     func askForLocationPermissionForView() {
         if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
             viewLoc.showInParent(self.navigationController)
@@ -1177,4 +1246,5 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
             self.badgeAdmin.badgeText = ""
         }
     }
+
 }
