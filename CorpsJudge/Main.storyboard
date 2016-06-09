@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xRo-dY-1aG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="XHa-1t-gwX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -1007,7 +1007,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Da2-J4-SdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4698" y="-663"/>
+            <point key="canvasLocation" x="5510" y="-663"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="vvF-AC-SMw">
@@ -1135,7 +1135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EGA-sZ-Ivz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5393" y="-682"/>
+            <point key="canvasLocation" x="6205" y="-682"/>
         </scene>
         <!--Private View-->
         <scene sceneID="ybb-yD-zZN">
@@ -1429,7 +1429,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVd-Rh-AwU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jxI-gT-Qz6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3110" y="-958"/>
+            <point key="canvasLocation" x="3922" y="-958"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="Pu5-dI-Yfs">
@@ -2433,7 +2433,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qrK-AW-9z0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4698" y="-1339"/>
+            <point key="canvasLocation" x="5510" y="-1339"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Ut0-us-wbY">
@@ -4862,8 +4862,7 @@
                                                                 <constraint firstItem="hFY-No-Osk" firstAttribute="leading" secondItem="Aly-hG-ZFv" secondAttribute="leading" id="X1O-lI-Wke"/>
                                                             </constraints>
                                                             <connections>
-                                                                <action selector="aboutTheCorps:" destination="603-gO-u9Q" eventType="touchUpInside" id="end-KE-MnM"/>
-                                                                <action selector="aboutTheCorps:" destination="Jec-AJ-du4" eventType="valueChanged" id="unI-dz-2EK"/>
+                                                                <action selector="aboutTheCorps:" destination="Jec-AJ-du4" eventType="touchUpInside" id="XUy-Ys-Zmy"/>
                                                             </connections>
                                                         </view>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mA-Me-lsK" customClass="UIControl">
@@ -4883,8 +4882,7 @@
                                                                 <constraint firstItem="5N0-GF-vgs" firstAttribute="top" secondItem="6mA-Me-lsK" secondAttribute="top" id="Zjx-bG-Te5"/>
                                                             </constraints>
                                                             <connections>
-                                                                <action selector="feedback:" destination="Jec-AJ-du4" eventType="valueChanged" id="4MB-dF-GoV"/>
-                                                                <action selector="feedback:" destination="603-gO-u9Q" eventType="touchUpInside" id="zZC-IM-uaq"/>
+                                                                <action selector="feedback:" destination="Jec-AJ-du4" eventType="touchUpInside" id="Myq-Xl-TnM"/>
                                                             </connections>
                                                         </view>
                                                     </subviews>
@@ -5078,7 +5076,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dT-Pc-gCs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3877" y="-958"/>
+            <point key="canvasLocation" x="4689" y="-958"/>
         </scene>
         <!--Finals Prediction-->
         <scene sceneID="Zr4-kg-FJq">
@@ -5927,7 +5925,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLa-XA-BWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6051" y="-1382"/>
+            <point key="canvasLocation" x="6863" y="-1382"/>
         </scene>
         <!--Cart View Controller-->
         <scene sceneID="YJP-IZ-bhR">
@@ -7399,23 +7397,23 @@
             <point key="canvasLocation" x="4809" y="2137"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="99f-P1-FQl">
+        <scene sceneID="phK-cE-j1X">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xRo-dY-1aG" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XHa-1t-gwX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dF9-TX-ksd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8Ma-XW-F9I">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Uem-kk-JC2" kind="relationship" relationship="rootViewController" id="ZAY-AJ-ZOl"/>
+                        <segue destination="Uem-kk-JC2" kind="relationship" relationship="rootViewController" id="Chq-xZ-IUG"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zNN-tl-b5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNK-t8-54V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2343" y="-958"/>
+            <point key="canvasLocation" x="3110" y="-958"/>
         </scene>
     </scenes>
     <resources>
