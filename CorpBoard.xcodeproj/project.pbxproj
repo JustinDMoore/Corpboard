@@ -124,6 +124,7 @@
 		9FEDCCFA1CF0FF1A00C1AB8C /* CreateSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF91CF0FF1A00C1AB8C /* CreateSchedule.swift */; };
 		9FEDCCFC1CF0FF2700C1AB8C /* CreateSchedule.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FEDCCFB1CF0FF2700C1AB8C /* CreateSchedule.xib */; };
 		9FEDCCFE1CF1024F00C1AB8C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCFD1CF1024F00C1AB8C /* Task.swift */; };
+		9FEF3A9F1D0A28C300D1AEFA /* VideoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF3A9E1D0A28C300D1AEFA /* VideoCollectionViewController.swift */; };
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
 		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
@@ -456,6 +457,7 @@
 		9FEDCCF91CF0FF1A00C1AB8C /* CreateSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSchedule.swift; sourceTree = "<group>"; };
 		9FEDCCFB1CF0FF2700C1AB8C /* CreateSchedule.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSchedule.xib; sourceTree = "<group>"; };
 		9FEDCCFD1CF1024F00C1AB8C /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		9FEF3A9E1D0A28C300D1AEFA /* VideoCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewController.swift; sourceTree = "<group>"; };
 		9FFA925B1CEE300D000A3765 /* LocationServicesDisabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesDisabled.h; sourceTree = "<group>"; };
 		9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesDisabled.m; sourceTree = "<group>"; };
 		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
@@ -1139,6 +1141,7 @@
 				9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */,
 				9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */,
 				9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */,
+				9FEF3A9E1D0A28C300D1AEFA /* VideoCollectionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1812,6 +1815,7 @@
 				D03D64EF1B98E2C800C07B74 /* OrderStatus.swift in Sources */,
 				9FEDCCF81CF0BAD900C1AB8C /* TaskTableViewCell.swift in Sources */,
 				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
+				9FEF3A9F1D0A28C300D1AEFA /* VideoCollectionViewController.swift in Sources */,
 				9F9D68681CE7EA310084878B /* AppConstant.swift in Sources */,
 				9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */,
 				92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */,

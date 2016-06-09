@@ -109,6 +109,7 @@ protocol delegateUserProfile: class {
     var arrayOfUserOpenClassRankings = NSMutableArray()
     var arrayOfUserAllAgeClassRankings = NSMutableArray()
     
+    var day = PCalendar()
     var currentTask = String()
     var currentLocation = String()
     
@@ -659,20 +660,23 @@ protocol delegateUserProfile: class {
                     if let schedule = objects?.first as? PDailySchedule {
                         self.currentLocation = "The Cadets are in \(schedule.calendarDay.city)"
                         self.currentTask = "and \(schedule.taskPresent)"
+                        self.getCurrentLocationForTheCadets(true)
                     }
                 } else {
-                    self.getCurrentLocationIfNoTask()
+                    self.getCurrentLocationForTheCadets(false)
                 }
             }
         }
     }
     
-    func getCurrentLocationIfNoTask() {
+    func getCurrentLocationForTheCadets(hasTask: Bool) {
             
             let now = NSDate()
             now.dateByAddingMinutes(1)
             
             let query = PFQuery(className: PCalendar.parseClassName())
+            query.includeKey("housing")
+            query.includeKey("show")
             query.whereKey("date", lessThan: now)
             query.orderByDescending("date")
             query.limit = 1
@@ -680,12 +684,17 @@ protocol delegateUserProfile: class {
                 if err === nil {
                     if objects?.count > 0 {
                         if let obj = objects?.first as? PCalendar {
-                            self.currentLocation = "The Cadets are in \(obj.city)"
-                            self.currentTask = "and are hard at work."
+                            self.day = obj
+                            if (!hasTask) {
+                                self.currentLocation = "The Cadets are in \(obj.city)"
+                                self.currentTask = "and are hard at work."
+                            }
                         }
                     } else {
-                        self.currentLocation = "The Cadets are hard at work today."
-                        self.currentTask = ""
+                        if (!hasTask) {
+                            self.currentLocation = "The Cadets are hard at work today."
+                            self.currentTask = ""
+                        }
                     }
                 }
         }

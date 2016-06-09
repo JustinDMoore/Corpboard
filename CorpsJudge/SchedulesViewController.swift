@@ -90,7 +90,7 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func scrollToDate() {
-        let x = getIndexOfNearestDateFromDateArray()
+        let x = getIndexOfNearestDateFromDateArray() - 1
         if x > 0 {
             let scrollIndexPath = NSIndexPath(forRow: x, inSection: 0)
             tableSchedules.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)

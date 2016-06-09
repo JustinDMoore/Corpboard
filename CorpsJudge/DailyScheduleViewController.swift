@@ -44,7 +44,6 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
         
         super.viewDidLoad()
         self.initUI()
-
         if day != nil {
             if day?.housing != nil {
                 housing = day?.housing

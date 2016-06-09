@@ -60,7 +60,15 @@ class StoreViewController: UIViewController, StoreProtocol, UIScrollViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = Store.sharedInstance.getStoreTitleView()
+        //NAV BAR BACKGROUND
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(named: "stone"), forBarMetrics: .Default)
+            navigationBar.shadowImage = UIImage()
+            navigationBar.translucent = true
+            navigationController?.view.backgroundColor = .blackColor()
+            //navigationItem.titleView = Store.sharedInstance.getStoreTitleView()
+        }
+        
         viewMain.hidden = true
         self.view.backgroundColor = UIColor.blackColor()
         scrollMain.frame = CGRectMake(0, 0, scrollMain.frame.size.width, scrollMain.frame.size.height)

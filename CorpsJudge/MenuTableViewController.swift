@@ -32,6 +32,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     @IBOutlet weak var btnSeeDailySchedule: UIButton!
     @IBOutlet weak var lblTaskLocation: UILabel!
     @IBOutlet weak var lblTask: UILabel!
+    @IBOutlet weak var btnSeeTodaysSchedule: UIButton!
     
     //Latest Shows
     @IBOutlet weak var scrollShows: UIScrollView!
@@ -145,10 +146,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         
         //update the cadets current activity
         updateCurrentTask()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        
+        // Video cells were disappearing after returning from
+        // videoCollectionViewController - this should keep them visible
+        collectionVideos.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -212,12 +214,12 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         
         automaticallyAdjustsScrollViewInsets = false
         
-        //display app version to user
+        // Display app version to user
         let info = NSBundle.mainBundle().infoDictionary
         let version = info!["CFBundleShortVersionString"] as! String
         lblVersion.text = version
         
-        // disclosure arrows
+        // Disclosure arrows
         let disclosure1 = UITableViewCell()
         btnSeeAllShows.addSubview(disclosure1)
         disclosure1.frame = CGRectMake(25, 1, btnSeeAllShows.bounds.size.width, btnSeeAllShows.bounds.size.height)
@@ -263,7 +265,17 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         img5.frame = CGRectMake(0, 0, 20, 20)
         disclosure5.accessoryView = img5
         
-        // top 12
+        let disclosure6 = UITableViewCell()
+        btnSeeTodaysSchedule.addSubview(disclosure6)
+        disclosure6.frame = CGRectMake(25, 1, btnSeeTodaysSchedule.bounds.size.width, btnSeeTodaysSchedule.bounds.size.height)
+        disclosure6.accessoryType = .DisclosureIndicator
+        disclosure6.userInteractionEnabled = false
+        let img6 = UIImageView(image: UIImage(named: "disclosure"))
+        img6.frame = CGRectMake(0, 0, 20, 20)
+        disclosure6.accessoryView = img6
+        
+        
+        // Top 12
         pageTopTwelve.hidden = true
         lblTopTwelveHeader.hidden = true
         btnSeeAllRankings.hidden = true
@@ -275,7 +287,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         tableTopEight.tableFooterView = UIView()
         tableTopTwelve.tableFooterView = UIView()
         
-        // banners
+        // Banners
         slideBanners.backgroundColor = UIColor.whiteColor()
         slideBanners.slideshowInterval = 5.0
         slideBanners.pageControlPosition = .Hidden
@@ -284,7 +296,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         slideBanners.contentScaleMode = .ScaleToFill
         slideBanners.setImageInputs(Server.sharedInstance.arrayOfBannerImages!)
         
-        //buttons
+        // Buttons
         viewAboutTheCorps.layer.cornerRadius = BUTTON_CORNER_RADIUS
         viewFeedback.layer.cornerRadius = BUTTON_CORNER_RADIUS
         viewShop.layer.cornerRadius = BUTTON_CORNER_RADIUS
@@ -1000,6 +1012,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         self.performSegueWithIdentifier("schedules", sender: self)
     }
     
+    @IBAction func today(sender: AnyObject) {
+        self.performSegueWithIdentifier("today", sender: self)
+    }
+    
     @IBAction func shows(sender: AnyObject) {
         self.performSegueWithIdentifier("shows", sender: self)
     }
@@ -1266,6 +1282,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         } else if segue.identifier == "profile" {
             let vc = segue.destinationViewController as! CBUserProfileViewController
             vc.setUser(PFUser.currentUser())
+        } else if segue.identifier == "today" {
+            if let vc = segue.destinationViewController as? DailyScheduleViewController {
+                vc.day = Server.sharedInstance.day
+            }
         }
     }
     

@@ -54,6 +54,15 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     //MARK:Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //NAV BAR BACKGROUND
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(named: "stone"), forBarMetrics: .Default)
+            navigationBar.shadowImage = UIImage()
+            navigationBar.translucent = true
+            navigationController?.view.backgroundColor = .blackColor()
+        }
+        
         Server.sharedInstance.delegateInitial = self
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.viewCadets.backgroundColor = UIColor.clearColor()

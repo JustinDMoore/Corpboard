@@ -64,7 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColor.blackColor()
-        UINavigationBar.appearance().translucent = true
+        //UINavigationBar.appearance().translucent = false
+        let navBgImage = UIImage(named: "stone")!
+        UINavigationBar.appearance().setBackgroundImage(navBgImage, forBarMetrics: .Default)
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         return true
