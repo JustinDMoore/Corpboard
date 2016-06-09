@@ -1,28 +1,42 @@
 //
-//  CBFeedbackViewController.m
+//  CBFeedback.m
 //  CorpBoard
 //
 //  Created by Justin Moore on 5/1/15.
 //  Copyright (c) 2015 Justin Moore. All rights reserved.
 //
 
-#import "CBFeedbackViewController.h"
+#import "CBFeedback.h"
 #import "IQKeyboardManager.h"
 #import "CBWebViewController.h"
 #import "Corpsboard-Swift.h"
 
-@interface CBFeedbackViewController ()
+@interface CBFeedback ()
 
 @end
 
 NSString *currentView;
 int keyboardHeight = 210;
 
-@implementation CBFeedbackViewController
+@implementation CBFeedback
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(id)initWithCoder:(NSCoder *)aDecoder {
     
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+
+    }
+    return self;
+}
+
+-(void)blur {
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    self.effect = blurEffect;
+    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+}
+
+-(void)setup {
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
     self.arrayOfFeedbackItems = [[NSMutableArray alloc] init];
@@ -36,24 +50,13 @@ int keyboardHeight = 210;
     [self.btnPrivacyPolicy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    UIVisualEffect *blurEffect;
-    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+-(void)showViewInParent:(UINavigationController *)parentNav {
+    self.parent = parentNav;
+    [self blur];
+    [self setup];
     
-    UIVisualEffectView *visualEffectView;
-    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    
-    visualEffectView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-    self.view.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:visualEffectView];
-    [self.view sendSubviewToBack:visualEffectView];
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
+    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [parentNav.view addSubview:self];
     
     if (!currentView) {
         self.viewContactUs =
@@ -61,8 +64,8 @@ int keyboardHeight = 210;
                                        owner:self
                                      options:nil]
          objectAtIndex:0];
-        [self.view addSubview:self.viewContactUs];
-        [self.viewContactUs showInParent:self.view.frame];
+        [self addSubview:self.viewContactUs];
+        [self.viewContactUs showInParent:self.frame];
         [self.viewContactUs setDelegate:self];
         self.viewContactUs.tableFeedback.delegate = self;
         self.viewContactUs.tableFeedback.dataSource = self;
@@ -72,7 +75,7 @@ int keyboardHeight = 210;
 
 -(void)cancelled {
     currentView = nil;
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self removeFromSuperview];
 }
 
 #pragma mark
@@ -88,7 +91,7 @@ int keyboardHeight = 210;
     web.websiteTitle = @"Youth Education in the Arts";
     web.websiteSubTitle = @"Privacy Policy";
     
-    [self presentViewController:web animated:YES completion:nil];
+    [self.parent presentViewController:web animated:YES completion:nil];
 }
 
 #pragma mark
@@ -211,7 +214,7 @@ int keyboardHeight = 210;
                         options:0
                      animations:^{
                          self.viewContactUs.frame = CGRectMake(self.viewContactUs.frame.origin.x, self.viewContactUs.frame.origin.y, self.viewRate.frame.size.width, self.viewRate.frame.size.height);
-                         self.viewContactUs.center = [self.view convertPoint:self.view.center fromView:self.view.superview];
+                         self.viewContactUs.center = [self convertPoint:self.center fromView:self.superview];
                      } completion:^(BOOL finished) {
                          [self.viewRate showInParent];
                      }];
@@ -240,7 +243,7 @@ int keyboardHeight = 210;
                          
                          self.viewFeedback.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
                          self.viewContactUs.frame = CGRectMake(0, 30, self.viewFeedback.frame.size.width, self.viewFeedback.frame.size.height);
-                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
+                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.bounds), self.viewContactUs.center.y);
 
                      } completion:^(BOOL finished) {
                          [self.viewFeedback showInParent];
@@ -267,7 +270,7 @@ int keyboardHeight = 210;
                         options:0
                      animations:^{
                          self.viewContactUs.frame = CGRectMake(self.viewContactUs.frame.origin.x, self.viewContactUs.frame.origin.y, self.viewThankYou.frame.size.width, self.viewThankYou.frame.size.height);
-                         self.viewContactUs.center = [self.view convertPoint:self.view.center fromView:self.view.superview];
+                         self.viewContactUs.center = [self convertPoint:self.center fromView:self.superview];
                      } completion:^(BOOL finished) {
                          [self.viewThankYou showInParent];
                      }];
@@ -293,7 +296,7 @@ int keyboardHeight = 210;
                          
                          self.viewProblemWhere.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 100);
                          self.viewContactUs.frame = CGRectMake(0, 30, self.viewProblemWhere.frame.size.width, self.viewProblemWhere.frame.size.height);
-                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
+                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.bounds), self.viewContactUs.center.y);
                          self.lblPrivacyPolicy.alpha = 1;
                          self.btnPrivacyPolicy.alpha = 1;
                      } completion:^(BOOL finished) {
@@ -330,14 +333,14 @@ int keyboardHeight = 210;
                          self.viewProblemWhat.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 60 - keyboardHeight);
                          
                          self.viewContactUs.frame = CGRectMake(0, 30, self.viewProblemWhat.frame.size.width, self.viewProblemWhat.frame.size.height);
-                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.view.bounds), self.viewContactUs.center.y);
+                         self.viewContactUs.center = CGPointMake(CGRectGetMidX(self.bounds), self.viewContactUs.center.y);
                      } completion:^(BOOL finished) {
                          [self.viewProblemWhat showMenu];
                      }];
     [self.viewContactUs addSubview:self.viewProblemWhat];
     [self.viewProblemWhat setDelegate:self];
     self.viewProblemWhat.where = where;
-    self.viewProblemWhat.parent = self;
+    self.viewProblemWhat.parent = self.parent;
     self.viewProblemWhat.isProblem = self.bug;
     [self.viewProblemWhat showInParent];
 }

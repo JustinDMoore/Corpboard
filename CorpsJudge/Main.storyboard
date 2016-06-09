@@ -3523,7 +3523,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Stj-hp-cEN">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Stj-hp-cEN">
                                         <rect key="frame" x="212" y="0.0" width="54" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="center" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gw-oA-mgJ">
@@ -3539,7 +3539,7 @@
                                                     <action selector="btnTourMap:" destination="603-gO-u9Q" eventType="touchUpInside" id="lZ4-xx-6PU"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tour Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSN-HT-j5b">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Tour Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSN-HT-j5b">
                                                 <rect key="frame" x="0.0" y="40" width="54" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="53" id="FFv-S9-b0c"/>
@@ -5084,7 +5084,6 @@
                         <segue destination="kuq-xU-myI" kind="show" identifier="openShow" id="Irt-Qd-nsI"/>
                         <segue destination="8XX-OR-XBf" kind="show" identifier="rankings" id="RaV-d3-g5Q"/>
                         <segue destination="8So-nd-lBf" kind="show" identifier="corps" id="eGI-lZ-YrN"/>
-                        <segue destination="671-6y-8zX" kind="show" identifier="feedback" customClass="CBSegueNoAnimation" id="Nk3-cn-t1f"/>
                         <segue destination="gt5-Bv-vKN" kind="show" identifier="contest" id="5xM-Po-lnu"/>
                         <segue destination="01c-uY-Uvq" kind="show" identifier="news" id="fhF-5k-FTE"/>
                         <segue destination="DT4-0M-8gX" kind="show" identifier="admin" id="enz-Pk-DVi"/>
@@ -5300,61 +5299,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPK-pt-RnC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-310" y="89"/>
-        </scene>
-        <!--Feedback View Controller-->
-        <scene sceneID="CAt-fi-ezu">
-            <objects>
-                <viewController id="671-6y-8zX" customClass="CBFeedbackViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cTn-k8-32h"/>
-                        <viewControllerLayoutGuide type="bottom" id="SPk-QO-swv"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="S9U-Vh-ZCY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6u-TN-svv">
-                                <rect key="frame" x="252" y="1571" width="96" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="5np-VN-RzY"/>
-                                    <constraint firstAttribute="width" constant="96" id="yLZ-1x-e2M"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="Privacy Policy">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnPrivacyPolicy_tapped:" destination="671-6y-8zX" eventType="touchUpInside" id="9ci-cM-Gfe"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-Pj-MpW">
-                                <rect key="frame" x="145" y="1532" width="310" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="310" id="Mhb-tr-Phf"/>
-                                    <constraint firstAttribute="height" constant="44" id="fD1-Wa-GZh"/>
-                                </constraints>
-                                <string key="text">Information about your device, account and this app will be automatically included in this report. To learn more about how your information is used, please see our</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="r6u-TN-svv" secondAttribute="centerX" id="GQk-Hf-lHH"/>
-                            <constraint firstItem="SPk-QO-swv" firstAttribute="top" secondItem="r6u-TN-svv" secondAttribute="bottom" constant="14" id="WOh-1E-Cag"/>
-                            <constraint firstItem="r6u-TN-svv" firstAttribute="top" secondItem="Pco-Pj-MpW" secondAttribute="bottom" constant="-5" id="c9m-ye-O5d"/>
-                            <constraint firstItem="Pco-Pj-MpW" firstAttribute="centerX" secondItem="r6u-TN-svv" secondAttribute="centerX" id="hml-2X-Pa3"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="btnPrivacyPolicy" destination="r6u-TN-svv" id="kvH-fR-ESJ"/>
-                        <outlet property="lblPrivacyPolicy" destination="Pco-Pj-MpW" id="3UX-uR-bUd"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1uA-xv-siX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="559" y="97"/>
         </scene>
         <!--Details-->
         <scene sceneID="GZl-gV-OHb">
@@ -7443,7 +7387,7 @@
         <image name="CWG" width="66" height="60"/>
         <image name="CWP" width="66" height="61"/>
         <image name="CameraRoll" width="85" height="85"/>
-        <image name="DCI_CorpBoard1" width="132" height="178"/>
+        <image name="DCI_CorpBoard1" width="63" height="63"/>
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>
         <image name="Upload" width="85" height="85"/>

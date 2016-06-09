@@ -1001,7 +1001,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     //MARK:-
     //MARK: Actions
     @IBAction func feedback(sender: AnyObject) {
-        self.performSegueWithIdentifier("feedback", sender: self)
+        if let feedbackView = NSBundle.mainBundle().loadNibNamed("CBFeedback", owner: self, options: nil).first as? CBFeedback {
+            feedbackView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            feedbackView.showViewInParent(self.navigationController)
+        }
     }
     
     @IBAction func rankings(sender: AnyObject) {
