@@ -46,6 +46,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     //Top 12
     @IBOutlet weak var scrollTopTwelve: UIScrollView!
+    @IBOutlet weak var contentTop: UIView!
     @IBOutlet weak var tableTopFour: UITableView!
     @IBOutlet weak var tableTopEight: UITableView!
     @IBOutlet weak var tableTopTwelve: UITableView!
@@ -142,6 +143,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //content size for scrollShows correctly calculated by auto layout
+        scrollTopTwelve.contentSize = CGSizeMake(contentTop.frame.size.width, contentTop.frame.size.height)
     }
     
     //MARK:-
@@ -246,24 +252,13 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         pageTopTwelve.hidden = true
         lblTopTwelveHeader.hidden = true
         btnSeeAllRankings.hidden = true
-        scrollTopTwelve.hidden = true
-        scrollTopTwelve.canCancelContentTouches = true
-        scrollTopTwelve.delaysContentTouches = true
-        scrollTopTwelve.userInteractionEnabled = true
-        scrollTopTwelve.exclusiveTouch = true
-        scrollTopTwelve.contentSize = CGSizeMake(scrollTopTwelve.frame.size.width * 3, scrollTopTwelve.frame.size.height)
         
-        // Recent Shows
-
-//        scrollViewShows.canCancelContentTouches = true
-//        scrollViewShows.delaysContentTouches = true
-//        scrollViewShows.userInteractionEnabled = true
-//        scrollViewShows.exclusiveTouch = true
-        //scrollViewShows.contentSize = CGSizeMake(tableLastShows.frame.size.width  * 2, tableLastShows.frame.size.height * 2)
-
-        tableLastShows.tableFooterView = UIView() // hide empty cells
-        tableNextShows.tableFooterView = UIView() // hide empty cells
-        //content size of shows scroll view set during show setup
+        // Hide empty cells
+        tableLastShows.tableFooterView = UIView()
+        tableNextShows.tableFooterView = UIView()
+        tableTopFour.tableFooterView = UIView()
+        tableTopEight.tableFooterView = UIView()
+        tableTopTwelve.tableFooterView = UIView()
         
         // banners
         slideBanners.backgroundColor = UIColor.whiteColor()
@@ -305,14 +300,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         if tableView == self.tableView {
             if indexPath.row == 3 { //recent and next shows will have a varying heigh
                 if !arrayOfShowsForTable1.isEmpty || !arrayOfShowsForTable2.isEmpty {
-                    
                     var num = max(arrayOfShowsForTable1.count, arrayOfShowsForTable2.count)
                     num += 1
                     let result = (num * 44) + 20 // 20 for pageControl and padding
-                    
-//                    tableLastShows.frame = CGRectMake(tableLastShows.frame.origin.x, tableLastShows.frame.origin.y, tableLastShows.frame.width, CGFloat(arrayOfShowsForTable1.count) * 44)
-//                    tableNextShows.frame = CGRectMake(tableNextShows.frame.origin.x, tableNextShows.frame.origin.y, tableNextShows.frame.width, CGFloat(arrayOfShowsForTable2.count) * 44)
-                    
                     return CGFloat(result)
                 }
             }
@@ -372,12 +362,12 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         } else if tableView == tableTopFour ||
                     tableView == tableTopEight ||
                     tableView == tableTopTwelve {
-            return topTwelveTableView(cellForRowAtIndexPath: indexPath)
+            return topTwelveTableView(tableView, cellForRowAtIndexPath: indexPath)
         }
         return UITableViewCell()
     }
     
-    func topTwelveTableView(cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func topTwelveTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if Server.sharedInstance.arrayOfWorldClass?.count > 0 {
             
@@ -389,7 +379,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             let imgView: UIImageView
             var cell = UITableViewCell()
             
-            cell = self.tableTopFour.dequeueReusableCellWithIdentifier("rank")!
+            cell = tableTopFour.dequeueReusableCellWithIdentifier("rank")!
             lblPosition = cell.viewWithTag(4) as! UILabel
             lblCorpsName = cell.viewWithTag(1) as! UILabel
             lblScore = cell.viewWithTag(2) as! UILabel
@@ -397,9 +387,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             imgView = cell.viewWithTag(5) as! UIImageView
             
             var increment = 0
-            if tableView === self.tableTopFour { increment = 0 }
-            if tableView === self.tableTopEight { increment = 4 }
-            if tableView === self.tableTopTwelve { increment = 8 }
+            if tableView == tableTopFour { increment = 0 }
+            if tableView == tableTopEight { increment = 4 }
+            if tableView == tableTopTwelve { increment = 8 }
             
             corps = Server.sharedInstance.arrayOfWorldClass![indexPath.row + increment]
             lblPosition.text = "\(indexPath.row + 1 + increment)"
@@ -646,8 +636,8 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         }
         
         if scrollView === self.scrollTopTwelve {
-            let pageWidth = self.scrollTopTwelve.frame.size.width
-            let fractionalPage = self.scrollTopTwelve.contentOffset.x / pageWidth
+            let pageWidth = scrollTopTwelve.frame.size.width
+            let fractionalPage = scrollTopTwelve.contentOffset.x / pageWidth
             let page = lround(Double(fractionalPage))
             self.pageTopTwelve.currentPage = page
         }
@@ -728,7 +718,6 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             Server.sharedInstance.arrayOfWorldClass!.sortInPlace({ $0.lastScore > $1.lastScore })
         }
         self.pageTopTwelve.hidden = false
-        self.scrollTopTwelve.hidden = false
         self.lblTopTwelveHeader.hidden = false
         self.btnSeeAllRankings.hidden = false
         self.tableTopFour.reloadData()
@@ -750,19 +739,8 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         }
         if arrayOfShowsForTable1.isEmpty || arrayOfShowsForTable2.isEmpty {
 //            self.scrollViewShows.contentSize = CGSizeMake(scrollViewShows.contentSize.width / 2, scrollViewShows.contentSize.height)
-//            self.pageShows.numberOfPages = 0
-//            self.scrollViewShows.scrollEnabled = false
-        } else {
-//            let num = max(arrayOfShowsForTable1.count, arrayOfShowsForTable2.count)
-//            //scrollViewShows.frame = CGRectMake(scrollViewShows.frame.origin.x, scrollViewShows.frame.origin.y, tableView.frame.size.width - 50, scrollViewShows.frame.size.height)
-//            tableLastShows.frame = CGRectMake(tableLastShows.frame.origin.x, tableLastShows.frame.origin.y, tableView.frame.size.width - 50, tableLastShows.frame.size.height)
-//            tableNextShows.frame = CGRectMake(tableLastShows.frame.origin.x + 10 + tableLastShows.frame.size.width, tableLastShows.frame.origin.y, tableView.frame.size.width - 50, tableLastShows.frame.size.height)
-//            scrollViewShows.contentSize = CGSizeMake(scrollViewShows.frame.size.width, scrollViewShows.frame.size.height / 2)
-            
-//            scrollShows.frame = CGRectMake(5, scrollShows.frame.origin.y, tableView.frame.size.width - 50, scrollShows.frame.size.height)
-//            scrollShows.backgroundColor = UIColor.yellowColor()
-//            
-
+            pageShows.numberOfPages = 0
+            scrollShows.scrollEnabled = false
         }
     }
     
@@ -896,7 +874,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
                 if show.showDate.isToday() {
                     lastShowString = "Shows Today"
                 } else if show.showDate.isYesterday() {
-                    lastShowString = "Yesterday"
+                    lastShowString = "Shows Yesterday"
                 } else if show.showDate.isTomorrow() {
                     lastShowString = "Shows Tomorrow"
                 } else {
