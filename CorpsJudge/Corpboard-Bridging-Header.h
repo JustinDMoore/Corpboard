@@ -26,7 +26,7 @@
 #import "CBCartEditItem.h"
 #import "CBCollectionFooter.h"
 #import "CBCartItemCell.h"
-
+#import "CBFeedback.h"
 
 // pods
 
