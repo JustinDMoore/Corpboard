@@ -167,10 +167,18 @@ BOOL isLoading = NO;
                 
                 isLoading = NO;
                 [self.tableView reloadData];
+                if ([arrayOfChatsForCurrentUser count] < 1) {
+                    UILabel *lblNoMessages = [[UILabel alloc] init];
+                    lblNoMessages.text = @"You have no messages.";
+                    lblNoMessages.textColor = [UIColor lightGrayColor];
+                    lblNoMessages.font = [UIFont systemFontOfSize:12];
+                    [lblNoMessages sizeToFit];
+                    [self.view addSubview:lblNoMessages];
+                    lblNoMessages.center = self.view.center;
+                }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [KVNProgress dismiss];
                 });
-                
             }];
         }
     }
