@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Drum-48-5.png"
+      "filename" : "Exercise-01-48.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Drum-128-5.png"
+      "filename" : "Exercise-01-128.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Drum-256-4.png"
+      "filename" : "Exercise-01-256.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

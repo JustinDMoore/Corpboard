@@ -79,7 +79,7 @@ DEPENDENCIES:
   - ParseUI (= 1.2.0)
   - PulsingHalo (= 0.0.1)
   - Stripe (= 5.1.2)
-  - YouTubePlayer
+  - YouTubePlayer (= 0.3.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -100,6 +100,6 @@ SPEC CHECKSUMS:
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
   YouTubePlayer: 88713a96c356f2c88da8925eb61438eda88bcd57
 
-PODFILE CHECKSUM: 38a06234a8a57bd766089ad201f1e25bca728349
+PODFILE CHECKSUM: 6062d19d5bbafc44eac59470c3200e5a5f7db0f7
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

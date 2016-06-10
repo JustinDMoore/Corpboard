@@ -17,7 +17,7 @@ protocol messagesDelegate: class {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     let stripePublishableKey = "pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf"
     var window: UIWindow?
     var alertParentView = UIView()
@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PStoreItem.registerSubclass()
         POrder.registerSubclass()
         PVideo.registerSubclass()
+        PCorpsExperience.registerSubclass()
         
         Parse.enableLocalDatastore()
         

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "User-Group-48-3.png"
+      "filename" : "Chef-48-2.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "User-Group-128-3.png"
+      "filename" : "Chef-128-2.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "User-Group-256-3.png"
+      "filename" : "Chef-256-2.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

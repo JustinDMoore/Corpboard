@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "head1x.png"
+      "filename" : "Horn-48-4.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "head2x.png"
+      "filename" : "Horn-128-4.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "head3x.png"
+      "filename" : "Horn-256-4.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

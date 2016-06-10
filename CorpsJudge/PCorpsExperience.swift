@@ -1,21 +1,20 @@
 //
-//  PPhoto.swift
+//  PCorpsExperience.swift
 //  CorpBoard
 //
-//  Created by Justin Moore on 5/8/16.
+//  Created by Justin Moore on 6/9/16.
 //  Copyright © 2016 Justin Moore. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class PPhoto: PFObject, PFSubclassing {
+class PCorpsExperience: PFObject, PFSubclassing {
 
-    @NSManaged var userSubmitted: Bool
-    @NSManaged var name: String
-    @NSManaged var photo: PFFile
-    @NSManaged var approved: Bool
-    @NSManaged var type: String
-    @NSManaged var isPublic: Bool
+    @NSManaged var position: String
+    @NSManaged var corps: PCorps
+    @NSManaged var user: PUser
+    @NSManaged var corpsName: String
+    @NSManaged var year: Int
     
     override class func initialize() {
         struct Static {
@@ -27,6 +26,6 @@ class PPhoto: PFObject, PFSubclassing {
     }
     
     static func parseClassName() -> String {
-        return "Photos"
+        return "CorpsExperience"
     }
 }

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Flag-02-48-5.png"
+      "filename" : "head1x.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Flag-02-128-4.png"
+      "filename" : "head2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Flag-02-256-5.png"
+      "filename" : "head3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

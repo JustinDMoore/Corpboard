@@ -1244,8 +1244,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             let vc = segue.destinationViewController as! CBShowDetailsViewController
             vc.show = self.showToOpen
         } else if segue.identifier == "profile" {
-            let vc = segue.destinationViewController as! CBUserProfileViewController
-            vc.setUser(PFUser.currentUser())
+            let vc = segue.destinationViewController as! ProfileTableViewController
+            if let user = PUser.currentUser() {
+                vc.userProfile = user
+            }
         } else if segue.identifier == "today" {
             if let vc = segue.destinationViewController as? DailyScheduleViewController {
                 vc.day = Server.sharedInstance.day

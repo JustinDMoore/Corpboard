@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Chef-48-2.png"
+      "filename" : "Graduate-02-48.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Chef-128-2.png"
+      "filename" : "Graduate-02-128.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Chef-256-2.png"
+      "filename" : "Graduate-02-256.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
