@@ -133,7 +133,6 @@ protocol delegateUserProfile: class {
         let localQuery = (query.copy() as! PFQuery).fromLocalDatastore()
         localQuery.findObjectsInBackgroundWithBlock({ (locals, error) -> Void in
             if (error == nil) {
-                print("Success : Local Query \(query.parseClassName)")
                 block(locals)
                 self.arrayOfFacts = []
                 for fact in locals! {
@@ -148,14 +147,11 @@ protocol delegateUserProfile: class {
                     for fact in objects! {
                         self.arrayOfFacts.append(fact)
                     }
-                    print("Success : Network Query \(query.parseClassName)")
                     PFObject.unpinAllInBackground(locals, block: { (success, error) -> Void in
                         if (error == nil) {
-                            print("Success : Unpin Local Query \(query.parseClassName)")
                             block(objects)
                             PFObject.pinAllInBackground(objects, block: { (success, error) -> Void in
                                 if (error == nil) {
-                                    print("Success : Pin Query Result \(query.parseClassName)")
                                 } else {
                                     print("Error : Pin Query Result \(query.parseClassName)")
                                 }
@@ -170,8 +166,6 @@ protocol delegateUserProfile: class {
             })
         })
     }
-    
-    
 
     func updateFacts() {
         self.findObjectsLocallyThenRemotely(self.factBaseQuery()) { (results: [AnyObject]!) in
@@ -203,10 +197,10 @@ protocol delegateUserProfile: class {
                 }
                 
             } else {
-                print("Error checking for app messages: \(error!) \(error!.userInfo)")
+                print("1. APP STATUS: **ERROR** \(error!) - \(error!.userInfo)")
             }
             self.delegateInitial?.updateProgress()
-            print("1. App status ok.")
+            print("1. APP STATUS: OK")
         }
     }
     
@@ -217,15 +211,15 @@ protocol delegateUserProfile: class {
             currentUser.fetchInBackgroundWithBlock({ (user: PFObject?, err: NSError?) in
                 if let error = err {
                     let errorString = error.userInfo["error"] as? NSString
-                    print("Error fetching user: \(errorString)")
+                    print("2. USER: **ERROR** \(errorString)")
                 }
                 self.delegateInitial?.updateProgress()
                 self.updateUserLastLogin()
-                print("2. User logged in.")
+                print("2. USER LOGGED IN: \(currentUser["fullname"])")
             })
         } else {
                 self.delegateInitial?.updateProgress()
-                print("2. Anonymous user.")
+                print("2. USER: New User")
         }
     }
     
@@ -236,7 +230,7 @@ protocol delegateUserProfile: class {
             self.setInstallationLocationAllowed(false)
             self.delegateInitial?.updateProgress()
             self.delegateLocation?.userLocationError()
-            print("3. User did not allow location services.")
+            print("3. LOCATION SERVICES: Not allowed")
             return
         case .AuthorizedAlways:
             break
@@ -244,13 +238,13 @@ protocol delegateUserProfile: class {
             break
         case .NotDetermined:
             self.delegateInitial?.updateProgress()
-            print("3. User has not been prompted for location yet.")
+            print("3. LOCATION SERVICES: Not prompted")
             return
         case .Restricted:
             self.setInstallationLocationAllowed(false)
             self.delegateInitial?.updateProgress()
             self.delegateLocation?.userLocationError()
-            print("3. User did not allow location services.")
+            print("3. LOCATION SERVICES: Not allowed")
             return
         }
         
@@ -258,29 +252,43 @@ protocol delegateUserProfile: class {
             PFGeoPoint.geoPointForCurrentLocationInBackground { (geo: PFGeoPoint?, err: NSError?) in
                 if let error = err {
                     let errorString = error.userInfo["error"] as? NSString
-                    print("Error updating user location: \(errorString)")
+                    print("3. LOCATION SERVICES: **ERROR** \(errorString)")
                     self.delegateInitial?.updateProgress()
                 } else {
-                    let geoCoder = CLGeocoder()
-                    let location = CLLocation(latitude: (geo?.latitude)!, longitude: (geo?.longitude)!)
-                    geoCoder.reverseGeocodeLocation(location, completionHandler:
-                        {(placemarks, error) in
-                            if let topResult = placemarks?.first {
-                                let loc = "]\(topResult.locality), \(topResult.administrativeArea)"
-                                PFUser.currentUser()!["location"] = loc
-                                PFUser.currentUser()!["geo"] = geo
-                                PFUser.currentUser()!.saveEventually()
-                                self.setInstallationLocationAllowed(true)
-                                self.delegateInitial?.updateProgress()
-                                print("3. User location updated.")
-                                self.delegateLocation?.userLocationUpdated()
-                            }
-                    })
+                    if let geoL = geo {
+                        let geoCoder = CLGeocoder()
+                        let location = CLLocation(latitude: (geoL.latitude), longitude: (geoL.longitude))
+                        geoCoder.reverseGeocodeLocation(location, completionHandler:
+                            {(placemarks, error) in
+                                if let topResult = placemarks?.first {
+                                    if topResult.locality != nil && topResult.administrativeArea != nil {
+                                        let loc = "\(topResult.locality!), \(topResult.administrativeArea!)"
+                                        PFUser.currentUser()!["location"] = loc
+                                        PFUser.currentUser()!["geo"] = geo
+                                        PFUser.currentUser()!.saveEventually()
+                                        self.setInstallationLocationAllowed(true)
+                                        self.delegateInitial?.updateProgress()
+                                        print("3. LOCATION: \(loc)")
+                                        self.delegateLocation?.userLocationUpdated()
+                                    } else {
+                                        //no location from result
+                                        self.delegateInitial?.updateProgress()
+                                        print("3. LOCATION: **ERROR** Unknown Location")
+                                        self.delegateLocation?.userLocationError()
+                                    }
+                                } else {
+                                    //no result
+                                    self.delegateInitial?.updateProgress()
+                                    print("3. LOCATION: **ERROR** Unknown Location")
+                                    self.delegateLocation?.userLocationError()
+                                }
+                        })
+                    }
                 }
             }
         } else {
             self.delegateInitial?.updateProgress()
-            print("3. Anonymous user cannot update location. This is ok.")
+            print("3. LOCATION: New user")
             self.delegateLocation?.userLocationError()
         }
     }
@@ -293,10 +301,10 @@ protocol delegateUserProfile: class {
                 self.objAdmin = objects!.last as? PAppSetting
                 self.delegateInitial?.updateProgress()
                 self.updateNews() //We call update news here, because we need the URL from the admin object
-                print("4. App Settings Updated.")
+                print("4. APP SETTINGS: OK")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
-                print("Error getting app settings: \(errorString)")
+                print("4. APP SETTINGS: **ERROR** \(errorString)")
             }
         }
     }
@@ -308,12 +316,12 @@ protocol delegateUserProfile: class {
 
     func newsDidLoad() {
         self.delegateInitial?.updateProgress()
-        print("5. News updated.")
+        print("5. NEWS: OK")
     }
     
     func newsDidFail() {
         self.delegateInitial?.updateProgress()
-        print("5. Error loading news.")
+        print("5. NEWS: **ERROR**")
     }
     
     func updateCorps() {
@@ -346,10 +354,10 @@ protocol delegateUserProfile: class {
                     }
                 }
                 self.delegateInitial?.updateProgress()
-                print("6. Corps Updated.")
+                print("6. CORPS: OK")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
-                print("Error updating the corps: \(errorString)")
+                print("6. CORPS: **ERROR** \(errorString)")
             }
         }
     }
@@ -366,10 +374,10 @@ protocol delegateUserProfile: class {
                     self.arrayOfAllShows?.append(show as! PShow)
                 }
                 self.delegateInitial?.updateProgress()
-                print("7. Shows Updated.")
+                print("7. SHOWS: OK")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
-                print("Error updating the shows: \(errorString)")
+                print("7. SHOWS: **ERROR** \(errorString)")
             }
         }
     }
@@ -431,14 +439,14 @@ protocol delegateUserProfile: class {
                             if x == objects!.count {
                                 //we've processed all the banners, notify the progress
                                 self.delegateInitial?.updateProgress()
-                                print("8. Banners Updated.")
+                                print("8. BANNERS: OK")
                             }
                         }
                     })
                 }
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
-                print("Error updating the banners: \(errorString)")
+                print("8. BANNERS: **ERROR** \(errorString)")
             }
         }
     }
@@ -459,11 +467,11 @@ protocol delegateUserProfile: class {
                     }
                 }
                 self.delegateInitial?.updateProgress()
-                if !objects!.isEmpty { print("9. \(objects!.count) videos Updated.") }
-                else { print("9. No videos to update.") }
+                if !objects!.isEmpty { print("9. VIDEOS: \(objects!.count)") }
+                else { print("9. VIDEOS: 0") }
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
-                print("Error updating the videos: \(errorString)")
+                print("9. VIDEOS: **ERROR** \(errorString)")
             }
         }
     }

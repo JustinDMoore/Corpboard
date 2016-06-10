@@ -196,7 +196,6 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     func testProgress() {
         self.progressTimerCount += 1
         self.factTimerCount += 1
-        print("Timer: '\(self.factTimerCount)")
         if self.progressTimerCount == 10 {
             let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfLoadMessages.count)))
             self.lblLongerThanNormal.text = self.arrayOfLoadMessages[randomIndex]
@@ -248,7 +247,6 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
             let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfRandomProgressNumbers.count)))
             let progressAmount = self.arrayOfRandomProgressNumbers.removeAtIndex(randomIndex)
             self.progress += progressAmount
-            print("Progress: \(self.progress)")
             self.progressBar.setProgress(self.progress, animated: true)
             if self.progress >= 1.0 {
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
