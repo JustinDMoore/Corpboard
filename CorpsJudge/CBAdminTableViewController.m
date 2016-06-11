@@ -154,7 +154,7 @@
     });
     
     [self.arrayOfData removeAllObjects];
-    queryPhotos = [PFQuery queryWithClassName:@"photos"];
+    queryPhotos = [PFQuery queryWithClassName:@"Photos"];
     [queryPhotos includeKey:@"user"];
     [queryPhotos whereKey:@"isUserSubmitted" equalTo:[NSNumber numberWithBool:YES]];
     [queryPhotos whereKey:@"approved" equalTo:[NSNumber numberWithBool:NO]];

@@ -775,7 +775,7 @@ BOOL coverPhoto = NO;
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 if (succeeded) {
-                    PFObject *photoForReview = [PFObject objectWithClassName:@"photos"];
+                    PFObject *photoForReview = [PFObject objectWithClassName:@"Photos"];
                     photoForReview[@"type"] = @"Cover";
                     photoForReview[@"user"] = [PFUser currentUser];
                     photoForReview[@"isUserSubmitted"] = [NSNumber numberWithBool:YES];
@@ -828,7 +828,7 @@ BOOL coverPhoto = NO;
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 
-                PFObject *coverPhoto = [PFObject objectWithClassName:@"photos"];
+                PFObject *coverPhoto = [PFObject objectWithClassName:@"Photos"];
                 coverPhoto[@"type"] = @"Cover";
                 coverPhoto[@"user"] = [PFUser currentUser];
                 coverPhoto[@"isUserSubmitted"] = [NSNumber numberWithBool:NO];

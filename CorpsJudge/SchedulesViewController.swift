@@ -37,11 +37,7 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
-        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
-        self.view.addSubview(viewLoading)
-        viewLoading.center = self.view.center
-        viewLoading.animate()
-        
+        loading()
         self.tableSchedules.delegate = self
         self.tableSchedules.dataSource = self
         self.tableSchedules.estimatedRowHeight = 44
@@ -56,7 +52,19 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     }
     
+    func loading() {
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.view.addSubview(viewLoading)
+        viewLoading.center = self.view.center
+        viewLoading.animate()
+    }
+    
+    func stopLoading() {
+        viewLoading.removeFromSuperview()
+    }
+    
     func goBack() {
+        stopLoading()
         self.navigationController?.popViewControllerAnimated(true)
     }
     

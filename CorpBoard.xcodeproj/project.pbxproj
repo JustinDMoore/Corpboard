@@ -89,6 +89,7 @@
 		9F00C42F1D09634100D13E3F /* PVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C42E1D09634100D13E3F /* PVideo.swift */; };
 		9F00C4311D0968B900D13E3F /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F00C4301D0968B900D13E3F /* VideoCell.xib */; };
 		9F00C4331D09692200D13E3F /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C4321D09692200D13E3F /* VideoCell.swift */; };
+		9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
 		9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */; };
 		9F9D68641CE70FAD0084878B /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68631CE70FAD0084878B /* CreateAccount.xib */; };
@@ -423,6 +424,7 @@
 		9F00C42E1D09634100D13E3F /* PVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVideo.swift; sourceTree = "<group>"; };
 		9F00C4301D0968B900D13E3F /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		9F00C4321D09692200D13E3F /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoViewController.swift; sourceTree = "<group>"; };
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
 		9F9D68591CE6C3E30084878B /* CadetsAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CadetsAnimation.m; path = CorpsJudge/CadetsAnimation.m; sourceTree = "<group>"; };
 		9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationServicesPermission.xib; sourceTree = "<group>"; };
@@ -1148,6 +1150,7 @@
 				9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */,
 				9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */,
 				9FEF3A9E1D0A28C300D1AEFA /* VideoCollectionViewController.swift */,
+				9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */,
 				9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */,
 			);
 			name = Controllers;
@@ -1765,6 +1768,7 @@
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedback.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
+				9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */,
 				923D501F1A2C737600E16B64 /* CBChatMessages.m in Sources */,
 				9FC71C951CE6639500C36A1C /* CadetsLoadingViewController.swift in Sources */,
 				9FEDCCF61CF028E500C1AB8C /* DailyScheduleViewController.swift in Sources */,

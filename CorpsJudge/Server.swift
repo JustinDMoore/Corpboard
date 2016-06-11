@@ -382,33 +382,39 @@ protocol delegateUserProfile: class {
         }
     }
     
-//    func moveCorps() {
-//        let query = PFQuery(className: "stadiums")
+//    func movePhotos() {
+//        let query = PFQuery(className: "photos")
 //        query.limit = 1000
-//        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, err: NSError?) in
-//            if results?.count > 0 {
-//                for obj in results! {
-//                    let newCorps = PStadium()
-//                    if obj["zip"] != nil {
-//                        newCorps.zip = obj["zip"] as! String
-//                    }
-//                    if obj["facility"] != nil {
-//                        newCorps.facility = obj["facility"] as! String
-//                    }
-//                    if obj["city"] != nil {
-//                        newCorps.city = obj["city"] as! String
-//                    }
+//        query.findObjectsInBackgroundWithBlock { (photos: [PFObject]?, err: NSError?) in
+//            if photos?.count > 0 {
+//                for obj in photos! {
+//                    let photo = PPhoto()
 //                    if obj["name"] != nil {
-//                        newCorps.name = obj["name"] as! String
+//                        photo.name = obj["name"] as! String
 //                    }
-//                    if obj["state"] != nil {
-//                        newCorps.state = obj["state"] as! String
+//                    
+//                    if obj["user"] != nil {
+//                        photo.user = obj["user"] as? PUser
 //                    }
-//                    if obj["address"] != nil {
-//                        newCorps.address = obj["address"] as! String
+//                    
+//                    if obj["isUserSubmitted"] != nil {
+//                        photo.userSubmitted = obj["isUserSubmitted"] as! Bool
 //                    }
-//                    if obj["coordinates"] != nil {
-//                        newCorps.coordinates = obj["coordinates"] as! PFGeoPoint
+//                    
+//                    if obj["photo"] != nil {
+//                        photo.photo = obj["photo"] as! PFFile
+//                    }
+//                    
+//                    if obj["publicUse"] != nil {
+//                        photo.isPublic = obj["publicUse"] as! Bool
+//                    }
+//                    
+//                    if obj["approved"] != nil {
+//                        photo.approved = obj["approved"] as! Bool
+//                    }
+//                    
+//                    if obj["type"] != nil {
+//                        photo.type = obj["type"] as! String
 //                    }
 //                    
 //                    obj.deleteInBackground()

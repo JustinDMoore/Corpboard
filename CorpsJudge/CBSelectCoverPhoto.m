@@ -71,7 +71,7 @@
 int progress = 1;
 -(void)getPhotos {
     
-    queryPhotos = [PFQuery queryWithClassName:@"photos"];
+    queryPhotos = [PFQuery queryWithClassName:@"Photos"];
     [queryPhotos whereKey:@"type" equalTo:@"Cover"];
     [queryPhotos whereKey:@"approved" equalTo:[NSNumber numberWithBool:YES]];
     [queryPhotos orderByAscending:@"name"];

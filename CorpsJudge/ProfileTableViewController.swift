@@ -11,7 +11,7 @@ import IQKeyboardManager
 import ParseUI
 import PulsingHalo
 
-class ProfileTableViewController: UITableViewController {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto {
 
     enum BadgeType : String {
         case Alumni = "Alumni",
@@ -27,6 +27,10 @@ class ProfileTableViewController: UITableViewController {
         NewUser = "New User"
     }
     
+    enum buttonType {
+        case picture, edit
+    }
+    
 //    //MARK:-
 //    //MARK:Outlets
     @IBOutlet weak var btnReport: UIButton!
@@ -35,11 +39,19 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var imgCoverPhoto: PFImageView!
     @IBOutlet weak var viewOnline: UIView!
     @IBOutlet weak var imgOnline: UIImageView!
+    @IBOutlet weak var lblOnline: UILabel!
     @IBOutlet weak var lblUserNickname: UILabel!
     @IBOutlet weak var lblUserLocation: UILabel!
     @IBOutlet weak var lblViews: UILabel!
     @IBOutlet weak var lblUserBackground: UILabel!
-//
+    @IBOutlet weak var lblBadges: UILabel!
+    
+    @IBOutlet weak var viewEditCoverPicture: UIView!
+    @IBOutlet weak var viewEditProfilePicture: UIView!
+    @IBOutlet weak var viewEditBadges: UIView!
+    @IBOutlet weak var viewEditPriorExperience: UIView!
+    @IBOutlet weak var viewEditBackground: UIView!
+    
 //    //MARK:-
 //    //MARK:Variables
     var userProfile = PUser()
@@ -51,16 +63,16 @@ class ProfileTableViewController: UITableViewController {
     var fetchedProfile = false
     var viewLoading = Loading()
     var arrayOfCorpsExperience = [PCorpsExperience]()
-//
+
 //    //MARK:-
 //    //MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.hidden = true
-        
+        self.tableView.separatorStyle = .None
         self.tableView.tableFooterView = UIView()
-        
+        imgCoverPhoto.image = UIImage()
+        viewOnline.backgroundColor = UIColor.clearColor()
+        viewOnline.clipsToBounds = false
         loading()
         getUserCorpExperience()
         getUserProfile()
@@ -68,11 +80,7 @@ class ProfileTableViewController: UITableViewController {
 
     func initUI() {
         if fetchedExperience && fetchedProfile {
-            
-            for test in userProfile.arrayOfBadges! {
-                print("heeeey: \(test)")
-            }
-            
+
             editingProfile = false
             imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
             imgUser.layer.masksToBounds = true
@@ -105,7 +113,7 @@ class ProfileTableViewController: UITableViewController {
             }
             
             // Online Now?
-            if userOnlineNow() {
+            if userOnlineNow() && !usersOwnProfile() {
                 viewOnline.hidden = false
                 let halo = PulsingHaloLayer()
                 halo.position = imgOnline.center
@@ -117,8 +125,6 @@ class ProfileTableViewController: UITableViewController {
                 imgOnline.layer.borderWidth = 2
                 imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
                 viewOnline.sendSubviewToBack(imgOnline)
-            } else {
-                viewOnline.hidden = true
             }
             
             // Name
@@ -140,9 +146,9 @@ class ProfileTableViewController: UITableViewController {
             // Get profile views
             var viewsString = ""
             if userProfile.profileViews == 1 {
-                viewsString = "1 View"
+                viewsString = "1 Profile View"
             } else {
-                viewsString = "\(userProfile.profileViews) Views"
+                viewsString = "\(userProfile.profileViews) Profile Views"
             }
             
             // Get show reviews
@@ -164,11 +170,83 @@ class ProfileTableViewController: UITableViewController {
                 lblUserBackground.text = "No background listed."
             }
             
+            profileLoaded = true
             tableView.reloadData()
             stopLoading()
-            tableView.hidden = false
+            editProfile()
         }
     }
+    
+    func editProfile() {
+        if usersOwnProfile() {
+            viewOnline.hidden = true
+            btnChat.enabled = false
+            btnReport.enabled = false
+            
+            // Edit Buttons
+            let width: CGFloat = 1
+            let radius: CGFloat = 8
+            let color = UIColor.whiteColor().CGColor
+            let backColor = UIColor.blackColor()
+            
+            // Cover Picture
+            viewEditCoverPicture.layer.borderWidth = width
+            viewEditCoverPicture.layer.cornerRadius = radius
+            viewEditCoverPicture.layer.borderColor = color
+            viewEditCoverPicture.backgroundColor = backColor
+            
+            // Profile Picture
+            viewEditProfilePicture.layer.borderWidth = width
+            viewEditProfilePicture.layer.cornerRadius = radius
+            viewEditProfilePicture.layer.borderColor = color
+            viewEditProfilePicture.backgroundColor = backColor
+            viewEditProfilePicture.frame = CGRectMake(viewOnline.frame.origin.x, viewOnline.frame.origin
+                .y, viewEditProfilePicture.frame.size.width, viewEditProfilePicture.frame.size.height)
+            
+            // Badges
+            viewEditBadges.layer.borderWidth = width
+            viewEditBadges.layer.cornerRadius = radius
+            viewEditBadges.layer.borderColor = color
+            viewEditBadges.backgroundColor = backColor
+            
+            // Prior Experiences
+            viewEditPriorExperience.layer.borderWidth = width
+            viewEditPriorExperience.layer.cornerRadius = radius
+            viewEditPriorExperience.layer.borderColor = color
+            viewEditPriorExperience.backgroundColor = backColor
+            
+            // Background
+            viewEditBackground.layer.borderWidth = width
+            viewEditBackground.layer.cornerRadius = radius
+            viewEditBackground.layer.borderColor = color
+            viewEditBackground.backgroundColor = backColor
+        }
+    }
+    
+    @IBAction func editCoverPicture(sender: UIButton) {
+        self.performSegueWithIdentifier("coverPhotos", sender: self)
+    }
+
+    @IBAction func editProfilePicture(sender: UIButton) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .PhotoLibrary
+        picker.delegate = self
+        self.presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func editBadges(sender: UIButton) {
+        print("badges")
+    }
+    
+    @IBAction func editPriorExperience(sender: UIButton) {
+        print("experience")
+    }
+    
+    @IBAction func editBackground(sender: UIButton) {
+        print("background")
+    }
+    
     
     func userOnlineNow() -> Bool {
        let dateLastLogin = userProfile.lastLogin
@@ -244,25 +322,6 @@ class ProfileTableViewController: UITableViewController {
         viewLoading.removeFromSuperview()
     }
     
-    func showEditButtons() {
-        if usersOwnProfile() { //show the edit buttons
-            let configBtn = UIButton(type: .Custom)
-            let configBtnImage = UIImage(named: "Config")
-            configBtn.setImage(configBtnImage, forState: .Normal)
-            configBtn.addTarget(self, action: #selector(ProfileTableViewController.configProfile), forControlEvents: .TouchUpInside)
-            configBtn.frame = CGRectMake(0, 0, 30, 30)
-            btnEditProfile = UIBarButtonItem(customView: configBtn)
-            navigationItem.rightBarButtonItem = btnEditProfile
-            if profileLoaded {
-                btnEditProfile.enabled = true
-            } else {
-                btnEditProfile.enabled = false
-            }
-            btnReport.enabled = false
-            btnChat.enabled = !fromPrivate //prevents a loop when opening a profile from private chats, then allowing user to start another private chat
-        }
-    }
-    
     func incrementProfileViews() {
         if !usersOwnProfile() {
             var numViews = userProfile.profileViews
@@ -280,22 +339,20 @@ class ProfileTableViewController: UITableViewController {
     }
     
     func goBack() {
+        stopLoading()
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func configProfile() {
-        
-    }
-    
 //    // MARK: - Table view data source
-//
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return super.tableView(tableView, numberOfRowsInSection: section)
+        if !profileLoaded { return 0 }
+        else { return super.tableView(tableView, numberOfRowsInSection: section) }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -326,11 +383,24 @@ class ProfileTableViewController: UITableViewController {
     func badgeCellForRowAtIndexPath(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        var frame = CGRectMake(0, 0, 200, 50)
-            if userProfile.arrayOfBadges?.count < 1 {
-                if indexPath.row == 0 {
-                    // There are no badges, so create the default "new user badge"
-                    let type = BadgeType.NewUser
+        var frame = CGRectMake(lblBadges.frame.origin.x + 8, lblBadges.frame.origin.y + 28, 200, 50)
+        if userProfile.arrayOfBadges?.count < 1 {
+            // There are no badges, so create the default "new user badge"
+            let type = BadgeType.NewUser
+            let colorAndImageView = badgeColorAndImageViewForType(type)
+            let btn = UIButton(frame: frame)
+            //btn.layer.borderWidth = 1
+            btn.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn.setTitle("         No Badges Set  ", forState: .Normal)
+            btn.sizeToFit()
+            //btn.layer.borderColor = colorAndImageView.color.CGColor
+            btn.titleLabel?.textColor = UIColor.blueColor()
+            btn.addSubview(colorAndImageView.imageView)
+            cell.addSubview(btn)
+        } else {
+            // Show the badges
+            for badge in userProfile.arrayOfBadges! {
+                if let type = BadgeType(rawValue: badge) {
                     let colorAndImageView = badgeColorAndImageViewForType(type)
                     let btn = UIButton(frame: frame)
                     btn.layer.borderWidth = 1
@@ -338,34 +408,18 @@ class ProfileTableViewController: UITableViewController {
                     btn.setTitle("         \(type.rawValue)  ", forState: .Normal)
                     btn.sizeToFit()
                     btn.layer.borderColor = colorAndImageView.color.CGColor
-                    btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                    btn.setTitleColor(colorAndImageView.color, forState: .Normal)
                     btn.addSubview(colorAndImageView.imageView)
                     cell.addSubview(btn)
-                }
-            } else {
-                // Show the badges
-                for badge in userProfile.arrayOfBadges! {
-                    if let type = BadgeType(rawValue: badge) {
-                        let colorAndImageView = badgeColorAndImageViewForType(type)
-                        let btn = UIButton(frame: frame)
-                        btn.layer.borderWidth = 1
-                        btn.titleLabel?.font = UIFont.systemFontOfSize(14)
-                        btn.setTitle("         \(type.rawValue)  ", forState: .Normal)
-                        btn.sizeToFit()
-                        btn.layer.borderColor = colorAndImageView.color.CGColor
-                        btn.setTitleColor(colorAndImageView.color, forState: .Normal)
-                        btn.addSubview(colorAndImageView.imageView)
-                        cell.addSubview(btn)
-                        frame = CGRectMake(frame.origin.x, frame.origin.y + 30, frame.size.width, frame.size.height)
-                    }
+                    frame = CGRectMake(frame.origin.x, frame.origin.y + 35, frame.size.width, frame.size.height)
                 }
             }
-            return cell
-
+        }
+        return cell
     }
-
+    
     func badgeColorAndImageViewForType(type: BadgeType) -> (color: UIColor, imageView: UIImageView) {
-        let imgV = UIImageView(frame: CGRectMake(0, -5, 40, 40))
+        let imgV = UIImageView(frame: CGRectMake(-2, -5, 40, 40))
         switch type {
         case .Alumni:
             imgV.image = UIImage(named: "badgeAlumni")
@@ -393,7 +447,7 @@ class ProfileTableViewController: UITableViewController {
             return (colorFromHexString("c3de7e"), imgV)
         case .ActiveMember:
             imgV.image = UIImage(named: "badgeActiveMember")
-            imgV.frame = CGRectMake(13, 2, 13, 20)
+            imgV.frame = CGRectMake(15, 3, 10, 22)
             return (colorFromHexString("85a6ab"), imgV)
         case .Fan:
             imgV.image = UIImage(named: "badgeFan")
@@ -429,4 +483,160 @@ class ProfileTableViewController: UITableViewController {
         
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
+    
+    //MARK:-
+    //MARK: UIImagePickerController Delegates
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        saveProfileImage(image)
+    }
+    
+    func saveProfileImage(image: UIImage?) {
+        loading()
+        var photo = image!
+        //Have the image draw itself in the correct orientation if necessary
+        if !(photo.imageOrientation == .Up || photo.imageOrientation == .UpMirrored) {
+            let imgsize = photo.size
+            UIGraphicsBeginImageContext(imgsize)
+            photo.drawInRect(CGRectMake(0, 0, imgsize.width, imgsize.height))
+            photo = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+        }
+        
+        if let imageData = UIImagePNGRepresentation(photo) {
+            let size = imageData.length
+            if size < 20971520 { //20MB
+                if let imageFile = PFFile(name: "picture.png", data: imageData) {
+                    
+                    imgUser.image = image
+                    userProfile.setObject(imageFile, forKey: userProfile.pictureString)
+                    userProfile.saveInBackground()
+                    stopLoading()
+                    
+                } else {
+                    let alert = UIAlertController(title: "Update Profile", message: "An error occurred updating your picture.", preferredStyle: .Alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alert.addAction(defaultAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.stopLoading()
+                }
+            } else {
+                let alert = UIAlertController(title: "Image Too Large", message: "Image must be less than 20MB.", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+                stopLoading()
+            }
+        }
+    }
+    
+    //MARK:-
+    //MARK: Cover Photo Protocol
+
+    func coverSubmitForApproval(image: UIImage) {
+        submitPhotoForReview(image)
+    }
+    
+    func coverPhotoObject(photoObject: PPhoto) {
+        //either a default cover photo or user submitted cover photo
+        //just set the pointer and clear the profile cover photo
+        loading()
+        
+        userProfile.removeObjectForKey(userProfile.coverImageString)
+        userProfile.setObject(photoObject, forKey: userProfile.coverPointerString)
+        imgCoverPhoto.file = photoObject.photo
+        imgCoverPhoto.loadInBackground()
+        userProfile.saveInBackground()
+        stopLoading()
+    }
+
+    func coverImage(image: UIImage) {
+        loading()
+        //new cover image from camera roll
+        //clear the cover pointer and set the image
+        
+        if let imageData = UIImagePNGRepresentation(image) {
+            let size = imageData.length
+            if size < 20971520 { //20MB
+                if let imageFile = PFFile(name: "cover.png", data: imageData) {
+                    
+                    imgCoverPhoto.image = image
+                    userProfile.setObject(imageFile, forKey: userProfile.coverImageString)
+                    userProfile.saveInBackground()
+                    stopLoading()
+                    
+                } else {
+                    let alert = UIAlertController(title: "Update Profile", message: "An error occurred updating your cover picture.", preferredStyle: .Alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alert.addAction(defaultAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.stopLoading()
+                }
+            } else {
+                let alert = UIAlertController(title: "Image Too Large", message: "Image must be less than 20MB.", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+                stopLoading()
+            }
+        }
+        
+    }
+    
+    func submitPhotoForReview(image: UIImage) {
+        loading()
+        if let imageData = UIImagePNGRepresentation(image) {
+            let size = imageData.length
+            if size < 20971520 { //20MB
+                if let imageFile = PFFile(name: "picture.png", data: imageData) {
+                    let photoForReview = PPhoto()
+                    photoForReview.type = PPhoto.typeOfPhoto.Cover.rawValue
+                    photoForReview.user = PUser.currentUser()
+                    photoForReview.userSubmitted = true
+                    photoForReview.approved = false
+                    photoForReview.photo = imageFile
+                    photoForReview.isPublic = true
+                    stopLoading()
+                    photoForReview.saveInBackgroundWithBlock({ (success: Bool, err: NSError?) in
+                        if !success {
+                            let alert = UIAlertController(title: "Update Profile", message: "An error occurred updating your cover picture.", preferredStyle: .Alert)
+                            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                            alert.addAction(defaultAction)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            self.stopLoading()
+                        }
+                    })
+                }
+            } else {
+                let alert = UIAlertController(title: "Image Too Large", message: "Image must be less than 20MB.", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+                stopLoading()
+            }
+        } else {
+            let alert = UIAlertController(title: "Update Profile", message: "An error occurred updating your cover picture.", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            self.stopLoading()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "coverPhotos" {
+            if let vc = segue.destinationViewController as? SelectPhotoViewController {
+                vc.delegate = self
+            }
+        }
+    }
 }
+
+
+
+
+

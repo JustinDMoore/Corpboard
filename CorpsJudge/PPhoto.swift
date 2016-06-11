@@ -10,12 +10,19 @@ import Foundation
 
 class PPhoto: PFObject, PFSubclassing {
 
+    enum typeOfPhoto: String {
+        case Cover = "Cover"
+    }
+    
+    var photoType: typeOfPhoto?
+    
     @NSManaged var userSubmitted: Bool
     @NSManaged var name: String
     @NSManaged var photo: PFFile
     @NSManaged var approved: Bool
     @NSManaged var type: String
     @NSManaged var isPublic: Bool
+    @NSManaged var user: PUser?
     
     override class func initialize() {
         struct Static {

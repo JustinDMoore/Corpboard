@@ -10,16 +10,39 @@ import Foundation
 
 class PUser: PFUser {
 
+     var acceptedTermsString = "acceptedTerms"
+     var facebookIdString = "facebookId"
+     var emailVerifiedString = "emailVerified"
+     var coverImageString = "coverImage" //from camera roll
+     var isAdminString = "isAdmin"
+     var profileViewsString = "profileViews"
+     var coverPointerString = "coverPointer" //default/user submitted
+     var predictionEnteredString = "predictionEntered"
+     var arrayOfBadgesString = "arrayOfBadges"
+     var thumbnailString = "thumbnail"
+     var nicknameString = "nickname"
+     var backgroundString = "background"
+     var emailCopyString = "emailCopy"
+     var geoString = "geo"
+     var lastLoginString = "lastLogin"
+     var last_nameString = "last_name"
+     var locationString = "location"
+     var fullnameString = "fullname"
+     var first_nameString = "first_name"
+     var numberOfUnreadMessagesString = "numberOfUnreadMessages"
+     var fullname_lowerString = "fullname_lower"
+    var pictureString = "picture"
+    
     @NSManaged var acceptedTerms: Bool
     @NSManaged var facebookId: String
     @NSManaged var emailVerified: String
-    @NSManaged var coverImage: PFFile?
+    @NSManaged var coverImage: PFFile? //from camera roll
     @NSManaged var isAdmin: Bool
     @NSManaged var profileViews: Int
-    @NSManaged var coverPointer: PPhoto?
+    @NSManaged var coverPointer: PPhoto? //for default/user submitted covers
     @NSManaged var predictionEntered: Bool
     @NSManaged var arrayOfBadges: [String]?
-    @NSManaged var thumbnail: PFFile
+    @NSManaged var thumbnail: PFFile?
     @NSManaged var nickname: String
     @NSManaged var background: String?
     @NSManaged var acceptedTermsDate: NSDate
