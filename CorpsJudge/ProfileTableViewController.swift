@@ -11,7 +11,7 @@ import IQKeyboardManager
 import ParseUI
 import PulsingHalo
 
-class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol {
 
     enum BadgeType : String {
         case Alumni = "Alumni",
@@ -63,7 +63,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var fetchedProfile = false
     var viewLoading = Loading()
     var arrayOfCorpsExperience = [PCorpsExperience]()
-
+    var userCat = CBUserCategories()
+    
 //    //MARK:-
 //    //MARK: View Lifecycle
     override func viewDidLoad() {
@@ -236,7 +237,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     
     @IBAction func editBadges(sender: UIButton) {
-        print("badges")
+        
+        if let userCat = NSBundle.mainBundle().loadNibNamed("CBUserCategories", owner: self, options: nil).first as? CBUserCategories {
+            userCat.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            userCat.setDelegate(self)
+            userCat.setCategories(userProfile.arrayOfBadges)
+            userCat.showInParent(self.navigationController!)
+        }
     }
     
     @IBAction func editPriorExperience(sender: UIButton) {
@@ -340,6 +347,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     func goBack() {
         stopLoading()
+        userCat.removeFromSuperview()
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -350,9 +358,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if !profileLoaded { return 0 }
-        else { return super.tableView(tableView, numberOfRowsInSection: section) }
+        if tableView === self.tableView {
+            if !profileLoaded { return 0 }
+            else { return super.tableView(tableView, numberOfRowsInSection: section) }
+        }
+        return 0
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -379,10 +389,32 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         }
     }
-
+    
+    func userCatCell(indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
+        cell.textLabel!.text = userCat.arrayOfCategories[indexPath.row] as? String
+        cell.selectionStyle = .None
+        cell.textLabel?.font = UIFont.systemFontOfSize(14)
+        let str = userCat.dict.objectForKey((cell.textLabel?.text)!)
+        if str === "YES" {
+            selectCell(cell, atIndexPath: indexPath, isOn: true, fromMethod: false)
+        } else {
+            selectCell(cell, atIndexPath: indexPath, isOn: false, fromMethod: false)
+        }
+        return cell
+    }
+    
     func badgeCellForRowAtIndexPath(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        
+        // Remove all the old badges first, if any
+        for v in cell.subviews {
+            if v.tag == 100 {
+                v.removeFromSuperview()
+            }
+        }
+        
         var frame = CGRectMake(lblBadges.frame.origin.x + 8, lblBadges.frame.origin.y + 28, 200, 50)
         if userProfile.arrayOfBadges?.count < 1 {
             // There are no badges, so create the default "new user badge"
@@ -397,6 +429,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             btn.titleLabel?.textColor = UIColor.blueColor()
             btn.addSubview(colorAndImageView.imageView)
             cell.addSubview(btn)
+            btn.tag = 100
         } else {
             // Show the badges
             for badge in userProfile.arrayOfBadges! {
@@ -411,6 +444,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     btn.setTitleColor(colorAndImageView.color, forState: .Normal)
                     btn.addSubview(colorAndImageView.imageView)
                     cell.addSubview(btn)
+                    btn.tag = 100
                     frame = CGRectMake(frame.origin.x, frame.origin.y + 35, frame.size.width, frame.size.height)
                 }
             }
@@ -633,6 +667,19 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 vc.delegate = self
             }
         }
+    }
+    
+    // Badges Protocol
+    func categoriesClosed() {
+       
+    }
+    
+    func savedCategories() {
+        self.tableView.reloadData()
+    }
+    
+    func selectCell(cell: UITableViewCell, atIndexPath: NSIndexPath, isOn: Bool, fromMethod: Bool) {
+        
     }
 }
 

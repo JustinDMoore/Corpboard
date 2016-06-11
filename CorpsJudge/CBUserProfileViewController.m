@@ -969,7 +969,7 @@ BOOL coverPhoto = NO;
 - (IBAction)btnEditBadges_clicked:(id)sender {
     
     [self.navigationController.view addSubview:self.userCat];
-    [self.userCat showInParent:self.view.frame];
+    //[self.userCat showInParent:self.view.frame];
     [self.userCat setCategories:self.userProfile[@"arrayOfCategories"]];
     
     

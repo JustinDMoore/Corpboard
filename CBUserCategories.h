@@ -15,16 +15,21 @@
 
 @end
 
-@interface CBUserCategories : UIView {
+@interface CBUserCategories : UIView <UITableViewDelegate, UITableViewDataSource> {
     id delegate;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *dict;
+@property (weak, nonatomic) IBOutlet UIButton *btnIcon;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
 @property (nonatomic, strong) IBOutlet UITableView *tableCategories;
 @property (nonatomic, strong) NSArray *arrayOfCategories;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
 
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent;
+-(void)showInParent:(UINavigationController *)parentNav;
 -(void)setCategories:(NSArray *)arr;
 @end
