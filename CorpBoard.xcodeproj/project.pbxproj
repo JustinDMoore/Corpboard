@@ -384,7 +384,7 @@
 		9264B26C1A34EAE800E1838F /* LiveChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveChatCell.m; sourceTree = SOURCE_ROOT; };
 		926CC26E1A398309006E315F /* CBUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUserProfileViewController.h; sourceTree = "<group>"; };
 		926CC26F1A398309006E315F /* CBUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUserProfileViewController.m; sourceTree = "<group>"; };
-		926CC2711A39A146006E315F /* CBUserCategories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBUserCategories.xib; sourceTree = "<group>"; };
+		926CC2711A39A146006E315F /* CBUserCategories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CBUserCategories.xib; path = ../CBUserCategories.xib; sourceTree = "<group>"; };
 		926CC2731A39A19C006E315F /* CBUserCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUserCategories.h; sourceTree = "<group>"; };
 		926CC2741A39A19C006E315F /* CBUserCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUserCategories.m; sourceTree = "<group>"; };
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
@@ -995,7 +995,6 @@
 				927F4DF71A212BF5008CC143 /* CBProgressView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
-				926CC2711A39A146006E315F /* CBUserCategories.xib */,
 				926CC2741A39A19C006E315F /* CBUserCategories.m */,
 				D034437A1A3D064000C410EE /* CBChooseCorp.xib */,
 				D034437D1A3D071000C410EE /* CBChooseCorp.m */,
@@ -1129,6 +1128,14 @@
 			name = "Chat API";
 			sourceTree = "<group>";
 		};
+		9F98AAF41D0CDB7A002AD554 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				926CC2711A39A146006E315F /* CBUserCategories.xib */,
+			);
+			name = "User Profile";
+			sourceTree = "<group>";
+		};
 		9F9D685B1CE6C4190084878B /* Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -1179,6 +1186,7 @@
 		9F9D685F1CE6C4520084878B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F98AAF41D0CDB7A002AD554 /* User Profile */,
 				9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */,
 				9FC51A641CEC038600EC081D /* LocationServicesPermission.h */,
 				9FC51A651CEC038600EC081D /* LocationServicesPermission.m */,
