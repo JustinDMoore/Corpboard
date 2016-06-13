@@ -180,7 +180,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIView *viewCell = (UIView *)[cell viewWithTag:500];
     viewCell.layer.cornerRadius = viewCell.frame.size.width / 2;
     //viewCell.layer.masksToBounds = YES;
-    viewCell.layer.borderColor = UISingleton.sharedInstance.maroon.CGColor;
+    viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
     viewCell.layer.borderWidth = 3;
     
     UILabel *lblDistance = (UILabel *)[cell viewWithTag:200];
@@ -201,8 +201,8 @@ static NSString * const reuseIdentifier = @"Cell";
         lblDistance.text = [NSString stringWithFormat:@"%.0f %@", distance, distMeasure];
     }
     
-    lblDistance.backgroundColor = UISingleton.sharedInstance.gold;
-    lblDistance.textColor = UISingleton.sharedInstance.maroon;
+    lblDistance.backgroundColor = [UIColor lightGrayColor];
+    lblDistance.textColor = [UIColor blackColor];
     
     UIView *v = (UIView *)[cell viewWithTag:300];
     [imgUser addSubview:v];
