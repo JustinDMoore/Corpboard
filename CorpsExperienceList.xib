@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98Y-u5-sUt">
-                                <rect key="frame" x="166" y="158" width="309" height="434"/>
+                                <rect key="frame" x="166" y="45" width="309" height="434"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bV-qb-9D2">
                                         <rect key="frame" x="6" y="311" width="297" height="56"/>
@@ -129,14 +129,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="434" id="sgO-us-F8z"/>
-                                    <constraint firstAttribute="width" constant="309" id="zgi-iq-C17"/>
+                                    <constraint firstAttribute="width" constant="309" id="BFT-Ie-pSA"/>
+                                    <constraint firstAttribute="height" constant="434" id="l05-Oi-fbS"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="98Y-u5-sUt" firstAttribute="centerX" secondItem="NgK-bb-pmB" secondAttribute="centerX" id="Ihs-wA-1eY"/>
-                            <constraint firstItem="98Y-u5-sUt" firstAttribute="centerY" secondItem="NgK-bb-pmB" secondAttribute="centerY" id="bln-Kj-8U9"/>
+                            <constraint firstItem="98Y-u5-sUt" firstAttribute="top" secondItem="NgK-bb-pmB" secondAttribute="top" constant="45" id="4rD-2l-4lI"/>
+                            <constraint firstItem="98Y-u5-sUt" firstAttribute="centerX" secondItem="NgK-bb-pmB" secondAttribute="centerX" id="KKr-ia-fze"/>
                         </constraints>
                     </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

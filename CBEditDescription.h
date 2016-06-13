@@ -10,11 +10,9 @@
 #import "CBTextViewPlaceHolder.h"
 #import "Parse/Parse.h"
 
-@protocol editDescriptionProtocol <NSObject>
-
+@protocol delegateEditDescription <NSObject>
 @required
--(void)savedDescription;
--(void)cancelledDescription;
+-(void)decriptionUpdated;
 @end
 
 @interface CBEditDescription : UIView {
@@ -22,10 +20,16 @@
 }
 
 @property (nonatomic, strong) IBOutlet CBTextViewPlaceHolder *txtDescription;
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
+@property (weak, nonatomic) IBOutlet UIButton *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
+@property (weak, nonatomic) IBOutlet UIButton *btnClose;
 
-- (IBAction)btn_Cancel:(id)sender;
+- (IBAction)btnClose:(id)sender;
 - (IBAction)btnSave:(id)sender;
 
 -(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent;
+-(void)showInParent:(UINavigationController *)parentNav;
 @end

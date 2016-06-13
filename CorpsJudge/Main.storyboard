@@ -7733,8 +7733,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij3-bg-dUu">
-                                                    <rect key="frame" x="8" y="8" width="89" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij3-bg-dUu">
+                                                    <rect key="frame" x="8" y="8" width="71" height="18"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -7798,24 +7798,12 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="136" id="afO-fL-rjE">
-                                        <rect key="frame" x="0.0" y="645" width="600" height="136"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="YeT-dA-fne">
+                                        <rect key="frame" x="0.0" y="645" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="afO-fL-rjE" id="dSh-QI-Sgo">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="135"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YeT-dA-fne" id="R7Z-6m-Sdf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqQ-xt-gaQ">
-                                                    <rect key="frame" x="8" y="8" width="89" height="18"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="zqQ-xt-gaQ" firstAttribute="top" secondItem="dSh-QI-Sgo" secondAttribute="topMargin" id="1g9-kI-CeH"/>
-                                                <constraint firstItem="zqQ-xt-gaQ" firstAttribute="leading" secondItem="dSh-QI-Sgo" secondAttribute="leadingMargin" id="F1s-Ne-7z0"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -7836,7 +7824,9 @@
                         <outlet property="imgCoverPhoto" destination="eJK-Dq-1BG" id="twz-mQ-Vsg"/>
                         <outlet property="imgOnline" destination="HRB-pN-CeU" id="7U2-Np-qLo"/>
                         <outlet property="imgUser" destination="rgJ-Np-kVV" id="sBH-cy-ajU"/>
+                        <outlet property="lblAboutMe" destination="Ij3-bg-dUu" id="9nB-Wb-YaM"/>
                         <outlet property="lblBadges" destination="Idq-sD-j2M" id="nAj-Pa-BYO"/>
+                        <outlet property="lblExperience" destination="LOY-8L-aeK" id="J3W-V6-6CC"/>
                         <outlet property="lblOnline" destination="1db-68-Qfn" id="3n5-9h-FYK"/>
                         <outlet property="lblUserBackground" destination="1QJ-6c-NmU" id="FUM-jj-xHS"/>
                         <outlet property="lblUserLocation" destination="5bO-KB-tZb" id="t3L-xK-gl0"/>
@@ -7882,7 +7872,7 @@
         <image name="C2" width="66" height="57"/>
         <image name="CWG" width="66" height="60"/>
         <image name="CWP" width="66" height="61"/>
-        <image name="Camera" width="85" height="85"/>
+        <image name="Camera" width="132" height="178"/>
         <image name="CameraRoll" width="85" height="85"/>
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>

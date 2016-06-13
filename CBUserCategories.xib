@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZM-Zi-Myh">
-                                <rect key="frame" x="201" y="76" width="309" height="514"/>
+                                <rect key="frame" x="201" y="45" width="309" height="514"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bB-5U-Uno">
                                         <rect key="frame" x="6" y="391" width="297" height="56"/>
@@ -83,15 +83,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="309" id="BrE-nG-bwS"/>
-                                    <constraint firstAttribute="height" constant="514" id="MH0-vY-GEb"/>
+                                    <constraint firstAttribute="height" constant="514" id="v0d-Mh-d4G"/>
+                                    <constraint firstAttribute="width" constant="309" id="yBt-Ql-mGx"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="YZM-Zi-Myh" firstAttribute="centerY" secondItem="NFi-56-Egu" secondAttribute="centerY" id="Ywx-Fl-Y0A"/>
-                            <constraint firstItem="YZM-Zi-Myh" firstAttribute="centerX" secondItem="NFi-56-Egu" secondAttribute="centerX" id="kuk-iJ-XIf"/>
+                            <constraint firstItem="YZM-Zi-Myh" firstAttribute="centerX" secondItem="NFi-56-Egu" secondAttribute="centerX" id="5eS-qs-XdS"/>
+                            <constraint firstItem="YZM-Zi-Myh" firstAttribute="top" secondItem="NFi-56-Egu" secondAttribute="top" constant="45" id="ZWQ-2B-nm2"/>
                         </constraints>
                     </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

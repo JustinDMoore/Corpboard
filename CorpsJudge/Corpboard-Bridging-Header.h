@@ -28,6 +28,7 @@
 #import "CBCartItemCell.h"
 #import "CBFeedback.h"
 #import "CBUserCategories.h"
+#import "CBEditDescription.h"
 
 // pods
 

@@ -34,8 +34,7 @@ Loading *loadView;
     
     self = [super initWithCoder:aDecoder];
     if (self) {
-        // CUSTOM INITIALIZATION HERE
-        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+
     }
     return self;
 }

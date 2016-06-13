@@ -1038,7 +1038,7 @@ UIPickerView *corpPicker;
 
 - (IBAction)btnEditDescription_clicked:(id)sender {
     [self.navigationController.view addSubview:self.viewEditDescription];
-    [self.viewEditDescription showInParent:self.view.frame];
+  //  [self.viewEditDescription showInParent:self.view.frame];
     
     [self.viewEditDescription setDelegate:self];
 }

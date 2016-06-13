@@ -11,7 +11,7 @@ import UIKit
 class PCorpsExperience: PFObject, PFSubclassing {
 
     @NSManaged var position: String
-    @NSManaged var corps: PCorps
+    @NSManaged var corps: PCorps?
     @NSManaged var user: PUser
     @NSManaged var corpsName: String
     @NSManaged var year: Int

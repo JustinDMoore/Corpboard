@@ -11,7 +11,7 @@ import IQKeyboardManager
 import ParseUI
 import PulsingHalo
 
-class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience, delegateEditDescription {
 
     enum BadgeType : String {
         case Alumni = "Alumni",
@@ -45,12 +45,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var lblViews: UILabel!
     @IBOutlet weak var lblUserBackground: UILabel!
     @IBOutlet weak var lblBadges: UILabel!
-    
+    @IBOutlet weak var lblExperience: UILabel!
     @IBOutlet weak var viewEditCoverPicture: UIView!
     @IBOutlet weak var viewEditProfilePicture: UIView!
     @IBOutlet weak var viewEditBadges: UIView!
     @IBOutlet weak var viewEditPriorExperience: UIView!
     @IBOutlet weak var viewEditBackground: UIView!
+    @IBOutlet weak var lblAboutMe: UILabel!
     
 //    //MARK:-
 //    //MARK:Variables
@@ -65,11 +66,14 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var arrayOfCorpsExperience = [PCorpsExperience]()
     var userCat = CBUserCategories()
     var userExp = CBCorpExperienceList()
+    var userDesc = CBEditDescription()
     
 //    //MARK:-
 //    //MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 200
         self.tableView.separatorStyle = .None
         self.tableView.tableFooterView = UIView()
         imgCoverPhoto.image = UIImage()
@@ -166,14 +170,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             // Add all 3 up
             lblViews.text = "Joined \(dateString)  |  \(viewsString)  |  \(reviewsString)"
             
-            // User background
-            if userProfile.background != nil {
-                lblUserBackground.text = userProfile.background
-                lblUserBackground.sizeToFit()
-            } else {
-                lblUserBackground.text = "No background listed."
-            }
-            
             if !usersOwnProfile() {
                 viewEditBadges.hidden = true
                 viewEditBackground.hidden = true
@@ -266,7 +262,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
     
     @IBAction func editBackground(sender: UIButton) {
-        print("background")
+        if let userDesc = NSBundle.mainBundle().loadNibNamed("CBEditDescription", owner: self, options: nil).first as? CBEditDescription {
+            userDesc.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            userDesc.setDelegate(self)
+            userDesc.showInParent(self.navigationController!)
+        }
     }
     
     
@@ -382,7 +382,10 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if indexPath.row == 3 { // dynamic height for badges
+        if indexPath.row == 2 { //chat and report, hide if own profile
+            if usersOwnProfile() { return 0 }
+            else { return super.tableView(tableView, heightForRowAtIndexPath: indexPath) }
+        } else if indexPath.row == 3 { // dynamic height for badges
             if userProfile.arrayOfBadges != nil {
                 var num = max(userProfile.arrayOfBadges!.count, 1)
                 num += 1
@@ -391,6 +394,18 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             } else {
                 return (35 * 2) + 8
             }
+        } else if indexPath.row == 4 { // dynamic height for experience
+            if !arrayOfCorpsExperience.isEmpty {
+                var num = max(arrayOfCorpsExperience.count, 1)
+                num += 1
+                let result = (num * 35) + 8
+                return CGFloat(result)
+            } else {
+                return (35 * 2) + 8
+            }
+        } else if indexPath.row == 5 { // dynamic height for background
+            if lblUserBackground.hidden { return super.tableView(tableView, heightForRowAtIndexPath: indexPath) }
+            else { return UITableViewAutomaticDimension }
         } else {
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }
@@ -400,8 +415,58 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         
         if indexPath.row == 3 {
             return badgeCellForRowAtIndexPath(tableView, cellForRowAtIndexPath: indexPath)
+        } else if indexPath.row == 4 {
+            return experienceCellForRowAtIndexPath(tableView, cellForRowAtIndexPath: indexPath)
+        } else if indexPath.row == 5 {
+            updateBackground()
+            return backgroundCell(indexPath)
         } else {
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        }
+    }
+    
+    func backgroundCell(indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        
+        // Remove old experience, if any
+        for v in cell.subviews {
+            if v.tag == 100 {
+                v.removeFromSuperview()
+            }
+        }
+        
+        if lblUserBackground.hidden {
+            let frame = CGRectMake(lblAboutMe.frame.origin.x + 8, lblAboutMe.frame.origin.y + 28, 200, 50)
+                // There is no experience, so create the default
+                let type = BadgeType.NewUser
+                let colorAndImageView = badgeColorAndImageViewForType(type)
+                let btn = UIButton(frame: frame)
+                //btn.layer.borderWidth = 1
+                btn.titleLabel?.font = UIFont.systemFontOfSize(14)
+                btn.setTitle("         All About Nothing  ", forState: .Normal)
+                btn.sizeToFit()
+                //btn.layer.borderColor = colorAndImageView.color.CGColor
+                btn.titleLabel?.textColor = UIColor.blueColor()
+                btn.addSubview(colorAndImageView.imageView)
+                cell.addSubview(btn)
+                cell.bringSubviewToFront(btn)
+                btn.tag = 100
+        }
+        return cell
+    }
+    
+    func updateBackground() {
+        if userProfile.background != nil {
+            if userProfile.background == "" {
+                lblUserBackground.hidden = true
+            } else {
+                lblUserBackground.hidden = false
+                lblUserBackground.numberOfLines = 0
+                lblUserBackground.text = userProfile.background
+                lblUserBackground.sizeToFit()
+            }
+        } else {
+            lblUserBackground.hidden = true
         }
     }
     
@@ -416,6 +481,58 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         } else {
             selectCell(cell, atIndexPath: indexPath, isOn: false, fromMethod: false)
         }
+        return cell
+    }
+    
+    func experienceCellForRowAtIndexPath(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        
+        // Remove old experience, if any
+        for v in cell.subviews {
+            if v.tag == 100 {
+                v.removeFromSuperview()
+            }
+        }
+        
+        var frame = CGRectMake(lblExperience.frame.origin.x + 8, lblExperience.frame.origin.y + 28, 200, 50)
+        if arrayOfCorpsExperience.count < 1 {
+            // There is no experience, so create the default
+            let type = BadgeType.NewUser
+            let colorAndImageView = badgeColorAndImageViewForType(type)
+            let btn = UIButton(frame: frame)
+            //btn.layer.borderWidth = 1
+            btn.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn.setTitle("         No Prior Experience Listed  ", forState: .Normal)
+            btn.sizeToFit()
+            //btn.layer.borderColor = colorAndImageView.color.CGColor
+            btn.titleLabel?.textColor = UIColor.blueColor()
+            btn.addSubview(colorAndImageView.imageView)
+            cell.addSubview(btn)
+            btn.tag = 100
+        } else {
+            // Show the badges
+            for experience in arrayOfCorpsExperience {
+                let imgV = PFImageView(frame: CGRectMake(0, 0, 27, 27))
+                if let corps = experience.corps {
+                    let imgLogo = corps.logo
+                    imgV.file = imgLogo
+                    imgV.loadInBackground()
+                    imgV.contentMode = .ScaleAspectFit
+                }
+                let str = "\(experience.corpsName), \(experience.year) - \(experience.position)"
+                let btn = UIButton(frame: frame)
+                btn.titleLabel?.font = UIFont.systemFontOfSize(14)
+                btn.setTitle("         \(str)  ", forState: .Normal)
+                btn.sizeToFit()
+                btn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                btn.addSubview(imgV)
+                cell.addSubview(btn)
+                btn.tag = 100
+                frame = CGRectMake(frame.origin.x, frame.origin.y + 35, frame.size.width, frame.size.height)
+            }
+        }
+
         return cell
     }
     
@@ -701,6 +818,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         arrayOfCorpsExperience = [PCorpsExperience]()
         arrayOfCorpsExperience = experience
         tableView.reloadData()
+    }
+
+    func decriptionUpdated() {
+        updateBackground()
+        self.tableView.reloadData()
     }
 }
 
