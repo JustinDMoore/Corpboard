@@ -1252,6 +1252,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             if let vc = segue.destinationViewController as? DailyScheduleViewController {
                 vc.day = Server.sharedInstance.day
             }
+        } else if segue.identifier == "profile1" {
+            let vc = segue.destinationViewController as! CBUserProfileViewController
+            if let user = PUser.currentUser() {
+                vc.userProfile = user
+            }
         }
     }
     

@@ -1000,7 +1000,7 @@ UIPickerView *corpPicker;
 - (IBAction)btnEditCorpExperience_clicked:(id)sender {
     
     [self.navigationController.view addSubview:self.viewExperienceList];
-    [self.viewExperienceList showInParent:self.view.frame];
+    //[self.viewExperienceList showInParent:self.view.frame];
     
     [self.viewExperienceList setDelegate:self];
     [self.viewExperienceList.tableExperience reloadData];
@@ -1066,7 +1066,7 @@ UIPickerView *corpPicker;
     self.corpExperience = nil;
     if (self.viewExperienceList.hidden) {
         self.viewExperienceList.hidden = NO;
-        [self.viewExperienceList showInParent:self.view.frame];
+        //[self.viewExperienceList showInParent:self.view.frame];
         [self.viewExperienceList.tableExperience reloadData];
     } else {
         [self getUserCorpExperiences];

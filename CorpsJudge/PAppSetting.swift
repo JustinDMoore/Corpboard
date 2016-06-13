@@ -19,6 +19,7 @@ class PAppSetting: PFObject, PFSubclassing {
     @NSManaged var releasedVersion: String
     @NSManaged var allowPredictions: Bool
     @NSManaged var usersReported: Int
+    @NSManaged var arrayOfCorpsExperiencePositions: [String]
     
     override class func initialize() {
         struct Static {

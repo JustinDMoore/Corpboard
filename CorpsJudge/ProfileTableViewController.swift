@@ -11,7 +11,7 @@ import IQKeyboardManager
 import ParseUI
 import PulsingHalo
 
-class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience {
 
     enum BadgeType : String {
         case Alumni = "Alumni",
@@ -64,6 +64,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var viewLoading = Loading()
     var arrayOfCorpsExperience = [PCorpsExperience]()
     var userCat = CBUserCategories()
+    var userExp = CBCorpExperienceList()
     
 //    //MARK:-
 //    //MARK: View Lifecycle
@@ -247,7 +248,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
     
     @IBAction func editPriorExperience(sender: UIButton) {
-        print("experience")
+        if let userExp = NSBundle.mainBundle().loadNibNamed("CorpsExperienceList", owner: self, options: nil).first as? CorpsExperienceList {
+            userExp.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            userExp.delegate = self
+            userExp.showInParent(self.navigationController!, experienceList: arrayOfCorpsExperience)
+        }
     }
     
     @IBAction func editBackground(sender: UIButton) {
@@ -680,6 +685,12 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     func selectCell(cell: UITableViewCell, atIndexPath: NSIndexPath, isOn: Bool, fromMethod: Bool) {
         
+    }
+    
+    func changedCorpsExperience(experience: [PCorpsExperience]) {
+        arrayOfCorpsExperience = [PCorpsExperience]()
+        arrayOfCorpsExperience = experience
+        tableView.reloadData()
     }
 }
 

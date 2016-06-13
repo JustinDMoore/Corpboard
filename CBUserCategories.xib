@@ -27,7 +27,7 @@
                                         <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Save Badges"/>
+                                        <state key="normal" title="Save"/>
                                         <connections>
                                             <action selector="btnSave_clicked:" destination="Qv9-gY-4qS" eventType="touchUpInside" id="aTY-NT-L5M"/>
                                         </connections>
@@ -73,7 +73,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaY-dD-5JI">
                                         <rect key="frame" x="111" y="470" width="87" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <state key="normal" title="Not Now">
+                                        <state key="normal" title="Close">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>

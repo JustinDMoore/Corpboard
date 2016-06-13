@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CorpsExperienceList" customModule="Corpsboard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="641" height="749"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KvP-zC-7yH">
+                    <rect key="frame" x="0.0" y="0.0" width="884" height="749"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NgK-bb-pmB">
+                        <rect key="frame" x="0.0" y="0.0" width="884" height="749"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98Y-u5-sUt">
+                                <rect key="frame" x="166" y="158" width="309" height="434"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bV-qb-9D2">
+                                        <rect key="frame" x="6" y="311" width="297" height="56"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveExperience:" destination="iN0-l3-epB" eventType="touchUpInside" id="Amz-TT-L57"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NP5-aw-yTI">
+                                        <rect key="frame" x="111" y="390" width="87" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="notNow:" destination="iN0-l3-epB" eventType="touchUpInside" id="vZE-rj-0Kz"/>
+                                        </connections>
+                                    </button>
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="56q-Oo-Gvc">
+                                        <rect key="frame" x="6" y="35" width="297" height="294"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VqF-yh-APZ">
+                                                <rect key="frame" x="1" y="82" width="295" height="212"/>
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Corps Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KdV-XP-BK8" customClass="CBTextField">
+                                                        <rect key="frame" x="8" y="14" width="281" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Year" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IvT-ea-XaZ" customClass="CBTextField">
+                                                        <rect key="frame" x="8" y="52" width="57" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Trumpet, Volunteer, Staff, etc." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C37-WW-Fel" customClass="CBTextField">
+                                                        <rect key="frame" x="8" y="90" width="281" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPF-aZ-YH3">
+                                                        <rect key="frame" x="221" y="39" width="68" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="Not Listed?">
+                                                            <color key="titleColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnCorpsNotListed:" destination="iN0-l3-epB" eventType="touchUpInside" id="bv2-A6-rnQ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hve-Vg-nd5">
+                                                        <rect key="frame" x="221" y="118" width="68" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="Not Listed?">
+                                                            <color key="titleColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnPositionNotListed:" destination="iN0-l3-epB" eventType="touchUpInside" id="jem-Vb-kYC"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-TH-bDy">
+                                                        <rect key="frame" x="132" y="165" width="30" height="30"/>
+                                                        <state key="normal" image="backButton"/>
+                                                        <connections>
+                                                            <action selector="goBack:" destination="iN0-l3-epB" eventType="touchUpInside" id="zMi-R6-bB0"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pd3-Vl-tLJ">
+                                                <rect key="frame" x="1" y="80" width="295" height="214"/>
+                                                <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select your corps, year, and position." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-Rg-xX4">
+                                                <rect key="frame" x="32" y="48" width="232" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CORPS EXPERIENCE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDM-U0-aQp">
+                                                <rect key="frame" x="8" y="20" width="281" height="29"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="21"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcs-dO-tbp">
+                                        <rect key="frame" x="119" y="-16" width="70" height="70"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="nickname"/>
+                                    </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B9k-oR-l41">
+                                        <rect key="frame" x="6" y="113" width="297" height="1"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="434" id="sgO-us-F8z"/>
+                                    <constraint firstAttribute="width" constant="309" id="zgi-iq-C17"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="98Y-u5-sUt" firstAttribute="centerX" secondItem="NgK-bb-pmB" secondAttribute="centerX" id="Ihs-wA-1eY"/>
+                            <constraint firstItem="98Y-u5-sUt" firstAttribute="centerY" secondItem="NgK-bb-pmB" secondAttribute="centerY" id="bln-Kj-8U9"/>
+                        </constraints>
+                    </view>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="KvP-zC-7yH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1pX-wb-9UL"/>
+                <constraint firstAttribute="bottom" secondItem="KvP-zC-7yH" secondAttribute="bottom" id="8SG-VA-jWh"/>
+                <constraint firstAttribute="bottom" secondItem="KvP-zC-7yH" secondAttribute="bottom" id="Gnh-QY-v69"/>
+                <constraint firstItem="KvP-zC-7yH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J74-XF-Ig9"/>
+                <constraint firstAttribute="trailing" secondItem="KvP-zC-7yH" secondAttribute="trailing" id="RFv-gl-RzZ"/>
+                <constraint firstAttribute="trailing" secondItem="KvP-zC-7yH" secondAttribute="trailing" id="TVc-ok-lKW"/>
+                <constraint firstItem="KvP-zC-7yH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mGw-bs-Svz"/>
+                <constraint firstItem="KvP-zC-7yH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rI3-yj-uUi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnCorpsNotListed" destination="tPF-aZ-YH3" id="ZLJ-ID-TfL"/>
+                <outlet property="btnIcon" destination="bcs-dO-tbp" id="stK-wJ-RBA"/>
+                <outlet property="btnPositionNotListed" destination="Hve-Vg-nd5" id="2WA-jS-KH4"/>
+                <outlet property="btnSave" destination="6bV-qb-9D2" id="Vz8-Jm-w9b"/>
+                <outlet property="lblMessage" destination="ybG-Rg-xX4" id="09V-H2-nYr"/>
+                <outlet property="tableExperience" destination="pd3-Vl-tLJ" id="edz-4R-E8Y"/>
+                <outlet property="txtCorps" destination="KdV-XP-BK8" id="quE-Pw-cHw"/>
+                <outlet property="txtPosition" destination="C37-WW-Fel" id="SQL-Pg-2uv"/>
+                <outlet property="txtYear" destination="IvT-ea-XaZ" id="HsR-5G-HzZ"/>
+                <outlet property="viewContainer" destination="98Y-u5-sUt" id="zcS-B3-6qi"/>
+                <outlet property="viewDialog" destination="56q-Oo-Gvc" id="fNc-nM-bTC"/>
+                <outlet property="viewPicker" destination="VqF-yh-APZ" id="z3N-9f-kMV"/>
+            </connections>
+            <point key="canvasLocation" x="319.5" y="670.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="backButton" width="85" height="85"/>
+        <image name="nickname" width="85" height="85"/>
+    </resources>
+</document>

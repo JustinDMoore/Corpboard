@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
@@ -107,7 +106,7 @@
                 <outlet property="txtPosition" destination="v2k-2d-Ljf" id="RlM-df-CZW"/>
                 <outlet property="txtYear" destination="Obj-1h-xKJ" id="979-er-yzl"/>
             </connections>
-            <point key="canvasLocation" x="277" y="319.5"/>
+            <point key="canvasLocation" x="307" y="388.5"/>
         </view>
     </objects>
 </document>
