@@ -127,6 +127,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 imgOnline.layer.borderWidth = 2
                 imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
                 viewOnline.sendSubviewToBack(imgOnline)
+            } else {
+                viewOnline.hidden = true
             }
             
             // Name
@@ -170,6 +172,14 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 lblUserBackground.sizeToFit()
             } else {
                 lblUserBackground.text = "No background listed."
+            }
+            
+            if !usersOwnProfile() {
+                viewEditBadges.hidden = true
+                viewEditBackground.hidden = true
+                viewEditProfilePicture.hidden = true
+                viewEditCoverPicture.hidden = true
+                viewEditPriorExperience.hidden = true
             }
             
             profileLoaded = true
