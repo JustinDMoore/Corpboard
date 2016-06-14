@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "black-stone-background-edited3.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "black-stone-background-edited3.png",
       "scale" : "2x"
     },
     {
