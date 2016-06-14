@@ -150,7 +150,7 @@
 
 -(void)getRepertoiresForCorps {
     
-    queryRepertoire = [PFQuery queryWithClassName:@"repertoires"];
+    queryRepertoire = [PFQuery queryWithClassName:@"Repertoires"];
     //[queryRepertoire whereKey:@"corps" equalTo:self.corps];
     [queryRepertoire whereKey:@"corpsName" equalTo:self.corps[@"corpsName"]];
     [queryRepertoire orderByDescending:@"year"];

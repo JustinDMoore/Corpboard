@@ -1539,7 +1539,7 @@ float ht;
         UITextField *textField = [alertView textFieldAtIndex:0];
         if ([textField.text isEqualToString:@""] == NO)
         {
-            PFObject *object = [PFObject objectWithClassName:@"reportUsers"];
+            PFObject *object = [PFObject objectWithClassName:@"ReportUsers"];
             object[@"report"] = textField.text;
             object[@"userReporting"] = [PFUser currentUser];
             object[@"userBeingReported"] = self.userProfile;

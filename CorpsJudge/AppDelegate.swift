@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         POrder.registerSubclass()
         PVideo.registerSubclass()
         PCorpsExperience.registerSubclass()
+        PRepertoire.registerSubclass()
         
         Parse.enableLocalDatastore()
         

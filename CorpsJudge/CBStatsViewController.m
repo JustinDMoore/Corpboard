@@ -20,7 +20,6 @@ PFQuery *queryOfficialHornlineScores;
 PFQuery *queryUserHornlineRanks;
 PFQuery *queryUserPercussionRanks;
 PFQuery *queryUserColorguardRanks;
-PFQuery *queryUserLoudestRanks;
 PFQuery *queryUserFavorites;
 
 int totalWorldHornlineVotes, totalOpenHornlineVotes, totalAllAgeHornlineVotes;
@@ -241,7 +240,9 @@ int fetchCount = 0;
 
 -(void)getAllFavorites {
     
-    PFQuery *allFavorites = [PFQuery queryWithClassName:@"favorites"];
+    PFQuery *allFavorites = [PFQuery queryWithClassName:@"Favorites"];
+    [allFavorites orderByDescending:@"createdAt"];
+    allFavorites.limit = 1000;
     [allFavorites includeKey:@"corps"];
     [allFavorites findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -630,14 +631,14 @@ int rank;
 
 -(void)getUserRankForCorps:(PFObject *)corps {
     
-    queryUserRanks = [PFQuery queryWithClassName:@"scores"];
+    queryUserRanks = [PFQuery queryWithClassName:@"Scores"];
     [queryUserRanks whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
     [queryUserRanks whereKey:@"corps" equalTo:corps];
     [queryUserRanks whereKeyExists:@"score"];
     [queryUserRanks orderByDescending:@"showDate"];
-    [queryUserRanks setLimit:100];
+    [queryUserRanks addDescendingOrder:@"createdAt"];
+    [queryUserRanks setLimit:1000];
     [queryUserRanks includeKey:@"corps"];
-    
     
     [queryUserRanks findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         rank++;

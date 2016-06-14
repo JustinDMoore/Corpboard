@@ -106,14 +106,8 @@ typedef enum : int {
 
 @implementation CBShowDetailsViewController
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return NO;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -205,6 +199,7 @@ typedef enum : int {
     [super viewDidLoad];
     
     
+    data = [Server sharedInstance];
     del = [[UIApplication sharedApplication] delegate];
     
     // Configure the SKView
@@ -316,13 +311,13 @@ typedef enum : int {
 -(void)didUserVoteForShow {
     
     if ([PFUser currentUser]) {
-        queryVoteFavorites = [PFQuery queryWithClassName:@"scores"];
+        queryVoteFavorites = [PFQuery queryWithClassName:@"Scores"];
         [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
         [queryVoteFavorites whereKey:@"show" equalTo:self.show];
         [queryVoteFavorites whereKey:@"isOfficial" equalTo:[NSNumber numberWithBool:NO]];
         [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedScore:error:)];
         
-        queryVoteFavorites = [PFQuery queryWithClassName:@"favorites"];
+        queryVoteFavorites = [PFQuery queryWithClassName:@"Favorites"];
         [queryVoteFavorites whereKey:@"user" equalTo:[PFUser currentUser]];
         [queryVoteFavorites whereKey:@"show" equalTo:self.show];
         [queryVoteFavorites countObjectsInBackgroundWithTarget:self selector:@selector(votedFavorites:error:)];
@@ -2186,7 +2181,7 @@ bool backspaced;
 -(void)submitFeedback {
     
     if ([feedbackString length]) {
-        PFObject *fb = [PFObject objectWithClassName:@"showFeedback"];
+        PFObject *fb = [PFObject objectWithClassName:@"ShowFeedback"];
         fb[@"feedback"] = feedbackString;
         fb[@"user"] = [PFUser currentUser];
         fb[@"show"] = self.show;
@@ -2199,7 +2194,7 @@ bool backspaced;
     for (UserScore *us in self.WScores) {
         
         if (us.score > 0) {
-            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            PFObject *score = [PFObject objectWithClassName:@"Scores"];
             score[@"corps"] = us.corps;
             score[@"score"] = us.scoreString;
             score[@"show"] = self.show;
@@ -2216,7 +2211,7 @@ bool backspaced;
     for (UserScore *us in self.OScores) {
         
         if (us.score > 0) {
-            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            PFObject *score = [PFObject objectWithClassName:@"Scores"];
             score[@"corps"] = us.corps;
             score[@"score"] = us.scoreString;
             score[@"show"] = self.show;
@@ -2233,7 +2228,7 @@ bool backspaced;
     for (UserScore *us in self.AScores) {
         
         if (us.score > 0) {
-            PFObject *score = [PFObject objectWithClassName:@"scores"];
+            PFObject *score = [PFObject objectWithClassName:@"Scores"];
             score[@"corps"] = us.corps;
             score[@"score"] = us.scoreString;
             score[@"show"] = self.show;
@@ -2316,7 +2311,7 @@ bool backspaced;
             classArray = self.arrayOfAllAgeClassScores;
         }
         
-        PFObject *favorite = [PFObject objectWithClassName:@"favorites"];
+        PFObject *favorite = [PFObject objectWithClassName:@"Favorites"];
         favorite[@"category"] = [self getCategory:cat];
         favorite[@"show"] = self.show;
         favorite[@"showName"] = self.show[@"showName"];

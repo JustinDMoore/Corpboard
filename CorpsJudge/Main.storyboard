@@ -813,7 +813,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QKw-RK-oBI" firstAttribute="bottom" secondItem="XbT-Sr-BHi" secondAttribute="top" id="2hK-5a-mnB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qPr-FD-Heq" secondAttribute="trailing" constant="-20" id="32Q-bD-vo5"/>
@@ -5584,7 +5584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JXe-jj-2Qj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3074" y="89"/>
+            <point key="canvasLocation" x="3081" y="76"/>
         </scene>
         <!--Tour Map View Controller-->
         <scene sceneID="JvE-E0-c3T">
@@ -7917,7 +7917,7 @@
         <image name="chat" width="85" height="85"/>
         <image name="closeRed" width="48" height="48"/>
         <image name="contact" width="283" height="85"/>
-        <image name="defaultCoverPicture" width="851" height="315"/>
+        <image name="defaultCoverPicture" width="425" height="157"/>
         <image name="delete" width="48" height="48"/>
         <image name="drum_tab" width="48" height="48"/>
         <image name="edit" width="48" height="48"/>

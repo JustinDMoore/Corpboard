@@ -504,8 +504,8 @@ bool backspaced;
             PFObject *corps = self.arrayOfIndexes[i];
             NSString *score = self.arrayOfScores[i];
             
-            PFObject *predictionScore = [PFObject objectWithClassName:@"predictions"];
-            [predictionScore setObject:corps forKey:@"corp"];
+            PFObject *predictionScore = [PFObject objectWithClassName:@"Predictions"];
+            [predictionScore setObject:corps forKey:@"corps"];
             [predictionScore setObject:score forKey:@"score"];
             [predictionScore setObject:[NSNumber numberWithInt:i+1] forKey:@"placement"];
             [predictionScore setObject:[PFUser currentUser] forKey:@"user"];

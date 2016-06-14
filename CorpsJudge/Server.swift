@@ -382,42 +382,51 @@ protocol delegateUserProfile: class {
         }
     }
     
-//    func movePhotos() {
-//        let query = PFQuery(className: "photos")
+//    func moveReps() {
+//        let query = PFQuery(className: "repertoires")
 //        query.limit = 1000
+//        query.orderByAscending("createdAt")
 //        query.findObjectsInBackgroundWithBlock { (photos: [PFObject]?, err: NSError?) in
 //            if photos?.count > 0 {
 //                for obj in photos! {
-//                    let photo = PPhoto()
-//                    if obj["name"] != nil {
-//                        photo.name = obj["name"] as! String
-//                    }
-//                    
-//                    if obj["user"] != nil {
-//                        photo.user = obj["user"] as? PUser
-//                    }
-//                    
-//                    if obj["isUserSubmitted"] != nil {
-//                        photo.userSubmitted = obj["isUserSubmitted"] as! Bool
-//                    }
-//                    
-//                    if obj["photo"] != nil {
-//                        photo.photo = obj["photo"] as! PFFile
-//                    }
-//                    
-//                    if obj["publicUse"] != nil {
-//                        photo.isPublic = obj["publicUse"] as! Bool
-//                    }
-//                    
-//                    if obj["approved"] != nil {
-//                        photo.approved = obj["approved"] as! Bool
-//                    }
-//                    
-//                    if obj["type"] != nil {
-//                        photo.type = obj["type"] as! String
-//                    }
-//                    
 //                    obj.deleteInBackground()
+////                    let rep = PRepertoire()
+////                    if obj["placement"] != nil {
+////                        rep.placement = obj["placement"] as! String
+////                    }
+////                    
+////                    if obj["score"] != nil {
+////                        rep.score = obj["score"] as! String
+////                    }
+////                    
+////                    if obj["corpsName"] != nil {
+////                        rep.corpsName = obj["corpsName"] as! String
+////                    }
+////                    
+////                    if obj["repertoire"] != nil {
+////                        rep.repertoire = obj["repertoire"] as! String!
+////                    }
+////                    
+////                    if obj["class"] != nil {
+////                        rep.classification = obj["class"] as! String
+////                    }
+////                    
+////                    if obj["showTitle"] != nil {
+////                        rep.showTitle = obj["showTitle"] as? String
+////                    }
+////                    
+////                    if obj["year"] != nil {
+////                        rep.year = obj["year"] as! Int
+////                    }
+////                    
+////                    for corps in self.arrayOfAllCorps! {
+////                        if corps.corpsName == obj["corpsName"] as! String {
+////                            rep.corps = corps
+////                            break
+////                        }
+////                    }
+////                    
+////                    rep.saveInBackground()
 //                }
 //            }
 //        }
@@ -651,10 +660,8 @@ protocol delegateUserProfile: class {
     }
     
     func checkForAdminMode() {
-        if let user = PFUser.currentUser() {
-            if let admin = user["isAdmin"] as? Bool {
-                if (admin) { self.adminMode = true }
-            }
+        if let user = PUser.currentUser() {
+            if user.isAdmin { self.adminMode = true }
         }
     }
     
@@ -759,5 +766,132 @@ protocol delegateUserProfile: class {
             newSchedule.saveInBackground()
         }
     }
+ 
+    
+    
+    //DEMO METHODS ---- NOT PART OF THE APP
+    func deleteFavorites() {
+        let query = PFQuery(className: PFavorite.parseClassName())
+        query.limit = 5000
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) in
+            for obj in objects! {
+                obj.deleteInBackground()
+            }
+        }
+    }
+    
+//    case catcorps: return @"Favorite Corps";
+//    case catdrums: return @"Favorite Drums";
+//    case catguard: return @"Favorite Color Guard";
+//    case cathornline: return @"Favorite Brass";
+//    case catloud: return @"Loudest Brass";
+
+
+    func createAllDemoFavoritesAndUserScores() {
+        createDemoFavoritesForCorpsName("The Cadets", category: "Favorite Brass", count: 20)
+        createDemoFavoritesForCorpsName("Carolina Crown", category: "Favorite Brass", count: 18)
+        createDemoFavoritesForCorpsName("Blue Devils", category: "Favorite Brass", count: 17)
+        createDemoFavoritesForCorpsName("Bluecoats", category: "Favorite Brass", count: 17)
+        createDemoFavoritesForCorpsName("Santa Clara Vanguard", category: "Favorite Brass", count: 15)
+        createDemoFavoritesForCorpsName("Phantom Regiment", category: "Favorite Brass", count: 12)
+        createDemoFavoritesForCorpsName("The Cavaliers", category: "Favorite Brass", count: 11)
+        createDemoFavoritesForCorpsName("Blue Knights", category: "Favorite Brass", count: 10)
+        createDemoFavoritesForCorpsName("Madison Scouts", category: "Favorite Brass", count: 10)
+        createDemoFavoritesForCorpsName("Blue Stars", category: "Favorite Brass", count: 7)
+        createDemoFavoritesForCorpsName("Crossmen", category: "Favorite Brass", count: 3)
+        createDemoFavoritesForCorpsName("Boston Crusaders", category: "Favorite Brass", count: 2)
         
+        createDemoFavoritesForCorpsName("The Cadets", category: "Loudest Brass", count: 22)
+        createDemoFavoritesForCorpsName("Carolina Crown", category: "Loudest Brass", count: 26)
+        createDemoFavoritesForCorpsName("Blue Devils", category: "Loudest Brass", count: 20)
+        createDemoFavoritesForCorpsName("Bluecoats", category: "Loudest Brass", count: 18)
+        createDemoFavoritesForCorpsName("Phantom Regiment", category: "Loudest Brass", count: 14)
+        createDemoFavoritesForCorpsName("Santa Clara Vanguard", category: "Loudest Brass", count: 13)
+        
+        createDemoFavoritesForCorpsName("The Cadets", category: "Favorite Drums", count: 28)
+        createDemoFavoritesForCorpsName("Santa Clara Vanguard", category: "Favorite Drums", count: 24)
+        createDemoFavoritesForCorpsName("Blue Devils", category: "Favorite Drums", count: 25)
+        createDemoFavoritesForCorpsName("Carolina Crown", category: "Favorite Drums", count: 16)
+        createDemoFavoritesForCorpsName("The Cavaliers", category: "Favorite Drums", count: 10)
+        createDemoFavoritesForCorpsName("Blue Knights", category: "Favorite Drums", count: 4)
+        
+        createDemoFavoritesForCorpsName("The Cadets", category: "Favorite Corps", count: 30)
+        createDemoFavoritesForCorpsName("The Cavaliers", category: "Favorite Corps", count: 22)
+        createDemoFavoritesForCorpsName("Carolina Crown", category: "Favorite Corps", count: 26)
+        createDemoFavoritesForCorpsName("Phantom Regiment", category: "Favorite Corps", count: 20)
+        createDemoFavoritesForCorpsName("Blue Devils", category: "Favorite Corps", count: 28)
+        createDemoFavoritesForCorpsName("Bluecoats", category: "Favorite Corps", count: 25)
+        createDemoFavoritesForCorpsName("Santa Clara Vanguard", category: "Favorite Corps", count: 24)
+        createDemoFavoritesForCorpsName("Blue Knights", category: "Favorite Corps", count: 17)
+        createDemoFavoritesForCorpsName("Madison Scouts", category: "Favorite Corps", count: 18)
+        createDemoFavoritesForCorpsName("Crossmen", category: "Favorite Corps", count: 14)
+        createDemoFavoritesForCorpsName("Spirit of Atlanta", category: "Favorite Corps", count: 10)
+        createDemoFavoritesForCorpsName("Troopers", category: "Favorite Corps", count: 9)
+        
+        createDemoFavoritesForCorpsName("Blue Devils", category: "Favorite Color Guard", count: 20)
+        createDemoFavoritesForCorpsName("The Cadets", category: "Favorite Color Guard", count: 19)
+        createDemoFavoritesForCorpsName("Carolina Crown", category: "Favorite Color Guard", count: 16)
+        createDemoFavoritesForCorpsName("Santa Clara Vanguard", category: "Favorite Color Guard", count: 14)
+        createDemoFavoritesForCorpsName("Phantom Regiment", category: "Favorite Color Guard", count: 10)
+        
+        createDemoUserScoreForCorpsName("The Cadets", scoreAmount: "92.75")
+        createDemoUserScoreForCorpsName("Blue Devils", scoreAmount: "90.15")
+        createDemoUserScoreForCorpsName("Carolina Crown", scoreAmount: "90.00")
+        createDemoUserScoreForCorpsName("Bluecoats", scoreAmount: "89.00")
+        createDemoUserScoreForCorpsName("Santa Clara Vanguard", scoreAmount: "87.25")
+        createDemoUserScoreForCorpsName("Blue Knights", scoreAmount: "85.30")
+        createDemoUserScoreForCorpsName("Blue Stars", scoreAmount: "83.75")
+        createDemoUserScoreForCorpsName("The Cavaliers", scoreAmount: "86.75")
+        createDemoUserScoreForCorpsName("Phantom Regiment", scoreAmount: "86.65")
+        createDemoUserScoreForCorpsName("Crossmen", scoreAmount: "80.10")
+        createDemoUserScoreForCorpsName("Madison Scouts", scoreAmount: "81.25")
+        createDemoUserScoreForCorpsName("Pacific Crest", scoreAmount: "72.30")
+    }
+    
+//    @NSManaged var classification: String
+//    @NSManaged var corps: PCorps
+//    @NSManaged var showDate: NSDate
+//    @NSManaged var user: PUser
+//    @NSManaged var exception: String
+//    @NSManaged var colorguardScore: String
+//    @NSManaged var score: String
+//    @NSManaged var corpsName: String
+//    @NSManaged var isOfficial: Bool
+//    @NSManaged var percussionScore: String
+//    @NSManaged var hornlineScore: String
+//    @NSManaged var show: PShow
+//    @NSManaged var performanceTime: String
+    func createDemoUserScoreForCorpsName(corpsName: String, scoreAmount: String) {
+        for corps in arrayOfAllCorps! {
+            if corpsName == corps.corpsName {
+                let score = PScore()
+                score.classification = corps.classification
+                score.corps = corps
+                score.user = PUser.currentUser()!
+                score.score = scoreAmount
+                score.corpsName = corps.corpsName
+                score.isOfficial = false
+                score.saveInBackground()
+                break
+            }
+        }
+    }
+    
+    func createDemoFavoritesForCorpsName(corpsName: String, category: String, count: Int) {
+        for _ in 0...count {
+            for corps in arrayOfAllCorps! {
+                if corpsName == corps.corpsName {
+                    let fav = PFavorite()
+                    fav.category = category
+                    fav.corps = corps
+                    fav.corpsName = corps.corpsName
+                    fav.showName = "DEMO"
+                    fav.user = PUser.currentUser()!
+                    fav.classification = corps.classification
+                    fav.saveInBackground()
+                    break
+                }
+            }
+        }
+    }
 }

@@ -203,9 +203,9 @@
 
 -(void)getUserPredictions {
     
-    queryUserPredictions = [PFQuery queryWithClassName:@"predictions"];
+    queryUserPredictions = [PFQuery queryWithClassName:@"Predictions"];
     [queryUserPredictions whereKey:@"user" equalTo:[PFUser currentUser]];
-    [queryUserPredictions includeKey:@"corp"];
+    [queryUserPredictions includeKey:@"corps"];
     [queryUserPredictions findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         
         if ([array count]) {
@@ -213,7 +213,7 @@
             for (PFObject *obj in array) {
                 
                 UserScore *score = [[UserScore alloc] init];
-                score.corps = obj[@"corp"];
+                score.corps = obj[@"corps"];
                 score.score = [obj[@"score"] doubleValue];
                 [self.arrayOfUserPrediction addObject:score];
             }
@@ -236,9 +236,9 @@ int loop = 0;
 
 -(void)getRankForCorps:(PFObject *)corp {
     
-    queryPredictions = [PFQuery queryWithClassName:@"predictions"];
-    [queryPredictions whereKey:@"corp" equalTo:corp];
-    [queryPredictions includeKey:@"corp"];
+    queryPredictions = [PFQuery queryWithClassName:@"Predictions"];
+    [queryPredictions whereKey:@"corps" equalTo:corp];
+    [queryPredictions includeKey:@"corps"];
     
     [queryPredictions findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         loop++;
@@ -252,7 +252,7 @@ int loop = 0;
             double grand = scoresTotal / [array count];
             PFObject *pred = [array objectAtIndex:0];
             UserScore *us = [[UserScore alloc] init];
-            us.corps = pred[@"corp"];
+            us.corps = pred[@"corps"];
             us.score = grand;
             
             [self.arrayOfAllPredictions addObject:us];
@@ -941,8 +941,8 @@ bool backspaced;
             PFObject *corps = self.arrayOfIndexes[i];
             NSString *score = self.arrayOfScores[i];
             
-            PFObject *predictionScore = [PFObject objectWithClassName:@"predictions"];
-            [predictionScore setObject:corps forKey:@"corp"];
+            PFObject *predictionScore = [PFObject objectWithClassName:@"Predictions"];
+            [predictionScore setObject:corps forKey:@"corps"];
             [predictionScore setObject:score forKey:@"score"];
             [predictionScore setObject:[NSNumber numberWithInt:i+1] forKey:@"placement"];
             [predictionScore setObject:[PFUser currentUser] forKey:@"user"];

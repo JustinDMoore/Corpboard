@@ -93,7 +93,7 @@
 - (IBAction)btnSave_clicked:(id)sender {
     
     if ([self.txtCorpsName.text length] && [self.txtYear.text length] && [self.txtPosition.text length]) {
-        PFObject *obj = [PFObject objectWithClassName:@"userCorpExperience"];
+        PFObject *obj = [PFObject objectWithClassName:@"CorpsExperience"];
         NSString *corpsName;
         if (self.selectedCorp) {
             corpsName = self.selectedCorp[@"corpsName"];

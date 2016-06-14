@@ -90,6 +90,7 @@
 		9F00C4311D0968B900D13E3F /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F00C4301D0968B900D13E3F /* VideoCell.xib */; };
 		9F00C4331D09692200D13E3F /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C4321D09692200D13E3F /* VideoCell.swift */; };
 		9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */; };
+		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
 		9F98AAF81D0CE402002AD554 /* CorpsExperienceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
 		9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */; };
@@ -426,6 +427,7 @@
 		9F00C4301D0968B900D13E3F /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		9F00C4321D09692200D13E3F /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoViewController.swift; sourceTree = "<group>"; };
+		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
 		9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorpsExperienceList.swift; sourceTree = "<group>"; };
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
 		9F9D68591CE6C3E30084878B /* CadetsAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CadetsAnimation.m; path = CorpsJudge/CadetsAnimation.m; sourceTree = "<group>"; };
@@ -1215,6 +1217,7 @@
 				6FA40A1F1CF4E28900E84164 /* POrder.swift */,
 				9F00C42E1D09634100D13E3F /* PVideo.swift */,
 				9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */,
+				9F7167711D0FE432008F52FD /* PRepertoire.swift */,
 			);
 			name = "PFObject Subclasses";
 			sourceTree = "<group>";
@@ -1881,6 +1884,7 @@
 				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
 				D0F19FA31B15369500357663 /* CBReviewScoreCell.m in Sources */,
 				6FA40A1E1CF4DD0700E84164 /* PStoreItem.swift in Sources */,
+				9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */,
 				D0AA714C1A42B67300875237 /* CBCorpExperienceList.m in Sources */,
 				D02B39EC1969EB91005E14AC /* ILTranslucentView.m in Sources */,
 				927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */,

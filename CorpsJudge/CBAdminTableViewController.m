@@ -181,7 +181,7 @@
     });
 
     [self.arrayOfData removeAllObjects];
-    queryReports = [PFQuery queryWithClassName:@"reportUsers"];
+    queryReports = [PFQuery queryWithClassName:@"ReportUsers"];
     [queryReports includeKey:@"userReporting"];
     [queryReports includeKey:@"userBeingReported"];
     [queryReports orderByDescending:@"createdAt"];
