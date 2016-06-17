@@ -90,6 +90,8 @@
 		9F00C4311D0968B900D13E3F /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F00C4301D0968B900D13E3F /* VideoCell.xib */; };
 		9F00C4331D09692200D13E3F /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C4321D09692200D13E3F /* VideoCell.swift */; };
 		9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */; };
+		9F4CCF441D10E3190079DDF5 /* PickAStadium.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */; };
+		9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */; };
 		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
 		9F98AAF81D0CE402002AD554 /* CorpsExperienceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
@@ -427,6 +429,8 @@
 		9F00C4301D0968B900D13E3F /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		9F00C4321D09692200D13E3F /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoViewController.swift; sourceTree = "<group>"; };
+		9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickAStadium.xib; sourceTree = "<group>"; };
+		9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickAStadium.swift; sourceTree = "<group>"; };
 		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
 		9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorpsExperienceList.swift; sourceTree = "<group>"; };
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
@@ -908,6 +912,8 @@
 				D055CF921A8EC564002D3B31 /* Audio */,
 				92533495194FD5D70004D16F /* Images.xcassets */,
 				92533487194FD5D70004D16F /* Supporting Files */,
+				9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */,
+				9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */,
 			);
 			name = CorpBoard;
 			path = CorpsJudge;
@@ -1671,6 +1677,7 @@
 				92533496194FD5D70004D16F /* Images.xcassets in Resources */,
 				D04740511B870D2400ADC30E /* StoreItemSelector.xib in Resources */,
 				923D4FD81A2C6DCF00E16B64 /* blank_avatar@2x.png in Resources */,
+				9F4CCF441D10E3190079DDF5 /* PickAStadium.xib in Resources */,
 				D00E41541AE9DB0D00199974 /* finals6.png in Resources */,
 				923D4FC91A2C6DCF00E16B64 /* MessagesCell.xib in Resources */,
 				D0AA71491A42B4DB00875237 /* CorpsExperienceList.xib in Resources */,
@@ -1772,6 +1779,7 @@
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				D0F136E51B94FF750075628C /* Payment.swift in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
+				9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedback.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */,

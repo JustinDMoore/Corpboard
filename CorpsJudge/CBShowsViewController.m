@@ -82,6 +82,9 @@ BOOL firstLoad = YES;
     [self initVariables];
     [self initUI];
     [self checkForShows];
+    
+//        Configuration *config = [[Configuration alloc] init];
+//        [config getAllCorps]; //automatically calls createAllShows
 }
 
 -(void)initVariables {

@@ -15,9 +15,9 @@
 //27 open class
 //49 corps
 
-NSInteger const JUNE = 4;
-NSInteger const JULY = 5;
-NSInteger const AUGUST = 6;
+NSInteger const JUNE = 5;
+NSInteger const JULY = 6;
+NSInteger const AUGUST = 7;
 NSInteger const YEAR = 2016;
 
 // World Class - 22 Corps
@@ -28,7 +28,7 @@ NSString *const BLUEKNIGHTS = @"Blue Knights";
 NSString *const BLUECOATS = @"Bluecoats";
 NSString *const BLUESTARS = @"Blue Stars";
 NSString *const BOSTONCRUSADERS = @"Boston Crusaders";
-NSString *const CAROLINACROWN = @"Carolina Crown";
+NSString *const CROWN = @"Carolina Crown";
 NSString *const CASCADES = @"Cascades";
 NSString *const CAVALIERS = @"The Cavaliers";
 NSString *const COLTS = @"Colts";
@@ -73,6 +73,8 @@ NSString *const WATCHMEN = @"Watchmen";
 NSString *const RIVERCITYRHYTHM = @"River City Rhythm";
 NSString *const SOUTHWIND = @"Southwind";
 NSString *const HEATWAVE = @"Heat Wave";
+NSString *const SHADOW = @"Shadow";
+NSString *const THE_BATTALION = @"The Battalion";
 
 //DCA
 NSString *const JUBAL = @"Jubal"; //from the netherlands
@@ -92,10 +94,11 @@ NSString *const BRIDGEMENALUMNI = @"Bridgemen Alumni";
 NSString *const ATLANTACV = @"Atlanta CV";
 NSString *const CINCINNATITRADITION = @"Cincinnati Tradition";
 NSString *const KILTIES = @"Kilties";
-
+NSString *const SOUTHERN_KNIGHTS = @"Southern Knights";
+NSString *const NORTHSTAR = @"North Star";
+NSString *const FREELANCERS_ALUMNI = @"Freelancers Alumni Corps";
 
 // 25 + 22 + 10 = 57 CORPS TOTAL
-
 
 @implementation Configuration
 
@@ -121,7 +124,7 @@ NSString *const KILTIES = @"Kilties";
     [self addCorps:BLUECOATS corpClass:@"World"];
     [self addCorps:BLUESTARS corpClass:@"World"];
     [self addCorps:BOSTONCRUSADERS corpClass:@"World"];
-    [self addCorps:CAROLINACROWN corpClass:@"World"];
+    [self addCorps:CROWN corpClass:@"World"];
     [self addCorps:CASCADES corpClass:@"World"];
     [self addCorps:CAVALIERS corpClass:@"World"];
     [self addCorps:COLTS corpClass:@"World"];
@@ -166,6 +169,8 @@ NSString *const KILTIES = @"Kilties";
     [self addCorps:RIVERCITYRHYTHM corpClass:@"Open"];
     [self addCorps:SOUTHWIND corpClass:@"Open"];
     [self addCorps:HEATWAVE corpClass:@"Open"];
+    [self addCorps:SHADOW corpClass:@"Open"];
+    [self addCorps:THE_BATTALION corpClass:@"Open"];
     
     //dca
     [self addCorps:JUBAL corpClass:@"Open"];
@@ -185,6 +190,9 @@ NSString *const KILTIES = @"Kilties";
     [self addCorps:ATLANTACV corpClass:@"All Age"];
     [self addCorps:CINCINNATITRADITION corpClass:@"All Age"];
     [self addCorps:KILTIES corpClass:@"All Age"];
+    [self addCorps:SOUTHERN_KNIGHTS corpClass:@"All Age"];
+    [self addCorps:NORTHSTAR corpClass:@"All Age"];
+    [self addCorps:FREELANCERS_ALUMNI corpClass:@"All Age"];
 }
 
 // This method checks the array of corps from the server to make sure it matches
@@ -199,7 +207,7 @@ NSString *const KILTIES = @"Kilties";
     [self getCorpsByName: BLUECOATS];
     [self getCorpsByName: BLUESTARS];
     [self getCorpsByName: BOSTONCRUSADERS];
-    [self getCorpsByName: CAROLINACROWN];
+    [self getCorpsByName: CROWN];
     [self getCorpsByName: CASCADES];
     [self getCorpsByName: CAVALIERS];
     [self getCorpsByName: COLTS];
@@ -244,6 +252,8 @@ NSString *const KILTIES = @"Kilties";
     [self getCorpsByName: RIVERCITYRHYTHM];
     [self getCorpsByName: SOUTHWIND];
     [self getCorpsByName: HEATWAVE];
+    [self getCorpsByName: SHADOW];
+    [self getCorpsByName: THE_BATTALION];
     
     //DCA
     [self getCorpsByName: JUBAL];
@@ -263,6 +273,9 @@ NSString *const KILTIES = @"Kilties";
     [self getCorpsByName: ATLANTACV];
     [self getCorpsByName: CINCINNATITRADITION];
     [self getCorpsByName: KILTIES];
+    [self getCorpsByName: SOUTHERN_KNIGHTS];
+    [self getCorpsByName: NORTHSTAR];
+    [self getCorpsByName: FREELANCERS_ALUMNI];
 }
 
 //needed before creating shows
@@ -1077,649 +1090,684 @@ NSString *const KILTIES = @"Kilties";
     //                   forDay:<#(NSInteger *)#>
     //      withPerformingCorps:<#(NSMutableArray *)#>];
     
+
     [self addShowWithName:@"DCI Tour Premiere"
-               atLocation:@"Indianpolis, IN"
+               atLocation:@"Indianapolis, IN"
                  forMonth:JUNE
-                   forDay:15
-      withPerformingCorps:@[BLUECOATS, CADETS, CAVALIERS, CAROLINACROWN, BLUESTARS, MADISON_SCOUTS]];
-    
-    [self addShowWithName:@"DCI Louisville"
-               atLocation:@"Louisville, KY"
-                 forMonth:JUNE
-                   forDay:19
-      withPerformingCorps:@[CADETS, CAVALIERS, BLUESTARS, MADISON_SCOUTS, CROSSMEN, TROOPERS, SPIRIT_OF_ATLANTA, CINCINNATITRADITION]];
+                   forDay:23
+      withPerformingCorps:@[BOSTONCRUSADERS, CAVALIERS, PHANTOM_REGIMENT, CADETS, BLUECOATS, CROWN]];
     
     [self addShowWithName:@"MidCal Champions Showcase"
                atLocation:@"Fresno, CA"
                  forMonth:JUNE
-                   forDay:19
-      withPerformingCorps:@[BLUEDEVILS, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, PHANTOM_REGIMENT, MANDARINS, PACIFIC_CREST, BLUEDEVILSB, VANGUARDCADETS, GOLDENEMPIRE]];
-    
-    [self addShowWithName:@"Legends Drum Corps Preview"
-               atLocation:@"Plainwell, MI"
+                   forDay:24
+      withPerformingCorps:@[BLUEDEVILSC, GOLDENEMPIRE, VANGUARDCADETS, BLUEDEVILSB, PACIFIC_CREST, MANDARINS, THE_ACADEMY, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, MADISON_SCOUTS, BLUEDEVILS]];
+
+    [self addShowWithName:@"Innovations in Brass"
+               atLocation:@"Massillon, OH"
                  forMonth:JUNE
-                   forDay:20
-      withPerformingCorps:@[LEGENDS, CROSSMEN, MADISON_SCOUTS, COLTS, SPIRIT_OF_ATLANTA]];
+                   forDay:25
+      withPerformingCorps:@[BOSTONCRUSADERS, CROSSMEN, PHANTOM_REGIMENT, CROWN, BLUECOATS]];
     
-    [self addShowWithName:@"Innovations in Brass: Akron"
-               atLocation:@"Akron, OH"
+    [self addShowWithName:@"The Whitewater Classic"
+               atLocation:@"Whitewater, WI"
                  forMonth:JUNE
-                   forDay:20
-      withPerformingCorps:@[BLUECOATS, CADETS, CAROLINACROWN, CAVALIERS, BLUESTARS, BOSTONCRUSADERS, TROOPERS]];
-    
-    [self addShowWithName:@"DCI West"
-               atLocation:@"Stanford, CA"
-                 forMonth:JUNE
-                   forDay:20
-      withPerformingCorps:@[BLUEDEVILS, SANTA_CLARA_VANGUARD, PHANTOM_REGIMENT, BLUEKNIGHTS, PACIFIC_CREST, MANDARINS, BLUEDEVILSC, VANGUARDCADETS, BLUEDEVILSB, GOLDENEMPIRE]];
-    
-    [self addShowWithName:@"Cavalcade of Brass"
-               atLocation:@"Lisle, IL"
-                 forMonth:JUNE
-                   forDay:21
-      withPerformingCorps:@[CAVALIERS, CADETS, BLUECOATS, CAROLINACROWN, BOSTONCRUSADERS, CROSSMEN, COLTS]];
+                   forDay:25
+      withPerformingCorps:@[KILTIES, COLTCADETS, PIONEER, TROOPERS, COLTS, BLUESTARS, CAVALIERS, CADETS]];
     
     [self addShowWithName:@"Moonlight Classic"
                atLocation:@"Sacramento, CA"
                  forMonth:JUNE
-                   forDay:21
-      withPerformingCorps:@[BLUEKNIGHTS, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, BLUEDEVILSB, MANDARINS, PACIFIC_CREST, BLUEDEVILSB, VANGUARDCADETS, GOLDENEMPIRE, BLUEDEVILSC]];
-    
-    [self addShowWithName:@"Summer Music Games in Cincinnati"
-               atLocation:@"Hamilton, OH"
-                 forMonth:JUNE
-                   forDay:22
-      withPerformingCorps:@[BLUECOATS, CAROLINACROWN, BLUESTARS, BOSTONCRUSADERS, MADISON_SCOUTS, TROOPERS, SPIRIT_OF_ATLANTA, CINCINNATITRADITION]];
-    
-    [self addShowWithName:@"Pacific Procession"
-               atLocation:@"Santa Clara, CA"
-                 forMonth:JUNE
-                   forDay:22
-      withPerformingCorps:@[SANTA_CLARA_VANGUARD, BLUEKNIGHTS, PHANTOM_REGIMENT, PACIFIC_CREST, MANDARINS, VANGUARDCADETS, BLUEDEVILSB]];
-    
-    [self addShowWithName:@"DCI St. Louis"
-               atLocation:@"O'Fallon, IL"
-                 forMonth:JUNE
-                   forDay:23
-      withPerformingCorps:@[CADETS, CAVALIERS, CROSSMEN, COLTCADETS, SPIRIT_OF_ATLANTA, PIONEER]];
-    
-    [self addShowWithName:@"Innovations in Brass: Pittsburgh"
-               atLocation:@"Pittsburgh, PA"
-                 forMonth:JUNE
-                   forDay:24
-      withPerformingCorps:@[BLUECOATS, BLUESTARS, MADISON_SCOUTS, BOSTONCRUSADERS, TROOPERS]];
-    
-    [self addShowWithName:@"Drums on the Ohio"
-               atLocation:@"Evansville, IN"
-                 forMonth:JUNE
-                   forDay:24
-      withPerformingCorps:@[CADETS, CAVALIERS, CROSSMEN, COLTS, SPIRIT_OF_ATLANTA, PIONEER, RACINESCOUTS]];
-    
-    [self addShowWithName:@"DCI Central Indiana"
-               atLocation:@"Muncie, IN"
-                 forMonth:JUNE
-                   forDay:26
-      withPerformingCorps:@[CADETS, BLUECOATS, CAROLINACROWN, CAVALIERS, BLUESTARS, MADISON_SCOUTS, BOSTONCRUSADERS, CROSSMEN]];
-    
-    [self addShowWithName:@"Corps at the Crest San Diego"
-               atLocation:@"Oceanside, CA"
-                 forMonth:JUNE
-                   forDay:26
-      withPerformingCorps:@[PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, PACIFIC_CREST, THE_ACADEMY, MANDARINS, GOLD, GOLDENEMPIRE, WATCHMEN, IMPULSE, INCOGNITO]];
-    
-    [self addShowWithName:@"Drums on Parade"
-               atLocation:@"Madison, WI"
-                 forMonth:JUNE
-                   forDay:27
-      withPerformingCorps:@[MADISON_SCOUTS, BLUECOATS, BLUESTARS, TROOPERS, COLTS, PIONEER, RACINESCOUTS, KILTIES]];
+                   forDay:25
+      withPerformingCorps:@[GOLDENEMPIRE, BLUEDEVILSC, BLUEDEVILSB, VANGUARDCADETS, MANDARINS, THE_ACADEMY, PACIFIC_CREST, MADISON_SCOUTS, BLUEDEVILS, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, FREELANCERS_ALUMNI]];
     
     [self addShowWithName:@"Pageant of Drums"
                atLocation:@"Michigan City, IN"
                  forMonth:JUNE
-                   forDay:27
-      withPerformingCorps:@[CAVALIERS, CADETS, BOSTONCRUSADERS, CROSSMEN, SPIRIT_OF_ATLANTA, GENESIS, LEGENDS]];
+                   forDay:26
+      withPerformingCorps:@[KILTIES, COLTCADETS, GENESIS, PIONEER, COLTS, TROOPERS, CADETS, CAVALIERS]];
     
-    [self addShowWithName:@"Corps at the Crest Los Angeles"
-               atLocation:@"Pasadena, CA"
+    [self addShowWithName:@"DCI West"
+               atLocation:@"Stanford, CA"
+                 forMonth:JUNE
+                   forDay:26
+      withPerformingCorps:@[GOLDENEMPIRE, VANGUARDCADETS, BLUEDEVILSB, BLUEDEVILSC, THE_ACADEMY, PACIFIC_CREST, MANDARINS, BLUEKNIGHTS, MADISON_SCOUTS, SANTA_CLARA_VANGUARD, BLUEDEVILS]];
+    
+    [self addShowWithName:@"Summer Music Games in Cincinnati"
+               atLocation:@"Hamilton, OH"
                  forMonth:JUNE
                    forDay:27
-      withPerformingCorps:@[SANTA_CLARA_VANGUARD, BLUEDEVILS, PHANTOM_REGIMENT, PACIFIC_CREST, BLUEKNIGHTS, THE_ACADEMY, MANDARINS, GOLD, IMPULSE, GOLDENEMPIRE, INCOGNITO, WATCHMEN]];
+      withPerformingCorps:@[CINCINNATITRADITION, COLTS, BOSTONCRUSADERS, CROSSMEN, BLUESTARS, CROWN, BLUECOATS]];
     
-    [self addShowWithName:@"DCI All Star Review"
-               atLocation:@"Bowling Green, OH"
+    [self addShowWithName:@"Emerald City Music Games"
+               atLocation:@"Dublin, OH"
                  forMonth:JUNE
                    forDay:28
-      withPerformingCorps:@[CADETS, CAVALIERS, CAROLINACROWN, CROSSMEN, BOSTONCRUSADERS, TROOPERS, SPIRIT_OF_ATLANTA, LEGENDS]];
+      withPerformingCorps:@[CINCINNATITRADITION, GENESIS, LEGENDS, PIONEER, TROOPERS, BLUESTARS, CAVALIERS]];
     
-    [self addShowWithName:@"River City Rhapsody - Rochester"
-               atLocation:@"Rochester, MN"
+    [self addShowWithName:@"Innovations in Brass"
+               atLocation:@"Pittsburgh, PA"
                  forMonth:JUNE
                    forDay:28
-      withPerformingCorps:@[BLUESTARS, BLUECOATS, MADISON_SCOUTS, COLTS, PIONEER, COLTCADETS, RACINESCOUTS, GOVENAIRES, RIVERCITYRHYTHM]];
+      withPerformingCorps:@[CROSSMEN, BOSTONCRUSADERS, PHANTOM_REGIMENT, CADETS, BLUECOATS]];
     
-    [self addShowWithName:@"Western Corps Connection"
-               atLocation:@"Riverside, CA"
+    [self addShowWithName:@"Drums on the Ohio"
+               atLocation:@"Evansville, IN"
                  forMonth:JUNE
-                   forDay:28
-      withPerformingCorps:@[BLUEDEVILS, SANTA_CLARA_VANGUARD, PHANTOM_REGIMENT, BLUEKNIGHTS, THE_ACADEMY, PACIFIC_CREST, MANDARINS, GOLD, WATCHMEN, IMPULSE, INCOGNITO, GOLDENEMPIRE]];
+                   forDay:29
+      withPerformingCorps:@[MUSICCITY, LEGENDS, GENESIS, PIONEER, TROOPERS, COLTS, BLUESTARS, CAVALIERS]];
+    
+    [self addShowWithName:@"DCI on the SoCal Coast"
+               atLocation:@"Oxnard, CA"
+                 forMonth:JUNE
+                   forDay:29
+      withPerformingCorps:@[MADISON_SCOUTS, BLUEKNIGHTS, BLUEDEVILS]];
     
     [self addShowWithName:@"Drum Corps: An American Tradition"
                atLocation:@"Allentown, PA"
                  forMonth:JUNE
-                   forDay:29
-      withPerformingCorps:@[CADETS, CAROLINACROWN, CROSSMEN, BOSTONCRUSADERS, TROOPERS]];
+                   forDay:30
+      withPerformingCorps:@[CADETS2, JERSEYSURF, BOSTONCRUSADERS, CROSSMEN, PHANTOM_REGIMENT, BLUECOATS, CADETS]];
     
-    [self addShowWithName:@"The Thunder of Drums"
-               atLocation:@"Mankato, MN"
-                 forMonth:JUNE
-                   forDay:29
-      withPerformingCorps:@[BLUECOATS, MADISON_SCOUTS, COLTS, PIONEER, COLTCADETS, RACINESCOUTS, MINNESOTABRASS, GOVENAIRES]];
-    
-    [self addShowWithName:@"Drums Across the Desert"
-               atLocation:@"Mesa, AZ"
-                 forMonth:JUNE
-                   forDay:29
-      withPerformingCorps:@[THE_ACADEMY, SANTA_CLARA_VANGUARD, PHANTOM_REGIMENT, GOLDENEMPIRE]];
-    
-    [self addShowWithName:@"Brass Impact"
-               atLocation:@"Olathe, KS"
+    [self addShowWithName:@"Corps at the Crest"
+               atLocation:@"Oceanside, CA"
                  forMonth:JULY
                    forDay:1
-      withPerformingCorps:@[COLTS, SANTA_CLARA_VANGUARD, BLUESTARS, SPIRIT_OF_ATLANTA, LEGENDS, COLTCADETS, GENESIS]];
+      withPerformingCorps:@[INCOGNITO, WATCHMEN, IMPULSE, GOLDENEMPIRE, GOLD, MANDARINS, THE_ACADEMY, PACIFIC_CREST, BLUEKNIGHTS, MADISON_SCOUTS]];
     
-    [self addShowWithName:@"Beat of the Rogue"
-               atLocation:@"Medford, OR"
+    [self addShowWithName:@"DCI Central Indiana"
+               atLocation:@"Muncie, IN"
                  forMonth:JULY
                    forDay:1
-      withPerformingCorps:@[BLUEKNIGHTS, OREGON_CRUSADERS, COLUMBIANS, IMPULSE]];
+      withPerformingCorps:@[GENESIS, LEGENDS, PIONEER, COLTS, TROOPERS, BLUESTARS, CAVALIERS, CROWN]];
+    
+    [self addShowWithName:@"Seattle Summer Music Games"
+               atLocation:@"Auburn, WA"
+                 forMonth:JULY
+                   forDay:1
+      withPerformingCorps:@[THUNDER, COLUMBIANS, OREGON_CRUSADERS, SANTA_CLARA_VANGUARD, THE_BATTALION, CASCADES]];
     
     [self addShowWithName:@"East Coast Classic"
-               atLocation:@"Foxboro, MA"
+               atLocation:@"Chestnut Hill, MA"
                  forMonth:JULY
                    forDay:2
-      withPerformingCorps:@[BOSTONCRUSADERS, BLUEDEVILS, CADETS, CAROLINACROWN, CROSSMEN, TROOPERS, JERSEYSURF, SEVENTH_REGIMENT, SPARTANS, CRUSADERSSENIOR, THE_MUCHACHOS]];
+      withPerformingCorps:@[THE_MUCHACHOS, CRUSADERSSENIOR, SEVENTH_REGIMENT, SPARTANS, JERSEYSURF, CROSSMEN, PHANTOM_REGIMENT, CADETS, BLUECOATS, BOSTONCRUSADERS]];
     
-    [self addShowWithName:@"Celebration in Brass"
-               atLocation:@"Waukee, IA"
+    [self addShowWithName:@"Cavalcade of Brass"
+               atLocation:@"Lisle, IL"
                  forMonth:JULY
                    forDay:2
-      withPerformingCorps:@[COLTS, SANTA_CLARA_VANGUARD, CAVALIERS, BLUESTARS, SPIRIT_OF_ATLANTA, COLTCADETS, LEGENDS, RACINESCOUTS]];
+      withPerformingCorps:@[KILTIES, COLTCADETS, LEGENDS, GENESIS, TROOPERS, COLTS, BLUESTARS, CROWN, CAVALIERS]];
+    
+    [self addShowWithName:@"Corps at the Crest"
+               atLocation:@"Pasadena, CA"
+                 forMonth:JULY
+                   forDay:2
+      withPerformingCorps:@[GOLDENEMPIRE, WATCHMEN, INCOGNITO, IMPULSE, GOLD, MANDARINS, THE_ACADEMY, PACIFIC_CREST, MADISON_SCOUTS, BLUEKNIGHTS, BLUEDEVILS]];
     
     [self addShowWithName:@"Drums of Fire"
-               atLocation:@"McMinnville, OR"
+               atLocation:@"Tigard, OR"
                  forMonth:JULY
                    forDay:2
-      withPerformingCorps:@[OREGON_CRUSADERS, BLUEKNIGHTS, CASCADES, IMPULSE, ERUPTION, COLUMBIANS, THUNDER]];
+      withPerformingCorps:@[COLUMBIANS, THUNDER, SANTA_CLARA_VANGUARD, THE_BATTALION, CASCADES, OREGON_CRUSADERS]];
     
-    [self addShowWithName:@"Summer Music Preview"
-               atLocation:@"Bristol, RI"
+    [self addShowWithName:@"The Beanpot Invitational"
+               atLocation:@"Lynn, MA"
                  forMonth:JULY
                    forDay:3
-      withPerformingCorps:@[CADETS, BLUEDEVILS, CROSSMEN, TROOPERS, JERSEYSURF, SPARTANS, SEVENTH_REGIMENT]];
+      withPerformingCorps:@[THE_MUCHACHOS, SEVENTH_REGIMENT, SPARTANS, BOSTONCRUSADERS, CROSSMEN, PHANTOM_REGIMENT,CADETS, BLUECOATS, NORTHSTAR]];
     
     [self addShowWithName:@"Rotary Music Festival"
                atLocation:@"Cedarburg, WI"
                  forMonth:JULY
                    forDay:3
-      withPerformingCorps:@[BLUESTARS, MADISON_SCOUTS, COLTS
-                            , PIONEER, COLTCADETS, GENESIS, RACINESCOUTS]];
+      withPerformingCorps:@[KILTIES, COLTCADETS, MUSICCITY, PIONEER, COLTS, TROOPERS, BLUESTARS, CAVALIERS, CROWN]];
     
-    [self addShowWithName:@"Show of Shows"
-               atLocation:@"Rockford, IL"
+    [self addShowWithName:@"Western Corps Connection"
+               atLocation:@"Riverside, CA"
                  forMonth:JULY
                    forDay:3
-      withPerformingCorps:@[PHANTOM_REGIMENT, BLUECOATS, CAVALIERS, SPIRIT_OF_ATLANTA, MUSICCITY, LEGENDS, KILTIES]];
+      withPerformingCorps:@[IMPULSE, INCOGNITO, WATCHMEN, GOLDENEMPIRE, GOLD, PACIFIC_CREST, MANDARINS, THE_ACADEMY, BLUEKNIGHTS, MADISON_SCOUTS, BLUEDEVILS]];
     
-    [self addShowWithName:@"Seattle Summer Music Games"
-               atLocation:@"Renton, WA"
-                 forMonth:JULY
-                   forDay:3
-      withPerformingCorps:@[BLUEKNIGHTS, OREGON_CRUSADERS, CASCADES, COLUMBIANS, IMPULSE, ERUPTION, THUNDER]];
-    
-    [self addShowWithName:@"The Beanpot Invitational"
-               atLocation:@"Lynn, MA"
-                 forMonth:JULY
-                   forDay:4
-      withPerformingCorps:@[CADETS, CAROLINACROWN, CROSSMEN, TROOPERS, JERSEYSURF, HAWTHORNE_CABALLEROS, CADETS2, CONNECTICUT_HURRICANES]];
-    
-    [self addShowWithName:@"The Whitewater Classic"
-               atLocation:@"Whitewater, WI"
+    [self addShowWithName:@"Summer Music Preview"
+               atLocation:@"Cranston, RI"
                  forMonth:JULY
                    forDay:5
-      withPerformingCorps:@[MADISON_SCOUTS, BLUECOATS, CAVALIERS, SANTA_CLARA_VANGUARD, BLUESTARS, PHANTOM_REGIMENT, COLTS, PIONEER, MUSICCITY, LEGENDS, COLTCADETS, GENESIS, RACINESCOUTS, KILTIES]];
+      withPerformingCorps:@[SPARTANS, SEVENTH_REGIMENT, BOSTONCRUSADERS, CROSSMEN, PHANTOM_REGIMENT, CADETS]];
     
-    [self addShowWithName:@"Drum Corps: An American Tradition"
-               atLocation:@"Clifton, NJ"
+    [self addShowWithName:@"River City Rhapsody"
+               atLocation:@"La Crosse, WI"
                  forMonth:JULY
                    forDay:5
-      withPerformingCorps:@[BRIDGEMENALUMNI, CADETS, BLUEDEVILS, CAROLINACROWN, BOSTONCRUSADERS, JERSEYSURF, SEVENTH_REGIMENT, SPARTANS, RAIDERS]];
+      withPerformingCorps:@[COLTCADETS, MUSICCITY, GENESIS, RIVERCITYRHYTHM, PIONEER, COLTS, TROOPERS, CROWN, BLUESTARS]];
     
-    [self addShowWithName:@"DCI Capital Classic Corps Show"
-               atLocation:@"Sacramento, CA"
+    [self addShowWithName:@"Drums Across the Desert"
+               atLocation:@"Mesa, AZ"
                  forMonth:JULY
                    forDay:5
-      withPerformingCorps:@[MANDARINS, VANGUARDCADETS, BLUEDEVILSB, GOLDENEMPIRE, BLUEDEVILSC, INCOGNITO]];
+      withPerformingCorps:@[WATCHMEN, PACIFIC_CREST, MADISON_SCOUTS, THE_ACADEMY]];
     
     [self addShowWithName:@"Drums Along the Columbia"
                atLocation:@"Tri Cities, WA"
                  forMonth:JULY
+                   forDay:5
+      withPerformingCorps:@[THUNDER, OREGON_CRUSADERS, SANTA_CLARA_VANGUARD, COLUMBIANS, THE_BATTALION, CASCADES]];
+    
+    [self addShowWithName:@"The Thunder of Drums"
+               atLocation:@"Mankato, MN"
+                 forMonth:JULY
                    forDay:6
-      withPerformingCorps:@[BLUEKNIGHTS, OREGON_CRUSADERS, CASCADES, COLUMBIANS, ERUPTION, IMPULSE, THUNDER]];
+      withPerformingCorps:@[GOVENAIRES, MINNESOTABRASS, COLTCADETS, RIVERCITYRHYTHM, PIONEER, COLTS, BLUESTARS, CROWN]];
     
-    [self addShowWithName:@"Music On The March"
-               atLocation:@"Dubuque, IA"
-                 forMonth:JULY
-                   forDay:7
-      withPerformingCorps:@[COLTS, BLUECOATS, PHANTOM_REGIMENT, TROOPERS, SPIRIT_OF_ATLANTA, COLTCADETS, RACINESCOUTS]];
-    
-    [self addShowWithName:@"River City Rhapsody - Wausau"
-               atLocation:@"Wausau, WI"
-                 forMonth:JULY
-                   forDay:7
-      withPerformingCorps:@[BLUESTARS, MADISON_SCOUTS, PIONEER, LEGENDS, MUSICCITY, BLUESAINTS]];
-    
-    [self addShowWithName:@"Drums Along the Rockies - Boise Edition"
+    [self addShowWithName:@"Drums Along the Rockies"
                atLocation:@"Boise, ID"
                  forMonth:JULY
+                   forDay:6
+      withPerformingCorps:@[COLUMBIANS, THUNDER, OREGON_CRUSADERS, SANTA_CLARA_VANGUARD, THE_BATTALION, CASCADES]];
+    
+    [self addShowWithName:@"Live in Chickasha"
+               atLocation:@"Chickasha, OK"
+                 forMonth:JULY
                    forDay:7
-      withPerformingCorps:@[BLUEKNIGHTS, THE_ACADEMY, OREGON_CRUSADERS, CASCADES, IMPULSE, THUNDER]];
-    
-    [self addShowWithName:@"DCI Ft. Wayne"
-               atLocation:@"Ft. Wayne, IN"
-                 forMonth:JULY
-                   forDay:8
-      withPerformingCorps:@[BLUEDEVILS, CAROLINACROWN, CROSSMEN, JERSEYSURF, GENESIS, LOUISIANA_STARS]];
-    
-    [self addShowWithName:@"Show of Shows - Metamora"
-               atLocation:@"Metamora, IL"
-                 forMonth:JULY
-                   forDay:8
-      withPerformingCorps:@[PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, PIONEER, LEGENDS, RACINESCOUTS, BLUESAINTS]];
+      withPerformingCorps:@[PACIFIC_CREST, THE_ACADEMY, MADISON_SCOUTS]];
     
     [self addShowWithName:@"Corps Encore"
                atLocation:@"Ogden, UT"
                  forMonth:JULY
+                   forDay:7
+      withPerformingCorps:@[THUNDER, COLUMBIANS, GOLDENEMPIRE, GOLD, OREGON_CRUSADERS, SANTA_CLARA_VANGUARD, BLUEDEVILS, BLUEKNIGHTS, THE_BATTALION, CASCADES]];
+    
+    [self addShowWithName:@"CrownBEAT"
+               atLocation:@"Lexington, SC"
+                 forMonth:JULY
                    forDay:8
-      withPerformingCorps:@[BLUEKNIGHTS, THE_ACADEMY, PACIFIC_CREST, OREGON_CRUSADERS, CASCADES, IMPULSE, THUNDER]];
+      withPerformingCorps:@[LEGENDS, JERSEYSURF, SPIRIT_OF_ATLANTA, CROSSMEN, BOSTONCRUSADERS, CADETS, BLUECOATS]];
     
-    [self addShowWithName:@"River City Rhapsody - La Crosse"
-               atLocation:@"La Crosse, WI"
+    [self addShowWithName:@"Loudest Show on Earth"
+               atLocation:@"Mountain House, CA"
                  forMonth:JULY
-                   forDay:9
-      withPerformingCorps:@[BLUESTARS, SANTA_CLARA_VANGUARD, CAVALIERS, MADISON_SCOUTS, JERSEYSURF, LEGENDS, MUSICCITY]];
+                   forDay:8
+      withPerformingCorps:@[BLUEDEVILSC, WATCHMEN, INCOGNITO, THUNDER, VANGUARDCADETS, BLUEDEVILSB, MANDARINS]];
     
-    [self addShowWithName:@"Drums Along the Rockies - Laramie Edition"
-               atLocation:@"Laramie, WY"
-                 forMonth:JULY
-                   forDay:9
-      withPerformingCorps:@[TROOPERS, THE_ACADEMY, COLTS, PACIFIC_CREST, SPIRIT_OF_ATLANTA]];
-    
-    [self addShowWithName:@"Drums Along the Rockies - Casper Edition"
+    [self addShowWithName:@"Drums Along the Rockies"
                atLocation:@"Casper, WY"
                  forMonth:JULY
-                   forDay:10
-      withPerformingCorps:@[TROOPERS, BLUECOATS, OREGON_CRUSADERS, MANDARINS, CASCADES]];
+                   forDay:8
+      withPerformingCorps:@[OREGON_CRUSADERS, CAVALIERS, TROOPERS, CASCADES]];
     
-    [self addShowWithName:@"Resound"
-               atLocation:@"Bakersfield, CA"
+    [self addShowWithName:@"DCI Central Florida"
+               atLocation:@"Lakeland, FL"
                  forMonth:JULY
-                   forDay:10
-      withPerformingCorps:@[GOLDENEMPIRE, BLUEDEVILSB, VANGUARDCADETS, BLUEDEVILSC, WATCHMEN, IMPULSE, INCOGNITO, THUNDER]];
+                   forDay:9
+      withPerformingCorps:@[HEATWAVE, LEGENDS, JERSEYSURF, SPIRIT_OF_ATLANTA, BOSTONCRUSADERS, CROSSMEN, CADETS, BLUECOATS]];
     
-    [self addShowWithName:@"DCI Minnesota"
-               atLocation:@"Minneapolis, MN"
+    [self addShowWithName:@"Show of Shows"
+               atLocation:@"Rockford, IL"
                  forMonth:JULY
-                   forDay:11
-      withPerformingCorps:@[BLUEDEVILS, BLUESAINTS, BLUESTARS, BOSTONCRUSADERS, CADETS, CAROLINACROWN, CAVALIERS, COLTCADETS, CROSSMEN, GOVENAIRES, JERSEYSURF, LEGENDS, LOUISIANA_STARS, MADISON_SCOUTS, MINNESOTABRASS, MUSICCITY, PHANTOM_REGIMENT, RACINESCOUTS, SANTA_CLARA_VANGUARD, RIVERCITYRHYTHM]];
+                   forDay:9
+      withPerformingCorps:@[KILTIES, RACINESCOUTS, COLTCADETS, PIONEER, PACIFIC_CREST, COLTS, THE_ACADEMY, BLUESTARS, CROWN, PHANTOM_REGIMENT]];
     
     [self addShowWithName:@"Drums Along the Rockies"
                atLocation:@"Denver, CO"
                  forMonth:JULY
-                   forDay:11
-      withPerformingCorps:@[BLUEKNIGHTS, BLUECOATS, COLTS, TROOPERS, THE_ACADEMY, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, PACIFIC_CREST, MANDARINS, CASCADES]];
+                   forDay:9
+      withPerformingCorps:@[COLUMBIANS, GOLDENEMPIRE, GOLD, TROOPERS, OREGON_CRUSADERS, CAVALIERS, SANTA_CLARA_VANGUARD, BLUEDEVILS, BLUEKNIGHTS]];
     
-    [self addShowWithName:@"Gold Showcase at the Ranch"
-               atLocation:@"San Marcos, CA"
+    [self addShowWithName:@"DCI Capital Classic Corps Show"
+               atLocation:@"Sacramento, CA"
+                 forMonth:JULY
+                   forDay:9
+      withPerformingCorps:@[INCOGNITO, BLUEDEVILSC, WATCHMEN, THUNDER, BLUEDEVILSB, VANGUARDCADETS, MANDARINS]];
+    
+    [self addShowWithName:@"Drums on Parade"
+               atLocation:@"Madison, WI"
+                 forMonth:JULY
+                   forDay:10
+      withPerformingCorps:@[KILTIES, MUSICCITY, GENESIS, PIONEER, PACIFIC_CREST, THE_ACADEMY, BLUESTARS, CROWN, MADISON_SCOUTS, SHADOW]];
+    
+    [self addShowWithName:@"DCI Jupiter"
+               atLocation:@"Jupiter, FL"
                  forMonth:JULY
                    forDay:11
-      withPerformingCorps:@[GOLD, VANGUARDCADETS, BLUEDEVILSB, GOLDENEMPIRE, WATCHMEN, IMPULSE, INCOGNITO, THUNDER, BLUEDEVILSC]];
-    
-    [self addShowWithName:@"Percussion on the Pearl"
-               atLocation:@"Muscatine, IA"
-                 forMonth:JULY
-                   forDay:12
-      withPerformingCorps:@[BLUESTARS, MADISON_SCOUTS, CROSSMEN, JERSEYSURF, PIONEER, COLTCADETS, MUSICCITY, LEGENDS, LOUISIANA_STARS]];
-    
-    [self addShowWithName:@"So Cal Classic Open Class Championship"
-               atLocation:@"Bellflower, CA"
-                 forMonth:JULY
-                   forDay:12
-      withPerformingCorps:@[WATCHMEN, VANGUARDCADETS, THUNDER, INCOGNITO, IMPULSE, GOLDENEMPIRE, GOLD, BLUEDEVILSC, BLUEDEVILSB]];
-    
-    [self addShowWithName:@"Tour of Champions - Northern Illinois"
-               atLocation:@"DeKalb, IL"
-                 forMonth:JULY
-                   forDay:12
-      withPerformingCorps:@[PHANTOM_REGIMENT, CAROLINACROWN, CADETS, CAVALIERS, SANTA_CLARA_VANGUARD, BOSTONCRUSADERS, BLUEDEVILS]];
+      withPerformingCorps:@[HEATWAVE, LEGENDS, JERSEYSURF, SPIRIT_OF_ATLANTA, CROSSMEN, BOSTONCRUSADERS, BLUECOATS, CADETS]];
     
     [self addShowWithName:@"Drums Across Nebraska"
-               atLocation:@"Fremont, NE"
+               atLocation:@"Omaha, NE"
+                 forMonth:JULY
+                   forDay:11
+      withPerformingCorps:@[COLTCADETS, OREGON_CRUSADERS, TROOPERS, CAVALIERS, BLUEKNIGHTS, BLUEDEVILS, CASCADES]];
+    
+    [self addShowWithName:@"DCI St. Louis"
+               atLocation:@"Lebanon, IL"
+                 forMonth:JULY
+                   forDay:11
+      withPerformingCorps:@[RACINESCOUTS, MUSICCITY, PACIFIC_CREST, THE_ACADEMY, PHANTOM_REGIMENT, CROWN, SHADOW]];
+    
+    [self addShowWithName:@"DCI Daytona Beach"
+               atLocation:@"Daytona Beach, FL"
+                 forMonth:JULY
+                   forDay:12
+      withPerformingCorps:@[HEATWAVE, LEGENDS, JERSEYSURF, SPIRIT_OF_ATLANTA, CROSSMEN, BOSTONCRUSADERS, CADETS, BLUECOATS]];
+    
+    [self addShowWithName:@"Brass Impact"
+               atLocation:@"Overland Park, KS"
+                 forMonth:JULY
+                   forDay:12
+      withPerformingCorps:@[RACINESCOUTS, COLTCADETS, TROOPERS, SANTA_CLARA_VANGUARD, BLUEDEVILS, COLTS]];
+    
+    [self addShowWithName:@"DCI Morningside"
+               atLocation:@"Sioux City, IA"
                  forMonth:JULY
                    forDay:13
-      withPerformingCorps:@[BLUEKNIGHTS, THE_ACADEMY, TROOPERS, SPIRIT_OF_ATLANTA, PACIFIC_CREST, MANDARINS, CASCADES]];
+      withPerformingCorps:@[OREGON_CRUSADERS, TROOPERS, COLTS, CAVALIERS, SANTA_CLARA_VANGUARD]];
     
-    [self addShowWithName:@"Tour of Champions - Central Missouri"
-               atLocation:@"Warrensburg, MO"
+    [self addShowWithName:@"Show of Shows"
+               atLocation:@"Metamora, IL"
                  forMonth:JULY
                    forDay:13
-      withPerformingCorps:@[SANTA_CLARA_VANGUARD, CAROLINACROWN, CADETS, BLUECOATS, BLUEDEVILS, PHANTOM_REGIMENT, CAVALIERS]];
+      withPerformingCorps:@[SHADOW, RACINESCOUTS, GENESIS, PACIFIC_CREST, MANDARINS, MADISON_SCOUTS, PHANTOM_REGIMENT]];
     
-    [self addShowWithName:@"March of Champions"
-               atLocation:@"Great Bend, KS"
+    [self addShowWithName:@"Music On The March"
+               atLocation:@"Dubuque, IA"
                  forMonth:JULY
                    forDay:14
-      withPerformingCorps:@[BLUEKNIGHTS, BLUESTARS, CROSSMEN, TROOPERS, THE_ACADEMY, OREGON_CRUSADERS, LOUISIANA_STARS]];
+      withPerformingCorps:@[RACINESCOUTS, GENESIS, COLTCADETS, OREGON_CRUSADERS, THE_ACADEMY, CAVALIERS, SANTA_CLARA_VANGUARD, COLTS]];
     
-    [self addShowWithName:@"Music on the Move"
-               atLocation:@"Bentonville, AR"
+    [self addShowWithName:@"River City Rhapsody"
+               atLocation:@"Wausau, WI"
                  forMonth:JULY
                    forDay:14
-      withPerformingCorps:@[BLUEDEVILS, CAROLINACROWN, BOSTONCRUSADERS, COLTS, SPIRIT_OF_ATLANTA, JERSEYSURF, PIONEER, LEGENDS, MUSICCITY, GENESIS]];
-    
-    [self addShowWithName:@"DCI in the Heartland"
-               atLocation:@"Mustang, OK"
-                 forMonth:JULY
-                   forDay:15
-      withPerformingCorps:@[CADETS, BLUEKNIGHTS, MADISON_SCOUTS, COLTS, TROOPERS, PACIFIC_CREST, MANDARINS, CASCADES, PIONEER, GENESIS]];
-    
-    [self addShowWithName:@"DCI Central Texas"
-               atLocation:@"Belton, TX"
-                 forMonth:JULY
-                   forDay:16
-      withPerformingCorps:@[BLUESTARS, PHANTOM_REGIMENT, BLUEKNIGHTS, BOSTONCRUSADERS, MADISON_SCOUTS, CROSSMEN, THE_ACADEMY, TROOPERS, PACIFIC_CREST, MANDARINS, PIONEER, GENESIS]];
-    
-    [self addShowWithName:@"DCI Denton"
-               atLocation:@"Denton, TX"
-                 forMonth:JULY
-                   forDay:16
-      withPerformingCorps:@[CAVALIERS, BLUECOATS, CADETS, CAROLINACROWN, SANTA_CLARA_VANGUARD, COLTS, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, JERSEYSURF, CASCADES, GUARDIANS]];
-    
-    [self addShowWithName:@"Tour of Champions"
-               atLocation:@"Houston, TX"
-                 forMonth:JULY
-                   forDay:17
-      withPerformingCorps:@[CAVALIERS, CADETS, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, BLUEDEVILS, CAROLINACROWN, BLUECOATS, CROSSMEN]];
-
-    [self addShowWithName:@"DCI Southwestern Championship"
-               atLocation:@"San Antonio, TX"
-                 forMonth:JULY
-                   forDay:18
-      withPerformingCorps:@[THE_ACADEMY, BLUEDEVILS, BLUEKNIGHTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CAROLINACROWN, CASCADES, CAVALIERS, COLTS, CROSSMEN, GENESIS, GUARDIANS, JERSEYSURF, LOUISIANA_STARS, MADISON_SCOUTS, MANDARINS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, PIONEER, SANTA_CLARA_VANGUARD, SPIRIT_OF_ATLANTA, TROOPERS, JUBAL]];
-    
-    [self addShowWithName:@"Fiesta De Musica"
-               atLocation:@"Manchester, NH"
-                 forMonth:JULY
-                   forDay:18
-      withPerformingCorps:@[SPARTANS, SEVENTH_REGIMENT, LESSTENTORS, THE_MUCHACHOS, BRIDGEMENALUMNI, CRUSADERSSENIOR]];
-    
-    [self addShowWithName:@"DCI Dallas"
-               atLocation:@"Dallas, TX"
-                 forMonth:JULY
-                   forDay:20
-      withPerformingCorps:@[BLUEDEVILS, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, BLUESTARS, CROSSMEN, COLTS, TROOPERS, MANDARINS, GENESIS, GUARDIANS]];
-    
-    [self addShowWithName:@"Drums Across Cajun Field"
-               atLocation:@"Lafayette, LA"
-                 forMonth:JULY
-                   forDay:20
-      withPerformingCorps:@[BLUECOATS, CAROLINACROWN, PHANTOM_REGIMENT, BOSTONCRUSADERS, MADISON_SCOUTS, SPIRIT_OF_ATLANTA, CASCADES, PIONEER, LOUISIANA_STARS]];
-    
-    [self addShowWithName:@"Drums of Summer"
-               atLocation:@"Broken Arrow, OK"
-                 forMonth:JULY
-                   forDay:21
-      withPerformingCorps:@[CADETS, BLUESTARS, BLUEKNIGHTS, CROSSMEN, COLTS, OREGON_CRUSADERS, PACIFIC_CREST, MANDARINS, JERSEYSURF]];
-
-    [self addShowWithName:@"Mississippi Sound Spectacular"
-               atLocation:@"Ocean Springs, MS"
-                 forMonth:JULY
-                   forDay:21
-      withPerformingCorps:@[BLUECOATS, CAVALIERS, CAROLINACROWN, BOSTONCRUSADERS, THE_ACADEMY, PIONEER, CASCADES, SOUTHWIND]];
-    
-    [self addShowWithName:@"DCI Arkansas"
-               atLocation:@"Little Rock, AR"
-                 forMonth:JULY
-                   forDay:22
-      withPerformingCorps:@[SANTA_CLARA_VANGUARD, BLUEKNIGHTS, BLUESTARS, CROSSMEN, COLTS, OREGON_CRUSADERS, PACIFIC_CREST, JERSEYSURF, MANDARINS]];
-    
-    [self addShowWithName:@"DCI Southern Mississippi"
-               atLocation:@"Hattiesburg, MS"
-                 forMonth:JULY
-                   forDay:22
-      withPerformingCorps:@[BLUECOATS, BLUEDEVILS, CAVALIERS, MADISON_SCOUTS, TROOPERS, THE_ACADEMY, SPIRIT_OF_ATLANTA, PIONEER, SOUTHWIND]];
-    
-    [self addShowWithName:@"DCI Mid-America"
-               atLocation:@"St. Louis, MO"
-                 forMonth:JULY
-                   forDay:22
-      withPerformingCorps:@[VANGUARDCADETS, GENESIS, MUSICCITY, LEGENDS, RACINESCOUTS, JUBAL]];
+      withPerformingCorps:@[PIONEER, PACIFIC_CREST, MANDARINS, PHANTOM_REGIMENT, BLUESTARS]];
     
     [self addShowWithName:@"DCI North Alabama"
                atLocation:@"Huntsville, AL"
                  forMonth:JULY
+                   forDay:15
+      withPerformingCorps:@[SOUTHERN_KNIGHTS, SOUTHWIND, LOUISIANA_STARS, MUSICCITY, LEGENDS, JERSEYSURF, SPIRIT_OF_ATLANTA, CROSSMEN, BOSTONCRUSADERS, CADETS, BLUECOATS]];
+    
+    [self addShowWithName:@"River City Rhapsody"
+               atLocation:@"Rochester, MN"
+                 forMonth:JULY
+                   forDay:15
+      withPerformingCorps:@[MINNESOTABRASS, GENESIS, RIVERCITYRHYTHM, PIONEER, MADISON_SCOUTS, BLUEKNIGHTS, BLUESTARS]];
+    
+    [self addShowWithName:@"Resound"
+               atLocation:@"Bakersfield, CA"
+                 forMonth:JULY
+                   forDay:15
+      withPerformingCorps:@[IMPULSE, INCOGNITO, WATCHMEN, BLUEDEVILSC, BLUEDEVILSB, VANGUARDCADETS, GOLDENEMPIRE]];
+    
+    [self addShowWithName:@"DCI Minnesota"
+               atLocation:@"Minneapolis, MN"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[GENESIS, RACINESCOUTS, RIVERCITYRHYTHM, COLTCADETS, GOVENAIRES, PIONEER, PACIFIC_CREST, MANDARINS, OREGON_CRUSADERS, THE_ACADEMY, COLTS, TROOPERS, BLUESTARS, CAVALIERS, MADISON_SCOUTS, PHANTOM_REGIMENT, BLUEKNIGHTS, SANTA_CLARA_VANGUARD, BLUEDEVILS, MINNESOTABRASS]];
+    
+    [self addShowWithName:@"Atlanta Brass Classic"
+               atLocation:@"Dallas, GA"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[SOUTHERN_KNIGHTS, CAROLINAGOLD, ATLANTACV, ALLIANCE, SOUTHWIND, LOUISIANA_STARS, MUSICCITY, LEGENDS]];
+    
+    [self addShowWithName:@"DCI Kentucky"
+               atLocation:@"Alexandria, KY"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[CINCINNATITRADITION, JERSEYSURF, SPIRIT_OF_ATLANTA, CROSSMEN, BOSTONCRUSADERS, CADETS, BLUECOATS, CROWN]];
+    
+    [self addShowWithName:@"Gold Showcase at the Ranch"
+               atLocation:@"Escondido, CA"
+                 forMonth:JULY
+                   forDay:16
+      withPerformingCorps:@[IMPULSE, GOLDENEMPIRE, INCOGNITO, WATCHMEN, BLUEDEVILSC, VANGUARDCADETS, BLUEDEVILSB, GOLD]];
+    
+    [self addShowWithName:@"SoCal Classic Open Class Championship"
+               atLocation:@"Bellflower, CA"
+                 forMonth:JULY
+                   forDay:17
+      withPerformingCorps:@[BLUEDEVILSB, BLUEDEVILSC, GOLD, GOLDENEMPIRE, IMPULSE, INCOGNITO, VANGUARDCADETS, WATCHMEN]];
+    
+    [self addShowWithName:@"Celebration in Brass"
+               atLocation:@"Waukee, IA"
+                 forMonth:JULY
+                   forDay:17
+      withPerformingCorps:@[COLTCADETS, PIONEER, OREGON_CRUSADERS, THE_ACADEMY, MADISON_SCOUTS, COLTS]];
+    
+    [self addShowWithName:@"Tour of Champions"
+               atLocation:@"DeKalb, IL"
+                 forMonth:JULY
+                   forDay:17
+      withPerformingCorps:@[BLUEDEVILS, BLUEKNIGHTS, SANTA_CLARA_VANGUARD, CROWN, BLUECOATS, CADETS, CAVALIERS, PHANTOM_REGIMENT]];
+    
+    [self addShowWithName:@"Drums Across Kansas"
+               atLocation:@"El Dorado, KS"
+                 forMonth:JULY
+                   forDay:18
+      withPerformingCorps:@[PIONEER, JERSEYSURF, PACIFIC_CREST, MANDARINS, TROOPERS, BOSTONCRUSADERS, MADISON_SCOUTS]];
+    
+    [self addShowWithName:@"Tour of Champions"
+               atLocation:@"Warrensburg, MO"
+                 forMonth:JULY
+                   forDay:18
+      withPerformingCorps:@[CADETS, BLUEDEVILS, BLUECOATS, BLUESTARS, SANTA_CLARA_VANGUARD, PHANTOM_REGIMENT, CROWN, CAVALIERS]];
+    
+    [self addShowWithName:@"Music on the Move"
+               atLocation:@"Bentonville, AR"
+                 forMonth:JULY
+                   forDay:19
+      withPerformingCorps:@[GENESIS, PACIFIC_CREST, SPIRIT_OF_ATLANTA, MANDARINS, TROOPERS, THE_ACADEMY, BLUEDEVILS, CROWN]];
+    
+    [self addShowWithName:@"Drums of Summer"
+               atLocation:@"Broken Arrow, OK"
+                 forMonth:JULY
+                   forDay:20
+      withPerformingCorps:@[PIONEER, CASCADES, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, COLTS, BLUESTARS, CROSSMEN, BLUEKNIGHTS, CADETS]];
+    
+    [self addShowWithName:@"DCI Central Texas"
+               atLocation:@"Belton, TX"
+                 forMonth:JULY
+                   forDay:21
+      withPerformingCorps:@[GENESIS, CASCADES, JERSEYSURF, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, TROOPERS, COLTS, CROSSMEN, BLUESTARS, BOSTONCRUSADERS, MADISON_SCOUTS, PHANTOM_REGIMENT]];
+    
+    [self addShowWithName:@"DCI Denton"
+               atLocation:@"Denton, TX"
+                 forMonth:JULY
+                   forDay:21
+      withPerformingCorps:@[GUARDIANS, PACIFIC_CREST, MANDARINS, THE_ACADEMY, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, CADETS, CROWN, BLUECOATS, CAVALIERS]];
+    
+    [self addShowWithName:@"Tour of Champions"
+               atLocation:@"Houston, TX"
+                 forMonth:JULY
+                   forDay:22
+      withPerformingCorps:@[PHANTOM_REGIMENT, CROSSMEN, BLUECOATS, CROWN, BLUEDEVILS, CAVALIERS, CADETS, SANTA_CLARA_VANGUARD]];
+    
+    [self addShowWithName:@"DCI Southwestern Championship"
+               atLocation:@"San Antonio, TX"
+                 forMonth:JULY
                    forDay:23
-      withPerformingCorps:@[CADETS, CROSSMEN, THE_ACADEMY, TROOPERS, PACIFIC_CREST, OREGON_CRUSADERS, JERSEYSURF, CASCADES, PIONEER, SOUTHWIND]];
+      withPerformingCorps:@[THE_ACADEMY, BLUEDEVILS, BLUEKNIGHTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CROWN, CAVALIERS, COLTS, CROSSMEN, GENESIS, GUARDIANS, JERSEYSURF, LOUISIANA_STARS, MADISON_SCOUTS, MANDARINS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, CASCADES, SPIRIT_OF_ATLANTA, TROOPERS]];
     
-    [self addShowWithName:@"Music on the Mountain"
-               atLocation:@"Sheffield, PA"
+    [self addShowWithName:@"Fiesta De Musica"
+               atLocation:@"Manchester, NH"
                  forMonth:JULY
-                   forDay:24
-      withPerformingCorps:@[SPARTANS, SEVENTH_REGIMENT, LEGENDS, RAIDERS, LESSTENTORS, COASTALSURGE]];
-
-    [self addShowWithName:@"Petunia City Brass"
-               atLocation:@"Dixon, IL"
-                 forMonth:JULY
-                   forDay:24
-      withPerformingCorps:@[GENESIS, VANGUARDCADETS, COLTCADETS, RACINESCOUTS, JUBAL]];
+                   forDay:23
+      withPerformingCorps:@[THE_MUCHACHOS, NORTHSTAR, LESSTENTORS, SEVENTH_REGIMENT, LEGENDS, SPARTANS]];
     
-    [self addShowWithName:@"The Masters of the Summer Music Games"
-               atLocation:@"Murfreesboro, TN"
+    [self addShowWithName:@"DCI Dallas"
+               atLocation:@"Dallas, TX"
                  forMonth:JULY
-                   forDay:24
-      withPerformingCorps:@[PHANTOM_REGIMENT, CAVALIERS, BLUEDEVILS, SANTA_CLARA_VANGUARD, CAROLINACROWN, CADETS, BLUEKNIGHTS, BLUECOATS, MUSICCITY]];
+                   forDay:25
+      withPerformingCorps:@[GUARDIANS, GENESIS, TROOPERS, CROSSMEN, BOSTONCRUSADERS, PHANTOM_REGIMENT, BLUEKNIGHTS, BLUECOATS, BLUEDEVILS]];
+    
+    [self addShowWithName:@"Drums Across Cajun Field"
+               atLocation:@"Lafayette, LA"
+                 forMonth:JULY
+                   forDay:25
+      withPerformingCorps:@[LOUISIANA_STARS, JERSEYSURF, SPIRIT_OF_ATLANTA, MANDARINS, COLTS, BLUESTARS, CROWN]];
+    
+    [self addShowWithName:@"Mississippi Sound Spectacular"
+               atLocation:@"Biloxi, MS"
+                 forMonth:JULY
+                   forDay:26
+      withPerformingCorps:@[HEATWAVE, SOUTHWIND, CASCADES, PACIFIC_CREST, SPIRIT_OF_ATLANTA, COLTS, BLUESTARS, CROWN]];
+    
+    [self addShowWithName:@"DCI in the Heartland"
+               atLocation:@"Mustang, OK"
+                 forMonth:JULY
+                   forDay:26
+      withPerformingCorps:@[GUARDIANS, PIONEER, THE_ACADEMY, TROOPERS, CAVALIERS, PHANTOM_REGIMENT, BLUEKNIGHTS]];
+    
+    [self addShowWithName:@"DCI Arkansas"
+               atLocation:@"Little Rock, AR"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[PIONEER, SPIRIT_OF_ATLANTA, TROOPERS, THE_ACADEMY, BOSTONCRUSADERS, CROSSMEN, MADISON_SCOUTS, CAVALIERS, BLUECOATS]];
+    
+    [self addShowWithName:@"DCI Southern Mississippi"
+               atLocation:@"Hattiesburg, MS"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[SOUTHWIND, HEATWAVE, JERSEYSURF, PACIFIC_CREST, OREGON_CRUSADERS, MANDARINS, BLUESTARS, CADETS, BLUEDEVILS]];
+    
+    [self addShowWithName:@"Drum Corps Mid-America"
+               atLocation:@"Oskaloosa, IA"
+                 forMonth:JULY
+                   forDay:27
+      withPerformingCorps:@[SHADOW, COLTCADETS, RACINESCOUTS, GENESIS, VANGUARDCADETS]];
+    
+    [self addShowWithName:@"DCI Birmingham"
+               atLocation:@"Birmingham, AL"
+                 forMonth:JULY
+                   forDay:28
+      withPerformingCorps:@[SOUTHERN_KNIGHTS, SOUTHWIND, PACIFIC_CREST, JERSEYSURF, SPIRIT_OF_ATLANTA, THE_ACADEMY, TROOPERS, CROSSMEN, CAVALIERS, BLUEKNIGHTS]];
     
     [self addShowWithName:@"Alabama Sounds of Summer"
                atLocation:@"Opelika, AL"
                  forMonth:JULY
-                   forDay:24
-      withPerformingCorps:@[SPIRIT_OF_ATLANTA, BLUESTARS, MADISON_SCOUTS, BOSTONCRUSADERS, COLTS, MANDARINS, SOUTHWIND, HEATWAVE]];
+                   forDay:29
+      withPerformingCorps:@[SOUTHERN_KNIGHTS, HEATWAVE, PIONEER, CASCADES, MANDARINS, OREGON_CRUSADERS, COLTS, BLUESTARS, BOSTONCRUSADERS, SPIRIT_OF_ATLANTA]];
     
-    [self addShowWithName:@"DCI Atlanta Southeastern Championship"
-               atLocation:@"Atlanta, GA"
+    [self addShowWithName:@"Music on the Mountain"
+               atLocation:@"Sheffield, PA"
                  forMonth:JULY
-                   forDay:25
-      withPerformingCorps:@[THE_ACADEMY, ATLANTACV, BLUEDEVILS, BLUEKNIGHTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CAROLINACROWN, CAROLINAGOLD, CASCADES, CAVALIERS, COLTS, CROSSMEN, JERSEYSURF, MADISON_SCOUTS, MANDARINS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, PIONEER, SANTA_CLARA_VANGUARD, SPIRIT_OF_ATLANTA, TROOPERS, SOUTHWIND, HEATWAVE, ALLIANCE]];
-    
-    [self addShowWithName:@"Hamilton Drum Corps Classic"
-               atLocation:@"Hamilton, OH"
-                 forMonth:JULY
-                   forDay:25
-      withPerformingCorps:@[BLUEDEVILSB, SPARTANS, SEVENTH_REGIMENT, LEGENDS, RAIDERS, COASTALSURGE, LESSTENTORS, CINCINNATITRADITION]];
-    
-    [self addShowWithName:@"Shadow Showcase"
-               atLocation:@"Oregon, WI"
-                 forMonth:JULY
-                   forDay:25
-      withPerformingCorps:@[VANGUARDCADETS, GENESIS, COLTCADETS, RACINESCOUTS, KILTIES]];
-    
-    [self addShowWithName:@"NightBEAT Tour of Champions"
-               atLocation:@"Winston-Salem, NC"
-                 forMonth:JULY
-                   forDay:26
-      withPerformingCorps:@[CAROLINACROWN, SANTA_CLARA_VANGUARD, BLUECOATS, BLUEDEVILS, PHANTOM_REGIMENT, CAVALIERS, MADISON_SCOUTS, CADETS]];
-    
-    [self addShowWithName:@"Emerald City Music Games"
-               atLocation:@"Dublin, OH"
-                 forMonth:JULY
-                   forDay:27
-      withPerformingCorps:@[BLUEDEVILS, BLUECOATS, BLUESTARS, CROSSMEN, TROOPERS, COLTS, PIONEER]];
-    
-    [self addShowWithName:@"Drums Across the Tri-State"
-               atLocation:@"Charleston, WV"
-                 forMonth:JULY
-                   forDay:27
-      withPerformingCorps:@[PHANTOM_REGIMENT, BLUEKNIGHTS, BOSTONCRUSADERS, OREGON_CRUSADERS, MANDARINS, CASCADES]];
+                   forDay:29
+      withPerformingCorps:@[LESSTENTORS, RAIDERS, SEVENTH_REGIMENT, LEGENDS, SPARTANS]];
     
     [self addShowWithName:@"Tournament of Drums"
                atLocation:@"Cedar Rapids, IA"
                  forMonth:JULY
-                   forDay:27
-      withPerformingCorps:@[COLTCADETS, GENESIS, VANGUARDCADETS, LESSTENTORS, COASTALSURGE, RIVERCITYRHYTHM]];
+                   forDay:29
+      withPerformingCorps:@[SHADOW, RACINESCOUTS, GENESIS, BLUEDEVILSB, VANGUARDCADETS, COLTCADETS]];
     
-    [self addShowWithName:@"Show of Shows - Waukesha"
-               atLocation:@"Waukesha, WI"
-                 forMonth:JULY
-                   forDay:27
-      withPerformingCorps:@[BLUEDEVILSB, SPARTANS, SEVENTH_REGIMENT, LEGENDS, MUSICCITY, RAIDERS, RACINESCOUTS]];
-    
-    [self addShowWithName:@"Lake Erie Fanfare"
-               atLocation:@"Erie, PA"
-                 forMonth:JULY
-                   forDay:28
-      withPerformingCorps:@[BLUESTARS, BLUEKNIGHTS, CROSSMEN, COLTS, TROOPERS, PACIFIC_CREST, OREGON_CRUSADERS, PIONEER]];
-    
-    [self addShowWithName:@"Legends Drum Corps Open"
-               atLocation:@"Kalamazoo, MI"
-                 forMonth:JULY
-                   forDay:28
-      withPerformingCorps:@[LEGENDS, GENESIS, BLUEDEVILSB, SPARTANS, MUSICCITY, RACINESCOUTS, BLUESAINTS, JUBAL]];
-    
-    [self addShowWithName:@"Summer Music Games of Southwest Virginia"
-               atLocation:@"Salem, VA"
-                 forMonth:JULY
-                   forDay:28
-      withPerformingCorps:@[CAROLINACROWN, MADISON_SCOUTS, THE_ACADEMY, SPIRIT_OF_ATLANTA, JERSEYSURF, CASCADES]];
-    
-    [self addShowWithName:@"Drums Along the Mohawk"
-               atLocation:@"Rome, NY"
+    [self addShowWithName:@"The Masters of the Summer Music Games"
+               atLocation:@"Nashville, TN"
                  forMonth:JULY
                    forDay:29
-      withPerformingCorps:@[BLUEKNIGHTS, BLUESTARS, CROSSMEN, TROOPERS, COLTS, OREGON_CRUSADERS, PACIFIC_CREST]];
+      withPerformingCorps:@[MUSICCITY, CROWN, CADETS, BLUEKNIGHTS, BLUECOATS, SANTA_CLARA_VANGUARD, BLUEDEVILS, PHANTOM_REGIMENT, MADISON_SCOUTS]];
     
-    [self addShowWithName:@"Drum Corps: An American Tradition"
-               atLocation:@"Annapolis, MD"
-                 forMonth:JULY
-                   forDay:29
-      withPerformingCorps:@[CADETS, CAVALIERS, MADISON_SCOUTS, THE_ACADEMY, SPIRIT_OF_ATLANTA, JERSEYSURF, MANDARINS]];
-    
-    [self addShowWithName:@"A Blast in the Burg"
-               atLocation:@"Johnsonburg, PA"
+    [self addShowWithName:@"DCI Southeastern Championship"
+               atLocation:@"Atlanta, GA"
                  forMonth:JULY
                    forDay:30
-      withPerformingCorps:@[BLUEDEVILSB, SPARTANS, MUSICCITY, LEGENDS, BLUESAINTS]];
-    
-    [self addShowWithName:@"CYO Nationals Tribute"
-               atLocation:@"Quincy, MA"
-                 forMonth:JULY
-                   forDay:30
-      withPerformingCorps:@[BOSTONCRUSADERS, TROOPERS, COLTS, PACIFIC_CREST, OREGON_CRUSADERS, CRUSADERSSENIOR, THE_MUCHACHOS, DEFENDERS]];
-    
-    [self addShowWithName:@"Tour of Champions: PPL Park"
-               atLocation:@"Chester, PA"
-                 forMonth:JULY
-                   forDay:30
-      withPerformingCorps:@[CADETS, BLUEDEVILS, BLUECOATS, CAVALIERS, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, CAROLINACROWN]];
-    
-    [self addShowWithName:@"DCI Eastern Classic"
-               atLocation:@"Allentown, PA"
-                 forMonth:JULY
-                   forDay:31
-      withPerformingCorps:@[THE_ACADEMY, BLUEDEVILS, BLUEKNIGHTS, BLUESTARS, CAVALIERS, CASCADES, MANDARINS, PIONEER, SANTA_CLARA_VANGUARD, SPIRIT_OF_ATLANTA]];
-
-    [self addShowWithName:@"A Knight of Music and Motion"
-               atLocation:@"St. Paul, MN"
-                 forMonth:JULY
-                   forDay:31
-      withPerformingCorps:@[MINNESOTABRASS, GOVENAIRES, VANGUARDCADETS, SEVENTH_REGIMENT, GOLD, RAIDERS, COLTCADETS, LESSTENTORS, COASTALSURGE, RIVERCITYRHYTHM]];
-    
-    [self addShowWithName:@"Shoremen Brass Classic"
-               atLocation:@"Avon Lake, OH"
-                 forMonth:JULY
-                   forDay:31
-      withPerformingCorps:@[BLUEDEVILSB, GENESIS, SPARTANS, LEGENDS, MUSICCITY, RACINESCOUTS, BLUESAINTS, JUBAL]];
-    
-    [self addShowWithName:@"DCI Eastern Classic"
-               atLocation:@"Allentown, PA"
-                 forMonth:AUGUST
-                   forDay:1
-      withPerformingCorps:@[BLUECOATS, BOSTONCRUSADERS, BRIDGEMENALUMNI, CAROLINACROWN, COLTS, CROSSMEN, JERSEYSURF, MADISON_SCOUTS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, CADETS, TROOPERS]];
+      withPerformingCorps:@[ALLIANCE, ATLANTACV, THE_ACADEMY, BLUEDEVILS, BLUEKNIGHTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CROWN, CAROLINAGOLD, CAVALIERS, COLTS, CROSSMEN, HEATWAVE, JERSEYSURF, MADISON_SCOUTS, MANDARINS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, PIONEER, SANTA_CLARA_VANGUARD, CASCADES, SOUTHWIND, SPIRIT_OF_ATLANTA, TROOPERS]];
     
     [self addShowWithName:@"Legends Drum Corps Invitational"
                atLocation:@"Troy, MI"
-                 forMonth:AUGUST
-                   forDay:1
-      withPerformingCorps:@[BLUEDEVILSB, GENESIS, SPARTANS, LEGENDS, MUSICCITY, RACINESCOUTS, BLUESAINTS, JUBAL]];
+                 forMonth:JULY
+                   forDay:30
+      withPerformingCorps:@[LESSTENTORS, RAIDERS, SEVENTH_REGIMENT, SPARTANS, LEGENDS]];
     
-    [self addShowWithName:@"North Iowa Festival of Brass"
-               atLocation:@"Forest City, IA"
+    [self addShowWithName:@"TBD"
+               atLocation:@"Minneapolis Area, MN"
+                 forMonth:JULY
+                   forDay:30
+      withPerformingCorps:@[COLTCADETS, RIVERCITYRHYTHM, GENESIS, VANGUARDCADETS, BLUEDEVILSB, GOVENAIRES, MINNESOTABRASS]];
+    
+    [self addShowWithName:@"NightBEAT Tour of Champions"
+               atLocation:@"Winston-Salem, NC"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[SANTA_CLARA_VANGUARD, MADISON_SCOUTS, CAVALIERS, PHANTOM_REGIMENT, BLUECOATS, CADETS, BLUEDEVILS, CROWN]];
+    
+    [self addShowWithName:@"Legends Drum Corps Open"
+               atLocation:@"Three Rivers, MI"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[LESSTENTORS, RAIDERS, MUSICCITY, SEVENTH_REGIMENT, LEGENDS]];
+    
+    [self addShowWithName:@"Show of Shows"
+               atLocation:@"Waukesha, WI"
+                 forMonth:JULY
+                   forDay:31
+      withPerformingCorps:@[KILTIES, SHADOW, IMPULSE, RACINESCOUTS, COLTCADETS, SPARTANS, BLUEDEVILSB]];
+    
+    [self addShowWithName:@"Summer Music Games of Southwest Virginia"
+               atLocation:@"Salem, VA"
                  forMonth:AUGUST
                    forDay:1
-      withPerformingCorps:@[VANGUARDCADETS, SEVENTH_REGIMENT, GOLD, RAIDERS, COLTCADETS, COASTALSURGE, LESSTENTORS, MINNESOTABRASS, GOVENAIRES]];
+      withPerformingCorps:@[JERSEYSURF, MANDARINS, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, CROSSMEN, CAVALIERS, BLUEKNIGHTS]];
+    
+    [self addShowWithName:@"Drums Across the Tri-State"
+               atLocation:@"Charleston, WV"
+                 forMonth:AUGUST
+                   forDay:1
+      withPerformingCorps:@[PIONEER, CASCADES, TROOPERS, COLTS, BLUECOATS, PHANTOM_REGIMENT]];
+    
+    [self addShowWithName:@"DCI Ft. Wayne"
+               atLocation:@"Ft. Wayne, IN"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[LESSTENTORS, RAIDERS, MUSICCITY, LEGENDS, SEVENTH_REGIMENT, BLUEDEVILSB, SPARTANS]];
+    
+    [self addShowWithName:@"Soaring Sounds 37"
+               atLocation:@"Centerville, OH"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[CINCINNATITRADITION, PACIFIC_CREST, SPIRIT_OF_ATLANTA, THE_ACADEMY, COLTS, BLUESTARS, MADISON_SCOUTS, CROWN]];
+    
+    [self addShowWithName:@"Drum Corps: An American Tradition"
+               atLocation:@"Annapolis, MD"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[JERSEYSURF, MANDARINS, OREGON_CRUSADERS, CROSSMEN, BOSTONCRUSADERS, SANTA_CLARA_VANGUARD, BLUEKNIGHTS, BLUEDEVILS, CADETS]];
+    
+    [self addShowWithName:@"DCI Western Illinois"
+               atLocation:@"Macomb, IL"
+                 forMonth:AUGUST
+                   forDay:2
+      withPerformingCorps:@[SHADOW, LOUISIANA_STARS, IMPULSE, COLTCADETS, GOLD, GENESIS, VANGUARDCADETS]];
     
     [self addShowWithName:@"DCI Pittsburgh"
                atLocation:@"Pittsburgh, PA"
                  forMonth:AUGUST
-                   forDay:2
-      withPerformingCorps:@[BLUEKNIGHTS, BOSTONCRUSADERS, THE_ACADEMY, SPIRIT_OF_ATLANTA, OREGON_CRUSADERS, PIONEER, CASCADES]];
+                   forDay:3
+      withPerformingCorps:@[PACIFIC_CREST, THE_ACADEMY, COLTS, TROOPERS, BLUESTARS, MADISON_SCOUTS, CROWN]];
     
-    [self addShowWithName:@"Tour of Champions - Buffalo"
+    [self addShowWithName:@"Petunia City Brass"
+               atLocation:@"Dixon, IL"
+                 forMonth:AUGUST
+                   forDay:3
+      withPerformingCorps:@[SHADOW, IMPULSE, LOUISIANA_STARS, RACINESCOUTS, GOLD, GENESIS, BLUEDEVILSB, VANGUARDCADETS]];
+    
+    [self addShowWithName:@"CYO Nationals Tribute"
+               atLocation:@"Quincy, MA"
+                 forMonth:AUGUST
+                   forDay:4
+      withPerformingCorps:@[CRUSADERSSENIOR, THE_MUCHACHOS, OREGON_CRUSADERS, MANDARINS, BOSTONCRUSADERS, CAVALIERS]];
+    
+    [self addShowWithName:@"Tour of Champions"
+               atLocation:@"Chester, PA"
+                 forMonth:AUGUST
+                   forDay:4
+      withPerformingCorps:@[CROSSMEN, BLUEKNIGHTS, CROWN, MADISON_SCOUTS, PHANTOM_REGIMENT, BLUECOATS, SANTA_CLARA_VANGUARD, CADETS]];
+    
+    [self addShowWithName:@"DCI Eastern Classic"
+               atLocation:@"Allentown, PA"
+                 forMonth:AUGUST
+                   forDay:5
+      withPerformingCorps:@[THE_ACADEMY, BLUEDEVILS, BLUEKNIGHTS, BLUECOATS, CADETS2, COLTS, MADISON_SCOUTS, PIONEER, CASCADES, SPIRIT_OF_ATLANTA, TROOPERS]];
+    
+    [self addShowWithName:@"A Blast in the Burg"
+               atLocation:@"Johnsonburg, PA"
+                 forMonth:AUGUST
+                   forDay:5
+      withPerformingCorps:@[IMPULSE, LESSTENTORS, RAIDERS, MUSICCITY, SEVENTH_REGIMENT, LEGENDS, SPARTANS]];
+    
+    [self addShowWithName:@"North Iowa Festival of Brass"
+               atLocation:@"Forest City, IA"
+                 forMonth:AUGUST
+                   forDay:5
+      withPerformingCorps:@[LOUISIANA_STARS, RACINESCOUTS, COLTCADETS, GOLD, VANGUARDCADETS, BLUEDEVILSB]];
+    
+    [self addShowWithName:@"DCI Eastern Classic"
+               atLocation:@"Allentown, PA"
+                 forMonth:AUGUST
+                   forDay:6
+      withPerformingCorps:@[BLUESTARS, BOSTONCRUSADERS, BRIDGEMENALUMNI, CADETS, CROWN, CAVALIERS, CROSSMEN, JERSEYSURF, MANDARINS, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD]];
+    
+    [self addShowWithName:@"Shoremen Brass Classic"
+               atLocation:@"Avon Lake, OH"
+                 forMonth:AUGUST
+                   forDay:6
+      withPerformingCorps:@[IMPULSE, RAIDERS, LESSTENTORS, MUSICCITY, LEGENDS, GENESIS, SEVENTH_REGIMENT, SPARTANS]];
+    
+    [self addShowWithName:@"Shadow Showcase"
+               atLocation:@"Oregon, WI"
+                 forMonth:AUGUST
+                   forDay:6
+      withPerformingCorps:@[GUARDIANS, LOUISIANA_STARS, RACINESCOUTS, COLTCADETS, GOLD, RIVERCITYRHYTHM, BLUEDEVILSB, VANGUARDCADETS, SHADOW]];
+    
+    [self addShowWithName:@"Drums Along the Mohawk"
+               atLocation:@"Rome, NY"
+                 forMonth:AUGUST
+                   forDay:7
+      withPerformingCorps:@[CASCADES, SPIRIT_OF_ATLANTA, TROOPERS, THE_ACADEMY, COLTS, BLUESTARS, MADISON_SCOUTS, SANTA_CLARA_VANGUARD]];
+    
+    [self addShowWithName:@"Tour of Champions"
                atLocation:@"Buffalo, NY"
                  forMonth:AUGUST
-                   forDay:2
-      withPerformingCorps:@[BLUEDEVILS, BLUESTARS, BLUECOATS, CAROLINACROWN, PHANTOM_REGIMENT, SANTA_CLARA_VANGUARD, CADETS, CAVALIERS]];
+                   forDay:7
+      withPerformingCorps:@[BLUECOATS, BOSTONCRUSADERS, CADETS, CROWN, CAVALIERS, PHANTOM_REGIMENT, BLUEDEVILS]];
     
-    [self addShowWithName:@"DCI World Championships Open Class Prelims"
+    [self addShowWithName:@"DCI Open Class World Championship Prelims"
                atLocation:@"Michigan City, IN"
                  forMonth:AUGUST
-                   forDay:3
-      withPerformingCorps:@[VANGUARDCADETS, SPARTANS, RAIDERS, RACINESCOUTS, MUSICCITY, LESSTENTORS, LEGENDS, GOLD, GENESIS, COLTCADETS, COASTALSURGE, BLUESAINTS, BLUEDEVILSB, SEVENTH_REGIMENT, RIVERCITYRHYTHM, JUBAL]];
+                   forDay:8
+      withPerformingCorps:@[SEVENTH_REGIMENT, BLUEDEVILSB, COLTCADETS, GENESIS, GOLD, GUARDIANS, IMPULSE, LEGENDS, LESSTENTORS, LOUISIANA_STARS, MUSICCITY, RACINESCOUTS, RAIDERS, RIVERCITYRHYTHM, SHADOW, SPARTANS, VANGUARDCADETS]];
     
-    [self addShowWithName:@"Soaring Sounds 36"
-               atLocation:@"Centerville, OH"
+    [self addShowWithName:@"Lake Erie Fanfare"
+               atLocation:@"Eria, PA"
                  forMonth:AUGUST
-                   forDay:3
-      withPerformingCorps:@[BOSTONCRUSADERS, CROSSMEN, MADISON_SCOUTS, TROOPERS, COLTS, PACIFIC_CREST, MANDARINS, CINCINNATITRADITION]];
+                   forDay:8
+      withPerformingCorps:@[PACIFIC_CREST, JERSEYSURF, MANDARINS, OREGON_CRUSADERS, TROOPERS, BLUESTARS, BOSTONCRUSADERS, CROSSMEN]];
     
     [self addShowWithName:@"DCI Tour of Champions"
                atLocation:@"Massillon, OH"
                  forMonth:AUGUST
-                   forDay:3
-      withPerformingCorps:@[BLUECOATS, SANTA_CLARA_VANGUARD, CAROLINACROWN, CADETS, CAVALIERS, BLUEKNIGHTS, PHANTOM_REGIMENT]];
+                   forDay:8
+      withPerformingCorps:@[CAVALIERS, BLUEKNIGHTS, PHANTOM_REGIMENT, MADISON_SCOUTS, CADETS, CROWN, SANTA_CLARA_VANGUARD, BLUECOATS]];
     
-    [self addShowWithName:@"DCI World Championships Open Class Finals"
+    [self addShowWithName:@"DCI Open Class World Championship Finals"
                atLocation:@"Michigan City, IN"
                  forMonth:AUGUST
-                   forDay:4
+                   forDay:9
       withPerformingCorps:@[]];
     
     [self addShowWithName:@"DCI World Championship Prelims"
-               atLocation:@"Indianpolis, IN"
+               atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
-                   forDay:6
-      withPerformingCorps:@[SEVENTH_REGIMENT, THE_ACADEMY, BLUEDEVILS, BLUEDEVILSB, BLUEKNIGHTS, BLUESAINTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CAROLINACROWN, CASCADES, CAVALIERS, COASTALSURGE, COLTCADETS, CROSSMEN, GENESIS, GOLD, JERSEYSURF, LEGENDS, LESSTENTORS, MADISON_SCOUTS, MANDARINS, MUSICCITY, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, PIONEER, RACINESCOUTS, RAIDERS, SANTA_CLARA_VANGUARD, SPARTANS, SPIRIT_OF_ATLANTA, TROOPERS, VANGUARDCADETS, JUBAL]];
+                   forDay:11
+      withPerformingCorps:@[THE_ACADEMY, SEVENTH_REGIMENT, BLUEDEVILS, BLUEDEVILSB, BLUEKNIGHTS, BLUESTARS, BLUECOATS, BOSTONCRUSADERS, CADETS, CROWN, CAVALIERS, COLTCADETS, COLTS, CROSSMEN, GENESIS, GOLD, GUARDIANS, IMPULSE, JERSEYSURF, LEGENDS, LESSTENTORS, LOUISIANA_STARS, MADISON_SCOUTS, MANDARINS, MUSICCITY, OREGON_CRUSADERS, PACIFIC_CREST, PHANTOM_REGIMENT, PIONEER, RACINESCOUTS, RAIDERS, RIVERCITYRHYTHM, SANTA_CLARA_VANGUARD, CASCADES, SHADOW, SPARTANS, SPIRIT_OF_ATLANTA, TROOPERS, VANGUARDCADETS]];
     
     [self addShowWithName:@"DCI World Championship Semifinals"
                atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
-                   forDay:7
+                   forDay:12
       withPerformingCorps:@[]];
     
     [self addShowWithName:@"DCI World Championship Finals"
                atLocation:@"Indianapolis, IN"
                  forMonth:AUGUST
-                   forDay:8
+                   forDay:13
       withPerformingCorps:@[]];
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

@@ -27,7 +27,7 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     var show: PShow?
     var viewLoading = Loading()
     var arrayOfTasks = [PDailySchedule]()
-    
+    var viewPickAStadium = PickAStadium()
     
     override func viewWillAppear(animated: Bool) {
         
@@ -54,6 +54,11 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
             self.edgesForExtendedLayout = UIRectEdge.None
             self.displayDay()
             self.displaySchedule()
+        }
+        
+        if day?.housing == nil {
+            viewPickAStadium = NSBundle.mainBundle().loadNibNamed("PickAStadium", owner: self, options: nil).first as! PickAStadium
+            viewPickAStadium.showInParent(self.navigationController!, forShow: day!)
         }
     }
     

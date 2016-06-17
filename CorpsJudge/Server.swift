@@ -382,10 +382,11 @@ protocol delegateUserProfile: class {
         }
     }
     
-//    func moveReps() {
-//        let query = PFQuery(className: "repertoires")
+//    func deleteShows() {
+//        let query = PFQuery(className: "Scores")
 //        query.limit = 1000
-//        query.orderByAscending("createdAt")
+//        //query.orderByAscending("createdAt")
+//        query.whereKey("isOfficial", equalTo: true)
 //        query.findObjectsInBackgroundWithBlock { (photos: [PFObject]?, err: NSError?) in
 //            if photos?.count > 0 {
 //                for obj in photos! {
