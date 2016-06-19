@@ -171,7 +171,6 @@ class CorpsExperienceList: UIView, UITableViewDelegate, UITableViewDataSource, U
     }
     
     func showButton() {
-        print("show: \(btnSave)")
         if btnSave.tag == 0 { //check to see if we're already showing or not
             btnSave.tag = 1
             

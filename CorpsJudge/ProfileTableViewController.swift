@@ -55,7 +55,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
 //    //MARK:-
 //    //MARK:Variables
-    var userProfile = PUser()
+    var userProfile: PUser?
+    var userId: String?
     var btnEditProfile = UIBarButtonItem()
     var profileLoaded = false
     var fromPrivate = false
@@ -94,7 +95,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             imgUser.layer.borderWidth = 2
             
             // User Profile Picture
-            if let imgFile = userProfile.picture {
+            if let imgFile = userProfile!.picture {
                 self.imgUser.file = imgFile
                 self.imgUser.loadInBackground()
             } else {
@@ -102,11 +103,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             }
             
             // User Cover Picture
-            if let coverFile = userProfile.coverImage {
+            if let coverFile = userProfile!.coverImage {
                 imgCoverPhoto.file = coverFile
                 imgCoverPhoto.loadInBackground()
             } else {
-                if let coverPointer = userProfile.coverPointer {
+                if let coverPointer = userProfile!.coverPointer {
                     coverPointer.fetchInBackgroundWithBlock { (object: PFObject?, err: NSError?) in
                         if err == nil {
                             self.imgCoverPhoto.file = coverPointer.photo
@@ -136,11 +137,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             }
             
             // Name
-            lblUserNickname.text = userProfile.nickname
+            lblUserNickname.text = userProfile!.nickname
             
             // Location
-            if userProfile.location != nil {
-                lblUserLocation.text = userProfile.location
+            if userProfile!.location != nil {
+                lblUserLocation.text = userProfile!.location
             } else {
                 lblUserLocation.text = ""
             }
@@ -149,22 +150,22 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             let formatter = NSDateFormatter()
             formatter.timeStyle = .NoStyle
             formatter.dateStyle = .ShortStyle
-            let dateString = formatter.stringFromDate(userProfile.createdAt!)
+            let dateString = formatter.stringFromDate(userProfile!.createdAt!)
             
             // Get profile views
             var viewsString = ""
-            if userProfile.profileViews == 1 {
+            if userProfile!.profileViews == 1 {
                 viewsString = "1 Profile View"
             } else {
-                viewsString = "\(userProfile.profileViews) Profile Views"
+                viewsString = "\(userProfile!.profileViews) Profile Views"
             }
             
             // Get show reviews
             var reviewsString = ""
-            if userProfile.showReviews == 1 {
+            if userProfile!.showReviews == 1 {
                 reviewsString = "1 Show Review"
             } else {
-                reviewsString = "\(userProfile.showReviews) Show Reviews"
+                reviewsString = "\(userProfile!.showReviews) Show Reviews"
             }
             
             // Add all 3 up
@@ -248,7 +249,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         if let userCat = NSBundle.mainBundle().loadNibNamed("CBUserCategories", owner: self, options: nil).first as? CBUserCategories {
             userCat.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
             userCat.setDelegate(self)
-            userCat.setCategories(userProfile.arrayOfBadges)
+            userCat.setCategories(userProfile!.arrayOfBadges)
             userCat.showInParent(self.navigationController!)
         }
     }
@@ -271,7 +272,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     
     func userOnlineNow() -> Bool {
-       let dateLastLogin = userProfile.lastLogin
+       let dateLastLogin = userProfile!.lastLogin
         let diff = dateLastLogin.minutesBeforeDate(NSDate())
         if diff <= 10 { // Online now (within last 10 minutes)
             return true
@@ -283,7 +284,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     func getUserCorpExperience() {
         arrayOfCorpsExperience = [PCorpsExperience]()
         let query = PFQuery(className: PCorpsExperience.parseClassName())
-        query.whereKey("user", equalTo: userProfile)
+        query.whereKey("user", equalTo: userProfile!)
         query.includeKey("corps")
         query.orderByDescending("year")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
@@ -302,18 +303,30 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
     
     func getUserProfile() {
-        userProfile.fetchInBackgroundWithBlock { (object: PFObject?, err: NSError?) in
-            if err == nil {
-                self.fetchedProfile = true
-                self.initUI()
-            } else { // Could not load profile
-                
+        if userProfile != nil {
+            userProfile!.fetchInBackgroundWithBlock { (object: PFObject?, err: NSError?) in
+                if err == nil {
+                    self.fetchedProfile = true
+                    self.initUI()
+                } else { // Could not load profile
+                    
+                }
             }
+        } else {
+            let query = PFQuery(className: PUser.parseClassName())
+            query.whereKey("objectId", equalTo: userId!)
+            query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
+                if err == nil {
+                    let user = objects?.first as! PUser
+                    self.userProfile = user
+                    self.fetchedProfile = true
+                    self.initUI()
+                }
+            })
         }
     }
 
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         super.viewWillAppear(animated)
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -346,15 +359,15 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     func incrementProfileViews() {
         if !usersOwnProfile() {
-            var numViews = userProfile.profileViews
+            var numViews = userProfile!.profileViews
             numViews += 1
-            userProfile.profileViews = numViews
-            userProfile.saveEventually()
+            userProfile!.profileViews = numViews
+            userProfile!.saveEventually()
         }
     }
     
     func usersOwnProfile() -> Bool {
-        if userProfile.objectId == PFUser.currentUser()?.objectId {
+        if userProfile!.objectId == PFUser.currentUser()?.objectId {
             return true
         }
         return false
@@ -386,8 +399,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             if usersOwnProfile() { return 0 }
             else { return super.tableView(tableView, heightForRowAtIndexPath: indexPath) }
         } else if indexPath.row == 3 { // dynamic height for badges
-            if userProfile.arrayOfBadges != nil {
-                var num = max(userProfile.arrayOfBadges!.count, 1)
+            if userProfile!.arrayOfBadges != nil {
+                var num = max(userProfile!.arrayOfBadges!.count, 1)
                 num += 1
                 let result = (num * 35) + 8
                 return CGFloat(result)
@@ -456,13 +469,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
     
     func updateBackground() {
-        if userProfile.background != nil {
-            if userProfile.background == "" {
+        if userProfile!.background != nil {
+            if userProfile!.background == "" {
                 lblUserBackground.hidden = true
             } else {
                 lblUserBackground.hidden = false
                 lblUserBackground.numberOfLines = 0
-                lblUserBackground.text = userProfile.background
+                lblUserBackground.text = userProfile!.background
                 lblUserBackground.sizeToFit()
             }
         } else {
@@ -548,7 +561,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         }
         
         var frame = CGRectMake(lblBadges.frame.origin.x + 8, lblBadges.frame.origin.y + 28, 200, 50)
-        if userProfile.arrayOfBadges?.count < 1 {
+        if userProfile!.arrayOfBadges?.count < 1 {
             // There are no badges, so create the default "new user badge"
             let type = BadgeType.NewUser
             let colorAndImageView = badgeColorAndImageViewForType(type)
@@ -564,7 +577,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             btn.tag = 100
         } else {
             // Show the badges
-            for badge in userProfile.arrayOfBadges! {
+            for badge in userProfile!.arrayOfBadges! {
                 if let type = BadgeType(rawValue: badge) {
                     let colorAndImageView = badgeColorAndImageViewForType(type)
                     let btn = UIButton(frame: frame)
@@ -679,8 +692,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 if let imageFile = PFFile(name: "picture.png", data: imageData) {
                     
                     imgUser.image = image
-                    userProfile.setObject(imageFile, forKey: userProfile.pictureString)
-                    userProfile.saveInBackground()
+                    userProfile!.setObject(imageFile, forKey: userProfile!.pictureString)
+                    userProfile!.saveInBackground()
                     stopLoading()
                     
                 } else {
@@ -712,11 +725,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         //just set the pointer and clear the profile cover photo
         loading()
         
-        userProfile.removeObjectForKey(userProfile.coverImageString)
-        userProfile.setObject(photoObject, forKey: userProfile.coverPointerString)
+        userProfile!.removeObjectForKey(userProfile!.coverImageString)
+        userProfile!.setObject(photoObject, forKey: userProfile!.coverPointerString)
         imgCoverPhoto.file = photoObject.photo
         imgCoverPhoto.loadInBackground()
-        userProfile.saveInBackground()
+        userProfile!.saveInBackground()
         stopLoading()
     }
 
@@ -731,8 +744,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 if let imageFile = PFFile(name: "cover.png", data: imageData) {
                     
                     imgCoverPhoto.image = image
-                    userProfile.setObject(imageFile, forKey: userProfile.coverImageString)
-                    userProfile.saveInBackground()
+                    userProfile!.setObject(imageFile, forKey: userProfile!.coverImageString)
+                    userProfile!.saveInBackground()
                     stopLoading()
                     
                 } else {

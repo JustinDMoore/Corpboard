@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFDateHelper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Bolts-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -20,6 +30,16 @@
 			<false/>
 		</dict>
 		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FDWaveformView-FDWaveformView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,6 +99,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ParseLiveQuery.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ParseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -90,6 +115,21 @@
 			<false/>
 		</dict>
 		<key>PulsingHalo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RNGridMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SCSiriWaveformView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SocketRocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -107,12 +147,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>08B320FF49BEBBC592473289FAC4A982</key>
+		<key>05ADB65B2E0924ED748933A175743B39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>10933D997ACB6B824BDC910E241DC11F</key>
+		<key>120DF82D0526F964D2872D54FC3F2B49</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>12532E8F9C6721EDAF0D86AC7E230B77</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1F783BADFE434AC913B14D9CB99FFA2C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37939B7427D779744D686E022758EA37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,12 +177,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4930A817A7FA64D043CDF30628527349</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A57F8D9ED87922AF0D31FDB87EBD90C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5C73BDB47366121ACE6CEF99CB71DA77</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>633EB8033A5AA9D629B9A278365A09B2</key>
+		<key>76278DAFE74CA5BA9D23161C02813BB9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,12 +217,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>915293BEC711917363E93FD293BF5495</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>94FDE1E008C171396DEBB5C4A94586C6</key>
+		<key>8D3FECC94F8AF7C72E9BF32DD7AAF9DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +232,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A6A0FFEF795F8F2EEF84990C0156A1FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A93D617E5BA866BFC5CB337A51A86685</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B28CBB97EC36155A3A9066169C37127B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,7 +257,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CA01312A532C0107B2A023EE6989E9E0</key>
+		<key>CAB80D15AFFFE34EF8002892EBF12E70</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -197,7 +267,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D8D01FD749203EF978092D12EA031508</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DE3C1B5D9E282A423132BF4145F1AA91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED8D2B835F71D30B2D85CF3917AD863A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

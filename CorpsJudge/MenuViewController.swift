@@ -12,6 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import MWFeedParser
 import ImageSlideshow
+import AFDateHelper
 
 class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, delegateUserProfile, delegateCreateAccount, delegateUserLocation {
 
@@ -60,6 +61,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     var scrollDirection = scrollDir.None
     var tryingToOpen = opening.None
     var viewLocationForDelegate = LocationServicesPermission()
+    var privateChatSegue = false
     
     //MARK:-
     //MARK:Outlets
@@ -959,10 +961,12 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     }
     
     func openMessages() {
-        self.performSegueWithIdentifier("messages", sender: self)
+        privateChatSegue = true
+        self.performSegueWithIdentifier("chat", sender: self)
     }
     
     func openChat() {
+        privateChatSegue = false
         self.performSegueWithIdentifier("chat", sender: self)
     }
     
@@ -1132,6 +1136,9 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         } else if segue.identifier == "profile" {
             let vc = segue.destinationViewController as! CBUserProfileViewController
             vc.setUser(PFUser.currentUser())
+        } else if segue.identifier == "chat" {
+            let vc = segue.destinationViewController as! ChatRoomsTableViewController
+            vc.isPrivate = privateChatSegue
         }
     }
     

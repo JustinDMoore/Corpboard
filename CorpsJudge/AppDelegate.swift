@@ -45,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PVideo.registerSubclass()
         PCorpsExperience.registerSubclass()
         PRepertoire.registerSubclass()
+        PChatRoom.registerSubclass()
+        PChatMessage.registerSubclass()
         
         Parse.enableLocalDatastore()
         

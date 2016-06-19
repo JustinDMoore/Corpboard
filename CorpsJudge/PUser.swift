@@ -59,6 +59,7 @@ class PUser: PFUser {
     @NSManaged var desc: String //May need to change name.. desc is a class func
     @NSManaged var picture: PFFile?
     @NSManaged var showReviews: Int
+    @NSManaged var firebaseUID: String?
     
     override class func initialize() {
         struct Static {

@@ -32,7 +32,7 @@ protocol delegateUserProfile: class {
     //MARK:-
     //MARK:SINGLETON DECLARATION
     static let sharedInstance = Server()
-
+    
     //MARK:-
     //MARK:Properties
     var numberOfMessages = 0
@@ -182,7 +182,7 @@ protocol delegateUserProfile: class {
     }
     
     func updateAppStatus() {
-    
+
         //check to see if there are any admin messages to display to the user
         //and whether or not to continue running
         let query = PFQuery(className: PAppMessage.parseClassName())
@@ -895,4 +895,38 @@ protocol delegateUserProfile: class {
             }
         }
     }
+    
+//    func signIntoFirebase() {
+//        if let currentUser = PUser.currentUser() {
+//            let email = currentUser.email!
+//            let password = currentUser.facebookId
+//            if !email.characters.isEmpty && !password.characters.isEmpty {
+//                FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
+//                    if error != nil {
+//                        FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
+//                            if error == nil {
+//                                user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
+//                                    currentUser.firebaseUID = id
+//                                    currentUser.saveInBackground()
+//                                })
+//                                print("10. FIREBASE: Signed up and logged in")
+//                            } else {
+//                                print("10. FIREBASE: **ERROR** \(error)")
+//                            }
+//                        }
+//                    } else {
+//                        print("10. FIREBASE: Logged In")
+//                        if currentUser.firebaseUID == nil || currentUser.firebaseUID == "" {
+//                            user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
+//                                currentUser.firebaseUID = id
+//                                currentUser.saveInBackground()
+//                            })
+//                        }
+//                    }
+//                }
+//            } else {
+//                print("10. FIREBASE: No email and/or password")
+//            }
+//        }
+//    }
 }

@@ -11,7 +11,6 @@
 #import "CBStoreCategoryCell.h"
 #import "Configuration.h"
 #import "CadetsAnimation.h"
-#import "AppConstant.h"
 #import "CBNewsCell.h"
 #import "CBWebViewController.h"
 #import "CBShowDetailsViewController.h"
@@ -29,9 +28,12 @@
 #import "CBFeedback.h"
 #import "CBUserCategories.h"
 #import "CBEditDescription.h"
+#import "PrivateMessageCell.h"
+#import "LiveChatCell.h"
+#import "IQAudioRecorderViewController.h"
 
 // pods
-
+#import <RNGridMenu/RNGridMenu.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import <Parse/PFObject+Subclass.h>
@@ -55,6 +57,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <JSQMessagesViewController/JSQMessagesViewController.h>
 
 
 
