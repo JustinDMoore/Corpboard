@@ -198,10 +198,13 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         lblCreatedByWhen.text = "by \(room.authorName) | \(JSQMessagesTimestampFormatter().timeForDate(room.createdAt))"
         lblUpdatedAt.text = "updated \(timeDiff)"
         let author = room.author
-        if let imageFile = author.thumbnail {
-            imgCreatedby.file = imageFile
-            imgCreatedby.loadInBackground()
+        author.fetchIfNeededInBackgroundWithBlock { (auth: PFObject?, err: NSError?) in
+            if let imageFile = author.thumbnail {
+                imgCreatedby.file = imageFile
+                imgCreatedby.loadInBackground()
+            }
         }
+
         
         
 //        let imgfile = room.lastUserThumbnail

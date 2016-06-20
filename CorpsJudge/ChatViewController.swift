@@ -17,7 +17,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
 
     var roomToConnect = PRoom()
     var isPrivate = false
-    var arrayOfMessages = [JSQMessage]()
+    var dictOfMessages = [String: JSQMessage]()
+    var arrayOfOrderedMessageIds = [String]() // This holds objectIds of PChatMessage
+                                        // When a user sends a message, add the JSQMessage to arrayOfMessages
+                                        // On parse save completion, get the objectId of PChatMessage and save it to arrayOfMessageIds
+                                        // When the newly saved message is returned by the live query
+                                        // Check to make sure the objectId doesn't exist in arrayOfMessageIds before adding it to the datasource
+                                        // This prevents duplicate messages, while adding immediate response for sending larger messages with data
     var arrayOfAvatars = [String : JSQMessagesAvatarImage]()
     var outgoingBubbleWithTail: JSQMessagesBubbleImage!
     var incomingBubbleWithTail: JSQMessagesBubbleImage!
@@ -60,7 +66,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    func addMessageToDataSource(parseMessage: PChatMessage, jsqMsg: JSQMessage) {
+        //check to see if it already exists
+        let msgExists = dictOfMessages[(parseMessage.objectId!)] != nil
+        if !msgExists {
+            dictOfMessages[parseMessage.objectId!] = jsqMsg
+            arrayOfOrderedMessageIds.append(parseMessage.objectId!)
+        }
+    }
+    
     private func printMessage(msg: PChatMessage) {
+        
+        msg.fetchIfNeededInBackgroundWithBlock { (loadedMsg: PFObject?, err: NSError?) in
+            print(msg)
+            print(loadedMsg)
+        }
         let createdAt = msg.createdAt ?? NSDate()
         print("\(createdAt) \(msg.authorName ?? "unknown"): \(msg.message ?? "")")
         
@@ -70,7 +90,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                      senderDisplayName: msg.authorName,
                                      date: createdAt,
                                      text: msg.message)
-            arrayOfMessages.append(message)
+            addMessageToDataSource(msg, jsqMsg: message)
             
         case "PICTURE":
             let mediaItem = JSQPhotoMediaItem(image: nil)
@@ -79,9 +99,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                      senderDisplayName: msg.authorName,
                                      date: createdAt,
                                      media: mediaItem)
-            arrayOfMessages.append(message)
-            let filePicture = msg.file
-            filePicture?.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+            addMessageToDataSource(msg, jsqMsg: message)
+            let filePicture = msg.file! as PFFile
+            filePicture.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
                 if err == nil {
                     mediaItem.image = UIImage(data: data!)
                     self.collectionView.reloadData()
@@ -104,22 +124,26 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         //check to see if this author's avatar has already been added to the dictionary first
         let keyExists = arrayOfAvatars[(msg.authorId)] != nil
         if !keyExists {
-            msg.author.fetchInBackgroundWithBlock({ (auth: PFObject?, err: NSError?) in
-                let auth = auth as! PUser
-                if let file = auth.thumbnail {
-                    file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-                        if err == nil {
-                            let avatar = JSQMessagesAvatarImage(avatarImage: UIImage(data: data!), highlightedImage: UIImage(data: data!), placeholderImage: UIImage(data: data!))
-                            self.arrayOfAvatars[(auth.objectId)!] = avatar
-                            self.finishReceivingMessageAnimated(true)
-                        } else {
-                            // there was an error getting thumbnail data, so finish up
-                            self.finishReceivingMessageAnimated(true)
-                        }
-                    })
-                } else {
-                    // no thumbnail, so finish up
-                    self.finishReceivingMessageAnimated(true)
+
+            let query = PFQuery(className: PUser.parseClassName())
+            query.whereKey("objectId", equalTo: msg.authorId)
+            query.getFirstObjectInBackgroundWithBlock({ (user: PFObject?, err: NSError?) in
+                if let user: PUser = user as? PUser {
+                    if let file = user.thumbnail {
+                        file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+                            if err == nil {
+                                let avatar = JSQMessagesAvatarImage(avatarImage: UIImage(data: data!), highlightedImage: UIImage(data: data!), placeholderImage: UIImage(data: data!))
+                                self.arrayOfAvatars[(user.objectId)!] = avatar
+                                self.finishReceivingMessageAnimated(true)
+                            } else {
+                                // there was an error getting thumbnail data, so finish up
+                                self.finishReceivingMessageAnimated(true)
+                            }
+                        })
+                    } else {
+                        // no thumbnail, so finish up
+                        self.finishReceivingMessageAnimated(true)
+                    }
                 }
             })
         } else {
@@ -223,19 +247,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        return arrayOfMessages[indexPath.item]
+        let messageId = arrayOfOrderedMessageIds[indexPath.item]
+        return dictOfMessages[messageId]
     }
     
     override func collectionView(collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
-        return arrayOfMessages.count
+        return dictOfMessages.count
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let message = arrayOfMessages[indexPath.item]
+        let messageId = arrayOfOrderedMessageIds[indexPath.item]
+        let message = dictOfMessages[messageId]
         var incoming: Bool
-        if message.senderId == senderId {
+        if message!.senderId == senderId {
             incoming = false
         } else {
             incoming = true
@@ -243,10 +269,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         //if the same user has sent the previous message, tailless bubble
         let prevIndex = indexPath.item - 1
-        if prevIndex > 0 && prevIndex <= arrayOfMessages.count {
+        if prevIndex > 0 && prevIndex <= arrayOfOrderedMessageIds.count {
             //make sure we're not out of bounds
-            let prevMessage = arrayOfMessages[indexPath.item - 1]
-            if message.senderId == prevMessage.senderId {
+            let prevMessageId = arrayOfOrderedMessageIds[indexPath.item - 1]
+            let prevMessage = dictOfMessages[prevMessageId]
+            if message!.senderId == prevMessage!.senderId {
                 if incoming { return incomingBubbleWithoutTail }
                 else { return outgoingBubbleWithoutTail }
             }
@@ -259,23 +286,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-        let message = arrayOfMessages[indexPath.item]
+        let messageId = arrayOfOrderedMessageIds[indexPath.item]
+        let message = dictOfMessages[messageId]
         
         //if the same user has sent the previous message, empty avatar
         let prevIndex = indexPath.item - 1
-        if prevIndex > 0 && prevIndex <= arrayOfMessages.count {
+        if prevIndex > 0 && prevIndex <= arrayOfOrderedMessageIds.count {
             //make sure we're not out of bounds
-            let prevMessage = arrayOfMessages[indexPath.item - 1]
-            if message.senderId == prevMessage.senderId {
+            let prevMessageId = arrayOfOrderedMessageIds[indexPath.item - 1]
+            let prevMessage = dictOfMessages[prevMessageId]
+            if message!.senderId == prevMessage!.senderId {
                 return nil
             }
         }
         
         //other wise, show it
-        if let avatar = arrayOfAvatars[message.senderId] {
+        if let avatar = arrayOfAvatars[message!.senderId] {
             return avatar
         } else {
-            return nil
+            return JSQMessagesAvatarImage(avatarImage: UIImage(named: "defaultProfilePicture"), highlightedImage: UIImage(named: "defaultProfilePicture"), placeholderImage: UIImage(named: "defaultProfilePicture"))
         }
     }
     
@@ -284,9 +313,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
             as! JSQMessagesCollectionViewCell
         
-        let message = arrayOfMessages[indexPath.item]
-        if !message.isMediaMessage {
-            if message.senderId == senderId {
+        let messageId = arrayOfOrderedMessageIds[indexPath.item]
+        let message = dictOfMessages[messageId]
+        if !message!.isMediaMessage {
+            if message!.senderId == senderId {
                 cell.textView!.textColor = UIColor.whiteColor()
             } else {
                 cell.textView!.textColor = UIColor.whiteColor()
@@ -298,8 +328,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
         if indexPath.item % 3 == 0 {
-            let message = arrayOfMessages[indexPath.item]
-            return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+            let messageId = arrayOfOrderedMessageIds[indexPath.item]
+            let message = dictOfMessages[messageId]
+            return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message!.date)
         } else {
             return nil
         }
@@ -319,8 +350,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, didTapAvatarImageView avatarImageView: UIImageView!, atIndexPath indexPath: NSIndexPath!) {
         
-        let message = arrayOfMessages[indexPath.item]
-        let userId = message.senderId
+        let messageId = arrayOfOrderedMessageIds[indexPath.item]
+        let message = dictOfMessages[messageId]
+        let userId = message!.senderId
         let profileView = ProfileTableViewController()
         profileView.userId = userId
         self.navigationController?.pushViewController(profileView, animated: true)
@@ -444,9 +476,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         let message = blankMessage()
         message.message = text
         message.messageType = "TEXT"
-        message.saveInBackground()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-        finishSendingMessage()
+        message.saveInBackgroundWithBlock { (done: Bool, err: NSError?) in
+            if err == nil {
+                
+                // add new message to data source
+                let msg = JSQMessage(senderId: message.authorId,
+                    senderDisplayName: message.authorName,
+                    date: NSDate(),
+                    text: message.message)
+      
+                self.addMessageToDataSource(message, jsqMsg: msg)
+                self.finishSendingMessage()
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            } else { print("Couldn't save text message to Parse") }
+        }
     }
     
     func sendPictureMessage(picture: UIImage) {
@@ -458,15 +501,45 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             let file = PFFile(name: "picture.jpg", data: dataPicture)
             message.file = file
         }
-        message.saveInBackground()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-        finishSendingMessage()
+        message.saveInBackgroundWithBlock { (done: Bool, err: NSError?) in
+            if err == nil {
+                
+                // add new message to data source
+                let mediaItem = JSQPhotoMediaItem(image: nil)
+                mediaItem.appliesMediaViewMaskAsOutgoing = (message.authorId == self.senderId)
+                let msg = JSQMessage(senderId: message.authorId,
+                    senderDisplayName: message.authorName,
+                    date: NSDate(),
+                    media: mediaItem)
+
+                let filePicture = message.file
+                filePicture?.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+                    if err == nil {
+                        mediaItem.image = UIImage(data: data!)
+                        self.collectionView.reloadData()
+                    }
+                })
+                
+                self.addMessageToDataSource(message, jsqMsg: msg)
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                self.finishSendingMessage()
+
+            } else { print("Couldn't save picture to Parse") }
+        }
     }
     
     func sendVideoMessage() {
-        let message = blankMessage()
-        message.message = "[Video Message]"
-        message.messageType = "VIDEO"
+//        let message = blankMessage()
+//        message.message = "[Video Message]"
+//        message.messageType = "VIDEO"
+//        //show loading perhaps
+//        if let dataPicture = UIImageJPEGRepresentation(picture, 0.6) {
+//            let file = PFFile(name: "picture.jpg", data: dataPicture)
+//            message.file = file
+//        }
+//        message.saveInBackground()
+//        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+//        finishSendingMessage()
     }
     
     func sendAudioMessage() {

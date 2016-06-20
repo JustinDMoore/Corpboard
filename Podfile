@@ -15,7 +15,6 @@ target 'Corpboard' do
   pod 'Stripe', '5.1.2'
   pod 'Parse', '1.13.0'
   pod 'ParseUI', '1.2.0'
-  pod 'ParseLiveQuery'
   pod 'ParseFacebookUtilsV4', '1.11.1'
   pod 'ImageSlideshow', '0.4.0'
   pod 'YouTubePlayer', '0.3.0'
@@ -24,5 +23,6 @@ target 'Corpboard' do
   pod 'SCSiriWaveformView'
   pod 'FDWaveformView'
   pod 'JSQMessagesViewController'
+  pod 'Firebase'
 
 end
