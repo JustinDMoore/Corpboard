@@ -16,9 +16,9 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "KVNProgress.h"
 
-#import "AppConstant.h"
-#import "pushnotification.h"
-#import "utilities.h"
+//#import "AppConstant.h"
+//#import "pushnotification.h"
+//#import "utilities.h"
 
 #import "ParseErrors.h"
 #import "Corpsboard-Swift.h"
@@ -104,6 +104,19 @@ Loading *loadView;
     }
 }
 
+UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scale)
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    CGSize size = CGSizeMake(width, height);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    UIGraphicsBeginImageContextWithOptions(size, NO, scale);
+    [image drawInRect:rect];
+    UIImage *resized = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resized;
+}
+
 - (void)processFacebook:(PFUser *)user UserData:(NSDictionary *)userData {
     
     NSString *link = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", userData[@"id"]];
@@ -115,7 +128,7 @@ Loading *loadView;
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         UIImage *image = (UIImage *)responseObject;
         
-        if (image.size.width > 140) image = ResizeImage(image, 140, 140);
+        if (image.size.width > 140) image = ResizeImage(image, 140, 140, 1);
         
         PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
         [filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -125,7 +138,7 @@ Loading *loadView;
             }
         }];
         
-        if (image.size.width > 30) image = ResizeImage(image, 30, 30);
+        if (image.size.width > 30) image = ResizeImage(image, 30, 30, 1);
         
         PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
         [fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -136,12 +149,10 @@ Loading *loadView;
         }];
         
         user[@"email"] = userData[@"email"];
-        user[PF_USER_EMAILCOPY] = userData[@"email"];
-        user[PF_USER_FULLNAME] = userData[@"name"];
-        user[PF_USER_FULLNAME_LOWER] = [userData[@"name"] lowercaseString];
-        user[PF_USER_FACEBOOKID] = userData[@"id"];
-        user[PF_USER_PICTURE] = filePicture;
-        user[PF_USER_THUMBNAIL] = fileThumbnail;
+        user[@"fullname"] = userData[@"name"];
+        user[@"facebookId"] = userData[@"id"];
+        user[@"picture"] = filePicture;
+        user[@"thumbnail"] = fileThumbnail;
         user[@"lastLogin"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error == nil) {
@@ -166,7 +177,11 @@ Loading *loadView;
 
 - (void)userLoggedIn:(PFUser *)user {
     //FIXME: Add nickname to this view. Make sure it's unique.
-    ParsePushUserAssign();
+    PFInstallation *install = [PFInstallation currentInstallation];
+    if (install[@"user"] == nil) {
+        install[@"user"] = user;
+        [install saveInBackground];
+    }
     if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
     else [self dismissView:NO canProceed:YES];
 }

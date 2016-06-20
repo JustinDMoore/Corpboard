@@ -10,9 +10,9 @@
 #import "NSDate+Utilities.h"
 #import "KVNProgress.h"
 
-#import "AppConstant.h"
-#import "messages.h"
-#import "ChatView.h"
+//#import "AppConstant.h"
+//#import "messages.h"
+//#import "ChatView.h"
 #import "IQKeyboardManager.h"
 #import "Configuration.h"
 #import "PulsingHaloLayer.h"
@@ -1511,11 +1511,11 @@ float ht;
 //    CreateMessageItem(user1, user2, roomId, user2[@"nickname"], nil);
 //    CreateMessageItem(user2, user1, roomId, user1[@"nickname"], nil);
 //    //---------------------------------------------------------------------------------------------------------------------------------------------
-    ChatView *chatView = [[ChatView alloc] initWith:roomId];
-    chatView.hidesBottomBarWhenPushed = YES;
-    chatView.user2 = user2;
-    chatView.isPrivate = YES;
-    [self.navigationController pushViewController:chatView animated:YES];
+//    ChatView *chatView = [[ChatView alloc] initWith:roomId];
+//    chatView.hidesBottomBarWhenPushed = YES;
+//    chatView.user2 = user2;
+//    chatView.isPrivate = YES;
+//    [self.navigationController pushViewController:chatView animated:YES];
 }
 
 - (IBAction)btnReport_clicked:(id)sender {

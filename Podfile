@@ -24,5 +24,6 @@ target 'Corpboard' do
   pod 'FDWaveformView'
   pod 'JSQMessagesViewController'
   pod 'Firebase'
-
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
 end

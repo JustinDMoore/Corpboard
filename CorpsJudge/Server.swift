@@ -9,6 +9,7 @@
 import Foundation
 import ImageSlideshow
 import YouTubePlayer
+import FirebaseAuth
 
 protocol delegateInitialAppLoad: class {
     func updateProgress()
@@ -213,6 +214,7 @@ protocol delegateUserProfile: class {
                     let errorString = error.userInfo["error"] as? NSString
                     print("2. USER: **ERROR** \(errorString)")
                 }
+                self.signIntoFirebase()
                 self.delegateInitial?.updateProgress()
                 self.updateUserLastLogin()
                 print("2. USER LOGGED IN: \(currentUser["fullname"])")
@@ -896,37 +898,37 @@ protocol delegateUserProfile: class {
         }
     }
     
-//    func signIntoFirebase() {
-//        if let currentUser = PUser.currentUser() {
-//            let email = currentUser.email!
-//            let password = currentUser.facebookId
-//            if !email.characters.isEmpty && !password.characters.isEmpty {
-//                FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
-//                    if error != nil {
-//                        FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
-//                            if error == nil {
-//                                user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
-//                                    currentUser.firebaseUID = id
-//                                    currentUser.saveInBackground()
-//                                })
-//                                print("10. FIREBASE: Signed up and logged in")
-//                            } else {
-//                                print("10. FIREBASE: **ERROR** \(error)")
-//                            }
-//                        }
-//                    } else {
-//                        print("10. FIREBASE: Logged In")
-//                        if currentUser.firebaseUID == nil || currentUser.firebaseUID == "" {
-//                            user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
-//                                currentUser.firebaseUID = id
-//                                currentUser.saveInBackground()
-//                            })
-//                        }
-//                    }
-//                }
-//            } else {
-//                print("10. FIREBASE: No email and/or password")
-//            }
-//        }
-//    }
+    func signIntoFirebase() {
+        if let currentUser = PUser.currentUser() {
+            let email = currentUser.email!
+            let password = currentUser.facebookId
+            if !email.characters.isEmpty && !password.characters.isEmpty {
+                FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
+                    if error != nil {
+                        FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
+                            if error == nil {
+                                user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
+                                    currentUser.firebaseUID = id
+                                    currentUser.saveInBackground()
+                                })
+                                print("10. FIREBASE: Signed up and logged in")
+                            } else {
+                                print("10. FIREBASE: **ERROR** \(error)")
+                            }
+                        }
+                    } else {
+                        print("10. FIREBASE: Logged In")
+                        if currentUser.firebaseUID == nil || currentUser.firebaseUID == "" {
+                            user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
+                                currentUser.firebaseUID = id
+                                currentUser.saveInBackground()
+                            })
+                        }
+                    }
+                }
+            } else {
+                print("10. FIREBASE: No email and/or password")
+            }
+        }
+    }
 }

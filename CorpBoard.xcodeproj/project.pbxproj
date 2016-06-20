@@ -69,12 +69,14 @@
 		9F00C4311D0968B900D13E3F /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F00C4301D0968B900D13E3F /* VideoCell.xib */; };
 		9F00C4331D09692200D13E3F /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F00C4321D09692200D13E3F /* VideoCell.swift */; };
 		9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */; };
-		9F2586BC1D13AA5300935281 /* PChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2586BB1D13AA5300935281 /* PChatMessage.swift */; };
 		9F2586C21D13B91A00935281 /* PChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2586C11D13B91A00935281 /* PChatRoom.swift */; };
 		9F2586C41D13BFBD00935281 /* ChatRoomsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2586C31D13BFBD00935281 /* ChatRoomsTableViewController.swift */; };
+		9F29D6751D17E10000000EBB /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D6741D17E10000000EBB /* Chatroom.swift */; };
 		9F4CCF441D10E3190079DDF5 /* PickAStadium.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */; };
 		9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */; };
 		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
+		9F7351AE1D17FD630079A32D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AD1D17FD630079A32D /* Chat.swift */; };
+		9F7351B01D182C3F0079A32D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AF1D182C3F0079A32D /* ChatMessage.swift */; };
 		9F98AAF81D0CE402002AD554 /* CorpsExperienceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */; };
 		9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9D68591CE6C3E30084878B /* CadetsAnimation.m */; };
 		9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68611CE6C54B0084878B /* LocationServicesPermission.xib */; };
@@ -110,21 +112,9 @@
 		9FA2367C1D16938C00AE52F9 /* stop_recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FA2366D1D16938C00AE52F9 /* stop_recording.png */; };
 		9FA2367D1D16938C00AE52F9 /* stop_recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FA2366E1D16938C00AE52F9 /* stop_recording@2x.png */; };
 		9FA2367E1D16938C00AE52F9 /* stop_recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FA2366F1D16938C00AE52F9 /* stop_recording@3x.png */; };
-		9FA238A31D16C59900AE52F9 /* ChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA2389F1D16C59900AE52F9 /* ChatView.m */; };
 		9FA238A41D16C59900AE52F9 /* PrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238A11D16C59900AE52F9 /* PrivateMessageCell.m */; };
 		9FA238A51D16C59900AE52F9 /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */; };
-		9FA238AE1D16C5A100AE52F9 /* camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238A71D16C5A100AE52F9 /* camera.m */; };
-		9FA238AF1D16C5A100AE52F9 /* messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238A91D16C5A100AE52F9 /* messages.m */; };
-		9FA238B01D16C5A100AE52F9 /* pushnotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238AB1D16C5A100AE52F9 /* pushnotification.m */; };
-		9FA238B11D16C5A100AE52F9 /* utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238AD1D16C5A100AE52F9 /* utilities.m */; };
-		9FA238B81D16C5AC00AE52F9 /* MessagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238B31D16C5AC00AE52F9 /* MessagesCell.m */; };
-		9FA238B91D16C5AC00AE52F9 /* MessagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238B41D16C5AC00AE52F9 /* MessagesCell.xib */; };
-		9FA238BA1D16C5AC00AE52F9 /* MessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238B61D16C5AC00AE52F9 /* MessagesView.m */; };
-		9FA238BB1D16C5AC00AE52F9 /* MessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238B71D16C5AC00AE52F9 /* MessagesView.xib */; };
-		9FA238BF1D16C5B000AE52F9 /* PrivateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238BD1D16C5B000AE52F9 /* PrivateView.m */; };
-		9FA238C01D16C5B000AE52F9 /* PrivateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238BE1D16C5B000AE52F9 /* PrivateView.xib */; };
 		9FA238C31D16C5D800AE52F9 /* LiveChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */; };
-		9FA238C61D16C60400AE52F9 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238C51D16C60400AE52F9 /* NavigationController.m */; };
 		9FA238DC1D16D38A00AE52F9 /* LiveChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */; };
 		9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC51A651CEC038600EC081D /* LocationServicesPermission.m */; };
 		9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71C511CE65F2200C36A1C /* Launch Screen.storyboard */; };
@@ -420,12 +410,14 @@
 		9F00C4301D0968B900D13E3F /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		9F00C4321D09692200D13E3F /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoViewController.swift; sourceTree = "<group>"; };
-		9F2586BB1D13AA5300935281 /* PChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PChatMessage.swift; sourceTree = "<group>"; };
 		9F2586C11D13B91A00935281 /* PChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PChatRoom.swift; sourceTree = "<group>"; };
 		9F2586C31D13BFBD00935281 /* ChatRoomsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomsTableViewController.swift; sourceTree = "<group>"; };
+		9F29D6741D17E10000000EBB /* Chatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
 		9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickAStadium.xib; sourceTree = "<group>"; };
 		9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickAStadium.swift; sourceTree = "<group>"; };
 		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
+		9F7351AD1D17FD630079A32D /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		9F7351AF1D182C3F0079A32D /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorpsExperienceList.swift; sourceTree = "<group>"; };
 		9F9D68581CE6C3E30084878B /* CadetsAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CadetsAnimation.h; path = CorpsJudge/CadetsAnimation.h; sourceTree = "<group>"; };
 		9F9D68591CE6C3E30084878B /* CadetsAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CadetsAnimation.m; path = CorpsJudge/CadetsAnimation.m; sourceTree = "<group>"; };
@@ -471,33 +463,11 @@
 		9FA2366D1D16938C00AE52F9 /* stop_recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop_recording.png; sourceTree = "<group>"; };
 		9FA2366E1D16938C00AE52F9 /* stop_recording@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop_recording@2x.png"; sourceTree = "<group>"; };
 		9FA2366F1D16938C00AE52F9 /* stop_recording@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop_recording@3x.png"; sourceTree = "<group>"; };
-		9FA2389E1D16C59900AE52F9 /* ChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatView.h; sourceTree = "<group>"; };
-		9FA2389F1D16C59900AE52F9 /* ChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatView.m; sourceTree = "<group>"; };
 		9FA238A01D16C59900AE52F9 /* PrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageCell.h; sourceTree = "<group>"; };
 		9FA238A11D16C59900AE52F9 /* PrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageCell.m; sourceTree = "<group>"; };
 		9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivateMessageCell.xib; sourceTree = "<group>"; };
-		9FA238A61D16C5A100AE52F9 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		9FA238A71D16C5A100AE52F9 /* camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = camera.m; sourceTree = "<group>"; };
-		9FA238A81D16C5A100AE52F9 /* messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messages.h; sourceTree = "<group>"; };
-		9FA238A91D16C5A100AE52F9 /* messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messages.m; sourceTree = "<group>"; };
-		9FA238AA1D16C5A100AE52F9 /* pushnotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pushnotification.h; sourceTree = "<group>"; };
-		9FA238AB1D16C5A100AE52F9 /* pushnotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pushnotification.m; sourceTree = "<group>"; };
-		9FA238AC1D16C5A100AE52F9 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
-		9FA238AD1D16C5A100AE52F9 /* utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utilities.m; sourceTree = "<group>"; };
-		9FA238B21D16C5AC00AE52F9 /* MessagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesCell.h; sourceTree = "<group>"; };
-		9FA238B31D16C5AC00AE52F9 /* MessagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesCell.m; sourceTree = "<group>"; };
-		9FA238B41D16C5AC00AE52F9 /* MessagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesCell.xib; sourceTree = "<group>"; };
-		9FA238B51D16C5AC00AE52F9 /* MessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesView.h; sourceTree = "<group>"; };
-		9FA238B61D16C5AC00AE52F9 /* MessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesView.m; sourceTree = "<group>"; };
-		9FA238B71D16C5AC00AE52F9 /* MessagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesView.xib; sourceTree = "<group>"; };
-		9FA238BC1D16C5B000AE52F9 /* PrivateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateView.h; sourceTree = "<group>"; };
-		9FA238BD1D16C5B000AE52F9 /* PrivateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateView.m; sourceTree = "<group>"; };
-		9FA238BE1D16C5B000AE52F9 /* PrivateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivateView.xib; sourceTree = "<group>"; };
 		9FA238C11D16C5D800AE52F9 /* LiveChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveChatCell.h; sourceTree = "<group>"; };
 		9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveChatCell.m; sourceTree = "<group>"; };
-		9FA238C41D16C60400AE52F9 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		9FA238C51D16C60400AE52F9 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		9FA238C71D16C60F00AE52F9 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
 		9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveChatCell.xib; sourceTree = "<group>"; };
 		9FC51A641CEC038600EC081D /* LocationServicesPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesPermission.h; sourceTree = "<group>"; };
 		9FC51A651CEC038600EC081D /* LocationServicesPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesPermission.m; sourceTree = "<group>"; };
@@ -1108,7 +1078,6 @@
 			isa = PBXGroup;
 			children = (
 				9FA2367F1D16939200AE52F9 /* IQAudioRecorder */,
-				9FA236E51D16B5F300AE52F9 /* Chat */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1116,6 +1085,15 @@
 		9F9D685B1CE6C4190084878B /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9F7351AD1D17FD630079A32D /* Chat.swift */,
+				9F29D6741D17E10000000EBB /* Chatroom.swift */,
+				9F7351AF1D182C3F0079A32D /* ChatMessage.swift */,
+				9FA238C11D16C5D800AE52F9 /* LiveChatCell.h */,
+				9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */,
+				9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */,
+				9FA238A01D16C59900AE52F9 /* PrivateMessageCell.h */,
+				9FA238A11D16C59900AE52F9 /* PrivateMessageCell.m */,
+				9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */,
 				9F2586BD1D13AF6C00935281 /* Chat */,
 				9F9D685D1CE6C4300084878B /* Models */,
 				9F9D685C1CE6C4230084878B /* Controllers */,
@@ -1201,7 +1179,6 @@
 				9F00C42E1D09634100D13E3F /* PVideo.swift */,
 				9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */,
 				9F7167711D0FE432008F52FD /* PRepertoire.swift */,
-				9F2586BB1D13AA5300935281 /* PChatMessage.swift */,
 				9F2586C11D13B91A00935281 /* PChatRoom.swift */,
 				9FA236361D15541E00AE52F9 /* PRoom.swift */,
 			);
@@ -1261,41 +1238,6 @@
 				9FA236561D16937500AE52F9 /* NSString+IQTimeIntervalFormatter.m */,
 			);
 			name = IQAudioRecorder;
-			sourceTree = "<group>";
-		};
-		9FA236E51D16B5F300AE52F9 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				9FA238C71D16C60F00AE52F9 /* AppConstant.h */,
-				9FA238C41D16C60400AE52F9 /* NavigationController.h */,
-				9FA238C51D16C60400AE52F9 /* NavigationController.m */,
-				9FA238C11D16C5D800AE52F9 /* LiveChatCell.h */,
-				9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */,
-				9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */,
-				9FA238BC1D16C5B000AE52F9 /* PrivateView.h */,
-				9FA238BD1D16C5B000AE52F9 /* PrivateView.m */,
-				9FA238BE1D16C5B000AE52F9 /* PrivateView.xib */,
-				9FA238B21D16C5AC00AE52F9 /* MessagesCell.h */,
-				9FA238B31D16C5AC00AE52F9 /* MessagesCell.m */,
-				9FA238B41D16C5AC00AE52F9 /* MessagesCell.xib */,
-				9FA238B51D16C5AC00AE52F9 /* MessagesView.h */,
-				9FA238B61D16C5AC00AE52F9 /* MessagesView.m */,
-				9FA238B71D16C5AC00AE52F9 /* MessagesView.xib */,
-				9FA2389E1D16C59900AE52F9 /* ChatView.h */,
-				9FA2389F1D16C59900AE52F9 /* ChatView.m */,
-				9FA238A01D16C59900AE52F9 /* PrivateMessageCell.h */,
-				9FA238A11D16C59900AE52F9 /* PrivateMessageCell.m */,
-				9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */,
-				9FA238A61D16C5A100AE52F9 /* camera.h */,
-				9FA238A71D16C5A100AE52F9 /* camera.m */,
-				9FA238A81D16C5A100AE52F9 /* messages.h */,
-				9FA238A91D16C5A100AE52F9 /* messages.m */,
-				9FA238AA1D16C5A100AE52F9 /* pushnotification.h */,
-				9FA238AB1D16C5A100AE52F9 /* pushnotification.m */,
-				9FA238AC1D16C5A100AE52F9 /* utilities.h */,
-				9FA238AD1D16C5A100AE52F9 /* utilities.m */,
-			);
-			name = Chat;
 			sourceTree = "<group>";
 		};
 		9FEF3AA21D0A371D00D1AEFA /* Feedback */ = {
@@ -1693,7 +1635,6 @@
 				9FA236311D150AA000AE52F9 /* NewChatRoom.xib in Resources */,
 				D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */,
 				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
-				9FA238C01D16C5B000AE52F9 /* PrivateView.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */,
 				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
@@ -1713,7 +1654,6 @@
 				D0F19FA01B15368200357663 /* CBReviewScoreCell.xib in Resources */,
 				9FA2367A1D16938C00AE52F9 /* stop_playing@2x.png in Resources */,
 				D066C2011AF5756100C84609 /* CBFeedbackView.xib in Resources */,
-				9FA238B91D16C5AC00AE52F9 /* MessagesCell.xib in Resources */,
 				9FA236771D16938C00AE52F9 /* scissor@2x.png in Resources */,
 				D0F19FAA1B1577E600357663 /* CBReviewFavoriteCell.xib in Resources */,
 				920962C91B02DF08006D8B27 /* CBReviewShow.xib in Resources */,
@@ -1730,7 +1670,6 @@
 				9FA238DC1D16D38A00AE52F9 /* LiveChatCell.xib in Resources */,
 				9FA236781D16938C00AE52F9 /* scissor@3x.png in Resources */,
 				D0F136EB1B96D7FC0075628C /* ApplePay.py in Resources */,
-				9FA238BB1D16C5AC00AE52F9 /* MessagesView.xib in Resources */,
 				D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
@@ -1900,6 +1839,7 @@
 				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				9FA2365B1D16937500AE52F9 /* IQCropSelectionEndView.m in Sources */,
 				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
+				9F29D6751D17E10000000EBB /* Chatroom.swift in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				9FC71CA21CE6639500C36A1C /* PShow.swift in Sources */,
 				D047404F1B86D9C300ADC30E /* CBStoreItemTableViewController.m in Sources */,
@@ -1909,9 +1849,7 @@
 				D066C20F1AF5CD4A00C84609 /* CBProblemWhereCell.m in Sources */,
 				D0F136E51B94FF750075628C /* Payment.swift in Sources */,
 				928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */,
-				9FA238B11D16C5A100AE52F9 /* utilities.m in Sources */,
 				9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */,
-				9FA238B01D16C5A100AE52F9 /* pushnotification.m in Sources */,
 				D00B716C1AF4488400403A12 /* CBFeedback.m in Sources */,
 				D034437E1A3D071000C410EE /* CBChooseCorp.m in Sources */,
 				9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */,
@@ -1925,6 +1863,7 @@
 				D065EE8A1B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m in Sources */,
 				9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */,
 				9FC7F0F71CEFA24A00B75143 /* PCalendar.swift in Sources */,
+				9F7351B01D182C3F0079A32D /* ChatMessage.swift in Sources */,
 				9FA236581D16937500AE52F9 /* IQAudioRecorderConstraints.m in Sources */,
 				D04FDB871A16C6D3007D0486 /* CBNewsViewController.m in Sources */,
 				9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */,
@@ -1957,9 +1896,7 @@
 				926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */,
 				9FC71CA41CE6639500C36A1C /* PUser.swift in Sources */,
 				D0C2EC5C1B0CF06800C57017 /* CBPredictionOrderCell.m in Sources */,
-				9FA238BA1D16C5AC00AE52F9 /* MessagesView.m in Sources */,
 				D01DDEAA1B8193F9006B7103 /* CBStoreItemCollectionFlowLayout.m in Sources */,
-				9FA238C61D16C60400AE52F9 /* NavigationController.m in Sources */,
 				D0A88B681A9A656800A20441 /* CBAdminTableViewController.m in Sources */,
 				D02BB6D91AFC59F000721426 /* CBConnectViewController.m in Sources */,
 				926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */,
@@ -1970,7 +1907,6 @@
 				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,
 				D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */,
 				9FC71CA31CE6639500C36A1C /* PStadium.swift in Sources */,
-				9FA238A31D16C59900AE52F9 /* ChatView.m in Sources */,
 				9F2586C41D13BFBD00935281 /* ChatRoomsTableViewController.swift in Sources */,
 				9FA2365E1D16937500AE52F9 /* IQPlaybackDurationView.m in Sources */,
 				D0C2EC641B0E772B00C57017 /* CBPredictionSubmitted.m in Sources */,
@@ -1978,7 +1914,6 @@
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
 				D03D64F51B98EC0A00C07B74 /* StoreItemSelector.swift in Sources */,
 				D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */,
-				9FA238AE1D16C5A100AE52F9 /* camera.m in Sources */,
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
 				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
@@ -2000,7 +1935,6 @@
 				9FC71CA61CE6639500C36A1C /* UISingleton.swift in Sources */,
 				D0067A6819690AB300C372D0 /* Math.m in Sources */,
 				D0F19F971B1502D600357663 /* CBReviewAttendance.m in Sources */,
-				9FA238AF1D16C5A100AE52F9 /* messages.m in Sources */,
 				D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */,
 				9FC71C9C1CE6639500C36A1C /* PChat.swift in Sources */,
 				9253EBEC1A209F8300FB40AB /* CreateAccount.m in Sources */,
@@ -2008,10 +1942,8 @@
 				D04B300C196A746C00E92C22 /* CBTextViewPlaceHolder.m in Sources */,
 				92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */,
 				D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */,
-				9FA238BF1D16C5B000AE52F9 /* PrivateView.m in Sources */,
 				92199B3D1CFFDAD400D8E21F /* StoreCategoryTableViewController.swift in Sources */,
 				D0F19F8D1B14F63900357663 /* CBStartReview.m in Sources */,
-				9F2586BC1D13AA5300935281 /* PChatMessage.swift in Sources */,
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,
 				9F00C42D1D0653D600D13E3F /* MenuTableViewController.swift in Sources */,
@@ -2038,6 +1970,7 @@
 				D0F19FAD1B1577FB00357663 /* CBReviewFavoriteCell.m in Sources */,
 				D03D64DD1B97FD7400C07B74 /* Store.swift in Sources */,
 				9FECDBCB1D0A6E1300FEA637 /* ProfileTableViewController.swift in Sources */,
+				9F7351AE1D17FD630079A32D /* Chat.swift in Sources */,
 				9FA236371D15541E00AE52F9 /* PRoom.swift in Sources */,
 				D0F19F921B14F88400357663 /* CBReviewCell.m in Sources */,
 				D00B71791AF4531900403A12 /* CBContactUs.m in Sources */,
@@ -2062,7 +1995,6 @@
 				D008F86B1B20F6EA0012D144 /* CBVersion.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				9FA2362B1D142A4600AE52F9 /* ChatViewController.swift in Sources */,
-				9FA238B81D16C5AC00AE52F9 /* MessagesCell.m in Sources */,
 				9FA2365F1D16937500AE52F9 /* NSString+IQTimeIntervalFormatter.m in Sources */,
 				D0A8146C19523A8200F4EC53 /* Configuration.m in Sources */,
 			);

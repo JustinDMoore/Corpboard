@@ -7,18 +7,22 @@
 //
 
 import UIKit
-import ParseLiveQuery
 import JSQMessagesViewController
 import ParseUI
 import AFDateHelper
+import Firebase
 
 class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
+    
+    let chatroomsRef = FIRDatabase.database().reference().child("publicChatRooms")
+    
+
     var isPrivate = false
-    var arrayOfChatRooms = [PRoom]()
-    var chatRoomToOpen = PRoom()
-    var viewNewChatRoom = NewChatRoom()
-    let query = PFQuery(className: PRoom.parseClassName())
+    var chatrooms = [Chatroom]()
+    var roomIdToOpen = ""
+    //var viewNewChatRoom = NewChatRoom()
+    var initialLoad = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +32,90 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         } else {
             self.title = "Chat Rooms"
         }
+
+        chatroomsRef.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
+           
+            let room = Chatroom()
+            room.snapKey = snap.key
+            room.topic = snap.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
+            let rawCreatedAt = snap.childSnapshotForPath(ChatroomFields.createdAt).value as? String ?? nil
+            if rawCreatedAt != nil {
+                room.createdAt = Chatroom().dateFromUTCString(rawCreatedAt!) ?? nil
+            }
+            
+            let rawUpdatedAt = snap.childSnapshotForPath(ChatroomFields.updatedAt).value as? String ?? nil
+            if rawUpdatedAt != nil {
+                room.updatedAt = Chatroom().dateFromUTCString(rawUpdatedAt!) ?? nil
+            }
+            
+            room.createdByUID = snap.childSnapshotForPath(ChatroomFields.createdByUID).value as? String ?? nil
+            room.createdByParseObjectId = snap.childSnapshotForPath(ChatroomFields.createdByParseObjectId).value as? String ?? nil
+            room.createdByNickname = snap.childSnapshotForPath(ChatroomFields.createdByNickname).value as? String ?? nil
+            
+//            room.updatedByUID = snap.childSnapshotForPath(ChatroomFields.updatedByUID).value as? String ?? nil
+//            room.updatedByParseObjectId = snap.childSnapshotForPath(ChatroomFields.updatedByParseObjectId).value as? String ?? nil
+//            room.updatedByNickname = snap.childSnapshotForPath(ChatroomFields.updatedByNickname).value as? String ?? nil
+            
+            room.numberOfViewers = snap.childSnapshotForPath(ChatroomFields.numberOfViewers).value as? Int ?? 0
+            room.numberOfMessages = snap.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int ?? 0
+
+            self.chatrooms.insert(room, atIndex: 0)
+            
+            if self.initialLoad {
+                self.tableView.reloadData()
+            } else {
+                //animate
+                let index = NSIndexPath(forRow: 0, inSection: 0)
+                self.tableView.insertRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+        
+        chatroomsRef.observeEventType(.Value) { (snap: FIRDataSnapshot) in
+            
+            if !self.initialLoad {
+                self.chatrooms.removeAll()
+                
+                for snapRoom in snap.children {
+                    let room = Chatroom()
+                    room.snapKey = snapRoom.key
+                    room.topic = snapRoom.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
+                    let rawCreatedAt = snapRoom.childSnapshotForPath(ChatroomFields.createdAt).value as? String ?? nil
+                    if rawCreatedAt != nil {
+                        room.createdAt = Chatroom().dateFromUTCString(rawCreatedAt!) ?? nil
+                    }
+                    
+                    let rawUpdatedAt = snapRoom.childSnapshotForPath(ChatroomFields.updatedAt).value as? String ?? nil
+                    if rawUpdatedAt != nil {
+                        room.updatedAt = Chatroom().dateFromUTCString(rawUpdatedAt!) ?? nil
+                    }
+                    
+                    room.createdByUID = snapRoom.childSnapshotForPath(ChatroomFields.createdByUID).value as? String ?? nil
+                    room.createdByParseObjectId = snapRoom.childSnapshotForPath(ChatroomFields.createdByParseObjectId).value as? String ?? nil
+                    room.createdByNickname = snapRoom.childSnapshotForPath(ChatroomFields.createdByNickname).value as? String ?? nil
+                    
+//                    room.updatedByUID = snapRoom.childSnapshotForPath(ChatroomFields.updatedByUID).value as? String ?? nil
+//                    room.updatedByParseObjectId = snapRoom.childSnapshotForPath(ChatroomFields.updatedByParseObjectId).value as? String ?? nil
+//                    room.updatedByNickname = snapRoom.childSnapshotForPath(ChatroomFields.updatedByNickname).value as? String ?? nil
+                    
+                    room.numberOfViewers = snapRoom.childSnapshotForPath(ChatroomFields.numberOfViewers).value as? Int ?? 0
+                    room.numberOfMessages = snapRoom.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int ?? 0
+                    
+                    self.chatrooms.insert(room, atIndex: 0)
+                }
+            }
+            
+            self.tableView.reloadData()
+            self.initialLoad = false
+        }
     }
 
+    func roomFromSnap() {
+        
+    }
+    
     override func viewWillAppear(animated: Bool) {
         
-        getExistingRooms()
+       // getExistingRooms()
         
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -64,6 +147,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        chatroomsRef.removeAllObservers()
     }
     
     // MARK: - Table view data source
@@ -73,15 +157,15 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfChatRooms.count
+        return chatrooms.count
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 104
+        return 123
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 104
+        return 123
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -105,8 +189,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         let lblLastMessageHidden = cell?.viewWithTag(5) as! UILabel
         lblLastMessageHidden.hidden = true
         
-        let chatRoom = arrayOfChatRooms[indexPath.row]
-        
+        let chatRoom = chatrooms[indexPath.row]
+        let topic = chatRoom.topic
+
         var userChattingWith: PUser?
         var numberOfUnreadMessages = 0
 //        if chatRoom.createdBy == PUser.currentUser() {
@@ -161,13 +246,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             cell = topLevelObjects.first as! LiveChatCell
         }
         
-        let room = arrayOfChatRooms[indexPath.row]
+        let room = chatrooms[indexPath.row]
         
-        let d = JSQMessagesTimestampFormatter().timeForDate(room.updatedAt)
-        //let updated = room.lastMessageDate as NSDate
         let updated = room.updatedAt ?? NSDate()
         let diff = updated.minutesBeforeDate(NSDate())
-        //let diff = 5
         var timeDiff = ""
         if diff < 3 {
             timeDiff = "Just Now"
@@ -181,95 +263,83 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             } else if updated.daysBeforeDate(NSDate()) == 2 {
                 timeDiff = "2 days ago"
             } else if updated.isToday() {
-                timeDiff = d
+                timeDiff = JSQMessagesTimestampFormatter().timeForDate(room.updatedAt)
             } else {
                 let format = NSDateFormatter()
                 format.dateFormat = "MMMM d"
                 timeDiff = format.stringFromDate(updated)
             }
         }
-        
-        let lblChatName = cell?.viewWithTag(1) as! UILabel
-        let lblCreatedByWhen = cell?.viewWithTag(2) as! UILabel
-        let lblUpdatedAt = cell?.viewWithTag(3) as! UILabel
-        let imgCreatedby = cell?.viewWithTag(4) as! PFImageView
 
-        lblChatName.text = room.name
-        lblCreatedByWhen.text = "by \(room.authorName) | \(JSQMessagesTimestampFormatter().timeForDate(room.createdAt))"
-        lblUpdatedAt.text = "updated \(timeDiff)"
-        let author = room.author
-        author.fetchIfNeededInBackgroundWithBlock { (auth: PFObject?, err: NSError?) in
-            if let imageFile = author.thumbnail {
-                imgCreatedby.file = imageFile
-                imgCreatedby.loadInBackground()
-            }
+        let lblTopic = cell?.viewWithTag(1) as! UILabel
+        let lblLastMessage = cell?.viewWithTag(2) as! UILabel
+        let lblLastMessageWhen = cell?.viewWithTag(3) as! UILabel
+        let lblViewersAndMessages = cell?.viewWithTag(4) as! UILabel
+        
+        lblTopic.text = room.topic
+        lblLastMessageWhen.text = "\(timeDiff)"
+        lblLastMessage.text = room.lastMessage ?? "No messages yet"
+        
+        var viewers = ""
+        if room.numberOfViewers == 1 {
+            viewers = "1 Active Viewer"
+        } else {
+            viewers = "\(room.numberOfViewers) Active Viewers"
         }
-
         
+        var messages = ""
+        if room.numberOfMessages == 1 {
+            messages = "1 Message"
+        } else {
+            messages = "\(room.numberOfMessages) Messages"
+        }
         
-//        let imgfile = room.lastUserThumbnail
-//        imgLastUser.file = imgfile as? PFFile
-//        imgLastUser.loadInBackground()
-//
-//        lblLastUser.text = room.lastUserNickname
-//        imgLastUser.layer.cornerRadius = imgLastUser.frame.size.width / 2
-//        imgLastUser.layer.borderColor = UIColor.whiteColor().CGColor
-//        imgLastUser.layer.borderWidth = 1
-//
-//        lblStartedByUserAndWhen.text = "\(room.createdByUserNickname)"
-//
-//        var m = ""
-//        if room.numberOfMessages == 1 {
-//            m = "message"
-//        } else {
-//            m = "messages"
-//        }
-//        
-//        var v = ""
-//        if room.numberOfViews == 1 {
-//            v = "view"
-//        } else {
-//            v = "views"
-//        }
-//        
-//        lblNumberOfMessagesAndViews.text = "\(room.numberOfViews) \(v) - \(room.numberOfMessages) \(m)"
-//        lblChatName.text = room.name
-//        lblChatName.numberOfLines = 3
-//        lblChatName.sizeToFit()
+        var myMutableString = NSMutableAttributedString()
+        myMutableString = NSMutableAttributedString(string: viewers as
+            String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
+        
+        let combined = "\(viewers) | \(messages)"
+        if room.numberOfViewers > 0 {
+            myMutableString = NSMutableAttributedString(string: combined as String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
+            myMutableString.addAttribute(NSForegroundColorAttributeName, value: UISingleton.sharedInstance.gold, range: NSRange(location:0,length:viewers.characters.count))
+            lblViewersAndMessages.attributedText = myMutableString
+        } else {
+            lblViewersAndMessages.text = combined
+        }
         
         return cell!
     }
-    
-    func getExistingRooms() {
-        arrayOfChatRooms.removeAll()
-        query.whereKey("isPrivate", equalTo: false)
-        query.orderByDescending("createdAt")
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
-            if err == nil {
-                if let chatRooms = objects as? [PRoom] {
-                    for room in chatRooms {
-                        self.arrayOfChatRooms.append(room)
-                    }
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        chatRoomToOpen = arrayOfChatRooms[indexPath.row]
+        let room = chatrooms[indexPath.row]
+        roomIdToOpen = room.snapKey
         performSegueWithIdentifier("chat", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "chat" {
             let vc = segue.destinationViewController as? ChatViewController
-            vc?.roomToConnect = chatRoomToOpen
+            vc?.roomId = roomIdToOpen
             vc?.isPrivate = isPrivate
         }
     }
     
     func newChatRoomCreated(topic: String) {
-        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let roomRef = chatroomsRef.childByAutoId()
+        let newRoom: NSDictionary = [
+            ChatroomFields.topic : topic,
+            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
+            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatroomFields.createdByUID : uid!,
+            ChatroomFields.numberOfMessages : NSNumber(int: 0),
+            ChatroomFields.numberOfViewers : NSNumber(int: 0),
+            ChatroomFields.updatedAt : Chatroom().currentUTCTimeAsString(),
+            //ChatroomFields.updatedByUID : uid!,
+            //ChatroomFields.updatedByNickname : PUser.currentUser()!.nickname,
+            //ChatroomFields.updatedByParseObjectId : PUser.currentUser()!.objectId!,
+        ]
+        roomRef.setValue(newRoom) // 3
     }
 }

@@ -2,47 +2,89 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="92" id="ZnZ-T4-BOh" customClass="LiveChatCell">
-            <rect key="frame" x="0.0" y="0.0" width="398" height="92"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="ZnZ-T4-BOh" customClass="LiveChatCell">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="123"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZnZ-T4-BOh" id="hvc-RX-O2K">
-                <rect key="frame" x="0.0" y="0.0" width="398" height="91"/>
+                <rect key="frame" x="0.0" y="0.0" width="430" height="122"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sGY-JZ-SBf" customClass="PFImageView">
-                        <rect key="frame" x="8" y="14" width="63" height="66"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the room name and it spans multiple lines for real now." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0u-j6-Et7">
+                        <rect key="frame" x="8" y="20" width="414" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="8l6-0W-OGR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the last message. I wonder what else it will say." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZm-Mo-zBH">
+                        <rect key="frame" x="8" y="44" width="414" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="vsp-o4-9Kr"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last message 5 min ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQF-uS-x1W">
+                        <rect key="frame" x="24" y="63" width="181" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="0Qi-iK-IKY"/>
+                            <constraint firstAttribute="width" constant="181" id="3ta-Ih-nJx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="ISP-tD-Jxw">
+                        <rect key="frame" x="0.0" y="58" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="97S-jT-aZr"/>
+                            <constraint firstAttribute="height" constant="25" id="Djr-m3-6Si"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is the room name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0u-j6-Et7">
-                        <rect key="frame" x="79" y="23" width="311" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="created by Justin - 2 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZm-Mo-zBH">
-                        <rect key="frame" x="79" y="43" width="232" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="last message Justin Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQF-uS-x1W">
-                        <rect key="frame" x="77" y="59" width="190" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Live Viewers | 0 Messages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7T-be-49Y">
+                        <rect key="frame" x="8" y="82" width="414" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="BqP-LB-jNl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="U0u-j6-Et7" firstAttribute="top" secondItem="hvc-RX-O2K" secondAttribute="topMargin" constant="12" id="Ahh-pk-MYG"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="H7T-be-49Y" secondAttribute="trailing" id="FUX-lX-fDa"/>
+                    <constraint firstItem="H7T-be-49Y" firstAttribute="top" secondItem="gQF-uS-x1W" secondAttribute="bottom" constant="3" id="FcZ-wR-x96"/>
+                    <constraint firstItem="gZm-Mo-zBH" firstAttribute="leading" secondItem="hvc-RX-O2K" secondAttribute="leadingMargin" id="JEB-SC-ZUN"/>
+                    <constraint firstItem="U0u-j6-Et7" firstAttribute="trailing" secondItem="hvc-RX-O2K" secondAttribute="trailingMargin" id="OLM-2K-mdp"/>
+                    <constraint firstItem="gZm-Mo-zBH" firstAttribute="trailing" secondItem="hvc-RX-O2K" secondAttribute="trailingMargin" id="StU-Wq-clC"/>
+                    <constraint firstItem="ISP-tD-Jxw" firstAttribute="top" secondItem="U0u-j6-Et7" secondAttribute="bottom" constant="22" id="UfF-gV-t5a"/>
+                    <constraint firstItem="U0u-j6-Et7" firstAttribute="leading" secondItem="hvc-RX-O2K" secondAttribute="leadingMargin" id="XiF-eU-TFk"/>
+                    <constraint firstItem="gZm-Mo-zBH" firstAttribute="top" secondItem="U0u-j6-Et7" secondAttribute="bottom" constant="8" id="fTp-1V-Znd"/>
+                    <constraint firstItem="gQF-uS-x1W" firstAttribute="centerY" secondItem="ISP-tD-Jxw" secondAttribute="centerY" id="hLJ-X5-tBO"/>
+                    <constraint firstItem="ISP-tD-Jxw" firstAttribute="leading" secondItem="hvc-RX-O2K" secondAttribute="leadingMargin" constant="-8" id="iI2-Lu-mfJ"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="H7T-be-49Y" secondAttribute="leading" id="lJU-kI-jJ0"/>
+                    <constraint firstItem="gQF-uS-x1W" firstAttribute="leading" secondItem="ISP-tD-Jxw" secondAttribute="trailing" constant="-1" id="m0U-hn-dsN"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="imgLastUser" destination="sGY-JZ-SBf" id="AFf-v4-gYJ"/>
                 <outlet property="lblChatName" destination="U0u-j6-Et7" id="sqT-dd-PcN"/>
                 <outlet property="lblLastUserHowLongAgo" destination="gQF-uS-x1W" id="T91-iW-pwZ"/>
                 <outlet property="lblStartedByUserAndWhen" destination="gZm-Mo-zBH" id="Gfi-2f-HUD"/>
             </connections>
-            <point key="canvasLocation" x="722" y="405"/>
+            <point key="canvasLocation" x="706" y="402.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="clock" width="64" height="64"/>
+    </resources>
 </document>

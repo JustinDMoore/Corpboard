@@ -16,6 +16,11 @@
 
 struct Constants {
 
+    struct FirebaseKeys {
+        static let Base = "https://corpsboard-3111c.firebaseio.com/"
+        static let ChatRooms = "\(Base)ChatRooms"
+    }
+    
   struct NotificationKeys {
     static let SignedIn = "onSignInCompleted"
   }

@@ -10,6 +10,7 @@ import UIKit
 import Stripe
 import IQKeyboardManager
 import ParseFacebookUtilsV4
+import Firebase
 
 protocol messagesDelegate: class {
     func messageReceived()
@@ -22,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var alertParentView = UIView()
     var messDelegate: messagesDelegate?
+    
+    
+    override init() {
+        FIRApp.configure()
+    }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Stripe.setDefaultPublishableKey(stripePublishableKey)
@@ -46,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PCorpsExperience.registerSubclass()
         PRepertoire.registerSubclass()
         PChatRoom.registerSubclass()
-        PChatMessage.registerSubclass()
         
         Parse.enableLocalDatastore()
         
