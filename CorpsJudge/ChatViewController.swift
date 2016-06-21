@@ -21,10 +21,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var refChatRoom = FIRDatabaseReference() // Set in viewDidLoad
     var roomId = ""
     var isPrivate = false
+    var viewLoading = Loading()
+    var isLoading = true
+    var initialLoad = true
     
     //var dictOfMessages = [String: JSQMessage]()
     var arrayOfJSQMessages = [JSQMessage]()
-    //var arrayOfOrderedMessageIds = [String]() // This holds objectIds of PChatMessage
+    var arrayOfSnapKeys = [String]() // This holds objectIds of PChatMessage
                                         // When a user sends a message, add the JSQMessage to arrayOfMessages
                                         // On parse save completion, get the objectId of PChatMessage and save it to arrayOfMessageIds
                                         // When the newly saved message is returned by the live query
@@ -36,8 +39,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var outgoingBubbleWithoutTail: JSQMessagesBubbleImage!
     var incomingBubbleWithoutTail: JSQMessagesBubbleImage!
     var placeholderImageData = JSQMessagesAvatarImage(avatarImage: UIImage(named: "defaultProfilePicture"), highlightedImage: UIImage(named: "defaultProfilePicture"), placeholderImage: UIImage(named: "defaultProfilePicture"))
-
-    var initialLoad = true
     
     func updateViewerCounter(increment: Bool) {
         let refViewers = refChatRoom.child(ChatroomFields.numberOfViewers)
@@ -49,43 +50,35 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-//        
-//        let refViewerCounter = refChatRoom.child(ChatroomFields.numberOfViewers)
-//        print("\(refViewerCounter.description())")
-//        refViewerCounter.runTransactionBlock { (data: FIRMutableData) -> FIRTransactionResult in
-//            let value: NSNumber = data.value as? NSNumber ?? 0
-//            data.setValue(NSNumber(int: 1 + value.intValue), forKey: ChatroomFields.numberOfViewers)
-//            return FIRTransactionResult.successWithValue(data)
-//        }
-        
-//        refChatRoom.child(ChatroomFields.numberOfViewers).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-//            //let x = snapshot.valueForKey("numberOfViewers") as! NSNumber
-//            let counter: NSNumber = snapshot.childSnapshotForPath(ChatroomFields.numberOfViewers).value as? NSNumber ?? 0
-//            var count = counter.intValue
-//            if increment { count += 1 }
-//            else { count -= 1 }
-//            let final = NSNumber(int: count)
-//            self.refChatRoom.child(ChatroomFields.numberOfViewers).setValue("\(final)")
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
     }
     
     func incrementMessagesOnChatRoom() {
-        refChatRoom.child(ChatroomFields.numberOfMessages).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            let counter = snapshot.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? NSNumber ?? 0
-            var count = counter.intValue
-            count += 1
-            let final = NSNumber(int: count)
-            self.refChatRoom.child(ChatroomFields.numberOfMessages).setValue("\(final)")
+        let refMessagesCount = refChatRoom.child(ChatroomFields.numberOfMessages)
+        refMessagesCount.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            var viewCounter = snapshot.value as! Int
+            viewCounter += 1
+            self.refChatRoom.child(ChatroomFields.numberOfMessages).setValue(viewCounter)
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
+    func loading() {
+        isLoading = true
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.navigationController!.view.addSubview(viewLoading)
+        viewLoading.center = self.view.center
+        viewLoading.animate()
+    }
+    
+    func stopLoading() {
+        viewLoading.removeFromSuperview()
+        isLoading = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loading()
         self.automaticallyScrollsToMostRecentMessage = true
         self.senderId = PUser.currentUser()?.objectId
         self.senderDisplayName = PUser.currentUser()!.nickname
@@ -109,11 +102,19 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
         updateViewerCounter(true)
-        
+    }
+    
+    func startListening() {
         let messagesQuery = refMessages.queryLimitedToLast(25)
         
         messagesQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
-        
+
+            for _ in self.arrayOfJSQMessages {
+                if self.arrayOfSnapKeys.contains(snap.key) {
+                    return // This snap has already been added, so ignore it
+                }
+            }
+            
             let message = ChatMessage()
             message.snapKey = snap.key
             message.message = snap.childSnapshotForPath(ChatMessageFields.message).value as? String ?? nil
@@ -125,32 +126,36 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             message.createdByUID = snap.childSnapshotForPath(ChatMessageFields.createdByUID).value as? String ?? nil
             message.createdByNickname = snap.childSnapshotForPath(ChatMessageFields.createdByNickname).value as? String ?? nil
             message.createdByParseObjectId = snap.childSnapshotForPath(ChatMessageFields.createdByParseObjectId).value as? String ?? nil
+            message.file = snap.childSnapshotForPath(ChatMessageFields.file).value as? String ?? nil
             
-            
+            var jMsg: JSQMessage? = nil
             
             switch message.type {
             case "TEXT":
-                let jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                         senderDisplayName: message.createdByNickname,
-                                         date: message.createdAt,
-                                         text: message.message)
-                self.arrayOfJSQMessages.insert(jMsg, atIndex: 0)
+                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                                      senderDisplayName: message.createdByNickname,
+                                      date: message.createdAt,
+                                      text: message.message)
                 
-//            case "PICTURE":
-//                let mediaItem = JSQPhotoMediaItem(image: nil)
-//                mediaItem.appliesMediaViewMaskAsOutgoing = (msg.authorId == self.senderId)
-//                let message = JSQMessage(senderId: msg.authorId,
-//                                         senderDisplayName: msg.authorName,
-//                                         date: createdAt,
-//                                         media: mediaItem)
-//                addMessageToDataSource(msg, jsqMsg: message)
-//                let filePicture = msg.file! as PFFile
-//                filePicture.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-//                    if err == nil {
-//                        mediaItem.image = UIImage(data: data!)
-//                        self.collectionView.reloadData()
-//                    }
-//                })
+            case "PICTURE":
+                var image: UIImage?
+                if message.file != nil {
+                    let decodedData = NSData(base64EncodedString: message.file!, options:[])
+                    if let decodedImage = UIImage(data: decodedData!) {
+                        image = decodedImage
+                    } else {
+                        image = UIImage(named: "imageNotFound")
+                    }
+                } else {
+                    image = UIImage(named: "imageNotFound")
+                }
+                
+                let mediaItem = JSQPhotoMediaItem(image: image)
+                mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
+                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                                      senderDisplayName: message.createdByNickname!,
+                                      date: message.createdAt,
+                                      media: mediaItem)
                 
             case "AUDIO":
                 break
@@ -165,6 +170,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 break
             }
             
+            if jMsg != nil {
+                self.arrayOfJSQMessages.append(jMsg!)
+                self.arrayOfSnapKeys.append(snap.key)
+                self.finishReceivingMessage()
+            }
+            
             //check to see if this author's avatar has already been added to the dictionary first
             let keyExists = self.arrayOfAvatars[(message.createdByParseObjectId!)] != nil
             if !keyExists {
@@ -176,33 +187,43 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                         if let file = user.thumbnail {
                             file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
                                 if err == nil {
-                                    let avatar = JSQMessagesAvatarImage(avatarImage: UIImage(data: data!), highlightedImage: UIImage(data: data!), placeholderImage: UIImage(data: data!))
+                                    let picture = UIImage(data: data!)
+                                    let circleAvatar = JSQMessagesAvatarImageFactory.circularAvatarImage(picture, withDiameter: 30)
+                                    let circlePlaceholder = JSQMessagesAvatarImageFactory.circularAvatarImage(UIImage(named: "defaultProfilePicture"), withDiameter: 30)
+                                    
+                                    let avatar = JSQMessagesAvatarImage(avatarImage: circleAvatar, highlightedImage: circleAvatar, placeholderImage: circlePlaceholder)
+                                    
                                     self.arrayOfAvatars[(user.objectId)!] = avatar
-                                    self.finishReceivingMessageAnimated(true)
+                                    //self.finishReceivingMessageAnimated(true)
                                 } else {
                                     // there was an error getting thumbnail data, so finish up
-                                    self.finishReceivingMessageAnimated(true)
+                                    //self.finishReceivingMessageAnimated(true)
                                 }
                             })
                         } else {
                             // no thumbnail, so finish up
-                            self.finishReceivingMessageAnimated(true)
+                            //self.finishReceivingMessageAnimated(true)
                         }
                     }
                 })
             } else {
                 //Avatar already existed, so just finish up
-                self.finishReceivingMessageAnimated(true)
+                //self.finishReceivingMessageAnimated(true)
             }
-        }
-        
-        refMessages.observeEventType(.Value) { (snap: FIRDataSnapshot) in
             
+            if self.initialLoad {
+                self.stopLoading()
+                self.collectionView.reloadData()
+            }
         }
     }
     
+    func stopListening() {
+        refMessages.removeAllObservers()
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        
+        startListening()
         super.viewWillAppear(animated)
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -220,8 +241,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         super.viewWillDisappear(animated)
         
         updateViewerCounter(false)
-        
-        refMessages.removeAllObservers()
+        stopListening()
     }
     
 //    func addMessageToDataSource(message: ChatMessage, jsqMsg: JSQMessage) {
@@ -319,23 +339,44 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        
         let message = arrayOfJSQMessages[indexPath.item]
         
-        //if the same user has sent the previous message, empty avatar
-        let prevIndex = indexPath.item - 1
-        if prevIndex > 0 && prevIndex <= arrayOfJSQMessages.count {
-            //make sure we're not out of bounds
-            let prevMessage = arrayOfJSQMessages[indexPath.item - 1]
-            if message.senderId == prevMessage.senderId {
-                return nil
+        // Are we going to show the avatar or no?
+        
+        if message.isMediaMessage {
+            // Always show for media messages
+            return showAvatarForSenderId(message.senderId)
+        } else {
+            // Assuming previous was from the same user
+            // If this is text, and previous was media, show it
+            // If this is text, and previous was not media, hide it
+            
+            let prevIndex = indexPath.item - 1
+            if prevIndex > 0 && prevIndex <= arrayOfJSQMessages.count {
+                // Make sure we're not out of bounds
+                let prevMessage = arrayOfJSQMessages[indexPath.item - 1]
+                if message.senderId != prevMessage.senderId {
+                    // Not from the same user, show it
+                    return showAvatarForSenderId(message.senderId)
+                } else {
+                    // From the same user, hide it
+                    return nil
+                }
             }
         }
         
+        return showAvatarForSenderId(message.senderId)
+    }
+    
+    func showAvatarForSenderId(id: String) -> JSQMessagesAvatarImage {
         //other wise, show it
-        if let avatar = arrayOfAvatars[message.senderId] {
+        if let avatar = arrayOfAvatars[id] {
             return avatar
         } else {
-            return JSQMessagesAvatarImage(avatarImage: UIImage(named: "defaultProfilePicture"), highlightedImage: UIImage(named: "defaultProfilePicture"), placeholderImage: UIImage(named: "defaultProfilePicture"))
+            let circlePlaceholder = JSQMessagesAvatarImageFactory.circularAvatarImage(UIImage(named: "defaultProfilePicture"), withDiameter: 30)
+            let avatar = JSQMessagesAvatarImage(avatarImage: circlePlaceholder, highlightedImage: circlePlaceholder, placeholderImage: circlePlaceholder)
+            return avatar
         }
     }
     
@@ -351,7 +392,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 cell.textView!.textColor = UIColor.whiteColor()
             }
         }
-        
+        cell.clipsToBounds = false
         return cell
     }
     
@@ -513,55 +554,39 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             ChatMessageFields.type : message.type
             ]
         itemRef.setValue(newMessage)
-        
         refChatRoom.child(ChatroomFields.lastMessage).setValue(text)
-        
         incrementMessagesOnChatRoom()
-        
         refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-        
         self.finishSendingMessage()
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
     }
     
-    func updateChatRoom() {
+    func sendPictureMessage(picture: UIImage?) {
+        let message = blankMessage()
+        message.message = "[Picture Message]"
+        message.type = "PICTURE"
         
-    }
-    
-    func sendPictureMessage(picture: UIImage) {
-//        let message = blankMessage()
-//        message.message = "[Picture Message]"
-//        message.messageType = "PICTURE"
-//        //show loading perhaps
-//        if let dataPicture = UIImageJPEGRepresentation(picture, 0.6) {
-//            let file = PFFile(name: "picture.jpg", data: dataPicture)
-//            message.file = file
-//        }
-//        message.saveInBackgroundWithBlock { (done: Bool, err: NSError?) in
-//            if err == nil {
-//                
-//                // add new message to data source
-//                let mediaItem = JSQPhotoMediaItem(image: nil)
-//                mediaItem.appliesMediaViewMaskAsOutgoing = (message.authorId == self.senderId)
-//                let msg = JSQMessage(senderId: message.authorId,
-//                    senderDisplayName: message.authorName,
-//                    date: NSDate(),
-//                    media: mediaItem)
-//
-//                let filePicture = message.file
-//                filePicture?.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-//                    if err == nil {
-//                        mediaItem.image = UIImage(data: data!)
-//                        self.collectionView.reloadData()
-//                    }
-//                })
-//                
-//                self.addMessageToDataSource(message, jsqMsg: msg)
-//                JSQSystemSoundPlayer.jsq_playMessageSentSound()
-//                self.finishSendingMessage()
-//
-//            } else { print("Couldn't save picture to Parse") }
-//        }
+        var base64String: NSString!
+        let imageData: NSData = UIImagePNGRepresentation(picture!)!
+        base64String = imageData.base64EncodedStringWithOptions([])
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = refMessages.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type,
+            ChatMessageFields.file : base64String
+        ]
+        itemRef.setValue(newMessage)
+        refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
+        incrementMessagesOnChatRoom()
+        refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+        self.finishSendingMessage()
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
     }
     
     func sendVideoMessage() {

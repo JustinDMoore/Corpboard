@@ -83,7 +83,6 @@
 		9F9D68641CE70FAD0084878B /* CreateAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9D68631CE70FAD0084878B /* CreateAccount.xib */; };
 		9FA2362B1D142A4600AE52F9 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA2362A1D142A4600AE52F9 /* ChatViewController.swift */; };
 		9FA2362D1D1459EF00AE52F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FA2362C1D1459EF00AE52F9 /* GoogleService-Info.plist */; };
-		9FA2362F1D145BC500AE52F9 /* FBChatRoomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA2362E1D145BC500AE52F9 /* FBChatRoomTableViewController.swift */; };
 		9FA236311D150AA000AE52F9 /* NewChatRoom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA236301D150AA000AE52F9 /* NewChatRoom.xib */; };
 		9FA236331D150CA800AE52F9 /* NewChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA236321D150CA800AE52F9 /* NewChatRoom.swift */; };
 		9FA236351D1537CC00AE52F9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA236341D1537CC00AE52F9 /* Constants.swift */; };
@@ -425,7 +424,6 @@
 		9F9D68631CE70FAD0084878B /* CreateAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccount.xib; sourceTree = "<group>"; };
 		9FA2362A1D142A4600AE52F9 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9FA2362C1D1459EF00AE52F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9FA2362E1D145BC500AE52F9 /* FBChatRoomTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBChatRoomTableViewController.swift; sourceTree = "<group>"; };
 		9FA236301D150AA000AE52F9 /* NewChatRoom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChatRoom.xib; sourceTree = "<group>"; };
 		9FA236321D150CA800AE52F9 /* NewChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatRoom.swift; sourceTree = "<group>"; };
 		9FA236341D1537CC00AE52F9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -1116,7 +1114,6 @@
 				9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */,
 				9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */,
 				9F2586C31D13BFBD00935281 /* ChatRoomsTableViewController.swift */,
-				9FA2362E1D145BC500AE52F9 /* FBChatRoomTableViewController.swift */,
 				9FA2362A1D142A4600AE52F9 /* ChatViewController.swift */,
 			);
 			name = Controllers;
@@ -1829,7 +1826,6 @@
 				D0D777451B116A6700D4EF6A /* CBLocationServices.m in Sources */,
 				D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */,
 				9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */,
-				9FA2362F1D145BC500AE52F9 /* FBChatRoomTableViewController.swift in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
 				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,

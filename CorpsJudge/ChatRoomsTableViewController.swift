@@ -22,19 +22,34 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     var chatrooms = [Chatroom]()
     var roomIdToOpen = ""
     //var viewNewChatRoom = NewChatRoom()
+    var viewLoading = Loading()
     var initialLoad = true
+    
+    func loading() {
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.navigationController?.view.addSubview(viewLoading)
+        viewLoading.center = self.view.center
+        viewLoading.animate()
+    }
+    
+    func stopLoading() {
+        viewLoading.removeFromSuperview()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loading()
         self.tableView.tableFooterView = UIView()
         if isPrivate {
             self.title = "Private Messages"
         } else {
             self.title = "Chat Rooms"
         }
-
+    }
+    
+    func startListening() {
         chatroomsRef.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
-           
+            
             let room = Chatroom()
             room.snapKey = snap.key
             room.topic = snap.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
@@ -52,21 +67,16 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             room.createdByParseObjectId = snap.childSnapshotForPath(ChatroomFields.createdByParseObjectId).value as? String ?? nil
             room.createdByNickname = snap.childSnapshotForPath(ChatroomFields.createdByNickname).value as? String ?? nil
             
-//            room.updatedByUID = snap.childSnapshotForPath(ChatroomFields.updatedByUID).value as? String ?? nil
-//            room.updatedByParseObjectId = snap.childSnapshotForPath(ChatroomFields.updatedByParseObjectId).value as? String ?? nil
-//            room.updatedByNickname = snap.childSnapshotForPath(ChatroomFields.updatedByNickname).value as? String ?? nil
-            
             room.numberOfViewers = snap.childSnapshotForPath(ChatroomFields.numberOfViewers).value as? Int ?? 0
             room.numberOfMessages = snap.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int ?? 0
-
+            
+            room.lastMessage = snap.childSnapshotForPath(ChatroomFields.lastMessage).value as? String ?? nil
+            
             self.chatrooms.insert(room, atIndex: 0)
             
             if self.initialLoad {
+                self.stopLoading()
                 self.tableView.reloadData()
-            } else {
-                //animate
-                let index = NSIndexPath(forRow: 0, inSection: 0)
-                self.tableView.insertRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
             }
         }
         
@@ -89,33 +99,32 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                         room.updatedAt = Chatroom().dateFromUTCString(rawUpdatedAt!) ?? nil
                     }
                     
-                    room.createdByUID = snapRoom.childSnapshotForPath(ChatroomFields.createdByUID).value as? String ?? nil
+                    room.createdByUID =           snapRoom.childSnapshotForPath(ChatroomFields.createdByUID).value           as? String ?? nil
                     room.createdByParseObjectId = snapRoom.childSnapshotForPath(ChatroomFields.createdByParseObjectId).value as? String ?? nil
-                    room.createdByNickname = snapRoom.childSnapshotForPath(ChatroomFields.createdByNickname).value as? String ?? nil
+                    room.createdByNickname =      snapRoom.childSnapshotForPath(ChatroomFields.createdByNickname).value      as? String ?? nil
                     
-//                    room.updatedByUID = snapRoom.childSnapshotForPath(ChatroomFields.updatedByUID).value as? String ?? nil
-//                    room.updatedByParseObjectId = snapRoom.childSnapshotForPath(ChatroomFields.updatedByParseObjectId).value as? String ?? nil
-//                    room.updatedByNickname = snapRoom.childSnapshotForPath(ChatroomFields.updatedByNickname).value as? String ?? nil
-                    
-                    room.numberOfViewers = snapRoom.childSnapshotForPath(ChatroomFields.numberOfViewers).value as? Int ?? 0
-                    room.numberOfMessages = snapRoom.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int ?? 0
+                    room.numberOfViewers =  snapRoom.childSnapshotForPath(ChatroomFields.numberOfViewers).value  as? Int    ?? 0
+                    room.numberOfMessages = snapRoom.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int    ?? 0
+                    room.lastMessage =      snapRoom.childSnapshotForPath(ChatroomFields.lastMessage).value      as? String ?? nil
                     
                     self.chatrooms.insert(room, atIndex: 0)
                 }
             }
             
             self.tableView.reloadData()
+            self.stopLoading()
             self.initialLoad = false
         }
     }
-
-    func roomFromSnap() {
-        
+    
+    func stopListening() {
+        chatroomsRef.removeAllObservers()
+        chatrooms = [Chatroom]()
     }
     
     override func viewWillAppear(animated: Bool) {
         
-       // getExistingRooms()
+       startListening()
         
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -131,6 +140,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         btnNewChatRoom.frame = CGRectMake(0, 0, 30, 30)
         let newChatBarButton = UIBarButtonItem(customView: btnNewChatRoom)
         self.navigationItem.rightBarButtonItem = newChatBarButton
+        
+        if let index = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(index, animated: true)
+        }
     }
     
     func addNewChatRoomView() {
@@ -147,7 +160,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        chatroomsRef.removeAllObservers()
+        stopListening()
     }
     
     // MARK: - Table view data source
@@ -159,13 +172,28 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatrooms.count
     }
-
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 123
+        return 100
+    }
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 123
+    override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        setCellColor(UISingleton.sharedInstance.goldFade, cell: cell)
+        
+    }
+    
+    override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        setCellColor(UIColor.blackColor(), cell: cell)
+    }
+    
+    func setCellColor(color: UIColor, cell: UITableViewCell) {
+        //cell.contentView.backgroundColor = color
+        cell.backgroundColor = color
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -273,38 +301,37 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
         let lblTopic = cell?.viewWithTag(1) as! UILabel
         let lblLastMessage = cell?.viewWithTag(2) as! UILabel
-        let lblLastMessageWhen = cell?.viewWithTag(3) as! UILabel
-        let lblViewersAndMessages = cell?.viewWithTag(4) as! UILabel
+        let lblHowLongAgo = cell?.viewWithTag(3) as! UILabel
+        let lblNumberOfViewers = cell?.viewWithTag(4) as! UILabel
+        let lblNumberOfMessages = cell?.viewWithTag(5) as! UILabel
         
         lblTopic.text = room.topic
-        lblLastMessageWhen.text = "\(timeDiff)"
+        lblHowLongAgo.text = "\(timeDiff)"
         lblLastMessage.text = room.lastMessage ?? "No messages yet"
         
         var viewers = ""
         if room.numberOfViewers == 1 {
-            viewers = "1 Active Viewer"
+            viewers = " 1 Live Viewer"
         } else {
-            viewers = "\(room.numberOfViewers) Active Viewers"
+            viewers = " \(room.numberOfViewers) Live Viewers"
         }
         
-        var messages = ""
-        if room.numberOfMessages == 1 {
-            messages = "1 Message"
-        } else {
-            messages = "\(room.numberOfMessages) Messages"
-        }
-        
-        var myMutableString = NSMutableAttributedString()
-        myMutableString = NSMutableAttributedString(string: viewers as
-            String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
-        
-        let combined = "\(viewers) | \(messages)"
+        let btnNumberOfViewers = cell?.viewWithTag(11) as! UIButton
         if room.numberOfViewers > 0 {
-            myMutableString = NSMutableAttributedString(string: combined as String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
-            myMutableString.addAttribute(NSForegroundColorAttributeName, value: UISingleton.sharedInstance.gold, range: NSRange(location:0,length:viewers.characters.count))
-            lblViewersAndMessages.attributedText = myMutableString
+            btnNumberOfViewers.tintColor = UISingleton.sharedInstance.gold
+            let attributedString = NSMutableAttributedString(string: viewers as String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UISingleton.sharedInstance.gold, range: NSRange(location:0,length:viewers.characters.count))
+            lblNumberOfViewers.attributedText = attributedString
         } else {
-            lblViewersAndMessages.text = combined
+            btnNumberOfViewers.tintColor = UIColor.lightGrayColor()
+            lblNumberOfViewers.text = viewers
+            lblNumberOfViewers.textColor = UIColor.lightGrayColor()
+        }
+        
+        if room.numberOfMessages == 1 {
+            lblNumberOfMessages.text = "1 Message"
+        } else {
+            lblNumberOfMessages.text = "\(room.numberOfMessages) Messages"
         }
         
         return cell!

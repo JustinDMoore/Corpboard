@@ -7,6 +7,7 @@
 //
 
 #import "LiveChatCell.h"
+#import "Corpsboard-Swift.h"
 
 @implementation LiveChatCell
 
@@ -20,8 +21,10 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    UIView * selectedBackgroundView = [[UIView alloc] init];
+    [selectedBackgroundView setBackgroundColor:UISingleton.sharedInstance.gold];
+    [self setSelectedBackgroundView:selectedBackgroundView];
 }
 
 @end

@@ -15,6 +15,7 @@ struct ChatMessageFields {
     static let createdByParseObjectId = "createdByParseObjectId"
     static let createdByNickname = "createdByNickname"
     static let createdByUID = "createdByUID"
+    static let file = "file"
 }
 
 class ChatMessage: Chat {
@@ -25,6 +26,7 @@ class ChatMessage: Chat {
     var createdByParseObjectId: String?
     var createdByNickname: String?
     var createdByUID: String?
+    var file: String?
 
     var snapKey = String()
     
