@@ -23,7 +23,7 @@ protocol delegateUserProfile: class {
 }
 
 @objc protocol delegateUserLocation: class {
-    func userLocationUpdated()
+    func userLocationUpdated(location: CLLocation)
     func userLocationError()
 }
 
@@ -37,7 +37,7 @@ protocol delegateUserProfile: class {
     //MARK:-
     //MARK:Properties
     var numberOfMessages = 0
-
+    
     weak var delegateInitial: delegateInitialAppLoad?
     weak var delegateUser: delegateUserProfile?
     weak var delegateLocation: delegateUserLocation?
@@ -271,7 +271,7 @@ protocol delegateUserProfile: class {
                                         self.setInstallationLocationAllowed(true)
                                         self.delegateInitial?.updateProgress()
                                         print("3. LOCATION: \(loc)")
-                                        self.delegateLocation?.userLocationUpdated()
+                                        self.delegateLocation?.userLocationUpdated(location)
                                     } else {
                                         //no location from result
                                         self.delegateInitial?.updateProgress()
@@ -931,4 +931,6 @@ protocol delegateUserProfile: class {
             }
         }
     }
+    
+
 }

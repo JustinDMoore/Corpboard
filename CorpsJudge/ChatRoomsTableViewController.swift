@@ -14,21 +14,20 @@ import Firebase
 
 class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
-    
     let chatroomsRef = FIRDatabase.database().reference().child("publicChatRooms")
     
-
     var isPrivate = false
     var chatrooms = [Chatroom]()
     var roomIdToOpen = ""
     //var viewNewChatRoom = NewChatRoom()
     var viewLoading = Loading()
     var initialLoad = true
+    var creatingNewRoom = false
     
     func loading() {
         viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
         self.navigationController?.view.addSubview(viewLoading)
-        viewLoading.center = self.view.center
+        viewLoading.center = self.navigationController!.view.center
         viewLoading.animate()
     }
     
@@ -155,6 +154,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     func goBack() {
+        stopLoading()
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -343,15 +343,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         performSegueWithIdentifier("chat", sender: self)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "chat" {
-            let vc = segue.destinationViewController as? ChatViewController
-            vc?.roomId = roomIdToOpen
-            vc?.isPrivate = isPrivate
-        }
-    }
-    
     func newChatRoomCreated(topic: String) {
+        stopListening() //otherwise, the table will load the new room too fast and we go indexOutOfBounds
         let uid = FIRAuth.auth()?.currentUser?.uid
         let roomRef = chatroomsRef.childByAutoId()
         let newRoom: NSDictionary = [
@@ -360,13 +353,54 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
             ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
             ChatroomFields.createdByUID : uid!,
-            ChatroomFields.numberOfMessages : NSNumber(int: 0),
+            ChatroomFields.numberOfMessages : NSNumber(int: 1),
             ChatroomFields.numberOfViewers : NSNumber(int: 0),
             ChatroomFields.updatedAt : Chatroom().currentUTCTimeAsString(),
-            //ChatroomFields.updatedByUID : uid!,
-            //ChatroomFields.updatedByNickname : PUser.currentUser()!.nickname,
-            //ChatroomFields.updatedByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatroomFields.lastMessage : "Test Message"
         ]
-        roomRef.setValue(newRoom) // 3
+        roomRef.setValue(newRoom)
+        self.sendTextMessage("Test Message", roomKey: roomRef.key)
+        roomIdToOpen = roomRef.key
+        self.performSegueWithIdentifier("chat", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "chat" {
+            let vc = segue.destinationViewController as? ChatViewController
+            vc?.roomId = roomIdToOpen
+            vc?.isPrivate = isPrivate
+            vc?.isNewRoom = creatingNewRoom
+            creatingNewRoom = false
+        }
+    }
+    
+    func sendTextMessage(text: String, roomKey: String) {
+        
+        var refPublicMessages = FIRDatabase.database().reference().child("publicMessages")
+        let refMessages = refPublicMessages.child(roomKey)
+        let message = blankMessage()
+        message.message = text
+        message.type = "TEXT"
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = refMessages.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type
+        ]
+        itemRef.setValue(newMessage)
+    }
+    
+    func blankMessage() -> ChatMessage {
+        let message = ChatMessage()
+        message.createdByParseObjectId = PUser.currentUser()?.objectId!
+        message.createdByNickname = PUser.currentUser()?.nickname
+        message.createdByUID = FIRAuth.auth()?.currentUser?.uid
+        message.createdAt = NSDate()
+        return message
     }
 }

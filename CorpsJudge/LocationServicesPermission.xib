@@ -55,9 +55,9 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pv-yK-R4V">
-                                        <rect key="frame" x="87" y="-15" width="70" height="70"/>
+                                        <rect key="frame" x="87" y="-7" width="70" height="70"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="near"/>
+                                        <state key="normal" image="pin"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-76-L1u">
                                         <rect key="frame" x="83" y="222" width="87" height="30"/>
@@ -109,6 +109,6 @@
         </view>
     </objects>
     <resources>
-        <image name="near" width="85" height="85"/>
+        <image name="pin" width="48" height="48"/>
     </resources>
 </document>

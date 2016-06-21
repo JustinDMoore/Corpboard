@@ -1194,7 +1194,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     // deleateUserLocation in Server.swift
     // called from updateUserLocation()
-    func userLocationUpdated() {
+    func userLocationUpdated(location: CLLocation) {
         viewLocationForDelegate.dismissView()
         self.resumeOpening()
     }

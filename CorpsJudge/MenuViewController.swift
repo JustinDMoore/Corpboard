@@ -231,6 +231,8 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img1 = UIImageView(image: UIImage(named: "disclosure"))
         img1.frame = CGRectMake(0, 0, 20, 20)
         disclosure1.accessoryView = img1
+        disclosure1.accessoryView?.tintColor = textColor
+        btnSeeAll.setTitleColor(textColor, forState: .Normal)
         
         let disclosure2 = UITableViewCell()
         self.btnSeeAllRankings.addSubview(disclosure2)
@@ -240,6 +242,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img2 = UIImageView(image: UIImage(named: "disclosure"))
         img2.frame = CGRectMake(0, 0, 20, 20)
         disclosure2.accessoryView = img2
+        disclosure2.tintColor = textColor
         
         let disclosure3 = UITableViewCell()
         self.btnSeeAllNews.addSubview(disclosure3)
@@ -249,6 +252,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img3 = UIImageView(image: UIImage(named: "disclosure"))
         img3.frame = CGRectMake(0, 0, 20, 20)
         disclosure3.accessoryView = img3
+        disclosure3.tintColor = textColor
         
         let disclosure4 = UITableViewCell()
         self.btnSeeDailySchedule.addSubview(disclosure4)
@@ -258,6 +262,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
         let img4 = UIImageView(image: UIImage(named: "disclosure"))
         img4.frame = CGRectMake(0, 0, 20, 20)
         disclosure4.accessoryView = img4
+        disclosure4.tintColor = textColor
 
         //top 12
         self.pageTopTwelve.hidden = true
@@ -1084,7 +1089,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     // deleateUserLocation in Server.swift
     // called from updateUserLocation()
-    func userLocationUpdated() {
+    func userLocationUpdated(location: CLLocation) {
         viewLocationForDelegate.dismissView()
         self.resumeOpening()
     }

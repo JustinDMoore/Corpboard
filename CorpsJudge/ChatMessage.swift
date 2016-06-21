@@ -16,6 +16,8 @@ struct ChatMessageFields {
     static let createdByNickname = "createdByNickname"
     static let createdByUID = "createdByUID"
     static let file = "file"
+    static let lattitude = "lattitude"
+    static let longitude = "longitude"
 }
 
 class ChatMessage: Chat {
@@ -27,6 +29,7 @@ class ChatMessage: Chat {
     var createdByNickname: String?
     var createdByUID: String?
     var file: String?
+    var location: CLLocation?
 
     var snapKey = String()
     
