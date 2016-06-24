@@ -1089,7 +1089,7 @@ class MenuViewController: UIViewController, UIScrollViewDelegate, UITableViewDel
     
     // deleateUserLocation in Server.swift
     // called from updateUserLocation()
-    func userLocationUpdated(location: CLLocation) {
+    func userLocationUpdated(location: CLLocation?) {
         viewLocationForDelegate.dismissView()
         self.resumeOpening()
     }

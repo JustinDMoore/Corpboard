@@ -20,6 +20,9 @@
     [dateComps setMonth:month];
     [dateComps setDay:day];
     [dateComps setYear:year];
+    [dateComps setHour:0];
+    [dateComps setMinute:1];
+    [dateComps setSecond:0];
     
     NSDate *newDate = [dateComps date];
     

@@ -16,21 +16,39 @@ import FirebaseStorage
 class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IQAudioRecorderViewControllerDelegate, UITextFieldDelegate, delegateUserLocation {
     
     let refStorage = FIRStorage.storage().referenceForURL("gs://corpsboard-3111c.appspot.com")
-    var refPublicChatRoom = FIRDatabase.database().reference().child("publicChatRooms")
-    var refPrivateChatRoom = FIRDatabase.database().reference().child("privateChatRooms")
-    var refPublicMessages = FIRDatabase.database().reference().child("publicMessages")
-    var refPrivateMessages = FIRDatabase.database().reference().child("privateMessages")
-    var refMessages = FIRDatabaseReference() // Set in viewDidLoad
-    var refChatRoom = FIRDatabaseReference() // Set in viewDidLoad
-    var roomId = ""
+    
+    var roomInitialized = false
+    
+    // PUBLIC ROOMS/MESSAGES
+    var publicRoomRef = FIRDatabaseReference()
+    var publicMessagesRef = FIRDatabaseReference()
+    
+    // PRIVATE ROOMS/MESSAGES
+    
+    //CHAT/PRIVATE/RECEIVER
+    //CHAT/PRIVATE/SENDER
+    //CHAT/PRIVATE/RECEIVER/SENDER
+    //CHAT/PRIVATE/SENDER/RECEIVER
+    var privateRoomSenderRef = FIRDatabaseReference()
+    var privateRoomReceiverRef = FIRDatabaseReference()
+    var privateMessagesSenderRef = FIRDatabaseReference()
+    var privateMessagesReceiverRef = FIRDatabaseReference()
+    
+    
+    var roomId: String?
     var isPrivate = false
-    var isNewRoom = false
+    var newRoomTopic: String?
+    var isNewPublicRoom = false
+    var privateRoomInitialized = false
+    var publicRoomInitialized = false
+
     var viewLoading = Loading()
     var isLoading = true
     var initialLoad = true
     var ready = false
     var arrayOfDownloads = [JSQMessage]()
     var viewLocationForDelegate = LocationServicesPermission()
+    var receiverId: String?
     
     //var dictOfMessages = [String: JSQMessage]()
     var arrayOfJSQMessages = [JSQMessage]()
@@ -47,46 +65,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var incomingBubbleWithoutTail: JSQMessagesBubbleImage!
     var placeholderImageData = JSQMessagesAvatarImage(avatarImage: UIImage(named: "defaultProfilePicture"), highlightedImage: UIImage(named: "defaultProfilePicture"), placeholderImage: UIImage(named: "defaultProfilePicture"))
     
-    func updateViewerCounter(increment: Bool) {
-        let refViewers = refChatRoom.child(ChatroomFields.numberOfViewers)
-        refViewers.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            var viewCounter = snapshot.value as! Int
-            if increment { viewCounter += 1 }
-            else { viewCounter -= 1 }
-            self.refChatRoom.child(ChatroomFields.numberOfViewers).setValue(viewCounter)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-    }
-    
-    func incrementMessagesOnChatRoom() {
-        let refMessagesCount = refChatRoom.child(ChatroomFields.numberOfMessages)
-        refMessagesCount.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            var viewCounter = snapshot.value as! Int
-            viewCounter += 1
-            self.refChatRoom.child(ChatroomFields.numberOfMessages).setValue(viewCounter)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-    }
-    
-    func loading() {
-        isLoading = true
-        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
-        self.navigationController!.view.addSubview(viewLoading)
-        viewLoading.center = self.navigationController!.view.center
-        viewLoading.animate()
-    }
-    
-    func stopLoading() {
-        viewLoading.removeFromSuperview()
-        isLoading = false
-    }
-    
+    //MARK:-
+    //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.sharedInstance.delegateLocation = self
-        if !isNewRoom { loading() }
         self.automaticallyScrollsToMostRecentMessage = true
         self.senderId = PUser.currentUser()?.objectId
         self.senderDisplayName = PUser.currentUser()!.nickname
@@ -100,28 +83,50 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         let btnAttachment = UIButton(type: .Custom)
         btnAttachment.frame = CGRectMake(0, 0, 35, 45)
         btnAttachment.setImage(UIImage(named: "attachment"), forState: .Normal)
-        btnAttachment.addTarget(self, action: #selector(ChatViewController.attachment), forControlEvents: .TouchUpInside)
+        btnAttachment.addTarget(self, action: #selector(ChatViewController.didPressAccessoryButton(_:)), forControlEvents: .TouchUpInside)
         btnAttachment.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.inputToolbar.contentView.leftBarButtonItem = btnAttachment
-        
         setupBubbles()
-        
-        // Set the appropriate path depending on private/public chat
-        if isPrivate {
-            self.title = "Private Chat"
-            refMessages = refPrivateMessages.child(roomId)
-            refChatRoom = refPrivateChatRoom.child(roomId)
-        } else {
-            self.title = "Live Chat"
-            refMessages = refPublicMessages.child(roomId)
-            refChatRoom = refPublicChatRoom.child(roomId)
-        }
-        
-        updateViewerCounter(true)
+
     }
     
-    func attachment() {
-        showMenu()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(DailyScheduleViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
+        
+        if isPrivate {
+            loading()
+            self.title = "Private Messages"
+            setReferences()
+            //If sender room exists, display it
+            privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
+                if snap.exists() {
+                    self.startListening()
+                    //Reset unread messages to 0
+                    self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
+                }
+                //else do nothing until message is sent
+                self.stopLoading()
+            }
+        } else {
+            self.title = "Live Chat"
+            if isNewPublicRoom {
+                publicRoomInitialized = false
+                // Do nothing, we wait for first message to init the room
+                stopLoading()
+            } else {
+                loading()
+                setReferences()
+                startListening()
+                updateViewerCounterForRef(publicRoomRef, increment: true)
+                publicRoomInitialized = true
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -130,11 +135,140 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         ready = true
     }
     
-    func startListening() {
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        updateViewerCounterForRef(publicRoomRef, increment: false)
+        stopListening()
+        PrivateMessageListener.sharedInstance.startListening()
+    }
+    
+    func goBack() {
+        self.inputToolbar.contentView.textView.resignFirstResponder()
+        stopLoading()
+        arrayOfSnapKeys.removeAll()
+        arrayOfJSQMessages.removeAll()
+        arrayOfAvatars.removeAll()
+        initialLoad = true
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    //MARK:-
+    //MARK: INITS
+    func loading() {
+        isLoading = true
+        viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
+        self.navigationController!.view.addSubview(viewLoading)
+        viewLoading.center = self.navigationController!.view.center
+        viewLoading.animate()
+    }
+    
+    func stopLoading() {
+        viewLoading.removeFromSuperview()
+        isLoading = false
+    }
+    
+    func setReferences() {
+        if isPrivate {
+            PrivateMessageListener.sharedInstance.stopListening()
+            privateRoomSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child(senderId).child("\(senderId)\(receiverId! ?? "")")
+            privateRoomReceiverRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child(receiverId! ?? "").child("\(receiverId!)\(senderId)")
+            
+            privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(senderId)\(receiverId!)")
+            print(privateMessagesSenderRef)
+            privateMessagesReceiverRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(receiverId!)\(senderId)")
+        } else {
+            assert(roomId != nil, "setReferences() called before setting roomId.")
+            publicRoomRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms").child(roomId!)
+            publicMessagesRef = FIRDatabase.database().reference().child("Chat").child("PublicMessages").child(roomId!)
+        }
+    }
+    
+    func createPublicRoomWithTopic(topic: String, firstMessage: String) {
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let roomRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms").childByAutoId()
+        let newRoom: NSDictionary = [
+            ChatroomFields.topic : topic,
+            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
+            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatroomFields.createdByUID : uid!,
+            ChatroomFields.numberOfMessages : NSNumber(int: 0),
+            ChatroomFields.numberOfViewers : NSNumber(int: 1),
+            ChatroomFields.updatedAt : Chatroom().currentUTCTimeAsString(),
+            ChatroomFields.lastMessage : firstMessage
+        ]
+        roomRef.setValue(newRoom)
+        roomId = roomRef.key
+        
+        setReferences()
+        startListening()
+        publicRoomInitialized = true
+    }
+    
+    func initPrivateRoom(firstMessage: String) {
 
-        let messagesQuery = refMessages.queryLimitedToLast(25)
+        //Is this a new message in an existing private chat for the sender
+        privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
+            if !snap.exists() {
+                // create the chat
+                self.createNewRoomForRef(self.privateRoomSenderRef, forSender: true)
+            }
+        }
+        
+        startListening()
+        roomInitialized = true
+    }
+    
+    func createNewRoomForRef(ref: FIRDatabaseReference, forSender: Bool?) -> Bool {
+        //If for sender, use senderId for key
+        //else use receiverId
+        //if nil, use autoId
+//        var refNewRoom = FIRDatabaseReference()
+//        var chattingWith: String?
+//        if let forSender = forSender {
+//            if forSender {
+//                //refNewRoom = ref.child(senderId)
+//                chattingWith = receiverId
+//            } else {
+//                //refNewRoom = ref.child(receiverId)
+//                chattingWith = senderId
+//            }
+//        } else {
+//            refNewRoom = ref.childByAutoId()
+//            chattingWith = ""
+//        }
+//        
+//        let uid = FIRAuth.auth()?.currentUser?.uid
+//        let newRoom: NSDictionary = [
+//            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
+//            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
+//            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+//            ChatroomFields.createdByUID : uid!,
+//            ChatroomFields.numberOfMessages : NSNumber(int: 0),
+//            ChatroomFields.numberOfViewers : NSNumber(int: 0),
+//            ChatroomFields.privateChatWith : chattingWith!
+//            ]
+//        refNewRoom.setValue(newRoom)
+        return true
+    }
+    
+    func startListening() {
+        
+        var ref = FIRDatabaseReference()
+        
+        if isPrivate {
+            ref = privateMessagesSenderRef
+        } else {
+            ref = publicMessagesRef
+        }
+        
+        let messagesQuery = ref.queryLimitedToLast(25)
         
         messagesQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
+            
+            if !snap.exists() { self.stopLoading() }
             
             for _ in self.arrayOfJSQMessages {
                 if self.arrayOfSnapKeys.contains(snap.key) {
@@ -164,9 +298,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             switch message.type {
             case "TEXT":
                 jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                      senderDisplayName: message.createdByNickname,
-                                      date: message.createdAt,
-                                      text: message.message)
+                                  senderDisplayName: message.createdByNickname,
+                                  date: message.createdAt,
+                                  text: message.message)
                 
             case "PICTURE":
                 var image: UIImage?
@@ -184,9 +318,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 let mediaItem = JSQPhotoMediaItem(image: image)
                 mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
                 jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                      senderDisplayName: message.createdByNickname!,
-                                      date: message.createdAt,
-                                      media: mediaItem)
+                                  senderDisplayName: message.createdByNickname!,
+                                  date: message.createdAt,
+                                  media: mediaItem)
                 
             case "AUDIO":
                 if message.file != nil {
@@ -201,19 +335,19 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 break
                 
             case "VIDEO":
-
+                
                 let mediaItem = JSQVideoMediaItem(fileURL: nil, isReadyToPlay: false)
                 mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
                 jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                      senderDisplayName: message.createdByNickname!,
-                                      date: message.createdAt,
-                                      media: mediaItem)
+                                  senderDisplayName: message.createdByNickname!,
+                                  date: message.createdAt,
+                                  media: mediaItem)
                 self.downloadVideoFromFirebase(message.snapKey, jMsg: mediaItem)
                 break
                 
             case "LOCATION":
                 let mediaItem = JSQLocationMediaItem(location: nil)
-                mediaItem.setLocation(message.location, withCompletionHandler: { 
+                mediaItem.setLocation(message.location, withCompletionHandler: {
                     self.collectionView.reloadData()
                 })
                 mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
@@ -275,54 +409,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     func stopListening() {
-        refMessages.removeAllObservers()
+        publicMessagesRef.removeAllObservers()
+        publicRoomRef.removeAllObservers()
+        privateRoomReceiverRef.removeAllObservers()
+        privateRoomSenderRef.removeAllObservers()
+        privateMessagesSenderRef.removeAllObservers()
+        privateMessagesSenderRef.removeAllObservers()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController!.navigationBarHidden = false
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        let backBtn = UISingleton.sharedInstance.getBackButton()
-        backBtn.addTarget(self, action: #selector(DailyScheduleViewController.goBack), forControlEvents: .TouchUpInside)
-        let backButton = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.leftBarButtonItem = backButton
-        
-        startListening()
-    }
-    
-    func goBack() {
-        self.inputToolbar.contentView.textView.resignFirstResponder()
-        stopLoading()
-        arrayOfSnapKeys.removeAll()
-        arrayOfJSQMessages.removeAll()
-        arrayOfAvatars.removeAll()
-        initialLoad = true
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        IQKeyboardManager.sharedManager().enableAutoToolbar = true
-        updateViewerCounter(false)
-        stopListening()
-    }
-    
-//    func addMessageToDataSource(message: ChatMessage, jsqMsg: JSQMessage) {
-//        //check to see if it already exists
-//        let msgExists = dictOfMessages[(message.createdByParseObjectId!)] != nil
-//        if !msgExists {
-//            dictOfMessages[message.createdByParseObjectId!] = jsqMsg
-//            arrayOfOrderedMessageIds.append(parseMessage.objectId!)
-//        }
-//    }
-    
-//    private func printMessage(msg: PChatMessage) {
-//        
-//
-//    }
-    
-
-
     private func setupBubbles() {
         let tailBubbleFactory = JSQMessagesBubbleImageFactory()
         outgoingBubbleWithTail = tailBubbleFactory.outgoingMessagesBubbleImageWithColor(UISingleton.sharedInstance.gold)
@@ -332,28 +426,51 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         incomingBubbleWithoutTail = tailLessBubbleFactory.incomingMessagesBubbleImageWithColor(UISingleton.sharedInstance.maroon)
         outgoingBubbleWithoutTail = tailLessBubbleFactory.outgoingMessagesBubbleImageWithColor(UISingleton.sharedInstance.gold)
     }
-
     
-//    func addMessage(message: PChatMessage) {
-//        let author = message.author
-//        if let attachment = message.attachment {
-//            let mediaItem = JSQPhotoMediaItem(image: nil)
-//            mediaItem.appliesMediaViewMaskAsOutgoing = isUserCurrentUser(author)
-//            let JMessage = JSQMessage(senderId: author.objectId, senderDisplayName: author.nickname, date: message.createdAt, media: mediaItem)
-//            arrayOfMessages.append(JMessage)
-//            let filePicture = attachment
-//            filePicture.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-//                if err == nil {
-//                    mediaItem.image = UIImage(data: data!)
-//                    self.collectionView.reloadData()
-//                }
-//            })
-//        } else {
-//            let JMessage = JSQMessage(senderId: author.objectId, senderDisplayName: author.nickname, date: message.createdAt, text: message.message)
-//            arrayOfMessages.append(JMessage)
-//        }
-//        finishReceivingMessage()
-//    }
+    func updateViewerCounterForRef(ref: FIRDatabaseReference, increment: Bool) {
+        ref.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+            if var room = currentData.value as? [String : AnyObject] {
+                
+                var count = room[ChatroomFields.numberOfViewers] as? Int ?? 0
+                if increment {
+                    count += 1
+                } else {
+                    count -= 1
+                }
+                if count < 0 { count = 0 }
+                room[ChatroomFields.numberOfViewers] = count
+                currentData.value = room
+                return FIRTransactionResult.successWithValue(currentData)
+            }
+            return FIRTransactionResult.successWithValue(currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func incrementMessageCounterForRoomRef(ref: FIRDatabaseReference) {
+
+        print(ref)
+        ref.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+            if var room = currentData.value as? [String : AnyObject] {
+
+                var count = room[ChatroomFields.numberOfMessages] as? Int ?? 0
+                count += 1
+                room[ChatroomFields.numberOfMessages] = count
+                
+                currentData.value = room
+                
+                return FIRTransactionResult.successWithValue(currentData)
+            }
+            return FIRTransactionResult.successWithValue(currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     func isUserCurrentUser(userToCheck: PUser) -> Bool {
         if userToCheck.objectId == PUser.currentUser()?.objectId {
@@ -363,6 +480,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    //MARK:-
+    //MARK: JSQMESSAGE DATASOURCE
     override func collectionView(collectionView: JSQMessagesCollectionView!,
                                  messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
         return arrayOfJSQMessages[indexPath.item]
@@ -499,6 +618,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    //MARK:-
+    //MARK: JSQMESSAGE DELEGATES
     override func collectionView(collectionView: JSQMessagesCollectionView!, didTapAvatarImageView avatarImageView: UIImageView!, atIndexPath indexPath: NSIndexPath!) {
         let message = arrayOfJSQMessages[indexPath.item]
         let userId = message.senderId
@@ -515,6 +636,453 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func didPressAccessoryButton(sender: UIButton!) {
         showMenu()
+    }
+    
+    //MARK:
+    //MARK: UIIMAGECONTROLLER DELEGATES
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var vid: NSURL?
+        var pic: UIImage?
+        if let video = info[UIImagePickerControllerMediaURL] as? NSURL {
+            vid = video
+        }
+        if let picture = info[UIImagePickerControllerEditedImage] as? UIImage {
+            pic = picture
+        }
+        sendMessage(nil, videoFilePath: vid, picture: pic, audioFilePath: nil)
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK:-
+    //MARK: UITEXTVIEW DELEGATES
+    override func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        //FIXME: return false where needed
+        if isLoading { return true }
+        else { return true }
+    }
+    
+    //MARK:-
+    //MARK: IQAUDIORECORDER DELEGATES
+    func audioRecorderController(controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
+        controller.dismissViewControllerAnimated(true) {
+            self.sendMessage(nil, videoFilePath: nil, picture: nil, audioFilePath: filePath)
+        }
+    }
+    
+    //MARK:-
+    //MARK: SEND ALL MESSAGES
+    func sendMessage(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?) {
+        
+        if isPrivate {
+            // Check the paths for sender and receiver, create rooms if necessary
+            privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
+                if !snap.exists() {
+                    if self.createNewRoomForRef(self.privateRoomSenderRef, forSender: true) {
+                        self.startListening()
+                        self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
+                    }
+                } else {
+                    self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
+                }
+            }
+            privateRoomReceiverRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
+                if !snap.exists() {
+                    if self.createNewRoomForRef(self.privateRoomReceiverRef, forSender: false) {
+                        self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: false)
+                    }
+                } else {
+                    self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: false)
+                }
+            }
+    
+    //Public Message
+        } else {
+            if !publicRoomInitialized {
+                createPublicRoomWithTopic(newRoomTopic ?? "[Unknown Room Topic]", firstMessage: text ?? "[Unknown Message Type]")
+                proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: nil)
+            } else {
+                proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: nil)
+            }
+        }
+    }
+    
+    func proceedWithMessage(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?, forSender: Bool?) {
+        if text != nil { sendTextMessage(text!, forSender: forSender) }
+        if picture != nil { sendPictureMessage(picture!) }
+        if audioFilePath != nil { sendAudioMessage(audioFilePath!) }
+        if videoFilePath != nil { sendVideoMessage(videoFilePath!) }
+        if text == nil && videoFilePath == nil && picture == nil && audioFilePath == nil { sendLocationMessage() }
+    }
+    
+    //MARK:-
+    //MARK: TEXT MESSAGE
+    func sendTextMessage(text: String?, forSender: Bool?) {
+        if let text = text {
+            if isPrivate {
+                if forSender == true { sendTextMessageForRef(privateMessagesSenderRef, text: text) }
+                else if forSender == false { sendTextMessageForRef(privateMessagesReceiverRef, text: text) }
+            } else {
+                sendTextMessageForRef(publicMessagesRef, text: text)
+            }
+            self.finishSendingMessage()
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        }
+    }
+    func sendTextMessageForRef(ref: FIRDatabaseReference, text: String) {
+        let message = blankMessage()
+        message.message = text
+        message.type = "TEXT"
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = ref.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type
+        ]
+        itemRef.setValue(newMessage)
+        
+        if isPrivate {
+            privateRoomSenderRef.child(ChatroomFields.lastMessage).setValue(text)
+            privateRoomSenderRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+    
+            privateRoomReceiverRef.child(ChatroomFields.lastMessage).setValue(text)
+            privateRoomReceiverRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            privateRoomReceiverRef.child(ChatroomFields.privateChatWith).setValue(senderId)
+            privateRoomSenderRef.child(ChatroomFields.privateChatWith).setValue(receiverId!)
+            
+            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+        } else {
+            publicRoomRef.child(ChatroomFields.lastMessage).setValue(text)
+            publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            incrementMessageCounterForRoomRef(publicRoomRef)
+        }
+    }
+    
+    //MARK:-
+    //MARK: PICTURE MESSAGE
+    func sendPictureMessage(picture: UIImage?) {
+        if let picture = picture {
+            if isPrivate {
+                sendPictureMessageForRef(privateMessagesSenderRef, picture: picture)
+                sendPictureMessageForRef(privateMessagesReceiverRef, picture: picture)
+            } else {
+                sendPictureMessageForRef(publicMessagesRef, picture: picture)
+            }
+            self.finishSendingMessage()
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        }
+    }
+    
+    func sendPictureMessageForRef(ref: FIRDatabaseReference, picture: UIImage) {
+        let message = blankMessage()
+        message.message = "[Picture Message]"
+        message.type = "PICTURE"
+        
+        var base64String: NSString!
+        let imageData: NSData = UIImagePNGRepresentation(picture)!
+        base64String = imageData.base64EncodedStringWithOptions([])
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = ref.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type,
+            ChatMessageFields.file : base64String
+        ]
+        itemRef.setValue(newMessage)
+        
+        if isPrivate {
+            privateRoomReceiverRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomReceiverRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            privateRoomSenderRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomSenderRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            privateRoomReceiverRef.child(ChatroomFields.privateChatWith).setValue(senderId)
+            privateRoomSenderRef.child(ChatroomFields.privateChatWith).setValue(receiverId!)
+            
+            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+        } else {
+            publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            incrementMessageCounterForRoomRef(publicRoomRef)
+        }
+    }
+    
+    //MARK:-
+    //MARK: VIDEO MESSAGE
+    
+    func sendVideoMessage(videoFilePath: NSURL) {
+//        // Upload the video
+//        let data = NSData(contentsOfURL: videoFilePath)
+//        uploadVideoToFirebase(data!)
+    }
+    
+    func uploadVideoToFirebase(data: NSData) {
+//        let key = NSUUID().UUIDString
+//        
+//        let refImage = refStorage.child("messages/videos/\(key)")
+//        let uploadTask = refImage.putData(data, metadata: nil) { metadata, error in
+//            if (error != nil) {
+//                print("FIREBASE ERROR: File upload failed - \(error)")
+//            } else {
+//                print("FIREBASE: File upload successful.")
+//                
+//                let message = self.blankMessage()
+//                message.message = "[Video Message]"
+//                message.type = "VIDEO"
+//                
+//                // Save the message
+//                let uid = FIRAuth.auth()?.currentUser?.uid
+//                let itemRef = self.refMessages.child(key)
+//                let newMessage: NSDictionary = [
+//                    ChatMessageFields.message : message.message!,
+//                    ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+//                    ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+//                    ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+//                    ChatMessageFields.createdByUID : uid!,
+//                    ChatMessageFields.type : message.type
+//                ]
+//                itemRef.setValue(newMessage)
+//                self.refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
+//                self.incrementMessagesOnChatRoom()
+//                self.refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+//                self.finishSendingMessage()
+//                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+//            }
+//        }
+//        
+//        let _ = uploadTask.observeStatus(.Progress) { snapshot in
+//            print("PROGRESS: \(snapshot.progress)")
+//            //let percentComplete = 100.0 * (snapshot.progress?.completedUnitCount)! / (snapshot.progress?.totalUnitCount)!
+//        }
+    }
+    
+    func downloadVideoFromFirebase(key: String, jMsg: JSQVideoMediaItem) {
+//        
+//        let refImage = refStorage.child("messages/videos/\(key)")
+//        let localURL: NSURL! = NSURL(string: "file:///local/corpsboard/\(key)")
+//        let downloadTask = refImage.writeToFile(localURL) { (URL, error) -> Void in
+//            if (error != nil) {
+//                print("FIREBASE ERROR: File download failed - \(error)")
+//            } else {
+//                print("FIREBASE: File download successful.")
+//                self.videoDownloadComplete(localURL, jMsg: jMsg)
+//            }
+//        }
+//        
+//        let _ = downloadTask.observeStatus(.Progress) { (snapshot) -> Void in
+//            print("PROGRESS: \(snapshot.progress)")
+//            //let percentComplete = 100.0 * (snapshot.progress?.completedUnitCount)! / (snapshot.progress?.totalUnitCount)!
+//        }
+    }
+    
+    func videoDownloadComplete(url: NSURL, jMsg: JSQVideoMediaItem) {
+//        jMsg.fileURL = url
+//        jMsg.isReadyToPlay = true
+//        self.collectionView.reloadData()
+    }
+    
+    //MARK:-
+    //MARK: AUDIO MESSAGE
+    func sendAudioMessage(filePath: String?) {
+        if let filePath = filePath {
+            if isPrivate {
+                sendAudioMessageForRef(privateMessagesSenderRef, filePath: filePath)
+                sendAudioMessageForRef(privateMessagesReceiverRef, filePath: filePath)
+            } else {
+                sendAudioMessageForRef(publicMessagesRef, filePath: filePath)
+            }
+            self.finishSendingMessage()
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        }
+    }
+    
+    func sendAudioMessageForRef(ref: FIRDatabaseReference, filePath: String) {
+        let message = blankMessage()
+        message.message = "[Audio Message]"
+        message.type = "AUDIO"
+        
+        let url = NSURL(fileURLWithPath: filePath)
+        let data = NSData(contentsOfURL: url)
+        let str = data?.base64EncodedStringWithOptions([])
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = ref.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type,
+            ChatMessageFields.file : str!
+        ]
+        itemRef.setValue(newMessage)
+        
+        if isPrivate {
+            privateRoomReceiverRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomReceiverRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            privateRoomSenderRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomSenderRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            incrementMessageCounterForRoomRef(privateRoomSenderRef)
+            incrementMessageCounterForRoomRef(privateRoomReceiverRef)
+
+            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+        } else {
+            publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            incrementMessageCounterForRoomRef(publicRoomRef)
+        }
+    }
+    
+    //MARK:-
+    //MARK: LOCATION MESSAGE
+    func sendLocationMessage() {
+        // Make sure location is enabled
+        // If not, prompt, then try again
+        // If so, location reloaded and delegate fires off location JSQMessage
+        doesUserHaveLocationServicesEnabled()
+    }
+    
+    // deleateUserLocation in Server.swift
+    // called from updateUserLocation()
+    func userLocationUpdated(location: CLLocation?) {
+        viewLocationForDelegate.dismissView()
+        if let location = location {
+            if isPrivate {
+                sendLocationForRef(privateMessagesReceiverRef, location: location)
+                sendLocationForRef(privateMessagesSenderRef, location: location)
+            } else {
+                sendLocationForRef(publicMessagesRef, location: location)
+            }
+            self.finishSendingMessage()
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        }
+    }
+    
+    func sendLocationForRef(ref: FIRDatabaseReference, location: CLLocation) {
+        
+        let message = blankMessage()
+        message.type = "LOCATION"
+        message.message = "[Location Message]"
+        
+        let lat = Double(location.coordinate.latitude)
+        let lon = Double(location.coordinate.longitude)
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let itemRef = ref.childByAutoId()
+        let newMessage: NSDictionary = [
+            ChatMessageFields.message : message.message!,
+            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
+            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatMessageFields.createdByUID : uid!,
+            ChatMessageFields.type : message.type,
+            ChatMessageFields.lattitude : NSNumber(double: lat),
+            ChatMessageFields.longitude : NSNumber(double: lon)
+        ]
+        itemRef.setValue(newMessage)
+        
+        if isPrivate {
+            privateRoomReceiverRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomReceiverRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            privateRoomSenderRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            privateRoomSenderRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            incrementMessageCounterForRoomRef(privateRoomSenderRef)
+            incrementMessageCounterForRoomRef(privateRoomReceiverRef)
+            
+            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+        } else {
+            publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
+            publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
+            
+            incrementMessageCounterForRoomRef(publicRoomRef)
+        }
+    }
+    
+    // Checks to see if user has allowed location services
+    // If so, returns true
+    // If not, prompts user
+    // Before this is called, call doesUserNeedAccountOrNickname(), because we need an account to write geo to --- We have to have an account at this point to be chatting
+    func doesUserHaveLocationServicesEnabled() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .AuthorizedAlways:
+                Server.sharedInstance.updateUserLocation()
+                return true
+            case .AuthorizedWhenInUse:
+                Server.sharedInstance.updateUserLocation()
+                return true
+            case .Denied:
+                self.tellUserToEnableLocationForView()
+                return false
+            case .NotDetermined:
+                self.askForLocationPermissionForView()
+                return false
+            case .Restricted:
+                self.tellUserToEnableLocationForView()
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    func askForLocationPermissionForView() {
+        if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
+            viewLoc.showInParent(self.navigationController)
+            viewLoc.setDelegate(self)
+            viewLocationForDelegate = viewLoc
+        }
+    }
+    
+    func tellUserToEnableLocationForView() {
+        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
+            viewLocation.showInParent(self.navigationController)
+        }
+    }
+    
+    // deleateUserLocation in Server.swift
+    // called from updateUserLocation()
+    func userLocationError() {
+        viewLocationForDelegate.dismissView()
+        let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //MARK:-
+    //MARK: HELPERS
+    
+    func blankMessage() -> ChatMessage {
+        let message = ChatMessage()
+        message.createdByParseObjectId = PUser.currentUser()?.objectId!
+        message.createdByNickname = PUser.currentUser()?.nickname
+        message.createdByUID = FIRAuth.auth()?.currentUser?.uid
+        message.createdAt = NSDate()
+        return message
     }
     
     func showMenu() {
@@ -544,25 +1112,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         gridMenu.backgroundColor = UIColor(colorLiteralRed: 97/255.0, green: 22/255.0, blue: 26/255.0, alpha: 0.7)
         gridMenu.highlightColor = UISingleton.sharedInstance.gold
         gridMenu.showInViewController(self, center: CGPointMake(self.view.bounds.size.width / 2, self.view.bounds.size.height / 2))
-    }
-    
-    //MARK:
-    //MARK: UIImagePickerController Delegates
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        var vid: NSURL?
-        var pic: UIImage?
-        if let video = info[UIImagePickerControllerMediaURL] as? NSURL {
-            vid = video
-        }
-        if let picture = info[UIImagePickerControllerEditedImage] as? UIImage {
-            pic = picture
-        }
-        sendMessage(nil, videoFilePath: vid, picture: pic, audioFilePath: nil)
-        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func presentMultiCamera() {
@@ -620,287 +1169,4 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         controller.barStyle = UIBarStyle.BlackTranslucent
         self.presentBlurredAudioRecorderViewControllerAnimated(controller)
     }
-
-    func audioRecorderController(controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
-        controller.dismissViewControllerAnimated(true) { 
-            self.sendMessage(nil, videoFilePath: nil, picture: nil, audioFilePath: filePath)
-        }
-    }
-    
-    func sendMessage(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?) {
-        
-        if text != nil { sendTextMessage(text!) }
-        if picture != nil { sendPictureMessage(picture!) }
-        if audioFilePath != nil { sendAudioMessage(audioFilePath!) }
-        if videoFilePath != nil { sendVideoMessage(videoFilePath!) }
-        if text == nil && videoFilePath == nil && picture == nil && audioFilePath == nil { sendLocationMessage() }
-    }
-    
-    func sendTextMessage(text: String) {
-        
-        let message = blankMessage()
-        message.message = text
-        message.type = "TEXT"
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let itemRef = refMessages.childByAutoId()
-        let newMessage: NSDictionary = [
-            ChatMessageFields.message : message.message!,
-            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatMessageFields.createdByUID : uid!,
-            ChatMessageFields.type : message.type
-        ]
-        itemRef.setValue(newMessage)
-        refChatRoom.child(ChatroomFields.lastMessage).setValue(text)
-        incrementMessagesOnChatRoom()
-        refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-        self.finishSendingMessage()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-}
-
-func sendPictureMessage(picture: UIImage?) {
-        let message = blankMessage()
-        message.message = "[Picture Message]"
-        message.type = "PICTURE"
-        
-        var base64String: NSString!
-        let imageData: NSData = UIImagePNGRepresentation(picture!)!
-        base64String = imageData.base64EncodedStringWithOptions([])
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let itemRef = refMessages.childByAutoId()
-        let newMessage: NSDictionary = [
-            ChatMessageFields.message : message.message!,
-            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatMessageFields.createdByUID : uid!,
-            ChatMessageFields.type : message.type,
-            ChatMessageFields.file : base64String
-        ]
-        itemRef.setValue(newMessage)
-        refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
-        incrementMessagesOnChatRoom()
-        refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-        self.finishSendingMessage()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-    }
-    
-    func sendVideoMessage(videoFilePath: NSURL) {
-        
-        // Upload the video
-        let data = NSData(contentsOfURL: videoFilePath)
-        uploadVideoToFirebase(data!)
-    }
-    
-    func sendAudioMessage(filePath: String) {
-        
-        let message = blankMessage()
-        message.message = "[Audio Message]"
-        message.type = "AUDIO"
-        
-        let url = NSURL(fileURLWithPath: filePath)
-        let data = NSData(contentsOfURL: url)
-        let str = data?.base64EncodedStringWithOptions([])
-        
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let itemRef = refMessages.childByAutoId()
-        let newMessage: NSDictionary = [
-            ChatMessageFields.message : message.message!,
-            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatMessageFields.createdByUID : uid!,
-            ChatMessageFields.type : message.type,
-            ChatMessageFields.file : str!
-        ]
-        itemRef.setValue(newMessage)
-        refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
-        incrementMessagesOnChatRoom()
-        refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-        self.finishSendingMessage()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-    }
-    
-    func sendLocationMessage() {
-        // Make sure location is enabled
-        // If not, prompt, then try again
-        // If so, location reloaded and delegate fires off location JSQMessage
-        doesUserHaveLocationServicesEnabled()
-    }
-    
-    func blankMessage() -> ChatMessage {
-        let message = ChatMessage()
-        message.createdByParseObjectId = PUser.currentUser()?.objectId!
-        message.createdByNickname = PUser.currentUser()?.nickname
-        message.createdByUID = FIRAuth.auth()?.currentUser?.uid
-        message.createdAt = NSDate()
-        return message
-    }
-    
-    override func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        if isLoading { return false }
-        else { return true }
-    }
-    
-    //MARK:-
-    //MARK: Firebase Videos Upload/Download
-    func uploadVideoToFirebase(data: NSData) {
-        let key = NSUUID().UUIDString
-        
-        let refImage = refStorage.child("messages/videos/\(key)")
-        let uploadTask = refImage.putData(data, metadata: nil) { metadata, error in
-            if (error != nil) {
-                print("FIREBASE ERROR: File upload failed - \(error)")
-            } else {
-                print("FIREBASE: File upload successful.")
-                
-                let message = self.blankMessage()
-                message.message = "[Video Message]"
-                message.type = "VIDEO"
-                
-                // Save the message
-                let uid = FIRAuth.auth()?.currentUser?.uid
-                let itemRef = self.refMessages.child(key)
-                let newMessage: NSDictionary = [
-                    ChatMessageFields.message : message.message!,
-                    ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-                    ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-                    ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-                    ChatMessageFields.createdByUID : uid!,
-                    ChatMessageFields.type : message.type
-                ]
-                itemRef.setValue(newMessage)
-                self.refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
-                self.incrementMessagesOnChatRoom()
-                self.refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-                self.finishSendingMessage()
-                JSQSystemSoundPlayer.jsq_playMessageSentSound()
-            }
-        }
-        
-        let _ = uploadTask.observeStatus(.Progress) { snapshot in
-            print("PROGRESS: \(snapshot.progress)")
-            //let percentComplete = 100.0 * (snapshot.progress?.completedUnitCount)! / (snapshot.progress?.totalUnitCount)!
-        }
-    }
-    
-    func downloadVideoFromFirebase(key: String, jMsg: JSQVideoMediaItem) {
-        
-        let refImage = refStorage.child("messages/videos/\(key)")
-        let localURL: NSURL! = NSURL(string: "file:///local/corpsboard/\(key)")
-        let downloadTask = refImage.writeToFile(localURL) { (URL, error) -> Void in
-            if (error != nil) {
-                print("FIREBASE ERROR: File download failed - \(error)")
-            } else {
-                print("FIREBASE: File download successful.")
-                self.videoDownloadComplete(localURL, jMsg: jMsg)
-            }
-        }
-
-        let _ = downloadTask.observeStatus(.Progress) { (snapshot) -> Void in
-            print("PROGRESS: \(snapshot.progress)")
-            //let percentComplete = 100.0 * (snapshot.progress?.completedUnitCount)! / (snapshot.progress?.totalUnitCount)!
-        }
-    }
-    
-    func videoDownloadComplete(url: NSURL, jMsg: JSQVideoMediaItem) {
-        jMsg.fileURL = url
-        jMsg.isReadyToPlay = true
-        self.collectionView.reloadData()
-    }
-    
-    //MARK:-
-    //MARK: Location Services
-    //MARK:-
-    //MARK: Location Functions
-    
-    // Checks to see if user has allowed location services
-    // If so, returns true
-    // If not, prompts user
-    // Before this is called, call doesUserNeedAccountOrNickname(), because we need an account to write geo to --- We have to have an account at this point to be chatting
-    func doesUserHaveLocationServicesEnabled() -> Bool {
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .AuthorizedAlways:
-                Server.sharedInstance.updateUserLocation()
-                return true
-            case .AuthorizedWhenInUse:
-                Server.sharedInstance.updateUserLocation()
-                return true
-            case .Denied:
-                self.tellUserToEnableLocationForView()
-                return false
-            case .NotDetermined:
-                self.askForLocationPermissionForView()
-                return false
-            case .Restricted:
-                self.tellUserToEnableLocationForView()
-                return false
-            }
-        } else {
-            return false
-        }
-    }
-    
-    func askForLocationPermissionForView() {
-        if let viewLoc = NSBundle.mainBundle().loadNibNamed("LocationServicesPermission", owner: self, options: nil).first as? LocationServicesPermission {
-            viewLoc.showInParent(self.navigationController)
-            viewLoc.setDelegate(self)
-            viewLocationForDelegate = viewLoc
-        }
-    }
-    
-    func tellUserToEnableLocationForView() {
-        if let viewLocation = NSBundle.mainBundle().loadNibNamed("LocationServicesDisabled", owner: self, options: nil).first as? LocationServicesDisabled {
-            viewLocation.showInParent(self.navigationController)
-        }
-    }
-    
-    // deleateUserLocation in Server.swift
-    // called from updateUserLocation()
-    func userLocationUpdated(location: CLLocation) {
-
-        let lat = Double(location.coordinate.latitude)
-        let lon = Double(location.coordinate.longitude)
-        
-        viewLocationForDelegate.dismissView()
-        
-        //Proceed
-        let message = blankMessage()
-        message.type = "LOCATION"
-        message.message = "[Location Message]"
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let itemRef = refMessages.childByAutoId()
-        let newMessage: NSDictionary = [
-            ChatMessageFields.message : message.message!,
-            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatMessageFields.createdByUID : uid!,
-            ChatMessageFields.type : message.type,
-            ChatMessageFields.lattitude : NSNumber(double: lat),
-            ChatMessageFields.longitude : NSNumber(double: lon)
-        ]
-        itemRef.setValue(newMessage)
-        refChatRoom.child(ChatroomFields.lastMessage).setValue(message.message)
-        incrementMessagesOnChatRoom()
-        refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-        self.finishSendingMessage()
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-    }
-    
-    // deleateUserLocation in Server.swift
-    // called from updateUserLocation()
-    func userLocationError() {
-        viewLocationForDelegate.dismissView()
-        let alert = UIAlertController(title: "Location Services", message: "Corpsboard could not update your location.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
 }

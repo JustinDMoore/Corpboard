@@ -198,6 +198,12 @@ typedef enum : int {
     
     [super viewDidLoad];
     
+    //ONLY FOR ADMIN TO PICK A STADIUM FOR A SHOW
+//    if (self.show[@"stadium"] == nil) {
+//        PickAStadium *viewPickAStadium = [[PickAStadium alloc] init];
+//        viewPickAStadium = [[NSBundle mainBundle] loadNibNamed:@"PickAStadium" owner:self options:nil].firstObject;
+//        [viewPickAStadium showInParent:self.navigationController forShow:self.show];
+//    }
     
     data = [Server sharedInstance];
     del = [[UIApplication sharedApplication] delegate];
@@ -621,6 +627,7 @@ typedef enum : int {
     UILabel *lblPosition;
     UILabel *lblScore;
     UILabel *lblTime;
+    UITextField *txtPerformanceTime;
     PFImageView *imgLogo;
     
     PFObject *corps;
@@ -639,6 +646,25 @@ typedef enum : int {
             
         default:
             break;
+    }
+    
+    txtPerformanceTime = [cell viewWithTag:100];
+    if (data.adminMode) {
+        txtPerformanceTime.delegate = self;
+        [txtPerformanceTime setUserInteractionEnabled:YES];
+        [txtPerformanceTime addTarget:self
+                               action:@selector(textFieldDidChange:)
+                     forControlEvents:UIControlEventEditingChanged];
+        txtPerformanceTime.hidden = NO;
+        NSString *str = score[@"performanceTime"];
+        
+        if ([str hasPrefix:@"0"] && [str length] > 1) {
+            str = [str substringFromIndex:1];
+        }
+        
+        txtPerformanceTime.text = str;
+    } else {
+        txtPerformanceTime.hidden = YES;
     }
     
     NSString *exc = score[@"exception"];
@@ -679,7 +705,13 @@ typedef enum : int {
             }
         } else {
             lblCorpsName.text = corps[@"corpsName"];
-            lblTime.text = score[@"performanceTime"];
+            //Trim leading zero's
+            NSString *str = score[@"performanceTime"];
+            
+            if ([str hasPrefix:@"0"] && [str length] > 1) {
+                str = [str substringFromIndex:1];
+            }
+            lblTime.text = str;
         }
     }
     
@@ -2077,29 +2109,55 @@ bool backspaced;
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
-    CGPoint location = [textField.superview convertPoint:textField.center toView:self.viewFavorite.tableCorps];
-    NSIndexPath *indexPath = [self.viewFavorite.tableCorps indexPathForRowAtPoint:location];
-    
-    if (textField.text.length == 1) textField.text = @"";
-    if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
-    if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
-    if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
-    
-    if (indexPath.section == 0) {
-        UserScore *score = [self.WScores objectAtIndex:indexPath.row];
-        score.score = [textField.text doubleValue];
-        //[self.WScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
-        //[self.WScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
-    } else if (indexPath.section == 1) {
-        UserScore *score = [self.OScores objectAtIndex:indexPath.row];
-        score.score = [textField.text doubleValue];
-        //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
-        //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
-    } else if (indexPath.section == 2) {
-        UserScore *score = [self.AScores objectAtIndex:indexPath.row];
-        score.score = [textField.text doubleValue];
-        //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
-        //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
+    if (textField.tag == 100) {
+        
+        CGPoint location = [textField.superview convertPoint:textField.center toView:self.tableCorps];
+        NSIndexPath *indexPath = [self.tableCorps indexPathForRowAtPoint:location];
+        
+        PFObject *score;
+        
+        if (indexPath.section == 0) {
+            score = self.arrayOfWorldClassScores[indexPath.row];
+        } else if (indexPath.section == 1) {
+            score = self.arrayOfOpenClassScores[indexPath.row];
+        } else if (indexPath.section == 2) {
+            score = self.arrayOfAllAgeClassScores[indexPath.row];
+        }
+        if (score) {
+            NSString *str = textField.text;
+            if ([str hasPrefix:@"1"] && [str length] > 1) {
+                str = [NSString stringWithFormat:@"%i%@", 0, textField.text];
+            }
+            score[@"performanceTime"] = str;
+            [score saveInBackground];
+            [self.tableCorps reloadData];
+        }
+        
+    } else {
+        CGPoint location = [textField.superview convertPoint:textField.center toView:self.viewFavorite.tableCorps];
+        NSIndexPath *indexPath = [self.viewFavorite.tableCorps indexPathForRowAtPoint:location];
+        
+        if (textField.text.length == 1) textField.text = @"";
+        if (textField.text.length == 2) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @".00"];
+        if (textField.text.length == 3) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"00"];
+        if (textField.text.length == 4) textField.text = [NSString stringWithFormat:@"%@%@", textField.text, @"0"];
+        
+        if (indexPath.section == 0) {
+            UserScore *score = [self.WScores objectAtIndex:indexPath.row];
+            score.score = [textField.text doubleValue];
+            //[self.WScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+            //[self.WScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
+        } else if (indexPath.section == 1) {
+            UserScore *score = [self.OScores objectAtIndex:indexPath.row];
+            score.score = [textField.text doubleValue];
+            //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+            //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
+        } else if (indexPath.section == 2) {
+            UserScore *score = [self.AScores objectAtIndex:indexPath.row];
+            score.score = [textField.text doubleValue];
+            //[self.OScores replaceObjectAtIndex:indexPath.row withObject:textField.text];
+            //[self.OScores setObject:textField.text forKey:[NSString stringWithFormat:@"%li", (long)indexPath.row]];
+        }
     }
 }
 

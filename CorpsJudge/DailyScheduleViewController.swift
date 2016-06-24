@@ -56,10 +56,11 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
             self.displaySchedule()
         }
         
-        if day?.housing == nil {
-            viewPickAStadium = NSBundle.mainBundle().loadNibNamed("PickAStadium", owner: self, options: nil).first as! PickAStadium
-            viewPickAStadium.showInParent(self.navigationController!, forShow: day!)
-        }
+        // ONLY FOR ADMIN TO ADD HOUSING
+//        if day?.housing == nil {
+//            viewPickAStadium = NSBundle.mainBundle().loadNibNamed("PickAStadium", owner: self, options: nil).first as! PickAStadium
+//            viewPickAStadium.showInParent(self.navigationController!, forShow: day!)
+//        }
     }
     
     func goBack() {

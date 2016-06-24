@@ -140,7 +140,7 @@
 		9FC7F0F71CEFA24A00B75143 /* PCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */; };
 		9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */; };
 		9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */; };
-		9FDD47B41D194D1F0072F25A /* PrivateMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDD47B31D194D1F0072F25A /* PrivateMessages.swift */; };
+		9FDD47B41D194D1F0072F25A /* PrivateMessageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDD47B31D194D1F0072F25A /* PrivateMessageListener.swift */; };
 		9FECDBCB1D0A6E1300FEA637 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */; };
 		9FECDBCD1D0A823700FEA637 /* PCorpsExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */; };
 		9FEDCCF61CF028E500C1AB8C /* DailyScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */; };
@@ -494,7 +494,7 @@
 		9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCalendar.swift; sourceTree = "<group>"; };
 		9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesViewController.swift; sourceTree = "<group>"; };
 		9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
-		9FDD47B31D194D1F0072F25A /* PrivateMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateMessages.swift; sourceTree = "<group>"; };
+		9FDD47B31D194D1F0072F25A /* PrivateMessageListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateMessageListener.swift; sourceTree = "<group>"; };
 		9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCorpsExperience.swift; sourceTree = "<group>"; };
 		9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleViewController.swift; sourceTree = "<group>"; };
@@ -1126,7 +1126,7 @@
 			children = (
 				9FA236341D1537CC00AE52F9 /* Constants.swift */,
 				9FC71C911CE6639500C36A1C /* Server.swift */,
-				9FDD47B31D194D1F0072F25A /* PrivateMessages.swift */,
+				9FDD47B31D194D1F0072F25A /* PrivateMessageListener.swift */,
 				9FC71C921CE6639500C36A1C /* UISingleton.swift */,
 				9FC71C841CE6639500C36A1C /* News.swift */,
 				9FEDCCFD1CF1024F00C1AB8C /* Task.swift */,
@@ -1984,7 +1984,7 @@
 				923E69A51B88518800B7328F /* CBCartCollectionViewController.m in Sources */,
 				D03DCADD1B168A81005D326E /* CBPush.m in Sources */,
 				D0BDD53519500C4300CA9668 /* JustinHelper.m in Sources */,
-				9FDD47B41D194D1F0072F25A /* PrivateMessages.swift in Sources */,
+				9FDD47B41D194D1F0072F25A /* PrivateMessageListener.swift in Sources */,
 				D0DF7FE01AB361AB0095BA4E /* CBTourMapViewController.m in Sources */,
 				D00B716F1AF44C6B00403A12 /* CBSegueNoAnimation.m in Sources */,
 				D036DA6C1B82E0B000746DD6 /* CBStoreCategoryCell.m in Sources */,

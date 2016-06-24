@@ -21,6 +21,7 @@ struct ChatroomFields {
 //    static let updatedByParseObjectId = "updatedByParseObjectId"
 //    static let updatedByUID = "updatedbyUID"
     static let lastMessage = "lastMessage"
+    static let privateChatWith = "privateChatWith"
 
 }
 
@@ -37,9 +38,11 @@ class Chatroom: Chat {
     var createdByUID: String?
     
     var updatedAt: NSDate?
-//    var updatedByParseObjectId: String?
-//    var updatedByNickname: String?
-//    var updatedByUID: String?
+    
+    var privateChatWith: String?
+    
+    // When sending a private message to user, set this flag to true
+    // As messages are received live, if receiving user is listening from inside chatroom, set this back to false
     
     var snapKey = String()
 

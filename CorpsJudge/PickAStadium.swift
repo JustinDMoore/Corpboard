@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PickAStadium: UIView, UITableViewDelegate, UITableViewDataSource {
 
@@ -22,32 +23,49 @@ class PickAStadium: UIView, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableStadiums: UITableView!
     @IBOutlet weak var btnSAve: UIButton!
     
-    var day = PCalendar()
+    var show = PShow()
     var arrayOfStadiums = [PStadium]()
     
     
-    func showInParent(parent: UINavigationController, forShow: PCalendar) {
+    func showInParent(parent: UINavigationController, forShow: PFObject) {
+        
         self.frame = CGRectMake(0, 0, parent.view.frame.size.width, parent.view.frame.size.height)
         parent.view.addSubview(self)
         self.center = parent.view.center
         self.tableStadiums.dataSource = self
         self.tableStadiums.delegate = self
-        self.day = forShow
+        show = forShow as! PShow
         getNearbyStadiums()
     }
     
     func getNearbyStadiums() {
+        
         arrayOfStadiums = [PStadium]()
-        let state = String(day.city.characters.suffix(2))
+        
         let query = PFQuery(className: PStadium.parseClassName())
-        query.whereKey("state", equalTo: state)
-        query.orderByDescending("city")
+        query.limit = 1000
+        query.whereKey("coordinates", nearGeoPoint: show.coordinates!, withinMiles: 50)
         query.findObjectsInBackgroundWithBlock { (stadiums: [PFObject]?, err: NSError?) in
             if stadiums != nil {
                 self.arrayOfStadiums = stadiums as! [PStadium]
                 self.tableStadiums.reloadData()
             }
         }
+        
+    
+    
+    
+        
+//        let state = String(show.showLocation.characters.suffix(2))
+//        let query = PFQuery(className: PStadium.parseClassName())
+//        query.whereKey("state", equalTo: state)
+//        query.orderByDescending("city")
+//        query.findObjectsInBackgroundWithBlock { (stadiums: [PFObject]?, err: NSError?) in
+//            if stadiums != nil {
+//                self.arrayOfStadiums = stadiums as! [PStadium]
+//                self.tableStadiums.reloadData()
+//            }
+//        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -69,8 +87,8 @@ class PickAStadium: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let stadium = arrayOfStadiums[indexPath.row]
-        day.housing = stadium
-        day.saveInBackground()
+        show.stadium = stadium
+        show.saveInBackground()
         self.removeFromSuperview()
     }
     
@@ -90,8 +108,8 @@ class PickAStadium: UIView, UITableViewDelegate, UITableViewDataSource {
         stadium.coordinates = PFGeoPoint(latitude: Double(txtLat.text!)!, longitude: Double(txtLong.text!)!)
         stadium.saveInBackgroundWithBlock { (success: Bool, err: NSError?) in
             if (success) {
-                self.day.housing = stadium
-                self.day.saveInBackground()
+                self.show.stadium = stadium
+                self.show.saveInBackground()
                 self.removeFromSuperview()
             } else {
                 print("ERROR SAVING STADIUM")

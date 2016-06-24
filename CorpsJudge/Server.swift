@@ -23,7 +23,7 @@ protocol delegateUserProfile: class {
 }
 
 @objc protocol delegateUserLocation: class {
-    func userLocationUpdated(location: CLLocation)
+    func userLocationUpdated(location: CLLocation?)
     func userLocationError()
 }
 
@@ -120,6 +120,10 @@ protocol delegateUserProfile: class {
     func createShowsAndScores() {
         let config = Configuration()
         config.getAllCorps()
+    }
+    
+    func start() {
+        PrivateMessageListener.sharedInstance.startListening()
     }
     
     //MARK:-
@@ -327,6 +331,7 @@ protocol delegateUserProfile: class {
     }
     
     func updateCorps() {
+        
         self.arrayOfAllCorps = [PCorps]()
         self.arrayOfWorldClass = [PCorps]()
         self.arrayOfOpenClass = [PCorps]()
@@ -336,6 +341,7 @@ protocol delegateUserProfile: class {
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
                 for corps in objects! {
+                    
                     if let active = corps["active"] as? Bool {
                         if active {
                             self.arrayOfAllCorps?.append(corps as! PCorps)
@@ -932,5 +938,18 @@ protocol delegateUserProfile: class {
         }
     }
     
-
+    // THIS FUNC WILL FAIL IF TOO MANY REQUESTS ARE MADE AT THE SAME TIME
+    // SPACE THE REQS OUT, OR RUN IT A FEW TIMES, CHECKING FOR THE MISSING VALUE
+    // IE.. IF COORDINATES == NIL, THEN RUN FUNC, ELSE SKIP
+    func forwardGeocoding(cityState: String, show: PFObject) {
+        CLGeocoder().geocodeAddressString(cityState, inRegion: nil) { (placemarks: [CLPlacemark]?, err: NSError?) in
+            if let placemark = placemarks?.first! {
+                let show = show as! PShow
+                show.coordinates = PFGeoPoint(latitude: (placemark.location?.coordinate.latitude)!, longitude: (placemark.location?.coordinate.longitude)!)
+                show.saveInBackground()
+            } else {
+                print("No location found. \(cityState)")
+            }
+        }
+    }
 }

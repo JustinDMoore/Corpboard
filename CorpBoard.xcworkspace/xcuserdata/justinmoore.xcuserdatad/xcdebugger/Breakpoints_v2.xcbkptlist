@@ -75,29 +75,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CorpsJudge/ChatRoomsTableViewController.swift"
-            timestampString = "488220271.582677"
+            filePath = "CorpsJudge/ChatViewController.swift"
+            timestampString = "488460150.546019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
-            landmarkName = "sendTextMessage(_:roomKey:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorpsJudge/ChatRoomsTableViewController.swift"
-            timestampString = "488220271.582677"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
-            landmarkName = "sendTextMessage(_:roomKey:)"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "incrementMessageCounterForRoomRef(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

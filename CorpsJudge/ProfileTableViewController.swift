@@ -811,6 +811,10 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             if let vc = segue.destinationViewController as? SelectPhotoViewController {
                 vc.delegate = self
             }
+        } else if segue.identifier == "chat" {
+            let vc = segue.destinationViewController as! ChatViewController
+            vc.isPrivate = true
+            vc.receiverId = (userProfile?.objectId)!
         }
     }
     
@@ -837,6 +841,12 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         updateBackground()
         self.tableView.reloadData()
     }
+    
+    
+    @IBAction func btnChat_didTap(sender: UIButton) {
+        self.performSegueWithIdentifier("chat", sender: self)
+    }
+    
 }
 
 

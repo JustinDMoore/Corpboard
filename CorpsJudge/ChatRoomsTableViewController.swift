@@ -14,15 +14,71 @@ import Firebase
 
 class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
-    let chatroomsRef = FIRDatabase.database().reference().child("publicChatRooms")
+    let publicChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms")
+    var privateChatRoomsRef = FIRDatabaseReference()
     
     var isPrivate = false
-    var chatrooms = [Chatroom]()
+    var arrayOfChatRooms = [Chatroom]() // could be public or private
     var roomIdToOpen = ""
     //var viewNewChatRoom = NewChatRoom()
     var viewLoading = Loading()
     var initialLoad = true
     var creatingNewRoom = false
+    var newRoomTopic: String?
+    var receiverId: String?
+    
+    //MARK:-
+    //MARK: VIEW LIFECYCLE
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loading()
+        self.tableView.tableFooterView = UIView()
+        if isPrivate {
+            PrivateMessageListener.sharedInstance.stopListening()
+            self.title = "Private Messages"
+        } else {
+            self.title = "Live Chats"
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if isPrivate {
+            privateChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child((PUser.currentUser()?.objectId!)!)
+            print(privateChatRoomsRef)
+            startListeningForRef(privateChatRoomsRef)
+        } else {
+            startListeningForRef(publicChatRoomsRef)
+        }
+        
+        self.navigationController!.navigationBarHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
+        let backBtn = UISingleton.sharedInstance.getBackButton()
+        backBtn.addTarget(self, action: #selector(ChatRoomsTableViewController.goBack), forControlEvents: .TouchUpInside)
+        let backButton = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backButton
+        
+        if !isPrivate {
+            let btnNewChatRoom = UIButton()
+            let imgNewChatRoom = UIImage(named: "Add")
+            btnNewChatRoom.addTarget(self, action: #selector(ChatRoomsTableViewController.addNewChatRoomView), forControlEvents: UIControlEvents.TouchUpInside)
+            btnNewChatRoom.setBackgroundImage(imgNewChatRoom, forState: UIControlState.Normal)
+            btnNewChatRoom.frame = CGRectMake(0, 0, 30, 30)
+            let newChatBarButton = UIBarButtonItem(customView: btnNewChatRoom)
+            self.navigationItem.rightBarButtonItem = newChatBarButton
+        }
+        
+        if let index = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(index, animated: true)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopListening()
+        PrivateMessageListener.sharedInstance.startListening()
+    }
     
     func loading() {
         viewLoading = NSBundle.mainBundle().loadNibNamed("Loading", owner: self, options: nil).first as! Loading
@@ -35,19 +91,15 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         viewLoading.removeFromSuperview()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loading()
-        self.tableView.tableFooterView = UIView()
-        if isPrivate {
-            self.title = "Private Messages"
-        } else {
-            self.title = "Chat Rooms"
-        }
+    func newPrivateRoomCreated() {
+        self.tableView.reloadData()
     }
     
-    func startListening() {
-        chatroomsRef.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
+    func startListeningForRef(ref: FIRDatabaseReference) {
+        
+        let roomsQuery = ref.queryOrderedByChild(ChatroomFields.updatedAt)
+        
+        roomsQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
             
             let room = Chatroom()
             room.snapKey = snap.key
@@ -70,8 +122,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             room.numberOfMessages = snap.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int ?? 0
             
             room.lastMessage = snap.childSnapshotForPath(ChatroomFields.lastMessage).value as? String ?? nil
+            room.privateChatWith = snap.childSnapshotForPath(ChatroomFields.privateChatWith).value as? String ?? nil
             
-            self.chatrooms.insert(room, atIndex: 0)
+            self.arrayOfChatRooms.insert(room, atIndex: 0)
             
             if self.initialLoad {
                 self.stopLoading()
@@ -79,10 +132,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             }
         }
         
-        chatroomsRef.observeEventType(.Value) { (snap: FIRDataSnapshot) in
+        ref.observeEventType(.Value) { (snap: FIRDataSnapshot) in
             
             if !self.initialLoad {
-                self.chatrooms.removeAll()
+                self.arrayOfChatRooms.removeAll()
                 
                 for snapRoom in snap.children {
                     let room = Chatroom()
@@ -105,8 +158,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     room.numberOfViewers =  snapRoom.childSnapshotForPath(ChatroomFields.numberOfViewers).value  as? Int    ?? 0
                     room.numberOfMessages = snapRoom.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int    ?? 0
                     room.lastMessage =      snapRoom.childSnapshotForPath(ChatroomFields.lastMessage).value      as? String ?? nil
+                    room.privateChatWith = snapRoom.childSnapshotForPath(ChatroomFields.privateChatWith).value      as? String ?? nil
                     
-                    self.chatrooms.insert(room, atIndex: 0)
+                    self.arrayOfChatRooms.insert(room, atIndex: 0)
                 }
             }
             
@@ -117,32 +171,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     func stopListening() {
-        chatroomsRef.removeAllObservers()
-        chatrooms = [Chatroom]()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        
-       startListening()
-        
-        self.navigationController!.navigationBarHidden = false
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        let backBtn = UISingleton.sharedInstance.getBackButton()
-        backBtn.addTarget(self, action: #selector(ChatRoomsTableViewController.goBack), forControlEvents: .TouchUpInside)
-        let backButton = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.leftBarButtonItem = backButton
-        
-        let btnNewChatRoom = UIButton()
-        let imgNewChatRoom = UIImage(named: "Add")
-        btnNewChatRoom.addTarget(self, action: #selector(ChatRoomsTableViewController.addNewChatRoomView), forControlEvents: UIControlEvents.TouchUpInside)
-        btnNewChatRoom.setBackgroundImage(imgNewChatRoom, forState: UIControlState.Normal)
-        btnNewChatRoom.frame = CGRectMake(0, 0, 30, 30)
-        let newChatBarButton = UIBarButtonItem(customView: btnNewChatRoom)
-        self.navigationItem.rightBarButtonItem = newChatBarButton
-        
-        if let index = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(index, animated: true)
-        }
+        privateChatRoomsRef.removeAllObservers()
+        publicChatRoomsRef
+        arrayOfChatRooms = [Chatroom]()
     }
     
     func addNewChatRoomView() {
@@ -158,11 +189,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        stopListening()
-    }
-    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -170,24 +196,39 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatrooms.count
+
+        return arrayOfChatRooms.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        if isPrivate {
+             return 83
+        } else {
+            return 100
+        }
     }
+    
     override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        var cell: UITableViewCell
+        if isPrivate {
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
+        } else {
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        }
         setCellColor(UISingleton.sharedInstance.goldFade, cell: cell)
-        
     }
     
     override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        var cell: UITableViewCell
+        if isPrivate {
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
+        } else {
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+        }
         setCellColor(UIColor.blackColor(), cell: cell)
     }
     
@@ -206,59 +247,85 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     func privateTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        // Create the cell
         var cell = tableView.dequeueReusableCellWithIdentifier("privateCell")
         if cell == nil {
             let topLevelObjects = NSBundle.mainBundle().loadNibNamed("PrivateMessageCell", owner: self, options: nil)
             cell = topLevelObjects.first as! PrivateMessageCell
         }
         
-        let imgNew = cell?.viewWithTag(2) as! UIImageView
+        // Chatroom reference
+        let chatRoom = arrayOfChatRooms[indexPath.row]
+        
+        // New message indicator
+        let btnNew = cell?.viewWithTag(1) as! UIButton
+        btnNew.tintColor = UISingleton.sharedInstance.gold
+        if chatRoom.numberOfMessages > 0 {
+            btnNew.hidden = false
+        } else {
+            btnNew.hidden = true
+        }
+        
+        // Sender nickname and image
+        let imgUser = cell?.viewWithTag(2) as! PFImageView
+        imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
+        imgUser.layer.borderWidth = 1
+        imgUser.layer.borderColor = UIColor.whiteColor().CGColor
+        imgUser.clipsToBounds = true
+        
         let lblUser = cell?.viewWithTag(3) as! UILabel
-        let lblLastMessageHidden = cell?.viewWithTag(5) as! UILabel
-        lblLastMessageHidden.hidden = true
+        let query = PFQuery(className: PUser.parseClassName())
+        query.whereKey("objectId", equalTo: chatRoom.privateChatWith!)
+        query.limit = 1
+        query.findObjectsInBackgroundWithBlock { (users: [PFObject]?, err: NSError?) in
+            if err == nil {
+                if let user = users?.first as? PUser {
+                    lblUser.text = user.nickname
+                    lblUser.sizeToFit()
+                    if user.thumbnail != nil {
+                        imgUser.file = user.thumbnail
+                        imgUser.loadInBackground()
+                    }
+                } else {
+                    lblUser.text = "Unknown User"
+                }
+            } else {
+                lblUser.text = "Unknown User"
+            }
+        }
         
-        let chatRoom = chatrooms[indexPath.row]
-        let topic = chatRoom.topic
-
-        var userChattingWith: PUser?
-        var numberOfUnreadMessages = 0
-//        if chatRoom.createdBy == PUser.currentUser() {
-//            numberOfUnreadMessages = chatRoom.createdByCounter
-//            if let user = chatRoom.toUser {
-//                userChattingWith = user
-//            }
-//        } else {
-//            numberOfUnreadMessages = chatRoom.toUserCounter
-//            userChattingWith = chatRoom.createdBy
-//        }
+        // Last message received
+        let lblLastMessage = cell?.viewWithTag(4) as! UILabel
+        lblLastMessage.text = chatRoom.lastMessage
         
-        if numberOfUnreadMessages > 0 {
-            imgNew.hidden = false
+        // How long ago
+        let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
+        let updated = chatRoom.updatedAt ?? NSDate()
+        let diff = updated.minutesBeforeDate(NSDate())
+        var timeDiff = ""
+        if diff < 3 {
+            timeDiff = "Just Now"
+        } else if diff <= 50 {
+            timeDiff = "\(diff) min ago"
+        } else if diff > 50 && diff < 65 {
+            timeDiff = "An hour ago"
         } else {
-            imgNew.hidden = true
+            if updated.isYesterday() {
+                timeDiff = "Yesterday"
+            } else if updated.daysBeforeDate(NSDate()) == 2 {
+                timeDiff = "2 days ago"
+            } else if updated.isToday() {
+                timeDiff = JSQMessagesTimestampFormatter().timeForDate(chatRoom.updatedAt)
+            } else {
+                let format = NSDateFormatter()
+                format.dateFormat = "MMMM d"
+                timeDiff = format.stringFromDate(updated)
+            }
         }
+        lblHowLongAgo.text = "\(timeDiff)"
         
-        if userChattingWith != nil {
-            lblUser.text = userChattingWith!.nickname
-        } else {
-            lblUser.text = "Unknown User"
-        }
-        lblUser.sizeToFit()
-        
-        //clears the old message label
-        for view in (cell?.subviews)! {
-            if view.tag == 10 { view.removeFromSuperview() }
-        }
-        
-        let lblLastMessage = UILabel(frame: CGRectMake(30, 45, 282, 41))
-        lblLastMessage.tag = 10
-        //lblLastMessage.text = chatRoom.lastMessage
-        lblLastMessage.textColor = UIColor.lightGrayColor()
-        lblLastMessage.font = UIFont.systemFontOfSize(14)
-        lblLastMessage.numberOfLines = 2
-        lblLastMessage.sizeToFit()
-        cell?.addSubview(lblLastMessage)
-        
+        // Return the cell
         if cell != nil { return cell! }
         else {
             print("Error creating UITableViewCell")
@@ -274,7 +341,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             cell = topLevelObjects.first as! LiveChatCell
         }
         
-        let room = chatrooms[indexPath.row]
+        let room = arrayOfChatRooms[indexPath.row]
         
         let updated = room.updatedAt ?? NSDate()
         let diff = updated.minutesBeforeDate(NSDate())
@@ -338,29 +405,16 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let room = chatrooms[indexPath.row]
+        var room: Chatroom
+        room = arrayOfChatRooms[indexPath.row]
         roomIdToOpen = room.snapKey
+        receiverId = room.privateChatWith
         performSegueWithIdentifier("chat", sender: self)
     }
     
     func newChatRoomCreated(topic: String) {
-        stopListening() //otherwise, the table will load the new room too fast and we go indexOutOfBounds
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let roomRef = chatroomsRef.childByAutoId()
-        let newRoom: NSDictionary = [
-            ChatroomFields.topic : topic,
-            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
-            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatroomFields.createdByUID : uid!,
-            ChatroomFields.numberOfMessages : NSNumber(int: 1),
-            ChatroomFields.numberOfViewers : NSNumber(int: 0),
-            ChatroomFields.updatedAt : Chatroom().currentUTCTimeAsString(),
-            ChatroomFields.lastMessage : "Test Message"
-        ]
-        roomRef.setValue(newRoom)
-        self.sendTextMessage("Test Message", roomKey: roomRef.key)
-        roomIdToOpen = roomRef.key
+        creatingNewRoom = true
+        newRoomTopic = topic
         self.performSegueWithIdentifier("chat", sender: self)
     }
     
@@ -369,30 +423,11 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             let vc = segue.destinationViewController as? ChatViewController
             vc?.roomId = roomIdToOpen
             vc?.isPrivate = isPrivate
-            vc?.isNewRoom = creatingNewRoom
+            vc?.isNewPublicRoom = creatingNewRoom
+            vc?.newRoomTopic = newRoomTopic
+            vc?.receiverId = receiverId ?? nil
             creatingNewRoom = false
         }
-    }
-    
-    func sendTextMessage(text: String, roomKey: String) {
-        
-        var refPublicMessages = FIRDatabase.database().reference().child("publicMessages")
-        let refMessages = refPublicMessages.child(roomKey)
-        let message = blankMessage()
-        message.message = text
-        message.type = "TEXT"
-        
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        let itemRef = refMessages.childByAutoId()
-        let newMessage: NSDictionary = [
-            ChatMessageFields.message : message.message!,
-            ChatMessageFields.createdAt : ChatMessage().currentUTCTimeAsString(),
-            ChatMessageFields.createdByNickname : PUser.currentUser()!.nickname,
-            ChatMessageFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-            ChatMessageFields.createdByUID : uid!,
-            ChatMessageFields.type : message.type
-        ]
-        itemRef.setValue(newMessage)
     }
     
     func blankMessage() -> ChatMessage {

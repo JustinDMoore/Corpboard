@@ -20,6 +20,7 @@ class PShow: PFObject, PFSubclassing {
     @NSManaged var isShowOver: Bool
     @NSManaged var recapAllAge: String
     @NSManaged var stadium: PStadium?
+    @NSManaged var coordinates: PFGeoPoint?
 
     override class func initialize() {
         struct Static {

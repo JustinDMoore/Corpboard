@@ -121,6 +121,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     var scrollDirection = scrollDir.None
     var tryingToOpen = opening.None
     var viewLocationForDelegate = LocationServicesPermission()
+    var isPrivate = false
     
     //MARK:-
     //MARK:View Lifecycle
@@ -1073,10 +1074,12 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     func openMessages() {
-        self.performSegueWithIdentifier("messages", sender: self)
+        isPrivate = true
+        self.performSegueWithIdentifier("chat", sender: self)
     }
     
     func openChat() {
+        isPrivate = false
         self.performSegueWithIdentifier("chat", sender: self)
     }
     
@@ -1194,9 +1197,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     // deleateUserLocation in Server.swift
     // called from updateUserLocation()
-    func userLocationUpdated(location: CLLocation) {
+    func userLocationUpdated(location: CLLocation?) {
         viewLocationForDelegate.dismissView()
-        self.resumeOpening()
+        if location != nil {
+            self.resumeOpening()
+        }
     }
     
     // deleateUserLocation in Server.swift
@@ -1257,6 +1262,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             if let user = PUser.currentUser() {
                 vc.userProfile = user
             }
+        } else if segue.identifier == "chat" {
+            let vc = segue.destinationViewController as! ChatRoomsTableViewController
+            vc.isPrivate = isPrivate
         }
     }
     
