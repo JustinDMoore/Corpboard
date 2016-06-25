@@ -102,6 +102,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         btnAttachment.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.inputToolbar.contentView.leftBarButtonItem = btnAttachment
         setupBubbles()
+        
+        
 
     }
     
@@ -315,6 +317,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             }
             var jMsg: JSQMessage? = nil
             
+            //Sound
+            if message.createdByParseObjectId != self.senderId {
+                if !self.initialLoad { JSQSystemSoundPlayer.jsq_playMessageReceivedSound() }
+            }
+            
             switch message.type {
             case "TEXT":
                 jMsg = JSQMessage(senderId: message.createdByParseObjectId,
@@ -424,6 +431,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             if self.initialLoad {
                 self.stopLoading()
                 self.collectionView.reloadData()
+                self.initialLoad = false
             }
         }
     }
@@ -765,7 +773,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendTextMessageForRef(publicMessagesRef, text: text)
             }
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
         }
     }
     func sendTextMessageForRef(ref: FIRDatabaseReference, text: String) {
@@ -815,7 +823,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendPictureMessageForRef(publicMessagesRef, picture: picture)
             }
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
         }
     }
     
@@ -899,7 +907,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
 //                self.incrementMessagesOnChatRoom()
 //                self.refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
 //                self.finishSendingMessage()
-//                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+//                if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
 //            }
 //        }
 //        
@@ -945,7 +953,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendAudioMessageForRef(publicMessagesRef, filePath: filePath)
             }
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
         }
     }
     
@@ -1013,7 +1021,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendLocationForRef(publicMessagesRef, location: location)
             }
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
         }
         forSenderLocation = nil
     }

@@ -214,7 +214,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if arrayOfChatRooms.isEmpty {
-            return self.view.frame.size.height - 100
+            return self.view.frame.size.height
         } else {
             if isPrivate {
                 return 83

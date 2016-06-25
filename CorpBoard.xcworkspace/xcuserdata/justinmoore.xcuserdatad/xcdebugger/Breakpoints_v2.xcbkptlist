@@ -76,11 +76,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorpsJudge/ChatViewController.swift"
-            timestampString = "488565573.563092"
+            timestampString = "488569369.520444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
             landmarkName = "incrementMessageCounterForRoomRef(_:)"
             landmarkType = "5">
          </BreakpointContent>
