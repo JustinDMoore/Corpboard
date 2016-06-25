@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol RankInfoProtocol <NSObject>
-@required
--(void)viewDidClose;
-@end
+
 
 @interface CBRankingsInfoView : UIView {
-    id delegate;
+
 }
--(void)setDelegate:(id)newDelegate;
--(void)showInParent:(CGRect)parent;
+
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
+@property (weak, nonatomic) IBOutlet UIButton *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
+
+-(void)showInParent:(UINavigationController *)parentNav;
+
 @end

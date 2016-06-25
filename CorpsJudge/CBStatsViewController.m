@@ -1735,14 +1735,13 @@ int sort;
                                  options:nil]
      objectAtIndex:0];
     [self.view addSubview:myCustomXIBViewObj];
-    [myCustomXIBViewObj showInParent:self.view.frame];
+    [myCustomXIBViewObj showInParent:self.navigationController];
     
-    for (UIView *sub in self.view.subviews) {
-        if (![sub isKindOfClass: [CBRankingsInfoView class]]) {
-            sub.userInteractionEnabled = NO;
-        }
-    }
-    [myCustomXIBViewObj setDelegate:self];
+//    for (UIView *sub in self.view.subviews) {
+//        if (![sub isKindOfClass: [CBRankingsInfoView class]]) {
+//            sub.userInteractionEnabled = NO;
+//        }
+//    }
 }
 
 -(void)viewDidClose {

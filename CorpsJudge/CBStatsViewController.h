@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CBRankingsInfoView.h"
 
-@interface CBStatsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, RankInfoProtocol>
+@interface CBStatsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate>
 
 @end

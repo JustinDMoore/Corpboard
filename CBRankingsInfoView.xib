@@ -6,123 +6,108 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view tag="1" contentMode="scaleToFill" id="iN0-l3-epB" userLabel="rankingsInfo" customClass="CBRankingsInfoView">
-            <rect key="frame" x="0.0" y="0.0" width="285" height="301"/>
+        <view contentMode="scaleToFill" id="Aoq-I6-d9j" customClass="CBRankingsInfoView">
+            <rect key="frame" x="0.0" y="0.0" width="710" height="665"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Official Rankings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffu-84-07N">
-                    <rect key="frame" x="78" y="8" width="129" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="129" id="Wcz-jt-NT8"/>
-                        <constraint firstAttribute="height" constant="21" id="kAL-aP-YQu"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Official Rankings show the latest official caption and overall scores for each corps." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEg-Bi-9ZA">
-                    <rect key="frame" x="20" y="64" width="245" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="Lvq-2O-eNt"/>
-                        <constraint firstAttribute="width" constant="245" id="wJF-yD-rmm"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fan Reviews" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qwi-hT-F8r">
-                    <rect key="frame" x="90" y="117" width="105" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="105" id="pbO-r1-RWX"/>
-                        <constraint firstAttribute="height" constant="21" id="roN-oW-uHy"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="yhS-N5-sMu"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fan Reviews are completed by fans who attended a show." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jam-0R-0ld">
-                    <rect key="frame" x="19" y="173" width="246" height="39"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="39" id="Tey-xG-OOy"/>
-                        <constraint firstAttribute="width" constant="246" id="k6C-5Z-NHT"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To submit a review, find the show you attended and tap Review Show." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hq-bJ-gyr">
-                    <rect key="frame" x="20" y="210" width="246" height="39"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="246" id="CaX-BN-7SU"/>
-                        <constraint firstAttribute="height" constant="39" id="FI1-Kr-tFw"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hsy-pN-Mzk">
-                    <rect key="frame" x="0.0" y="260" width="300" height="1"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="8f1-mb-gWN"/>
-                        <constraint firstAttribute="width" constant="300" id="itM-AC-GAJ"/>
-                    </constraints>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29i-70-Luv">
-                    <rect key="frame" x="0.0" y="266" width="285" height="30"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Ok">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnOK_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="m6y-4p-8ib"/>
-                    </connections>
-                </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dialog_fan" translatesAutoresizingMaskIntoConstraints="NO" id="0vN-xQ-iIj">
-                    <rect key="frame" x="106" y="125" width="73" height="68"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="73" id="7vp-rc-Ckq"/>
-                        <constraint firstAttribute="height" constant="68" id="w0G-HI-Wuu"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DCI_LOGO_Transparent3" translatesAutoresizingMaskIntoConstraints="NO" id="tpy-0e-hjs">
-                    <rect key="frame" x="114" y="26" width="56" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="cMZ-ZM-EZP"/>
-                        <constraint firstAttribute="width" constant="56" id="yQ2-Ni-Bkz"/>
-                    </constraints>
-                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3w-7Y-pKR">
+                    <rect key="frame" x="0.0" y="0.0" width="710" height="665"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LS5-ah-vz8">
+                        <rect key="frame" x="0.0" y="0.0" width="710" height="665"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyE-PD-HQE">
+                                <rect key="frame" x="201" y="114" width="309" height="437"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMv-nR-CLW">
+                                        <rect key="frame" x="6" y="318" width="297" height="56"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="closeView:" destination="Aoq-I6-d9j" eventType="touchUpInside" id="IqP-z1-Zah"/>
+                                        </connections>
+                                    </button>
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgM-oO-jQa">
+                                        <rect key="frame" x="6" y="35" width="297" height="299"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="RANKINGS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98o-g9-I15">
+                                                <rect key="frame" x="8" y="35" width="281" height="29"/>
+                                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="21"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7KJ-xf-EPA">
+                                                <rect key="frame" x="0.0" y="80" width="297" height="1"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Official rankings show the latest official caption and overall scores." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szg-jS-SCo">
+                                                <rect key="frame" x="8" y="89" width="281" height="62"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fan reviews are submitted by fans who attend a show." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AL-2z-Ywt">
+                                                <rect key="frame" x="8" y="156" width="281" height="62"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To submit a review, tap on the show you attended and tap Review Show." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nD-sc-PSX">
+                                                <rect key="frame" x="8" y="226" width="281" height="62"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkw-E5-X8B">
+                                        <rect key="frame" x="119" y="-3" width="70" height="70"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="rankings"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="309" id="JS5-XL-Hha"/>
+                                    <constraint firstAttribute="height" constant="437" id="ydt-M0-jvn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xyE-PD-HQE" firstAttribute="centerX" secondItem="LS5-ah-vz8" secondAttribute="centerX" id="5wR-aS-8kG"/>
+                            <constraint firstItem="xyE-PD-HQE" firstAttribute="centerY" secondItem="LS5-ah-vz8" secondAttribute="centerY" id="Pa9-Gf-69D"/>
+                        </constraints>
+                    </view>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ffu-84-07N" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="0D2-Sf-NNi"/>
-                <constraint firstItem="ffu-84-07N" firstAttribute="centerX" secondItem="tpy-0e-hjs" secondAttribute="centerX" constant="0.5" id="0kc-3E-NoV"/>
-                <constraint firstItem="Qwi-hT-F8r" firstAttribute="centerX" secondItem="Jam-0R-0ld" secondAttribute="centerX" constant="0.5" id="1vY-b6-dJa"/>
-                <constraint firstAttribute="bottom" secondItem="29i-70-Luv" secondAttribute="bottom" constant="8" id="7bK-SH-7lq"/>
-                <constraint firstAttribute="trailing" secondItem="29i-70-Luv" secondAttribute="trailing" id="8AV-v0-aeb"/>
-                <constraint firstItem="29i-70-Luv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ARo-3V-mR0"/>
-                <constraint firstItem="Hsy-pN-Mzk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BIq-0i-UHN"/>
-                <constraint firstItem="PEg-Bi-9ZA" firstAttribute="top" secondItem="tpy-0e-hjs" secondAttribute="bottom" constant="-12" id="CS6-kc-RfX"/>
-                <constraint firstItem="0vN-xQ-iIj" firstAttribute="top" secondItem="Qwi-hT-F8r" secondAttribute="bottom" constant="-13" id="L2m-UB-JCm"/>
-                <constraint firstItem="Qwi-hT-F8r" firstAttribute="top" secondItem="PEg-Bi-9ZA" secondAttribute="bottom" constant="8" id="RJu-eH-YtD"/>
-                <constraint firstItem="tpy-0e-hjs" firstAttribute="top" secondItem="ffu-84-07N" secondAttribute="bottom" constant="-3" id="Rmk-q3-MUY"/>
-                <constraint firstItem="PEg-Bi-9ZA" firstAttribute="centerX" secondItem="ffu-84-07N" secondAttribute="centerX" id="UaG-L4-qXe"/>
-                <constraint firstItem="Qwi-hT-F8r" firstAttribute="centerX" secondItem="PEg-Bi-9ZA" secondAttribute="centerX" id="ZeM-Aa-Q55"/>
-                <constraint firstItem="Jam-0R-0ld" firstAttribute="centerX" secondItem="7Hq-bJ-gyr" secondAttribute="centerX" constant="-1" id="g7k-rg-fmO"/>
-                <constraint firstItem="29i-70-Luv" firstAttribute="top" secondItem="Hsy-pN-Mzk" secondAttribute="bottom" constant="5" id="l0O-h2-tyJ"/>
-                <constraint firstItem="Jam-0R-0ld" firstAttribute="top" secondItem="0vN-xQ-iIj" secondAttribute="bottom" constant="-20" id="lW5-RN-KwE"/>
-                <constraint firstItem="7Hq-bJ-gyr" firstAttribute="top" secondItem="Jam-0R-0ld" secondAttribute="bottom" constant="-2" id="mx3-aw-LhT"/>
-                <constraint firstItem="Qwi-hT-F8r" firstAttribute="leading" secondItem="0vN-xQ-iIj" secondAttribute="trailing" constant="-89" id="tcS-Ia-Upz"/>
-                <constraint firstAttribute="centerX" secondItem="ffu-84-07N" secondAttribute="centerX" id="thJ-Bd-e0q"/>
+                <constraint firstItem="i3w-7Y-pKR" firstAttribute="top" secondItem="Aoq-I6-d9j" secondAttribute="top" id="5ff-va-oAC"/>
+                <constraint firstItem="i3w-7Y-pKR" firstAttribute="leading" secondItem="Aoq-I6-d9j" secondAttribute="leading" id="EH6-xg-UcF"/>
+                <constraint firstAttribute="trailing" secondItem="i3w-7Y-pKR" secondAttribute="trailing" id="NrD-sF-hLp"/>
+                <constraint firstAttribute="bottom" secondItem="i3w-7Y-pKR" secondAttribute="bottom" id="V6f-pW-dP5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="362.5" y="322.5"/>
+            <connections>
+                <outlet property="btnImage" destination="Tkw-E5-X8B" id="ctR-zU-WXS"/>
+                <outlet property="btnSignUp" destination="EMv-nR-CLW" id="sLa-89-9oR"/>
+                <outlet property="viewContainer" destination="xyE-PD-HQE" id="wYx-JM-FyG"/>
+                <outlet property="viewDialog" destination="dgM-oO-jQa" id="JNh-nt-55H"/>
+            </connections>
+            <point key="canvasLocation" x="41" y="463.5"/>
         </view>
     </objects>
     <resources>
-        <image name="DCI_LOGO_Transparent3" width="100" height="100"/>
-        <image name="dialog_fan" width="85" height="85"/>
+        <image name="rankings" width="48" height="48"/>
     </resources>
 </document>
