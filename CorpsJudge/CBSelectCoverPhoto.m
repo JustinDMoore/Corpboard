@@ -248,7 +248,7 @@ BOOL upload = NO;
 -(void)upload {
     
     upload = YES;
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Image" message:@"\rHave a corp themed cover image that you want to share with other users? \r \rFor best quality, images should be 320w x 290h and must be less than 10MB. \r \rTERMS \rAny user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpsboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Cover Image" message:@"Have a corp themed cover image that you want to share with other users? For best quality, images should be 320w x 290h and must be less than 10MB. Any user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpsboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users."  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"I Agree", nil];
     alert.delegate = self;
     [alert show];
     

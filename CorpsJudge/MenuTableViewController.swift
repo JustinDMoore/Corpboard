@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import YouTubePlayer
 
-class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate {
+class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages {
 
     //MARK:-
     //MARK:Outlets
@@ -1041,10 +1041,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     @IBAction func near(sender: AnyObject) {
-        self.tryingToOpen = .NearMe
-        if !self.doesUserNeedAccountOrNickname() {
-            self.resumeOpening()
-        }
+        nearMe()
     }
     
     @IBAction func btnTourMap(sender: AnyObject) {
@@ -1054,6 +1051,13 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     @IBAction func shop(sender: UIControl) {
         self.tryingToOpen = .Store
+        if !self.doesUserNeedAccountOrNickname() {
+            self.resumeOpening()
+        }
+    }
+    
+    func nearMe() {
+        self.tryingToOpen = .NearMe
         if !self.doesUserNeedAccountOrNickname() {
             self.resumeOpening()
         }
@@ -1265,6 +1269,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         } else if segue.identifier == "chat" {
             let vc = segue.destinationViewController as! ChatRoomsTableViewController
             vc.isPrivate = isPrivate
+            vc.delegate = self
         }
     }
     
@@ -1309,6 +1314,11 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         } else {
             self.badgeAdmin.badgeText = ""
         }
+    }
+    
+    func nearMeFromPrivateMessages() {
+        //Called when user taps 'Near Me' when has no private messages
+        nearMe()
     }
 
 }

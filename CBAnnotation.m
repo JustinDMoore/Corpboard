@@ -31,7 +31,7 @@
     annotationView.canShowCallout = YES;
     
     if ([self.title containsString:@"Tour of Champions"]) {
-        annotationView.image = [UIImage imageNamed:@"goldstar"];
+        annotationView.image = [UIImage imageNamed:@"starMap"];
         self.TOC = YES;
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 30, 30);
     } else if ([self.title isEqualToString:@"DCI World Championships Finals"] || [self.title isEqualToString:@"DCI World Championships Semifinals"] || [self.title isEqualToString:@"DCI World Championships Prelims"]) {
@@ -40,7 +40,7 @@
         self.champs = YES;
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 35, 25);
     } else {
-        annotationView.image = [UIImage imageNamed:@"bluedot"];
+        annotationView.image = [UIImage imageNamed:@"dotMap"];
         annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y, 20, 20);
     }
 

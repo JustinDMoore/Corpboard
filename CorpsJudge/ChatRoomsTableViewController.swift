@@ -11,6 +11,11 @@ import JSQMessagesViewController
 import ParseUI
 import AFDateHelper
 import Firebase
+import PulsingHalo
+
+protocol delegateNearMeFromPrivateMessages: class {
+    func nearMeFromPrivateMessages()
+}
 
 class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
@@ -26,6 +31,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     var creatingNewRoom = false
     var newRoomTopic: String?
     var receiverId: String?
+    
+    weak var delegate: delegateNearMeFromPrivateMessages?
     
     //MARK:-
     //MARK: VIEW LIFECYCLE
@@ -197,14 +204,22 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return arrayOfChatRooms.count
+        if arrayOfChatRooms.isEmpty {
+            return 1
+        } else {
+            return arrayOfChatRooms.count
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if isPrivate {
-             return 83
+        if arrayOfChatRooms.isEmpty {
+            return self.view.frame.size.height - 100
         } else {
-            return 100
+            if isPrivate {
+                return 83
+            } else {
+                return 100
+            }
         }
     }
     
@@ -213,6 +228,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+        if arrayOfChatRooms.isEmpty { return }
         var cell: UITableViewCell
         if isPrivate {
             cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
@@ -223,6 +239,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
+        if arrayOfChatRooms.isEmpty { return }
         var cell: UITableViewCell
         if isPrivate {
             cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
@@ -238,12 +255,19 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if isPrivate {
-            return privateTableView(tableView, cellForRowAtIndexPath: indexPath)
+        if arrayOfChatRooms.isEmpty {
+            let cell = tableView.dequeueReusableCellWithIdentifier("noMessages")
+            let btnNearMe = cell?.viewWithTag(5) as! UIButton
+            btnNearMe.addTarget(self, action: #selector(ChatRoomsTableViewController.nearMe), forControlEvents: .TouchUpInside)
+            return cell!
         } else {
-            return publicTableView(tableView, cellForRowAtIndexPath: indexPath)
+            if isPrivate {
+                return privateTableView(tableView, cellForRowAtIndexPath: indexPath)
+            } else {
+                return publicTableView(tableView, cellForRowAtIndexPath: indexPath)
+            }
         }
+        return UITableViewCell()
     }
     
     func privateTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -269,11 +293,13 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         // Sender nickname and image
         let imgUser = cell?.viewWithTag(2) as! PFImageView
-        imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
-        imgUser.layer.borderWidth = 1
+        imgUser.frame = CGRectMake(imgUser.frame.origin.x, imgUser.frame.origin.y, 60, 60)
+        imgUser.layer.cornerRadius = imgUser.frame.size.height / 2
+        imgUser.layer.borderWidth = 2
         imgUser.layer.borderColor = UIColor.whiteColor().CGColor
         imgUser.clipsToBounds = true
         
+        let imgOnline = cell?.viewWithTag(8) as! UIImageView
         let lblUser = cell?.viewWithTag(3) as! UILabel
         let query = PFQuery(className: PUser.parseClassName())
         query.whereKey("objectId", equalTo: chatRoom.privateChatWith!)
@@ -281,12 +307,32 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         query.findObjectsInBackgroundWithBlock { (users: [PFObject]?, err: NSError?) in
             if err == nil {
                 if let user = users?.first as? PUser {
-                    lblUser.text = user.nickname
+                    lblUser.text = " \(user.nickname)"
                     lblUser.sizeToFit()
                     if user.thumbnail != nil {
                         imgUser.file = user.thumbnail
                         imgUser.loadInBackground()
                     }
+                    
+                    
+                    // Online Now?
+                    if self.userOnlineNow(user) {
+                        imgOnline.hidden = false
+                        let halo = PulsingHaloLayer()
+                        halo.position = imgOnline.center
+                        halo.radius = 10
+                        halo.animationDuration = 2
+                        halo.backgroundColor = UIColor.whiteColor().CGColor
+                        imgOnline.layer.addSublayer(halo)
+                        imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
+                        imgOnline.layer.borderWidth = 2
+                        imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
+                        imgOnline.sendSubviewToBack(imgOnline)
+                    } else {
+                        imgOnline.hidden = true
+                    }
+                    
+                    
                 } else {
                     lblUser.text = "Unknown User"
                 }
@@ -297,7 +343,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         // Last message received
         let lblLastMessage = cell?.viewWithTag(4) as! UILabel
-        lblLastMessage.text = chatRoom.lastMessage
+        lblLastMessage.text = " \(chatRoom.lastMessage!)"
         
         // How long ago
         let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
@@ -405,6 +451,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if arrayOfChatRooms.isEmpty { return }
         var room: Chatroom
         room = arrayOfChatRooms[indexPath.row]
         roomIdToOpen = room.snapKey
@@ -437,5 +484,20 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         message.createdByUID = FIRAuth.auth()?.currentUser?.uid
         message.createdAt = NSDate()
         return message
+    }
+    
+    func userOnlineNow(user: PUser) -> Bool {
+        let dateLastLogin = user.lastLogin
+        let diff = dateLastLogin.minutesBeforeDate(NSDate())
+        if diff <= 10 { // Online now (within last 10 minutes)
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func nearMe() {
+        goBack()
+        delegate?.nearMeFromPrivateMessages()
     }
 }
