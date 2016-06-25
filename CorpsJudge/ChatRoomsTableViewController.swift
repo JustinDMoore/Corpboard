@@ -38,7 +38,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        arrayOfChatRooms.removeAll()
+        self.tableView.reloadData()
         loading()
         self.tableView.tableFooterView = UIView()
         if isPrivate {
@@ -318,16 +319,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     // Online Now?
                     if self.userOnlineNow(user) {
                         imgOnline.hidden = false
-                        let halo = PulsingHaloLayer()
-                        halo.position = imgOnline.center
-                        halo.radius = 10
-                        halo.animationDuration = 2
-                        halo.backgroundColor = UIColor.whiteColor().CGColor
-                        imgOnline.layer.addSublayer(halo)
                         imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
                         imgOnline.layer.borderWidth = 2
                         imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
-                        imgOnline.sendSubviewToBack(imgOnline)
                     } else {
                         imgOnline.hidden = true
                     }
