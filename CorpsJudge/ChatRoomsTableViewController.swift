@@ -287,9 +287,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         let btnNew = cell?.viewWithTag(1) as! UIButton
         btnNew.tintColor = UISingleton.sharedInstance.gold
         if chatRoom.numberOfMessages > 0 {
-            btnNew.hidden = false
+            btnNew.setImage(UIImage(named: "newMessage"), forState: .Normal)
         } else {
-            btnNew.hidden = true
+            btnNew.setImage(nil, forState: .Normal)
         }
         
         // Sender nickname and image

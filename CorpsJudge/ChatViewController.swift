@@ -17,6 +17,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     let refStorage = FIRStorage.storage().referenceForURL("gs://corpsboard-3111c.appspot.com")
     
+    var profileToOpen: PUser?
     var roomInitialized = false
     
     var usersTypingQuery: FIRDatabaseQuery!
@@ -156,6 +157,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         updateViewerCounterForRef(publicRoomRef, increment: false)
         stopListening()
         PrivateMessageListener.sharedInstance.startListening()
+        profileToOpen = nil
     }
     
     func goBack() {
@@ -640,10 +642,15 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: JSQMESSAGE DELEGATES
     override func collectionView(collectionView: JSQMessagesCollectionView!, didTapAvatarImageView avatarImageView: UIImageView!, atIndexPath indexPath: NSIndexPath!) {
         let message = arrayOfJSQMessages[indexPath.item]
-        let userId = message.senderId
-        let profileView = ProfileTableViewController()
-        profileView.userId = userId
-        self.navigationController?.pushViewController(profileView, animated: true)
+        let query = PFQuery(className: PUser.parseClassName())
+        query.whereKey("objectId", equalTo: message.senderId)
+        query.limit = 1
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
+            if let user = objects?.first as? PUser {
+                self.profileToOpen = user
+                self.performSegueWithIdentifier("profile", sender: self)
+            }
+        }
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!,
@@ -1230,5 +1237,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "profile" {
+            let vc = segue.destinationViewController as! ProfileTableViewController
+            vc.userProfile = profileToOpen
+        }
+    }
 }

@@ -1482,10 +1482,10 @@
                         <viewControllerLayoutGuide type="bottom" id="yHg-ma-TSk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nrD-9h-OXk">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eZn-fW-UVs">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eZn-fW-UVs">
                                 <rect key="frame" x="186" y="70" width="229" height="29"/>
                                 <color key="backgroundColor" red="0.38039215686274508" green="0.086274509803921567" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1497,7 +1497,7 @@
                                 </segments>
                                 <color key="tintColor" red="0.7803921568627451" green="0.55294117647058827" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YB9-oy-2p1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YB9-oy-2p1">
                                 <rect key="frame" x="4" y="106" width="592" height="794"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -7799,11 +7799,11 @@
         <image name="support" width="283" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Iec-5r-ZSh"/>
         <segue reference="Whb-hu-JMD"/>
         <segue reference="Irt-Qd-nsI"/>
-        <segue reference="RHD-v7-F3k"/>
         <segue reference="PFL-Nc-Of5"/>
         <segue reference="87F-jY-4el"/>
+        <segue reference="ZuI-cC-hgo"/>
+        <segue reference="RHD-v7-F3k"/>
     </inferredMetricsTieBreakers>
 </document>
