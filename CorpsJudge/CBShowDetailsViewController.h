@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "CBEndShowViewController.h"
-#import "CBAlertView.h"
 #import "CBStartReview.h"
 #import "CBReviewCell.h"
 #import "CBReviewAttendance.h"

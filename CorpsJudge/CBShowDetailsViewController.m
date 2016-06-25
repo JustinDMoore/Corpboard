@@ -650,6 +650,7 @@ typedef enum : int {
     
     txtPerformanceTime = [cell viewWithTag:100];
     if (data.adminMode) {
+        txtPerformanceTime.hidden = FALSE;
         txtPerformanceTime.delegate = self;
         [txtPerformanceTime setUserInteractionEnabled:YES];
         [txtPerformanceTime addTarget:self
@@ -663,8 +664,6 @@ typedef enum : int {
         }
         
         txtPerformanceTime.text = str;
-    } else {
-        txtPerformanceTime.hidden = YES;
     }
     
     NSString *exc = score[@"exception"];

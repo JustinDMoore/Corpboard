@@ -32,33 +32,24 @@
 		92533496194FD5D70004D16F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92533495194FD5D70004D16F /* Images.xcassets */; };
 		925334BE194FD6F80004D16F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925334BD194FD6F80004D16F /* Main.storyboard */; };
 		925334C1194FD7BC0004D16F /* CBShowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925334C0194FD7BC0004D16F /* CBShowsViewController.m */; };
-		9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */; };
-		9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBE61A209D8000FB40AB /* CBIsNewUser.m */; };
-		9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */; };
 		9253EBEC1A209F8300FB40AB /* CreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253EBEB1A209F8300FB40AB /* CreateAccount.m */; };
 		925B9B9A1D00BCB600111F36 /* CartEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B9B991D00BCB600111F36 /* CartEditItem.swift */; };
 		926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123611A59B9E200A6B755 /* CBProblemWhere.m */; };
-		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
 		926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926CC2711A39A146006E315F /* CBUserCategories.xib */; };
 		926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 926CC2741A39A19C006E315F /* CBUserCategories.m */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
-		927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927F4DF41A212B79008CC143 /* CBProgressView.xib */; };
-		927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 927F4DF71A212BF5008CC143 /* CBProgressView.m */; };
 		928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
 		928CE8771A1E8E3B009CE39E /* CBRankingsInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */; };
 		928CE8781A1E99E4009CE39E /* CBRankingsInfoView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */; };
 		928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
-		92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE651B053586000E2F55 /* CBAlertView.xib */; };
-		92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE681B053598000E2F55 /* CBAlertView.m */; };
 		92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */; };
 		92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */; };
 		92CF4C6819627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */; };
-		92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92E5C9C11A2EE19F0051207C /* CBNewUser.xib */; };
 		92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EA0B851A93BF7700894C98 /* CBImageViewController.m */; };
 		92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */; };
 		92FE95351A74E0F500D4A7D9 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FE95341A74E0F500D4A7D9 /* libstdc++.6.dylib */; };
@@ -151,11 +142,7 @@
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
 		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
-		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
-		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
-		D008F8681B20F6D90012D144 /* CBVersion.xib in Resources */ = {isa = PBXBuildFile; fileRef = D008F8671B20F6D90012D144 /* CBVersion.xib */; };
-		D008F86B1B20F6EA0012D144 /* CBVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D008F86A1B20F6EA0012D144 /* CBVersion.m */; };
 		D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */ = {isa = PBXBuildFile; fileRef = D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */; };
 		D009FD621AF9C58400FCA018 /* CBProblemWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = D009FD611AF9C58400FCA018 /* CBProblemWhat.m */; };
 		D00B716C1AF4488400403A12 /* CBFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B716B1AF4488400403A12 /* CBFeedback.m */; };
@@ -165,8 +152,6 @@
 		D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71751AF44E6A00403A12 /* CBFeedbackCell.m */; };
 		D00B71791AF4531900403A12 /* CBContactUs.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B71781AF4531900403A12 /* CBContactUs.m */; };
 		D00E41541AE9DB0D00199974 /* finals6.png in Resources */ = {isa = PBXBuildFile; fileRef = D00E41531AE9DB0D00199974 /* finals6.png */; };
-		D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01012421A7F3C950040BFFD /* CBNewChatView.xib */; };
-		D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012451A7F40170040BFFD /* CBNewChatView.m */; };
 		D01012491A800F810040BFFD /* CBNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01012481A800F810040BFFD /* CBNewsCell.m */; };
 		D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */; };
 		D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = D011894C1A6B0D8A00D77EA9 /* Snow.sks */; };
@@ -227,8 +212,6 @@
 		D074E1541A6EEFCB00C1E300 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = D074E1531A6EEFCB00C1E300 /* Rain.sks */; };
 		D075856D1965CFBF003CAF29 /* ClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D075856C1965CFBF003CAF29 /* ClipView.m */; };
 		D08BC7D61B140AB1000B3C75 /* PodNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC7D51B140AB1000B3C75 /* PodNotes.m */; };
-		D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F01A41467800FF0B62 /* CBEditName.xib */; };
-		D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F31A4147B700FF0B62 /* CBEditName.m */; };
 		D08E00F61A41640700FF0B62 /* CBEditDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08E00F51A41640700FF0B62 /* CBEditDescription.xib */; };
 		D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */; };
 		D092757A1A4FD3DB002B0750 /* CBAboutCorpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09275791A4FD3DB002B0750 /* CBAboutCorpsViewController.m */; };
@@ -291,7 +274,6 @@
 		D0F19FAD1B1577FB00357663 /* CBReviewFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FAC1B1577FB00357663 /* CBReviewFavoriteCell.m */; };
 		D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */; };
 		D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */; };
-		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */; };
 		D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */; };
 /* End PBXBuildFile section */
@@ -352,34 +334,22 @@
 		925334BD194FD6F80004D16F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		925334BF194FD7BC0004D16F /* CBShowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShowsViewController.h; sourceTree = "<group>"; };
 		925334C0194FD7BC0004D16F /* CBShowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShowsViewController.m; sourceTree = "<group>"; };
-		9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBIsNewUser.xib; sourceTree = "<group>"; };
-		9253EBE51A209D8000FB40AB /* CBIsNewUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBIsNewUser.h; sourceTree = "<group>"; };
-		9253EBE61A209D8000FB40AB /* CBIsNewUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBIsNewUser.m; sourceTree = "<group>"; };
-		9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBViewSignIn.xib; sourceTree = "<group>"; };
 		9253EBEA1A209F8300FB40AB /* CreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccount.h; sourceTree = "<group>"; };
 		9253EBEB1A209F8300FB40AB /* CreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccount.m; sourceTree = "<group>"; };
 		925B9B991D00BCB600111F36 /* CartEditItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartEditItem.swift; sourceTree = "<group>"; };
 		926123601A59B9E200A6B755 /* CBProblemWhere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhere.h; sourceTree = "<group>"; };
 		926123611A59B9E200A6B755 /* CBProblemWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhere.m; sourceTree = "<group>"; };
-		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
-		92620E371A21A302003EC5D8 /* CBNicknameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNicknameView.m; sourceTree = "<group>"; };
 		926CC2711A39A146006E315F /* CBUserCategories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBUserCategories.xib; sourceTree = "<group>"; };
 		926CC2731A39A19C006E315F /* CBUserCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUserCategories.h; sourceTree = "<group>"; };
 		926CC2741A39A19C006E315F /* CBUserCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUserCategories.m; sourceTree = "<group>"; };
 		927254FB1963B12000275511 /* CBCorpsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCorpsDetailViewController.h; sourceTree = "<group>"; };
 		927254FC1963B12000275511 /* CBCorpsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCorpsDetailViewController.m; sourceTree = "<group>"; };
-		927F4DF41A212B79008CC143 /* CBProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProgressView.xib; sourceTree = "<group>"; };
-		927F4DF61A212BF5008CC143 /* CBProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProgressView.h; sourceTree = "<group>"; };
-		927F4DF71A212BF5008CC143 /* CBProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProgressView.m; sourceTree = "<group>"; };
 		928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRankingsInfoView.xib; sourceTree = "<group>"; };
 		928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRankingsInfoView.h; sourceTree = "<group>"; };
 		928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRankingsInfoView.m; sourceTree = "<group>"; };
 		928CE8791A1EB88B009CE39E /* CBRateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRateView.xib; sourceTree = "<group>"; };
 		928CE87B1A1EBA62009CE39E /* CBRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRateView.h; sourceTree = "<group>"; };
 		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
-		92A6AE651B053586000E2F55 /* CBAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBAlertView.xib; sourceTree = "<group>"; };
-		92A6AE671B053598000E2F55 /* CBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAlertView.h; sourceTree = "<group>"; };
-		92A6AE681B053598000E2F55 /* CBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAlertView.m; sourceTree = "<group>"; };
 		92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMakeFinalsPrediction.xib; sourceTree = "<group>"; };
 		92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMakeFinalsPrediction.h; sourceTree = "<group>"; };
 		92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMakeFinalsPrediction.m; sourceTree = "<group>"; };
@@ -391,7 +361,6 @@
 		92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFinalsPredictionViewController.m; sourceTree = "<group>"; };
 		92CF4C6619627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBFinalsPredictionContestInfoViewController.h; sourceTree = "<group>"; };
 		92CF4C6719627F4500BE98D5 /* CBFinalsPredictionContestInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBFinalsPredictionContestInfoViewController.m; sourceTree = "<group>"; };
-		92E5C9C11A2EE19F0051207C /* CBNewUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewUser.xib; sourceTree = "<group>"; };
 		92EA0B841A93BF7700894C98 /* CBImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBImageViewController.h; sourceTree = "<group>"; };
 		92EA0B851A93BF7700894C98 /* CBImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBImageViewController.m; sourceTree = "<group>"; };
 		92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEndShowViewController.h; sourceTree = "<group>"; };
@@ -502,12 +471,8 @@
 		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		9FFA92601CEE3F37000A3765 /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		B7C2BFE6FFF5F95783E1E982 /* Pods-Corpboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Corpboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Corpboard/Pods-Corpboard.release.xcconfig"; sourceTree = "<group>"; };
-		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
-		D008F8671B20F6D90012D144 /* CBVersion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBVersion.xib; sourceTree = "<group>"; };
-		D008F8691B20F6EA0012D144 /* CBVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBVersion.h; sourceTree = "<group>"; };
-		D008F86A1B20F6EA0012D144 /* CBVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBVersion.m; sourceTree = "<group>"; };
 		D009FD5E1AF9C57000FCA018 /* CBProblemWhat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBProblemWhat.xib; sourceTree = "<group>"; };
 		D009FD601AF9C58400FCA018 /* CBProblemWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBProblemWhat.h; sourceTree = "<group>"; };
 		D009FD611AF9C58400FCA018 /* CBProblemWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhat.m; sourceTree = "<group>"; };
@@ -522,9 +487,6 @@
 		D00B71771AF4531900403A12 /* CBContactUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactUs.h; sourceTree = "<group>"; };
 		D00B71781AF4531900403A12 /* CBContactUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactUs.m; sourceTree = "<group>"; };
 		D00E41531AE9DB0D00199974 /* finals6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finals6.png; sourceTree = "<group>"; };
-		D01012421A7F3C950040BFFD /* CBNewChatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNewChatView.xib; sourceTree = "<group>"; };
-		D01012441A7F40170040BFFD /* CBNewChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewChatView.h; sourceTree = "<group>"; };
-		D01012451A7F40170040BFFD /* CBNewChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewChatView.m; sourceTree = "<group>"; };
 		D01012471A800F810040BFFD /* CBNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewsCell.h; sourceTree = "<group>"; };
 		D01012481A800F810040BFFD /* CBNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewsCell.m; sourceTree = "<group>"; };
 		D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSelectCoverPhoto.h; sourceTree = "<group>"; };
@@ -615,9 +577,6 @@
 		D075856B1965CFBF003CAF29 /* ClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipView.h; sourceTree = "<group>"; };
 		D075856C1965CFBF003CAF29 /* ClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipView.m; sourceTree = "<group>"; };
 		D08BC7D51B140AB1000B3C75 /* PodNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodNotes.m; sourceTree = "<group>"; };
-		D08E00F01A41467800FF0B62 /* CBEditName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditName.xib; sourceTree = "<group>"; };
-		D08E00F21A4147B700FF0B62 /* CBEditName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditName.h; sourceTree = "<group>"; };
-		D08E00F31A4147B700FF0B62 /* CBEditName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditName.m; sourceTree = "<group>"; };
 		D08E00F51A41640700FF0B62 /* CBEditDescription.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEditDescription.xib; sourceTree = "<group>"; };
 		D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEditDescription.h; sourceTree = "<group>"; };
 		D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEditDescription.m; sourceTree = "<group>"; };
@@ -715,7 +674,6 @@
 		D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewCaptionCell.xib; sourceTree = "<group>"; };
 		D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewCaptionCell.h; sourceTree = "<group>"; };
 		D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewCaptionCell.m; sourceTree = "<group>"; };
-		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
 		D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPhoto.xib; sourceTree = "<group>"; };
 		D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPhoto.h; sourceTree = "<group>"; };
 		D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPhoto.m; sourceTree = "<group>"; };
@@ -924,23 +882,12 @@
 			children = (
 				9FEF3AA21D0A371D00D1AEFA /* Feedback */,
 				92D01F371A30F14800929F35 /* Headers */,
-				9253EBE31A209CA800FB40AB /* CBIsNewUser.xib */,
-				9253EBE61A209D8000FB40AB /* CBIsNewUser.m */,
-				9253EBE81A209F0800FB40AB /* CBViewSignIn.xib */,
-				92E5C9C11A2EE19F0051207C /* CBNewUser.xib */,
-				D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */,
-				D003384A1A1FF39C009C79C4 /* CBNickname.xib */,
-				92620E371A21A302003EC5D8 /* CBNicknameView.m */,
-				927F4DF41A212B79008CC143 /* CBProgressView.xib */,
-				927F4DF71A212BF5008CC143 /* CBProgressView.m */,
 				928CE8731A1E8DF9009CE39E /* CBRankingsInfoView.xib */,
 				928CE8761A1E8E3B009CE39E /* CBRankingsInfoView.m */,
 				926CC2711A39A146006E315F /* CBUserCategories.xib */,
 				926CC2741A39A19C006E315F /* CBUserCategories.m */,
 				D034437A1A3D064000C410EE /* CBChooseCorp.xib */,
 				D034437D1A3D071000C410EE /* CBChooseCorp.m */,
-				D08E00F01A41467800FF0B62 /* CBEditName.xib */,
-				D08E00F31A4147B700FF0B62 /* CBEditName.m */,
 				D08E00F51A41640700FF0B62 /* CBEditDescription.xib */,
 				D08E00F81A4164AA00FF0B62 /* CBEditDescription.m */,
 				D0AA71481A42B4DB00875237 /* CorpsExperienceList.xib */,
@@ -948,8 +895,6 @@
 				9FA236321D150CA800AE52F9 /* NewChatRoom.swift */,
 				D0AA714B1A42B67300875237 /* CBCorpExperienceList.m */,
 				9F98AAF71D0CE402002AD554 /* CorpsExperienceList.swift */,
-				D01012421A7F3C950040BFFD /* CBNewChatView.xib */,
-				D01012451A7F40170040BFFD /* CBNewChatView.m */,
 				D0681E141A8010080084EB42 /* CBNewsCell.xib */,
 				9F00C4301D0968B900D13E3F /* VideoCell.xib */,
 				D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */,
@@ -958,15 +903,11 @@
 				D025CE411AE6B10A000021A6 /* CBMapMenu.m */,
 				D025CE431AE6BC98000021A6 /* CBMapCell.xib */,
 				D025CE461AE6BD35000021A6 /* CBMapCell.m */,
-				92A6AE651B053586000E2F55 /* CBAlertView.xib */,
-				92A6AE681B053598000E2F55 /* CBAlertView.m */,
 				9253EBEB1A209F8300FB40AB /* CreateAccount.m */,
 				9F9D68631CE70FAD0084878B /* CreateAccount.xib */,
 				D0D7773C1B115D6F00D4EF6A /* CBPushNotifications.xib */,
 				D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */,
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
-				D008F8671B20F6D90012D144 /* CBVersion.xib */,
-				D008F86A1B20F6EA0012D144 /* CBVersion.m */,
 				9FFA925E1CEE3F28000A3765 /* Loading.xib */,
 				9FFA92601CEE3F37000A3765 /* Loading.swift */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
@@ -1010,19 +951,14 @@
 				D00B716A1AF4488400403A12 /* CBFeedback.h */,
 				D025CE451AE6BD35000021A6 /* CBMapCell.h */,
 				D025CE401AE6B10A000021A6 /* CBMapMenu.h */,
-				9253EBE51A209D8000FB40AB /* CBIsNewUser.h */,
 				9253EBEA1A209F8300FB40AB /* CreateAccount.h */,
-				92620E361A21A302003EC5D8 /* CBNicknameView.h */,
-				927F4DF61A212BF5008CC143 /* CBProgressView.h */,
 				928CE87B1A1EBA62009CE39E /* CBRateView.h */,
 				928CE8751A1E8E3B009CE39E /* CBRankingsInfoView.h */,
 				926CC2731A39A19C006E315F /* CBUserCategories.h */,
 				D034437C1A3D071000C410EE /* CBChooseCorp.h */,
-				D08E00F21A4147B700FF0B62 /* CBEditName.h */,
 				D08E00F71A4164AA00FF0B62 /* CBEditDescription.h */,
 				D0AA714A1A42B67300875237 /* CBCorpExperienceList.h */,
 				926123601A59B9E200A6B755 /* CBProblemWhere.h */,
-				D01012441A7F40170040BFFD /* CBNewChatView.h */,
 				D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */,
 				D00B71771AF4531900403A12 /* CBContactUs.h */,
 				D00B71741AF44E6A00403A12 /* CBFeedbackCell.h */,
@@ -1033,7 +969,6 @@
 				D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */,
 				D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */,
 				D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */,
-				92A6AE671B053598000E2F55 /* CBAlertView.h */,
 				92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */,
 				D0C2EC4E1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.h */,
 				D0C2EC5D1B0CF07700C57017 /* CBPredictionSelectCell.h */,
@@ -1052,7 +987,6 @@
 				D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */,
 				D0F19FAB1B1577FB00357663 /* CBReviewFavoriteCell.h */,
 				D03DCADB1B168A81005D326E /* CBPush.h */,
-				D008F8691B20F6EA0012D144 /* CBVersion.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -1596,12 +1530,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */,
 				9FA236701D16938C00AE52F9 /* audio_record.png in Resources */,
 				D00B71711AF44DAF00403A12 /* CBContactUs.xib in Resources */,
 				D0C2EC4D1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib in Resources */,
 				D0AEA6C01B03C6490080D7F5 /* CBReviewSubmitted.xib in Resources */,
-				D08E00F11A41467800FF0B62 /* CBEditName.xib in Resources */,
 				D0F19F991B15281100357663 /* CBPickFavorite.xib in Resources */,
 				D011894F1A6B0D8A00D77EA9 /* spark.png in Resources */,
 				D0C2EC611B0E771600C57017 /* CBPredictionSubmitted.xib in Resources */,
@@ -1615,21 +1547,16 @@
 				D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */,
 				D047A349196A095F00F5F5BC /* star_unselected.png in Resources */,
 				9FA236311D150AA000AE52F9 /* NewChatRoom.xib in Resources */,
-				D01012431A7F3C950040BFFD /* CBNewChatView.xib in Resources */,
 				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */,
-				D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */,
 				9FA236731D16938C00AE52F9 /* microphone_access.png in Resources */,
 				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
-				92E5C9C21A2EE19F0051207C /* CBNewUser.xib in Resources */,
-				9253EBE41A209CA800FB40AB /* CBIsNewUser.xib in Resources */,
 				9FA236751D16938C00AE52F9 /* microphone_access@3x.png in Resources */,
 				9FA2367D1D16938C00AE52F9 /* stop_recording@2x.png in Resources */,
 				9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */,
 				9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */,
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
-				92A6AE661B053586000E2F55 /* CBAlertView.xib in Resources */,
 				D025CE3F1AE6B0D6000021A6 /* CBMapMenu.xib in Resources */,
 				D0C2EC561B0CEBBC00C57017 /* CBPredictionScoreCell.xib in Resources */,
 				9FA2367E1D16938C00AE52F9 /* stop_recording@3x.png in Resources */,
@@ -1662,15 +1589,12 @@
 				9F9D68621CE6C54B0084878B /* LocationServicesPermission.xib in Resources */,
 				9FEF3AA11D0A30A300D1AEFA /* CBFeedback.xib in Resources */,
 				920E5E8D1B895A6500D81C7B /* CBCartEditItem.xib in Resources */,
-				927F4DF51A212B79008CC143 /* CBProgressView.xib in Resources */,
 				D009FD5F1AF9C57000FCA018 /* CBProblemWhat.xib in Resources */,
 				9FA236711D16938C00AE52F9 /* audio_record@2x.png in Resources */,
 				D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */,
 				D0D777471B117BF000D4EF6A /* LocationServicesDisabled.xib in Resources */,
-				9253EBE91A209F0800FB40AB /* CBViewSignIn.xib in Resources */,
 				D036DA691B82E08200746DD6 /* CBStoreCategoryCell.xib in Resources */,
 				D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */,
-				D008F8681B20F6D90012D144 /* CBVersion.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0F19FA51B15499500357663 /* CBReviewFeedback.xib in Resources */,
 				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
@@ -1810,14 +1734,11 @@
 				D0D777451B116A6700D4EF6A /* CBLocationServices.m in Sources */,
 				D0AEA6B91B030D920080D7F5 /* CBReviewShow.m in Sources */,
 				9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */,
-				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
 				D013EE031BA1214F003E5237 /* StoreItemCell.swift in Sources */,
 				9FC71C9A1CE6639500C36A1C /* PAppSetting.swift in Sources */,
 				920E5E901B895D9400D81C7B /* CBCartEditItem.m in Sources */,
-				9253EBE71A209D8000FB40AB /* CBIsNewUser.m in Sources */,
 				9FA2365B1D16937500AE52F9 /* IQCropSelectionEndView.m in Sources */,
-				D01012461A7F40170040BFFD /* CBNewChatView.m in Sources */,
 				9F29D6751D17E10000000EBB /* Chatroom.swift in Sources */,
 				92FE0B3F1A70DD5400409E05 /* CBEndShowViewController.m in Sources */,
 				9FC71CA21CE6639500C36A1C /* PShow.swift in Sources */,
@@ -1883,7 +1804,6 @@
 				925B9B9A1D00BCB600111F36 /* CartEditItem.swift in Sources */,
 				D08E00F91A4164AA00FF0B62 /* CBEditDescription.m in Sources */,
 				9FC71C981CE6639500C36A1C /* News.swift in Sources */,
-				D08E00F41A4147B700FF0B62 /* CBEditName.m in Sources */,
 				D02C9A161968ACA7008E06D8 /* NSMutableArray+Shuffling.m in Sources */,
 				9FC71CA31CE6639500C36A1C /* PStadium.swift in Sources */,
 				9F2586C41D13BFBD00935281 /* ChatRoomsTableViewController.swift in Sources */,
@@ -1893,7 +1813,6 @@
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
 				D03D64F51B98EC0A00C07B74 /* StoreItemSelector.swift in Sources */,
 				D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */,
-				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				9FA236591D16937500AE52F9 /* IQAudioRecorderViewController.m in Sources */,
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
@@ -1924,7 +1843,6 @@
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,
 				9F00C42D1D0653D600D13E3F /* MenuTableViewController.swift in Sources */,
-				92A6AE691B053598000E2F55 /* CBAlertView.m in Sources */,
 				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,
@@ -1932,7 +1850,6 @@
 				924280E21963A573006E8240 /* CBCorpsViewController.m in Sources */,
 				9FC71C9D1CE6639500C36A1C /* PCorps.swift in Sources */,
 				9FEDCCFE1CF1024F00C1AB8C /* Task.swift in Sources */,
-				927F4DF81A212BF5008CC143 /* CBProgressView.m in Sources */,
 				D010A8DB1A442A1B00E7C6AA /* CBSelectCoverPhoto.m in Sources */,
 				9FA2365A1D16937500AE52F9 /* IQCropSelectionBeginView.m in Sources */,
 				D0F19FA31B15369500357663 /* CBReviewScoreCell.m in Sources */,
@@ -1970,7 +1887,6 @@
 				9FC71C9E1CE6639500C36A1C /* PFact.swift in Sources */,
 				D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */,
 				9FC71CA11CE6639500C36A1C /* PScore.swift in Sources */,
-				D008F86B1B20F6EA0012D144 /* CBVersion.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				9FA2362B1D142A4600AE52F9 /* ChatViewController.swift in Sources */,
 				9FA2365F1D16937500AE52F9 /* NSString+IQTimeIntervalFormatter.m in Sources */,
