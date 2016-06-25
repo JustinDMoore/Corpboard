@@ -14,7 +14,6 @@
 #import "CBNewsCell.h"
 #import "CBWebViewController.h"
 #import "CBShowDetailsViewController.h"
-#import "CBUserProfileViewController.h"
 #import "CBLocationServices.h"
 #import "CBNewsCell.h"
 #import "CBPush.h"
@@ -30,7 +29,9 @@
 #import "CBEditDescription.h"
 #import "PrivateMessageCell.h"
 #import "LiveChatCell.h"
+#import "CBTextField.h"
 #import "IQAudioRecorderViewController.h"
+#import "CBCorpExperienceList.h"
 
 // pods
 #import <RNGridMenu/RNGridMenu.h>
@@ -58,8 +59,6 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
-
-
 
 #ifndef Corpboard_Corpboard_Bridging_Header_h
 #define Corpboard_Corpboard_Bridging_Header_h

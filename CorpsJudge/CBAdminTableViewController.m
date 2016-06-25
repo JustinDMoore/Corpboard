@@ -10,7 +10,6 @@
 #import <Parse/Parse.h>
 #import "KVNProgress.h"
 #import "NSDate+Utilities.h"
-#import "CBUserProfileViewController.h"
 #import <ParseUI/ParseUI.h>
 #import "Configuration.h"
 #import "Corpsboard-Swift.h"
@@ -306,7 +305,7 @@ NSIndexPath *currentIndex;
     }
 }
 
-PFUser *userToOpen;
+PUser *userToOpen;
 -(void)openUserProfile:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
@@ -661,7 +660,7 @@ PFUser *userToOpen;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"profile"]) {
-        CBUserProfileViewController *vc = [segue destinationViewController];
+        ProfileTableViewController *vc = [segue destinationViewController];
         vc.userProfile = userToOpen;
     }
 }

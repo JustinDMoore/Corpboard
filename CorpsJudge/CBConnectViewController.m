@@ -11,8 +11,7 @@
 #import "NSDate+Utilities.h"
 #import "KVNProgress.h"
 #import "Configuration.h"
-#import "CBUserProfileViewController.h"
-
+#import "Corpsboard-swift.h"
 
 @interface CBConnectViewController ()
 
@@ -20,7 +19,7 @@
 
 UIRefreshControl *refreshControl;
 PFQuery *queryUsers;
-PFUser *userToOpen;
+PUser *userToOpen;
 
 @implementation CBConnectViewController
 
@@ -290,7 +289,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"profile"]) {
-        CBUserProfileViewController *vc = [segue destinationViewController];
+        ProfileTableViewController *vc = [segue destinationViewController];
         vc.userProfile = userToOpen;
     }
 }

@@ -39,7 +39,6 @@
 		925B9B9A1D00BCB600111F36 /* CartEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925B9B991D00BCB600111F36 /* CartEditItem.swift */; };
 		926123621A59B9E200A6B755 /* CBProblemWhere.m in Sources */ = {isa = PBXBuildFile; fileRef = 926123611A59B9E200A6B755 /* CBProblemWhere.m */; };
 		92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92620E371A21A302003EC5D8 /* CBNicknameView.m */; };
-		926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926CC26F1A398309006E315F /* CBUserProfileViewController.m */; };
 		926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926CC2711A39A146006E315F /* CBUserCategories.xib */; };
 		926CC2751A39A19C006E315F /* CBUserCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 926CC2741A39A19C006E315F /* CBUserCategories.m */; };
 		927254FD1963B12000275511 /* CBCorpsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927254FC1963B12000275511 /* CBCorpsDetailViewController.m */; };
@@ -135,7 +134,6 @@
 		9FC71CA51CE6639500C36A1C /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C911CE6639500C36A1C /* Server.swift */; };
 		9FC71CA61CE6639500C36A1C /* UISingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71C921CE6639500C36A1C /* UISingleton.swift */; };
 		9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */; };
-		9FC71CB11CE6ABDD00C36A1C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */; };
 		9FC7F0F51CEFA11300B75143 /* PDailySchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */; };
 		9FC7F0F71CEFA24A00B75143 /* PCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */; };
 		9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */; };
@@ -153,7 +151,6 @@
 		9FFA925D1CEE300D000A3765 /* LocationServicesDisabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA925C1CEE300D000A3765 /* LocationServicesDisabled.m */; };
 		9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFA925E1CEE3F28000A3765 /* Loading.xib */; };
 		9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA92601CEE3F37000A3765 /* Loading.swift */; };
-		D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */; };
 		D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D003384B1A1FF39C009C79C4 /* CBNickname.xib in Resources */ = {isa = PBXBuildFile; fileRef = D003384A1A1FF39C009C79C4 /* CBNickname.xib */; };
 		D0067A6819690AB300C372D0 /* Math.m in Sources */ = {isa = PBXBuildFile; fileRef = D0067A6719690AB300C372D0 /* Math.m */; };
@@ -294,7 +291,6 @@
 		D0F19FAD1B1577FB00357663 /* CBReviewFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FAC1B1577FB00357663 /* CBReviewFavoriteCell.m */; };
 		D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */; };
 		D0F19FB21B15782500357663 /* CBReviewCaptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */; };
-		D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */; };
 		D0F7E51E1A1F309E00AE500E /* CBExistingUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */; };
 		D0FF27B61A9EC8FE007AF5EA /* CBPhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */; };
 		D0FF27B91A9EC92F007AF5EA /* CBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FF27B81A9EC92F007AF5EA /* CBPhoto.m */; };
@@ -367,8 +363,6 @@
 		926123611A59B9E200A6B755 /* CBProblemWhere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBProblemWhere.m; sourceTree = "<group>"; };
 		92620E361A21A302003EC5D8 /* CBNicknameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNicknameView.h; sourceTree = "<group>"; };
 		92620E371A21A302003EC5D8 /* CBNicknameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNicknameView.m; sourceTree = "<group>"; };
-		926CC26E1A398309006E315F /* CBUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUserProfileViewController.h; sourceTree = "<group>"; };
-		926CC26F1A398309006E315F /* CBUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUserProfileViewController.m; sourceTree = "<group>"; };
 		926CC2711A39A146006E315F /* CBUserCategories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBUserCategories.xib; sourceTree = "<group>"; };
 		926CC2731A39A19C006E315F /* CBUserCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUserCategories.h; sourceTree = "<group>"; };
 		926CC2741A39A19C006E315F /* CBUserCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUserCategories.m; sourceTree = "<group>"; };
@@ -489,7 +483,6 @@
 		9FC71C911CE6639500C36A1C /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		9FC71C921CE6639500C36A1C /* UISingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleton.swift; sourceTree = "<group>"; };
 		9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = RockyPoint.mp3; sourceTree = "<group>"; };
-		9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDailySchedule.swift; sourceTree = "<group>"; };
 		9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCalendar.swift; sourceTree = "<group>"; };
 		9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesViewController.swift; sourceTree = "<group>"; };
@@ -509,8 +502,6 @@
 		9FFA925E1CEE3F28000A3765 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		9FFA92601CEE3F37000A3765 /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		B7C2BFE6FFF5F95783E1E982 /* Pods-Corpboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Corpboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Corpboard/Pods-Corpboard.release.xcconfig"; sourceTree = "<group>"; };
-		D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewMenuViewController.h; sourceTree = "<group>"; };
-		D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewMenuViewController.m; sourceTree = "<group>"; };
 		D003384A1A1FF39C009C79C4 /* CBNickname.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBNickname.xib; sourceTree = "<group>"; };
 		D0067A6619690AB300C372D0 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		D0067A6719690AB300C372D0 /* Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Math.m; sourceTree = "<group>"; };
@@ -724,8 +715,6 @@
 		D0F19FAE1B15781800357663 /* CBReviewCaptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBReviewCaptionCell.xib; sourceTree = "<group>"; };
 		D0F19FB01B15782500357663 /* CBReviewCaptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBReviewCaptionCell.h; sourceTree = "<group>"; };
 		D0F19FB11B15782500357663 /* CBReviewCaptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBReviewCaptionCell.m; sourceTree = "<group>"; };
-		D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBNewLoginViewController.h; sourceTree = "<group>"; };
-		D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBNewLoginViewController.m; sourceTree = "<group>"; };
 		D0F7E51D1A1F309E00AE500E /* CBExistingUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBExistingUser.xib; sourceTree = "<group>"; };
 		D0FF27B51A9EC8FE007AF5EA /* CBPhoto.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPhoto.xib; sourceTree = "<group>"; };
 		D0FF27B71A9EC92F007AF5EA /* CBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPhoto.h; sourceTree = "<group>"; };
@@ -908,8 +897,6 @@
 			isa = PBXGroup;
 			children = (
 				92D01F361A30F0CC00929F35 /* Headers */,
-				D0F7E51B1A1EFD9500AE500E /* CBNewLoginViewController.m */,
-				D0000FD11964C24F0005D918 /* CBNewMenuViewController.m */,
 				925334C0194FD7BC0004D16F /* CBShowsViewController.m */,
 				D0307DB619537792000849F1 /* CBShowDetailsViewController.m */,
 				92FE0B3E1A70DD5400409E05 /* CBEndShowViewController.m */,
@@ -922,7 +909,6 @@
 				D097A21E1A04125300C9FF72 /* CBWebViewController.m */,
 				D04FDB861A16C6D3007D0486 /* CBNewsViewController.m */,
 				923D501E1A2C737600E16B64 /* CBChatMessages.m */,
-				926CC26F1A398309006E315F /* CBUserProfileViewController.m */,
 				D010A8DA1A442A1B00E7C6AA /* CBSelectCoverPhoto.m */,
 				92EA0B851A93BF7700894C98 /* CBImageViewController.m */,
 				D0A88B6A1A9AAFED00A20441 /* CBAdminViewController.m */,
@@ -996,8 +982,6 @@
 		92D01F361A30F0CC00929F35 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				D0F7E51A1A1EFD9500AE500E /* CBNewLoginViewController.h */,
-				D0000FD01964C24F0005D918 /* CBNewMenuViewController.h */,
 				925334BF194FD7BC0004D16F /* CBShowsViewController.h */,
 				D0307DB519537792000849F1 /* CBShowDetailsViewController.h */,
 				92FE0B3D1A70DD5400409E05 /* CBEndShowViewController.h */,
@@ -1010,7 +994,6 @@
 				D097A21D1A04125300C9FF72 /* CBWebViewController.h */,
 				D04FDB851A16C6D3007D0486 /* CBNewsViewController.h */,
 				923D501D1A2C737600E16B64 /* CBChatMessages.h */,
-				926CC26E1A398309006E315F /* CBUserProfileViewController.h */,
 				D010A8D91A442A1B00E7C6AA /* CBSelectCoverPhoto.h */,
 				92EA0B841A93BF7700894C98 /* CBImageViewController.h */,
 				D0A88B691A9AAFED00A20441 /* CBAdminViewController.h */,
@@ -1108,10 +1091,9 @@
 			isa = PBXGroup;
 			children = (
 				9FC71C811CE6639500C36A1C /* CadetsLoadingViewController.swift */,
-				9FC71CB01CE6ABDD00C36A1C /* MenuViewController.swift */,
+				9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */,
 				9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */,
 				9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */,
-				9F00C42C1D0653D600D13E3F /* MenuTableViewController.swift */,
 				9FEF3A9E1D0A28C300D1AEFA /* VideoCollectionViewController.swift */,
 				9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */,
 				9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */,
@@ -1821,7 +1803,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FC71CB11CE6ABDD00C36A1C /* MenuViewController.swift in Sources */,
 				9FC71C941CE6639500C36A1C /* AppDelegate.swift in Sources */,
 				9FC71CA01CE6639500C36A1C /* PPhoto.swift in Sources */,
 				D025CE421AE6B10A000021A6 /* CBMapMenu.m in Sources */,
@@ -1831,7 +1812,6 @@
 				9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */,
 				D00338471A1FE339009C79C4 /* CBExistingUser.xib in Sources */,
 				92EA0B861A93BF7700894C98 /* CBImageViewController.m in Sources */,
-				D0F7E51C1A1EFD9500AE500E /* CBNewLoginViewController.m in Sources */,
 				D013EE031BA1214F003E5237 /* StoreItemCell.swift in Sources */,
 				9FC71C9A1CE6639500C36A1C /* PAppSetting.swift in Sources */,
 				920E5E901B895D9400D81C7B /* CBCartEditItem.m in Sources */,
@@ -1914,7 +1894,6 @@
 				D03D64F51B98EC0A00C07B74 /* StoreItemSelector.swift in Sources */,
 				D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */,
 				92620E381A21A302003EC5D8 /* CBNicknameView.m in Sources */,
-				D0000FD21964C24F0005D918 /* CBNewMenuViewController.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				9FA236591D16937500AE52F9 /* IQAudioRecorderViewController.m in Sources */,
 				D066C2041AF576DC00C84609 /* CBFeedbackView.m in Sources */,
@@ -1922,7 +1901,6 @@
 				9F98AAF81D0CE402002AD554 /* CorpsExperienceList.swift in Sources */,
 				9FA238A41D16C59900AE52F9 /* PrivateMessageCell.m in Sources */,
 				9FEDCCF81CF0BAD900C1AB8C /* TaskTableViewCell.swift in Sources */,
-				926CC2701A398309006E315F /* CBUserProfileViewController.m in Sources */,
 				9FEF3A9F1D0A28C300D1AEFA /* VideoCollectionViewController.swift in Sources */,
 				9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */,
 				92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */,

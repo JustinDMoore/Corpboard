@@ -189,7 +189,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             btnAdminButton = UIButton(type: .Custom)
             let admImage = UIImage(named: "admin_admin")
             btnAdminButton.setBackgroundImage(admImage, forState: .Normal)
-            btnAdminButton.addTarget(self, action: #selector(MenuViewController.admin), forControlEvents: .TouchUpInside)
+            btnAdminButton.addTarget(self, action: #selector(MenuTableViewController.admin), forControlEvents: .TouchUpInside)
             btnAdminButton.frame = CGRectMake(0, 0, 30, 30)
             btnAdminButton.addSubview(badgeAdmin)
             btnAdminBarButton = UIBarButtonItem(customView: btnAdminButton)
@@ -502,7 +502,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
                 lblShowName = cell.viewWithTag(1) as! UILabel
                 lblShowLocation = cell.viewWithTag(2) as! UILabel
                 btnScores = cell.viewWithTag(3) as! UIButton
-                btnScores.addTarget(self, action: #selector(MenuViewController.openShow(_:)), forControlEvents: .TouchUpInside)
+                btnScores.addTarget(self, action: #selector(MenuTableViewController.openShow(_:)), forControlEvents: .TouchUpInside)
                 lblShowName.text = show.showName
                 lblShowLocation.text = show.showLocation
                 btnScores.layer.borderWidth = 1.0
@@ -1260,11 +1260,6 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         } else if segue.identifier == "today" {
             if let vc = segue.destinationViewController as? DailyScheduleViewController {
                 vc.day = Server.sharedInstance.day
-            }
-        } else if segue.identifier == "profile1" {
-            let vc = segue.destinationViewController as! CBUserProfileViewController
-            if let user = PUser.currentUser() {
-                vc.userProfile = user
             }
         } else if segue.identifier == "chat" {
             let vc = segue.destinationViewController as! ChatRoomsTableViewController

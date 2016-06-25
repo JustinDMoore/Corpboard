@@ -847,6 +847,36 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         self.performSegueWithIdentifier("chat", sender: self)
     }
     
+    @IBAction func btnReport_didTap(sender: UIButton) {
+
+        let alertController = UIAlertController(title: "Report User", message: "Tell us what happened", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let saveAction = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default, handler: {
+            alert -> Void in
+            
+            let txtReport = alertController.textFields![0] as UITextField
+            let object = PFObject(className: "ReportUsers")
+            object["report"] = txtReport.text
+            object["userReporting"] = PUser.currentUser()
+            object["userBeingReported"] = self.userProfile
+            object.saveEventually()
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField : UITextField!) -> Void in
+            textField.placeholder = "Details"
+        }
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 }
 
 
