@@ -19,6 +19,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     var roomInitialized = false
     
+    var usersTypingQuery: FIRDatabaseQuery!
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            userIsTypingSetRef.setValue(newValue)
+        }
+    }
+    
     // PUBLIC ROOMS/MESSAGES
     var publicRoomRef = FIRDatabaseReference()
     var publicMessagesRef = FIRDatabaseReference()
@@ -33,6 +45,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var privateRoomReceiverRef = FIRDatabaseReference()
     var privateMessagesSenderRef = FIRDatabaseReference()
     var privateMessagesReceiverRef = FIRDatabaseReference()
+    var userIsTypingSetRef = FIRDatabaseReference()
+    var userIsTypingReadRef = FIRDatabaseReference()
     
     
     var roomId: String?
@@ -107,6 +121,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
                 if snap.exists() {
                     self.startListening()
+                    self.observeTyping()
                     //Reset unread messages to 0
                     self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
                 }
@@ -177,6 +192,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(senderId)\(receiverId!)")
             print(privateMessagesSenderRef)
             privateMessagesReceiverRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(receiverId!)\(senderId)")
+            
+            userIsTypingSetRef = privateRoomReceiverRef.child("typing")
+            userIsTypingReadRef = privateRoomSenderRef
         } else {
             assert(roomId != nil, "setReferences() called before setting roomId.")
             publicRoomRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms").child(roomId!)
@@ -632,6 +650,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                      senderDisplayName: String!, date: NSDate!) {
         
         sendMessage(text, videoFilePath: nil, picture: nil, audioFilePath: nil)
+        isTyping = false
     }
     
     override func didPressAccessoryButton(sender: UIButton!) {
@@ -665,6 +684,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         else { return true }
     }
     
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+        // If the text is not empty, the user is typing
+        isTyping = textView.text != ""
+    }
+    
     //MARK:-
     //MARK: IQAUDIORECORDER DELEGATES
     func audioRecorderController(controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
@@ -683,6 +708,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if !snap.exists() {
                     if self.createNewRoomForRef(self.privateRoomSenderRef, forSender: true) {
                         self.startListening()
+                        self.observeTyping()
                         self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
                     }
                 } else {
@@ -712,10 +738,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     func proceedWithMessage(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?, forSender: Bool?) {
         if text != nil { sendTextMessage(text!, forSender: forSender) }
-        if picture != nil { sendPictureMessage(picture!) }
-        if audioFilePath != nil { sendAudioMessage(audioFilePath!) }
-        if videoFilePath != nil { sendVideoMessage(videoFilePath!) }
-        if text == nil && videoFilePath == nil && picture == nil && audioFilePath == nil { sendLocationMessage() }
+        if picture != nil { sendPictureMessage(picture!, forSender: forSender) }
+        if audioFilePath != nil { sendAudioMessage(audioFilePath!, forSender: forSender) }
+        if videoFilePath != nil { sendVideoMessage(videoFilePath!, forSender: forSender) }
+        if text == nil && videoFilePath == nil && picture == nil && audioFilePath == nil {
+            forSenderLocation = forSender
+            sendLocationMessage()
+        }
     }
     
     //MARK:-
@@ -770,11 +799,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:-
     //MARK: PICTURE MESSAGE
-    func sendPictureMessage(picture: UIImage?) {
+    func sendPictureMessage(picture: UIImage?, forSender: Bool?) {
         if let picture = picture {
             if isPrivate {
-                sendPictureMessageForRef(privateMessagesSenderRef, picture: picture)
-                sendPictureMessageForRef(privateMessagesReceiverRef, picture: picture)
+                if forSender == true { sendPictureMessageForRef(privateMessagesSenderRef, picture: picture) }
+                else if forSender == false { sendPictureMessageForRef(privateMessagesReceiverRef, picture: picture) }
             } else {
                 sendPictureMessageForRef(publicMessagesRef, picture: picture)
             }
@@ -827,13 +856,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK:-
     //MARK: VIDEO MESSAGE
     
-    func sendVideoMessage(videoFilePath: NSURL) {
+    func sendVideoMessage(videoFilePath: NSURL, forSender: Bool?) {
 //        // Upload the video
 //        let data = NSData(contentsOfURL: videoFilePath)
 //        uploadVideoToFirebase(data!)
     }
     
-    func uploadVideoToFirebase(data: NSData) {
+    func uploadVideoToFirebase(data: NSData, forSender: Bool?) {
 //        let key = NSUUID().UUIDString
 //        
 //        let refImage = refStorage.child("messages/videos/\(key)")
@@ -900,11 +929,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:-
     //MARK: AUDIO MESSAGE
-    func sendAudioMessage(filePath: String?) {
+    func sendAudioMessage(filePath: String?, forSender: Bool?) {
         if let filePath = filePath {
             if isPrivate {
-                sendAudioMessageForRef(privateMessagesSenderRef, filePath: filePath)
-                sendAudioMessageForRef(privateMessagesReceiverRef, filePath: filePath)
+                if forSender == true { sendAudioMessageForRef(privateMessagesSenderRef, filePath: filePath) }
+                else if forSender == false { sendAudioMessageForRef(privateMessagesReceiverRef, filePath: filePath) }
             } else {
                 sendAudioMessageForRef(publicMessagesRef, filePath: filePath)
             }
@@ -963,20 +992,23 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         doesUserHaveLocationServicesEnabled()
     }
     
+    
+    var forSenderLocation: Bool?
     // deleateUserLocation in Server.swift
     // called from updateUserLocation()
     func userLocationUpdated(location: CLLocation?) {
         viewLocationForDelegate.dismissView()
         if let location = location {
             if isPrivate {
-                sendLocationForRef(privateMessagesReceiverRef, location: location)
-                sendLocationForRef(privateMessagesSenderRef, location: location)
+                if forSenderLocation == true { sendLocationForRef(privateMessagesReceiverRef, location: location) }
+                else if forSenderLocation == false { sendLocationForRef(privateMessagesSenderRef, location: location) }
             } else {
                 sendLocationForRef(publicMessagesRef, location: location)
             }
             self.finishSendingMessage()
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
         }
+        forSenderLocation = nil
     }
     
     func sendLocationForRef(ref: FIRDatabaseReference, location: CLLocation) {
@@ -1101,9 +1133,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         //        menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_videos"), title: "Videos", action: {
         //            self.presentVideoLibrary()
         //        }))
-        menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_location"), title: "Location", action: {
-            self.sendMessage(nil, videoFilePath: nil, picture: nil, audioFilePath: nil)
-        }))
+        var found = false
+        for item in arrayOfJSQMessages {
+            if item.isKindOfClass(JSQLocationMediaItem) {
+                found = true
+                break
+            }
+        }
+        if !found {
+            menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_location"), title: "Location", action: {
+                self.sendMessage(nil, videoFilePath: nil, picture: nil, audioFilePath: nil)
+            }))
+        }
         //        menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_stickers"), title: "Stickers", action: {
         //            print("Tapped stickers")
         //        }))
@@ -1169,4 +1210,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         controller.barStyle = UIBarStyle.BlackTranslucent
         self.presentBlurredAudioRecorderViewControllerAnimated(controller)
     }
+    
+    private func observeTyping() {
+        
+        userIsTypingSetRef.onDisconnectRemoveValue()
+        usersTypingQuery = userIsTypingReadRef.queryOrderedByValue().queryEqualToValue(true)
+        usersTypingQuery.observeEventType(.Value) { (snap: FIRDataSnapshot) in
+            print(snap)
+            if let typing = snap.childSnapshotForPath("typing").value as? Int {
+                if typing == 1 {
+                    self.showTypingIndicator = true
+                    self.scrollToBottomAnimated(true)
+                } else {
+                    self.showTypingIndicator = false
+                }
+            } else {
+                self.showTypingIndicator = false
+            }
+        }
+    }
+    
+    
 }
