@@ -135,15 +135,15 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    
-    CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
-                                                                         owner:self
-                                                                       options:nil]
-                                           objectAtIndex:0];
-    [self.view addSubview:viewPredict];
-    
-    [viewPredict show];
-    [viewPredict setDelegate:self];
+//    
+//    CBMakeFinalsPrediction *viewPredict = [[[NSBundle mainBundle] loadNibNamed:@"CBMakeFinalsPrediction"
+//                                                                         owner:self
+//                                                                       options:nil]
+//                                           objectAtIndex:0];
+//    [self.view addSubview:viewPredict];
+//    
+//    [viewPredict show];
+//    [viewPredict setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning

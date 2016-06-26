@@ -663,8 +663,6 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         if collectionView == collectionNews {
             let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
             self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
-        } else if collectionView == collectionVideos {
-            //play video full screen
         }
     }
     
@@ -1064,13 +1062,13 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     @IBAction func support(sender: UIControl) {
-        let alert = UIAlertController(title: "Support The Cadets", message: "Coming soon.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        //self.openWebViewWithLink("https://yea.org/mg2016", title: "Support The Cadets", subTitle: "2016 Annual Campaign")
+        self.performSegueWithIdentifier("contest", sender: self)
     }
     
     func openStore() {
-        self.performSegueWithIdentifier("store", sender: self)
+        //self.performSegueWithIdentifier("store", sender: self)
+        self.openWebViewWithLink("http://34store.org", title: "Shop", subTitle: "34 Store")
     }
     
     func openProfile() {

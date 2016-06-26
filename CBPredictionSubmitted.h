@@ -17,9 +17,13 @@
     id delegate;
 }
 
-@property (nonatomic, strong) UILabel *lblMessage;
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
+@property (weak, nonatomic) IBOutlet UIImageView *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnSignUp;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
 
 -(void)setDelegate:(id)newDelegate;
--(void)show;
+-(void)showInParent:(UINavigationController *)parentNav;
 
 @end

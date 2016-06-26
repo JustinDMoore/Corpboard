@@ -17,11 +17,12 @@
     id delegate;
 }
 
-@property (nonatomic, strong) UIVisualEffectView *viewBlur;
-@property (nonatomic, strong) IBOutlet UIButton *btnMakePrediction;
-@property (nonatomic, strong) UINavigationController *parentNav;
+@property (weak, nonatomic) IBOutlet UIView *viewDialog;
+@property (weak, nonatomic) IBOutlet UIButton *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnSubmit;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UILabel *lblMessage;
 
--(void)show;
--(void)setDelegate:(id)newDelegate;
+-(void)showInParent:(UINavigationController *)parentNav;
 
 @end

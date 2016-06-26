@@ -1,99 +1,121 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G19a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Kel-On-fka" customClass="CBMakeFinalsPredictionTable">
-            <rect key="frame" x="0.0" y="0.0" width="279" height="431"/>
+        <view contentMode="scaleToFill" id="yzm-EF-w7c" customClass="CBMakeFinalsPredictionTable">
+            <rect key="frame" x="0.0" y="0.0" width="641" height="749"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsv-bS-g5B">
-                    <rect key="frame" x="0.0" y="42" width="340" height="1"/>
-                    <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8e-CE-d7V">
+                    <rect key="frame" x="166" y="101" width="309" height="547"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRM-fr-EIQ">
+                            <rect key="frame" x="111" y="509" width="87" height="30"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <state key="normal" title="Close">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnClose_didTap:" destination="yzm-EF-w7c" eventType="touchUpInside" id="wbP-fF-8xS"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBM-Mi-9EU">
+                            <rect key="frame" x="6" y="430" width="297" height="56"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Submit"/>
+                            <connections>
+                                <action selector="btnSubmit_didTap:" destination="yzm-EF-w7c" eventType="touchUpInside" id="v6H-G8-aB9"/>
+                            </connections>
+                        </button>
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WXV-5X-hFJ">
+                            <rect key="frame" x="6" y="35" width="297" height="409"/>
+                            <subviews>
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WORLD CLASS FINALS PREDICTION" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9m-Gi-fBO">
+                                    <rect key="frame" x="32" y="23" width="232" height="50"/>
+                                    <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="21"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXa-m0-Zt5">
+                                    <rect key="frame" x="8" y="72" width="30" height="30"/>
+                                    <state key="normal" image="backButton"/>
+                                    <connections>
+                                        <action selector="btnBack_didTap:" destination="yzm-EF-w7c" eventType="touchUpInside" id="6I9-1Z-yrf"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2Z-wx-X1t">
+                                    <rect key="frame" x="259" y="72" width="30" height="30"/>
+                                    <state key="normal" image="next"/>
+                                    <connections>
+                                        <action selector="btnNext_didTap:" destination="yzm-EF-w7c" eventType="touchUpInside" id="9HD-a3-p00"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select 12 Finalists" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsy-Vl-Hf3">
+                                    <rect key="frame" x="66" y="77" width="164" height="20"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-ri-sGb">
+                                    <rect key="frame" x="1" y="110" width="295" height="299"/>
+                                    <color key="backgroundColor" red="0.3803921569" green="0.086274509799999996" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ksi-0C-nnO">
+                            <rect key="frame" x="6" y="142" width="297" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2p-XF-aq8">
+                            <rect key="frame" x="119" y="-15" width="70" height="70"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="contestIcon"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="309" id="jPf-sa-7Az"/>
+                        <constraint firstAttribute="height" constant="547" id="qq1-Yq-KTZ"/>
+                    </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="meI-YB-gzW">
-                    <rect key="frame" x="0.0" y="45" width="279" height="386"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vL1-u7-ZDa">
-                    <rect key="frame" x="8" y="12" width="57" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="57" id="Mh5-uX-WPo"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="Cancel">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnCancel_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="5Rf-UX-fBY"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz8-TC-7a3">
-                    <rect key="frame" x="228" y="12" width="43" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="43" id="2Fz-Fh-PJN"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="Send">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnSend_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="k3C-1F-O8G"/>
-                    </connections>
-                </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select 12 Finalists" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcl-HG-hcq">
-                    <rect key="frame" x="52" y="11" width="174" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="174" id="8ZS-1R-TBW"/>
-                        <constraint firstAttribute="height" constant="23" id="N1v-7G-34h"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBt-5y-tF7">
-                    <rect key="frame" x="8" y="7" width="30" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="30" id="0bK-Ba-ReT"/>
-                        <constraint firstAttribute="height" constant="30" id="CcM-x4-IS3"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" backgroundImage="arrowLeft">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnCancel_tapped:" destination="Kel-On-fka" eventType="touchUpInside" id="vmt-a9-zI8"/>
-                    </connections>
-                </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="vL1-u7-ZDa" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="12" id="3bf-c7-U6s"/>
-                <constraint firstItem="vL1-u7-ZDa" firstAttribute="leading" secondItem="Kel-On-fka" secondAttribute="leading" constant="8" id="6N0-pW-X8r"/>
-                <constraint firstAttribute="centerX" secondItem="fcl-HG-hcq" secondAttribute="centerX" constant="0.5" id="BTj-u6-gZC"/>
-                <constraint firstAttribute="trailing" secondItem="Mz8-TC-7a3" secondAttribute="trailing" constant="8" id="DYZ-gB-qkm"/>
-                <constraint firstItem="fcl-HG-hcq" firstAttribute="centerY" secondItem="vL1-u7-ZDa" secondAttribute="centerY" constant="0.5" id="ETT-2A-bZA"/>
-                <constraint firstItem="Mz8-TC-7a3" firstAttribute="centerY" secondItem="fcl-HG-hcq" secondAttribute="centerY" constant="-0.5" id="FJs-i8-QDz"/>
-                <constraint firstItem="fcl-HG-hcq" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="11" id="RC2-IN-e9B"/>
-                <constraint firstItem="Mz8-TC-7a3" firstAttribute="top" secondItem="Kel-On-fka" secondAttribute="top" constant="12" id="bep-lX-EYL"/>
-                <constraint firstItem="fcl-HG-hcq" firstAttribute="centerY" secondItem="pBt-5y-tF7" secondAttribute="centerY" constant="0.5" id="bsO-9U-P7c"/>
-                <constraint firstItem="pBt-5y-tF7" firstAttribute="leading" secondItem="Kel-On-fka" secondAttribute="leading" constant="8" id="rrA-7n-05m"/>
+                <constraint firstItem="c8e-CE-d7V" firstAttribute="centerY" secondItem="yzm-EF-w7c" secondAttribute="centerY" id="pc7-0L-6av"/>
+                <constraint firstItem="c8e-CE-d7V" firstAttribute="centerX" secondItem="yzm-EF-w7c" secondAttribute="centerX" id="uHo-Pr-ewB"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnBack" destination="pBt-5y-tF7" id="zMG-sl-kEu"/>
-                <outlet property="btnCancel" destination="vL1-u7-ZDa" id="D0s-Zz-DbM"/>
-                <outlet property="btnSend" destination="Mz8-TC-7a3" id="11o-m7-0rM"/>
-                <outlet property="lblHeader" destination="fcl-HG-hcq" id="vuv-ro-JEU"/>
-                <outlet property="tableCorps" destination="meI-YB-gzW" id="gjN-XA-jH1"/>
+                <outlet property="btnBack" destination="SXa-m0-Zt5" id="jMd-hB-kwY"/>
+                <outlet property="btnImage" destination="f2p-XF-aq8" id="J4D-0p-CBV"/>
+                <outlet property="btnNext" destination="d2Z-wx-X1t" id="TzW-DI-wfd"/>
+                <outlet property="btnNotNow" destination="zRM-fr-EIQ" id="6vq-sR-XFO"/>
+                <outlet property="btnSubmit" destination="SBM-Mi-9EU" id="goo-mr-avU"/>
+                <outlet property="lblHeaader" destination="r9m-Gi-fBO" id="gFz-yX-cT7"/>
+                <outlet property="lblMessage" destination="zsy-Vl-Hf3" id="dYX-kX-DQW"/>
+                <outlet property="tableCorps" destination="HmL-ri-sGb" id="xlc-iF-WvV"/>
+                <outlet property="viewContainer" destination="c8e-CE-d7V" id="bsD-Se-1g9"/>
+                <outlet property="viewDialog" destination="WXV-5X-hFJ" id="4iJ-3M-uRQ"/>
             </connections>
-            <point key="canvasLocation" x="264.5" y="540.5"/>
+            <point key="canvasLocation" x="491.5" y="307.5"/>
         </view>
     </objects>
     <resources>
-        <image name="arrowLeft" width="128" height="128"/>
+        <image name="backButton" width="85" height="85"/>
+        <image name="contestIcon" width="48" height="48"/>
+        <image name="next" width="85" height="85"/>
     </resources>
 </document>
