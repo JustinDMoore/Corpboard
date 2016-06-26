@@ -44,8 +44,6 @@
 		928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
 		928CE87D1A1EBA62009CE39E /* CBRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928CE87C1A1EBA62009CE39E /* CBRateView.m */; };
 		928CE87E1A1EC236009CE39E /* CBRateView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 928CE8791A1EB88B009CE39E /* CBRateView.xib */; };
-		92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */; };
-		92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */; };
 		92AFD670195A41DD001C4AF0 /* UserScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFD66F195A41DD001C4AF0 /* UserScore.m */; };
 		92C8D1ED1A2144270030EC3D /* ParseErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C8D1EC1A2144270030EC3D /* ParseErrors.m */; };
 		92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CF4C6419627EBC00BE98D5 /* CBFinalsPredictionViewController.m */; };
@@ -350,9 +348,6 @@
 		928CE8791A1EB88B009CE39E /* CBRateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBRateView.xib; sourceTree = "<group>"; };
 		928CE87B1A1EBA62009CE39E /* CBRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRateView.h; sourceTree = "<group>"; };
 		928CE87C1A1EBA62009CE39E /* CBRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBRateView.m; sourceTree = "<group>"; };
-		92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBMakeFinalsPrediction.xib; sourceTree = "<group>"; };
-		92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMakeFinalsPrediction.h; sourceTree = "<group>"; };
-		92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMakeFinalsPrediction.m; sourceTree = "<group>"; };
 		92AFD66E195A41DD001C4AF0 /* UserScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserScore.h; path = CorpsJudge/UserScore.h; sourceTree = "<group>"; };
 		92AFD66F195A41DD001C4AF0 /* UserScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserScore.m; path = CorpsJudge/UserScore.m; sourceTree = "<group>"; };
 		92C8D1EB1A2144270030EC3D /* ParseErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseErrors.h; sourceTree = "<group>"; };
@@ -969,7 +964,6 @@
 				D0AEA6B71B030D920080D7F5 /* CBReviewShow.h */,
 				D0AEA6BC1B031F920080D7F5 /* CBPermissions.h */,
 				D0AEA6C11B03C7140080D7F5 /* CBReviewSubmitted.h */,
-				92A6AE6C1B055381000E2F55 /* CBMakeFinalsPrediction.h */,
 				D0C2EC4E1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.h */,
 				D0C2EC5D1B0CF07700C57017 /* CBPredictionSelectCell.h */,
 				D0C2EC5A1B0CF06800C57017 /* CBPredictionOrderCell.h */,
@@ -1422,8 +1416,6 @@
 		D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */ = {
 			isa = PBXGroup;
 			children = (
-				92A6AE6A1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib */,
-				92A6AE6D1B055381000E2F55 /* CBMakeFinalsPrediction.m */,
 				D0C2EC4C1B0CE95A00C57017 /* CBMakeFinalsPredictionTable.xib */,
 				D0C2EC4F1B0CE96F00C57017 /* CBMakeFinalsPredictionTable.m */,
 				D0C2EC511B0CEB7500C57017 /* CBPredictionSelectCell.xib */,
@@ -1569,7 +1561,6 @@
 				9FA2362D1D1459EF00AE52F9 /* GoogleService-Info.plist in Resources */,
 				D0C2EC541B0CEBAC00C57017 /* CBPredictionOrderCell.xib in Resources */,
 				926CC2721A39A146006E315F /* CBUserCategories.xib in Resources */,
-				92A6AE6B1B054F3D000E2F55 /* CBMakeFinalsPrediction.xib in Resources */,
 				D011894E1A6B0D8A00D77EA9 /* Snow.sks in Resources */,
 				92393F271A59B5DE00020C6A /* CBProblemWhere.xib in Resources */,
 				D034437B1A3D064000C410EE /* CBChooseCorp.xib in Resources */,
@@ -1822,7 +1813,6 @@
 				9FEDCCF81CF0BAD900C1AB8C /* TaskTableViewCell.swift in Sources */,
 				9FEF3A9F1D0A28C300D1AEFA /* VideoCollectionViewController.swift in Sources */,
 				9F9D685A1CE6C3E30084878B /* CadetsAnimation.m in Sources */,
-				92A6AE6E1B055381000E2F55 /* CBMakeFinalsPrediction.m in Sources */,
 				9FC71C9B1CE6639500C36A1C /* PBanner.swift in Sources */,
 				925334C1194FD7BC0004D16F /* CBShowsViewController.m in Sources */,
 				D0681E181A8048A70084EB42 /* CBCollectionFlowLayout.m in Sources */,
