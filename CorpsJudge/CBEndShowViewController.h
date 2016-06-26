@@ -20,5 +20,5 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfWorldClassScores;
 @property (nonatomic, strong) NSMutableArray *arrayOfOpenClassScores;
 @property (nonatomic, strong) NSMutableArray *arrayOfAllAgeClassScores;
-
+@property (weak, nonatomic) IBOutlet UISwitch *switchPush;
 @end

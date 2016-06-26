@@ -87,9 +87,11 @@
 }
 
 -(void)close {
-
-    if ([self.currentResponder respondsToSelector:@selector(resignFirstResponder)]) {
-        if (self.currentResponder) [self.currentResponder resignFirstResponder];
+    
+    if (self.currentResponder != nil) {
+        if ([self.currentResponder respondsToSelector:@selector(resignFirstResponder)]) {
+            if (self.currentResponder) [self.currentResponder resignFirstResponder];
+        }
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -304,7 +306,6 @@
 }
 
 -(void)sendPush {
-
     int rndValue = 1 + arc4random() % (4 - 1);
     NSString *text;
     switch (rndValue) {
@@ -353,13 +354,9 @@
                     [self.delegate showCompleted];
                 }
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notification"
-                                                                message:@"Send push notification to users notifying them scores are up?"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"No"
-                                                      otherButtonTitles:@"Yes", nil];
-                alert.tag = 3;
-                [alert show];
+                if (self.switchPush.on) {
+                    [self sendPush];
+                }
             }
         }];
     }
