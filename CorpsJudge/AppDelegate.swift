@@ -79,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        registerForPushNotifications(application)
         return true
 
     }
@@ -89,18 +90,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return handled
     }
     
-//    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-//        print("User allowed push notifications.")
-//        //Store the deviceToken int he current installation for parse
-//        let currentInstallation = PFInstallation.currentInstallation()
-//        currentInstallation.setDeviceTokenFromData(deviceToken)
-//        currentInstallation.channels = ["global"]
-//        currentInstallation["allowsPush"] = true
-//        currentInstallation.saveInBackground()
-//    }
-//    
-//    //handles push notifications if user is running the app (not in background)
-//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if notificationSettings.types != .None {
+            application.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("User allowed push notifications.")
+        //Store the deviceToken int he current installation for parse
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.channels = ["global"]
+        currentInstallation["allowsPush"] = true
+        currentInstallation.saveInBackground()
+    }
+    
+    //handles push notifications if user is running the app (not in background)
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("Got a notification")
 //        if application.applicationState == UIApplicationState.Active {
 //            let currentInstallation = PFInstallation.currentInstallation()
 //            let count = currentInstallation["badge"] as? Int
@@ -115,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            pushView.showPush(dict["alert"], inParent: self.alertParentView)
 //            
 //        }
-//    }
+    }
     
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -173,6 +181,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            rootViewController.pushViewController(viewController, animated: true)
 //        }
 //    }
+    
+    func registerForPushNotifications(application: UIApplication) {
+        let notificationSettings = UIUserNotificationSettings(
+            forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+    }
     
 }
 

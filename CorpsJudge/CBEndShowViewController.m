@@ -317,11 +317,7 @@
             break;
     }
     
-    PFQuery *pushQuery = [PFInstallation query];
-    [pushQuery whereKey:@"deviceType" equalTo:@"ios"];
-    [PFPush sendPushMessageToQueryInBackground:pushQuery
-                                   withMessage:text];
-    
+    [PFCloud callFunctionInBackground:@"pushScores" withParameters:@{ @"message" : text }];
     [self close];
 }
 
