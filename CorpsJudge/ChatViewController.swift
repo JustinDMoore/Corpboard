@@ -128,9 +128,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     self.observeTyping()
                     //Reset unread messages to 0
                     self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
+                } else {
+                    //else do nothing until message is sent
+                    self.stopLoading()
                 }
-                //else do nothing until message is sent
-                self.stopLoading()
             }
         } else {
             self.title = "Live Chat"
@@ -445,23 +446,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                 
                                 self.arrayOfAvatars[(user.objectId)!] = avatar
                                 if scroll { self.finishReceivingMessageAnimated(true) }
+                                self.stopLoading()
                             } else {
                                 // there was an error getting thumbnail data, so finish up
                                 if scroll { self.finishReceivingMessageAnimated(true) }
+                                self.stopLoading()
                             }
                         })
                     } else {
                         // no thumbnail, so finish up
                         if scroll { self.finishReceivingMessageAnimated(true) }
+                        self.stopLoading()
                     }
                 }
             })
         } else {
             //Avatar already existed, so just finish up
             if scroll { self.finishReceivingMessageAnimated(true) }
+            self.stopLoading()
         }
-
-        
     }
     
     func stopListening() {
