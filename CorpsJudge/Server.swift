@@ -122,10 +122,6 @@ protocol delegateUserProfile: class {
         config.getAllCorps()
     }
     
-    func start() {
-        PrivateMessageListener.sharedInstance.startListening()
-    }
-    
     //MARK:-
     //MARK: Initial App Load (delgateInitialAppLoad)
     func factBaseQuery() -> PFQuery {

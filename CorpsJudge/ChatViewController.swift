@@ -794,6 +794,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         itemRef.setValue(newMessage)
         
         if isPrivate {
+            
             privateRoomSenderRef.child(ChatroomFields.lastMessage).setValue(text)
             privateRoomSenderRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
     

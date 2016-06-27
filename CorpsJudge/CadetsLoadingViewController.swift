@@ -155,7 +155,6 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
                                     
         }) { (finished: Bool) in
             self.progressBar.hidden = false
-            Server.sharedInstance.start()
             Server.sharedInstance.updateAppStatus()
             Server.sharedInstance.signInAndSyncOrAllowAnonymousUser()
             Server.sharedInstance.updateUserLocation()

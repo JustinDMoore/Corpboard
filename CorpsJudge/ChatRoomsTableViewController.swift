@@ -44,6 +44,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         self.tableView.tableFooterView = UIView()
         if isPrivate {
             PrivateMessageListener.sharedInstance.stopListening()
+            
             self.title = "Private Messages"
         } else {
             self.title = "Live Chats"

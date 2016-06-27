@@ -3560,10 +3560,10 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellButtons" rowHeight="66" id="q4g-GC-rUK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellButtons" rowHeight="66" id="q4g-GC-rUK">
                                         <rect key="frame" x="0.0" y="201" width="600" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q4g-GC-rUK" id="yAo-Iw-UgZ">
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q4g-GC-rUK" id="yAo-Iw-UgZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -4895,6 +4895,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1600"/>
                     <connections>
+                        <outlet property="btnMessages" destination="jJF-33-cb4" id="pHW-kj-fR8"/>
                         <outlet property="btnNearMe" destination="7KY-ma-5iV" id="4nE-q7-N9Q"/>
                         <outlet property="btnSeeAllNews" destination="khL-I2-eSX" id="X3M-Gj-4fV"/>
                         <outlet property="btnSeeAllRankings" destination="5gO-Zb-Taz" id="XAk-x5-2Nk"/>

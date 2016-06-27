@@ -184,6 +184,7 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
     }
     if ([self doesUserNeedNickname:user]) [self dismissView:YES canProceed:NO];
     else [self dismissView:NO canProceed:YES];
+    [Server.sharedInstance signIntoFirebase];
 }
 
 -(BOOL)doesUserNeedNickname:(PFUser *)user {

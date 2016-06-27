@@ -80,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         registerForPushNotifications(application)
+        
         return true
 
     }
@@ -158,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             currentInstallation.setValue(0, forKey: "badge")
             currentInstallation.saveInBackground()
         }
-    
+        PrivateMessageListener.sharedInstance.startListening()
     }
     
     func applicationWillTerminate(application: UIApplication) {

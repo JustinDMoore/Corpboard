@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import YouTubePlayer
 
-class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages {
+class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages, delegatePrivateMessageListener {
 
     //MARK:-
     //MARK:Outlets
@@ -21,6 +21,8 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     @IBOutlet weak var slideBanners: ImageSlideshow!
     
     //Buttons
+    
+    @IBOutlet weak var btnMessages: UIButton!
     @IBOutlet weak var btnNearMe: UIButton!
     @IBOutlet weak var lblProfile: UILabel!
     @IBOutlet weak var lblMessages: UILabel!
@@ -138,6 +140,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        PrivateMessageListener.sharedInstance.delegate = self
+        PrivateMessageListener.sharedInstance.startListening()
+        
         let imageView = UIImageView(frame: CGRectMake(130, 20, 20, 54))
         imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
@@ -205,6 +211,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         loadProfile()
         pulse()
 
+        badgeMessages = JSBadgeView(parentView: btnMessages, alignment: .TopRight)
+        btnMessages.addSubview(badgeMessages)
+        
         let textColor = UISingleton.sharedInstance.gold
         
         lblProfile.textColor = textColor
@@ -1290,7 +1299,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     func setMsgBadge() {
         if Server.sharedInstance.numberOfMessages > 0 {
-            self.badgeMessages.badgeText = "\(Server.sharedInstance.numberOfMessages)"
+            self.badgeMessages.badgeText = "New"
         } else {
             self.badgeMessages.badgeText = ""
         }
@@ -1314,4 +1323,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         nearMe()
     }
 
+    func updateMessageCount() {
+        //Fires when a new message is received
+        //TODO: Display actual unread message count
+        self.setMsgBadge()
+    }
 }
