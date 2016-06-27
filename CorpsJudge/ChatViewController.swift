@@ -198,7 +198,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomReceiverRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child(receiverId! ?? "").child("\(receiverId!)\(senderId)")
             
             privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(senderId)\(receiverId!)")
-            print(privateMessagesSenderRef)
             privateMessagesReceiverRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(receiverId!)\(senderId)")
             
             userIsTypingSetRef = privateRoomReceiverRef.child("typing")
@@ -292,152 +291,177 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let messagesQuery = ref.queryLimitedToLast(25)
         
-        messagesQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
+        messagesQuery.observeEventType(.Value) { (snap: FIRDataSnapshot) in
             
-            if !snap.exists() { self.stopLoading() }
-            
-            for _ in self.arrayOfJSQMessages {
-                if self.arrayOfSnapKeys.contains(snap.key) {
-                    return // This snap has already been added, so ignore it
+            //Print existing messages
+            print(".Value")
+            print(snap)
+            print(snap.children)
+            for (index, child) in snap.children.enumerate() {
+                if let snapshot = child as? FIRDataSnapshot {
+                    var scroll = false
+                    if index ==  Int(snap.childrenCount - 1) {
+                        scroll = true
+                    }
+                    self.incomingMessage(snapshot, scroll: scroll)
                 }
             }
             
-            let message = ChatMessage()
-            message.snapKey = snap.key
-            message.message = snap.childSnapshotForPath(ChatMessageFields.message).value as? String ?? nil
-            let rawCreatedAt = snap.childSnapshotForPath(ChatMessageFields.createdAt).value as? String ?? nil
-            if rawCreatedAt != nil {
-                message.createdAt = ChatMessage().dateFromUTCString(rawCreatedAt!) ?? nil
+            //Now cancel existing message listener
+            //Start listening for new messages
+            messagesQuery.removeAllObservers()
+            messagesQuery.observeEventType(.ChildAdded, withBlock: { (snap: FIRDataSnapshot) in
+                self.incomingMessage(snap, scroll: true)
+            })
+        }
+    }
+    
+    func incomingMessage(snap: FIRDataSnapshot, scroll: Bool) {
+        
+        print(snap.children)
+        
+        print(".childAdded")
+        // If nothing is here, stop the loading animation
+        if !snap.exists() { self.stopLoading() }
+        
+        for _ in self.arrayOfJSQMessages {
+            if self.arrayOfSnapKeys.contains(snap.key) {
+                return // This snap has already been added, so ignore it
             }
-            message.type = snap.childSnapshotForPath(ChatMessageFields.type).value as! String
-            message.createdByUID = snap.childSnapshotForPath(ChatMessageFields.createdByUID).value as? String ?? nil
-            message.createdByNickname = snap.childSnapshotForPath(ChatMessageFields.createdByNickname).value as? String ?? nil
-            message.createdByParseObjectId = snap.childSnapshotForPath(ChatMessageFields.createdByParseObjectId).value as? String ?? nil
-            message.file = snap.childSnapshotForPath(ChatMessageFields.file).value as? String ?? nil
-            let lat = snap.childSnapshotForPath(ChatMessageFields.lattitude).value as? Double ?? nil
-            let lon = snap.childSnapshotForPath(ChatMessageFields.longitude).value as? Double ?? nil
-            if lat != nil && lon != nil {
-                message.location = CLLocation(latitude: lat!, longitude: lon!)
-            }
-            var jMsg: JSQMessage? = nil
+        }
+        
+        // Extract the message
+        let message = ChatMessage()
+        message.snapKey = snap.key
+        message.message = snap.childSnapshotForPath(ChatMessageFields.message).value as? String ?? nil
+        let rawCreatedAt = snap.childSnapshotForPath(ChatMessageFields.createdAt).value as? String ?? nil
+        if rawCreatedAt != nil {
+            message.createdAt = ChatMessage().dateFromUTCString(rawCreatedAt!) ?? nil
+        }
+        message.type = snap.childSnapshotForPath(ChatMessageFields.type).value as! String
+        message.createdByUID = snap.childSnapshotForPath(ChatMessageFields.createdByUID).value as? String ?? nil
+        message.createdByNickname = snap.childSnapshotForPath(ChatMessageFields.createdByNickname).value as? String ?? nil
+        message.createdByParseObjectId = snap.childSnapshotForPath(ChatMessageFields.createdByParseObjectId).value as? String ?? nil
+        message.file = snap.childSnapshotForPath(ChatMessageFields.file).value as? String ?? nil
+        let lat = snap.childSnapshotForPath(ChatMessageFields.lattitude).value as? Double ?? nil
+        let lon = snap.childSnapshotForPath(ChatMessageFields.longitude).value as? Double ?? nil
+        if lat != nil && lon != nil {
+            message.location = CLLocation(latitude: lat!, longitude: lon!)
+        }
+        var jMsg: JSQMessage? = nil
+        
+        //Sound
+        if message.createdByParseObjectId != self.senderId {
+            if !self.initialLoad { JSQSystemSoundPlayer.jsq_playMessageReceivedSound() }
+        }
+        
+        switch message.type {
+        case "TEXT":
+            jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                              senderDisplayName: message.createdByNickname,
+                              date: message.createdAt,
+                              text: message.message)
             
-            //Sound
-            if message.createdByParseObjectId != self.senderId {
-                if !self.initialLoad { JSQSystemSoundPlayer.jsq_playMessageReceivedSound() }
-            }
-            
-            switch message.type {
-            case "TEXT":
-                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                  senderDisplayName: message.createdByNickname,
-                                  date: message.createdAt,
-                                  text: message.message)
-                
-            case "PICTURE":
-                var image: UIImage?
-                if message.file != nil {
-                    let decodedData = NSData(base64EncodedString: message.file!, options:[])
-                    if let decodedImage = UIImage(data: decodedData!) {
-                        image = decodedImage
-                    } else {
-                        image = UIImage(named: "imageNotFound")
-                    }
+        case "PICTURE":
+            var image: UIImage?
+            if message.file != nil {
+                let decodedData = NSData(base64EncodedString: message.file!, options:[])
+                if let decodedImage = UIImage(data: decodedData!) {
+                    image = decodedImage
                 } else {
                     image = UIImage(named: "imageNotFound")
                 }
-                
-                let mediaItem = JSQPhotoMediaItem(image: image)
-                mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
-                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                  senderDisplayName: message.createdByNickname!,
-                                  date: message.createdAt,
-                                  media: mediaItem)
-                
-            case "AUDIO":
-                if message.file != nil {
-                    let decodedData = NSData(base64EncodedString: message.file!, options:[])
-                    let mediaItem = JSQAudioMediaItem(data: decodedData)
-                    mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
-                    jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                      senderDisplayName: message.createdByNickname!,
-                                      date: message.createdAt,
-                                      media: mediaItem)
-                }
-                break
-                
-            case "VIDEO":
-                
-                let mediaItem = JSQVideoMediaItem(fileURL: nil, isReadyToPlay: false)
-                mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
-                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                  senderDisplayName: message.createdByNickname!,
-                                  date: message.createdAt,
-                                  media: mediaItem)
-                self.downloadVideoFromFirebase(message.snapKey, jMsg: mediaItem)
-                break
-                
-            case "LOCATION":
-                let mediaItem = JSQLocationMediaItem(location: nil)
-                mediaItem.setLocation(message.location, withCompletionHandler: {
-                    self.collectionView.reloadData()
-                })
-                mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
-                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
-                                  senderDisplayName: message.createdByNickname!,
-                                  date: message.createdAt,
-                                  media: mediaItem)
-                break
-                
-            default:
-                break
-            }
-            
-            if jMsg != nil {
-                self.arrayOfJSQMessages.append(jMsg!)
-                self.arrayOfSnapKeys.append(snap.key)
-            }
-            
-            //check to see if this author's avatar has already been added to the dictionary first
-            let keyExists = self.arrayOfAvatars[(message.createdByParseObjectId!)] != nil
-            if !keyExists {
-                
-                let query = PFQuery(className: PUser.parseClassName())
-                query.whereKey("objectId", equalTo: message.createdByParseObjectId!)
-                query.getFirstObjectInBackgroundWithBlock({ (user: PFObject?, err: NSError?) in
-                    if let user: PUser = user as? PUser {
-                        if let file = user.thumbnail {
-                            file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
-                                if err == nil {
-                                    let picture = UIImage(data: data!)
-                                    let circleAvatar = JSQMessagesAvatarImageFactory.circularAvatarImage(picture, withDiameter: 30)
-                                    let circlePlaceholder = JSQMessagesAvatarImageFactory.circularAvatarImage(UIImage(named: "defaultProfilePicture"), withDiameter: 30)
-                                    
-                                    let avatar = JSQMessagesAvatarImage(avatarImage: circleAvatar, highlightedImage: circleAvatar, placeholderImage: circlePlaceholder)
-                                    
-                                    self.arrayOfAvatars[(user.objectId)!] = avatar
-                                    self.finishReceivingMessageAnimated(true)
-                                } else {
-                                    // there was an error getting thumbnail data, so finish up
-                                    self.finishReceivingMessageAnimated(true)
-                                }
-                            })
-                        } else {
-                            // no thumbnail, so finish up
-                            self.finishReceivingMessageAnimated(true)
-                        }
-                    }
-                })
             } else {
-                //Avatar already existed, so just finish up
-                self.finishReceivingMessageAnimated(true)
+                image = UIImage(named: "imageNotFound")
             }
             
-            if self.initialLoad {
-                self.stopLoading()
-                self.collectionView.reloadData()
-                self.initialLoad = false
+            let mediaItem = JSQPhotoMediaItem(image: image)
+            mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
+            jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                              senderDisplayName: message.createdByNickname!,
+                              date: message.createdAt,
+                              media: mediaItem)
+            
+        case "AUDIO":
+            if message.file != nil {
+                let decodedData = NSData(base64EncodedString: message.file!, options:[])
+                let mediaItem = JSQAudioMediaItem(data: decodedData)
+                mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
+                jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                                  senderDisplayName: message.createdByNickname!,
+                                  date: message.createdAt,
+                                  media: mediaItem)
             }
+            break
+            
+        case "VIDEO":
+            
+            let mediaItem = JSQVideoMediaItem(fileURL: nil, isReadyToPlay: false)
+            mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
+            jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                              senderDisplayName: message.createdByNickname!,
+                              date: message.createdAt,
+                              media: mediaItem)
+            self.downloadVideoFromFirebase(message.snapKey, jMsg: mediaItem)
+            break
+            
+        case "LOCATION":
+            let mediaItem = JSQLocationMediaItem(location: nil)
+            mediaItem.setLocation(message.location, withCompletionHandler: {
+                self.collectionView.reloadData()
+            })
+            mediaItem.appliesMediaViewMaskAsOutgoing = (message.createdByParseObjectId == self.senderId)
+            jMsg = JSQMessage(senderId: message.createdByParseObjectId,
+                              senderDisplayName: message.createdByNickname!,
+                              date: message.createdAt,
+                              media: mediaItem)
+            break
+            
+        default:
+            break
         }
+        
+        if jMsg != nil {
+            self.arrayOfJSQMessages.append(jMsg!)
+            self.arrayOfSnapKeys.append(snap.key)
+        }
+        
+        //check to see if this author's avatar has already been added to the dictionary first
+        let keyExists = self.arrayOfAvatars[(message.createdByParseObjectId!)] != nil
+        if !keyExists {
+            
+            let query = PFQuery(className: PUser.parseClassName())
+            query.whereKey("objectId", equalTo: message.createdByParseObjectId!)
+            query.getFirstObjectInBackgroundWithBlock({ (user: PFObject?, err: NSError?) in
+                if let user: PUser = user as? PUser {
+                    if let file = user.thumbnail {
+                        file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
+                            if err == nil {
+                                let picture = UIImage(data: data!)
+                                let circleAvatar = JSQMessagesAvatarImageFactory.circularAvatarImage(picture, withDiameter: 30)
+                                let circlePlaceholder = JSQMessagesAvatarImageFactory.circularAvatarImage(UIImage(named: "defaultProfilePicture"), withDiameter: 30)
+                                
+                                let avatar = JSQMessagesAvatarImage(avatarImage: circleAvatar, highlightedImage: circleAvatar, placeholderImage: circlePlaceholder)
+                                
+                                self.arrayOfAvatars[(user.objectId)!] = avatar
+                                if scroll { self.finishReceivingMessageAnimated(true) }
+                            } else {
+                                // there was an error getting thumbnail data, so finish up
+                                if scroll { self.finishReceivingMessageAnimated(true) }
+                            }
+                        })
+                    } else {
+                        // no thumbnail, so finish up
+                        if scroll { self.finishReceivingMessageAnimated(true) }
+                    }
+                }
+            })
+        } else {
+            //Avatar already existed, so just finish up
+            if scroll { self.finishReceivingMessageAnimated(true) }
+        }
+
+        
     }
     
     func stopListening() {
@@ -484,7 +508,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     func incrementMessageCounterForRoomRef(ref: FIRDatabaseReference) {
 
-        print(ref)
         ref.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var room = currentData.value as? [String : AnyObject] {
 
@@ -521,7 +544,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
-        print(arrayOfJSQMessages.count)
         return arrayOfJSQMessages.count
     }
     
@@ -1237,7 +1259,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         userIsTypingSetRef.onDisconnectRemoveValue()
         usersTypingQuery = userIsTypingReadRef.queryOrderedByValue().queryEqualToValue(true)
         usersTypingQuery.observeEventType(.Value) { (snap: FIRDataSnapshot) in
-            print(snap)
             if let typing = snap.childSnapshotForPath("typing").value as? Int {
                 if typing == 1 {
                     self.showTypingIndicator = true
