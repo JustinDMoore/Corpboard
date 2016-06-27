@@ -236,11 +236,15 @@ int progress = 1;
 
 -(void)camera {
     
+    
     upload = NO;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.navigationBar.translucent = NO;
+    picker.navigationBar.barTintColor = [UIColor blackColor];
+    picker.navigationBar.tintColor = UISingleton.sharedInstance.gold;
+    picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -271,7 +275,10 @@ BOOL upload = NO;
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         picker.delegate = self;
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.navigationBar.translucent = NO;
+        picker.navigationBar.barTintColor = [UIColor blackColor];
+        picker.navigationBar.tintColor = UISingleton.sharedInstance.gold;
+        picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
         [self presentViewController:picker animated:YES completion:nil];
     }
 }

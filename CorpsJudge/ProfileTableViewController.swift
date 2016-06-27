@@ -242,11 +242,18 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
 
     @IBAction func editProfilePicture(sender: UIButton) {
-        let picker = UIImagePickerController()
-        picker.sourceType = .PhotoLibrary
-        picker.delegate = self
-        picker.navigationBar.barTintColor = UISingleton.sharedInstance.gold
-        self.presentViewController(picker, animated: true, completion: nil)
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.delegate = self
+        imagePicker.navigationBar.translucent = false
+        imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+        imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ] // Title color
+        
+        self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     

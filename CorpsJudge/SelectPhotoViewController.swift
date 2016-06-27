@@ -211,10 +211,17 @@ class SelectPhotoViewController: UIViewController, UITableViewDataSource, UITabl
     
     func camera() {
         uploading = false
-        let picker = UIImagePickerController()
-        picker.sourceType = .PhotoLibrary
-        picker.delegate = self
-        self.presentViewController(picker, animated: true, completion: nil)
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.delegate = self
+        imagePicker.navigationBar.translucent = false
+        imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+        imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ] // Title color
+        
+        self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     func upload() {
@@ -222,10 +229,17 @@ class SelectPhotoViewController: UIViewController, UITableViewDataSource, UITabl
         let alert = UIAlertController(title: "Upload Cover Image", message: "Have a drum corps themed cover image that you want to share with other users? For best quality, images should be 320w x 290h and must be less than 10MB. Any user will be able to use your uploaded cover image in their profile. By uploading an image, you agree to allow Corpsboard and it's users to use the image. Your image will be reviewed, usually within a few minutes, prior to being made available to users.", preferredStyle: .Alert)
 
         let agreeAction = UIAlertAction(title: "I Agree", style: .Default) { (action: UIAlertAction) in
-            let picker = UIImagePickerController()
-            picker.sourceType = .PhotoLibrary
-            picker.delegate = self
-            self.presentViewController(picker, animated: true, completion: nil)
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.delegate = self
+            imagePicker.navigationBar.translucent = false
+            imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+            imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+            imagePicker.navigationBar.titleTextAttributes = [
+                NSForegroundColorAttributeName : UIColor.whiteColor()
+            ] // Title color
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(agreeAction)
         

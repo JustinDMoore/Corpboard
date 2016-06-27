@@ -1220,6 +1220,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         imagePicker.allowsEditing = true
         imagePicker.showsCameraControls = true
         imagePicker.delegate = self
+        imagePicker.navigationBar.translucent = false
+        imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+        imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ] // Title color
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
@@ -1234,7 +1240,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         imagePicker.mediaTypes = [type]
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        imagePicker.navigationBar.translucent = false
+        imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+        imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ] // Title color
         self.presentViewController(imagePicker, animated: true, completion: nil)
+
     }
     
     func presentVideoLibrary() {
@@ -1249,6 +1262,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         imagePicker.mediaTypes = [type, type2]
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        imagePicker.navigationBar.translucent = false
+        imagePicker.navigationBar.barTintColor = .blackColor() // Background color
+        imagePicker.navigationBar.tintColor = UISingleton.sharedInstance.gold // Cancel button ~ any UITabBarButton items
+        imagePicker.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ] // Title color
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
