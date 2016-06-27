@@ -245,6 +245,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         let picker = UIImagePickerController()
         picker.sourceType = .PhotoLibrary
         picker.delegate = self
+        picker.navigationBar.barTintColor = UISingleton.sharedInstance.gold
         self.presentViewController(picker, animated: true, completion: nil)
     }
     

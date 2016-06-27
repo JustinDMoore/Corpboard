@@ -1070,6 +1070,7 @@ typedef enum : int {
         
         UITextField *text = (UITextField *)[cell viewWithTag:4];
         UILabel *label = (UILabel *)[cell viewWithTag:3];
+        label.textColor = [UIColor blackColor];
         text.delegate = self;
         [text setKeyboardAppearance:UIKeyboardAppearanceDark];
         [tableView setUserInteractionEnabled:YES];
@@ -1128,7 +1129,7 @@ typedef enum : int {
         }
         
         UILabel *lblCorpName = (UILabel *)[cell viewWithTag:3];
-        
+        lblCorpName.textColor = [UIColor blackColor];
         lblCorpName.text = corps[@"corpsName"];
         
         UserScore *us;
@@ -1294,9 +1295,7 @@ typedef enum : int {
                 default:
                     break;
             }
-            
         }
-
     }
 
     
@@ -1311,7 +1310,8 @@ typedef enum : int {
             [imgLogo loadInBackground];
         }
     }
-
+    
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 
