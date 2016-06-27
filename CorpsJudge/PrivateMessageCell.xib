@@ -32,7 +32,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyI-et-3sP">
                                 <rect key="frame" x="27" y="12" width="70" height="70"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="9A5B2EB2-4B0C-44D5-8B00-8EF3198A6A51" translatesAutoresizingMaskIntoConstraints="NO" id="BBA-gv-AX7" customClass="PFImageView">
+                                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="416F7FDF-46E0-4133-B267-6E2A7681C946" translatesAutoresizingMaskIntoConstraints="NO" id="BBA-gv-AX7" customClass="PFImageView">
                                         <rect key="frame" x="5" y="6" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="2nq-k2-qhv"/>
@@ -125,11 +125,12 @@
                     <constraint firstAttribute="bottomMargin" secondItem="bM9-Sf-KHr" secondAttribute="bottom" constant="5" id="xSV-uj-stW"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="tintColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="635.5" y="251.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="9A5B2EB2-4B0C-44D5-8B00-8EF3198A6A51" width="48" height="48">
+        <image name="416F7FDF-46E0-4133-B267-6E2A7681C946" width="48" height="48">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

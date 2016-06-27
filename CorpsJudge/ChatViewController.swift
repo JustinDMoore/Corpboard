@@ -28,8 +28,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         set {
             if !newPrivateChat {
-                localTyping = newValue
-                userIsTypingSetRef.setValue(newValue)
+                privateRoomReceiverRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
+                    print(self.privateRoomReceiverRef)
+                    if snap.exists() {
+                        self.localTyping = newValue
+                        self.userIsTypingSetRef.setValue(newValue)
+                    }
+                }
             }
         }
     }

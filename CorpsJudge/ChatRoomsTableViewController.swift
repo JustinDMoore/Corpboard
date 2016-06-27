@@ -39,7 +39,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.allowsMultipleSelectionDuringEditing = false
         arrayOfChatRooms.removeAll()
         self.tableView.reloadData()
         loading()
@@ -207,10 +206,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if arrayOfChatRooms.isEmpty {
-            tableView.allowsSelection = false
             return 1
         } else {
-            tableView.allowsSelection = true
             return arrayOfChatRooms.count
         }
     }
@@ -264,14 +261,27 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             if isPrivate {
-                //Delete Room
-                privateChatRoomsRef.removeValue()
                 
                 let room = arrayOfChatRooms[indexPath.row]
                 receiverId = room.privateChatWith
                 
+                var sendId = ""
+                if let id = (PUser.currentUser()?.objectId)! as? String {
+                    print(id)
+                    sendId = id
+                }
+                
+                var recId = ""
+                if let id2 = room.privateChatWith! as? String {
+                    recId = id2
+                }
+                
+                //Delete Room
+                privateChatRoomsRef.removeValue()
+                
                 //Delete messages
-               privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(PUser.currentUser()?.objectId)\(receiverId!)")
+                privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(sendId)\(recId)")
+                print(privateMessagesSenderRef)
                 privateMessagesSenderRef.removeValue()
             }
         }
@@ -365,7 +375,11 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         // Last message received
         let lblLastMessage = cell?.viewWithTag(4) as! UILabel
-        lblLastMessage.text = " \(chatRoom.lastMessage!)"
+        if let message = chatRoom.lastMessage {
+            lblLastMessage.text = message
+        } else {
+            lblLastMessage.text = ""
+        }
         
         // How long ago
         let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
