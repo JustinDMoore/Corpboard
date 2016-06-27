@@ -85,7 +85,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        stopListening()
         PrivateMessageListener.sharedInstance.startListening()
     }
     

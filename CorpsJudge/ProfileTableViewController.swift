@@ -94,6 +94,11 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             imgUser.layer.borderColor = UIColor.whiteColor().CGColor
             imgUser.layer.borderWidth = 2
             
+            // If from chat, disable chat button
+            if fromPrivate {
+                btnChat.enabled = false
+            }
+            
             // User Profile Picture
             if let imgFile = userProfile!.picture {
                 self.imgUser.file = imgFile
