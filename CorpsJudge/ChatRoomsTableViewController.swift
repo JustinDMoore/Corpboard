@@ -21,6 +21,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
     let publicChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms")
     var privateChatRoomsRef = FIRDatabaseReference()
+    var privateMessagesSenderRef = FIRDatabaseReference()
     
     var isPrivate = false
     var arrayOfChatRooms = [Chatroom]() // could be public or private
@@ -38,6 +39,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.allowsMultipleSelectionDuringEditing = false
         arrayOfChatRooms.removeAll()
         self.tableView.reloadData()
         loading()
@@ -55,7 +57,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         if isPrivate {
             privateChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child((PUser.currentUser()?.objectId!)!)
-            print(privateChatRoomsRef)
             startListeningForRef(privateChatRoomsRef)
         } else {
             startListeningForRef(publicChatRoomsRef)
@@ -206,8 +207,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if arrayOfChatRooms.isEmpty {
+            tableView.allowsSelection = false
             return 1
         } else {
+            tableView.allowsSelection = true
             return arrayOfChatRooms.count
         }
     }
@@ -250,6 +253,30 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         setCellColor(UIColor.blackColor(), cell: cell)
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if isPrivate && !arrayOfChatRooms.isEmpty {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            if isPrivate {
+                //Delete Room
+                privateChatRoomsRef.removeValue()
+                
+                let room = arrayOfChatRooms[indexPath.row]
+                receiverId = room.privateChatWith
+                
+                //Delete messages
+               privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(PUser.currentUser()?.objectId)\(receiverId!)")
+                privateMessagesSenderRef.removeValue()
+            }
+        }
+    }
+    
     func setCellColor(color: UIColor, cell: UITableViewCell) {
         //cell.contentView.backgroundColor = color
         cell.backgroundColor = color
@@ -268,7 +295,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 return publicTableView(tableView, cellForRowAtIndexPath: indexPath)
             }
         }
-        return UITableViewCell()
     }
     
     func privateTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -303,35 +329,37 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         let imgOnline = cell?.viewWithTag(8) as! UIImageView
         let lblUser = cell?.viewWithTag(3) as! UILabel
         let query = PFQuery(className: PUser.parseClassName())
-        query.whereKey("objectId", equalTo: chatRoom.privateChatWith!)
-        query.limit = 1
-        query.findObjectsInBackgroundWithBlock { (users: [PFObject]?, err: NSError?) in
-            if err == nil {
-                if let user = users?.first as? PUser {
-                    lblUser.text = " \(user.nickname)"
-                    lblUser.sizeToFit()
-                    if user.thumbnail != nil {
-                        imgUser.file = user.thumbnail
-                        imgUser.loadInBackground()
-                    }
-                    
-                    
-                    // Online Now?
-                    if self.userOnlineNow(user) {
-                        imgOnline.hidden = false
-                        imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
-                        imgOnline.layer.borderWidth = 2
-                        imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
+        if let id = chatRoom.privateChatWith {
+            query.whereKey("objectId", equalTo: id)
+            query.limit = 1
+            query.findObjectsInBackgroundWithBlock { (users: [PFObject]?, err: NSError?) in
+                if err == nil {
+                    if let user = users?.first as? PUser {
+                        lblUser.text = " \(user.nickname)"
+                        lblUser.sizeToFit()
+                        if user.thumbnail != nil {
+                            imgUser.file = user.thumbnail
+                            imgUser.loadInBackground()
+                        }
+                        
+                        
+                        // Online Now?
+                        if self.userOnlineNow(user) {
+                            imgOnline.hidden = false
+                            imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
+                            imgOnline.layer.borderWidth = 2
+                            imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
+                        } else {
+                            imgOnline.hidden = true
+                        }
+                        
+                        
                     } else {
-                        imgOnline.hidden = true
+                        lblUser.text = "Unknown User"
                     }
-                    
-                    
                 } else {
                     lblUser.text = "Unknown User"
                 }
-            } else {
-                lblUser.text = "Unknown User"
             }
         }
         

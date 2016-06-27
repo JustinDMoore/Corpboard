@@ -27,8 +27,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             return localTyping
         }
         set {
-            localTyping = newValue
-            userIsTypingSetRef.setValue(newValue)
+            if !newPrivateChat {
+                localTyping = newValue
+                userIsTypingSetRef.setValue(newValue)
+            }
         }
     }
     
@@ -56,7 +58,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var isNewPublicRoom = false
     var privateRoomInitialized = false
     var publicRoomInitialized = false
-
+    
+    var newPrivateChat = false
     var viewLoading = Loading()
     var isLoading = true
     var initialLoad = true
@@ -130,6 +133,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
                 } else {
                     //else do nothing until message is sent
+                    self.newPrivateChat = true
                     self.stopLoading()
                 }
             }
@@ -251,32 +255,32 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         //If for sender, use senderId for key
         //else use receiverId
         //if nil, use autoId
-//        var refNewRoom = FIRDatabaseReference()
-//        var chattingWith: String?
-//        if let forSender = forSender {
-//            if forSender {
-//                //refNewRoom = ref.child(senderId)
-//                chattingWith = receiverId
-//            } else {
-//                //refNewRoom = ref.child(receiverId)
-//                chattingWith = senderId
-//            }
-//        } else {
-//            refNewRoom = ref.childByAutoId()
-//            chattingWith = ""
-//        }
-//        
-//        let uid = FIRAuth.auth()?.currentUser?.uid
-//        let newRoom: NSDictionary = [
-//            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
-//            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
-//            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
-//            ChatroomFields.createdByUID : uid!,
-//            ChatroomFields.numberOfMessages : NSNumber(int: 0),
-//            ChatroomFields.numberOfViewers : NSNumber(int: 0),
-//            ChatroomFields.privateChatWith : chattingWith!
-//            ]
-//        refNewRoom.setValue(newRoom)
+        var refNewRoom = FIRDatabaseReference()
+        var chattingWith: String?
+        if let forSender = forSender {
+            if forSender {
+                //refNewRoom = ref.child(senderId)
+                chattingWith = receiverId
+            } else {
+                //refNewRoom = ref.child(receiverId)
+                chattingWith = senderId
+            }
+        } else {
+            refNewRoom = ref.childByAutoId()
+            chattingWith = ""
+        }
+        
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let newRoom: NSDictionary = [
+            ChatroomFields.createdAt : Chatroom().currentUTCTimeAsString(),
+            ChatroomFields.createdByNickname : PUser.currentUser()!.nickname,
+            ChatroomFields.createdByParseObjectId : PUser.currentUser()!.objectId!,
+            ChatroomFields.createdByUID : uid!,
+            ChatroomFields.numberOfMessages : NSNumber(int: 0),
+            ChatroomFields.numberOfViewers : NSNumber(int: 0),
+            ChatroomFields.privateChatWith : chattingWith!
+            ]
+        refNewRoom.setValue(newRoom)
         return true
     }
     
@@ -295,9 +299,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         messagesQuery.observeEventType(.Value) { (snap: FIRDataSnapshot) in
             
             //Print existing messages
-            print(".Value")
-            print(snap)
-            print(snap.children)
             for (index, child) in snap.children.enumerate() {
                 if let snapshot = child as? FIRDataSnapshot {
                     var scroll = false
@@ -318,10 +319,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     func incomingMessage(snap: FIRDataSnapshot, scroll: Bool) {
-        
-        print(snap.children)
-        
-        print(".childAdded")
+
         // If nothing is here, stop the loading animation
         if !snap.exists() { self.stopLoading() }
         
@@ -755,6 +753,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                         self.startListening()
                         self.observeTyping()
                         self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
+                        self.newPrivateChat = false
                     }
                 } else {
                     self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
