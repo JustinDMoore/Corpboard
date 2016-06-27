@@ -102,9 +102,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         btnAttachment.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.inputToolbar.contentView.leftBarButtonItem = btnAttachment
         setupBubbles()
-        
-        
-
+        arrayOfJSQMessages.removeAll()
+        arrayOfDownloads.removeAll()
+        arrayOfSnapKeys.removeAll()
+        arrayOfAvatars.removeAll()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -155,19 +156,22 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        stopListening()
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
         updateViewerCounterForRef(publicRoomRef, increment: false)
-        stopListening()
         PrivateMessageListener.sharedInstance.startListening()
         profileToOpen = nil
     }
     
     func goBack() {
-        self.inputToolbar.contentView.textView.resignFirstResponder()
-        stopLoading()
+        stopListening()
         arrayOfSnapKeys.removeAll()
         arrayOfJSQMessages.removeAll()
         arrayOfAvatars.removeAll()
+        arrayOfDownloads.removeAll()
+        self.collectionView.reloadData()
+        self.inputToolbar.contentView.textView.resignFirstResponder()
+        stopLoading()
         initialLoad = true
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -517,6 +521,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func collectionView(collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
+        print(arrayOfJSQMessages.count)
         return arrayOfJSQMessages.count
     }
     

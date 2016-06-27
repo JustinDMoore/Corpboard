@@ -110,20 +110,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //handles push notifications if user is running the app (not in background)
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print("Got a notification")
-//        if application.applicationState == UIApplicationState.Active {
-//            let currentInstallation = PFInstallation.currentInstallation()
-//            let count = currentInstallation["badge"] as? Int
-//            if count != 0 {
-//                currentInstallation.setValue(0, forKey: "badge")
-//                currentInstallation.saveInBackground()
+        if application.applicationState == UIApplicationState.Active {
+            let currentInstallation = PFInstallation.currentInstallation()
+            let count = currentInstallation["badge"] as? Int
+            if count != 0 {
+                currentInstallation.setValue(0, forKey: "badge")
+                currentInstallation.saveInBackground()
+            }
+            let dict = userInfo["aps"]
+//            if let pushView = NSBundle.mainBundle().loadNibNamed("CBPush", owner: self, options: nil).first as? CBPush {
+//                pushView.showPush(dict["alert"], inParent: self.alertParentView)
 //            }
-//            let dict = userInfo["aps"]
-//            let pushView = NSBundle.mainBundle().loadNibNamed("CBPush",
-//                                                                      owner: self,
-//                                                                      options: nil) as! CBPush
-//            pushView.showPush(dict["alert"], inParent: self.alertParentView)
-//            
-//        }
+        }
     }
     
     

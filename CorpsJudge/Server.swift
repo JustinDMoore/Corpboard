@@ -912,8 +912,10 @@ protocol delegateUserProfile: class {
                                 user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
                                     currentUser.firebaseUID = id
                                     currentUser.saveInBackground()
+                                    PrivateMessageListener.sharedInstance.startListening()
                                 })
                                 print("10. FIREBASE: Signed up and logged in")
+                                
                             } else {
                                 print("10. FIREBASE: **ERROR** \(error)")
                             }
@@ -924,6 +926,7 @@ protocol delegateUserProfile: class {
                             user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
                                 currentUser.firebaseUID = id
                                 currentUser.saveInBackground()
+                                PrivateMessageListener.sharedInstance.startListening()
                             })
                         }
                     }

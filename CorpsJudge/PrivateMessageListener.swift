@@ -20,7 +20,7 @@ class PrivateMessageListener: NSObject {
     //MARK:SINGLETON DECLARATION
     static let sharedInstance = PrivateMessageListener()
     weak var delegate: delegatePrivateMessageListener?
-    var refPrivateChatRooms = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child((PUser.currentUser()?.objectId!)!)
+    var refPrivateChatRooms = FIRDatabaseReference()
     var initialLoad = false
     var listening = false
     
@@ -31,6 +31,11 @@ class PrivateMessageListener: NSObject {
     
     func startListening() {
         
+        if FIRAuth.auth()?.currentUser != nil && PUser.currentUser() != nil {
+           refPrivateChatRooms = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child((PUser.currentUser()?.objectId!)!)
+        } else {
+            return
+        }
         // I THINK ALL WE NEED TO DO HERE IS NOTIFY THE USER OF AN INCOMING MESSAGE
         // IF THE USER IS IN PRIVATE CHAT ROOM OR PRIVATE CHAT MESSAGE, THIS NEEDS TO BE DEACTIVATED
         // BECAUSE THEY WILL SEE THE INCOMING MESSAGE THERE
