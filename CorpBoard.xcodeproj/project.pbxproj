@@ -1478,7 +1478,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1920,8 +1920,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Push Services: com.justin.corpboard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Push Services: com.justin.corpboard";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				COPY_PHASE_STRIP = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)";
@@ -1943,7 +1943,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "981fb64c-7e26-48d6-8d69-df2e3d723a71";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1966,8 +1966,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Push Services: com.justin.corpboard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Push Services: com.justin.corpboard";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1986,7 +1986,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "981fb64c-7e26-48d6-8d69-df2e3d723a71";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2003,7 +2003,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2014,7 +2014,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2031,7 +2031,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2042,7 +2042,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -2065,8 +2065,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Push Services: com.justin.corpboard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Push Services: com.justin.corpboard";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2085,7 +2085,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "981fb64c-7e26-48d6-8d69-df2e3d723a71";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Corpboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2102,7 +2102,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2113,7 +2113,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
