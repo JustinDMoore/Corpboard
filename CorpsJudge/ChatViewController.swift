@@ -126,7 +126,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         self.navigationItem.leftBarButtonItem = backButton
         
         if isPrivate {
-            loading()
+            if !privateRoomInitialized { loading() }
             self.title = "Private Messages"
             setReferences()
             //If sender room exists, display it
@@ -134,6 +134,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if snap.exists() {
                     self.startListening()
                     self.observeTyping()
+                    self.privateRoomInitialized = true
                     //Reset unread messages to 0
                     self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
                 } else {
@@ -149,7 +150,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 // Do nothing, we wait for first message to init the room
                 stopLoading()
             } else {
-                loading()
+                if !publicRoomInitialized { loading() }
                 setReferences()
                 startListening()
                 updateViewerCounterForRef(publicRoomRef, increment: true)
@@ -759,8 +760,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                         self.observeTyping()
                         self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
                         self.newPrivateChat = false
+                        self.privateRoomInitialized = true
                     }
                 } else {
+                    self.privateRoomInitialized = true
                     self.proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: true)
                 }
             }
@@ -779,8 +782,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             if !publicRoomInitialized {
                 createPublicRoomWithTopic(newRoomTopic ?? "[Unknown Room Topic]", firstMessage: text ?? "[Unknown Message Type]")
                 proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: nil)
+                publicRoomInitialized = true
             } else {
                 proceedWithMessage(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath, forSender: nil)
+                publicRoomInitialized = true
             }
         }
     }
