@@ -1232,7 +1232,7 @@
                         <viewControllerLayoutGuide type="bottom" id="EbQ-vZ-PuN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xPG-e4-QGW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1254,7 +1254,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FXM-ui-xMB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Zbg-Cj-e9F">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y1l-78-yRu">
@@ -5680,7 +5680,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9p1-Gl-Bwc">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9p1-Gl-Bwc">
                                         <rect key="frame" x="18" y="135" width="84" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="6Fd-3l-KKl"/>
@@ -7792,7 +7792,7 @@
         <image name="C2" width="66" height="57"/>
         <image name="CWG" width="66" height="60"/>
         <image name="CWP" width="66" height="61"/>
-        <image name="Camera" width="256" height="256"/>
+        <image name="Camera" width="85" height="85"/>
         <image name="CameraRoll" width="85" height="85"/>
         <image name="Promo" width="128" height="128"/>
         <image name="USB" width="53" height="71"/>
@@ -7848,8 +7848,8 @@
         <segue reference="Iec-5r-ZSh"/>
         <segue reference="Whb-hu-JMD"/>
         <segue reference="Irt-Qd-nsI"/>
-        <segue reference="RHD-v7-F3k"/>
-        <segue reference="PFL-Nc-Of5"/>
+        <segue reference="5Nv-K9-6XG"/>
         <segue reference="87F-jY-4el"/>
+        <segue reference="PFL-Nc-Of5"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,7 +11,6 @@
 #import "CBShowDetailsViewController.h"
 #import "MKMapView+ZoomLevel.h"
 #import "NSMutableArray+Shuffling.h"
-#import "CBMapMenu.h"
 #import "CBMapCell.h"
 #import <ParseUI/ParseUI.h>
 #import "Corpsboard-Swift.h"
@@ -331,20 +330,19 @@ BOOL showPlotted;
     return _arrayOfCoordinates;
 }
 
--(CBMapMenu *)mapMenu {
-    
-    if (!_mapMenu) {
-        _mapMenu =
-        [[[NSBundle mainBundle] loadNibNamed:@"CBMapMenu"
-                                       owner:self
-                                     options:nil]
-         objectAtIndex:0];
-        [_mapMenu setDelegate:self];
-        _mapMenu.tableCorps.delegate = self;
-        _mapMenu.tableCorps.dataSource = self;
-    }
-    return _mapMenu;
-}
+//-(CBMapMenu *)mapMenu {
+//    
+//    if (!_mapMenu) {
+//        _mapMenu =
+//        [[[NSBundle mainBundle] loadNibNamed:@"CBMapMenu"
+//                                       owner:self
+//                                     options:nil]
+//         objectAtIndex:0];
+//        _mapMenu.tableCorps.delegate = self;
+//        _mapMenu.tableCorps.dataSource = self;
+//    }
+//    return _mapMenu;
+//}
 
 #pragma mark
 #pragma mark - UITableView Delegate/Datasource
@@ -418,35 +416,19 @@ BOOL showPlotted;
         [self filterShowByCorps:corps];
     }
     
-    [self closeMapMenu];
+    [self.mapMenu closeView];
 }
 
 BOOL mapOpen;
 -(void)showMapMenu {
-    if (mapOpen) {
-        [self closeMapMenu];
-    } else {
-        mapOpen = YES;
-        self.mapMenu.alpha = 0;
-        [self.navigationController.view addSubview:self.mapMenu];
-        [self.mapMenu showInParent:self.mapMenu.frame];
-        
-        [UIView animateWithDuration:.3
-                         animations:^{
-                             self.mapView.transform = CGAffineTransformScale(self.view.transform, 0.85, 0.85);
-                             self.segmentMapType.alpha = 0;
-                         }];
-    }
-}
-
--(void)closeMapMenu {
-    mapOpen = NO;
-    [self.mapMenu closeView];
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         self.mapView.transform = CGAffineTransformIdentity;
-                         self.segmentMapType.alpha = 1;
-                     }];
+    
+    mapOpen = YES;
+    self.mapMenu= [[CBMapMenu alloc] init];
+    self.mapMenu = [[NSBundle mainBundle] loadNibNamed:@"CBMapMenu" owner:self options:nil].firstObject;
+    self.mapMenu.tableCorps.delegate = self;
+    self.mapMenu.tableCorps.dataSource = self;
+    [self.mapMenu showInParent:self.navigationController];
+    
 }
 
 @end
