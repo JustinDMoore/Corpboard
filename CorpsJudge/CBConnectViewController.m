@@ -177,7 +177,12 @@ static NSString * const reuseIdentifier = @"Cell";
     //imgUser.layer.masksToBounds = YES;
     
     UIView *viewCell = (UIView *)[cell viewWithTag:500];
-    viewCell.layer.cornerRadius = viewCell.frame.size.width / 2;
+    
+    viewCell.frame = CGRectMake(viewCell.frame.origin.x, viewCell.frame.origin.y, 100, 100);
+    
+    viewCell.layer.cornerRadius = viewCell.frame.size.height / 2;
+    
+    //CGFloat(roundf(CGFloat(viewCell.frame.size.width/2.0)));
     //viewCell.layer.masksToBounds = YES;
     viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
     viewCell.layer.borderWidth = 3;
@@ -238,7 +243,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(100, 100);
+    //return CGSizeMake(100, 100);
+    
+    float x = ([UIScreen mainScreen].bounds.size.width - 35) / 3;
+    x = floorf(x/2.f)*2.f;
+    return CGSizeMake(x, x);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {

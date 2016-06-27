@@ -17,6 +17,7 @@
 #import "CBLocationServices.h"
 #import "CBNewsCell.h"
 #import "CBPush.h"
+#import "CBPushNotifications.h"
 #import "CreateAccount.h"
 #import "LocationServicesPermission.h"
 #import "LocationServicesDisabled.h"

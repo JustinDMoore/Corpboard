@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol CBPushNotificationProtocol <NSObject>
+@protocol delegatePushNotifications <NSObject>
 @required
 -(void)allowPush;
 -(void)denyPush;

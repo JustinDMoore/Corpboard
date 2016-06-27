@@ -48,7 +48,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             
             self.title = "Private Messages"
         } else {
-            self.title = "Live Chats"
+            self.title = "Live Chat"
         }
     }
     
@@ -108,7 +108,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         let roomsQuery = ref.queryOrderedByChild(ChatroomFields.updatedAt)
         
         roomsQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
-            
+            print(snap)
             let room = Chatroom()
             room.snapKey = snap.key
             room.topic = snap.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
@@ -146,6 +146,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 self.arrayOfChatRooms.removeAll()
                 
                 for snapRoom in snap.children {
+                    print(snapRoom)
                     let room = Chatroom()
                     room.snapKey = snapRoom.key
                     room.topic = snapRoom.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil

@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXA-g7-2li">
-                                <rect key="frame" x="67" y="80" width="253" height="260"/>
+                                <rect key="frame" x="67" y="186" width="253" height="277"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPF-UB-e87">
-                                        <rect key="frame" x="6" y="143" width="240" height="56"/>
+                                        <rect key="frame" x="6" y="160" width="240" height="56"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,9 +28,12 @@
                                         <inset key="titleEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="-60" minY="12" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Notify Me"/>
+                                        <connections>
+                                            <action selector="btnAllowPush_tapped:" destination="xhe-dg-vOA" eventType="touchUpInside" id="5Mi-V8-QXg"/>
+                                        </connections>
                                     </button>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQX-Lo-pXS">
-                                        <rect key="frame" x="6" y="31" width="240" height="130"/>
+                                        <rect key="frame" x="6" y="48" width="240" height="130"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Get notified if someone messages you or when scores are posted." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWW-8d-0kx">
                                                 <rect key="frame" x="4" y="68" width="232" height="44"/>
@@ -48,29 +51,32 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUs-Ih-kf5">
-                                        <rect key="frame" x="83" y="222" width="87" height="30"/>
+                                        <rect key="frame" x="83" y="239" width="87" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <state key="normal" title="Not Now">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnNotNow_tapped:" destination="xhe-dg-vOA" eventType="touchUpInside" id="aE4-4D-Jks"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDP-88-UM0">
-                                        <rect key="frame" x="76" y="-32" width="100" height="100"/>
+                                        <rect key="frame" x="76" y="-15" width="100" height="100"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="push"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="GBB-V9-Nj5"/>
-                                    <constraint firstAttribute="width" constant="253" id="L5L-Vg-zAj"/>
+                                    <constraint firstAttribute="height" constant="277" id="Zoe-Vl-Dxp"/>
+                                    <constraint firstAttribute="width" constant="253" id="cJV-uz-PDb"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rXA-g7-2li" firstAttribute="top" secondItem="e0a-Ng-6Dp" secondAttribute="top" constant="80" id="5P8-W7-qsv"/>
-                            <constraint firstItem="rXA-g7-2li" firstAttribute="centerX" secondItem="e0a-Ng-6Dp" secondAttribute="centerX" id="d2M-W6-uE5"/>
+                            <constraint firstItem="rXA-g7-2li" firstAttribute="centerY" secondItem="e0a-Ng-6Dp" secondAttribute="centerY" constant="-8" id="Igt-BQ-Zbi"/>
+                            <constraint firstItem="rXA-g7-2li" firstAttribute="centerX" secondItem="e0a-Ng-6Dp" secondAttribute="centerX" id="lVL-ed-ard"/>
                         </constraints>
                     </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -296,6 +296,7 @@ protocol delegateUserProfile: class {
     }
     
     func updateAppSettings() {
+        
         self.updateNumberOfUsers()
         let query = PFQuery(className: PAppSetting.parseClassName())
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in

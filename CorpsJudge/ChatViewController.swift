@@ -1179,9 +1179,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_camera"), title: "Camera", action: {
             self.presentMultiCamera()
         }))
-        menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_audio"), title: "Audio", action: {
-            self.presentAudioRecorder()
-        }))
+//        menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_audio"), title: "Audio", action: {
+//            self.presentAudioRecorder()
+//        }))
         menuItems.append(RNGridMenuItem(image: UIImage(named: "chat_pictures"), title: "Pictures", action: {
             self.presentPhotoLibrary()
         }))

@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import YouTubePlayer
 
-class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages, delegatePrivateMessageListener {
+class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages, delegatePrivateMessageListener, delegatePushNotifications {
 
     //MARK:-
     //MARK:Outlets
@@ -136,6 +136,21 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         initNewsFeed()
         sortScores()
         checkForNewVersion()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let install = PFInstallation.currentInstallation()
+        let allows = install["allowsPush"] as? Bool
+        if allows == nil {
+            // Hasn't been asked before
+            if let pushView = NSBundle.mainBundle().loadNibNamed("CBPushNotifications", owner: self, options: nil).first as? CBPushNotifications {
+                pushView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+                pushView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+                pushView.setDelegate(self)
+                pushView.showInParent(self.navigationController!)
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -1327,5 +1342,19 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         //Fires when a new message is received
         //TODO: Display actual unread message count
         self.setMsgBadge()
+    }
+    
+    //MARK:-
+    //MARK: Push Notification Delegates
+    func denyPush() {
+       let install = PFInstallation.currentInstallation()
+        install["allowsPush"] = false
+        install.saveEventually()
+    }
+    
+    func allowPush() {
+//        let install = PFInstallation.currentInstallation()
+//        install["allowsPush"] = true
+//        install.saveEventually()
     }
 }

@@ -17,6 +17,7 @@
 #import "CBTourMapViewController.h"
 #import "Corpsboard-Swift.h"
 #import "CBPushNotifications.h"
+#import "Corpsboard-swift.h"
 
 PFObject *favDrumsW;
 PFObject *favHornlineW;
@@ -150,49 +151,12 @@ typedef enum : int {
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    //check if the user has set push notification
-//    //if not, offer it
-//    PFInstallation *installation = [PFInstallation currentInstallation];
-//    if (installation[@"allowsPush"] == nil) {
-//        
-//    }
 }
-//
-//-(void)checkForPush {
-//
-//    //check to see if push notifications are enabled
-//    BOOL pushAllowed = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-//    if (!pushAllowed) {
-//
-//        PFInstallation *install = [PFInstallation currentInstallation];
-////        [install removeObjectForKey:@"allowsPush"];
-////        [install saveInBackground];
-//
-//        if (![install objectForKey:@"allowsPush"]) {
-//
-//            CBPushNotifications *viewPush = [[[NSBundle mainBundle] loadNibNamed:@"CBPushNotifications"
-//                                                                           owner:self
-//                                                                         options:nil]
-//                                             objectAtIndex:0];
-//            viewPush.parentNav = self.view;
-//            [viewPush showInParent:self.navigationController];
-//            [viewPush setDelegate:self];
-//
-//        }
-//    } else {
-//       // [self setUpPush];
-//    }
-//}
 
-//#pragma mark
-//#pragma mark - Push Notification Protocol
-//#pragma mark
-//
-//-(void)allowPush {
-//    [self setUpPush];
-//}
-//
 
+#pragma mark
+#pragma mark - Push Notification Protocol
+#pragma mark
 
 - (void)viewDidLoad {
     

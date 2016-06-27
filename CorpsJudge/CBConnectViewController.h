@@ -11,6 +11,6 @@
 #import <ParseUI/ParseUI.h>
 #import "Corpsboard-Swift.h"
 
-@interface CBConnectViewController : UICollectionViewController <delegateUserLocation>
+@interface CBConnectViewController : UICollectionViewController <delegateUserLocation, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSMutableArray *arrayOfUsers;
 @end
