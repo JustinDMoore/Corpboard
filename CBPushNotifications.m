@@ -160,8 +160,8 @@
 
 - (IBAction)btnAllowPush_tapped:(id)sender {
     
-    [self setUpPush];
     [self dismissView:YES];
+    [self setUpPush];
 }
 
 -(void)setUpPush {

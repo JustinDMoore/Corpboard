@@ -657,12 +657,12 @@ protocol delegateUserProfile: class {
     }
     
     func setParsePush(on: Bool) {
-        let install = PFInstallation.currentInstallation()
-        let allowsPush = install["allowsPush"] as! Bool
-        if allowsPush != on {
-            install["allowsPush"] = on
-            install.saveEventually()
-        }
+//        let install = PFInstallation.currentInstallation()
+//        if let allowsPush = install["allowsPush"] as! Bool
+//        if allowsPush != on {
+//            install["allowsPush"] = on
+//            install.saveEventually()
+//        }
     }
     
     func checkForAdminMode() {

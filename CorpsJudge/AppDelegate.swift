@@ -98,11 +98,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         print("User allowed push notifications.")
         //Store the deviceToken int he current installation for parse
-//        let currentInstallation = PFInstallation.currentInstallation()
-//        currentInstallation.setDeviceTokenFromData(deviceToken)
-//        currentInstallation.channels = ["global"]
-//        currentInstallation["allowsPush"] = true
-//        currentInstallation.saveInBackground()
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.channels = ["global"]
+        currentInstallation["allowsPush"] = true
+        currentInstallation.saveInBackground()
     }
     
     //handles push notifications if user is running the app (not in background)
