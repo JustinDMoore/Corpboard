@@ -321,6 +321,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 if err == nil {
                     self.fetchedProfile = true
                     self.initUI()
+                    self.incrementProfileViews()
                 } else { // Could not load profile
                     
                 }
@@ -334,6 +335,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     self.userProfile = user
                     self.fetchedProfile = true
                     self.initUI()
+                    self.incrementProfileViews()
                 }
             })
         }
@@ -371,11 +373,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     }
     
     func incrementProfileViews() {
-        if !usersOwnProfile() {
-            var numViews = userProfile!.profileViews
-            numViews += 1
-            userProfile!.profileViews = numViews
-            userProfile!.saveEventually()
+        if let id = userProfile?.objectId {
+            PFCloud.callFunctionInBackground("incrementProfileViews", withParameters: ["userObjectId" : id])
         }
     }
     
@@ -645,7 +644,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             imgV.image = UIImage(named: "badgeFan")
             return (colorFromHexString("B83535"), imgV)
         case .NewUser:
-            imgV.image = UIImage(named: "badgeNewUser")
+            imgV.image = nil
             return (UIColor.blueColor(), imgV)
         }
     }

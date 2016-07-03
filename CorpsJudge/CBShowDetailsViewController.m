@@ -2289,7 +2289,7 @@ bool backspaced;
     
     NSMutableDictionary * params = [NSMutableDictionary new];
     params[@"userObjectId"] = [PFUser currentUser].objectId;
-    [PFCloud callFunctionInBackground:@"incrementReviewsByUser" withParameters:params];
+    [PFCloud callFunctionInBackground:@"incrementShowReviews" withParameters:params];
      self.btnReviewShow.enabled = NO;
 }
 

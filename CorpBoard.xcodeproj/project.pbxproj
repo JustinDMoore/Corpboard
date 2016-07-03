@@ -1068,6 +1068,7 @@
 		9F9D68601CE6C45B0084878B /* PFObject Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				9FC71C901CE6639500C36A1C /* PUser.swift */,
 				9FC71C851CE6639500C36A1C /* PAppMessage.swift */,
 				9FC71C861CE6639500C36A1C /* PAppSetting.swift */,
 				9FC71C871CE6639500C36A1C /* PBanner.swift */,
@@ -1079,7 +1080,6 @@
 				9FC71C8D1CE6639500C36A1C /* PScore.swift */,
 				9FC71C8E1CE6639500C36A1C /* PShow.swift */,
 				9FC71C8F1CE6639500C36A1C /* PStadium.swift */,
-				9FC71C901CE6639500C36A1C /* PUser.swift */,
 				9FC7F0F41CEFA11300B75143 /* PDailySchedule.swift */,
 				9FC7F0F61CEFA24A00B75143 /* PCalendar.swift */,
 				6FA40A1D1CF4DD0700E84164 /* PStoreItem.swift */,
