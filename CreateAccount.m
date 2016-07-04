@@ -133,18 +133,19 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
         PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
         [filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error != nil) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }];
-        
-        if (image.size.width > 30) image = ResizeImage(image, 30, 30, 1);
-        
-        PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
-        [fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error != nil) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
+                UIAlertController *alertController = [UIAlertController
+                                                      alertControllerWithTitle:@"Something Happened"
+                                                      message:@"I'd try that again if I were you"
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction
+                                           actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction *action)
+                                           {
+                                              
+                                           }];
+                [alertController addAction:okAction];
+                [self.parentNav presentViewController:alertController animated:YES completion:nil];
             }
         }];
         
@@ -152,23 +153,45 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
         user[@"fullname"] = userData[@"name"];
         user[@"facebookId"] = userData[@"id"];
         user[@"picture"] = filePicture;
-        user[@"thumbnail"] = fileThumbnail;
+        user[@"thumbnail"] = filePicture;
         user[@"lastLogin"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error == nil) {
                 [self userLoggedIn:user];
             } else {
                 [PFUser logOut];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
+                UIAlertController *alertController = [UIAlertController
+                                                      alertControllerWithTitle:@"Something Happened"
+                                                      message:@"I'd try that again if I were you"
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction
+                                           actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction *action)
+                                           {
+                                               
+                                           }];
+                [alertController addAction:okAction];
+                [self.parentNav presentViewController:alertController animated:YES completion:nil];
                 linkingFacebook = NO;
             }
         }];
     }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          [PFUser logOut];
-                                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[ParseErrors getErrorStringForCode:error.code] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                                         [alert show];
+                                         UIAlertController *alertController = [UIAlertController
+                                                                               alertControllerWithTitle:@"Something Happened"
+                                                                               message:@"I'd try that again if I were you"
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+                                         UIAlertAction *okAction = [UIAlertAction
+                                                                    actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                                                    style:UIAlertActionStyleDefault
+                                                                    handler:^(UIAlertAction *action)
+                                                                    {
+                                                                        
+                                                                    }];
+                                         [alertController addAction:okAction];
+                                         [self.parentNav presentViewController:alertController animated:YES completion:nil];
                                          linkingFacebook = NO;
                                      }];
     
@@ -195,6 +218,7 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
 
 -(void)showView:(NSString *)view InParent:(UINavigationController *)parentNav {
     
+    self.parentNav = parentNav;
     self.alpha = 0;
     self.viewAccountLoading.backgroundColor = UIColor.clearColor;
     self.viewNicknameLoading.backgroundColor = UIColor.clearColor;

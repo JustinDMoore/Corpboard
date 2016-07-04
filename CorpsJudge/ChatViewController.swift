@@ -439,7 +439,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             query.whereKey("objectId", equalTo: message.createdByParseObjectId!)
             query.getFirstObjectInBackgroundWithBlock({ (user: PFObject?, err: NSError?) in
                 if let user: PUser = user as? PUser {
-                    if let file = user.thumbnail {
+                    if let file = user.picture {
                         file.getDataInBackgroundWithBlock({ (data: NSData?, err: NSError?) in
                             if err == nil {
                                 let picture = UIImage(data: data!)
@@ -452,13 +452,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                 if scroll { self.finishReceivingMessageAnimated(true) }
                                 self.stopLoading()
                             } else {
-                                // there was an error getting thumbnail data, so finish up
+                                // there was an error getting picture data, so finish up
                                 if scroll { self.finishReceivingMessageAnimated(true) }
                                 self.stopLoading()
                             }
                         })
                     } else {
-                        // no thumbnail, so finish up
+                        // no picture, so finish up
                         if scroll { self.finishReceivingMessageAnimated(true) }
                         self.stopLoading()
                     }

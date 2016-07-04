@@ -348,8 +348,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     if let user = users?.first as? PUser {
                         lblUser.text = " \(user.nickname)"
                         lblUser.sizeToFit()
-                        if user.thumbnail != nil {
-                            imgUser.file = user.thumbnail
+                        if user.picture != nil {
+                            imgUser.file = user.picture
                             imgUser.loadInBackground()
                         }
                         
