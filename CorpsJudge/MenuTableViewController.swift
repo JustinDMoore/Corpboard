@@ -12,7 +12,7 @@ import JSBadgeView
 import PulsingHalo
 import YouTubePlayer
 
-class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages, delegatePrivateMessageListener, delegatePushNotifications {
+class MenuTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, delegateUserProfile, delegateCreateAccount, delegateUserLocation, UIGestureRecognizerDelegate, delegateNearMeFromPrivateMessages, delegatePrivateMessageListener, delegatePushNotifications, delegateInitialAppLoad {
 
     //MARK:-
     //MARK:Outlets
@@ -124,18 +124,30 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     var tryingToOpen = opening.None
     var viewLocationForDelegate = LocationServicesPermission()
     var isPrivate = false
+    var viewLoading = Loading()
     
     //MARK:-
     //MARK:View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        Server.sharedInstance.delegateInitial = self
         Server.sharedInstance.getUnreadMessagesForUser()
+        refreshControl = UIRefreshControl()
+        refreshControl!.backgroundColor = UISingleton.sharedInstance.maroon
+        refreshControl!.tintColor = UIColor.clearColor()
+        refreshControl?.addTarget(self, action: #selector(MenuTableViewController.refresh), forControlEvents: .ValueChanged)
         initVariables()
+        pulse()
+        setup()
+    }
+    
+    func setup() {
         initUI()
         setupShows()
         initNewsFeed()
         sortScores()
         checkForNewVersion()
+        setUpRefreshControl()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -181,7 +193,54 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     //MARK:-
+    //MARK: Refresh
+    func setUpRefreshControl() {
+        viewLoading = NSBundle.mainBundle().loadNibNamed("LoadingPullToRefresh", owner: self, options: nil).first as! Loading
+        self.view.addSubview(viewLoading)
+        viewLoading.frame = (refreshControl?.bounds)!
+        refreshControl?.addSubview(viewLoading)
+    }
+    
+    func refresh() {
+        viewLoading.animate()
+        Server.sharedInstance.loadAll()
+    }
+    
+    func updateProgress(progress: Float) {
+        print(progress)
+        if progress >= 1.0 {
+            //setup()
+            refreshControl?.endRefreshing()
+            self.tableView.reloadData()
+            self.tableTopFour.reloadData()
+            self.tableTopEight.reloadData()
+            self.tableTopTwelve.reloadData()
+            self.tableLastShows.reloadData()
+            self.tableNextShows.reloadData()
+            updateCurrentTask()
+            viewLoading.stopAnimation()
+        }
+    }
+    
+    func showAppMessage(title: String?, message: String?, canUseApp: Bool) {
+        let t = title ?? ""
+        let m = message ?? ""
+        let alert = UIAlertController(title: t, message: m, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        if !canUseApp {
+            self.tableView.hidden = true
+        }
+    }
+    
+    func displayFact(factObject: PFact) {
+        // only for loading screen
+        return
+    }
+    
+    //MARK:-
     //MARK:Inits
+    
     func initVariables() {
         Server.sharedInstance.delegateLocation = self
  
@@ -224,7 +283,6 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     func initUI() {
         loadProfile()
-        pulse()
 
         badgeMessages = JSBadgeView(parentView: btnMessages, alignment: .TopRight)
         btnMessages.addSubview(badgeMessages)
@@ -298,7 +356,6 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         let img6 = UIImageView(image: UIImage(named: "disclosure"))
         img6.frame = CGRectMake(0, 0, 20, 20)
         disclosure6.accessoryView = img6
-        
         
         // Top 12
         pageTopTwelve.hidden = true

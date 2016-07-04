@@ -12,7 +12,7 @@ import YouTubePlayer
 import FirebaseAuth
 
 protocol delegateInitialAppLoad: class {
-    func updateProgress()
+    func updateProgress(progress: Float)
     func showAppMessage(title: String?, message: String?, canUseApp: Bool)
     func displayFact(factObject: PFact)
 }
@@ -37,6 +37,9 @@ protocol delegateUserProfile: class {
     //MARK:-
     //MARK:Properties
     var numberOfMessages = 0
+    
+    var arrayOfRandomProgressNumbers = [Float]()
+    var progress: Float = 0.0
     
     weak var delegateInitial: delegateInitialAppLoad?
     weak var delegateUser: delegateUserProfile?
@@ -122,6 +125,87 @@ protocol delegateUserProfile: class {
         config.getAllCorps()
     }
     
+    func loadAll() {
+        progress = 0.0
+        arrayOfRandomProgressNumbers = [0.05, 0.10, 0.10, 0.10, 0.05, 0.05, 0.15, 0.15, 0.25]
+        
+        arrayOfAllCorps = [PCorps]?()
+        
+        arrayOfWorldClass = [PCorps]?()
+        arrayOfOpenClass = [PCorps]?()
+        arrayOfAllAgeClass = [PCorps]?()
+
+        arrayOfWorldClass?.removeAll()
+        arrayOfOpenClass?.removeAll()
+        arrayOfAllAgeClass?.removeAll()
+        
+        arrayOfAllShows = [PShow]?()
+        arrayOfBannerImages = [ImageSource]?()
+        arrayOfBannerObjects = [PBanner]?()
+        arrayOfVideoPlayerViews = [YouTubePlayerView]()
+        arrayOfSubscribedRooms = [String]()
+        
+        arrayOfAllFavorites.removeAllObjects()
+        
+        arrayOfWorldFavs.removeAllObjects()
+        arrayOfWorldFavorites.removeAllObjects()
+        arrayOfWorldColorguardFavs.removeAllObjects()
+        arrayOfWorldHornlineFavs.removeAllObjects()
+        arrayOfWorldLoudestFavs.removeAllObjects()
+        arrayOfWorldPercussionFavs.removeAllObjects()
+        
+        arrayOfOpenFavs.removeAllObjects()
+        arrayOfOpenFavorites.removeAllObjects()
+        arrayOfOpenColorguardFavs.removeAllObjects()
+        arrayOfOpenHornlineFavs.removeAllObjects()
+        arrayOfOpenLoudestFavs.removeAllObjects()
+        arrayOfOpenPercussionFavs.removeAllObjects()
+        
+        arrayOfAllAgeFavs.removeAllObjects()
+        arrayOfAllAgeFavorites.removeAllObjects()
+        arrayOfAllAgeColorguardFavs.removeAllObjects()
+        arrayOfAllAgeHornlineFavs.removeAllObjects()
+        arrayOfAllAgeLoudestFavs.removeAllObjects()
+        arrayOfAllAgePercussionFavs.removeAllObjects()
+        
+        arrayOfWorldColorguardVotes.removeAllObjects()
+        arrayOfWorldFavorirtes.removeAllObjects()
+        arrayOfWorldHornlineVotes.removeAllObjects()
+        arrayOfWorldPercussionVotes.removeAllObjects()
+        arrayOfWorldLoudestVotes.removeAllObjects()
+        
+        arrayOfOpenColorguardVotes.removeAllObjects()
+        arrayOfOpenFavorirtes.removeAllObjects()
+        arrayOfOpenHornlineVotes.removeAllObjects()
+        arrayOfOpenPercussionVotes.removeAllObjects()
+        arrayOfOpenLoudestVotes.removeAllObjects()
+        
+        arrayOfAllAgeColorguardVotes.removeAllObjects()
+        arrayOfAllAgeFavorirtes.removeAllObjects()
+        arrayOfAllAgeHornlineVotes.removeAllObjects()
+        arrayOfAllAgePercussionVotes.removeAllObjects()
+        arrayOfAllAgeLoudestVotes.removeAllObjects()
+        
+        arrayOfWorldClassRankings.removeAllObjects()
+        arrayOfOpenClassRankings.removeAllObjects()
+        arrayOfAllAgeClassRankings.removeAllObjects()
+        
+        arrayOfUserWorldClassRankings.removeAllObjects()
+        arrayOfUserOpenClassRankings.removeAllObjects()
+        arrayOfUserAllAgeClassRankings.removeAllObjects()
+        
+        getCurrentTask()
+        checkForAdminMode()
+        updateAppStatus()
+        signInAndSyncOrAllowAnonymousUser()
+        updateUserLocation()
+        updateAppSettings()
+        updateShows()
+        updateCorps()
+        updateBanners()
+        updateVideos()
+    }
+    
     //MARK:-
     //MARK: Initial App Load (delgateInitialAppLoad)
     func factBaseQuery() -> PFQuery {
@@ -200,7 +284,7 @@ protocol delegateUserProfile: class {
             } else {
                 print("1. APP STATUS: **ERROR** \(error!) - \(error!.userInfo)")
             }
-            self.delegateInitial?.updateProgress()
+            self.changeProgress()
             print("1. APP STATUS: OK")
         }
     }
@@ -215,12 +299,12 @@ protocol delegateUserProfile: class {
                     print("2. USER: **ERROR** \(errorString)")
                 }
                 self.signIntoFirebase()
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 self.updateUserLastLogin()
                 print("2. USER LOGGED IN: \(currentUser["fullname"])")
             })
         } else {
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 print("2. USER: New User")
         }
     }
@@ -230,7 +314,7 @@ protocol delegateUserProfile: class {
         switch CLLocationManager.authorizationStatus() {
         case .Denied:
             self.setInstallationLocationAllowed(false)
-            self.delegateInitial?.updateProgress()
+            self.changeProgress()
             self.delegateLocation?.userLocationError()
             print("3. LOCATION SERVICES: Not allowed")
             return
@@ -239,12 +323,12 @@ protocol delegateUserProfile: class {
         case .AuthorizedWhenInUse:
             break
         case .NotDetermined:
-            self.delegateInitial?.updateProgress()
+            self.changeProgress()
             print("3. LOCATION SERVICES: Not prompted")
             return
         case .Restricted:
             self.setInstallationLocationAllowed(false)
-            self.delegateInitial?.updateProgress()
+            self.changeProgress()
             self.delegateLocation?.userLocationError()
             print("3. LOCATION SERVICES: Not allowed")
             return
@@ -255,7 +339,7 @@ protocol delegateUserProfile: class {
                 if let error = err {
                     let errorString = error.userInfo["error"] as? NSString
                     print("3. LOCATION SERVICES: **ERROR** \(errorString)")
-                    self.delegateInitial?.updateProgress()
+                    self.changeProgress()
                 } else {
                     if let geoL = geo {
                         let geoCoder = CLGeocoder()
@@ -269,18 +353,18 @@ protocol delegateUserProfile: class {
                                         PFUser.currentUser()!["geo"] = geo
                                         PFUser.currentUser()!.saveEventually()
                                         self.setInstallationLocationAllowed(true)
-                                        self.delegateInitial?.updateProgress()
+                                        self.changeProgress()
                                         print("3. LOCATION: \(loc)")
                                         self.delegateLocation?.userLocationUpdated(location)
                                     } else {
                                         //no location from result
-                                        self.delegateInitial?.updateProgress()
+                                        self.changeProgress()
                                         print("3. LOCATION: **ERROR** Unknown Location")
                                         self.delegateLocation?.userLocationError()
                                     }
                                 } else {
                                     //no result
-                                    self.delegateInitial?.updateProgress()
+                                    self.changeProgress()
                                     print("3. LOCATION: **ERROR** Unknown Location")
                                     self.delegateLocation?.userLocationError()
                                 }
@@ -289,7 +373,7 @@ protocol delegateUserProfile: class {
                 }
             }
         } else {
-            self.delegateInitial?.updateProgress()
+            self.changeProgress()
             print("3. LOCATION: New user")
             self.delegateLocation?.userLocationError()
         }
@@ -302,7 +386,7 @@ protocol delegateUserProfile: class {
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, err: NSError?) in
             if err === nil {
                 self.objAdmin = objects!.last as? PAppSetting
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 self.updateNews() //We call update news here, because we need the URL from the admin object
                 print("4. APP SETTINGS: OK")
             } else {
@@ -318,12 +402,12 @@ protocol delegateUserProfile: class {
     }
 
     func newsDidLoad() {
-        self.delegateInitial?.updateProgress()
+        self.changeProgress()
         print("5. NEWS: OK")
     }
     
     func newsDidFail() {
-        self.delegateInitial?.updateProgress()
+        self.changeProgress()
         print("5. NEWS: **ERROR**")
     }
     
@@ -358,7 +442,7 @@ protocol delegateUserProfile: class {
                         }
                     }
                 }
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 print("6. CORPS: OK")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
@@ -378,7 +462,7 @@ protocol delegateUserProfile: class {
                 for show in objects! {
                     self.arrayOfAllShows?.append(show as! PShow)
                 }
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 print("7. SHOWS: OK")
             } else {
                 let errorString = err!.userInfo["error"] as? NSString
@@ -459,7 +543,7 @@ protocol delegateUserProfile: class {
                             self.arrayOfBannerObjects?.append(obj as! PBanner)
                             if x == objects!.count {
                                 //we've processed all the banners, notify the progress
-                                self.delegateInitial?.updateProgress()
+                                self.changeProgress()
                                 print("8. BANNERS: OK")
                             }
                         }
@@ -487,7 +571,7 @@ protocol delegateUserProfile: class {
                         self.arrayOfVideoPlayerViews.append(viewVideo)
                     }
                 }
-                self.delegateInitial?.updateProgress()
+                self.changeProgress()
                 if !objects!.isEmpty { print("9. VIDEOS: \(objects!.count)") }
                 else { print("9. VIDEOS: 0") }
             } else {
@@ -950,6 +1034,17 @@ protocol delegateUserProfile: class {
             } else {
                 print("No location found. \(cityState)")
             }
+        }
+    }
+    
+    func changeProgress() {
+        if arrayOfRandomProgressNumbers.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfRandomProgressNumbers.count)))
+            let progressAmount = self.arrayOfRandomProgressNumbers.removeAtIndex(randomIndex)
+            progress += progressAmount
+            delegateInitial?.updateProgress(progress)
+        } else {
+            print("Tried to update progress when no progress was left.")
         }
     }
 }

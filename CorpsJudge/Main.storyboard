@@ -7853,11 +7853,11 @@
         <image name="support" width="283" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Whb-hu-JMD"/>
         <segue reference="Irt-Qd-nsI"/>
-        <segue reference="mu3-EG-qBa"/>
-        <segue reference="RHD-v7-F3k"/>
+        <segue reference="Whb-hu-JMD"/>
+        <segue reference="Iec-5r-ZSh"/>
         <segue reference="PFL-Nc-Of5"/>
         <segue reference="87F-jY-4el"/>
+        <segue reference="RHD-v7-F3k"/>
     </inferredMetricsTieBreakers>
 </document>

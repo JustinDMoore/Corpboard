@@ -129,6 +129,7 @@
 		9FC7F0F91CEFF9A500B75143 /* SchedulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */; };
 		9FC7F0FB1CF006AE00B75143 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */; };
 		9FDD47B41D194D1F0072F25A /* PrivateMessageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDD47B31D194D1F0072F25A /* PrivateMessageListener.swift */; };
+		9FE47B111D29D91100AFB397 /* LoadingPullToRefresh.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FE47B101D29D91100AFB397 /* LoadingPullToRefresh.xib */; };
 		9FECDBCB1D0A6E1300FEA637 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */; };
 		9FECDBCD1D0A823700FEA637 /* PCorpsExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */; };
 		9FEDCCF61CF028E500C1AB8C /* DailyScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */; };
@@ -453,6 +454,7 @@
 		9FC7F0F81CEFF9A500B75143 /* SchedulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulesViewController.swift; sourceTree = "<group>"; };
 		9FC7F0FA1CF006AE00B75143 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		9FDD47B31D194D1F0072F25A /* PrivateMessageListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateMessageListener.swift; sourceTree = "<group>"; };
+		9FE47B101D29D91100AFB397 /* LoadingPullToRefresh.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingPullToRefresh.xib; sourceTree = "<group>"; };
 		9FECDBCA1D0A6E1300FEA637 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		9FECDBCC1D0A823700FEA637 /* PCorpsExperience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCorpsExperience.swift; sourceTree = "<group>"; };
 		9FEDCCF51CF028E500C1AB8C /* DailyScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleViewController.swift; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 				D0D7773F1B115D7E00D4EF6A /* CBPushNotifications.m */,
 				D0D777441B116A6700D4EF6A /* CBLocationServices.m */,
 				9FFA925E1CEE3F28000A3765 /* Loading.xib */,
+				9FE47B101D29D91100AFB397 /* LoadingPullToRefresh.xib */,
 				9FFA92601CEE3F37000A3765 /* Loading.swift */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
@@ -1582,6 +1585,7 @@
 				9FA236711D16938C00AE52F9 /* audio_record@2x.png in Resources */,
 				D0F19F8A1B14F62500357663 /* CBStartReview.xib in Resources */,
 				D0D777471B117BF000D4EF6A /* LocationServicesDisabled.xib in Resources */,
+				9FE47B111D29D91100AFB397 /* LoadingPullToRefresh.xib in Resources */,
 				D036DA691B82E08200746DD6 /* CBStoreCategoryCell.xib in Resources */,
 				D0D7773D1B115D6F00D4EF6A /* CBPushNotifications.xib in Resources */,
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,

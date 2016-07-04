@@ -14,11 +14,10 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     //MARK:-
     //MARK:Properties
     var timerLoading = NSTimer()
-    
+    var firstTime = true
     var animatedCadets = false
-    var progress: Float = 0.0
     var canUseApp = true
-    var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.05, 0.05, 0.15, 0.15, 0.25]
+    //var arrayOfRandomProgressNumbers: [Float] = [0.05, 0.10, 0.10, 0.10, 0.05, 0.05, 0.15, 0.15, 0.25]
     var player = AVAudioPlayer()
     var loadStarted = false
     var progressTimerCount = 0
@@ -66,7 +65,6 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         Server.sharedInstance.delegateInitial = self
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.viewCadets.backgroundColor = UIColor.clearColor()
-        self.progress = 0
         self.progressBar.progress = 0
         self.progressBar.hidden = true
         self.lblFact.alpha = 0
@@ -76,8 +74,8 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         self.imgCadetsText.alpha = 0
         self.lblCorpsboard.alpha = 0
         self.imgC.hidden = true
-        Server.sharedInstance.getCurrentTask()
-        Server.sharedInstance.checkForAdminMode()
+//        Server.sharedInstance.getCurrentTask()
+//        Server.sharedInstance.checkForAdminMode()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -155,15 +153,16 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
                                     
         }) { (finished: Bool) in
             self.progressBar.hidden = false
-            Server.sharedInstance.updateAppStatus()
-            Server.sharedInstance.signInAndSyncOrAllowAnonymousUser()
-            Server.sharedInstance.updateUserLocation()
-            Server.sharedInstance.updateAppSettings()
-            //Server.data.updateNews() This is called from updateAppSettings because we need the URL for the news
-            Server.sharedInstance.updateShows()
-            Server.sharedInstance.updateCorps()
-            Server.sharedInstance.updateBanners()
-            Server.sharedInstance.updateVideos()
+//            Server.sharedInstance.updateAppStatus()
+//            Server.sharedInstance.signInAndSyncOrAllowAnonymousUser()
+//            Server.sharedInstance.updateUserLocation()
+//            Server.sharedInstance.updateAppSettings()
+//            //Server.data.updateNews() This is called from updateAppSettings because we need the URL for the news
+//            Server.sharedInstance.updateShows()
+//            Server.sharedInstance.updateCorps()
+//            Server.sharedInstance.updateBanners()
+//            Server.sharedInstance.updateVideos()
+            Server.sharedInstance.loadAll()
         }
 
         UIView.animateWithDuration(0.1,
@@ -231,34 +230,30 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
         }
     }
     
-    func updateProgress() {
-        //update progress variable and animate progress bar
-        //if at 100%, segue
-        if !loadStarted {
-            loadStarted = true
-            timerLoading = NSTimer.scheduledTimerWithTimeInterval(1.0,
-                                                                  target: self,
-                                                                  selector: #selector(CadetsLoadingViewController.testProgress),
-                                                                  userInfo: [],
-                                                                  repeats: true)
-        }
-        
-        if self.arrayOfRandomProgressNumbers.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(self.arrayOfRandomProgressNumbers.count)))
-            let progressAmount = self.arrayOfRandomProgressNumbers.removeAtIndex(randomIndex)
-            self.progress += progressAmount
-            self.progressBar.setProgress(self.progress, animated: true)
-            if self.progress >= 1.0 {
+    func updateProgress(progress: Float) {
+        if firstTime { //this prevents more segues to the menu if pull to refresh is activated
+            //update progress variable and animate progress bar
+            //if at 100%, segue
+            if !loadStarted {
+                loadStarted = true
+                timerLoading = NSTimer.scheduledTimerWithTimeInterval(1.0,
+                                                                      target: self,
+                                                                      selector: #selector(CadetsLoadingViewController.testProgress),
+                                                                      userInfo: [],
+                                                                      repeats: true)
+            }
+            
+            self.progressBar.setProgress(progress, animated: true)
+            if progress >= 1.0 {
+                firstTime = false
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
                 dispatch_after(delayTime, dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier("menu", sender: self)
                 }
             }
-        } else {
-            print("Tried to update progress when no progress was left.")
         }
     }
-    
+
     func displayFact(fact: PFact) {
         self.lblFact.text = fact["fact"] as? String
         UIView.animateWithDuration(0.5) { 

@@ -10,6 +10,7 @@ import UIKit
 
 class Loading: UIView {
     
+    var continueAnimation = true
     @IBOutlet weak var viewCadets: UIView!
     @IBOutlet weak var imgArrow1: UIImageView!
     @IBOutlet weak var imgArrow2: UIImageView!
@@ -113,13 +114,22 @@ class Loading: UIView {
                 UIView.animateWithDuration(1.0, animations: {
                     
                     }, completion: { (finished: Bool) in
-                        self.animate()
+                        if self.continueAnimation {  self.animate() }
+                        else {
+                            self.imgArrow1.alpha = 1
+                            self.imgArrow2.alpha = 1
+                            self.imgArrow3.alpha = 1
+                            self.imgC.alpha = 1
+                        }
                 })
-               
             }
         }
 
         self.doMaskAnimation()
+    }
+    
+    func stopAnimation() {
+        continueAnimation = false
     }
     
     func doMaskAnimation() {
