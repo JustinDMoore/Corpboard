@@ -7326,9 +7326,9 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1db-68-Qfn">
-                                                            <rect key="frame" x="23" y="3" width="37" height="15"/>
+                                                            <rect key="frame" x="23" y="3" width="176" height="15"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="37" id="1iS-Rm-MJI"/>
+                                                                <constraint firstAttribute="width" constant="176" id="1iS-Rm-MJI"/>
                                                                 <constraint firstAttribute="height" constant="15" id="hIt-93-hDq"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>

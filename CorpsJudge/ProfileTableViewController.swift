@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManager
 import ParseUI
 import PulsingHalo
+import JSQMessagesViewController
 
 class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience, delegateEditDescription {
 
@@ -127,6 +128,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             // Online Now?
             if userOnlineNow() && !usersOwnProfile() {
                 viewOnline.hidden = false
+                imgOnline.hidden = false
+                lblOnline.text = "Online Now"
                 let halo = PulsingHaloLayer()
                 halo.position = imgOnline.center
                 halo.radius = 10
@@ -138,7 +141,26 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
                 viewOnline.sendSubviewToBack(imgOnline)
             } else {
-                viewOnline.hidden = true
+                viewOnline.hidden = false
+                imgOnline.hidden = true
+                lblOnline.text = ""
+                let updated = userProfile?.lastLogin
+                let diff = updated!.minutesBeforeDate(NSDate())
+                var timeDiff = ""
+                if diff <= 50 {
+                    timeDiff = "\(diff) min ago"
+                } else if diff > 50 && diff < 65 {
+                    timeDiff = "an hour ago"
+                } else if diff < 600 {
+                    let div = diff / 60
+                    if div == 1 { timeDiff = "1 hour ago" }
+                    else { timeDiff = "\(div) hours ago" }
+                } else if updated!.isYesterday() {
+                    timeDiff = "yesterday"
+                } else {
+                    timeDiff = "\(updated!.daysBeforeDate(NSDate())) days ago"
+                }
+                lblOnline.text = "Online \(timeDiff)"
             }
             
             // Name
