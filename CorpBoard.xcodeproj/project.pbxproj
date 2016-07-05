@@ -103,6 +103,7 @@
 		9FA238A51D16C59900AE52F9 /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */; };
 		9FA238C31D16C5D800AE52F9 /* LiveChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */; };
 		9FA238DC1D16D38A00AE52F9 /* LiveChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */; };
+		9FB07FE31D2C2456002B06A9 /* PullTutorial.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */; };
 		9FC0CE2E1D2114130070944D /* CBMapMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0CE2D1D2114130070944D /* CBMapMenu.swift */; };
 		9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC51A651CEC038600EC081D /* LocationServicesPermission.m */; };
 		9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71C511CE65F2200C36A1C /* Launch Screen.storyboard */; };
@@ -427,6 +428,7 @@
 		9FA238C11D16C5D800AE52F9 /* LiveChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveChatCell.h; sourceTree = "<group>"; };
 		9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveChatCell.m; sourceTree = "<group>"; };
 		9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveChatCell.xib; sourceTree = "<group>"; };
+		9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullTutorial.xib; sourceTree = "<group>"; };
 		9FC0CE2D1D2114130070944D /* CBMapMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBMapMenu.swift; sourceTree = "<group>"; };
 		9FC51A641CEC038600EC081D /* LocationServicesPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesPermission.h; sourceTree = "<group>"; };
 		9FC51A651CEC038600EC081D /* LocationServicesPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesPermission.m; sourceTree = "<group>"; };
@@ -907,6 +909,7 @@
 				9FFA925E1CEE3F28000A3765 /* Loading.xib */,
 				9FE47B101D29D91100AFB397 /* LoadingPullToRefresh.xib */,
 				9FFA92601CEE3F37000A3765 /* Loading.swift */,
+				9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1474,6 +1477,9 @@
 					9253347A194FD5D70004D16F = {
 						DevelopmentTeam = 9S3528P93B;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
 							};
@@ -1543,6 +1549,7 @@
 				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */,
+				9FB07FE31D2C2456002B06A9 /* PullTutorial.xib in Resources */,
 				9FA236731D16938C00AE52F9 /* microphone_access.png in Resources */,
 				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
 				9FA236751D16938C00AE52F9 /* microphone_access@3x.png in Resources */,
@@ -2007,7 +2014,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2018,7 +2025,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2035,7 +2042,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2046,7 +2053,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -2106,7 +2113,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Justin Moore (9S3528P93B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2117,7 +2124,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Corpsboard;
-				PROVISIONING_PROFILE = "3c31d50a-e3e4-418a-940f-171072a82e78";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorpsJudge/CorpBoard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

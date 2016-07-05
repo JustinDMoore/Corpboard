@@ -8,8 +8,12 @@
 
 #import "CBPush.h"
 #import <AudioToolbox/AudioServices.h>
+#import "Corpsboard-swift.h"
 
 int tick;
+NSString *pushType;
+NSString *keyId;
+UINavigationController *parentNav;
 
 @implementation CBPush
 
@@ -22,9 +26,15 @@ int tick;
     return self;
 }
 
--(void)showPush:(NSString *)push inParent:(UIView *)parent {
+-(void)showPush:(NSString *)push inParent:(UINavigationController *)parent forType:(NSString *)type withKey:(NSString *)key {
     
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
+    [self addGestureRecognizer:tapGestureRecognizer];
+    
+    keyId = key;
+    pushType = type;
     self.lblMessage.text = push;
+    parentNav = parent;
     
     tick = 0;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1
@@ -38,7 +48,7 @@ int tick;
     
     self.clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - self.frame.size.height, [UIScreen mainScreen].bounds.size.width, self.frame.size.height * 2)];
     self.clearView.backgroundColor = [UIColor clearColor];
-    [parent addSubview:self.clearView];
+    [parent.view addSubview:self.clearView];
     
     [self.clearView addSubview:self];
     
@@ -66,6 +76,31 @@ int tick;
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         
     });
+}
+
+- (void)handleTapFrom: (UITapGestureRecognizer *)recognizer {
+    tick = 10; //this forces [self closePush];
+    if ([pushType isEqualToString:@"message"]) {
+        ChatViewController *vcChat = [[ChatViewController alloc] init];
+        vcChat.isPrivate = YES;
+        vcChat.roomId = keyId;
+        
+
+        NSRange stringRange = {0, MIN([keyId length], 10)};
+        stringRange = [keyId rangeOfComposedCharacterSequencesForRange:stringRange];
+        NSString *senderId = [keyId substringWithRange:stringRange];
+        
+        NSRange stringRange2 = {11, MIN([keyId length], 20)};
+        stringRange2 = [keyId rangeOfComposedCharacterSequencesForRange:stringRange];
+        NSString *receiverId = [keyId substringFromIndex:MAX((int)[keyId length]-10, 0)];
+        
+        
+        vcChat.receiverId = receiverId;
+        vcChat.senderId = senderId;
+        [parentNav pushViewController:vcChat animated:YES];
+    } else if ([pushType isEqualToString:@"scores"]) {
+        
+    }
 }
 
 -(void)closePush {

@@ -199,7 +199,6 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
 }
 
 - (void)userLoggedIn:(PFUser *)user {
-    //FIXME: Add nickname to this view. Make sure it's unique.
     PFInstallation *install = [PFInstallation currentInstallation];
     if (install[@"user"] == nil) {
         install[@"user"] = user;

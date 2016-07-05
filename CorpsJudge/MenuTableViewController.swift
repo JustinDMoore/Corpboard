@@ -166,13 +166,15 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     override func viewWillAppear(animated: Bool) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.showPushView = true
         super.viewWillAppear(animated)
         
         PrivateMessageListener.sharedInstance.delegate = self
         PrivateMessageListener.sharedInstance.startListening()
         
         let imageView = UIImageView(frame: CGRectMake(130, 20, 20, 54))
-        imageView.image = UIImage(named: "title")
+        imageView.image = UIImage(named: "titleBETA")
         imageView.contentMode = .ScaleAspectFit
         navigationItem.titleView = imageView
 
@@ -185,6 +187,9 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         // Video cells were disappearing after returning from
         // videoCollectionViewController - this should keep them visible
         collectionVideos.reloadData()
+        
+        //Display number of unread private messages
+        setMsgBadge()
     }
     
     override func viewDidLayoutSubviews() {
@@ -1370,10 +1375,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     func setMsgBadge() {
-        if Server.sharedInstance.numberOfMessages > 0 {
-            self.badgeMessages.badgeText = "New"
-        } else {
+        if PrivateMessageListener.sharedInstance.numberOfUnreadMessages <= 0 {
             self.badgeMessages.badgeText = ""
+        } else {
+            self.badgeMessages.badgeText = "\(PrivateMessageListener.sharedInstance.numberOfUnreadMessages)"
         }
     }
     

@@ -39,6 +39,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = UIColor.blackColor()
         arrayOfChatRooms.removeAll()
         self.tableView.reloadData()
         loading()
@@ -53,8 +54,13 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     override func viewWillAppear(animated: Bool) {
+
         
         if isPrivate {
+            //Disable receiving notifications for private chats... because you're in private chats
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.showPushView = false
+            
             privateChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PrivateRooms").child((PUser.currentUser()?.objectId!)!)
             startListeningForRef(privateChatRoomsRef)
         } else {
@@ -84,6 +90,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.showPushView = true
         super.viewWillDisappear(animated)
         PrivateMessageListener.sharedInstance.startListening()
     }
@@ -108,7 +116,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         let roomsQuery = ref.queryOrderedByChild(ChatroomFields.updatedAt)
         
         roomsQuery.observeEventType(.ChildAdded) { (snap: FIRDataSnapshot) in
-            print(snap)
             let room = Chatroom()
             room.snapKey = snap.key
             room.topic = snap.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
@@ -146,7 +153,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 self.arrayOfChatRooms.removeAll()
                 
                 for snapRoom in snap.children {
-                    print(snapRoom)
                     let room = Chatroom()
                     room.snapKey = snapRoom.key
                     room.topic = snapRoom.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
@@ -267,22 +273,21 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 receiverId = room.privateChatWith
                 
                 var sendId = ""
-                if let id = (PUser.currentUser()?.objectId)! as? String {
-                    print(id)
-                    sendId = id
+                if PUser.currentUser()?.objectId != nil {
+                    sendId = (PUser.currentUser()?.objectId)!
                 }
                 
                 var recId = ""
-                if let id2 = room.privateChatWith! as? String {
-                    recId = id2
+                if room.privateChatWith != nil {
+                    recId = room.privateChatWith!
                 }
-                
-                //Delete Room
-                privateChatRoomsRef.removeValue()
+
+                //Delete the selected room
+                let refToDelete = privateChatRoomsRef.child("\(sendId)\(recId)")
+                refToDelete.removeValue()
                 
                 //Delete messages
                 privateMessagesSenderRef = FIRDatabase.database().reference().child("Chat").child("PrivateMessages").child("\(sendId)\(recId)")
-                print(privateMessagesSenderRef)
                 privateMessagesSenderRef.removeValue()
             }
         }
@@ -295,10 +300,11 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if arrayOfChatRooms.isEmpty {
-            let cell = tableView.dequeueReusableCellWithIdentifier("noMessages")
-            let btnNearMe = cell?.viewWithTag(5) as! UIButton
-            btnNearMe.addTarget(self, action: #selector(ChatRoomsTableViewController.nearMe), forControlEvents: .TouchUpInside)
-            return cell!
+            if let cell = tableView.dequeueReusableCellWithIdentifier("noMessages") {
+                let btnNearMe = cell.viewWithTag(5) as! UIButton
+                btnNearMe.addTarget(self, action: #selector(ChatRoomsTableViewController.nearMe), forControlEvents: .TouchUpInside)
+                return cell
+            }
         } else {
             if isPrivate {
                 return privateTableView(tableView, cellForRowAtIndexPath: indexPath)
@@ -306,6 +312,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 return publicTableView(tableView, cellForRowAtIndexPath: indexPath)
             }
         }
+        return UITableViewCell()
     }
     
     func privateTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

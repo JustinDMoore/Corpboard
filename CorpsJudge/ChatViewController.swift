@@ -29,7 +29,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         set {
             if !newPrivateChat {
                 privateRoomReceiverRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
-                    print(self.privateRoomReceiverRef)
                     if snap.exists() {
                         self.localTyping = newValue
                         self.userIsTypingSetRef.setValue(newValue)
@@ -117,6 +116,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     override func viewWillAppear(animated: Bool) {
+
         super.viewWillAppear(animated)
         self.navigationController!.navigationBarHidden = false
         self.navigationItem.setHidesBackButton(false, animated: false)
@@ -126,8 +126,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         self.navigationItem.leftBarButtonItem = backButton
         
         if isPrivate {
+            //Disable notifications for private chats because we're in a private chat
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.showPushView = false
+            
             if !privateRoomInitialized { loading() }
-            self.title = "Private Messages"
+            setRoomTitle()
             setReferences()
             //If sender room exists, display it
             privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
@@ -135,6 +139,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     self.startListening()
                     self.observeTyping()
                     self.privateRoomInitialized = true
+                    //Deduct this room's unreadMessages from global unread messages
+                    if let count = snap.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int {
+                        PrivateMessageListener.sharedInstance.numberOfUnreadMessages -= count
+                    }
                     //Reset unread messages to 0
                     self.privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
                 } else {
@@ -159,6 +167,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    func setRoomTitle() {
+        
+        var title: String?
+        if receiverId != nil {
+            let query = PFQuery(className: PUser.parseClassName())
+            query.limit = 1
+            query.whereKey("objectId", equalTo: receiverId!)
+            query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
+                if err === nil {
+                    if let user = objects?.first as? PUser {
+                        title = user.nickname
+                    }
+                }
+                if title != nil { self.title = title }
+                else { self.title = "Private Message" }
+            })
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
@@ -166,6 +193,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     override func viewWillDisappear(animated: Bool) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.showPushView = true
         super.viewWillDisappear(animated)
         stopListening()
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
@@ -213,6 +242,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             userIsTypingSetRef = privateRoomReceiverRef.child("typing")
             userIsTypingReadRef = privateRoomSenderRef
+            
         } else {
             assert(roomId != nil, "setReferences() called before setting roomId.")
             publicRoomRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms").child(roomId!)
@@ -326,6 +356,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     func incomingMessage(snap: FIRDataSnapshot, scroll: Bool) {
 
+        //For private only
+        //Since we're already in the room, we're reading incoming messages
+        //reset numberOfMessages back to 0
+        if isPrivate {
+            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 0))
+        }
+        
         // If nothing is here, stop the loading animation
         if !snap.exists() { self.stopLoading() }
         
@@ -514,18 +551,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     func incrementMessageCounterForRoomRef(ref: FIRDatabaseReference) {
-
-        ref.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
-            if var room = currentData.value as? [String : AnyObject] {
-
-                var count = room[ChatroomFields.numberOfMessages] as? Int ?? 0
-                count += 1
-                room[ChatroomFields.numberOfMessages] = count
-                
-                currentData.value = room
-                
-                return FIRTransactionResult.successWithValue(currentData)
+        let ref1 = ref.child(ChatroomFields.numberOfMessages)
+        ref1.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+            var count = currentData.value as? Int
+            if count == nil {
+                count = 0
             }
+            let newCount = count! + 1
+            currentData.value = newCount
             return FIRTransactionResult.successWithValue(currentData)
         }) { (error, committed, snapshot) in
             if let error = error {
@@ -752,6 +785,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     func sendMessage(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?) {
         
         if isPrivate {
+            //Send the push to the receiving user
+            pushMessageToUser(text, videoFilePath: videoFilePath, picture: picture, audioFilePath: audioFilePath)
             // Check the paths for sender and receiver, create rooms if necessary
             privateRoomSenderRef.observeSingleEventOfType(.Value) { (snap: FIRDataSnapshot) in
                 if !snap.exists() {
@@ -843,8 +878,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomReceiverRef.child(ChatroomFields.privateChatWith).setValue(senderId)
             privateRoomSenderRef.child(ChatroomFields.privateChatWith).setValue(receiverId!)
             
-            privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
-            privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            //incrementMessageCounterForRoomRef(privateRoomReceiverRef)
+            //privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
+            //privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
         } else {
             publicRoomRef.child(ChatroomFields.lastMessage).setValue(text)
             publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
@@ -1308,6 +1344,33 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             let vc = segue.destinationViewController as! ProfileTableViewController
             vc.userProfile = profileToOpen
             vc.fromPrivate = true
+        }
+    }
+    
+    func pushMessageToUser(text: String?, videoFilePath: NSURL?, picture: UIImage?, audioFilePath: String?) {
+        if isPrivate {
+            incrementMessageCounterForRoomRef(privateRoomReceiverRef)
+            if receiverId != nil {
+                
+                let sender = PUser.currentUser()
+                var nick = ""
+                if let nn = sender?.nickname {
+                    nick = nn
+                }
+                var message = ""
+                if text != nil { message = "\(nick): \(text!)" }
+                if videoFilePath != nil { message = "\(nick) sent you a video." }
+                if picture != nil { message = "\(nick) sent you a picture." }
+                if audioFilePath != nil { message = "\(nick) sent you an audio file." }
+                
+                var params = [NSObject : AnyObject]()
+                params["message"] = message
+                params["fromUserId"] = self.senderId
+                params["toUserId"] = receiverId
+                params["key"] = "\(receiverId!)\(senderId)"
+                
+                PFCloud.callFunctionInBackground("pushUserMessage", withParameters: params)
+            }
         }
     }
 }

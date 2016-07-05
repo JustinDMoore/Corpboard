@@ -54,6 +54,11 @@ class CadetsLoadingViewController: UIViewController, delegateInitialAppLoad {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //set the app delegate push parent as the nav controller.. so any incoming pushes will be displayed from the nav controller view as the parent, from anywhere in the app
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.alertParentView = self.navigationController!
+        
         //NAV BAR BACKGROUND
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.setBackgroundImage(UIImage(named: "stone"), forBarMetrics: .Default)

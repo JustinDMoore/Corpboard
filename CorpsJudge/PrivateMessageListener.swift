@@ -23,6 +23,7 @@ class PrivateMessageListener: NSObject {
     var refPrivateChatRooms = FIRDatabaseReference()
     var initialLoad = false
     var listening = false
+    var numberOfUnreadMessages = 0
     
     func stopListening() {
         refPrivateChatRooms.removeAllObservers()
@@ -77,8 +78,15 @@ class PrivateMessageListener: NSObject {
             }
             
             refPrivateChatRooms.observeEventType(.Value) { (snap: FIRDataSnapshot) in
-                
                 print("NEW MESSAGE VALUE")
+                var messageCount = 0
+                for s in snap.children {
+                    if let count = s.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int {
+                        messageCount += count
+                    }
+                }
+                self.numberOfUnreadMessages = messageCount
+                print("MESSAGE COUNT: \(self.numberOfUnreadMessages)")
                 self.delegate?.updateMessageCount()
                 
                 //            if !self.initialLoad {

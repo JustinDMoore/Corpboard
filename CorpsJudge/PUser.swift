@@ -34,7 +34,7 @@ class PUser: PFUser {
     var pictureString = "picture"
     
     @NSManaged var acceptedTerms: Bool
-    @NSManaged var facebookId: String
+    @NSManaged var facebookId: String?
     @NSManaged var emailVerified: String
     @NSManaged var coverImage: PFFile? //from camera roll
     @NSManaged var isAdmin: Bool

@@ -14,6 +14,6 @@
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIView *clearView;
 @property (nonatomic, strong) NSTimer *timer;
--(void)showPush:(NSString *)push inParent:(UIView *)parent;
+-(void)showPush:(NSString *)push inParent:(UINavigationController *)parent forType:(NSString *)type withKey:(NSString *)key;
 
 @end

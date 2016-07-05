@@ -633,6 +633,10 @@ protocol delegateUserProfile: class {
             currentUser["lastLogin"] = NSDate()
             currentUser.saveEventually()
         }
+        let install = PFInstallation.currentInstallation()
+        install["lastLogin"] = NSDate()
+        install["user"] = PUser.currentUser()
+        install.saveInBackground()
     }
     
     func setInstallationLocationAllowed(on: Bool) {
@@ -987,32 +991,34 @@ protocol delegateUserProfile: class {
     
     func signIntoFirebase() {
         if let currentUser = PUser.currentUser() {
-            let email = currentUser.email!
-            let password = currentUser.facebookId
-            if !email.characters.isEmpty && !password.characters.isEmpty {
-                FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
-                    if error != nil {
-                        FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
-                            if error == nil {
+            if currentUser.email != nil && currentUser.facebookId != nil {
+                let email = currentUser.email!
+                let password = currentUser.facebookId!
+                if !email.characters.isEmpty && !password.characters.isEmpty {
+                    FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
+                        if error != nil {
+                            FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
+                                if error == nil {
+                                    user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
+                                        currentUser.firebaseUID = id
+                                        currentUser.saveInBackground()
+                                        PrivateMessageListener.sharedInstance.startListening()
+                                    })
+                                    print("10. FIREBASE: Signed up and logged in")
+                                    
+                                } else {
+                                    print("10. FIREBASE: **ERROR** \(error)")
+                                }
+                            }
+                        } else {
+                            print("10. FIREBASE: Logged In")
+                            if currentUser.firebaseUID == nil || currentUser.firebaseUID == "" {
                                 user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
                                     currentUser.firebaseUID = id
                                     currentUser.saveInBackground()
                                     PrivateMessageListener.sharedInstance.startListening()
                                 })
-                                print("10. FIREBASE: Signed up and logged in")
-                                
-                            } else {
-                                print("10. FIREBASE: **ERROR** \(error)")
                             }
-                        }
-                    } else {
-                        print("10. FIREBASE: Logged In")
-                        if currentUser.firebaseUID == nil || currentUser.firebaseUID == "" {
-                            user?.getTokenWithCompletion({ (id: String?, err: NSError?) in
-                                currentUser.firebaseUID = id
-                                currentUser.saveInBackground()
-                                PrivateMessageListener.sharedInstance.startListening()
-                            })
                         }
                     }
                 }

@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let stripePublishableKey = "pk_test_UJ1Jcj6gdlBK5ASXmKWeR7Vf"
     var window: UIWindow?
-    var alertParentView = UIView()
+    var alertParentView = UINavigationController()
     var messDelegate: messagesDelegate?
+
+    var showPushView = true
     
     
     override init() {
@@ -79,6 +81,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        //register push, if enabled
+        let install = PFInstallation.currentInstallation()
+        if install["allowsPush"] != nil {
+            registerForPushNotifications(application)
+        }
+        
         return true
 
     }
@@ -100,7 +108,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Store the deviceToken int he current installation for parse
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
-        currentInstallation.channels = ["global"]
+        if let userId = PUser.currentUser()?.objectId {
+            currentInstallation.channels = ["global", userId]
+        } else {
+            currentInstallation.channels = ["global"]
+        }
         currentInstallation["allowsPush"] = true
         currentInstallation.saveInBackground()
     }
@@ -115,10 +127,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 currentInstallation.setValue(0, forKey: "badge")
                 currentInstallation.saveInBackground()
             }
-            let dict = userInfo["aps"]
-//            if let pushView = NSBundle.mainBundle().loadNibNamed("CBPush", owner: self, options: nil).first as? CBPush {
-//                pushView.showPush(dict["alert"], inParent: self.alertParentView)
-//            }
+            //            NSDictionary *notificationDict = [userInfo objectForKey:@"aps"];
+            //            NSString *alertString = [notificationDict objectForKey:@"alert"];
+            //
+            
+            let aps = userInfo["aps"] as! [String: AnyObject]
+            let message = aps["alert"] as! String
+            let type = userInfo["pushType"] as? String
+            var key: String?
+            if let k = userInfo["key"] as? String {
+                key = k
+            }
+            if type == "message" && !showPushView { return } // don't show b/c user is in messages already
+            if let pushView = NSBundle.mainBundle().loadNibNamed("CBPush", owner: self, options: nil).first as? CBPush {
+                pushView.showPush(message, inParent: alertParentView, forType: type ?? "", withKey: key ?? "")
+            }
         }
     }
     

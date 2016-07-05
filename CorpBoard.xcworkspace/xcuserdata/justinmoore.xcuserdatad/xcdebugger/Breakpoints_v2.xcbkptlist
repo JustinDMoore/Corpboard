@@ -140,61 +140,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CorpsJudge/ChatRoomsTableViewController.swift"
-            timestampString = "488725812.651882"
+            timestampString = "489452968.405432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
+            startingLineNumber = "513"
+            endingLineNumber = "513"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CorpsJudge/ChatViewController.swift"
-            timestampString = "488724966.354741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "988"
-            endingLineNumber = "988"
-            landmarkName = "sendAudioMessage(_:forSender:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Corpsboard.ChatViewController.sendAudioMessage (Swift.Optional&lt;Swift.String&gt;, forSender : Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()"
-                  moduleName = "Corpsboard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/justinmoore/Documents/Developer/Corpboard/CorpsJudge/ChatViewController.swift"
-                  timestampString = "488724987.601723"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Corpsboard.ChatViewController.sendAudioMessage (Swift.Optional&lt;Swift.String&gt;, forSender : Swift.Optional&lt;Swift.Bool&gt;) -&gt; ()"
-                  moduleName = "Corpsboard"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/justinmoore/Documents/Developer/Corpboard/CorpsJudge/ChatViewController.swift"
-                  timestampString = "488724987.601832"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
-                  offsetFromSymbolStart = "156">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
