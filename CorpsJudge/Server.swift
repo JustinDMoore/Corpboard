@@ -629,13 +629,15 @@ protocol delegateUserProfile: class {
     }
     
     func updateUserLastLogin() {
+        let install = PFInstallation.currentInstallation()
         if let currentUser = PFUser.currentUser() {
             currentUser["lastLogin"] = NSDate()
             currentUser.saveEventually()
+            
+            install["user"] = PUser.currentUser()
         }
-        let install = PFInstallation.currentInstallation()
+        
         install["lastLogin"] = NSDate()
-        install["user"] = PUser.currentUser()
         install.saveInBackground()
     }
     
