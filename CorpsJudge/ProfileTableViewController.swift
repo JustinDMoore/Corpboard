@@ -163,14 +163,21 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     timeDiff = "\(diff) min ago"
                 } else if diff > 50 && diff < 65 {
                     timeDiff = "an hour ago"
-                } else if diff < 600 {
+                } else if diff < 720 {
                     let div = diff / 60
                     if div == 1 { timeDiff = "1 hour ago" }
                     else { timeDiff = "\(div) hours ago" }
                 } else if updated!.isYesterday() {
                     timeDiff = "yesterday"
                 } else {
-                    timeDiff = "\(updated!.daysBeforeDate(NSDate())) days ago"
+                    let daysAgo = updated!.daysBeforeDate(NSDate())
+                    if daysAgo == 0 {
+                        timeDiff = "Earlier today"
+                    } else if daysAgo == 1 {
+                        timeDiff = "1 day ago"
+                    } else {
+                        timeDiff = "\(updated!.daysBeforeDate(NSDate())) days ago"
+                    }
                 }
                 lblOnline.text = "Online \(timeDiff)"
             }

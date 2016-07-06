@@ -407,7 +407,7 @@ int loop = 0;
             
             if ([lblPlacement isKindOfClass:[UILabel class]]) lblPlacement.text = [NSString stringWithFormat:@"%i", (int)indexPath.row + 1];
             if (imgLogo) {
-                PFFile *imageFile = corp[@"logo_light"];
+                PFFile *imageFile = corp[@"logoLight"];
                 if (!imageFile) {
                     imageFile = corp[@"logo"];
                 }

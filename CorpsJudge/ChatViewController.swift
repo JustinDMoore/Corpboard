@@ -93,14 +93,30 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.sharedInstance.delegateLocation = self
+        
+        arrayOfJSQMessages.removeAll()
+        arrayOfDownloads.removeAll()
+        arrayOfSnapKeys.removeAll()
+        arrayOfAvatars.removeAll()
+        
+        //Properites
         self.automaticallyScrollsToMostRecentMessage = true
         self.senderId = PUser.currentUser()?.objectId
         self.senderDisplayName = PUser.currentUser()!.nickname
+        
+        //Background
         self.collectionView.backgroundColor = UIColor.blackColor()
         self.view.backgroundColor = UIColor.blackColor()
-        self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(50, 50)
-        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeMake(50, 50)
-        self.collectionView.collectionViewLayout.springinessEnabled = false
+        
+        //Bubbles
+        setupBubbles()
+        self.collectionView.collectionViewLayout.messageBubbleFont = UIFont.systemFontOfSize(12)
+        
+        //Avatars
+        self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(30, 30)
+        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeMake(30, 30)
+        
+        //Toolbar
         self.inputToolbar.tintColor = UISingleton.sharedInstance.gold
         self.inputToolbar.contentView.rightBarButtonItem.setTitleColor(UISingleton.sharedInstance.gold, forState: .Normal)
         let btnAttachment = UIButton(type: .Custom)
@@ -109,14 +125,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         btnAttachment.addTarget(self, action: #selector(ChatViewController.didPressAccessoryButton(_:)), forControlEvents: .TouchUpInside)
         btnAttachment.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.inputToolbar.contentView.leftBarButtonItem = btnAttachment
-        setupBubbles()
-        arrayOfJSQMessages.removeAll()
-        arrayOfDownloads.removeAll()
-        arrayOfSnapKeys.removeAll()
-        arrayOfAvatars.removeAll()
-        
-        //Configure look
-        self.collectionView.collectionViewLayout.messageBubbleFont = UIFont.systemFontOfSize(12)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -193,6 +201,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        self.collectionView.collectionViewLayout.springinessEnabled = false
         ready = true
     }
     
@@ -705,9 +714,28 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
-//        //WHAT IS THIS
-//    }
+    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+        let message = arrayOfJSQMessages[indexPath.item]
+        
+        // Sent by me, skip
+        if message.senderId == senderId {
+            return nil
+        }
+        
+        // Same as previous sender, skip
+        if indexPath.item > 0 {
+            let previousMessage = arrayOfJSQMessages[indexPath.item - 1]
+            if previousMessage.senderId == message.senderId {
+                return nil
+            }
+        }
+        print(message.senderDisplayName)
+        //return NSAttributedString(string:message.senderDisplayName)
+        
+        let descString = NSMutableAttributedString(string: message.senderDisplayName)
+        descString.addAttribute(NSForegroundColorAttributeName, value: UIColor.lightGrayColor(), range: NSMakeRange(0, descString.length))
+        return descString
+    }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         if indexPath.item % 3 == 0 {
@@ -715,6 +743,23 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         } else {
             return 0
         }
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let message = arrayOfJSQMessages[indexPath.item];
+        // Sent by me, skip
+        if message.senderId == senderId {
+            return 0
+        }
+        
+        // Same as previous sender, skip
+        if indexPath.item > 0 {
+            let previousMessage = arrayOfJSQMessages[indexPath.item - 1];
+            if previousMessage.senderId == message.senderId {
+                return 0
+            }
+        }
+        return kJSQMessagesCollectionViewCellLabelHeightDefault
     }
     
     //MARK:-

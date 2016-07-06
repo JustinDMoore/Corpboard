@@ -980,7 +980,7 @@ typedef enum : int {
     
     PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:8];
     if (imgLogo) {
-        PFFile *imageFile = corps[@"logo_light"];
+        PFFile *imageFile = corps[@"logoLight"];
         if (!imageFile) {
             imageFile = corps[@"logo"];
         }
@@ -1265,7 +1265,7 @@ typedef enum : int {
     
     PFImageView *imgLogo = (PFImageView *)[cell viewWithTag:2];
     if (imgLogo) {
-        PFFile *imageFile = corps[@"logo_light"];
+        PFFile *imageFile = corps[@"logoLight"];
         if (!imageFile) {
             imageFile = corps[@"logo"];
         }
