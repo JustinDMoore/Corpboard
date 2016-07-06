@@ -59,6 +59,7 @@
 		9F0F0C4D1D0BFB6100ECAA4B /* SelectPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */; };
 		9F2586C21D13B91A00935281 /* PChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2586C11D13B91A00935281 /* PChatRoom.swift */; };
 		9F2586C41D13BFBD00935281 /* ChatRoomsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2586C31D13BFBD00935281 /* ChatRoomsTableViewController.swift */; };
+		9F27BAD21D2D85FC00DC17AC /* TutorialProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27BAD11D2D85FC00DC17AC /* TutorialProfile.swift */; };
 		9F29D6751D17E10000000EBB /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D6741D17E10000000EBB /* Chatroom.swift */; };
 		9F4CCF441D10E3190079DDF5 /* PickAStadium.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */; };
 		9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */; };
@@ -103,7 +104,7 @@
 		9FA238A51D16C59900AE52F9 /* PrivateMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238A21D16C59900AE52F9 /* PrivateMessageCell.xib */; };
 		9FA238C31D16C5D800AE52F9 /* LiveChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */; };
 		9FA238DC1D16D38A00AE52F9 /* LiveChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */; };
-		9FB07FE31D2C2456002B06A9 /* PullTutorial.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */; };
+		9FB07FE31D2C2456002B06A9 /* TutorialProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FB07FE21D2C2456002B06A9 /* TutorialProfile.xib */; };
 		9FC0CE2E1D2114130070944D /* CBMapMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0CE2D1D2114130070944D /* CBMapMenu.swift */; };
 		9FC51A661CEC038600EC081D /* LocationServicesPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC51A651CEC038600EC081D /* LocationServicesPermission.m */; };
 		9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FC71C511CE65F2200C36A1C /* Launch Screen.storyboard */; };
@@ -372,6 +373,7 @@
 		9F0F0C4C1D0BFB6100ECAA4B /* SelectPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotoViewController.swift; sourceTree = "<group>"; };
 		9F2586C11D13B91A00935281 /* PChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PChatRoom.swift; sourceTree = "<group>"; };
 		9F2586C31D13BFBD00935281 /* ChatRoomsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomsTableViewController.swift; sourceTree = "<group>"; };
+		9F27BAD11D2D85FC00DC17AC /* TutorialProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialProfile.swift; sourceTree = "<group>"; };
 		9F29D6741D17E10000000EBB /* Chatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
 		9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickAStadium.xib; sourceTree = "<group>"; };
 		9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickAStadium.swift; sourceTree = "<group>"; };
@@ -428,7 +430,7 @@
 		9FA238C11D16C5D800AE52F9 /* LiveChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveChatCell.h; sourceTree = "<group>"; };
 		9FA238C21D16C5D800AE52F9 /* LiveChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveChatCell.m; sourceTree = "<group>"; };
 		9FA238DB1D16D38A00AE52F9 /* LiveChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveChatCell.xib; sourceTree = "<group>"; };
-		9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullTutorial.xib; sourceTree = "<group>"; };
+		9FB07FE21D2C2456002B06A9 /* TutorialProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TutorialProfile.xib; sourceTree = "<group>"; };
 		9FC0CE2D1D2114130070944D /* CBMapMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBMapMenu.swift; sourceTree = "<group>"; };
 		9FC51A641CEC038600EC081D /* LocationServicesPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationServicesPermission.h; sourceTree = "<group>"; };
 		9FC51A651CEC038600EC081D /* LocationServicesPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServicesPermission.m; sourceTree = "<group>"; };
@@ -909,7 +911,8 @@
 				9FFA925E1CEE3F28000A3765 /* Loading.xib */,
 				9FE47B101D29D91100AFB397 /* LoadingPullToRefresh.xib */,
 				9FFA92601CEE3F37000A3765 /* Loading.swift */,
-				9FB07FE21D2C2456002B06A9 /* PullTutorial.xib */,
+				9FB07FE21D2C2456002B06A9 /* TutorialProfile.xib */,
+				9F27BAD11D2D85FC00DC17AC /* TutorialProfile.swift */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1549,7 +1552,7 @@
 				D0681E151A8010080084EB42 /* CBNewsCell.xib in Resources */,
 				9253348B194FD5D70004D16F /* InfoPlist.strings in Resources */,
 				D0F19F8F1B14F86000357663 /* CBReviewCell.xib in Resources */,
-				9FB07FE31D2C2456002B06A9 /* PullTutorial.xib in Resources */,
+				9FB07FE31D2C2456002B06A9 /* TutorialProfile.xib in Resources */,
 				9FA236731D16938C00AE52F9 /* microphone_access.png in Resources */,
 				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
 				9FA236751D16938C00AE52F9 /* microphone_access@3x.png in Resources */,
@@ -1812,6 +1815,7 @@
 				D0E37A1B1959178B00AE4215 /* NSDate+Utilites.m in Sources */,
 				92CF4C6519627EBC00BE98D5 /* CBFinalsPredictionViewController.m in Sources */,
 				D03D64F51B98EC0A00C07B74 /* StoreItemSelector.swift in Sources */,
+				9F27BAD21D2D85FC00DC17AC /* TutorialProfile.swift in Sources */,
 				D0F19FA81B1549A400357663 /* CBReviewFeedback.m in Sources */,
 				D0606BBD1A3D8614002A1F48 /* CBTextField.m in Sources */,
 				9FA236591D16937500AE52F9 /* IQAudioRecorderViewController.m in Sources */,

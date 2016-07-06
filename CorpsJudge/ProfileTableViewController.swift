@@ -70,6 +70,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var userCat = CBUserCategories()
     var userExp = CBCorpExperienceList()
     var userDesc = CBEditDescription()
+    var tutorialProfile = TutorialProfile()
     
     var tapProfilePicture = UITapGestureRecognizer()
     var tapCoverPicture = UITapGestureRecognizer()
@@ -363,6 +364,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     self.fetchedProfile = true
                     self.initUI()
                     self.incrementProfileViews()
+                    self.checkForTutorialProfile()
                 } else { // Could not load profile
                     
                 }
@@ -377,11 +379,30 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     self.fetchedProfile = true
                     self.initUI()
                     self.incrementProfileViews()
+                    self.checkForTutorialProfile()
                 }
             })
         }
     }
 
+    func checkForTutorialProfile() {
+        if usersOwnProfile() {
+            if let user = PUser.currentUser() {
+                if !user.tutorialProfile {
+                    if let tutorialProfile = NSBundle.mainBundle().loadNibNamed("TutorialProfile", owner: self, options: nil).first as? TutorialProfile {
+                        tutorialProfile.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+                        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+                        dispatch_after(delayTime, dispatch_get_main_queue()) {
+                            tutorialProfile.showInParent(self.navigationController!)
+                            user.tutorialProfile = true
+                            user.saveInBackground()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController!.navigationBarHidden = false
