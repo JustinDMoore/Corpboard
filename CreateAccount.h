@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIView *viewNicknameLoading;
 
 @property (nonatomic, strong) UINavigationController *parentNav;
+@property (weak, nonatomic) IBOutlet UILabel *lblDisclaimer;
 
 -(void)showView:(NSString *)view InParent:(UINavigationController *)parentNav;
 -(void)setDelegate:(id)newDelegate;

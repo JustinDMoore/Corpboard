@@ -81,7 +81,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [queryUsers whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
         //[queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint];
         [queryUsers whereKey:@"geo" nearGeoPoint:userGeoPoint withinMiles:3000];
-        queryUsers.limit = 100;
+        queryUsers.limit = 150;
         [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 [self.arrayOfUsers removeAllObjects];
@@ -206,7 +206,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     lblDistance.backgroundColor = [UIColor lightGrayColor];
-    lblDistance.textColor = [UIColor blackColor];
+    lblDistance.textColor = [UIColor whiteColor];
     
     UIView *v = (UIView *)[cell viewWithTag:300];
     [imgUser addSubview:v];

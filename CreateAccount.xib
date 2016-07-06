@@ -17,12 +17,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQe-3s-nuJ">
-                                <rect key="frame" x="67" y="80" width="253" height="281"/>
+                                <rect key="frame" x="67" y="80" width="253" height="301"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dom-sy-Qat">
-                                        <rect key="frame" x="97" y="223" width="60" height="58"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCv-Bi-QnJ">
                                         <rect key="frame" x="6" y="146" width="240" height="56"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,16 +55,6 @@
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="newuser"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dov-Gl-qNe">
-                                        <rect key="frame" x="83" y="222" width="87" height="30"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <state key="normal" title="Not Now">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnBack_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="T7T-92-HS5"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFy-Do-zQh">
                                         <rect key="frame" x="67" y="158" width="50" height="50"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,6 +63,28 @@
                                             <action selector="btnFacebook_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="wkE-xe-rbR"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We won't ever post anything or share your information." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drv-2J-fqg">
+                                        <rect key="frame" x="28" y="216" width="196" height="33"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dom-sy-Qat">
+                                        <rect key="frame" x="96" y="223" width="60" height="58"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dov-Gl-qNe">
+                                                <rect key="frame" x="-13" y="38" width="87" height="30"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                <state key="normal" title="Not Now">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnBack_clicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="T7T-92-HS5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -174,6 +182,7 @@
                 <outlet property="btnImageNickname" destination="zKd-fV-5f4" id="tHE-fV-i8b"/>
                 <outlet property="btnNotNow" destination="Dov-Gl-qNe" id="22v-ky-vTE"/>
                 <outlet property="btnSignUp" destination="xCv-Bi-QnJ" id="eDm-wn-EkT"/>
+                <outlet property="lblDisclaimer" destination="Drv-2J-fqg" id="IHd-hB-2TW"/>
                 <outlet property="lblMessage" destination="7OX-Ri-XRq" id="5Oj-Jp-acX"/>
                 <outlet property="lblMessageNickname" destination="BvP-CI-Nhp" id="zlr-Wc-OHx"/>
                 <outlet property="lblNicknameTitle" destination="kgs-0s-H0B" id="whh-kb-ZDS"/>

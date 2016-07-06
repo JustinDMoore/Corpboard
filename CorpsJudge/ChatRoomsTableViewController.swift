@@ -51,6 +51,12 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         } else {
             self.title = "Live Chat"
         }
+        
+        let ref = FIRDatabase.database().reference().child("Chat").child("PublicMessages/")
+        let child = ref.child("-KLRvwdHR8KsLHJqIAKZ")
+        child.observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+            ref.child("-KM17kEjLZi_pniJ044B").setValue(snapshot.value)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

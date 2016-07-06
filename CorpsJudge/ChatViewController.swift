@@ -110,7 +110,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         //Bubbles
         setupBubbles()
-        self.collectionView.collectionViewLayout.messageBubbleFont = UIFont.systemFontOfSize(12)
+        self.collectionView.collectionViewLayout.messageBubbleFont = UIFont.systemFontOfSize(14)
         
         //Avatars
         self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(30, 30)
@@ -535,6 +535,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         outgoingBubbleWithTail = tailBubbleFactory.outgoingMessagesBubbleImageWithColor(UISingleton.sharedInstance.gold)
         incomingBubbleWithTail = tailBubbleFactory.incomingMessagesBubbleImageWithColor(UISingleton.sharedInstance.maroon)
         
+//        incomingBubbleWithTail = JSQMessagesBubbleImageFactory(bubbleImage: UIImage(named: "CBbubble_normal"), capInsets: UIEdgeInsetsZero)
+//        outgoingBubbleWithTail = JSQMessagesBubbleImageFactory(bubbleImage: UIImage(named: "CBbubble_normal"), capInsets: UIEdgeInsetsZero)
+//        
         let tailLessBubbleFactory = JSQMessagesBubbleImageFactory(bubbleImage: UIImage.jsq_bubbleRegularTaillessImage(), capInsets: UIEdgeInsetsZero)
         incomingBubbleWithoutTail = tailLessBubbleFactory.incomingMessagesBubbleImageWithColor(UISingleton.sharedInstance.maroon)
         outgoingBubbleWithoutTail = tailLessBubbleFactory.outgoingMessagesBubbleImageWithColor(UISingleton.sharedInstance.gold)

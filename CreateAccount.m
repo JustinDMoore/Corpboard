@@ -52,6 +52,7 @@ Loading *loadView;
 #pragma mark
 - (IBAction)btnFacebook_clicked:(id)sender {
     if (!linkingFacebook) {
+    
         linkingFacebook = YES;
         self.btnNotNow.hidden = YES;
         [self load];
@@ -60,6 +61,7 @@ Loading *loadView;
                               delay:0.05
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
+                             self.lblDisclaimer.alpha = 0;
                              [self hideButton:self.btnFacebook];
                              [self hideButton:self.btnSignUp];
                          } completion:^(BOOL finished) {
