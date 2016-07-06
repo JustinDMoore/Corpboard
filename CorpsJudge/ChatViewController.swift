@@ -72,6 +72,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var arrayOfDownloads = [JSQMessage]()
     var viewLocationForDelegate = LocationServicesPermission()
     var receiverId: String?
+    var player = AVAudioPlayer()
     
     //var dictOfMessages = [String: JSQMessage]()
     var arrayOfJSQMessages = [JSQMessage]()
@@ -407,7 +408,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         //Sound
         if message.createdByParseObjectId != self.senderId {
-            if !self.initialLoad { JSQSystemSoundPlayer.jsq_playMessageReceivedSound() }
+            playChatSound(true)
         }
         
         switch message.type {
@@ -924,7 +925,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendTextMessageForRef(publicMessagesRef, text: text)
             }
             self.finishSendingMessage()
-            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
+            if isPrivate { playChatSound(false) }
         }
     }
     func sendTextMessageForRef(ref: FIRDatabaseReference, text: String) {
@@ -976,7 +977,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendPictureMessageForRef(publicMessagesRef, picture: picture)
             }
             self.finishSendingMessage()
-            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
+            if isPrivate { playChatSound(false) }
         }
     }
     
@@ -1060,7 +1061,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
 //                self.incrementMessagesOnChatRoom()
 //                self.refChatRoom.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
 //                self.finishSendingMessage()
-//                if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
+//                if isPrivate { playChatSound(false) }
 //            }
 //        }
 //        
@@ -1106,7 +1107,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendAudioMessageForRef(publicMessagesRef, filePath: filePath)
             }
             self.finishSendingMessage()
-            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
+            if isPrivate { playChatSound(false) }
         }
     }
     
@@ -1174,7 +1175,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 sendLocationForRef(publicMessagesRef, location: location)
             }
             self.finishSendingMessage()
-            if isPrivate { JSQSystemSoundPlayer.jsq_playMessageSentSound() }
+            if isPrivate { playChatSound(false) }
         }
         forSenderLocation = nil
     }
@@ -1275,6 +1276,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:-
     //MARK: HELPERS
+    func playChatSound(incoming: Bool) {
+        var url: NSURL?
+        if incoming {
+            url = NSBundle.mainBundle().URLForResource("incoming", withExtension: "mp3")
+        } else {
+            url = NSBundle.mainBundle().URLForResource("outgoing", withExtension: "mp3")
+        }
+        
+        if url != nil {
+            do { self.player = try AVAudioPlayer(contentsOfURL: url!, fileTypeHint: nil) }
+            catch let error as NSError { print(error.description) }
+            self.player.play()
+        }
+    }
     
     func blankMessage() -> ChatMessage {
         let message = ChatMessage()

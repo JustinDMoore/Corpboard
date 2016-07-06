@@ -63,6 +63,8 @@
 		9F29D6751D17E10000000EBB /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F29D6741D17E10000000EBB /* Chatroom.swift */; };
 		9F4CCF441D10E3190079DDF5 /* PickAStadium.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */; };
 		9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */; };
+		9F6ADE701D2DC38D0039AF7B /* incoming.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */; };
+		9F6ADE721D2DC3E70039AF7B /* outgoing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */; };
 		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
 		9F7351AE1D17FD630079A32D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AD1D17FD630079A32D /* Chat.swift */; };
 		9F7351B01D182C3F0079A32D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AF1D182C3F0079A32D /* ChatMessage.swift */; };
@@ -377,6 +379,10 @@
 		9F29D6741D17E10000000EBB /* Chatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
 		9F4CCF431D10E3190079DDF5 /* PickAStadium.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickAStadium.xib; sourceTree = "<group>"; };
 		9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickAStadium.swift; sourceTree = "<group>"; };
+		9F6ADE6D1D2DB66D0039AF7B /* incoming.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = incoming.m4a; sourceTree = "<group>"; };
+		9F6ADE6E1D2DB6790039AF7B /* outgoing.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = outgoing.m4a; sourceTree = "<group>"; };
+		9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incoming.mp3; sourceTree = "<group>"; };
+		9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = outgoing.mp3; sourceTree = "<group>"; };
 		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
 		9F7351AD1D17FD630079A32D /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		9F7351AF1D182C3F0079A32D /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -1280,6 +1286,10 @@
 		D055CF921A8EC564002D3B31 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */,
+				9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */,
+				9F6ADE6E1D2DB6790039AF7B /* outgoing.m4a */,
+				9F6ADE6D1D2DB66D0039AF7B /* incoming.m4a */,
 				9FC71CAE1CE67FD800C36A1C /* RockyPoint.mp3 */,
 				D055CF911A8EC560002D3B31 /* Message.caf */,
 			);
@@ -1584,6 +1594,7 @@
 				D0F19FAF1B15781800357663 /* CBReviewCaptionCell.xib in Resources */,
 				D047A34B196A096700F5F5BC /* star_selected.png in Resources */,
 				928CE8741A1E8DF9009CE39E /* CBRankingsInfoView.xib in Resources */,
+				9F6ADE701D2DC38D0039AF7B /* incoming.mp3 in Resources */,
 				9FEDCCFC1CF0FF2700C1AB8C /* CreateSchedule.xib in Resources */,
 				D025CE441AE6BC98000021A6 /* CBMapCell.xib in Resources */,
 				925334BE194FD6F80004D16F /* Main.storyboard in Resources */,
@@ -1601,6 +1612,7 @@
 				D033D1C21A7726180048D80C /* shootingStar.sks in Resources */,
 				D0F19FA51B15499500357663 /* CBReviewFeedback.xib in Resources */,
 				D0C2EC521B0CEB7500C57017 /* CBPredictionSelectCell.xib in Resources */,
+				9F6ADE721D2DC3E70039AF7B /* outgoing.mp3 in Resources */,
 				D066C20C1AF5CD0600C84609 /* CBProblemWhereCell.xib in Resources */,
 				D0C7755E196A0590006525AE /* CavsUpsideDown.png in Resources */,
 				9FA238A51D16C59900AE52F9 /* PrivateMessageCell.xib in Resources */,

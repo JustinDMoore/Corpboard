@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var messDelegate: messagesDelegate?
 
     var showPushView = true
+    var loginTimer: NSTimer?
     
     
     override init() {
@@ -156,12 +157,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        endLoginTimer()
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: "kLastCloseDate")
+        endLoginTimer()
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
@@ -179,6 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             currentInstallation.saveInBackground()
         }
         PrivateMessageListener.sharedInstance.startListening()
+        startLoginTimer()
     }
     
     func applicationWillTerminate(application: UIApplication) {
@@ -206,6 +210,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let notificationSettings = UIUserNotificationSettings(
             forTypes: [.Badge, .Sound, .Alert], categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
+    }
+    
+    func startLoginTimer() {
+        print("starting login timer")
+        if loginTimer == nil {
+            loginTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(AppDelegate.updateLogin), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func endLoginTimer() {
+        print("ending login timer")
+        if loginTimer != nil {
+            loginTimer!.invalidate()
+            loginTimer = nil
+        }
+    }
+    
+    func updateLogin() {
+        print("Updating login time")
+        let install = PFInstallation.currentInstallation()
+        install["lastLogin"] = NSDate()
+        install.saveInBackground()
+        
+        if let user = PUser.currentUser() {
+            user.lastLogin = NSDate()
+            user.saveInBackground()
+        }
     }
 }
 
