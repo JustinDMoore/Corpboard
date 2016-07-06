@@ -11,6 +11,7 @@ import IQKeyboardManager
 import ParseUI
 import PulsingHalo
 import JSQMessagesViewController
+import JTSImageViewController
 
 class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience, delegateEditDescription {
 
@@ -70,10 +71,21 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var userExp = CBCorpExperienceList()
     var userDesc = CBEditDescription()
     
+    var tapProfilePicture = UITapGestureRecognizer()
+    var tapCoverPicture = UITapGestureRecognizer()
+    
 //    //MARK:-
 //    //MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // tap gesture recognizer
+        tapCoverPicture = UITapGestureRecognizer(target: self, action: #selector(ProfileTableViewController.tappedCoverPicture))
+        tapProfilePicture = UITapGestureRecognizer(target: self, action: #selector(ProfileTableViewController.tappedProfilePicture))
+        imgUser.userInteractionEnabled = true
+        imgCoverPhoto.userInteractionEnabled = true
+        imgUser.addGestureRecognizer(tapProfilePicture)
+        imgCoverPhoto.addGestureRecognizer(tapCoverPicture)
+        
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 200
         self.tableView.separatorStyle = .None
@@ -911,9 +923,29 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    func tappedCoverPicture() {
+        let imageInfo = JTSImageInfo()
+        imageInfo.image = imgCoverPhoto.image!
+        imageInfo.referenceRect = imgCoverPhoto.frame
+        imageInfo.referenceView = imgCoverPhoto.superview
+        
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo,
+                                                 mode: JTSImageViewControllerMode.Image,
+                                                 backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
+    }
+    
+    func tappedProfilePicture() {
+        let imageInfo = JTSImageInfo()
+        imageInfo.image = imgUser.image!
+        imageInfo.referenceRect = imgUser.frame
+        imageInfo.referenceView = imgUser.superview
+        
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo,
+                                                 mode: JTSImageViewControllerMode.Image,
+                                                 backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+        imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
+    }
 }
-
-
-
-
 

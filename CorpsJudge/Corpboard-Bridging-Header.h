@@ -60,6 +60,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
+#import <JTSImageViewController/JTSImageViewController.h>
 
 #ifndef Corpboard_Corpboard_Bridging_Header_h
 #define Corpboard_Corpboard_Bridging_Header_h

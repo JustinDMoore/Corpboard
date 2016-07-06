@@ -12,6 +12,7 @@ import RNGridMenu
 import Firebase
 import IQKeyboardManager
 import FirebaseStorage
+import JTSImageViewController
 
 class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IQAudioRecorderViewControllerDelegate, UITextFieldDelegate, delegateUserLocation {
     
@@ -113,6 +114,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         arrayOfDownloads.removeAll()
         arrayOfSnapKeys.removeAll()
         arrayOfAvatars.removeAll()
+        
+        //Configure look
+        self.collectionView.collectionViewLayout.messageBubbleFont = UIFont.systemFontOfSize(12)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -737,6 +741,31 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     override func didPressAccessoryButton(sender: UIButton!) {
         showMenu()
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
+        if indexPath.item <= arrayOfJSQMessages.count {
+            let message = arrayOfJSQMessages[indexPath.item]
+            if message.isMediaMessage {
+                let mediaItem = message.media
+                if mediaItem.isKindOfClass(JSQPhotoMediaItem) {
+                    let photoItem = mediaItem as! JSQPhotoMediaItem
+
+                    let imageInfo = JTSImageInfo()
+                    imageInfo.image = photoItem.image!
+                    
+                    let bubble = collectionView.cellForItemAtIndexPath(indexPath) as! JSQMessagesCollectionViewCell
+                    
+                    imageInfo.referenceRect = bubble.frame
+                    imageInfo.referenceView = bubble.superview
+                    
+                    let imageViewer = JTSImageViewController(imageInfo: imageInfo,
+                                                             mode: JTSImageViewControllerMode.Image,
+                                                             backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+                    imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
+                }
+            }
+        }
     }
     
     //MARK:

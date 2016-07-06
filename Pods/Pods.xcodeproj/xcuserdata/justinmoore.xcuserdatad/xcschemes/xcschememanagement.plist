@@ -74,6 +74,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JTSImageViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -137,12 +142,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1F1DC9DC9589EB1553BE05CCB4447477</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2987A080564A565E8139863CCC1EA459</key>
+		<key>26C6BAA04C82E92BBB0BDFC352B55CC3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,12 +157,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C73BDB47366121ACE6CEF99CB71DA77</key>
+		<key>4B005B41BB5114CFD6DDA270B7EE5E13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6DF3B5B1AA502FEAAFEF009E2DD39C2E</key>
+		<key>58442D8DDF2F1C1255FAE657B80DF5C6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C73BDB47366121ACE6CEF99CB71DA77</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,6 +197,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8D56DD4FD11C4400C2D43E592259C4E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9EDECFA0B23B59A19D67C75D7681C682</key>
 		<dict>
 			<key>primary</key>
@@ -212,12 +222,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BEEA14454C074E908CC904CD420A63AF</key>
+		<key>BFBD750079181381E0A8F8AFCDB32EB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFBD750079181381E0A8F8AFCDB32EB4</key>
+		<key>C315E16306A8EB833074CE5AC31DDF51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C34E4F9F325F9E4847A9BBCBC2C4228F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -232,22 +247,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CAC4FBF0DD0D2A8B54B9640AD18B721A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CF1187A31300989399BD786909A21F98</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D132F5CBBD26847D3D8AAEA9D60B4F7E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DE3C1B5D9E282A423132BF4145F1AA91</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E43F4EBBDBED2FAE5EA9EF75E89F23C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

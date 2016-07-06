@@ -77,6 +77,7 @@ PODS:
   - JSQMessagesViewController (7.3.3):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - JTSImageViewController (1.5.1)
   - KVNProgress (2.2.1)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
@@ -118,6 +119,7 @@ DEPENDENCIES:
   - IQKeyboardManager (= 3.2.3)
   - JSBadgeView (= 1.4.1)
   - JSQMessagesViewController
+  - JTSImageViewController
   - KVNProgress (= 2.2.1)
   - MWFeedParser (= 1.0.1)
   - Parse (= 1.13.0)
@@ -151,6 +153,7 @@ SPEC CHECKSUMS:
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   JSQMessagesViewController: 0ee3f80237268192a3e8337fd0d787f1a1bf5a7a
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
@@ -162,6 +165,6 @@ SPEC CHECKSUMS:
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
   YouTubePlayer: 88713a96c356f2c88da8925eb61438eda88bcd57
 
-PODFILE CHECKSUM: fdd77656f64d074cc8ca13b9a9b0f42100f159f4
+PODFILE CHECKSUM: 3b4534bdcc46b82cacc2358acdc85ea1e81a18f8
 
 COCOAPODS: 1.0.0

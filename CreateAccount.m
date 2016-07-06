@@ -130,7 +130,7 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
         
         if (image.size.width > 140) image = ResizeImage(image, 140, 140, 1);
         
-        PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+        PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 1.0)];
         [filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error != nil) {
                 UIAlertController *alertController = [UIAlertController
