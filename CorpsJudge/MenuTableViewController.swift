@@ -125,6 +125,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     var viewLocationForDelegate = LocationServicesPermission()
     var isPrivate = false
     var viewLoading = Loading()
+    var isRefreshing = false
     
     //MARK:-
     //MARK:View Lifecycle
@@ -207,14 +208,17 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     func refresh() {
-        viewLoading.animate()
-        Server.sharedInstance.loadAll()
+        if !isRefreshing {
+            isRefreshing = true
+            viewLoading.animate()
+            Server.sharedInstance.loadAll()
+        }
     }
     
     func updateProgress(progress: Float) {
         print(progress)
         if progress >= 1.0 {
-            //setup()
+            setup()
             refreshControl?.endRefreshing()
             self.tableView.reloadData()
             self.tableTopFour.reloadData()
@@ -224,6 +228,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             self.tableNextShows.reloadData()
             updateCurrentTask()
             viewLoading.stopAnimation()
+            isRefreshing = false
         }
     }
     

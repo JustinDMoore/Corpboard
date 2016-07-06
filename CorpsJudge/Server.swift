@@ -760,7 +760,7 @@ protocol delegateUserProfile: class {
     }
     
     func getCurrentTask() {
-        
+
         let now = NSDate()
         now.dateByAddingMinutes(1)
         
