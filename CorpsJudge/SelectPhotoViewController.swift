@@ -33,7 +33,7 @@ class SelectPhotoViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         tablePhotos.hidden = true
-        segmentAlbum.hidden = true
+        segmentAlbum.hidden = false
         loading()
         getPhotos()
         segmentAlbum.addTarget(self, action: #selector(SelectPhotoViewController.segmentChanged), forControlEvents: .ValueChanged)
