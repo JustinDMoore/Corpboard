@@ -1435,7 +1435,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         if segue.identifier == "profile" {
             let vc = segue.destinationViewController as! ProfileTableViewController
             vc.userProfile = profileToOpen
-            vc.fromPrivate = true
+            vc.fromPrivate = self.isPrivate
         }
     }
     

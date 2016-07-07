@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FDWaveformView-FDWaveformView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -192,11 +187,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8D3FECC94F8AF7C72E9BF32DD7AAF9DB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8D56DD4FD11C4400C2D43E592259C4E5</key>
 		<dict>
 			<key>primary</key>
@@ -212,12 +202,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A6A0FFEF795F8F2EEF84990C0156A1FD</key>
+		<key>A93D617E5BA866BFC5CB337A51A86685</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A93D617E5BA866BFC5CB337A51A86685</key>
+		<key>BF51579FC0E9329D11B29FD77D637813</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -379,7 +379,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                         
                         // Online Now?
                         if self.userOnlineNow(user) {
-                            imgOnline.hidden = false
+                            imgOnline.hidden = true
                             imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
                             imgOnline.layer.borderWidth = 2
                             imgOnline.layer.borderColor = UIColor.whiteColor().CGColor

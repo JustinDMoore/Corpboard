@@ -149,6 +149,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 halo.animationDuration = 2
                 halo.backgroundColor = UIColor.whiteColor().CGColor
                 viewOnline.layer.addSublayer(halo)
+                halo.start()
                 imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
                 imgOnline.layer.borderWidth = 2
                 imgOnline.layer.borderColor = UIColor.whiteColor().CGColor

@@ -205,17 +205,22 @@ static NSString * const reuseIdentifier = @"Cell";
         lblDistance.text = [NSString stringWithFormat:@"%.0f %@", distance, distMeasure];
     }
     
-    lblDistance.backgroundColor = [UIColor lightGrayColor];
+    //lblDistance.backgroundColor = [UIColor lightGrayColor];
     lblDistance.textColor = [UIColor whiteColor];
     
     UIView *v = (UIView *)[cell viewWithTag:300];
     [imgUser addSubview:v];
     
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     UIImageView *imgOnline = (UIImageView *)[cell viewWithTag:1];
     for (CALayer *layer in cell.layer.sublayers) {
         if ([layer isKindOfClass:[PulsingHaloLayer class]]) {
-            [layer removeFromSuperlayer];
+            [array addObject:layer];
         }
+    }
+//
+    for (CALayer *layer in array) {
+        [layer removeFromSuperlayer];
     }
     
     NSDate *dateLastLogin = user[@"lastLogin"];
@@ -223,11 +228,14 @@ static NSString * const reuseIdentifier = @"Cell";
     if (diff <= 10) { // online
         imgOnline.hidden = NO;
         PulsingHaloLayer *halo = [PulsingHaloLayer layer];
-        halo.position = imgOnline.center;
-        halo.radius = 10;
+        halo.position = imgUser.center;
+        halo.radius = 85;
         halo.animationDuration = 2;
-        halo.backgroundColor = [UIColor whiteColor].CGColor;
-        [cell.layer addSublayer:halo];
+        halo.haloLayerNumber = 2;
+        halo.backgroundColor = [UIColor greenColor].CGColor;
+        //[cell.layer addSublayer:halo];
+        [cell.layer insertSublayer:halo atIndex:0];
+        [halo start];
         imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2;
         imgOnline.layer.borderWidth = 2;
         imgOnline.layer.borderColor = [UIColor whiteColor].CGColor;

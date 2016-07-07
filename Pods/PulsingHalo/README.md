@@ -1,27 +1,65 @@
 PulsingHalo
 ===========
 
-A CALayer subclass for indicating Pulsing Halo.
+iOS component for creating a pulsing animation. It allows you to create halos.
 
-![](http://f.cl.ly/items/220D2F210D1x1D0L1Q20/beacon__.gif)
+![](demo_.gif)
+                    
+Great For:
 
-It's useful for:
+- **Pulses of beacons (iBeacon)**
+- Map Annotations
 
-- **iBeacon**
-- annotions in MapKit
+##Installation
+
+###CocoaPods
+
+Edit your Podfile.
+
+````
+pod "PulsingHalo"
+````
+
+And `$ pod install`
+
+###Manual
+
+Add PulsingHaloLayer.h,m into your project.
 
 ##How to use
 
-1. Add PulsingHaloLayer.h,m into your project
-2. Initiate and add to your view.
+Just **initiate and add** to your view layer.
 
-````
+###Swift
+
+```swift.SomeViewController.swift
+let halo = PulsingHaloLayer()
+halo.position = view.center
+view.layer.addSublayer(halo)
+halo.start()
+```
+
+###Objective-C
+
+```objc:SomeViewController.m
 PulsingHaloLayer *halo = [PulsingHaloLayer layer];
 halo.position = self.view.center;
 [self.view.layer addSublayer:halo];
-````
+[halo start];
+```
 
-##Customization
+
+
+
+##Customizations
+
+###Number of Halos
+
+Use `haloLayerNumber` property.
+
+```
+halo.haloLayerNumber = 3;
+```
 
 ###radius
 
@@ -49,13 +87,24 @@ self.halo.backgroundColor = color.CGColor;
 Use `animationDuration` or `pulseInterval` property.
 
 
+###animation repeat count
+
+Initialize using `initWithRepeatCount:` method, or set `repeatCount` property. The default value is `INFINITY`.
+
+
+###animation key values and times
+
+Use properties `fromValueForRadius`, `fromValueForAlpha` and `keyTimeForHalfOpacity`.
+
+###enable/disable timing function for animation
+Use property `useTimingFunction`
+
 ##Demo
 
-You can try to change radius and color properties with demo app.
-
-![](http://f.cl.ly/items/031W0P1T190q382P063m/beacon_demo3.jpg)
+You can try to change the radius and color properties with demo app.
 
 
 ##Special Thanks
 
-It's inspired by [SVPulsingAnnotationView](https://github.com/samvermette/SVPulsingAnnotationView).
+Inspired by [SVPulsingAnnotationView](https://github.com/samvermette/SVPulsingAnnotationView).
+

@@ -836,6 +836,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         halo.backgroundColor = UIColor.whiteColor().CGColor
         btnNearMe.layer.addSublayer(halo)
         halo.position = CGPointMake(btnNearMe.frame.origin.x + (btnNearMe.frame.size.width / 2) - 7, btnNearMe.frame.origin.y + (btnNearMe.frame.size.height / 2) - 1)
+        halo.start()
         //viewProfile.layer.addSublayer(halo)
         //self.viewProfile.bringSubviewToFront(self.btnNearMe)
     }
