@@ -65,6 +65,8 @@
 		9F4CCF461D10E34A0079DDF5 /* PickAStadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4CCF451D10E34A0079DDF5 /* PickAStadium.swift */; };
 		9F6ADE701D2DC38D0039AF7B /* incoming.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */; };
 		9F6ADE721D2DC3E70039AF7B /* outgoing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */; };
+		9F6ADE741D2DCE8A0039AF7B /* EmptyChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE731D2DCE8A0039AF7B /* EmptyChat.xib */; };
+		9F6ADE761D2DD0090039AF7B /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6ADE751D2DD0090039AF7B /* EmptyChat.swift */; };
 		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
 		9F7351AE1D17FD630079A32D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AD1D17FD630079A32D /* Chat.swift */; };
 		9F7351B01D182C3F0079A32D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AF1D182C3F0079A32D /* ChatMessage.swift */; };
@@ -383,6 +385,8 @@
 		9F6ADE6E1D2DB6790039AF7B /* outgoing.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = outgoing.m4a; sourceTree = "<group>"; };
 		9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incoming.mp3; sourceTree = "<group>"; };
 		9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = outgoing.mp3; sourceTree = "<group>"; };
+		9F6ADE731D2DCE8A0039AF7B /* EmptyChat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyChat.xib; sourceTree = "<group>"; };
+		9F6ADE751D2DD0090039AF7B /* EmptyChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
 		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
 		9F7351AD1D17FD630079A32D /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		9F7351AF1D182C3F0079A32D /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -919,6 +923,8 @@
 				9FFA92601CEE3F37000A3765 /* Loading.swift */,
 				9FB07FE21D2C2456002B06A9 /* TutorialProfile.xib */,
 				9F27BAD11D2D85FC00DC17AC /* TutorialProfile.swift */,
+				9F6ADE731D2DCE8A0039AF7B /* EmptyChat.xib */,
+				9F6ADE751D2DD0090039AF7B /* EmptyChat.swift */,
 				D0C2EC4B1B0CE93A00C57017 /* Finals Prediction */,
 				D0AEA6C41B03C7230080D7F5 /* Show Review */,
 				D066C20A1AF5CCEA00C84609 /* Contact Us */,
@@ -1552,6 +1558,7 @@
 				9FA236721D16938C00AE52F9 /* audio_record@3x.png in Resources */,
 				D0F19F941B1502C700357663 /* CBReviewAttendance.xib in Resources */,
 				9FFA925F1CEE3F28000A3765 /* Loading.xib in Resources */,
+				9F6ADE741D2DCE8A0039AF7B /* EmptyChat.xib in Resources */,
 				D03DCADA1B168A72005D326E /* CBPush.xib in Resources */,
 				928CE87A1A1EB88B009CE39E /* CBRateView.xib in Resources */,
 				D036DA671B82B4C600746DD6 /* StoreItemCell.xib in Resources */,
@@ -1858,6 +1865,7 @@
 				D0AAD1711AB68619002CAACC /* CBAnnotation.m in Sources */,
 				9FFA92611CEE3F37000A3765 /* Loading.swift in Sources */,
 				9F00C42D1D0653D600D13E3F /* MenuTableViewController.swift in Sources */,
+				9F6ADE761D2DD0090039AF7B /* EmptyChat.swift in Sources */,
 				D0F19F9C1B15281F00357663 /* CBPickFavorite.m in Sources */,
 				D0C2EC5F1B0CF07700C57017 /* CBPredictionSelectCell.m in Sources */,
 				D00B71761AF44E6A00403A12 /* CBFeedbackCell.m in Sources */,

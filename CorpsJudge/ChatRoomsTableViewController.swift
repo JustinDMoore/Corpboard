@@ -19,6 +19,9 @@ protocol delegateNearMeFromPrivateMessages: class {
 
 class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
 
+    
+    @IBOutlet weak var stackNoMessages: UIStackView!
+    
     let publicChatRoomsRef = FIRDatabase.database().reference().child("Chat").child("PublicRooms")
     var privateChatRoomsRef = FIRDatabaseReference()
     var privateMessagesSenderRef = FIRDatabaseReference()
@@ -32,6 +35,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     var creatingNewRoom = false
     var newRoomTopic: String?
     var receiverId: String?
+    var viewEmptyChat = EmptyChat()
     
     weak var delegate: delegateNearMeFromPrivateMessages?
     
@@ -39,6 +43,16 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if let viewEmptyChat = NSBundle.mainBundle().loadNibNamed("EmptyChat", owner: self, options: nil).first as? EmptyChat {
+            self.tableView.backgroundView = viewEmptyChat
+            self.tableView.backgroundView?.hidden = true
+            if let btnNearMe = viewEmptyChat.viewWithTag(5) as? UIButton {
+                btnNearMe.addTarget(self, action: #selector(ChatRoomsTableViewController.nearMe), forControlEvents: .TouchUpInside)
+            }
+        }
+        
         self.tableView.backgroundColor = UIColor.blackColor()
         arrayOfChatRooms.removeAll()
         self.tableView.reloadData()
@@ -50,12 +64,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             self.title = "Private Messages"
         } else {
             self.title = "Live Chat"
-        }
-        
-        let ref = FIRDatabase.database().reference().child("Chat").child("PublicMessages/")
-        let child = ref.child("-KLRvwdHR8KsLHJqIAKZ")
-        child.observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            ref.child("-KM17kEjLZi_pniJ044B").setValue(snapshot.value)
         }
     }
     
@@ -111,6 +119,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     func stopLoading() {
         viewLoading.removeFromSuperview()
+        if self.arrayOfChatRooms.isEmpty { self.tableView.backgroundView?.hidden = false }
     }
     
     func newPrivateRoomCreated() {
@@ -219,8 +228,9 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if arrayOfChatRooms.isEmpty {
-            return 1
+            return 0
         } else {
+            tableView.backgroundView?.hidden = true
             return arrayOfChatRooms.count
         }
     }

@@ -1164,47 +1164,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EmJ-Gq-6dp" id="bX0-oe-xuf">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VeU-nV-LWz">
-                                            <rect key="frame" x="155" y="145" width="291" height="60"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU5-Yh-7tu">
-                                                    <rect key="frame" x="102" y="0.0" width="88" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ciN-G3-Cm6">
-                                                    <rect key="frame" x="0.0" y="30" width="291" height="30"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find people" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8a-cv-6xe">
-                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTv-0v-WoC">
-                                                            <rect key="frame" x="88" y="0.0" width="66" height="30"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                            <state key="normal" title="Near You">
-                                                                <color key="titleColor" red="0.78039215689999997" green="0.55294117649999996" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and start chatting." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcG-0U-SdJ">
-                                                            <rect key="frame" x="157" y="0.0" width="134" height="30"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="VeU-nV-LWz" firstAttribute="centerX" secondItem="bX0-oe-xuf" secondAttribute="centerX" id="Hbw-8q-lgS"/>
-                                        <constraint firstItem="VeU-nV-LWz" firstAttribute="centerY" secondItem="bX0-oe-xuf" secondAttribute="centerY" id="vZ2-qH-tM2"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
@@ -1232,7 +1191,7 @@
                         <viewControllerLayoutGuide type="bottom" id="EbQ-vZ-PuN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xPG-e4-QGW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1254,7 +1213,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FXM-ui-xMB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Zbg-Cj-e9F">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y1l-78-yRu">
@@ -7740,8 +7699,8 @@
         <segue reference="PFL-Nc-Of5"/>
         <segue reference="Whb-hu-JMD"/>
         <segue reference="Irt-Qd-nsI"/>
+        <segue reference="5Nv-K9-6XG"/>
         <segue reference="mu3-EG-qBa"/>
-        <segue reference="RHD-v7-F3k"/>
         <segue reference="87F-jY-4el"/>
     </inferredMetricsTieBreakers>
 </document>
