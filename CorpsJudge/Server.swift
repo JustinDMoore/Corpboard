@@ -430,7 +430,7 @@ protocol delegateUserProfile: class {
                             switch corpsclass {
                             case "World":
                                 self.arrayOfWorldClass?.append(corps as! PCorps)
-                                self.NSarrayOfWorldClass.addObject(corps)
+                                self.NSarrayOfWorldClass.addObject(corps as! PCorps)
                             case "Open":
                                 self.arrayOfOpenClass?.append(corps as! PCorps)
                                 self.NSarrayOfOpenClass.addObject(corps)

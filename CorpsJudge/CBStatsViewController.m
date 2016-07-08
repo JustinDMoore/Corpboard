@@ -748,12 +748,26 @@ int sort;
             if (self.segmentOfficial.selectedSegmentIndex == 0) {
                 
                 {
+                    
+                    for (int i = 0; i < 5; i++) {
+                        PCorps *corps = Server.sharedInstance.arrayOfWorldClass[i];
+                        NSLog(@"%@ - %@", corps.corpsName, corps.lastPercussion);
+                    }
+                    
                     NSSortDescriptor *sortOfficialPercussion = [[NSSortDescriptor alloc] initWithKey:@"lastPercussion" ascending:NO];
                     NSArray *sortDescriptorsForOfficialPercussion = [NSArray arrayWithObject: sortOfficialPercussion];
                     
-                    if ([Server.sharedInstance.NSarrayOfWorldClass count]) [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    if ([Server.sharedInstance.arrayOfWorldClass count]) {
+                        [Server.sharedInstance.NSarrayOfWorldClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    }
                     if ([Server.sharedInstance.NSarrayOfOpenClass count]) [Server.sharedInstance.NSarrayOfOpenClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
                     if ([Server.sharedInstance.NSarrayOfAllAgeClass count]) [Server.sharedInstance.NSarrayOfAllAgeClass sortUsingDescriptors:sortDescriptorsForOfficialPercussion];
+                    
+                    for (int i = 0; i < 5; i++) {
+                        PCorps *corps = Server.sharedInstance.arrayOfWorldClass[i];
+                        NSLog(@"%@ - %@", corps.corpsName, corps.lastPercussion);
+                    }
+                    
                 }
             } else if (self.segmentOfficial.selectedSegmentIndex == 1) {
                 
@@ -836,6 +850,7 @@ int sort;
     self.segmentOfficial.userInteractionEnabled = YES;
     self.tabBar.userInteractionEnabled = YES;
     [self reloadTable];
+    [self.tableCorps setNeedsDisplay];
 }
 
 #pragma mark
@@ -1092,9 +1107,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
-                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
-                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.NSarrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.NSarrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.NSarrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"officialRank"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:1];
@@ -1197,9 +1212,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
-                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
-                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.NSarrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.NSarrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.NSarrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1268,9 +1283,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
-                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
-                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.NSarrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.NSarrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.NSarrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
@@ -1341,9 +1356,9 @@ int sort;
             
             if (self.segmentOfficial.selectedSegmentIndex == 0) { //OFFICIAL
                 
-                if (indexPath.section == 0) array = Server.sharedInstance.arrayOfWorldClass;
-                if (indexPath.section == 1) array = Server.sharedInstance.arrayOfOpenClass;
-                if (indexPath.section == 2) array = Server.sharedInstance.arrayOfAllAgeClass;
+                if (indexPath.section == 0) array = Server.sharedInstance.NSarrayOfWorldClass;
+                if (indexPath.section == 1) array = Server.sharedInstance.NSarrayOfOpenClass;
+                if (indexPath.section == 2) array = Server.sharedInstance.NSarrayOfAllAgeClass;
                 
                 cell = [self.tableCorps dequeueReusableCellWithIdentifier:@"userScore"];
                 lblCorpsName = (UILabel *)[cell viewWithTag:2];
