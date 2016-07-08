@@ -57,6 +57,10 @@ static NSString * const reuseIdentifier = @"Cell";
     self.navigationItem.leftBarButtonItem = backButton;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self.collectionView reloadData];
+}
+
 -(void)goback {
     
     [queryUsers cancel];
