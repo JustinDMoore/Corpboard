@@ -1359,6 +1359,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        tryingToOpen = opening.None
         if segue.identifier == "openShow" {
             let vc = segue.destinationViewController as! CBShowDetailsViewController
             vc.show = self.showToOpen
