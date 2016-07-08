@@ -344,7 +344,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             ref = publicMessagesRef
         }
         
-        let messagesQuery = ref.queryLimitedToLast(25)
+        let messagesQuery = ref.queryLimitedToLast(30)
         
         messagesQuery.observeEventType(.Value) { (snap: FIRDataSnapshot) in
             
@@ -355,7 +355,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     if index ==  Int(snap.childrenCount - 1) {
                         scroll = true
                     }
-                    self.incomingMessage(snapshot, scroll: scroll)
+                    self.incomingMessage(snapshot, scroll: scroll, playSound: false)
                 }
             }
             
@@ -363,12 +363,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             //Start listening for new messages
             messagesQuery.removeAllObservers()
             messagesQuery.observeEventType(.ChildAdded, withBlock: { (snap: FIRDataSnapshot) in
-                self.incomingMessage(snap, scroll: true)
+                self.incomingMessage(snap, scroll: true, playSound: true)
             })
         }
     }
     
-    func incomingMessage(snap: FIRDataSnapshot, scroll: Bool) {
+    func incomingMessage(snap: FIRDataSnapshot, scroll: Bool, playSound: Bool) {
 
         //For private only
         //Since we're already in the room, we're reading incoming messages
@@ -407,7 +407,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         var jMsg: JSQMessage? = nil
         
         //Sound
-        if scroll { //used to determine if first load or not
+        if playSound { //used to determine if first load or not
             if message.createdByParseObjectId != self.senderId {
                 playChatSound(true)
             }
