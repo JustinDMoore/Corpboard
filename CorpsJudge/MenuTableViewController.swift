@@ -226,6 +226,8 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
             self.tableTopTwelve.reloadData()
             self.tableLastShows.reloadData()
             self.tableNextShows.reloadData()
+            self.collectionNews.reloadData()
+            self.collectionVideos.reloadData()
             updateCurrentTask()
             viewLoading.stopAnimation()
             isRefreshing = false

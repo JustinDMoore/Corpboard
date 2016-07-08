@@ -39,7 +39,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var btnChat: UIButton!
     @IBOutlet weak var imgUser: PFImageView!
     @IBOutlet weak var imgCoverPhoto: PFImageView!
-    @IBOutlet weak var viewOnline: UIView!
     @IBOutlet weak var lblOnline: UILabel!
     @IBOutlet weak var lblUserNickname: UILabel!
     @IBOutlet weak var lblUserLocation: UILabel!
@@ -93,8 +92,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         self.tableView.separatorStyle = .None
         self.tableView.tableFooterView = UIView()
         imgCoverPhoto.image = UIImage()
-        viewOnline.backgroundColor = UIColor.clearColor()
-        viewOnline.clipsToBounds = false
         loading()
         getUserCorpExperience()
         getUserProfile()
@@ -143,22 +140,18 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             if userOnlineNow() && !usersOwnProfile() {
             
                 imgUser.layer.borderWidth = 3;
-                imgUser.layer.borderColor = UIColor.whiteColor().CGColor
-                viewOnline.hidden = false
-                lblOnline.text = ""
-//                let halo = PulsingHaloLayer()
-//                halo.radius = 85
-//                halo.animationDuration = 3.5
-//                halo.haloLayerNumber = 4
-//                halo.backgroundColor = UIColor.greenColor().CGColor
-//                imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
-//                halo.position = CGPointMake(imgUser.center.x - 113, imgUser.center.y)
-//                halo.start()
-//                imgUser.startGlowingWithColor(UIColor.greenColor(), intensity: 1)
+                imgUser.layer.borderColor = UIColor(colorLiteralRed: 0.188, green: 0.549, blue: 0.149, alpha: 1).CGColor
+                lblOnline.text = "Online now"
+                let halo = PulsingHaloLayer()
+                halo.radius = 73
+                halo.animationDuration = 2
+                halo.haloLayerNumber = 10
+                halo.backgroundColor = UIColor.greenColor().CGColor
+                imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
+                halo.position = CGPointMake(imgUser.center.x - 113, imgUser.center.y)
+                halo.start()
                 
-            } else {
-                viewOnline.hidden = false
-                lblOnline.text = ""
+            } else if !usersOwnProfile() {
                 let updated = userProfile?.lastLogin
                 let diff = updated!.minutesBeforeDate(NSDate())
                 var timeDiff = ""
@@ -183,6 +176,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                     }
                 }
                 lblOnline.text = "Online \(timeDiff)"
+            } else {
+                lblOnline.text = ""
             }
             
             // Name
@@ -242,7 +237,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     func editProfile() {
         if usersOwnProfile() {
-            viewOnline.hidden = true
             btnChat.enabled = false
             btnReport.enabled = false
             
@@ -263,7 +257,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             viewEditProfilePicture.layer.cornerRadius = radius
             viewEditProfilePicture.layer.borderColor = color
             viewEditProfilePicture.backgroundColor = backColor
-            viewEditProfilePicture.frame = CGRectMake(viewOnline.frame.origin.x, viewOnline.frame.origin
+            viewEditProfilePicture.frame = CGRectMake(lblOnline.frame.origin.x, lblOnline.frame.origin
                 .y, viewEditProfilePicture.frame.size.width, viewEditProfilePicture.frame.size.height)
             
             // Nickname

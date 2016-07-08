@@ -253,7 +253,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             return self.view.frame.size.height
         } else {
             if isPrivate {
-                return 83
+                return 125
             } else {
                 return 100
             }
@@ -367,13 +367,12 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         // Sender nickname and image
         let imgUser = cell?.viewWithTag(2) as! PFImageView
-        imgUser.frame = CGRectMake(imgUser.frame.origin.x, imgUser.frame.origin.y, 60, 60)
+        imgUser.frame = CGRectMake(imgUser.frame.origin.x, imgUser.frame.origin.y, 100, 100)
         imgUser.layer.cornerRadius = imgUser.frame.size.height / 2
         imgUser.layer.borderWidth = 2
         imgUser.layer.borderColor = UIColor.whiteColor().CGColor
         imgUser.clipsToBounds = true
         
-        let imgOnline = cell?.viewWithTag(8) as! UIImageView
         let lblUser = cell?.viewWithTag(3) as! UILabel
         let query = PFQuery(className: PUser.parseClassName())
         if let id = chatRoom.privateChatWith {
@@ -389,18 +388,30 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                             imgUser.loadInBackground()
                         }
                         
+                        var array = [PulsingHaloLayer]()
+                        for layer: CALayer in cell!.layer.sublayers! {
+                            if layer.isKindOfClass(PulsingHaloLayer) {
+                                array.append(layer as! PulsingHaloLayer)
+                            }
+                        }
+                        
+                        for layer in array {
+                            layer.removeFromSuperlayer()
+                        }
                         
                         // Online Now?
                         if self.userOnlineNow(user) {
-                            imgOnline.hidden = true
-                            imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
-                            imgOnline.layer.borderWidth = 2
-                            imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
-                        } else {
-                            imgOnline.hidden = true
+                            imgUser.layer.borderWidth = 3;
+                            imgUser.layer.borderColor = UIColor(colorLiteralRed: 0.188, green: 0.549, blue: 0.149, alpha: 1).CGColor
+                            let halo = PulsingHaloLayer()
+                            halo.radius = 75
+                            halo.animationDuration = 3
+                            halo.haloLayerNumber = 8
+                            halo.backgroundColor = UIColor.greenColor().CGColor
+                            imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
+                            halo.position = imgUser.center
+                            halo.start()
                         }
-                        
-                        
                     } else {
                         lblUser.text = "Unknown User"
                     }
