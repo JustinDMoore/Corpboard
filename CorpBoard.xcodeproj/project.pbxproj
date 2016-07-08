@@ -67,6 +67,8 @@
 		9F6ADE721D2DC3E70039AF7B /* outgoing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */; };
 		9F6ADE741D2DCE8A0039AF7B /* EmptyChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE731D2DCE8A0039AF7B /* EmptyChat.xib */; };
 		9F6ADE761D2DD0090039AF7B /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6ADE751D2DD0090039AF7B /* EmptyChat.swift */; };
+		9F6ADE791D2E22540039AF7B /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6ADE781D2E22540039AF7B /* UIView+Glow.m */; };
+		9F6ADE7B1D2E2F860039AF7B /* ChatMessageSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F6ADE7A1D2E2F860039AF7B /* ChatMessageSound.mp3 */; };
 		9F7167721D0FE432008F52FD /* PRepertoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7167711D0FE432008F52FD /* PRepertoire.swift */; };
 		9F7351AE1D17FD630079A32D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AD1D17FD630079A32D /* Chat.swift */; };
 		9F7351B01D182C3F0079A32D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7351AF1D182C3F0079A32D /* ChatMessage.swift */; };
@@ -387,6 +389,9 @@
 		9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = outgoing.mp3; sourceTree = "<group>"; };
 		9F6ADE731D2DCE8A0039AF7B /* EmptyChat.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyChat.xib; sourceTree = "<group>"; };
 		9F6ADE751D2DD0090039AF7B /* EmptyChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
+		9F6ADE771D2E22540039AF7B /* UIView+Glow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Glow.h"; sourceTree = "<group>"; };
+		9F6ADE781D2E22540039AF7B /* UIView+Glow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Glow.m"; sourceTree = "<group>"; };
+		9F6ADE7A1D2E2F860039AF7B /* ChatMessageSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ChatMessageSound.mp3; sourceTree = "<group>"; };
 		9F7167711D0FE432008F52FD /* PRepertoire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRepertoire.swift; sourceTree = "<group>"; };
 		9F7351AD1D17FD630079A32D /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		9F7351AF1D182C3F0079A32D /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -1292,6 +1297,7 @@
 		D055CF921A8EC564002D3B31 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9F6ADE7A1D2E2F860039AF7B /* ChatMessageSound.mp3 */,
 				9F6ADE6F1D2DC38D0039AF7B /* incoming.mp3 */,
 				9F6ADE711D2DC3E70039AF7B /* outgoing.mp3 */,
 				9F6ADE6E1D2DB6790039AF7B /* outgoing.m4a */,
@@ -1423,6 +1429,8 @@
 			isa = PBXGroup;
 			children = (
 				D065EE881B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.h */,
+				9F6ADE771D2E22540039AF7B /* UIView+Glow.h */,
+				9F6ADE781D2E22540039AF7B /* UIView+Glow.m */,
 				D065EE891B8ACF6D001611D9 /* UICollectionView+ScrollDelegateBlock.m */,
 				D02C9A141968ACA7008E06D8 /* NSMutableArray+Shuffling.h */,
 				D02C9A151968ACA7008E06D8 /* NSMutableArray+Shuffling.m */,
@@ -1574,6 +1582,7 @@
 				D066C2061AF5C4A100C84609 /* CBThankYou.xib in Resources */,
 				9FA236751D16938C00AE52F9 /* microphone_access@3x.png in Resources */,
 				9FA2367D1D16938C00AE52F9 /* stop_recording@2x.png in Resources */,
+				9F6ADE7B1D2E2F860039AF7B /* ChatMessageSound.mp3 in Resources */,
 				9FC71C521CE65F2200C36A1C /* Launch Screen.storyboard in Resources */,
 				9FC71CAF1CE67FD800C36A1C /* RockyPoint.mp3 in Resources */,
 				D01189541A6B1E6400D77EA9 /* CadetSnow.sks in Resources */,
@@ -1910,6 +1919,7 @@
 				9FC71C9E1CE6639500C36A1C /* PFact.swift in Sources */,
 				D0AEA6C31B03C7140080D7F5 /* CBReviewSubmitted.m in Sources */,
 				9FC71CA11CE6639500C36A1C /* PScore.swift in Sources */,
+				9F6ADE791D2E22540039AF7B /* UIView+Glow.m in Sources */,
 				924E93B4195904380006DB81 /* UINavigationController+Orientation.m in Sources */,
 				9FA2362B1D142A4600AE52F9 /* ChatViewController.swift in Sources */,
 				9FA2365F1D16937500AE52F9 /* NSString+IQTimeIntervalFormatter.m in Sources */,

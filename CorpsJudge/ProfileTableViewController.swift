@@ -13,7 +13,7 @@ import PulsingHalo
 import JSQMessagesViewController
 import JTSImageViewController
 
-class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience, delegateEditDescription {
+class ProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, delegateSelectPhoto, CBUserCategoriesProtocol, delegateCorpsExperience, delegateEditDescription, delegateCreateAccount {
 
     enum BadgeType : String {
         case Alumni = "Alumni",
@@ -40,7 +40,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var imgUser: PFImageView!
     @IBOutlet weak var imgCoverPhoto: PFImageView!
     @IBOutlet weak var viewOnline: UIView!
-    @IBOutlet weak var imgOnline: UIImageView!
     @IBOutlet weak var lblOnline: UILabel!
     @IBOutlet weak var lblUserNickname: UILabel!
     @IBOutlet weak var lblUserLocation: UILabel!
@@ -50,6 +49,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var lblExperience: UILabel!
     @IBOutlet weak var viewEditCoverPicture: UIView!
     @IBOutlet weak var viewEditProfilePicture: UIView!
+    @IBOutlet weak var viewEditNickname: UIView!
     @IBOutlet weak var viewEditBadges: UIView!
     @IBOutlet weak var viewEditPriorExperience: UIView!
     @IBOutlet weak var viewEditBackground: UIView!
@@ -71,6 +71,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     var userExp = CBCorpExperienceList()
     var userDesc = CBEditDescription()
     var tutorialProfile = TutorialProfile()
+    var editNickname = CreateAccount()
     
     var tapProfilePicture = UITapGestureRecognizer()
     var tapCoverPicture = UITapGestureRecognizer()
@@ -140,23 +141,23 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             
             // Online Now?
             if userOnlineNow() && !usersOwnProfile() {
+            
+                imgUser.layer.borderWidth = 3;
+                imgUser.layer.borderColor = UIColor.whiteColor().CGColor
                 viewOnline.hidden = false
-                imgOnline.hidden = false
-                lblOnline.text = "Online Now"
-                let halo = PulsingHaloLayer()
-                halo.position = imgOnline.center
-                halo.radius = 10
-                halo.animationDuration = 2
-                halo.backgroundColor = UIColor.whiteColor().CGColor
-                viewOnline.layer.addSublayer(halo)
-                halo.start()
-                imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2
-                imgOnline.layer.borderWidth = 2
-                imgOnline.layer.borderColor = UIColor.whiteColor().CGColor
-                viewOnline.sendSubviewToBack(imgOnline)
+                lblOnline.text = ""
+//                let halo = PulsingHaloLayer()
+//                halo.radius = 85
+//                halo.animationDuration = 3.5
+//                halo.haloLayerNumber = 4
+//                halo.backgroundColor = UIColor.greenColor().CGColor
+//                imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
+//                halo.position = CGPointMake(imgUser.center.x - 113, imgUser.center.y)
+//                halo.start()
+//                imgUser.startGlowingWithColor(UIColor.greenColor(), intensity: 1)
+                
             } else {
                 viewOnline.hidden = false
-                imgOnline.hidden = true
                 lblOnline.text = ""
                 let updated = userProfile?.lastLogin
                 let diff = updated!.minutesBeforeDate(NSDate())
@@ -225,6 +226,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 viewEditProfilePicture.hidden = true
                 viewEditCoverPicture.hidden = true
                 viewEditPriorExperience.hidden = true
+                viewEditNickname.hidden = true
             }
             
             profileLoaded = true
@@ -259,6 +261,12 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             viewEditProfilePicture.backgroundColor = backColor
             viewEditProfilePicture.frame = CGRectMake(viewOnline.frame.origin.x, viewOnline.frame.origin
                 .y, viewEditProfilePicture.frame.size.width, viewEditProfilePicture.frame.size.height)
+            
+            // Nickname
+            viewEditNickname.layer.borderWidth = width
+            viewEditNickname.layer.cornerRadius = radius
+            viewEditNickname.layer.borderColor = color
+            viewEditNickname.backgroundColor = backColor
             
             // Badges
             viewEditBadges.layer.borderWidth = width
@@ -299,6 +307,13 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func editNickname(sender: UIButton) {
+        if let viewEditNickname = NSBundle.mainBundle().loadNibNamed("CreateAccount", owner: self, options: nil).first as? CreateAccount {
+            viewEditNickname.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            viewEditNickname.setDelegate(self)
+            viewEditNickname.showView("nickname", inParent: self.navigationController!)
+        }
+    }
     
     @IBAction func editBadges(sender: UIButton) {
         
@@ -975,6 +990,17 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                                                  mode: JTSImageViewControllerMode.Image,
                                                  backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
         imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
+    }
+    
+    //Create Account Delegate (for updating nickname only)
+    //MARK:-
+    //MARK:Create Account Delegate
+    func nicknameUpdated(newNickname: String!) {
+        lblUserNickname.text = newNickname
+    }
+    
+    func accountCreated() {
+        return
     }
 }
 

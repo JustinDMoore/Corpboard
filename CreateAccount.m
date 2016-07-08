@@ -487,6 +487,8 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
 -(void)checkUniqueNickname {
     
     if (!checkingName) {
+        
+        self.btnNickname_Close.hidden = YES;
         if (![self.txtNickname.text length]) {
             [self shake: NO];
             return;
@@ -513,10 +515,13 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
                     if (count > 0) {
                         [self shake: YES];
                     } else {
-                        PFUser *user = [PFUser currentUser];
-                        user[@"nickname"] = self.txtNickname.text;
+                        PUser *user = [PUser currentUser];
+                        user.nickname = self.txtNickname.text;
                         [user saveInBackground];
                         [self stopLoad];
+                        if ([delegate respondsToSelector:@selector(accountCreated)]) {
+                            [delegate nicknameUpdated:self.txtNickname.text];
+                        }
                         [self dismissView:NO canProceed:YES];
                     }
                 } else {
@@ -539,6 +544,7 @@ UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height, CGFloat scal
 
 - (void)shake:(BOOL)moveButton {
     [self stopLoad];
+    self.btnNickname_Close.hidden = FALSE;
     [UIView animateWithDuration:0.25
                           delay:0.05
                         options:UIViewAnimationOptionCurveEaseIn

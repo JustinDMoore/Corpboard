@@ -86,7 +86,11 @@ static NSString * const reuseIdentifier = @"Cell";
             if (!error) {
                 [self.arrayOfUsers removeAllObjects];
                 [self.arrayOfUsers addObjectsFromArray:objects];
-                [self.collectionView reloadData];
+                //This forces the collectionView to reload on main thread
+                //thus cells are loaded prior to being scrolled to
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.collectionView reloadData];
+                });
                 [refreshControl endRefreshing];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [KVNProgress dismiss];
@@ -173,19 +177,11 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         [imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
     }
-    //imgUser.layer.cornerRadius = imgUser.frame.size.width/2;
-    //imgUser.layer.masksToBounds = YES;
-    
+
     UIView *viewCell = (UIView *)[cell viewWithTag:500];
     
     viewCell.frame = CGRectMake(viewCell.frame.origin.x, viewCell.frame.origin.y, 100, 100);
-    
-    viewCell.layer.cornerRadius = viewCell.frame.size.height / 2;
-    
-    //CGFloat(roundf(CGFloat(viewCell.frame.size.width/2.0)));
-    //viewCell.layer.masksToBounds = YES;
-    viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
-    viewCell.layer.borderWidth = 3;
+    viewCell.layer.cornerRadius = viewCell.frame.size.width / 2;
     
     UILabel *lblDistance = (UILabel *)[cell viewWithTag:200];
     
@@ -212,7 +208,6 @@ static NSString * const reuseIdentifier = @"Cell";
     [imgUser addSubview:v];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    UIImageView *imgOnline = (UIImageView *)[cell viewWithTag:1];
     for (CALayer *layer in cell.layer.sublayers) {
         if ([layer isKindOfClass:[PulsingHaloLayer class]]) {
             [array addObject:layer];
@@ -223,28 +218,28 @@ static NSString * const reuseIdentifier = @"Cell";
         [layer removeFromSuperlayer];
     }
     
+    viewCell.layer.cornerRadius = viewCell.frame.size.height / 2;
+    viewCell.layer.borderWidth = 3;
     NSDate *dateLastLogin = user[@"lastLogin"];
     NSInteger diff = [dateLastLogin minutesBeforeDate:[NSDate date]];
     if (diff <= 10) { // online
-        imgOnline.hidden = NO;
+        viewCell.layer.borderColor = [UIColor colorWithRed:0.188 green:0.549 blue:0.149 alpha:1].CGColor;
         PulsingHaloLayer *halo = [PulsingHaloLayer layer];
         halo.position = imgUser.center;
-        halo.radius = 85;
-        halo.animationDuration = 2;
-        halo.haloLayerNumber = 2;
+        halo.position = CGPointMake(halo.position.x + 5, halo.position.y);
+        halo.radius = 75;
+        halo.animationDuration = 3;
+        halo.haloLayerNumber = 7;
         halo.backgroundColor = [UIColor greenColor].CGColor;
-        //[cell.layer addSublayer:halo];
         [cell.layer insertSublayer:halo atIndex:0];
         [halo start];
-        imgOnline.layer.cornerRadius = imgOnline.frame.size.height / 2;
-        imgOnline.layer.borderWidth = 2;
-        imgOnline.layer.borderColor = [UIColor whiteColor].CGColor;
     } else {
-        imgOnline.hidden = YES;
+        viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
     }
     
-    [cell bringSubviewToFront:imgOnline];
     [cell sendSubviewToBack:imgUser];
+    
+    [cell setNeedsDisplay];
     
     return cell;
 }

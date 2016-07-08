@@ -10,6 +10,7 @@
 
 @protocol delegateCreateAccount <NSObject>
 -(void)accountCreated;
+-(void)nicknameUpdated:(NSString *)newNickname;
 @end
 
 @interface CreateAccount : UIView {
@@ -35,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckName;
 @property (weak, nonatomic) IBOutlet UILabel *lblNicknameTitle;
 @property (weak, nonatomic) IBOutlet UIView *viewNicknameLoading;
+@property (weak, nonatomic) IBOutlet UIButton *btnNickname_Close;
+
 
 @property (nonatomic, strong) UINavigationController *parentNav;
 @property (weak, nonatomic) IBOutlet UILabel *lblDisclaimer;

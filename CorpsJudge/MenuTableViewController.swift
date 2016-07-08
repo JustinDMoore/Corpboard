@@ -175,7 +175,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         PrivateMessageListener.sharedInstance.startListening()
         
         let imageView = UIImageView(frame: CGRectMake(130, 20, 20, 54))
-        imageView.image = UIImage(named: "titleBETA")
+        imageView.image = UIImage(named: "title")
         imageView.contentMode = .ScaleAspectFit
         navigationItem.titleView = imageView
 
@@ -603,6 +603,20 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
                 btnScores.layer.masksToBounds = true
                 btnScores.titleLabel?.font = UIFont.systemFontOfSize(12)
                 btnScores.setTitleColor(UISingleton.sharedInstance.appTint, forState: .Normal)
+                
+                btnScores.transform = CGAffineTransformScale(btnScores.transform, 0.0, 0.0)
+                UIView.animateWithDuration(0.2,
+                                           delay: 1.0,
+                                           usingSpringWithDamping: 0.6,
+                                           initialSpringVelocity: 20,
+                                           options: UIViewAnimationOptions.CurveLinear,
+                                           animations: { 
+                                            
+                                            btnScores.transform = CGAffineTransformIdentity
+                                            
+                    }, completion: { (done: Bool) in
+                        
+                })
                 
                 if show.exception.characters.count > 0 {
                     let lblException = UILabel(frame: CGRectMake(btnScores.frame.origin.x - 5, btnScores.frame.origin.y + 5, btnScores.frame.size.width, 20))
@@ -1246,6 +1260,10 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     func accountCreated() {
         self.resumeOpening()
+    }
+    
+    func nicknameUpdated(newNickname: String!) {
+        return
     }
     
     //MARK:-

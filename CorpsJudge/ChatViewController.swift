@@ -1279,9 +1279,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     func playChatSound(incoming: Bool) {
         var url: NSURL?
         if incoming {
-            url = NSBundle.mainBundle().URLForResource("incoming", withExtension: "mp3")
+            url = NSBundle.mainBundle().URLForResource("ChatMessageSound", withExtension: "mp3")
         } else {
-            url = NSBundle.mainBundle().URLForResource("outgoing", withExtension: "mp3")
+            url = NSBundle.mainBundle().URLForResource("ChatMessageSound", withExtension: "mp3")
         }
         
         if url != nil {
