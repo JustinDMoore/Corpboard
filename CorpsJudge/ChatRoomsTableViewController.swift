@@ -55,7 +55,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         self.tableView.backgroundColor = UIColor.blackColor()
         arrayOfChatRooms.removeAll()
-        self.tableView.reloadData()
+        self.reload()
         loading()
         self.tableView.tableFooterView = UIView()
         if isPrivate {
@@ -123,7 +123,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     }
     
     func newPrivateRoomCreated() {
-        self.tableView.reloadData()
+        self.reload()
     }
     
     func startListeningForRef(ref: FIRDatabaseReference) {
@@ -158,7 +158,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             
             if self.initialLoad {
                 self.stopLoading()
-                self.tableView.reloadData()
+                self.reload()
             }
         }
         
@@ -173,12 +173,16 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     room.topic = snapRoom.childSnapshotForPath(ChatroomFields.topic).value as? String ?? nil
                     let rawCreatedAt = snapRoom.childSnapshotForPath(ChatroomFields.createdAt).value as? String ?? nil
                     if rawCreatedAt != nil {
-                        room.createdAt = Chatroom().dateFromUTCString(rawCreatedAt!) ?? nil
+                        room.createdAt = Chatroom().dateFromUTCString(rawCreatedAt!) ?? NSDate()
+                    } else {
+                        room.createdAt = NSDate()
                     }
                     
                     let rawUpdatedAt = snapRoom.childSnapshotForPath(ChatroomFields.updatedAt).value as? String ?? nil
                     if rawUpdatedAt != nil {
-                        room.updatedAt = Chatroom().dateFromUTCString(rawUpdatedAt!) ?? nil
+                        room.updatedAt = Chatroom().dateFromUTCString(rawUpdatedAt!) ?? NSDate()
+                    } else {
+                        room.updatedAt = NSDate()
                     }
                     
                     room.createdByUID =           snapRoom.childSnapshotForPath(ChatroomFields.createdByUID).value           as? String ?? nil
@@ -193,11 +197,19 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     self.arrayOfChatRooms.insert(room, atIndex: 0)
                 }
             }
+
             
-            self.tableView.reloadData()
+            self.reload()
             self.stopLoading()
             self.initialLoad = false
         }
+    }
+    
+    func reload() {
+        if !arrayOfChatRooms.isEmpty {
+            self.arrayOfChatRooms.sortInPlace({ $0.updatedAt!.compare($1.updatedAt!) == NSComparisonResult.OrderedDescending })
+        }
+        tableView.reloadData()
     }
     
     func stopListening() {

@@ -88,9 +88,10 @@ static NSString * const reuseIdentifier = @"Cell";
                 [self.arrayOfUsers addObjectsFromArray:objects];
                 //This forces the collectionView to reload on main thread
                 //thus cells are loaded prior to being scrolled to
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.collectionView reloadData];
-                });
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.collectionView reloadData];
+//                });
+                [self.collectionView reloadData];
                 [refreshControl endRefreshing];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [KVNProgress dismiss];
@@ -183,7 +184,8 @@ static NSString * const reuseIdentifier = @"Cell";
     viewCell.frame = CGRectMake(viewCell.frame.origin.x, viewCell.frame.origin.y, 100, 100);
     viewCell.layer.cornerRadius = viewCell.frame.size.width / 2;
     
-    UILabel *lblDistance = (UILabel *)[cell viewWithTag:200];
+    UILabel *lblDistance1 = (UILabel *)[cell viewWithTag:200];
+    UILabel *lblDistance2 = (UILabel *)[cell viewWithTag:201];
     
     PFGeoPoint *userLoc = user[@"geo"];
     PFUser *cUser = [PFUser currentUser];
@@ -194,15 +196,22 @@ static NSString * const reuseIdentifier = @"Cell";
         double feet = distance * 5280; //5280 ft/mile
         if (feet < 2) distMeasure = @"foot";
         else distMeasure = @"feet";
-        lblDistance.text = [NSString stringWithFormat:@"%.0f %@", feet, distMeasure];
+        lblDistance1.text = [NSString stringWithFormat:@"%.0f", feet];
+        lblDistance2.text = [NSString stringWithFormat:@"%@", distMeasure];
     } else {
         if (distance < 2) distMeasure = @"mile";
         else distMeasure = @"miles";
-        lblDistance.text = [NSString stringWithFormat:@"%.0f %@", distance, distMeasure];
+        lblDistance1.text = [NSString stringWithFormat:@"%.0f", distance];
+        lblDistance2.text = [NSString stringWithFormat:@"%@", distMeasure];
     }
     
+    [lblDistance1 sizeToFit];
+    [lblDistance2 sizeToFit];
+
+    
     //lblDistance.backgroundColor = [UIColor lightGrayColor];
-    lblDistance.textColor = [UIColor whiteColor];
+    lblDistance1.textColor = [UIColor whiteColor];
+    lblDistance2.textColor = [UIColor whiteColor];
     
     UIView *v = (UIView *)[cell viewWithTag:300];
     [imgUser addSubview:v];
@@ -227,9 +236,9 @@ static NSString * const reuseIdentifier = @"Cell";
         PulsingHaloLayer *halo = [PulsingHaloLayer layer];
         halo.position = imgUser.center;
         halo.position = CGPointMake(halo.position.x + 5, halo.position.y);
-        halo.radius = 75;
-        halo.animationDuration = 3;
-        halo.haloLayerNumber = 7;
+        halo.radius = 73;
+        halo.animationDuration = 2;
+        halo.haloLayerNumber = 10;
         halo.backgroundColor = [UIColor greenColor].CGColor;
         [cell.layer insertSublayer:halo atIndex:0];
         [halo start];
@@ -238,7 +247,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     [cell sendSubviewToBack:imgUser];
-    
+    [cell setNeedsLayout];
     [cell setNeedsDisplay];
     
     return cell;

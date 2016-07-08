@@ -407,8 +407,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         var jMsg: JSQMessage? = nil
         
         //Sound
-        if message.createdByParseObjectId != self.senderId {
-            playChatSound(true)
+        if scroll { //used to determine if first load or not
+            if message.createdByParseObjectId != self.senderId {
+                playChatSound(true)
+            }
         }
         
         switch message.type {
@@ -1279,9 +1281,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     func playChatSound(incoming: Bool) {
         var url: NSURL?
         if incoming {
-            url = NSBundle.mainBundle().URLForResource("ChatMessageSound", withExtension: "mp3")
+            url = NSBundle.mainBundle().URLForResource("SoundIncoming", withExtension: "mp3")
         } else {
-            url = NSBundle.mainBundle().URLForResource("ChatMessageSound", withExtension: "mp3")
+            url = NSBundle.mainBundle().URLForResource("SoundOutgoing", withExtension: "mp3")
         }
         
         if url != nil {
