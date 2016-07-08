@@ -768,6 +768,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
         if collectionView == collectionNews {
             let itemForWeb = News.sharedInstance.arrayOfNewsItemsToDisplay[indexPath.row]
             self.openWebViewWithLink(itemForWeb.link, title: "Drum Corps International", subTitle: itemForWeb.title)
+            PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "newsArticle"])
         }
     }
     
@@ -1169,12 +1170,13 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     @IBAction func support(sender: UIControl) {
         //self.openWebViewWithLink("https://yea.org/mg2016", title: "Support The Cadets", subTitle: "2016 Annual Campaign")
-        self.performSegueWithIdentifier("contest", sender: self)
+       // self.performSegueWithIdentifier("contest", sender: self)
     }
     
     func openStore() {
         //self.performSegueWithIdentifier("store", sender: self)
         self.openWebViewWithLink("http://34store.org", title: "Shop", subTitle: "34 Store")
+        PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "shop"])
     }
     
     func openProfile() {

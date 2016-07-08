@@ -227,6 +227,10 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 viewEditCoverPicture.hidden = true
                 viewEditPriorExperience.hidden = true
                 viewEditNickname.hidden = true
+                
+                PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "ownProfile"])
+            } else {
+                PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "otherProfile"])
             }
             
             profileLoaded = true
@@ -452,7 +456,9 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
     
     func incrementProfileViews() {
         if let id = userProfile?.objectId {
-            PFCloud.callFunctionInBackground("incrementProfileViews", withParameters: ["userObjectId" : id])
+            if !usersOwnProfile() {
+                PFCloud.callFunctionInBackground("incrementProfileViews", withParameters: ["userObjectId" : id])
+            }
         }
     }
     

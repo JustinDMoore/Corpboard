@@ -32,6 +32,7 @@ class SelectPhotoViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "selectPhoto"])
         tablePhotos.hidden = true
         segmentAlbum.hidden = false
         loading()

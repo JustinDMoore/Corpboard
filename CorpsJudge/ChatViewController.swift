@@ -93,6 +93,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        if isPrivate {
+           PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "privateChatRoom"])
+        } else {
+            PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "publicChatRoom"])
+        }
+        
         Server.sharedInstance.delegateLocation = self
         
         arrayOfJSQMessages.removeAll()

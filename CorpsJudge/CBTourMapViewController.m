@@ -38,6 +38,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [PFCloud callFunctionInBackground:@"userTap" withParameters:@{ @"tapped" : @"tourMap" }];
+    
     self.title = @"Tour Map";
     self.mapView.delegate = self;
     

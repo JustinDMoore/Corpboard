@@ -162,6 +162,8 @@ typedef enum : int {
     
     [super viewDidLoad];
     
+    [PFCloud callFunctionInBackground:@"userTap" withParameters:@{ @"tapped" : @"showDetail" }];
+    
     //ONLY FOR ADMIN TO PICK A STADIUM FOR A SHOW
 //    if (self.show[@"stadium"] == nil) {
 //        PickAStadium *viewPickAStadium = [[PickAStadium alloc] init];

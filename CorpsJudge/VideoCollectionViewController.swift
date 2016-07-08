@@ -14,7 +14,7 @@ class VideoCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "videos"])
         // Register cell classes
         self.collectionView!.registerClass(VideoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }

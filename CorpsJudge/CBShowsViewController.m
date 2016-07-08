@@ -74,6 +74,8 @@ BOOL firstLoad = YES;
     
     [super viewDidLoad];
     
+    [PFCloud callFunctionInBackground:@"userTap" withParameters:@{ @"tapped" : @"allShows" }];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [KVNProgress setConfiguration:[Configuration standardProgressConfig]];
         [KVNProgress show];

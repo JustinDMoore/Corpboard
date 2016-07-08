@@ -188,6 +188,8 @@ int fetchCount = 0;
     
     [super viewDidLoad];
 
+    [PFCloud callFunctionInBackground:@"userTap" withParameters:@{ @"tapped" : @"rankings" }];
+    
     appDel =  [[UIApplication sharedApplication]delegate];
     viewLoading = [[[NSBundle mainBundle] loadNibNamed:@"Loading" owner:self options:nil] objectAtIndex:0];
     [self.view addSubview:viewLoading];

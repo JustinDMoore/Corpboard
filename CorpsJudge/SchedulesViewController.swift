@@ -36,6 +36,7 @@ class SchedulesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "calendar"])
         self.view.backgroundColor = UIColor.blackColor()
         loading()
         self.tableSchedules.delegate = self

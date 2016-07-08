@@ -60,9 +60,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         self.tableView.tableFooterView = UIView()
         if isPrivate {
             PrivateMessageListener.sharedInstance.stopListening()
-            
+            PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "messages"])
             self.title = "Private Messages"
         } else {
+            PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "liveChat"])
             self.title = "Live Chat"
         }
     }

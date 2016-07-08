@@ -105,6 +105,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [PFCloud callFunctionInBackground:@"userTap" withParameters:@{ @"tapped" : @"prediction" }];
 
     
     config = [[Configuration alloc] init];

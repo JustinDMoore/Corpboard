@@ -43,6 +43,7 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        PFCloud.callFunctionInBackground("userTap", withParameters: ["tapped": "schedule"])
         self.initUI()
         if day != nil {
             if day?.housing != nil {
