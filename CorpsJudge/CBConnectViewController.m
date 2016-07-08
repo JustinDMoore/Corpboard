@@ -205,8 +205,8 @@ static NSString * const reuseIdentifier = @"Cell";
         lblDistance2.text = [NSString stringWithFormat:@"%@", distMeasure];
     }
     
-    [lblDistance1 sizeToFit];
-    [lblDistance2 sizeToFit];
+//    [lblDistance1 sizeToFit];
+//    [lblDistance2 sizeToFit];
 
     
     //lblDistance.backgroundColor = [UIColor lightGrayColor];

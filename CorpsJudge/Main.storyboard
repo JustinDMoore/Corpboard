@@ -1851,7 +1851,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcK-m5-oKt">
-                                            <rect key="frame" x="-6" y="91" width="44" height="15"/>
+                                            <rect key="frame" x="-9" y="90" width="44" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="2jS-hY-Ucc"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="3s0-4j-eoU"/>
@@ -1862,7 +1862,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0u-Bs-nNN">
-                                            <rect key="frame" x="-19" y="82" width="44" height="15"/>
+                                            <rect key="frame" x="-22" y="81" width="44" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="ZKI-yR-KZe"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="ZXs-ut-UO7"/>
@@ -1881,12 +1881,12 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Z0u-Bs-nNN" secondAttribute="bottom" constant="1" id="1yp-3i-2vJ"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Z0u-Bs-nNN" secondAttribute="bottom" constant="2" id="1yp-3i-2vJ"/>
                                     <constraint firstItem="WUx-fp-jeU" firstAttribute="centerX" secondItem="ST8-Kh-O3H" secondAttribute="centerX" constant="-2.5" id="59r-tE-lnb"/>
                                     <constraint firstItem="WUx-fp-jeU" firstAttribute="centerY" secondItem="ST8-Kh-O3H" secondAttribute="centerY" constant="-5" id="I42-6k-0vd"/>
-                                    <constraint firstItem="Z0u-Bs-nNN" firstAttribute="leading" secondItem="ST8-Kh-O3H" secondAttribute="leadingMargin" constant="-27" id="Kdq-Dj-1je"/>
-                                    <constraint firstItem="zcK-m5-oKt" firstAttribute="leading" secondItem="ST8-Kh-O3H" secondAttribute="leadingMargin" constant="-14" id="d3A-A5-7Va"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="zcK-m5-oKt" secondAttribute="bottom" constant="-8" id="rvk-VB-Ssc"/>
+                                    <constraint firstItem="Z0u-Bs-nNN" firstAttribute="leading" secondItem="ST8-Kh-O3H" secondAttribute="leadingMargin" constant="-30" id="Kdq-Dj-1je"/>
+                                    <constraint firstItem="zcK-m5-oKt" firstAttribute="leading" secondItem="ST8-Kh-O3H" secondAttribute="leadingMargin" constant="-17" id="d3A-A5-7Va"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="zcK-m5-oKt" secondAttribute="bottom" constant="-7" id="rvk-VB-Ssc"/>
                                 </constraints>
                                 <size key="customSize" width="98" height="106"/>
                             </collectionViewCell>
