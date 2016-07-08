@@ -251,7 +251,9 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
     }
-    //imgUser.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
+    
+    viewCell.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
+    imgUser.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
     [cell sendSubviewToBack:imgUser];
     [cell setNeedsLayout];
     [cell setNeedsDisplay];
