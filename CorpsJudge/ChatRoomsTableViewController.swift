@@ -373,6 +373,18 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         imgUser.layer.borderColor = UIColor.whiteColor().CGColor
         imgUser.clipsToBounds = true
         
+        var array = [PulsingHaloLayer]()
+            for layer: CALayer in imgUser.superview!.layer.sublayers! {
+                if layer.isKindOfClass(PulsingHaloLayer) {
+                    array.append(layer as! PulsingHaloLayer)
+                }
+            }
+            
+            for layer in array {
+                layer.removeFromSuperlayer()
+            }
+        
+        
         let lblUser = cell?.viewWithTag(3) as! UILabel
         let query = PFQuery(className: PUser.parseClassName())
         if let id = chatRoom.privateChatWith {
@@ -388,24 +400,13 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                             imgUser.loadInBackground()
                         }
                         
-                        var array = [PulsingHaloLayer]()
-                        for layer: CALayer in cell!.layer.sublayers! {
-                            if layer.isKindOfClass(PulsingHaloLayer) {
-                                array.append(layer as! PulsingHaloLayer)
-                            }
-                        }
-                        
-                        for layer in array {
-                            layer.removeFromSuperlayer()
-                        }
-                        
                         // Online Now?
                         if self.userOnlineNow(user) {
                             imgUser.layer.borderWidth = 3;
                             imgUser.layer.borderColor = UIColor(colorLiteralRed: 0.188, green: 0.549, blue: 0.149, alpha: 1).CGColor
                             let halo = PulsingHaloLayer()
                             halo.radius = 75
-                            halo.animationDuration = 3
+                            halo.animationDuration = 2
                             halo.haloLayerNumber = 8
                             halo.backgroundColor = UIColor.greenColor().CGColor
                             imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
@@ -454,6 +455,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             }
         }
         lblHowLongAgo.text = "\(timeDiff)"
+        
+        cell?.setNeedsDisplay()
         
         // Return the cell
         if cell != nil { return cell! }

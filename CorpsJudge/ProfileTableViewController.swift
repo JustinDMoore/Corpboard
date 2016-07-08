@@ -145,7 +145,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 let halo = PulsingHaloLayer()
                 halo.radius = 73
                 halo.animationDuration = 2
-                halo.haloLayerNumber = 10
+                halo.haloLayerNumber = 8
                 halo.backgroundColor = UIColor.greenColor().CGColor
                 imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
                 halo.position = CGPointMake(imgUser.center.x - 113, imgUser.center.y)

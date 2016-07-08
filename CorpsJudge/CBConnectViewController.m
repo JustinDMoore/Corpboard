@@ -240,18 +240,18 @@ static NSString * const reuseIdentifier = @"Cell";
     if (diff <= 10) { // online
         viewCell.layer.borderColor = [UIColor colorWithRed:0.188 green:0.549 blue:0.149 alpha:1].CGColor;
         PulsingHaloLayer *halo = [PulsingHaloLayer layer];
-        halo.position = imgUser.center;
-        halo.position = CGPointMake(halo.position.x + 5, halo.position.y);
+        //halo.position = imgUser.center;
+        halo.position = CGPointMake(viewCell.frame.size.width / 2, viewCell.frame.size.height / 2);
         halo.radius = 73;
         halo.animationDuration = 2;
-        halo.haloLayerNumber = 10;
+        halo.haloLayerNumber = 8;
         halo.backgroundColor = [UIColor greenColor].CGColor;
         [cell.layer insertSublayer:halo atIndex:0];
         [halo start];
     } else {
         viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
     }
-    
+    //imgUser.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
     [cell sendSubviewToBack:imgUser];
     [cell setNeedsLayout];
     [cell setNeedsDisplay];
