@@ -184,11 +184,6 @@ static NSString * const reuseIdentifier = @"Cell";
     } else {
         [imgUser setImage:[UIImage imageNamed:@"defaultProfilePicture"]];
     }
-
-    UIView *viewCell = (UIView *)[cell viewWithTag:500];
-    
-    viewCell.frame = CGRectMake(viewCell.frame.origin.x, viewCell.frame.origin.y, 100, 100);
-    viewCell.layer.cornerRadius = viewCell.frame.size.width / 2;
     
     UILabel *lblDistance1 = (UILabel *)[cell viewWithTag:200];
     UILabel *lblDistance2 = (UILabel *)[cell viewWithTag:201];
@@ -211,19 +206,10 @@ static NSString * const reuseIdentifier = @"Cell";
         lblDistance2.text = [NSString stringWithFormat:@"%@", distMeasure];
     }
     
-//    [lblDistance1 sizeToFit];
-//    [lblDistance2 sizeToFit];
-
-    
-    //lblDistance.backgroundColor = [UIColor lightGrayColor];
-    lblDistance1.textColor = [UIColor whiteColor];
-    lblDistance2.textColor = [UIColor whiteColor];
-    
-    UIView *v = (UIView *)[cell viewWithTag:300];
-    [imgUser addSubview:v];
+    UIView *viewPulse = (UIView *)[cell viewWithTag:34];
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (CALayer *layer in cell.layer.sublayers) {
+    for (CALayer *layer in viewPulse.layer.sublayers) {
         if ([layer isKindOfClass:[PulsingHaloLayer class]]) {
             [array addObject:layer];
         }
@@ -232,27 +218,25 @@ static NSString * const reuseIdentifier = @"Cell";
     for (CALayer *layer in array) {
         [layer removeFromSuperlayer];
     }
-    
-    viewCell.layer.cornerRadius = viewCell.frame.size.height / 2;
-    viewCell.layer.borderWidth = 3;
+
     NSDate *dateLastLogin = user[@"lastLogin"];
     NSInteger diff = [dateLastLogin minutesBeforeDate:[NSDate date]];
     if (diff <= 10) { // online
-        viewCell.layer.borderColor = [UIColor colorWithRed:0.188 green:0.549 blue:0.149 alpha:1].CGColor;
         PulsingHaloLayer *halo = [PulsingHaloLayer layer];
-        //halo.position = imgUser.center;
-        halo.position = CGPointMake(viewCell.frame.size.width / 2, viewCell.frame.size.height / 2);
-        halo.radius = 73;
-        halo.animationDuration = 2;
-        halo.haloLayerNumber = 8;
+        halo.position = CGPointMake(15, 15);
+        halo.radius = 25;
+        halo.animationDuration = 3;
+        halo.haloLayerNumber = 10;
         halo.backgroundColor = [UIColor greenColor].CGColor;
-        [cell.layer insertSublayer:halo atIndex:0];
+        [viewPulse.layer addSublayer:halo];
         [halo start];
+        //viewPulse.backgroundColor = [UIColor clearColor];
+        viewPulse.clipsToBounds = NO;
+
     } else {
-        viewCell.layer.borderColor = UIColor.whiteColor.CGColor;
+        
     }
     
-    viewCell.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
     imgUser.center = CGPointMake(cell.frame.size.width / 2, cell.frame.size.height / 2);
     [cell sendSubviewToBack:imgUser];
     [cell setNeedsLayout];
