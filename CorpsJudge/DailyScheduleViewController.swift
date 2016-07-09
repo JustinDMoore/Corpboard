@@ -21,6 +21,7 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var btnOpenInMaps: UIButton!
     @IBOutlet weak var btnAddTask: UIButton!
     @IBOutlet weak var btnDeleteSchedule: UIButton!
+    @IBOutlet weak var btnHousingDetails: UIButton!
     
     var day: PCalendar?
     var housing: PStadium?
@@ -55,6 +56,16 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
             self.edgesForExtendedLayout = UIRectEdge.None
             self.displayDay()
             self.displaySchedule()
+        }
+        
+        if let user = PUser.currentUser() {
+            if user.isStaff {
+                btnHousingDetails.hidden = true
+                btnOpenInMaps.hidden = true
+            } else {
+                btnHousingDetails.hidden = true
+                btnOpenInMaps.hidden = true
+            }
         }
         
         // ONLY FOR ADMIN TO ADD HOUSING
@@ -298,4 +309,15 @@ class DailyScheduleViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "housing" {
+            let vc = segue.destinationViewController as! HousingDetailTableViewController
+            vc.show = self.show
+            vc.housing = self.housing
+            vc.showLocation = self.show?.stadium
+        } else if segue.identifier == "show" {
+            let vc = segue.destinationViewController as! CBShowDetailsViewController
+            vc.show = self.show
+        }
+    }
 }

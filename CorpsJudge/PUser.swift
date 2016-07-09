@@ -61,6 +61,7 @@ class PUser: PFUser {
     @NSManaged var showReviews: Int
     @NSManaged var firebaseUID: String?
     @NSManaged var tutorialProfile: Bool
+    @NSManaged var isStaff: Bool
     
     override class func initialize() {
         struct Static {

@@ -18,6 +18,8 @@ class PStadium: PFObject, PFSubclassing {
     @NSManaged var state: String!
     @NSManaged var zip: String!
     @NSManaged var coordinates: PFGeoPoint
+    @NSManaged var arrayOfPhoneNumbers: [String : String]?
+    @NSManaged var arrayOfEmailAddresses: [String : String]?
     
     override class func initialize() {
         struct Static {
