@@ -194,6 +194,10 @@ protocol delegateUserProfile: class {
         arrayOfUserOpenClassRankings.removeAllObjects()
         arrayOfUserAllAgeClassRankings.removeAllObjects()
         
+        NSarrayOfOpenClass.removeAllObjects()
+        NSarrayOfWorldClass.removeAllObjects()
+        NSarrayOfAllAgeClass.removeAllObjects()
+        
         getCurrentTask()
         checkForAdminMode()
         updateAppStatus()
