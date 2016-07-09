@@ -1172,7 +1172,7 @@ class MenuTableViewController: UITableViewController, UICollectionViewDelegate, 
     
     @IBAction func support(sender: UIControl) {
         //self.openWebViewWithLink("https://yea.org/mg2016", title: "Support The Cadets", subTitle: "2016 Annual Campaign")
-       // self.performSegueWithIdentifier("contest", sender: self)
+        self.performSegueWithIdentifier("contest", sender: self)
     }
     
     func openStore() {
