@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Drum-48.png",
+      "filename" : "sax1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Drum-128.png",
+      "filename" : "sax2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Drum-256.png",
+      "filename" : "sax.png",
       "scale" : "3x"
     }
   ],

@@ -26,6 +26,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         ColorGuard = "Color Guard",
         ActiveMember = "Active Member",
         Fan = "Fan",
+        WoodwindPlayer = "Woodwind Player",
         NewUser = "New User"
     }
     
@@ -700,7 +701,7 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             return (colorFromHexString("02abde"), imgV)
         case .Percussionist:
             imgV.image = UIImage(named: "badgePercussionist")
-            return (colorFromHexString("f7c82d"), imgV)
+            return (colorFromHexString("5500ff"), imgV)
         case .BrassPlayer:
             imgV.image = UIImage(named: "badgeBrassPlayer")
             return (colorFromHexString("C0C0C0"), imgV)
@@ -709,11 +710,15 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             return (colorFromHexString("c3de7e"), imgV)
         case .ActiveMember:
             imgV.image = UIImage(named: "badgeActiveMember")
-            imgV.frame = CGRectMake(15, 3, 10, 22)
+            imgV.frame = CGRectMake(10, 3, 15, 22)
             return (colorFromHexString("85a6ab"), imgV)
         case .Fan:
             imgV.image = UIImage(named: "badgeFan")
             return (colorFromHexString("B83535"), imgV)
+        case .WoodwindPlayer:
+            imgV.image = UIImage(named: "badgeWoodwindPlayer")
+            imgV.frame = CGRectMake(10, 3, 17, 22)
+            return (colorFromHexString("d9b02b"), imgV)
         case .NewUser:
             imgV.image = nil
             return (UIColor.blueColor(), imgV)
