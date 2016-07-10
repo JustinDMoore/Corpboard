@@ -22,6 +22,7 @@ struct ChatroomFields {
 //    static let updatedByUID = "updatedbyUID"
     static let lastMessage = "lastMessage"
     static let privateChatWith = "privateChatWith"
+    static let lastByParseObjectId = "lastByParseObjectId"
 
 }
 
@@ -36,6 +37,7 @@ class Chatroom: Chat {
     var createdByParseObjectId: String?
     var createdByNickname: String?
     var createdByUID: String?
+    var lastByParseObjectId: String?
     
     var updatedAt: NSDate?
     

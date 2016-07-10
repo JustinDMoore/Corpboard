@@ -180,7 +180,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if !publicRoomInitialized { loading() }
                 setReferences()
                 startListening()
-                updateViewerCounterForRef(publicRoomRef, increment: true)
+                incrementViewerCounterForRef(publicRoomRef)
                 publicRoomInitialized = true
             }
         }
@@ -218,7 +218,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         super.viewWillDisappear(animated)
         stopListening()
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
-        updateViewerCounterForRef(publicRoomRef, increment: false)
         PrivateMessageListener.sharedInstance.startListening()
         profileToOpen = nil
     }
@@ -552,16 +551,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         outgoingBubbleWithoutTail = tailLessBubbleFactory.outgoingMessagesBubbleImageWithColor(UISingleton.sharedInstance.gold)
     }
     
-    func updateViewerCounterForRef(ref: FIRDatabaseReference, increment: Bool) {
+    func incrementViewerCounterForRef(ref: FIRDatabaseReference) {
         ref.runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var room = currentData.value as? [String : AnyObject] {
-                
                 var count = room[ChatroomFields.numberOfViewers] as? Int ?? 0
-                if increment {
-                    count += 1
-                } else {
-                    count -= 1
-                }
+                count += 1
                 if count < 0 { count = 0 }
                 room[ChatroomFields.numberOfViewers] = count
                 currentData.value = room
@@ -651,9 +645,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             // Always show for media messages
             if cell != nil {
-                cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
-                cell!.avatarImageView.layer.borderWidth = 1
-                cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
+//                cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
+//                cell!.avatarImageView.layer.borderWidth = 1
+//                cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
             }
             return showAvatarForSenderId(message.senderId)
         } else {
@@ -668,9 +662,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if message.senderId != prevMessage.senderId {
                     // Not from the same user, show it
                     if cell != nil {
-                        cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
-                        cell!.avatarImageView.layer.borderWidth = 1
-                        cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
+//                        cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
+//                        cell!.avatarImageView.layer.borderWidth = 1
+//                        cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
                     }
                     return showAvatarForSenderId(message.senderId)
                 } else {
@@ -683,9 +677,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             }
         }
         if cell != nil {
-            cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
-            cell!.avatarImageView.layer.borderWidth = 1
-            cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
+//            cell!.avatarImageView.layer.borderColor = UIColor.whiteColor().CGColor
+//            cell!.avatarImageView.layer.borderWidth = 1
+//            cell!.avatarImageView.layer.cornerRadius = cell!.avatarImageView.image!.size.height / 2
         }
         return showAvatarForSenderId(message.senderId)
     }
@@ -968,6 +962,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             //privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
             //privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
         } else {
+            publicRoomRef.child(ChatroomFields.lastByParseObjectId).setValue(senderId)
             publicRoomRef.child(ChatroomFields.lastMessage).setValue(text)
             publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
             incrementMessageCounterForRoomRef(publicRoomRef)
@@ -1024,6 +1019,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
             privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
         } else {
+            publicRoomRef.child(ChatroomFields.lastByParseObjectId).setValue(senderId)
             publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
             publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
             incrementMessageCounterForRoomRef(publicRoomRef)
@@ -1154,6 +1150,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
             privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
         } else {
+            publicRoomRef.child(ChatroomFields.lastByParseObjectId).setValue(senderId)
             publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
             publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
             incrementMessageCounterForRoomRef(publicRoomRef)
@@ -1224,9 +1221,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             privateRoomSenderRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
             privateRoomReceiverRef.child(ChatroomFields.numberOfMessages).setValue(NSNumber(int: 1))
         } else {
+            publicRoomRef.child(ChatroomFields.lastByParseObjectId).setValue(senderId)
             publicRoomRef.child(ChatroomFields.lastMessage).setValue(message.message)
             publicRoomRef.child(ChatroomFields.updatedAt).setValue(ChatMessage().currentUTCTimeAsString())
-            
             incrementMessageCounterForRoomRef(publicRoomRef)
         }
     }

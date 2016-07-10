@@ -101,10 +101,6 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
         if fetchedExperience && fetchedProfile {
 
             editingProfile = false
-            imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
-            imgUser.layer.masksToBounds = true
-            imgUser.layer.borderColor = UIColor.whiteColor().CGColor
-            imgUser.layer.borderWidth = 2
             
             // If from chat, disable chat button
             if fromPrivate {
@@ -138,17 +134,16 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             
             // Online Now?
             if userOnlineNow() && !usersOwnProfile() {
-            
-                imgUser.layer.borderWidth = 3;
-                imgUser.layer.borderColor = UIColor(colorLiteralRed: 0.188, green: 0.549, blue: 0.149, alpha: 1).CGColor
+
                 lblOnline.text = "Online now"
+                lblOnline.sizeToFit()
                 let halo = PulsingHaloLayer()
-                halo.radius = 73
-                halo.animationDuration = 2
-                halo.haloLayerNumber = 8
+                halo.radius = 25
+                halo.animationDuration = 3
+                halo.haloLayerNumber = 10
                 halo.backgroundColor = UIColor.greenColor().CGColor
-                imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
-                halo.position = CGPointMake(imgUser.center.x - 113, imgUser.center.y)
+                halo.position = CGPointMake(10, -5)
+                lblOnline.layer.addSublayer(halo)
                 halo.start()
                 
             } else if !usersOwnProfile() {
@@ -179,6 +174,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             } else {
                 lblOnline.text = ""
             }
+            
+            lblOnline.sizeToFit()
             
             // Name
             lblUserNickname.text = userProfile!.nickname
@@ -544,11 +541,9 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 let type = BadgeType.NewUser
                 let colorAndImageView = badgeColorAndImageViewForType(type)
                 let btn = UIButton(frame: frame)
-                //btn.layer.borderWidth = 1
                 btn.titleLabel?.font = UIFont.systemFontOfSize(14)
                 btn.setTitle("         All About Nothing  ", forState: .Normal)
                 btn.sizeToFit()
-                //btn.layer.borderColor = colorAndImageView.color.CGColor
                 btn.titleLabel?.textColor = UIColor.blueColor()
                 btn.addSubview(colorAndImageView.imageView)
                 cell.addSubview(btn)
@@ -604,11 +599,9 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
             let type = BadgeType.NewUser
             let colorAndImageView = badgeColorAndImageViewForType(type)
             let btn = UIButton(frame: frame)
-            //btn.layer.borderWidth = 1
             btn.titleLabel?.font = UIFont.systemFontOfSize(14)
             btn.setTitle("         No Prior Experience Listed  ", forState: .Normal)
             btn.sizeToFit()
-            //btn.layer.borderColor = colorAndImageView.color.CGColor
             btn.titleLabel?.textColor = UIColor.blueColor()
             btn.addSubview(colorAndImageView.imageView)
             cell.addSubview(btn)

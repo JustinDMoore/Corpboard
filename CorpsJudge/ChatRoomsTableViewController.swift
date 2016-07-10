@@ -154,6 +154,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             
             room.lastMessage = snap.childSnapshotForPath(ChatroomFields.lastMessage).value as? String ?? nil
             room.privateChatWith = snap.childSnapshotForPath(ChatroomFields.privateChatWith).value as? String ?? nil
+            room.lastByParseObjectId = snap.childSnapshotForPath(ChatroomFields.lastByParseObjectId).value as? String ?? nil
             
             self.arrayOfChatRooms.insert(room, atIndex: 0)
             
@@ -194,6 +195,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                     room.numberOfMessages = snapRoom.childSnapshotForPath(ChatroomFields.numberOfMessages).value as? Int    ?? 0
                     room.lastMessage =      snapRoom.childSnapshotForPath(ChatroomFields.lastMessage).value      as? String ?? nil
                     room.privateChatWith = snapRoom.childSnapshotForPath(ChatroomFields.privateChatWith).value      as? String ?? nil
+                    room.lastByParseObjectId = snapRoom.childSnapshotForPath(ChatroomFields.lastByParseObjectId).value as? String ?? nil
                     
                     self.arrayOfChatRooms.insert(room, atIndex: 0)
                 }
@@ -253,7 +255,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             return self.view.frame.size.height
         } else {
             if isPrivate {
-                return 125
+                return 88
             } else {
                 return 100
             }
@@ -270,7 +272,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         if isPrivate {
             cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
         } else {
-            cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
         }
         setCellColor(UISingleton.sharedInstance.goldFade, cell: cell)
     }
@@ -281,7 +283,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         if isPrivate {
             cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
         } else {
-            cell = tableView.cellForRowAtIndexPath(indexPath) as! LiveChatCell
+            cell = tableView.cellForRowAtIndexPath(indexPath) as! PrivateMessageCell
         }
         setCellColor(UIColor.blackColor(), cell: cell)
     }
@@ -353,39 +355,41 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             cell = topLevelObjects.first as! PrivateMessageCell
         }
         
+        let btnNew = cell?.viewWithTag(1) as! UIButton
+        let imgUser = cell?.viewWithTag(2) as! PFImageView
+        let lblUser = cell?.viewWithTag(3) as! UILabel
+        let lblLastMessage = cell?.viewWithTag(4) as! UILabel
+        let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
+        
+        // Remove existing halos
+        var array = [PulsingHaloLayer]()
+        for layer: CALayer in imgUser.superview!.layer.sublayers! {
+            if layer.isKindOfClass(PulsingHaloLayer) {
+                array.append(layer as! PulsingHaloLayer)
+            }
+        }
+        
+        for layer in array {
+            layer.removeFromSuperlayer()
+        }
+        
         // Chatroom reference
         let chatRoom = arrayOfChatRooms[indexPath.row]
         
         // New message indicator
-        let btnNew = cell?.viewWithTag(1) as! UIButton
         btnNew.tintColor = UISingleton.sharedInstance.gold
-        if chatRoom.numberOfMessages > 0 {
-            btnNew.setImage(UIImage(named: "newMessage"), forState: .Normal)
+        if isPrivate {
+            if chatRoom.numberOfMessages > 0 {
+                btnNew.setImage(UIImage(named: "newMessage"), forState: .Normal)
+            } else {
+                btnNew.setImage(nil, forState: .Normal)
+            }
+            
         } else {
             btnNew.setImage(nil, forState: .Normal)
         }
         
-        // Sender nickname and image
-        let imgUser = cell?.viewWithTag(2) as! PFImageView
-        imgUser.frame = CGRectMake(imgUser.frame.origin.x, imgUser.frame.origin.y, 100, 100)
-        imgUser.layer.cornerRadius = imgUser.frame.size.height / 2
-        imgUser.layer.borderWidth = 2
-        imgUser.layer.borderColor = UIColor.whiteColor().CGColor
-        imgUser.clipsToBounds = true
-        
-        var array = [PulsingHaloLayer]()
-            for layer: CALayer in imgUser.superview!.layer.sublayers! {
-                if layer.isKindOfClass(PulsingHaloLayer) {
-                    array.append(layer as! PulsingHaloLayer)
-                }
-            }
-            
-            for layer in array {
-                layer.removeFromSuperlayer()
-            }
-        
-        
-        let lblUser = cell?.viewWithTag(3) as! UILabel
+        //User image
         let query = PFQuery(className: PUser.parseClassName())
         if let id = chatRoom.privateChatWith {
             query.whereKey("objectId", equalTo: id)
@@ -402,15 +406,13 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                         
                         // Online Now?
                         if self.userOnlineNow(user) {
-                            imgUser.layer.borderWidth = 3;
-                            imgUser.layer.borderColor = UIColor(colorLiteralRed: 0.188, green: 0.549, blue: 0.149, alpha: 1).CGColor
                             let halo = PulsingHaloLayer()
-                            halo.radius = 75
-                            halo.animationDuration = 2
-                            halo.haloLayerNumber = 8
+                            halo.radius = 15
+                            halo.animationDuration = 3
+                            halo.haloLayerNumber = 10
                             halo.backgroundColor = UIColor.greenColor().CGColor
-                            imgUser.superview!.layer.insertSublayer(halo, atIndex: 0)
-                            halo.position = imgUser.center
+                            imgUser.layer.insertSublayer(halo, atIndex: 0)
+                            halo.position = CGPointMake(5, imgUser.frame.size.height)
                             halo.start()
                         }
                     } else {
@@ -422,8 +424,10 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             }
         }
         
+        
+
+        
         // Last message received
-        let lblLastMessage = cell?.viewWithTag(4) as! UILabel
         if let message = chatRoom.lastMessage {
             lblLastMessage.text = message
         } else {
@@ -431,7 +435,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         }
         
         // How long ago
-        let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
         let updated = chatRoom.updatedAt ?? NSDate()
         let diff = updated.minutesBeforeDate(NSDate())
         var timeDiff = ""
@@ -458,6 +461,25 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
         
         cell?.setNeedsDisplay()
         
+        if (isPrivate) {
+            // Hide the public stuff
+            if let eye = cell?.viewWithTag(9) as? UIButton {
+                eye.hidden = true
+            }
+            
+            if let lblViews = cell?.viewWithTag(6) as? UILabel {
+                lblViews.hidden = true
+            }
+            
+            if let messages = cell?.viewWithTag(10) as? UIButton {
+                messages.hidden = true
+            }
+            
+            if let lblMessages = cell?.viewWithTag(7) as? UILabel {
+                lblMessages.hidden = true
+            }
+        }
+        
         // Return the cell
         if cell != nil { return cell! }
         else {
@@ -468,13 +490,75 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     func publicTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("LiveChatCell")
+        //Create the clel
+        var cell = tableView.dequeueReusableCellWithIdentifier("privateCell")
         if cell == nil {
-            let topLevelObjects = NSBundle.mainBundle().loadNibNamed("LiveChatCell", owner: self, options: nil)
-            cell = topLevelObjects.first as! LiveChatCell
+            let topLevelObjects = NSBundle.mainBundle().loadNibNamed("PrivateMessageCell", owner: self, options: nil)
+            cell = topLevelObjects.first as! PrivateMessageCell
         }
         
+        let btnNew = cell?.viewWithTag(1) as! UIButton
+        let imgUser = cell?.viewWithTag(2) as! PFImageView
+        let lblTopic = cell?.viewWithTag(3) as! UILabel
+        let lblLastMessage = cell?.viewWithTag(4) as! UILabel
+        let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
+        
         let room = arrayOfChatRooms[indexPath.row]
+        
+        // Remove existing halos
+        var array = [PulsingHaloLayer]()
+        for layer: CALayer in imgUser.superview!.layer.sublayers! {
+            if layer.isKindOfClass(PulsingHaloLayer) {
+                array.append(layer as! PulsingHaloLayer)
+            }
+        }
+        
+        for layer in array {
+            layer.removeFromSuperlayer()
+        }
+        
+        // New message indicator
+        btnNew.tintColor = UISingleton.sharedInstance.gold
+        if isPrivate {
+            if room.numberOfMessages > 0 {
+                btnNew.setImage(UIImage(named: "newMessage"), forState: .Normal)
+            } else {
+                btnNew.setImage(nil, forState: .Normal)
+            }
+            
+        } else {
+            btnNew.setImage(nil, forState: .Normal)
+        }
+        
+        //User image
+        if let lastuserId = room.lastByParseObjectId {
+            let query = PFQuery(className: PUser.parseClassName())
+            query.limit = 1
+            query.whereKey("objectId", equalTo: lastuserId)
+            query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
+                if let user = objects?.first as? PUser {
+                    if user.picture != nil {
+                        imgUser.file = user.picture
+                        imgUser.loadInBackground()
+                    } else {
+                        imgUser.image = UIImage(named: "defaultProfilePicture")
+                    }
+                    // Online Now?
+                    if self.userOnlineNow(user) {
+                        let halo = PulsingHaloLayer()
+                        halo.radius = 15
+                        halo.animationDuration = 3
+                        halo.haloLayerNumber = 10
+                        halo.backgroundColor = UIColor.greenColor().CGColor
+                        imgUser.layer.insertSublayer(halo, atIndex: 0)
+                        halo.position = CGPointMake(5, imgUser.frame.size.height)
+                        halo.start()
+                    }
+                }
+            })
+        } else {
+            imgUser.image = UIImage(named: "defaultProfilePicture")
+        }
         
         let updated = room.updatedAt ?? NSDate()
         let diff = updated.minutesBeforeDate(NSDate())
@@ -499,34 +583,21 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             }
         }
 
-        let lblTopic = cell?.viewWithTag(1) as! UILabel
-        let lblLastMessage = cell?.viewWithTag(2) as! UILabel
-        let lblHowLongAgo = cell?.viewWithTag(3) as! UILabel
-        let lblNumberOfViewers = cell?.viewWithTag(4) as! UILabel
-        let lblNumberOfMessages = cell?.viewWithTag(5) as! UILabel
+        let lblNumberOfViews = cell?.viewWithTag(6) as! UILabel
+        let lblNumberOfMessages = cell?.viewWithTag(7) as! UILabel
         
         lblTopic.text = room.topic
         lblHowLongAgo.text = "\(timeDiff)"
         lblLastMessage.text = room.lastMessage ?? "No messages yet"
         
-        var viewers = ""
+        var views = ""
         if room.numberOfViewers == 1 {
-            viewers = " 1 Live Viewer"
+            views = " 1 View"
         } else {
-            viewers = " \(room.numberOfViewers) Live Viewers"
+            views = " \(room.numberOfViewers) Views"
         }
         
-        let btnNumberOfViewers = cell?.viewWithTag(11) as! UIButton
-        if room.numberOfViewers > 0 {
-            btnNumberOfViewers.tintColor = UISingleton.sharedInstance.gold
-            let attributedString = NSMutableAttributedString(string: viewers as String, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UISingleton.sharedInstance.gold, range: NSRange(location:0,length:viewers.characters.count))
-            lblNumberOfViewers.attributedText = attributedString
-        } else {
-            btnNumberOfViewers.tintColor = UIColor.lightGrayColor()
-            lblNumberOfViewers.text = viewers
-            lblNumberOfViewers.textColor = UIColor.lightGrayColor()
-        }
+        lblNumberOfViews.text = views
         
         if room.numberOfMessages == 1 {
             lblNumberOfMessages.text = "1 Message"

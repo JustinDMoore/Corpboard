@@ -6163,7 +6163,7 @@
                                                         <constraint firstItem="QBj-eb-vNe" firstAttribute="leading" secondItem="WCW-MD-LsI" secondAttribute="trailing" constant="-13" id="taN-3O-vMe"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgJ-Np-kVV" customClass="PFImageView">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgJ-Np-kVV" customClass="PFImageView">
                                                     <rect key="frame" x="255" y="104" width="90" height="90"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
@@ -6211,17 +6211,20 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1db-68-Qfn">
-                                                    <rect key="frame" x="334" y="179" width="247" height="15"/>
+                                                    <rect key="frame" x="353" y="179" width="239" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="heQ-wO-Eno"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1db-68-Qfn" secondAttribute="trailing" constant="11" id="4L4-rg-AQ7"/>
-                                                <constraint firstItem="1db-68-Qfn" firstAttribute="leading" secondItem="rgJ-Np-kVV" secondAttribute="trailing" constant="-11" id="Egi-6Q-uzk"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1db-68-Qfn" secondAttribute="trailing" id="5UY-Gi-HZP"/>
+                                                <constraint firstItem="1db-68-Qfn" firstAttribute="leading" secondItem="rgJ-Np-kVV" secondAttribute="trailing" constant="8" id="Egi-6Q-uzk"/>
                                                 <constraint firstItem="rgJ-Np-kVV" firstAttribute="bottom" secondItem="pFA-At-4uT" secondAttribute="bottomMargin" id="Jcq-ib-QQr"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1db-68-Qfn" secondAttribute="bottom" id="KKf-go-Dja"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1db-68-Qfn" secondAttribute="bottom" constant="-2" id="KKf-go-Dja"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="wgh-6q-x9s" secondAttribute="bottom" constant="50" id="Mmx-eq-KLx"/>
                                                 <constraint firstItem="YUp-2d-jCq" firstAttribute="leading" secondItem="rgJ-Np-kVV" secondAttribute="trailing" constant="-20" id="P5x-O9-NhB"/>
                                                 <constraint firstItem="eJK-Dq-1BG" firstAttribute="top" secondItem="pFA-At-4uT" secondAttribute="topMargin" id="PRC-8H-Bjf"/>
