@@ -37,6 +37,8 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     var receiverId: String?
     var viewEmptyChat = EmptyChat()
     
+    
+    
     weak var delegate: delegateNearMeFromPrivateMessages?
     
     //MARK:-
@@ -337,11 +339,164 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 return cell
             }
         } else {
-            if isPrivate {
-                return privateTableView(tableView, cellForRowAtIndexPath: indexPath)
-            } else {
-                return publicTableView(tableView, cellForRowAtIndexPath: indexPath)
+            //Create the cell
+            var cell = tableView.dequeueReusableCellWithIdentifier("privateCell")
+            if cell == nil {
+                let topLevelObjects = NSBundle.mainBundle().loadNibNamed("PrivateMessageCell", owner: self, options: nil)
+                cell = topLevelObjects.first as! PrivateMessageCell
             }
+            
+            let btnNew = cell?.viewWithTag(1) as! UIButton
+            let imgUser = cell?.viewWithTag(2) as! PFImageView
+            let lblTopic = cell?.viewWithTag(3) as! UILabel
+            let lblLastMessage = cell?.viewWithTag(4) as! UILabel
+            let lblHowLongAgo = cell?.viewWithTag(5) as! UILabel
+            
+            let room = arrayOfChatRooms[indexPath.row]
+            
+            // Remove existing halos
+            var array = [PulsingHaloLayer]()
+            for layer: CALayer in imgUser.superview!.layer.sublayers! {
+                if layer.isKindOfClass(PulsingHaloLayer) {
+                    array.append(layer as! PulsingHaloLayer)
+                }
+            }
+            
+            for layer in array {
+                layer.removeFromSuperlayer()
+            }
+            
+            // New message indicator
+            btnNew.tintColor = UISingleton.sharedInstance.gold
+            if isPrivate {
+                if room.numberOfMessages > 0 {
+                    btnNew.setImage(UIImage(named: "newMessage"), forState: .Normal)
+                } else {
+                    btnNew.setImage(nil, forState: .Normal)
+                }
+                
+            } else {
+                btnNew.setImage(nil, forState: .Normal)
+            }
+            
+            //User image and name (if private) or room Topic
+            var id: String?
+            if isPrivate {
+                if let x = room.privateChatWith {
+                    id = x
+                }
+            } else {
+                if let x = room.lastByParseObjectId {
+                    id = x
+                }
+            }
+            if id != nil {
+                let query = PFQuery(className: PUser.parseClassName())
+                query.limit = 1
+                query.whereKey("objectId", equalTo: id!)
+                query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
+                    if let user = objects?.first as? PUser {
+                        if user.picture != nil {
+                            imgUser.file = user.picture
+                            imgUser.loadInBackground()
+                        } else {
+                            imgUser.image = UIImage(named: "defaultProfilePicture")
+                        }
+                        // Online Now?
+                        if self.userOnlineNow(user) {
+                            let halo = PulsingHaloLayer()
+                            halo.radius = 15
+                            halo.animationDuration = 3
+                            halo.haloLayerNumber = 10
+                            halo.backgroundColor = UIColor.greenColor().CGColor
+                            imgUser.layer.insertSublayer(halo, atIndex: 0)
+                            halo.position = CGPointMake(5, imgUser.frame.size.height)
+                            halo.start()
+                        }
+                        if self.isPrivate {
+                            lblTopic.text = user.nickname
+                        }
+                    } else {
+                        if self.isPrivate {
+                            lblTopic.text = "Unknown User"
+                        }
+                    }
+                })
+            } else {
+                imgUser.image = UIImage(named: "defaultProfilePicture")
+                if isPrivate {
+                    lblTopic.text = "Unknown User"
+                }
+            }
+            if !isPrivate {
+                lblTopic.text = room.topic
+            }
+            
+            //Last message received time
+            let updated = room.updatedAt ?? NSDate()
+            let diff = updated.minutesBeforeDate(NSDate())
+            var timeDiff = ""
+            if diff < 3 {
+                timeDiff = "Just Now"
+            } else if diff <= 50 {
+                timeDiff = "\(diff) min ago"
+            } else if diff > 50 && diff < 65 {
+                timeDiff = "An hour ago"
+            } else {
+                if updated.isYesterday() {
+                    timeDiff = "Yesterday"
+                } else if updated.daysBeforeDate(NSDate()) == 2 {
+                    timeDiff = "2 days ago"
+                } else if updated.isToday() {
+                    timeDiff = JSQMessagesTimestampFormatter().timeForDate(room.updatedAt)
+                } else {
+                    let format = NSDateFormatter()
+                    format.dateFormat = "MMMM d"
+                    timeDiff = format.stringFromDate(updated)
+                }
+            }
+            lblHowLongAgo.text = "\(timeDiff)"
+            
+            //Number of views (if public)
+            let lblNumberOfViews = cell?.viewWithTag(6) as! UILabel
+            let imgEye = cell?.viewWithTag(9) as! UIButton
+            if !isPrivate {
+                var views = ""
+                if room.numberOfViewers == 1 {
+                    views = " 1 View"
+                } else {
+                    views = " \(room.numberOfViewers) Views"
+                }
+                lblNumberOfViews.text = views
+            } else {
+                lblNumberOfViews.text = nil
+                imgEye.setImage(nil, forState: .Normal)
+                let lblDivide1 = cell?.viewWithTag(20) as! UILabel
+                lblDivide1.text = nil
+            }
+            
+            //Number of messages (if public)
+            let lblNumberOfMessages = cell?.viewWithTag(7) as! UILabel
+            let imgMessages = cell?.viewWithTag(10) as! UIImageView
+            if !isPrivate {
+                if room.numberOfMessages == 1 {
+                    lblNumberOfMessages.text = "1 Message"
+                } else {
+                    lblNumberOfMessages.text = "\(room.numberOfMessages) Messages"
+                }
+            } else {
+                lblNumberOfMessages.text = nil
+                imgMessages.image = nil
+                let lblDivide2 = cell?.viewWithTag(21) as! UILabel
+                lblDivide2.text = nil
+            }
+            
+            
+            //Last message
+            lblLastMessage.text = room.lastMessage ?? "No messages yet"
+            
+            return cell!
+
         }
         return UITableViewCell()
     }
@@ -398,7 +553,6 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 if err == nil {
                     if let user = users?.first as? PUser {
                         lblUser.text = " \(user.nickname)"
-                        lblUser.sizeToFit()
                         if user.picture != nil {
                             imgUser.file = user.picture
                             imgUser.loadInBackground()
@@ -490,7 +644,7 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
     
     func publicTableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        //Create the clel
+        //Create the cell
         var cell = tableView.dequeueReusableCellWithIdentifier("privateCell")
         if cell == nil {
             let topLevelObjects = NSBundle.mainBundle().loadNibNamed("PrivateMessageCell", owner: self, options: nil)
@@ -530,11 +684,21 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
             btnNew.setImage(nil, forState: .Normal)
         }
         
-        //User image
-        if let lastuserId = room.lastByParseObjectId {
+        //User image and name (if private) or room Topic
+        var id: String?
+        if isPrivate {
+            if let x = room.privateChatWith {
+                id = x
+            }
+        } else {
+            if let x = room.lastByParseObjectId {
+                id = x
+            }
+        }
+        if id != nil {
             let query = PFQuery(className: PUser.parseClassName())
             query.limit = 1
-            query.whereKey("objectId", equalTo: lastuserId)
+            query.whereKey("objectId", equalTo: id!)
             query.findObjectsInBackgroundWithBlock({ (objects: [PFObject]?, err: NSError?) in
                 if let user = objects?.first as? PUser {
                     if user.picture != nil {
@@ -554,12 +718,23 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                         halo.position = CGPointMake(5, imgUser.frame.size.height)
                         halo.start()
                     }
+                } else {
+                    if self.isPrivate {
+                        lblTopic.text = "Unknown User"
+                    }
                 }
             })
         } else {
             imgUser.image = UIImage(named: "defaultProfilePicture")
+            if isPrivate {
+                lblTopic.text = "Unknown User"
+            }
+        }
+        if !isPrivate {
+            lblTopic.text = room.topic
         }
         
+        //Last message received time
         let updated = room.updatedAt ?? NSDate()
         let diff = updated.minutesBeforeDate(NSDate())
         var timeDiff = ""
@@ -582,29 +757,44 @@ class ChatRoomsTableViewController: UITableViewController, delegateNewChatRoom {
                 timeDiff = format.stringFromDate(updated)
             }
         }
-
-        let lblNumberOfViews = cell?.viewWithTag(6) as! UILabel
-        let lblNumberOfMessages = cell?.viewWithTag(7) as! UILabel
-        
-        lblTopic.text = room.topic
         lblHowLongAgo.text = "\(timeDiff)"
+        
+        //Number of views (if public)
+        let lblNumberOfViews = cell?.viewWithTag(6) as! UILabel
+        let imgEye = cell?.viewWithTag(9) as! UIButton
+        if !isPrivate {
+            var views = ""
+            if room.numberOfViewers == 1 {
+                views = " 1 View"
+            } else {
+                views = " \(room.numberOfViewers) Views"
+            }
+            lblNumberOfViews.text = views
+        } else {
+            lblNumberOfViews.text = nil
+            imgEye.setImage(nil, forState: .Normal)
+        }
+        
+        
+        
+        //Number of messages (if public)
+        let lblNumberOfMessages = cell?.viewWithTag(7) as! UILabel
+        let imgMessages = cell?.viewWithTag(10) as! UIButton
+        if !isPrivate {
+            if room.numberOfMessages == 1 {
+                lblNumberOfMessages.text = "1 Message"
+            } else {
+                lblNumberOfMessages.text = "\(room.numberOfMessages) Messages"
+            }
+        } else {
+            lblNumberOfMessages.text = nil
+            imgMessages.setImage(nil, forState: .Normal)
+        }
+        
+        
+        //Last message
         lblLastMessage.text = room.lastMessage ?? "No messages yet"
-        
-        var views = ""
-        if room.numberOfViewers == 1 {
-            views = " 1 View"
-        } else {
-            views = " \(room.numberOfViewers) Views"
-        }
-        
-        lblNumberOfViews.text = views
-        
-        if room.numberOfMessages == 1 {
-            lblNumberOfMessages.text = "1 Message"
-        } else {
-            lblNumberOfMessages.text = "\(room.numberOfMessages) Messages"
-        }
-        
+
         return cell!
     }
 

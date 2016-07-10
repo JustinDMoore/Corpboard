@@ -142,8 +142,8 @@ class ProfileTableViewController: UITableViewController, UIImagePickerController
                 halo.animationDuration = 3
                 halo.haloLayerNumber = 10
                 halo.backgroundColor = UIColor.greenColor().CGColor
-                halo.position = CGPointMake(10, -5)
-                lblOnline.layer.addSublayer(halo)
+                imgUser.layer.addSublayer(halo)
+                halo.position = CGPointMake(5, imgUser.frame.size.height)
                 halo.start()
                 
             } else if !usersOwnProfile() {
